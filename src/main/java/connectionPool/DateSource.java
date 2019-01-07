@@ -1,5 +1,6 @@
 package connectionPool;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 public class DateSource {
@@ -10,8 +11,8 @@ public class DateSource {
 		pool.getConnection();
 	}
 	
-	public static void returnConnection() {
-		
+	public static void returnConnection(JDBCConnectionPool pool,Connection connection) {
+		pool.free(connection);
 	}
 	
 	public static void closeConnectionsFromJDBC(JDBCConnectionPool pool) {
