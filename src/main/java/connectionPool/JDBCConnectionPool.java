@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 import java.util.Vector;
 
+
 public class JDBCConnectionPool implements Runnable {
 
 	private String driver;
@@ -28,7 +29,7 @@ public class JDBCConnectionPool implements Runnable {
 		int initialConnections = 0;
 		try {
 
-			input = new FileInputStream("source/constant.properties");
+			input = new FileInputStream("src/main/resources/config.properties");
 			prop.load(input);
 
 			this.driver = prop.getProperty("db.driver");
