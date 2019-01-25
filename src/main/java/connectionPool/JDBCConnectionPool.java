@@ -7,7 +7,6 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
-
 public class JDBCConnectionPool implements Runnable {
 
 	private String driver;
@@ -21,7 +20,6 @@ public class JDBCConnectionPool implements Runnable {
 	private boolean connectionPending = false;
 
 	final Properties prop = new Properties();
-	
 
 	public JDBCConnectionPool(boolean busy) throws SQLException {
 		int initialConnections = 0;
