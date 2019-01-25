@@ -1,12 +1,10 @@
 package connectionPool;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import java.util.Vector;
 
 
@@ -23,35 +21,23 @@ public class JDBCConnectionPool implements Runnable {
 	private boolean connectionPending = false;
 
 	final Properties prop = new Properties();
-	InputStream input = null;
+	
 
 	public JDBCConnectionPool(boolean busy) throws SQLException {
 		int initialConnections = 0;
-		try {
 
-			input = new FileInputStream("src/main/resources/config.properties");
-			prop.load(input);
+			ResourceBundle rs = ResourceBundle.getBundle("config");
 
-			this.driver = prop.getProperty("db.driver");
-			this.url = prop.getProperty("db.url");
-			this.user = prop.getProperty("db.username");
-			this.password = prop.getProperty("db.password");
-			int x = Integer.valueOf(prop.getProperty("db.maxConnections"));
+			this.driver = rs.getString("db.driver");
+			this.url = rs.getString("db.url");
+			this.user = rs.getString("db.username");
+			this.password = rs.getString("db.password");
+			int x = Integer.valueOf(rs.getString("db.maxConnections"));
 			this.maxConnection = x;
-			int y = Integer.valueOf(prop.getProperty("db.initialConnections"));
+			int y = Integer.valueOf(rs.getString("db.initialConnections"));
 			initialConnections = y;
 			this.busy = busy;
-		} catch (final IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (input != null) {
-				try {
-					input.close();
-				} catch (final IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+
 		if (initialConnections > maxConnection) {
 			initialConnections = maxConnection;
 		}
