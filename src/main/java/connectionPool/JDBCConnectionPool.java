@@ -3,9 +3,11 @@ package connectionPool;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
-import java.util.Vector;
 
 public class JDBCConnectionPool implements Runnable {
 
@@ -15,8 +17,8 @@ public class JDBCConnectionPool implements Runnable {
 	private String password;
 	private int maxConnection;
 	private boolean busy;
-	public Vector<Connection> availableConnections;
-	public Vector<Connection> busyConnections;
+	public List<Connection> availableConnections,availableConnectionsArrayList;
+	public List<Connection> busyConnections, busyConnectionsArrayList;
 	private boolean connectionPending = false;
 
 	final Properties prop = new Properties();
@@ -24,38 +26,40 @@ public class JDBCConnectionPool implements Runnable {
 	public JDBCConnectionPool(boolean busy) throws SQLException {
 		int initialConnections = 0;
 
-			ResourceBundle rs = ResourceBundle.getBundle("config");
+		ResourceBundle rs = ResourceBundle.getBundle("config");
 
-			this.driver = rs.getString("db.driver");
-			this.url = rs.getString("db.url");
-			this.user = rs.getString("db.username");
-			this.password = rs.getString("db.password");
-			int x = Integer.valueOf(rs.getString("db.maxConnections"));
-			this.maxConnection = x;
-			int y = Integer.valueOf(rs.getString("db.initialConnections"));
-			initialConnections = y;
-			this.busy = busy;
+		this.driver = rs.getString("db.driver");
+		this.url = rs.getString("db.url");
+		this.user = rs.getString("db.username");
+		this.password = rs.getString("db.password");
+		int x = Integer.valueOf(rs.getString("db.maxConnections"));
+		this.maxConnection = x;
+		int y = Integer.valueOf(rs.getString("db.initialConnections"));
+		initialConnections = y;
+		this.busy = busy;
 
 		if (initialConnections > maxConnection) {
 			initialConnections = maxConnection;
 		}
-		availableConnections = new Vector<Connection>(initialConnections);
-		busyConnections = new Vector<Connection>();
+		availableConnectionsArrayList = new ArrayList<Connection>(initialConnections);
+		availableConnections = Collections.synchronizedList(availableConnectionsArrayList);
+		busyConnectionsArrayList = new ArrayList<Connection>();
+		busyConnections = Collections.synchronizedList(busyConnectionsArrayList);
 		for (int i = 0; i < initialConnections; i++) {
-			availableConnections.addElement(newConnection());
+			availableConnections.add(newConnection());
 		}
 	}
 
 	public synchronized Connection getConnection() throws SQLException {
 		if (!availableConnections.isEmpty()) {
-			Connection existingConnection = (Connection) availableConnections.lastElement();
+			Connection existingConnection = (Connection) availableConnections.get(availableConnections.size()-1);
 			int lastIndex = availableConnections.size() - 1;
-			availableConnections.removeElementAt(lastIndex);
+			availableConnections.remove(lastIndex);
 			if (existingConnection.isClosed()) {
 				notifyAll();
 				return (getConnection());
 			} else {
-				busyConnections.addElement(existingConnection);
+				busyConnections.add(existingConnection);
 				return (existingConnection);
 			}
 		} else {
@@ -86,7 +90,7 @@ public class JDBCConnectionPool implements Runnable {
 		try {
 			Connection connection = newConnection();
 			synchronized (this) {
-				availableConnections.addElement(connection);
+				availableConnections.add(connection);
 				connectionPending = false;
 				notifyAll();
 			}
@@ -107,8 +111,8 @@ public class JDBCConnectionPool implements Runnable {
 	}
 
 	public synchronized void free(Connection connection) {
-		busyConnections.removeElement(connection);
-		availableConnections.addElement(connection);
+		busyConnections.remove(connection);
+		availableConnections.add(connection);
 		notifyAll();
 	}
 
@@ -118,15 +122,15 @@ public class JDBCConnectionPool implements Runnable {
 
 	public synchronized void closeAllConnections() {
 		closeConnections(availableConnections);
-		availableConnections = new Vector<Connection>();
+		availableConnections = new ArrayList<Connection>();
 		closeConnections(busyConnections);
-		busyConnections = new Vector<Connection>();
+		busyConnections = new ArrayList<Connection>();
 	}
 
-	private void closeConnections(Vector<Connection> connections) {
+	private void closeConnections(List<Connection> connections) {
 		try {
 			for (int i = 0; i < connections.size(); i++) {
-				Connection connection = (Connection) connections.elementAt(i);
+				Connection connection = (Connection) connections.get(i);
 				if (!connection.isClosed()) {
 					connection.close();
 				}

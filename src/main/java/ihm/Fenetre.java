@@ -1,23 +1,34 @@
 package ihm;
 
-import java.awt.FlowLayout;
+import java.awt.Color;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 
-public class Fenetre extends JFrame  {
+public class Fenetre extends JFrame {
+
+	private JTabbedPane onglet;
 
 	public Fenetre() {
 
-	JFrame  Fenetre = new JFrame("JFrame Example");
-	
-    Fenetre.setTitle("Ma première fenêtre Java");
+		this.setTitle("BlackMamba");
 
-    Fenetre.setSize(400, 100);
-    //Nous demandons maintenant à notre objet de se positionner au centre
-    Fenetre.setLocationRelativeTo(null);
-    //Termine le processus lorsqu'on clique sur la croix rouge
-    Fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    //Et enfin, la rendre visible        
-    Fenetre.setVisible(true);
+		this.setSize((int) getToolkit().getScreenSize().getWidth(), (int) getToolkit().getScreenSize().getHeight());
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setVisible(true);
+
+		Onglet[] tPan = { new Onglet(Color.RED, "EmployÃ©s"), new Onglet(Color.GREEN, "Parties Communes"),
+				new Onglet(Color.BLUE, "Capteurs"), new Onglet(Color.RED, "RÃ©sidants"),
+				new Onglet(Color.RED, "Historiques") };
+
+		onglet = new JTabbedPane();
+		int i = -1;
+		String tableauOnglet[] = { "EmployÃ©s", "Parties Communes", "Capteurs", "RÃ©sidants", "Historiques" };
+		for (Onglet pan : tPan) {
+			onglet.add("Onglet " + tableauOnglet[++i], pan);
+		}
+		this.getContentPane().add(onglet);
+		this.setVisible(true);
 	}
 }
