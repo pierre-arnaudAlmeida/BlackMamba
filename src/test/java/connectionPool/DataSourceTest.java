@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import org.junit.jupiter.api.Test;
 
 class DataSourceTest {
@@ -91,7 +90,7 @@ class DataSourceTest {
 		try {
 			p = new JDBCConnectionPool(false);
 			Connection con = DataSource.getConnectionFromJDBC(p);
-			DataSource.returnConnection(p,con);
+			DataSource.returnConnection(p, con);
 			assertTrue(true);
 		} catch (SQLException e) {
 			fail("Impossible de libérer la connection");
