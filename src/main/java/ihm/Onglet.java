@@ -14,11 +14,15 @@ public class Onglet extends JPanel {
 
 	public Onglet() {
 	}
-
+	
 	public Onglet(Color color, String title) {
 		this.color = color;
 		this.message = title;
 		this.COUNT = ++COUNT;
+		JButton b = new JButton("bonjour");
+		this.add(b);
+		JButton c = new JButton("bonjour");
+		this.add(c);
 	}
 
 	public void paintComponent(Graphics g) {
