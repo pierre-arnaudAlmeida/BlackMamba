@@ -1,19 +1,14 @@
-<<<<<<< HEAD
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>BlackMamba</groupId>
-	<artifactId>BlackMamba</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-<<<<<<< HEAD
-	
-	<properties>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
-	</properties>
-
-=======
+	<parent>
+		<groupId>com.pds</groupId>
+		<artifactId>blackMamba</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<groupId>com.pds.blackmamba</groupId>
+	<artifactId>ihm</artifactId>
 
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -25,13 +20,7 @@
 	</properties>
 
 
->>>>>>> branch_prod
 	<dependencies>
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>42.2.5</version>
-		</dependency>
 
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -67,26 +56,28 @@
 			</plugin>
 
 			<plugin>
-				<groupId>org.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.3.1</version>
-				<!-- <configuration> </configuration> -->
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>com.pds.blackmamba.ihm.prod.ProdIHM</mainClass>
+						</manifest>
+					</archive>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
-
 
 		</plugins>
 	</build>
-=======
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.pds</groupId>
-  <artifactId>blackmamba</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>pom</packaging>
-  <modules>
-  	<module>ihm</module>
-  	<module>connectionpool</module>
-  </modules>
-  
->>>>>>> branch_prod
 </project>
