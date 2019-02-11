@@ -15,6 +15,7 @@ public class Onglet extends JPanel {
 	public Onglet() {
 	}
 	
+	//définition du corps de chaque onglet, créer une classe onglet pour chaque onglet différent
 	public Onglet(Color color, String title) {
 		this.color = color;
 		this.message = title;

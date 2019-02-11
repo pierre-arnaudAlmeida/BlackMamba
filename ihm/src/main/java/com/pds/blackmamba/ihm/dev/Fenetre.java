@@ -10,7 +10,8 @@ public class Fenetre extends JFrame {
 	private JTabbedPane onglet;
 
 	public Fenetre() {
-
+		
+		// création des onglets
 		Onglet ongletEmployes = new Onglet(Color.RED, "Employés");
 		Onglet ongletPartiesCommunes = new Onglet(Color.GREEN, "Parties Communes");
 		Onglet ongletCapteurs = new Onglet(Color.BLUE, "Capteurs");
