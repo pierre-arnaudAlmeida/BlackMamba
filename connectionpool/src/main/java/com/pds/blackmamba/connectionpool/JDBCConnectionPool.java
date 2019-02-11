@@ -79,6 +79,8 @@ public class JDBCConnectionPool implements Runnable {
 				return (existingConnection);
 			}
 		} else {
+			//si on n'atteint pas le nombre max de connection et que l'on a pas de connection en attente
+			//on execute backgroundConnection
 			if ((totalConnections() < maxConnection) && !connectionPending) {
 				backgroundConnection();
 			} else if (!busy) {
@@ -92,7 +94,10 @@ public class JDBCConnectionPool implements Runnable {
 			return (getConnection());
 		}
 	}
-
+	
+	/**
+	 * on execute la methode start qui va lancer les processus definit pas la methode run
+	 */
 	private void backgroundConnection() {
 		connectionPending = true;
 		try {
@@ -103,6 +108,9 @@ public class JDBCConnectionPool implements Runnable {
 		}
 	}
 
+	/**
+	 * On créer une nouvelle connection et on l'ajoute a la liste availableConnections
+	 */
 	public void run() {
 		try {
 			Connection connection = newConnection();

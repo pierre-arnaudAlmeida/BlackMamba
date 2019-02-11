@@ -39,8 +39,7 @@ class DataSourceTest {
 			Connection con = DataSource.getConnectionFromJDBC(p);
 			Statement st = con.createStatement();
 			String sql = "insert into employee (nom_employee, prenom_employee, mot_de_passe) values ('keita','raymond','test')";
-			st.execute(sql);
-			assertTrue(true);
+			assertNotNull(st.execute(sql));
 		} catch (SQLException e) {
 			fail("Une erreur SQL est survenue");
 		}
@@ -59,8 +58,6 @@ class DataSourceTest {
 			String sql = "select * from employee";
 			ResultSet rs = st.executeQuery(sql);
 			assertNotNull(rs);
-//			rs.next();
-//			System.out.println(rs.getString("nom_employee") + ' ' + rs.getString("prenom_employee"));
 		} catch (SQLException e) {
 			fail("Une erreur SQL est survenue");
 		}
@@ -77,8 +74,7 @@ class DataSourceTest {
 			Connection con = DataSource.getConnectionFromJDBC(p);
 			Statement st = con.createStatement();
 			String sql = "update employee set prenom_employee = 'arnaud'";
-			st.execute(sql);
-			assertTrue(true);
+			assertNotNull(st.execute(sql));
 		} catch (SQLException e) {
 			fail("Une erreur SQL est survenue");
 		}
@@ -95,8 +91,7 @@ class DataSourceTest {
 			Connection con = DataSource.getConnectionFromJDBC(p);
 			Statement st = con.createStatement();
 			String sql = "delete from employee where nom_employee = 'keita'";
-			st.execute(sql);
-			assertTrue(true);
+			assertNotNull(st.execute(sql));
 		} catch (SQLException e) {
 			fail("Une erreur SQL est survenue");
 		}

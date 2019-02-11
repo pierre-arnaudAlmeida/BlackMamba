@@ -39,8 +39,8 @@ class DataSourceTest {
 			Connection con = DataSource.getConnectionFromJDBC(p);
 			Statement st = con.createStatement();
 			String sql = "insert into employee (nom_employee, prenom_employee, mot_de_passe) values ('keita','raymond','test')";
-			st.execute(sql);
-			assertTrue(true);
+			assertNotNull(st.execute(sql));
+			//assertTrue(true);
 		} catch (SQLException e) {
 			fail("Une erreur SQL est survenue");
 		}
