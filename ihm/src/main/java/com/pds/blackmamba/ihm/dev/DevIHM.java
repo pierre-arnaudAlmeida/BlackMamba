@@ -15,7 +15,7 @@ public class DevIHM {
 					Window frame = new Window();
 					frame.setVisible(true);
 				} catch (Exception e) {
-					logger.log(Level.INFO, "Impossible to create a window "+e.getClass().getCanonicalName());
+					logger.log(Level.INFO, "Impossible to create the window 'window' "+e.getClass().getCanonicalName());
 				}
 			}
 		});

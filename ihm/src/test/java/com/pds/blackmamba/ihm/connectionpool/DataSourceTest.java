@@ -1,25 +1,22 @@
 package com.pds.blackmamba.ihm.connectionpool;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
-
 import com.pds.blackmamba.ihm.prod.connectionpool.DataSource;
 import com.pds.blackmamba.ihm.prod.connectionpool.JDBCConnectionPool;
 
 class DataSourceTest {
+
 	Logger logger = Logger.getLogger("logger");
 
 	/**
-	 * Test d'une connexion à la base données
+	 * Test GetConnection
 	 */
 	@Test
 	void testGetConnectionFromJDBC() {
@@ -28,13 +25,14 @@ class DataSourceTest {
 			p = new JDBCConnectionPool(false);
 			Connection con = DataSource.getConnectionFromJDBC(p);
 			assertNotNull(con);
+			logger.log(Level.INFO, "Connection succed ");
 		} catch (Exception e) {
-			fail("Impossible de se connecter au SGBD");
+			logger.log(Level.INFO, "SGBD connection is impossible " + e.getClass().getCanonicalName());
 		}
 	}
 
 	/**
-	 * Test d'insertion de valeurs dans la base de données
+	 * Test insertion in SGBD
 	 */
 	@Test
 	void testInsertData() {
@@ -45,14 +43,14 @@ class DataSourceTest {
 			Statement st = con.createStatement();
 			String sql = "insert into employee (nom_employee, prenom_employee, mot_de_passe) values ('keita','raymond','test')";
 			assertNotNull(st.execute(sql));
+			logger.log(Level.INFO, "Insertion in SGBD succed ");
 		} catch (Exception e) {
-			fail("Une erreur SQL est survenue");
+			logger.log(Level.INFO, "Insertion in SGBD failed " + e.getClass().getCanonicalName());
 		}
 	}
 
 	/**
-	 * Test de récupération des valeurs que l'on viens d'inserer dans la base de
-	 * données
+	 * Test get datas in SGBD
 	 */
 	@Test
 	void testGetData() {
@@ -64,13 +62,14 @@ class DataSourceTest {
 			String sql = "select * from employee";
 			ResultSet rs = st.executeQuery(sql);
 			assertNotNull(rs);
+			logger.log(Level.INFO, "Data recovery in SGBD succed ");
 		} catch (Exception e) {
-			fail("Une erreur SQL est survenue");
+			logger.log(Level.INFO, "Data recovery in SGBD failed " + e.getClass().getCanonicalName());
 		}
 	}
 
 	/**
-	 * Test de mise a jour des valeurs de la base de données
+	 * Test update in SGBD
 	 */
 	@Test
 	void testUpdateData() {
@@ -81,13 +80,14 @@ class DataSourceTest {
 			Statement st = con.createStatement();
 			String sql = "update employee set prenom_employee = 'arnaud'";
 			assertNotNull(st.execute(sql));
+			logger.log(Level.INFO, "Update in SGBD succed ");
 		} catch (Exception e) {
-			fail("Une erreur SQL est survenue");
+			logger.log(Level.INFO, "Update in SGBD failed " + e.getClass().getCanonicalName());
 		}
 	}
 
 	/**
-	 * Test de suppression des valeurs que l'on viens d'inserer dans la base données
+	 * Test delete in SGBD
 	 */
 	@Test
 	void testDeleteData() {
@@ -98,13 +98,14 @@ class DataSourceTest {
 			Statement st = con.createStatement();
 			String sql = "delete from employee where nom_employee = 'keita'";
 			assertNotNull(st.execute(sql));
+			logger.log(Level.INFO, "Delete in SGBD succed ");
 		} catch (Exception e) {
-			fail("Une erreur SQL est survenue");
+			logger.log(Level.INFO, "Delete in SGBD failed " + e.getClass().getCanonicalName());
 		}
 	}
 
 	/**
-	 * Test de libération de la connexion utiliser
+	 * Test return connection
 	 */
 	@Test
 	void testReturnConnection() {
@@ -114,13 +115,14 @@ class DataSourceTest {
 			Connection con = DataSource.getConnectionFromJDBC(p);
 			DataSource.returnConnection(p, con);
 			assertTrue(true);
+			logger.log(Level.INFO, "Return Connection succed ");
 		} catch (Exception e) {
-			fail("Impossible de libérer la connection");
+			logger.log(Level.INFO, "Return Connection failed " + e.getClass().getCanonicalName());
 		}
 	}
 
 	/**
-	 * Test de fermeture de l'ensemble des connexions
+	 * Test close All connections
 	 */
 	@Test
 	void testCloseConnectionsFromJDBC() {
@@ -130,11 +132,25 @@ class DataSourceTest {
 			DataSource.getConnectionFromJDBC(p);
 			DataSource.closeConnectionsFromJDBC(p);
 			assertTrue(true);
+			logger.log(Level.INFO, "All connection are closed ");
 		} catch (Exception e) {
-			fail("Impossible de fermer les connections");
+			logger.log(Level.INFO, "Close all connection failed " + e.getClass().getCanonicalName());
 		}
 	}
-
+	@Test
+	void testDifferentCOnnections() {
+		JDBCConnectionPool p;
+		try {
+			p = new JDBCConnectionPool(false);
+			Connection con = DataSource.getConnectionFromJDBC(p);
+			Connection con2 = DataSource.getConnectionFromJDBC(p);
+			assertNotEquals(con,con2);
+			logger.log(Level.INFO, "Connection 1 and connection 2 are different");
+		} catch (Exception e) {
+			logger.log(Level.INFO, "Connection 1 and connection 2 are an unique connection" + e.getClass().getCanonicalName());
+		}
+	}
+	
 	@Test
 	void testMaxConnections() {
 		JDBCConnectionPool p;
@@ -142,36 +158,36 @@ class DataSourceTest {
 			p = new JDBCConnectionPool(false);
 			Connection con = DataSource.getConnectionFromJDBC(p);
 			assertNotNull(con);
-			//assertNotEqual();
-			logger.log(Level.INFO, "Connection 1 effectuer");
+			logger.log(Level.INFO, "Connection 1 done");
 			Connection con2 = DataSource.getConnectionFromJDBC(p);
 			assertNotNull(con2);
-			logger.log(Level.INFO, "Connection 2 effectuer");
+			logger.log(Level.INFO, "Connection 2 done");
 			Connection con3 = DataSource.getConnectionFromJDBC(p);
 			assertNotNull(con3);
-			logger.log(Level.INFO, "Connection 3 effectuer");
+			logger.log(Level.INFO, "Connection 3 done");
 			Connection con4 = DataSource.getConnectionFromJDBC(p);
-			logger.log(Level.INFO, "Connection 4 effectuer");
-			
+			assertNotNull(con4);
+			logger.log(Level.INFO, "Connection 4 done");
 		} catch (Exception e) {
-			logger.log(Level.INFO, "Limite atteinte, aucune connexion disponnible "+e.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Limit reached, no available connection " + e.getClass().getCanonicalName());
 		}
 	}
-		
+	
 	@Test
-	void testMaxConnections2() {
+	void testMaxConnectionsPossible() {
 		JDBCConnectionPool p;
 		boolean bool = true;
 		int nbconnexionscreated = 0;
 		try {
 			p = new JDBCConnectionPool(false);
-			while(bool) {
+			while (bool) {
 				nbconnexionscreated++;
 				Connection con = DataSource.getConnectionFromJDBC(p);
-				logger.log(Level.INFO, "Connection "+nbconnexionscreated+" effectuer");
+				assertNotNull(con);
+				logger.log(Level.INFO, "Connection " + nbconnexionscreated + " done");
 			}
 		} catch (Exception e) {
-			logger.log(Level.INFO, "Limite atteinte, aucune connexion disponnible "+e.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Limit reached, no available connection " + e.getClass().getCanonicalName());
 		}
 	}
 }

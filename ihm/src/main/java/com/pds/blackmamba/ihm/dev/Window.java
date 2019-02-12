@@ -1,9 +1,7 @@
 package com.pds.blackmamba.ihm.dev;
 
 import java.awt.Color;
-
 import javax.swing.*;
-import javax.swing.border.Border;
 
 public class Window extends JFrame {
 

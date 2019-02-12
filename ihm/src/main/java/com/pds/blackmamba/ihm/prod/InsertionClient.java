@@ -2,13 +2,10 @@ package com.pds.blackmamba.ihm.prod;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.sql.Statement;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -17,27 +14,21 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-
 import com.pds.blackmamba.ihm.prod.connectionpool.DataSource;
 import com.pds.blackmamba.ihm.prod.connectionpool.JDBCConnectionPool;
 
 public class InsertionClient extends JFrame {
 
-	// définition des champs
+	// Definition of differents fields
 	private JPanel contentPane;
-	private JTextField prenomField;
-	private JTextField nomField;
-	private JTextField id_employeeField;
+	private JTextField nameField;
+	private JTextField lastnameField;
 	private JPasswordField passwordField;
-	ResultSet resultat = null;
-	ResultSetMetaData resultMeta = null;
-	JOptionPane jop3;
+	static Logger logger = Logger.getLogger("logger");
 
-	
 	public InsertionClient() {
-		
+
 		setTitle("Insertion Employee");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
@@ -45,32 +36,109 @@ public class InsertionClient extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		// affichage des zones de textes
-		JLabel prenom = new JLabel("Pr\u00E9nom");
-		prenom.setBounds(147, 21, 72, 14);
-		contentPane.add(prenom);
 
-		prenomField = new JTextField();
-		prenomField.setBounds(147, 34, 96, 20);
-		contentPane.add(prenomField);
-		prenomField.setColumns(10);
+		// Creation of a profil button
+		// And display on the contentPane
+		JButton profilbouton = new JButton("Liste des profils");
+		profilbouton.setBounds(147, 0, 214, 23);
+		contentPane.add(profilbouton);
 
-		// quand on appuye sur le bouton valider on va se connecter a la base et
-		// effectuer une requete
-		// avec les infos inserer dans les champs
-		JButton validerbouton = new JButton("Inscrire");
-		validerbouton.addActionListener(new ActionListener() {
+		profilbouton.addActionListener(new ActionListener() {
+			/**
+			 * If we click in the profil button we are redirect to the window 'ProfilClient'
+			 * where we have the list of users
+			 */
 			public void actionPerformed(ActionEvent e) {
-				String prenomfield = prenomField.getText();
-				String nomfield = nomField.getText();
+				try {
+					ProfilClient frame = new ProfilClient();
+					frame.setVisible(true);
+					setVisible(false);
+				} catch (Exception e1) {
+					logger.log(Level.INFO,
+							"Impossible to access at window 'ProfilClient' " + e1.getClass().getCanonicalName());
+				}
+			}
+		});
+
+		// Creation of label name
+		// And display on the contentPane
+		JLabel name = new JLabel("Pr\u00E9nom");
+		name.setBounds(147, 41, 72, 14);
+		contentPane.add(name);
+
+		// Creation of TextField for name
+		// And display on the contentPane
+		nameField = new JTextField();
+		nameField.setBounds(147, 54, 96, 20);
+		contentPane.add(nameField);
+		nameField.setColumns(10);
+
+		// Creation of label lastname
+		// And display on the contentPane
+		JLabel lastname = new JLabel("Nom");
+		lastname.setBounds(264, 41, 98, 14);
+		contentPane.add(lastname);
+
+		// Creation of TextField for lastname
+		// And display on the contentPane
+		lastnameField = new JTextField();
+		lastnameField.setBounds(266, 54, 96, 20);
+		contentPane.add(lastnameField);
+		lastnameField.setColumns(10);
+
+		// Creation of label password
+		// And display on the contentPane
+		JLabel password = new JLabel("Mot de passe");
+		password.setBounds(147, 100, 98, 14);
+		contentPane.add(password);
+
+		// Creation of TextField for password
+		// And display on the contentPane
+		passwordField = new JPasswordField();
+		passwordField.setBounds(147, 123, 121, 20);
+		contentPane.add(passwordField);
+
+		// Display the button showButton on the contentPane
+		final JCheckBox showButton = new JCheckBox("Montrer le mot de passe");
+		showButton.setBounds(147, 150, 171, 23);
+		contentPane.add(showButton);
+
+		showButton.addActionListener(new ActionListener() {
+			/**
+			 * Display the content of TextField password employee When we check the CheckBox
+			 * "Montrer le mot de passe"
+			 */
+			public void actionPerformed(ActionEvent e) {
+				if (showButton.isSelected()) {
+					passwordField.setEchoChar((char) 0);
+				} else {
+					passwordField.setEchoChar('*');
+				}
+			}
+		});
+
+		// Creation of a inscription button
+		// And display on the contentPane
+		JButton inscriptionbutton = new JButton("Inscrire");
+		inscriptionbutton.setBounds(300, 122, 89, 23);
+		contentPane.add(inscriptionbutton);
+
+		inscriptionbutton.addActionListener(new ActionListener() {
+			/**
+			 * When the user click on inscription button, they will check if the fields are
+			 * empty and display a popup. If all fields are completed, we insert in BDD and
+			 * they redirect to the window 'ProfilClient'
+			 */
+			public void actionPerformed(ActionEvent e) {
+				String namefield = nameField.getText();
+				String lastnamefield = lastnameField.getText();
 				char[] password = passwordField.getPassword();
 				String passwordfield = new String(password);
 
-				if (prenomfield.equals("") || nomfield.equals("") || passwordfield.equals("")) {
-					jop3 = new JOptionPane();
-					jop3.showMessageDialog(null, "Vous n'avez pas remplis l'un des 3 champs requis", "Erreur",
-							JOptionPane.ERROR_MESSAGE);
+				if (namefield.equals("") || lastnamefield.equals("") || passwordfield.equals("")) {
+					JOptionPane.showMessageDialog(null, "Vous n'avez pas remplis au moins l'un des 3 champs requis",
+							"Erreur", JOptionPane.ERROR_MESSAGE);
+					logger.log(Level.INFO, "Attempt of insertion without characters");
 				} else {
 					JDBCConnectionPool p;
 					try {
@@ -78,21 +146,11 @@ public class InsertionClient extends JFrame {
 						Connection con = DataSource.getConnectionFromJDBC(p);
 						Statement st = con.createStatement();
 						String sql = "insert into employee (nom_employee, prenom_employee, mot_de_passe) values ('"
-								+ nomfield + "','" + prenomfield + "','" + passwordfield + "')";
+								+ lastnamefield + "','" + namefield + "','" + passwordfield + "')";
 						st.execute(sql);
+						logger.log(Level.INFO, "User succesfully inserted in BDD");
 					} catch (Exception e1) {
-						System.out.println("erreur dans l'insertion");
-					}
-
-					try {
-						p = new JDBCConnectionPool(false);
-						Connection con = DataSource.getConnectionFromJDBC(p);
-						Statement st = con.createStatement();
-						String sql = "SELECT * FROM employee";
-						resultat = st.executeQuery(sql);
-						resultMeta = resultat.getMetaData();
-					} catch (Exception e1) {
-						System.out.println("erreur dans la recuperation");
+						logger.log(Level.INFO, "Insertion in BDD failed " + e1.getClass().getCanonicalName());
 					}
 
 					try {
@@ -100,59 +158,12 @@ public class InsertionClient extends JFrame {
 						frame.setVisible(true);
 						setVisible(false);
 						dispose();
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					} catch (Exception e1) {
+						logger.log(Level.INFO,
+								"Impossible to redirect to window 'ProfilClient' " + e1.getClass().getCanonicalName());
 					}
+
 				}
-			}
-		});
-		validerbouton.setBounds(300, 122, 89, 23);
-		contentPane.add(validerbouton);
-
-		nomField = new JTextField();
-		nomField.setBounds(266, 34, 96, 20);
-		contentPane.add(nomField);
-		nomField.setColumns(10);
-
-		JLabel nom = new JLabel("Nom");
-		nom.setBounds(264, 21, 98, 14);
-		contentPane.add(nom);
-
-		passwordField = new JPasswordField();
-		passwordField.setBounds(147, 123, 121, 20);
-		contentPane.add(passwordField);
-
-		// permet d'afficher le contenu du champs mot de passe
-		final JCheckBox Montrermdp = new JCheckBox("Montrer le mot de passe");
-		Montrermdp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (Montrermdp.isSelected()) {
-					passwordField.setEchoChar((char) 0);
-				} else {
-					passwordField.setEchoChar('*');
-				}
-			}
-		});
-		Montrermdp.setBounds(147, 150, 171, 23);
-		contentPane.add(Montrermdp);
-		
-		JButton profilbouton = new JButton("Liste des profils");
-		profilbouton.setBounds(0, 0, 180, 23);
-		contentPane.add(profilbouton);
-		
-		profilbouton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ProfilClient frame;
-				try {
-					frame = new ProfilClient();
-					frame.setVisible(true);
-					setVisible(false);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
 			}
 		});
 	}
