@@ -8,7 +8,7 @@ public class ProdIHM {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Fenetre frame = new Fenetre();
+					Login frame = new Login();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

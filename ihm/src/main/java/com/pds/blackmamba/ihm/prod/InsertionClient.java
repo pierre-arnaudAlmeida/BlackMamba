@@ -23,7 +23,7 @@ import javax.swing.border.EmptyBorder;
 import com.pds.blackmamba.ihm.prod.connectionpool.DataSource;
 import com.pds.blackmamba.ihm.prod.connectionpool.JDBCConnectionPool;
 
-public class Fenetre extends JFrame {
+public class InsertionClient extends JFrame {
 
 	// définition des champs
 	private JPanel contentPane;
@@ -35,15 +35,17 @@ public class Fenetre extends JFrame {
 	ResultSetMetaData resultMeta = null;
 	JOptionPane jop3;
 
-	public Fenetre() {
-
+	
+	public InsertionClient() {
+		
+		setTitle("Insertion Employee");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
+		
 		// affichage des zones de textes
 		JLabel prenom = new JLabel("Votre Pr\u00E9nom");
 		prenom.setBounds(147, 21, 72, 14);
@@ -94,7 +96,7 @@ public class Fenetre extends JFrame {
 					}
 
 					try {
-						FenetreResultat frame = new FenetreResultat(resultat, resultMeta);
+						ProfilClient frame = new ProfilClient();
 						frame.setVisible(true);
 						setVisible(false);
 						dispose();
@@ -117,15 +119,6 @@ public class Fenetre extends JFrame {
 		nom.setBounds(264, 21, 98, 14);
 		contentPane.add(nom);
 
-		JLabel id_employee = new JLabel("Id employee");
-		id_employee.setBounds(10, 21, 81, 14);
-		contentPane.add(id_employee);
-
-		id_employeeField = new JTextField();
-		id_employeeField.setBounds(10, 34, 96, 20);
-		contentPane.add(id_employeeField);
-		id_employeeField.setColumns(10);
-
 		passwordField = new JPasswordField();
 		passwordField.setBounds(147, 123, 121, 20);
 		contentPane.add(passwordField);
@@ -143,5 +136,24 @@ public class Fenetre extends JFrame {
 		});
 		Montrermdp.setBounds(147, 150, 171, 23);
 		contentPane.add(Montrermdp);
+		
+		JButton profilbouton = new JButton("Liste des profils");
+		profilbouton.setBounds(0, 0, 180, 23);
+		contentPane.add(profilbouton);
+		
+		profilbouton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ProfilClient frame;
+				try {
+					frame = new ProfilClient();
+					frame.setVisible(true);
+					setVisible(false);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 	}
 }

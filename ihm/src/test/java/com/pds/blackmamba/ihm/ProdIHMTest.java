@@ -3,7 +3,7 @@ package com.pds.blackmamba.ihm;
 import static org.junit.jupiter.api.Assertions.*;
 import java.awt.EventQueue;
 import org.junit.jupiter.api.Test;
-import com.pds.blackmamba.ihm.prod.Fenetre;
+import com.pds.blackmamba.ihm.prod.InsertionClient;
 
 class ProdIHMTest {
 
@@ -12,7 +12,7 @@ class ProdIHMTest {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Fenetre frame = new Fenetre();
+					InsertionClient frame = new InsertionClient();
 					frame.setVisible(true);
 					assertTrue(frame.isShowing());
 				} catch (Exception e) {

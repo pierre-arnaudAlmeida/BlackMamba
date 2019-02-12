@@ -20,8 +20,8 @@ public class JDBCConnectionPool implements Runnable {
 	private int maxConnection;
 	private boolean busy;
 	//Définition des Listes
-	public List<Connection> availableConnections,availableConnectionsArrayList;
-	public List<Connection> busyConnections, busyConnectionsArrayList;
+	private List<Connection> availableConnections,availableConnectionsArrayList;
+	private List<Connection> busyConnections, busyConnectionsArrayList;
 	
 	private boolean connectionPending = false;
 
@@ -165,10 +165,8 @@ public class JDBCConnectionPool implements Runnable {
 	 * On ferme toute les connexions qui ont été ouverte
 	 */
 	public synchronized void closeAllConnections() {
-		closeConnections(availableConnections);
-		availableConnections = new ArrayList<Connection>();
+		closeConnections(availableConnections); 
 		closeConnections(busyConnections);
-		busyConnections = new ArrayList<Connection>();
 	}
 	
 	/**
