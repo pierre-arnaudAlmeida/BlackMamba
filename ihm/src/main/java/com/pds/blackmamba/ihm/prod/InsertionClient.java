@@ -47,7 +47,7 @@ public class InsertionClient extends JFrame {
 		contentPane.setLayout(null);
 		
 		// affichage des zones de textes
-		JLabel prenom = new JLabel("Votre Pr\u00E9nom");
+		JLabel prenom = new JLabel("Pr\u00E9nom");
 		prenom.setBounds(147, 21, 72, 14);
 		contentPane.add(prenom);
 
@@ -59,7 +59,7 @@ public class InsertionClient extends JFrame {
 		// quand on appuye sur le bouton valider on va se connecter a la base et
 		// effectuer une requete
 		// avec les infos inserer dans les champs
-		JButton validerbouton = new JButton("Valider");
+		JButton validerbouton = new JButton("Inscrire");
 		validerbouton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String prenomfield = prenomField.getText();
@@ -115,7 +115,7 @@ public class InsertionClient extends JFrame {
 		contentPane.add(nomField);
 		nomField.setColumns(10);
 
-		JLabel nom = new JLabel("Votre nom");
+		JLabel nom = new JLabel("Nom");
 		nom.setBounds(264, 21, 98, 14);
 		contentPane.add(nom);
 
