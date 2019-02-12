@@ -16,7 +16,7 @@ public class DataSource {
 	 * @return
 	 * @throws SQLException
 	 */
-	public static Connection getConnectionFromJDBC(JDBCConnectionPool pool) throws SQLException {
+	public static Connection getConnectionFromJDBC(JDBCConnectionPool pool) throws Exception {
 		return pool.getConnection();
 	}
 	

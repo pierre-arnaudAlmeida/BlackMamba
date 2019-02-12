@@ -52,7 +52,7 @@ public class ProfilClient extends JFrame {
 			String sql = "SELECT * FROM employee";
 			result = st.executeQuery(sql);
 			resultMeta = result.getMetaData();
-		} catch (SQLException e1) {
+		} catch (Exception e1) {
 			System.out.println("erreur dans la recuperation");
 		}
 		try {
@@ -99,7 +99,7 @@ public class ProfilClient extends JFrame {
 							Statement st = con.createStatement();
 							String sql = "DELETE FROM employee where id_employee = " + i;
 							st.execute(sql);
-						} catch (SQLException e1) {
+						} catch (Exception e1) {
 							System.out.println("erreur dans la suppression");
 
 						}
@@ -155,14 +155,14 @@ public class ProfilClient extends JFrame {
 							}
 							if (nomfield.equals("") && (prenomfield.equals(""))) {
 								jop3 = new JOptionPane();
-								jop3.showMessageDialog(null, "L'identifiant ou le mot de passe est incorrect", "Erreur",
+								jop3.showMessageDialog(null, "Champs vide", "Erreur",
 										JOptionPane.ERROR_MESSAGE);
 							}
 							if (!(prenomfield.equals("")) && !(nomfield.equals(""))) {
 								sql = "UPDATE employee SET nom_employee = '"+nomfield+"' where id_employee = " + i;
 							}
 							st.execute(sql);
-						} catch (SQLException e1) {
+						} catch (Exception e1) {
 							System.out.println("erreur dans l'update");
 
 						}

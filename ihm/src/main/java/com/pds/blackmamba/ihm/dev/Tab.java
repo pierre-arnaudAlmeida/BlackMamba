@@ -7,16 +7,20 @@ import java.awt.Graphics;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class Onglet extends JPanel {
+public class Tab extends JPanel {
 	private Color color = Color.white;
 	private static int COUNT = 0;
 	private String message = "";
 
-	public Onglet() {
+	public Tab() {
 	}
 	
-	//définition du corps de chaque onglet, créer une classe onglet pour chaque onglet différent
-	public Onglet(Color color, String title) {
+	/**
+	 * Define the body of each tab
+	 * @param color color of background tab
+	 * @param title title of tab
+	 */
+	public Tab(Color color, String title) {
 		this.color = color;
 		this.message = title;
 		this.COUNT = ++COUNT;

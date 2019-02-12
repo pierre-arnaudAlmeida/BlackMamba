@@ -80,7 +80,7 @@ public class InsertionClient extends JFrame {
 						String sql = "insert into employee (nom_employee, prenom_employee, mot_de_passe) values ('"
 								+ nomfield + "','" + prenomfield + "','" + passwordfield + "')";
 						st.execute(sql);
-					} catch (SQLException e1) {
+					} catch (Exception e1) {
 						System.out.println("erreur dans l'insertion");
 					}
 
@@ -91,7 +91,7 @@ public class InsertionClient extends JFrame {
 						String sql = "SELECT * FROM employee";
 						resultat = st.executeQuery(sql);
 						resultMeta = resultat.getMetaData();
-					} catch (SQLException e1) {
+					} catch (Exception e1) {
 						System.out.println("erreur dans la recuperation");
 					}
 

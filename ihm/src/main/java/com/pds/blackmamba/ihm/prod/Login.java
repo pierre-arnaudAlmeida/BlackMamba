@@ -101,7 +101,7 @@ public class Login extends JFrame{
 							setVisible(false);
 							dispose();
 						}
-					} catch (SQLException e1) {
+					} catch (Exception e1) {
 						System.out.println("erreur dans la verification");
 						jop3 = new JOptionPane();
 						jop3.showMessageDialog(null, "L'identifiant ou le mot de passe est incorrect", "Erreur",
