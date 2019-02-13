@@ -137,6 +137,32 @@ class DataSourceTest {
 			logger.log(Level.INFO, "Close all connection failed " + e.getClass().getCanonicalName());
 		}
 	}
+
+	/**
+	 * Test total connection on pool
+	 */
+	@Test
+	void testTotalConnection() {
+		JDBCConnectionPool p;
+		int totalConnection1, totalConnection2, totalConnection3;
+		try {
+			p = new JDBCConnectionPool(false);
+			totalConnection1 = p.totalConnections();
+			logger.log(Level.INFO, "Number of Connection is "+totalConnection1);
+			Connection con = DataSource.getConnectionFromJDBC(p);
+			Connection con2 = DataSource.getConnectionFromJDBC(p);
+			Connection con3 = DataSource.getConnectionFromJDBC(p);
+			totalConnection2 = p.totalConnections();
+			assertNotEquals(totalConnection1,totalConnection2);
+			logger.log(Level.INFO, "Number of Connection increased to "+totalConnection2);
+		} catch (Exception e) {
+			logger.log(Level.INFO, "Connection dont increase normaly " + e.getClass().getCanonicalName());
+		}
+	}
+
+	/*
+	 * Test if getConnection() give the same connection
+	 */
 	@Test
 	void testDifferentCOnnections() {
 		JDBCConnectionPool p;
@@ -144,13 +170,18 @@ class DataSourceTest {
 			p = new JDBCConnectionPool(false);
 			Connection con = DataSource.getConnectionFromJDBC(p);
 			Connection con2 = DataSource.getConnectionFromJDBC(p);
-			assertNotEquals(con,con2);
+			assertNotEquals(con, con2);
 			logger.log(Level.INFO, "Connection 1 and connection 2 are different");
 		} catch (Exception e) {
-			logger.log(Level.INFO, "Connection 1 and connection 2 are an unique connection" + e.getClass().getCanonicalName());
+			logger.log(Level.INFO,
+					"Connection 1 and connection 2 are an unique connection" + e.getClass().getCanonicalName());
 		}
 	}
-	
+
+	/*
+	 * Test if we reach the limit of connection, with the creation of 4 connections
+	 * and a nbMaxConnection define at 3 on Configuration.properties
+	 */
 	@Test
 	void testMaxConnections() {
 		JDBCConnectionPool p;
@@ -172,7 +203,12 @@ class DataSourceTest {
 			logger.log(Level.INFO, "Limit reached, no available connection " + e.getClass().getCanonicalName());
 		}
 	}
-	
+
+	/**
+	 * Test if we reach the limit of connection, with unlimited creation of
+	 * connections and a nbMaxConnection define at 3 on Configuration.properties but
+	 * this test can be used if we change the nbMaxConnection
+	 */
 	@Test
 	void testMaxConnectionsPossible() {
 		JDBCConnectionPool p;
