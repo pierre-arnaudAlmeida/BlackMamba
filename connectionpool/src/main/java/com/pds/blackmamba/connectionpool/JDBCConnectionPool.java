@@ -12,6 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class JDBCConnectionPool implements Runnable {
+
+	// Definition of differents fields
 	private Logger logger = Logger.getLogger("logger");
 	private String driver;
 	private String url;
@@ -19,22 +21,22 @@ public class JDBCConnectionPool implements Runnable {
 	private String password;
 	private int maxConnection;
 	private boolean busy;
-	//Définition des Listes
-	private List<Connection> availableConnections,availableConnectionsArrayList;
-	private List<Connection> busyConnections, busyConnectionsArrayList;
-	
 	private boolean connectionPending = false;
-
 	final Properties prop = new Properties();
-	
+
+	// Definition of Lists
+	public List<Connection> availableConnections, availableConnectionsArrayList;
+	public List<Connection> busyConnections, busyConnectionsArrayList;
+
 	/**
-	 * Récupération des propriétés pour se conencter à la base
-	 * Définition des listes synchroniser et l'initialisation
-	 * des connexions définit dans les propriétés
-	 * @param busy 
-	 * @throws SQLException en cas d'une erreur dans la récupération d'une connexion
+	 * Get informations from confirugation.propreties Initialization of fields with
+	 * the content of this same file configuration.properties Create two Lists
+	 * synchronized Initialization of the available list connection
+	 * 
+	 * @param busy
+	 * @throws Exception
 	 */
-	public JDBCConnectionPool(boolean busy) throws SQLException {
+	public JDBCConnectionPool(boolean busy) throws Exception {
 		int initialConnections = 0;
 
 		ResourceBundle rs = ResourceBundle.getBundle("config");
@@ -60,15 +62,17 @@ public class JDBCConnectionPool implements Runnable {
 			availableConnections.add(newConnection());
 		}
 	}
-	
+
 	/**
-	 * Récupere une connexion si il ya des connexions disponnible dans le cas contraire on les stockes dans une liste busyConnections
-	 * @return retourne une connexion
-	 * @throws SQLException en cas d'une erreur dans la récupération d'une connexion
+	 * Return a connection if is possible, and if the limit of connection are
+	 * reached they insert in busy connection list
+	 * 
+	 * @return return the connection
+	 * @throws Exception
 	 */
-	public synchronized Connection getConnection() throws SQLException {
+	public synchronized Connection getConnection() throws Exception {
 		if (!availableConnections.isEmpty()) {
-			Connection existingConnection = (Connection) availableConnections.get(availableConnections.size()-1);
+			Connection existingConnection = (Connection) availableConnections.get(availableConnections.size() - 1);
 			int lastIndex = availableConnections.size() - 1;
 			availableConnections.remove(lastIndex);
 			if (existingConnection.isClosed()) {
@@ -79,8 +83,6 @@ public class JDBCConnectionPool implements Runnable {
 				return (existingConnection);
 			}
 		} else {
-			//si on n'atteint pas le nombre max de connection et que l'on a pas de connection en attente
-			//on execute backgroundConnection
 			if ((totalConnections() < maxConnection) && !connectionPending) {
 				backgroundConnection();
 			} else if (!busy) {
@@ -89,14 +91,14 @@ public class JDBCConnectionPool implements Runnable {
 			try {
 				wait();
 			} catch (InterruptedException e) {
-				logger.log(Level.INFO, "Mise en attente des Thread");
+				logger.log(Level.INFO, "Mise en attente des Thread " + e.getClass().getCanonicalName());
 			}
 			return (getConnection());
 		}
 	}
-	
+
 	/**
-	 * on execute la methode start qui va lancer les processus definit pas la methode run
+	 * Run the method start to run the different process define on method Run()
 	 */
 	private void backgroundConnection() {
 		connectionPending = true;
@@ -104,12 +106,12 @@ public class JDBCConnectionPool implements Runnable {
 			Thread connectThread = new Thread(this);
 			connectThread.start();
 		} catch (OutOfMemoryError e) {
-			logger.log(Level.INFO, "Fuite de mémoire");
+			logger.log(Level.INFO, "Out of Memory " + e.getClass().getCanonicalName());
 		}
 	}
 
 	/**
-	 * On créer une nouvelle connection et on l'ajoute a la liste availableConnections
+	 * Create a connection and add on available list
 	 */
 	public void run() {
 		try {
@@ -120,15 +122,13 @@ public class JDBCConnectionPool implements Runnable {
 				notifyAll();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			logger.log(Level.INFO, e.getMessage());
+			logger.log(Level.INFO, e.getMessage() + " " + e.getClass().getCanonicalName());
 		}
 	}
-	
+
 	/**
-	 * Cette méthode se connecte à la base avec les infos du fichier config.properties
-	 * @return une connexion
-	 * @throws SQLException si il ya une erreur dans la connexion
+	 * Creation of the connection with the informations from the file @return
+	 * Connection @throws
 	 */
 	private Connection newConnection() throws SQLException {
 		try {
@@ -136,14 +136,14 @@ public class JDBCConnectionPool implements Runnable {
 			Connection connection = DriverManager.getConnection(url, user, password);
 			return (connection);
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new SQLException("ConnectionPool:: SQLException encountered:: " + e.getMessage());
+			throw new SQLException("ConnectionPool: SQLException encountered: " + e.getMessage());
 		}
 	}
-	
+
 	/**
-	 * Quand une connection de la liste availableConnections se libère on la supprime
-	 * de la liste d'attende et on l'ajoute dans la liste de connexion
+	 * Add a connection from the busy connection list to available connection list
+	 * and remove the connection from the busy connection list
+	 * 
 	 * @param connection
 	 */
 	public synchronized void free(Connection connection) {
@@ -151,10 +151,10 @@ public class JDBCConnectionPool implements Runnable {
 		availableConnections.add(connection);
 		notifyAll();
 	}
-	
+
 	/**
-	 * Retourne le nombre de connexions totale
-	 * Donc le nombre de connexion en cours ainsi que celles en attentes
+	 * Return the total number of available connection list and busy connection list
+	 * 
 	 * @return
 	 */
 	public synchronized int totalConnections() {
@@ -162,16 +162,20 @@ public class JDBCConnectionPool implements Runnable {
 	}
 
 	/**
-	 * On ferme toute les connexions qui ont été ouverte
+	 * CLose all connection of the available connection list and busy connection
+	 * list
 	 */
 	public synchronized void closeAllConnections() {
-		closeConnections(availableConnections); 
+		closeConnections(availableConnections);
+		availableConnections = new ArrayList<Connection>();
 		closeConnections(busyConnections);
+		busyConnections = new ArrayList<Connection>();
 	}
-	
+
 	/**
-	 * On ferme une connexion précise et en cas d'erreur on renvoie un message d'erreur
-	 * @param connections connexion à fermer
+	 * Close all connection of the list
+	 * 
+	 * @param List of connections
 	 */
 	private void closeConnections(List<Connection> connections) {
 		try {
@@ -182,8 +186,7 @@ public class JDBCConnectionPool implements Runnable {
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
-			logger.log(Level.INFO, e.getMessage());
+			logger.log(Level.INFO, e.getClass().getCanonicalName());
 		}
 	}
 }
