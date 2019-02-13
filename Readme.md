@@ -163,6 +163,6 @@ Pour retrouver un historique de nos versions, regardez directement les [tags du 
 
 ## Auteurs
 
-* **BlackMamba** - *Travaille d'equipe* - 
+* **BlackMamba** - *Travail d'equipe* - 
 
 
