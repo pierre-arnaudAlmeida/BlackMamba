@@ -27,6 +27,7 @@ class DataSourceTest {
 			assertNotNull(con);
 			logger.log(Level.INFO, "Connection succed ");
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.log(Level.INFO, "SGBD connection is impossible " + e.getClass().getCanonicalName());
 		}
 	}
