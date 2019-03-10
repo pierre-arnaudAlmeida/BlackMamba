@@ -1,7 +1,10 @@
 package com.pds.blackmamba.ihm.dev;
 
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicTabbedPaneUI.TabbedPaneLayout;
 
 public class Window extends JFrame {
 
@@ -10,20 +13,22 @@ public class Window extends JFrame {
 	public Window() {
 		
 		// Creation Tabs
-		Tab tabEmployes = new Tab(Color.RED, "Employés");
-		Tab tabCommonArea = new Tab(Color.GREEN, "Parties Communes");
-		Tab tabsensor = new Tab(Color.BLUE, "Capteurs");
-		Tab tabResident = new Tab(Color.RED, "Résidants");
-		Tab tabHistorical = new Tab(Color.RED, "Historiques");
-
-		Tab[] tPan = { tabEmployes, tabCommonArea, tabsensor, tabResident, tabHistorical };
+		TabEmployes tabEmployes = new TabEmployes(Color.RED, "Employés");
+		TabCommonArea tabCommonArea = new TabCommonArea(Color.GREEN, "Parties Communes");
+		TabSensor tabSensor = new TabSensor(Color.BLUE, "Capteurs");
+		TabResident tabResident = new TabResident(Color.RED, "Résidants");
+		TabHistorical tabHistorical = new TabHistorical(Color.RED, "Historiques");
+		TabConnexion tlogin = new TabConnexion(Color.GRAY, "dd");
 
 		tab = new JTabbedPane();
-		int i = -1;
-		String tabOfTab[] = { "Employés", "Parties Communes", "Capteurs", "Résidants", "Historiques" };
-		for (Tab pan : tPan) {
-			tab.add("Onglet " + tabOfTab[++i], pan);
-		}
+		String tabOfTab[] = { "Employés", "Parties Communes", "Capteurs", "Résidants", "Historiques", "Connexion" };
+		
+		tab.add("Onglet " + tabOfTab[0], tabEmployes);
+		tab.add("Onglet " + tabOfTab[1], tabCommonArea);
+		tab.add("Onglet " + tabOfTab[2], tabSensor);
+		tab.add("Onglet " + tabOfTab[3], tabResident);
+		tab.add("Onglet " + tabOfTab[4], tabHistorical);
+		tab.add("Onglet " + tabOfTab[5], tlogin);
 
 		this.setTitle("BlackMamba");
 		this.setSize((int) getToolkit().getScreenSize().getWidth(), (int) getToolkit().getScreenSize().getHeight());
