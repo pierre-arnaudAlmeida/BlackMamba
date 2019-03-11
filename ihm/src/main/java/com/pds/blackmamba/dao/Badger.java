@@ -3,19 +3,18 @@ package com.pds.blackmamba.dao;
 import java.util.Date;
 
 public class Badger {
-
 	private int id_sensor = 0;
 	private int id_resident = 0;
 	private Date date_badger = null;
+
+	public Badger() {
+	}
 
 	public Badger(int id_sensor, int id_resident, Date date_badger) {
 		super();
 		this.id_sensor = id_sensor;
 		this.id_resident = id_resident;
 		this.date_badger = date_badger;
-	}
-
-	public Badger() {
 	}
 
 	public int getId_sensor() {
@@ -41,5 +40,4 @@ public class Badger {
 	public void setDate_badger(Date date_badger) {
 		this.date_badger = date_badger;
 	}
-
 }

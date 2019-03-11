@@ -1,33 +1,33 @@
-package com.pds.blackmamba.dao.classes;
+package com.pds.blackmamba.dao;
 
-import com.pds.blackmamba.dao.Badger;
+import com.pds.blackmamba.dao.Monitor;
 
-public class BadgerDAO extends DAO<Badger> {
+public class MonitorDAO extends DAO<Monitor> {
 
-	public BadgerDAO() {
+	public MonitorDAO() {
 		super();
 	}
-	
+
 	@Override
-	public boolean create(Badger obj) {
+	public boolean create(Monitor obj) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean delete(Badger obj) {
+	public boolean delete(Monitor obj) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean update(Badger obj) {
+	public boolean update(Monitor obj) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public Badger find(int id) {
+	public Monitor find(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

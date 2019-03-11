@@ -1,4 +1,4 @@
-package com.pds.blackmamba.dao.classes;
+package com.pds.blackmamba.dao;
 
 import com.pds.blackmamba.dao.SensorHistorical;
 

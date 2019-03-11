@@ -1,8 +1,8 @@
-package com.pds.blackmamba.dao.classes;
+package com.pds.blackmamba.dao;
 
 import com.pds.blackmamba.dao.Resident;
 
-public class ResidentDAO extends DAO<Resident>{
+public class ResidentDAO extends DAO<Resident> {
 
 	public ResidentDAO() {
 		super();

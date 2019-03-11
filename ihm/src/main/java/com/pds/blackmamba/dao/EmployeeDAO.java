@@ -1,8 +1,8 @@
-package com.pds.blackmamba.dao.classes;
+package com.pds.blackmamba.dao;
 
 import com.pds.blackmamba.dao.Employee;
 
-public class EmployeeDAO extends DAO<Employee>{
+public class EmployeeDAO extends DAO<Employee> {
 
 	public EmployeeDAO() {
 		super();

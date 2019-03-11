@@ -1,8 +1,8 @@
-package com.pds.blackmamba.dao.classes;
+package com.pds.blackmamba.dao;
 
 import com.pds.blackmamba.dao.CommonArea;
 
-public class CommonAreaDAO extends DAO<CommonArea>{
+public class CommonAreaDAO extends DAO<CommonArea> {
 
 	public CommonAreaDAO() {
 		super();
@@ -31,6 +31,5 @@ public class CommonAreaDAO extends DAO<CommonArea>{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 
 }

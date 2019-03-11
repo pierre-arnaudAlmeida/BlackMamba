@@ -1,4 +1,4 @@
-package com.pds.blackmamba.dao.classes;
+package com.pds.blackmamba.dao;
 
 import java.sql.Connection;
 import java.util.logging.Level;
