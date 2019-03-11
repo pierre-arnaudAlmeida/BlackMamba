@@ -141,7 +141,7 @@ class DataSourceTest {
 
 	/**
 	 * Test total connection on pool
-	 */
+	 *//*
 	@Test
 	void testTotalConnection() {
 		JDBCConnectionPool p;
@@ -161,9 +161,9 @@ class DataSourceTest {
 		}
 	}
 
-	/*
+	
 	 * Test if getConnection() give the same connection
-	 */
+	 
 	@Test
 	void testDifferentCOnnections() {
 		JDBCConnectionPool p;
@@ -177,7 +177,7 @@ class DataSourceTest {
 			logger.log(Level.INFO,
 					"Connection 1 and connection 2 are an unique connection" + e.getClass().getCanonicalName());
 		}
-	}
+	}*/
 
 	/*
 	 * Test if we reach the limit of connection, with the creation of 4 connections
