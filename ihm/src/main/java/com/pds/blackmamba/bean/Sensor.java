@@ -1,4 +1,4 @@
-package com.pds.blackmamba.dao;
+package com.pds.blackmamba.bean;
 
 public class Sensor {
 

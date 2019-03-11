@@ -1,6 +1,6 @@
 package com.pds.blackmamba.dao;
 
-import com.pds.blackmamba.dao.SensorHistorical;
+import com.pds.blackmamba.bean.SensorHistorical;
 
 public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 

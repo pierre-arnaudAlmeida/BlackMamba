@@ -1,6 +1,6 @@
 package com.pds.blackmamba.dao;
 
-import com.pds.blackmamba.dao.Sensor;
+import com.pds.blackmamba.bean.Sensor;
 
 public class SensorDAO extends DAO<Sensor>{
 

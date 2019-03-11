@@ -1,6 +1,6 @@
 package com.pds.blackmamba.dao;
 
-import com.pds.blackmamba.dao.Badger;
+import com.pds.blackmamba.bean.Badger;
 
 public class BadgerDAO extends DAO<Badger> {
 	

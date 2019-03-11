@@ -1,6 +1,6 @@
 package com.pds.blackmamba.dao;
 
-import com.pds.blackmamba.dao.Employee;
+import com.pds.blackmamba.bean.Employee;
 
 public class EmployeeDAO extends DAO<Employee> {
 

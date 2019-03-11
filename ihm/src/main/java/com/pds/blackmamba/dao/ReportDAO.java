@@ -1,6 +1,6 @@
 package com.pds.blackmamba.dao;
 
-import com.pds.blackmamba.dao.Report;
+import com.pds.blackmamba.bean.Report;
 
 public class ReportDAO extends DAO<Report>{
 

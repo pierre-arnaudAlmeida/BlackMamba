@@ -1,6 +1,6 @@
 package com.pds.blackmamba.dao;
 
-import com.pds.blackmamba.dao.Manage;
+import com.pds.blackmamba.bean.Manage;
 
 public class ManageDAO extends DAO<Manage> {
 

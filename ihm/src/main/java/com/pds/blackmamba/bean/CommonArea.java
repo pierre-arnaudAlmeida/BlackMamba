@@ -1,4 +1,4 @@
-package com.pds.blackmamba.dao;
+package com.pds.blackmamba.bean;
 
 import java.util.HashSet;
 import java.util.Set;

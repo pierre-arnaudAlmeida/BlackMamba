@@ -1,6 +1,6 @@
 package com.pds.blackmamba.dao;
 
-import com.pds.blackmamba.dao.CommonArea;
+import com.pds.blackmamba.bean.CommonArea;
 
 public class CommonAreaDAO extends DAO<CommonArea> {
 

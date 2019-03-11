@@ -1,6 +1,6 @@
 package com.pds.blackmamba.dao;
 
-import com.pds.blackmamba.dao.Monitor;
+import com.pds.blackmamba.bean.Monitor;
 
 public class MonitorDAO extends DAO<Monitor> {
 

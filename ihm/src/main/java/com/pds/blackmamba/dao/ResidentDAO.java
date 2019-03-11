@@ -1,6 +1,6 @@
 package com.pds.blackmamba.dao;
 
-import com.pds.blackmamba.dao.Resident;
+import com.pds.blackmamba.bean.Resident;
 
 public class ResidentDAO extends DAO<Resident> {
 
