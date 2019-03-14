@@ -5,16 +5,18 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 import com.pds.blackmamba.connectionpool.DataSource;
 import com.pds.blackmamba.connectionpool.JDBCConnectionPool;
 
 class DataSourceTest {
 
-	Logger logger = Logger.getLogger("logger");
-
+	private static final Logger logger = LogManager.getLogger(DataSourceTest.class);
+	
 	/**
 	 * Test GetConnection
 	 */
@@ -145,15 +147,15 @@ class DataSourceTest {
 	@Test
 	void testTotalConnection() {
 		JDBCConnectionPool p;
-		int totalConnection1, totalConnection2, totalConnection3;
+		int totalConnection1, totalConnection2;
 		try {
 			p = new JDBCConnectionPool(false);
-			totalConnection1 = p.totalConnections();
+			totalConnection1 = p.getTotalConnections();
 			logger.log(Level.INFO, "Number of Connection is " + totalConnection1);
-			Connection con = DataSource.getConnectionFromJDBC(p);
-			Connection con2 = DataSource.getConnectionFromJDBC(p);
-			Connection con3 = DataSource.getConnectionFromJDBC(p);
-			totalConnection2 = p.totalConnections();
+			DataSource.getConnectionFromJDBC(p);
+			DataSource.getConnectionFromJDBC(p);
+			DataSource.getConnectionFromJDBC(p);
+			totalConnection2 = p.getTotalConnections();
 			assertNotEquals(totalConnection1, totalConnection2);
 			logger.log(Level.INFO, "Number of Connection increased to " + totalConnection2);
 		} catch (Exception e) {
@@ -213,11 +215,10 @@ class DataSourceTest {
 	@Test
 	void testMaxConnectionsPossible() {
 		JDBCConnectionPool p;
-		boolean bool = true;
 		int nbconnexionscreated = 0;
 		try {
 			p = new JDBCConnectionPool(false);
-			while (bool) {
+			while (nbconnexionscreated < 10000) {
 				nbconnexionscreated++;
 				Connection con = DataSource.getConnectionFromJDBC(p);
 				assertNotNull(con);

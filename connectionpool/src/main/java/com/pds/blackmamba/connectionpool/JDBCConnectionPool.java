@@ -8,13 +8,18 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+
 
 public class JDBCConnectionPool implements Runnable {
 
 	// Definition of differents fields
-	private Logger logger = Logger.getLogger("logger");
+	private static final Logger logger = LogManager.getLogger(JDBCConnectionPool.class);
+
 	private String driver;
 	private String url;
 	private String user;
@@ -34,9 +39,11 @@ public class JDBCConnectionPool implements Runnable {
 	 * synchronized Initialization of the available list connection
 	 * 
 	 * @param busy
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
 	 * @throws Exception
 	 */
-	public JDBCConnectionPool(boolean busy) throws Exception {
+	public JDBCConnectionPool(boolean busy) throws SQLException {
 		int initialConnections = 0;
 
 		ResourceBundle rs = ResourceBundle.getBundle("config");
@@ -68,9 +75,9 @@ public class JDBCConnectionPool implements Runnable {
 	 * reached they insert in busy connection list
 	 * 
 	 * @return return the connection
-	 * @throws Exception
+	 * @throws SQLException
 	 */
-	public synchronized Connection getConnection() throws Exception {
+	public synchronized Connection getConnection() throws SQLException {
 		if (!availableConnections.isEmpty()) {
 			Connection existingConnection = (Connection) availableConnections.get(availableConnections.size() - 1);
 			int lastIndex = availableConnections.size() - 1;
@@ -83,7 +90,7 @@ public class JDBCConnectionPool implements Runnable {
 				return (existingConnection);
 			}
 		} else {
-			if ((totalConnections() < maxConnection) && !connectionPending) {
+			if ((getTotalConnections() < maxConnection) && !connectionPending) {
 				backgroundConnection();
 			} else if (!busy) {
 				throw new SQLException("Connection limit reached");
@@ -129,15 +136,20 @@ public class JDBCConnectionPool implements Runnable {
 	/**
 	 * Creation of the connection with the informations from the file @return
 	 * Connection @throws
+	 * 
+	 * @throws ClassNotFoundException
 	 */
 	private Connection newConnection() throws SQLException {
+		Connection connection = null;
 		try {
 			Class.forName(driver);
-			Connection connection = DriverManager.getConnection(url, user, password);
-			return (connection);
-		} catch (Exception e) {
+			connection = DriverManager.getConnection(url, user, password);
+		} catch (SQLException e) {
 			throw new SQLException("ConnectionPool: SQLException encountered: " + e.getMessage());
+		} catch (ClassNotFoundException e) {
+			logger.log(Level.ERROR, "Driver JDBC inconnu", e.getClass().getCanonicalName());
 		}
+		return (connection);
 	}
 
 	/**
@@ -157,7 +169,7 @@ public class JDBCConnectionPool implements Runnable {
 	 * 
 	 * @return
 	 */
-	public synchronized int totalConnections() {
+	public synchronized int getTotalConnections() {
 		return (availableConnections.size() + busyConnections.size());
 	}
 

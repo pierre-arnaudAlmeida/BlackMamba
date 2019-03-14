@@ -2,6 +2,8 @@ package com.pds.blackmamba.ihm;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.awt.EventQueue;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.jupiter.api.Test;
@@ -9,7 +11,7 @@ import com.pds.blackmamba.ihm.dev.Window;
 
 class DevIHMTest {
 
-	Logger logger = Logger.getLogger("logger");
+	private Logger logger = Logger.getLogger("logger");
 	
 	@Test
 	void devIHMTest() {

@@ -1,0 +1,45 @@
+# Created at 2019-03-14T19:30:25.817
+TestSet has not finished before stream error has appeared >> initializing exit by non-null configuration: null
+java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:392)
+	at org.apache.maven.surefire.booter.MasterProcessCommand.decode(MasterProcessCommand.java:115)
+	at org.apache.maven.surefire.booter.CommandReader$CommandRunnable.run(CommandReader.java:390)
+	at java.lang.Thread.run(Thread.java:748)
+
+
+# Created at 2019-03-14T19:30:33.586
+Unexpected IOException with stream: 2019-03-14 19:30:33 [main] INFO  DataSourceTest:206 - Limit reached, no available connection java.sql.SQLException
+
+
+# Created at 2019-03-14T19:30:33.597
+Unexpected IOException: 6,1,connectionpool.DataSourceTest,testMaxConnections,null,null,null
+
+
+# Created at 2019-03-14T19:30:33.608
+Unexpected IOException: 5,1,connectionpool.DataSourceTest,testReturnConnection,null,null,null
+
+
+# Created at 2019-03-14T19:30:43.620
+Unexpected IOException with stream: 2019-03-14 19:30:43 [main] INFO  DataSourceTest:123 - Return Connection failed java.sql.SQLException
+
+
+# Created at 2019-03-14T19:30:43.627
+Unexpected IOException: 6,1,connectionpool.DataSourceTest,testReturnConnection,null,null,null
+
+
+# Created at 2019-03-14T19:30:43.634
+Unexpected IOException: 5,1,connectionpool.DataSourceTest,testTotalConnection,null,null,null
+
+
+# Created at 2019-03-14T19:30:53.641
+Unexpected IOException with stream: 2019-03-14 19:30:53 [main] INFO  DataSourceTest:162 - Connection dont increase normaly java.sql.SQLException
+
+
+# Created at 2019-03-14T19:30:53.649
+Unexpected IOException: 6,1,connectionpool.DataSourceTest,testTotalConnection,null,null,null
+
+
+# Created at 2019-03-14T19:30:53.656
+Unexpected IOException: 5,1,connectionpool.DataSourceTest,testUpdateData,null,null,null
+
+
