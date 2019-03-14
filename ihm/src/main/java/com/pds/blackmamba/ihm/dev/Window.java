@@ -18,10 +18,10 @@ public class Window extends JFrame {
 		TabSensor tabSensor = new TabSensor(Color.DARK_GRAY, "Capteurs");
 		TabResident tabResident = new TabResident(Color.DARK_GRAY, "Résidants");
 		TabHistorical tabHistorical = new TabHistorical(Color.DARK_GRAY, "Historiques");
-		TabConnexion tlogin = new TabConnexion(Color.DARK_GRAY, "Connection");
+		TabProfile tlogin = new TabProfile(Color.DARK_GRAY, "Profil");
 
 		tab = new JTabbedPane();
-		String tabOfTab[] = { "Employés", "Parties Communes", "Capteurs", "Résidants", "Historiques", "Connexion" };
+		String tabOfTab[] = { "Employés", "Parties Communes", "Capteurs", "Résidants", "Historiques", "Profil" };
 		
 		tab.add("Onglet " + tabOfTab[0], tabEmployes);
 		tab.add("Onglet " + tabOfTab[1], tabCommonArea);
