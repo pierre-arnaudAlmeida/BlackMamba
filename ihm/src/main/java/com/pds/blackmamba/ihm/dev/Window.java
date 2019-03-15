@@ -1,10 +1,7 @@
 package com.pds.blackmamba.ihm.dev;
 
 import java.awt.Color;
-import java.awt.Component;
-
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicTabbedPaneUI.TabbedPaneLayout;
 
 public class Window extends JFrame {
 
