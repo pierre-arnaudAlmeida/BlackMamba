@@ -13,3 +13,6 @@ java.lang.IllegalStateException: Cannot use PPID 9548 process information. Going
 	at java.lang.Thread.run(Thread.java:748)
 
 
+# Created at 2019-03-15T23:10:40.822
+Killing self fork JVM. PING timeout elapsed.
+

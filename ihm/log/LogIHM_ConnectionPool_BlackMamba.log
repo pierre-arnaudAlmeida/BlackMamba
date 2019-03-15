@@ -5,3 +5,5 @@
 2019-03-15 23:09:52 [main] INFO  DataSourceTest:140 - Close all connection failed java.sql.SQLException
 2019-03-15 23:10:02 [main] INFO  DataSourceTest:228 - Limit reached, no available connection java.sql.SQLException
 2019-03-15 23:10:12 [main] INFO  DataSourceTest:206 - Limit reached, no available connection java.sql.SQLException
+2019-03-15 23:10:22 [main] INFO  DataSourceTest:123 - Return Connection failed java.sql.SQLException
+2019-03-15 23:10:32 [main] INFO  DataSourceTest:162 - Connection dont increase normaly java.sql.SQLException
