@@ -7,3 +7,14 @@
 2019-03-15 23:10:12 [main] INFO  DataSourceTest:206 - Limit reached, no available connection java.sql.SQLException
 2019-03-15 23:10:22 [main] INFO  DataSourceTest:123 - Return Connection failed java.sql.SQLException
 2019-03-15 23:10:32 [main] INFO  DataSourceTest:162 - Connection dont increase normaly java.sql.SQLException
+2019-03-16 23:18:06 [AWT-EventQueue-0] INFO  Connexion:89 - Fermeture de l'application, connexion non voulu
+2019-03-16 23:18:09 [AWT-EventQueue-0] INFO  Connexion:89 - Fermeture de l'application, connexion non voulu
+2019-03-16 23:18:16 [AWT-EventQueue-0] INFO  Connexion:89 - Fermeture de l'application, connexion non voulu
+2019-03-16 23:20:27 [AWT-EventQueue-0] INFO  Connexion:89 - Fermeture de l'application, connexion non voulu
+2019-03-16 23:21:54 [AWT-EventQueue-0] INFO  Connexion:90 - Fermeture de l'application, connexion non voulu
+2019-03-16 23:22:33 [AWT-EventQueue-0] INFO  Connexion:90 - Fermeture de l'application, connexion non voulu
+2019-03-16 23:29:21 [AWT-EventQueue-0] INFO  Connexion:96 - Fermeture de l'application, connexion non voulu
+2019-03-16 23:29:37 [AWT-EventQueue-0] INFO  Connexion:96 - Fermeture de l'application, connexion non voulu
+2019-03-16 23:30:30 [AWT-EventQueue-0] INFO  Connexion:96 - Fermeture de l'application, connexion non voulu
+2019-03-16 23:31:28 [AWT-EventQueue-0] INFO  Connexion:96 - Fermeture de l'application, connexion non voulu
+2019-03-16 23:45:05 [AWT-EventQueue-0] INFO  Connexion:120 - Fermeture de l'application, connexion non voulu

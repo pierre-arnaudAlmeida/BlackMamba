@@ -5,43 +5,44 @@ import java.util.Set;
 
 public class CommonArea {
 
-	private int id_commonArea = 0;
-	private String name_commonArea = "";
-	private int etage_commonArea = 0;
-	
+	private int idCommonArea = 0;
+	private String nameCommonArea = "";
+	private int etageCommonArea = 0;
+
 	private Set<Sensor> listSensor = new HashSet<Sensor>();
-	
-	public CommonArea(int id_commonArea, String name_commonArea, int etage_commonArea) {
+
+	public CommonArea(int idCommonArea, String nameCommonArea, int etageCommonArea) {
 		super();
-		this.id_commonArea = id_commonArea;
-		this.name_commonArea = name_commonArea;
-		this.etage_commonArea = etage_commonArea;
-	}
-	
-	public CommonArea() {}
-
-	public int getId_commonArea() {
-		return id_commonArea;
+		this.idCommonArea = idCommonArea;
+		this.nameCommonArea = nameCommonArea;
+		this.etageCommonArea = etageCommonArea;
 	}
 
-	public void setId_commonArea(int id_commonArea) {
-		this.id_commonArea = id_commonArea;
+	public CommonArea() {
 	}
 
-	public String getName_commonArea() {
-		return name_commonArea;
+	public int getIdCommonArea() {
+		return idCommonArea;
 	}
 
-	public void setName_commonArea(String name_commonArea) {
-		this.name_commonArea = name_commonArea;
+	public void setIdCommonArea(int idCommonArea) {
+		this.idCommonArea = idCommonArea;
 	}
 
-	public int getEtage_commonArea() {
-		return etage_commonArea;
+	public String getNameCommonArea() {
+		return nameCommonArea;
 	}
 
-	public void setEtage_commonArea(int etage_commonArea) {
-		this.etage_commonArea = etage_commonArea;
+	public void setNameCommonArea(String nameCommonArea) {
+		this.nameCommonArea = nameCommonArea;
+	}
+
+	public int getEtageCommonArea() {
+		return etageCommonArea;
+	}
+
+	public void setEtageCommonArea(int etageCommonArea) {
+		this.etageCommonArea = etageCommonArea;
 	}
 
 	public Set<Sensor> getListSensor() {
@@ -51,11 +52,11 @@ public class CommonArea {
 	public void setListSensor(Set<Sensor> listSensor) {
 		this.listSensor = listSensor;
 	}
-	
+
 	public void addSensor(Sensor sensor) {
 		this.listSensor.add(sensor);
 	}
-	
+
 	public void removeSensor(Sensor sensor) {
 		this.listSensor.remove(sensor);
 	}
