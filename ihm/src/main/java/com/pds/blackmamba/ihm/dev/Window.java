@@ -10,12 +10,12 @@ public class Window extends JFrame {
 	public Window() {
 		
 		// Creation Tabs
-		TabEmployes tabEmployes = new TabEmployes(Color.DARK_GRAY, "Employés");
-		TabCommonArea tabCommonArea = new TabCommonArea(Color.DARK_GRAY, "Parties Communes");
-		TabSensor tabSensor = new TabSensor(Color.DARK_GRAY, "Capteurs");
-		TabResident tabResident = new TabResident(Color.DARK_GRAY, "Résidants");
-		TabHistorical tabHistorical = new TabHistorical(Color.DARK_GRAY, "Historiques");
-		TabProfile tlogin = new TabProfile(Color.DARK_GRAY, "Profil");
+		TabEmployes tabEmployes = new TabEmployes(Color.GRAY, "Employés");
+		TabCommonArea tabCommonArea = new TabCommonArea(Color.GRAY, "Parties Communes");
+		TabSensor tabSensor = new TabSensor(Color.GRAY, "Capteurs");
+		TabResident tabResident = new TabResident(Color.GRAY, "Résidants");
+		TabHistorical tabHistorical = new TabHistorical(Color.GRAY, "Historiques");
+		TabProfile tlogin = new TabProfile(Color.GRAY, "Profil");
 
 		tab = new JTabbedPane();
 		String tabOfTab[] = { "Employés", "Parties Communes", "Capteurs", "Résidants", "Historiques", "Profil" };
