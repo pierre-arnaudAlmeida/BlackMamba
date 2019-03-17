@@ -2,42 +2,42 @@ package com.pds.blackmamba.bean;
 
 public class Resident {
 
-	private int id_resident = 0;
-	private String lastname_resident = "";
-	private String name_resident = "";
+	private int idResident = 0;
+	private String lastnameResident = "";
+	private String nameResident = "";
 
-	public Resident(int id_resident, String lastname_resident, String name_resident) {
+	public Resident(int idResident, String lastnameResident, String nameResident) {
 		super();
-		this.id_resident = id_resident;
-		this.lastname_resident = lastname_resident;
-		this.name_resident = name_resident;
+		this.idResident = idResident;
+		this.lastnameResident = lastnameResident;
+		this.nameResident = nameResident;
 	}
 
 	public Resident() {
 	}
 
-	public int getId_resident() {
-		return id_resident;
+	public int getIdResident() {
+		return idResident;
 	}
 
-	public void setId_resident(int id_resident) {
-		this.id_resident = id_resident;
+	public void setIdResident(int idResident) {
+		this.idResident = idResident;
 	}
 
-	public String getLastname_resident() {
-		return lastname_resident;
+	public String getLastnameResident() {
+		return lastnameResident;
 	}
 
-	public void setLastname_resident(String lastname_resident) {
-		this.lastname_resident = lastname_resident;
+	public void setLastnameResident(String lastnameResident) {
+		this.lastnameResident = lastnameResident;
 	}
 
-	public String getName_resident() {
-		return name_resident;
+	public String getNameResident() {
+		return nameResident;
 	}
 
-	public void setName_resident(String name_resident) {
-		this.name_resident = name_resident;
+	public void setNameResident(String nameResident) {
+		this.nameResident = nameResident;
 	}
 
 }

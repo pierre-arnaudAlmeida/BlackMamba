@@ -2,17 +2,17 @@ package com.pds.blackmamba.bean;
 
 public class Employee {
 
-	private int id_employee = 0;
-	private String lastname_employee = "";
-	private String name_employee = "";
+	private int idEmployee = 0;
+	private String lastnameEmployee = "";
+	private String nameEmployee = "";
 	private String password = "";
 	private String poste = "";
 
-	public Employee(int id_employee, String lastname_employee, String name_employee, String password, String poste) {
+	public Employee(int idEmployee, String lastnameEmployee, String nameEmployee, String password, String poste) {
 		super();
-		this.id_employee = id_employee;
-		this.lastname_employee = lastname_employee;
-		this.name_employee = name_employee;
+		this.idEmployee = idEmployee;
+		this.lastnameEmployee = lastnameEmployee;
+		this.nameEmployee = nameEmployee;
 		this.password = password;
 		this.poste = poste;
 	}
@@ -20,28 +20,28 @@ public class Employee {
 	public Employee() {
 	}
 
-	public int getId_employee() {
-		return id_employee;
+	public int getIdEmployee() {
+		return idEmployee;
 	}
 
-	public void setId_employee(int id_employee) {
-		this.id_employee = id_employee;
+	public void setIdEmployee(int idEmployee) {
+		this.idEmployee = idEmployee;
 	}
 
-	public String getLastname_employee() {
-		return lastname_employee;
+	public String getLastnameEmployee() {
+		return lastnameEmployee;
 	}
 
-	public void setLastname_employee(String lastname_employee) {
-		this.lastname_employee = lastname_employee;
+	public void setLastnameEmployee(String lastnameEmployee) {
+		this.lastnameEmployee = lastnameEmployee;
 	}
 
-	public String getName_employee() {
-		return name_employee;
+	public String getNameEmployee() {
+		return nameEmployee;
 	}
 
-	public void setName_employee(String name_employee) {
-		this.name_employee = name_employee;
+	public void setNameEmployee(String nameEmployee) {
+		this.nameEmployee = nameEmployee;
 	}
 
 	public String getPassword() {

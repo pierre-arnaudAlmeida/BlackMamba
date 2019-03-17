@@ -2,52 +2,61 @@ package com.pds.blackmamba.bean;
 
 public class Sensor {
 
-	private int id_sensor = 0;
-	private String type_sensor = null;
-	private int sensor_state = 0;
-	private int id_commonArea = 0;
+	private int idSensor = 0;
+	private String typeSensor = null;
+	private boolean sensorState = false;
+	private boolean sensorNextState = false;
+	private int idCommonArea = 0;
 
-	public Sensor(int id_sensor, String type_sensor, int sensor_state, int id_commonArea) {
+	public Sensor(int idSensor, String typeSensor, boolean sensorState, int idCommonArea) {
 		super();
-		this.id_sensor = id_sensor;
-		this.type_sensor = type_sensor;
-		this.sensor_state = sensor_state;
-		this.id_commonArea = id_commonArea;
+		this.idSensor = idSensor;
+		this.typeSensor = typeSensor;
+		this.sensorState = sensorState;
+		this.idCommonArea = idCommonArea;
 	}
 
 	public Sensor() {
 	}
 
-	public int getId_sensor() {
-		return id_sensor;
+	public int getIdSensor() {
+		return idSensor;
 	}
 
-	public void setId_sensor(int id_sensor) {
-		this.id_sensor = id_sensor;
+	public void setIdSensor(int idSensor) {
+		this.idSensor = idSensor;
 	}
 
-	public String getType_sensor() {
-		return type_sensor;
+	public String getTypeSensor() {
+		return typeSensor;
 	}
 
-	public void setType_sensor(String type_sensor) {
-		this.type_sensor = type_sensor;
+	public void setTypeSensor(String typeSensor) {
+		this.typeSensor = typeSensor;
 	}
 
-	public int getSensor_state() {
-		return sensor_state;
+	public boolean getSensorState() {
+		return sensorState;
 	}
 
-	public void setSensor_state(int sensor_state) {
-		this.sensor_state = sensor_state;
+	public void setSensorState(boolean sensorState) {
+		this.sensorState = sensorState;
 	}
 
-	public int getId_commonArea() {
-		return id_commonArea;
+	public int getIdCommonArea() {
+		return idCommonArea;
 	}
 
-	public void setId_commonArea(int id_commonArea) {
-		this.id_commonArea = id_commonArea;
+	public void setIdCommonArea(int idCommonArea) {
+		this.idCommonArea = idCommonArea;
+	}
+
+	public boolean getSensorNextState() {
+		return sensorNextState;
+	}
+
+	public void setSensorNextState(boolean sensorNextState) {
+		this.sensorNextState = sensorNextState;
 	}
 
 }

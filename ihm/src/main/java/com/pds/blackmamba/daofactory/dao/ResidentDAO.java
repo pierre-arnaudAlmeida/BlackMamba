@@ -33,4 +33,9 @@ public class ResidentDAO extends DAO<Resident> {
 		return null;
 	}
 
+	public boolean badger(int idResident, int idSensor) {
+		// TODO Auto-generated method stub
+		// Quand on badge on ajoute une date
+		return false;
+	}
 }

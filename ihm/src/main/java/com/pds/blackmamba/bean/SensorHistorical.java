@@ -4,29 +4,30 @@ import java.util.Date;
 
 public class SensorHistorical {
 
-	private int id_historical = 0;
+	private int idHistorical = 0;
 	private Date date = null;
-	private int id_sensor = 0;
-	private int previous_state = 0;
-	private int next_state = 0;
-	
-	public SensorHistorical(int id_historical, Date date, int id_sensor, int previous_state, int next_state) {
+	private int idSensor = 0;
+	private int previousState = 0;
+	private int nextState = 0;
+
+	public SensorHistorical(int idHistorical, Date date, int idSensor, int previousState, int nextState) {
 		super();
-		this.id_historical = id_historical;
+		this.idHistorical = idHistorical;
 		this.date = date;
-		this.id_sensor = id_sensor;
-		this.previous_state = previous_state;
-		this.next_state = next_state;
-	}
-	
-	public SensorHistorical() {}
-
-	public int getId_historical() {
-		return id_historical;
+		this.idSensor = idSensor;
+		this.previousState = previousState;
+		this.nextState = nextState;
 	}
 
-	public void setId_historical(int id_historical) {
-		this.id_historical = id_historical;
+	public SensorHistorical() {
+	}
+
+	public int getIdHistorical() {
+		return idHistorical;
+	}
+
+	public void setIdHistorical(int idHistorical) {
+		this.idHistorical = idHistorical;
 	}
 
 	public Date getDate() {
@@ -37,28 +38,28 @@ public class SensorHistorical {
 		this.date = date;
 	}
 
-	public int getId_sensor() {
-		return id_sensor;
+	public int getIdSensor() {
+		return idSensor;
 	}
 
-	public void setId_sensor(int id_sensor) {
-		this.id_sensor = id_sensor;
+	public void setIdSensor(int idSensor) {
+		this.idSensor = idSensor;
 	}
 
-	public int getPrevious_state() {
-		return previous_state;
+	public int getPreviousState() {
+		return previousState;
 	}
 
-	public void setPrevious_state(int previous_state) {
-		this.previous_state = previous_state;
+	public void setPreviousState(int previousState) {
+		this.previousState = previousState;
 	}
 
-	public int getNext_state() {
-		return next_state;
+	public int getNextState() {
+		return nextState;
 	}
 
-	public void setNext_state(int next_state) {
-		this.next_state = next_state;
+	public void setNextState(int nextState) {
+		this.nextState = nextState;
 	}
-	
+
 }
