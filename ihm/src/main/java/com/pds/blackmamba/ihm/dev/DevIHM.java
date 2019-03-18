@@ -13,9 +13,11 @@ public class DevIHM {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					//Lignes qui doivent etre décommenter pour que l'application fonctionne correctement
 					//Connexion popupConnexion = new Connexion();
 					//popupConnexion.setVisible(true);
 					
+					//pour aller plus vite dans le visionnage de la seconde fenetre
 					Window frame = new Window();
 					frame.setVisible(true);
 				} catch (Exception e) {

@@ -70,10 +70,9 @@ public class Connexion extends JFrame {
 		pan2.add(textInputPassword);
 		pan2.setBackground(Color.WHITE);
 
-		// TODO mettre un bouton pour afffciher le mot de passe et le cacher
+		
 		final JCheckBox showButton = new JCheckBox("Montrer le mot de passe");
 		showButton.setBounds(147, 150, 171, 23);
-		
 		showButton.addActionListener(new ActionListener() {
 			/**
 			 * Display the content of TextField password employee When we check the CheckBox
@@ -88,6 +87,9 @@ public class Connexion extends JFrame {
 			}
 		});
 		
+		/**
+		 * Actions when we pressed the button Connection 
+		 */
 		buttonConnection.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -99,7 +101,11 @@ public class Connexion extends JFrame {
 
 					JOptionPane.showMessageDialog(null, "Vous n'avez pas renseigné tout les champs", "Attention",
 							JOptionPane.WARNING_MESSAGE);
-				} else if ((idEmployee.matches("[0-9]+[0-9]*")) && !(password.equals(""))) {
+				} else if ((idEmployee.matches("[0-9]+[0-9]*")) && !(password.equals(""))) {					
+					Window frame = new Window();
+					setVisible(false);
+					dispose();
+					frame.setVisible(true);
 					System.out.println(idEmployee + " " + password);
 				} else {
 					JOptionPane.showMessageDialog(null, "Une Erreur est survenue, relancez l'application", "Attention",

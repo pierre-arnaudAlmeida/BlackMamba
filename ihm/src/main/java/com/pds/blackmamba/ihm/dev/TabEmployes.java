@@ -4,11 +4,17 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class TabEmployes extends JPanel {
 	private String message;
@@ -16,6 +22,7 @@ public class TabEmployes extends JPanel {
 	private JLabel labelIdEmployee, idEmployee;
 	private Font police;
 	private JButton disconnection;
+	private static final Logger logger = LogManager.getLogger(TabProfile.class);
 
 	public TabEmployes() {
 	}
@@ -41,6 +48,15 @@ public class TabEmployes extends JPanel {
 
 		disconnection = new JButton("Se Déconnecter");
 		bar.add(disconnection, BorderLayout.EAST);
+		
+		disconnection.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				logger.log(Level.INFO, "Fermeture de l'application, apres une déconnection");
+				System.exit(ABORT);
+				
+			}
+		});
 
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);
