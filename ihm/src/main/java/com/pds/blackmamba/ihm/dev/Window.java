@@ -9,7 +9,9 @@ public class Window extends JFrame {
 
 	public Window() {
 		
-		// Creation Tabs
+		/**
+		 * Creation of diferents tabs
+		 */
 		TabEmployes tabEmployes = new TabEmployes(Color.GRAY, "Employés");
 		TabCommonArea tabCommonArea = new TabCommonArea(Color.GRAY, "Parties Communes");
 		TabSensor tabSensor = new TabSensor(Color.GRAY, "Capteurs");
@@ -17,9 +19,15 @@ public class Window extends JFrame {
 		TabHistorical tabHistorical = new TabHistorical(Color.GRAY, "Historiques");
 		TabProfile tlogin = new TabProfile(Color.GRAY, "Profil");
 
+		/**
+		 * Add of the title of tabs
+		 */
 		tab = new JTabbedPane();
 		String tabOfTab[] = { "Employés", "Parties Communes", "Capteurs", "Résidants", "Historiques", "Profil" };
 		
+		/**
+		 * Add of tabs on the window
+		 */
 		tab.add("Onglet " + tabOfTab[0], tabEmployes);
 		tab.add("Onglet " + tabOfTab[1], tabCommonArea);
 		tab.add("Onglet " + tabOfTab[2], tabSensor);
@@ -27,6 +35,9 @@ public class Window extends JFrame {
 		tab.add("Onglet " + tabOfTab[4], tabHistorical);
 		tab.add("Onglet " + tabOfTab[5], tlogin);
 
+		/**
+		 * Diferent parameters of the window
+		 */
 		this.setTitle("BlackMamba");
 		this.setSize((int) getToolkit().getScreenSize().getWidth(), (int) getToolkit().getScreenSize().getHeight());
 		this.setLocationRelativeTo(null);

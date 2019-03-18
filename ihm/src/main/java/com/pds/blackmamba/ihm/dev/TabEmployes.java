@@ -28,11 +28,17 @@ public class TabEmployes extends JPanel {
 	}
 
 	public TabEmployes(Color color, String title) {
+		/**
+		 * Definition of the structure of this tab
+		 */
 		bar = new JPanel();
 		bar.setBackground(Color.DARK_GRAY);
 		bar.setPreferredSize(new Dimension((int) getToolkit().getScreenSize().getWidth(), 70));
 		bar.setLayout(new BorderLayout());
 
+		/**
+		 * Definition of label Identifiant on header bar
+		 */
 		labelIdEmployee = new JLabel("Identifiant :   ");
 		police = new Font("Arial", Font.BOLD, 16);
 		labelIdEmployee.setForeground(Color.WHITE);
@@ -40,24 +46,32 @@ public class TabEmployes extends JPanel {
 		bar.add(labelIdEmployee, BorderLayout.WEST);
 		bar.setBorder(BorderFactory.createMatteBorder(20, 100, 20, 100, bar.getBackground()));
 
+		/**
+		 * Definition of the label idEmployee on header bar
+		 */
 		idEmployee = new JLabel();
 		idEmployee.setText("1");
 		idEmployee.setFont(police);
 		idEmployee.setForeground(Color.WHITE);
 		bar.add(idEmployee, BorderLayout.CENTER);
 
+		/**
+		 * Definition of the button and the different action after pressed the button
+		 */
 		disconnection = new JButton("Se Déconnecter");
 		bar.add(disconnection, BorderLayout.EAST);
-		
 		disconnection.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				logger.log(Level.INFO, "Fermeture de l'application, apres une déconnection");
+				logger.log(Level.INFO, "Application closed, after disconnection");
 				System.exit(ABORT);
 				
 			}
 		});
 
+		/**
+		 * Diferent parameters of the window
+		 */
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);
 		this.message = title;
