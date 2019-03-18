@@ -34,6 +34,9 @@ public class Connexion extends JFrame {
 	private static final Logger logger = LogManager.getLogger(Connexion.class);
 
 	public Connexion() {
+		/**
+		 * initialisation of different element
+		 */
 		container = new JPanel();
 		labelIdEmployee = new JLabel("Identifiant");
 		textInputIdEmployee = new JTextField();
@@ -42,6 +45,9 @@ public class Connexion extends JFrame {
 		buttonConnection = new JButton("Se Connecter");
 		buttonLeave = new JButton("Quitter");
 
+		/**
+		 * Definition of different pan present in the popup
+		 */
 		container.setBackground(Color.DARK_GRAY);
 		pan = new JPanel();
 		pan2 = new JPanel();
@@ -70,15 +76,13 @@ public class Connexion extends JFrame {
 		pan2.add(textInputPassword);
 		pan2.setBackground(Color.WHITE);
 
-		// TODO mettre un bouton pour afffciher le mot de passe et le cacher
+		/**
+		 * Display the content of TextField password employee When we check the CheckBox
+		 * "Montrer le mot de passe"
+		 */
 		final JCheckBox showButton = new JCheckBox("Montrer le mot de passe");
 		showButton.setBounds(147, 150, 171, 23);
-		
 		showButton.addActionListener(new ActionListener() {
-			/**
-			 * Display the content of TextField password employee When we check the CheckBox
-			 * "Montrer le mot de passe"
-			 */
 			public void actionPerformed(ActionEvent e) {
 				if (showButton.isSelected()) {
 					textInputPassword.setEchoChar((char) 0);
@@ -87,7 +91,10 @@ public class Connexion extends JFrame {
 				}
 			}
 		});
-		
+
+		/**
+		 * Actions when we pressed the button Connection
+		 */
 		buttonConnection.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -100,6 +107,10 @@ public class Connexion extends JFrame {
 					JOptionPane.showMessageDialog(null, "Vous n'avez pas renseigné tout les champs", "Attention",
 							JOptionPane.WARNING_MESSAGE);
 				} else if ((idEmployee.matches("[0-9]+[0-9]*")) && !(password.equals(""))) {
+					Window frame = new Window();
+					setVisible(false);
+					dispose();
+					frame.setVisible(true);
 					System.out.println(idEmployee + " " + password);
 				} else {
 					JOptionPane.showMessageDialog(null, "Une Erreur est survenue, relancez l'application", "Attention",
@@ -113,13 +124,20 @@ public class Connexion extends JFrame {
 			}
 		});
 
+		/**
+		 * Close the window if we press the button Se deconnecter
+		 */
 		buttonLeave.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				logger.log(Level.INFO, "Fermeture de l'application, connexion non voulu");
+				logger.log(Level.INFO, "Application closed, after disconnection");
 				System.exit(DISPOSE_ON_CLOSE);
 			}
 		});
+		
+		/**
+		 * Add components in the window container
+		 */
 		pan3.add(buttonConnection);
 		pan3.add(buttonLeave);
 		container.add(pan);
@@ -127,6 +145,9 @@ public class Connexion extends JFrame {
 		container.add(showButton);
 		container.add(pan3);
 
+		/**
+		 * diferent parameters of the window
+		 */
 		this.setContentPane(container);
 		this.setTitle("Connexion");
 		this.setSize(350, 200);
