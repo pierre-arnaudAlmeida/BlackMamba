@@ -43,7 +43,6 @@ public class InsertionClient extends JFrame {
 		JButton profilbouton = new JButton("Liste des profils");
 		profilbouton.setBounds(147, 0, 214, 23);
 		contentPane.add(profilbouton);
-
 		profilbouton.addActionListener(new ActionListener() {
 			/**
 			 * If we click in the profil button we are redirect to the window 'ProfilClient'
@@ -61,6 +60,29 @@ public class InsertionClient extends JFrame {
 			}
 		});
 
+		// Creation of a list common area button
+		// And display on the contentPane
+		JButton listCommonAreabouton = new JButton("Liste des Parties Communes");
+		listCommonAreabouton.setBounds(147, 200, 214, 23);
+		contentPane.add(listCommonAreabouton);
+		listCommonAreabouton.addActionListener(new ActionListener() {
+			/**
+			 * If we click in the  listCommonAreabouton we are redirect to the window 'CommonArea'
+			 * where we have the list of users
+			 */
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					CommonArea frame = new CommonArea();
+					frame.setVisible(true);
+					setVisible(false);
+				} catch (Exception e1) {
+					logger.log(Level.INFO,
+							"Impossible to access at window 'CommonArea' " + e1.getClass().getCanonicalName());
+				}
+			}
+		});
+		
 		// Creation of label name
 		// And display on the contentPane
 		JLabel name = new JLabel("Pr\u00E9nom");
