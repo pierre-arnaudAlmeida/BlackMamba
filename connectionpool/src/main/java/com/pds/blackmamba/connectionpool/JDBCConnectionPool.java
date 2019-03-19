@@ -30,8 +30,8 @@ public class JDBCConnectionPool implements Runnable {
 	final Properties prop = new Properties();
 
 	// Definition of Lists
-	public List<Connection> availableConnections, availableConnectionsArrayList;
-	public List<Connection> busyConnections, busyConnectionsArrayList;
+	private List<Connection> availableConnections, availableConnectionsArrayList;
+	private List<Connection> busyConnections, busyConnectionsArrayList;
 
 	/**
 	 * Get informations from confirugation.propreties Initialization of fields with
