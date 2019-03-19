@@ -35,6 +35,7 @@ public class TabSensor extends JPanel{
 		bar.setBackground(Color.DARK_GRAY);
 		bar.setPreferredSize(new Dimension((int) getToolkit().getScreenSize().getWidth(), 70));
 		bar.setLayout(new BorderLayout());
+		bar.setBorder(BorderFactory.createMatteBorder(20, 100, 20, 100, bar.getBackground()));
 		
 		/**
 		 * Definition of label Identifiant on header bar
@@ -44,7 +45,6 @@ public class TabSensor extends JPanel{
 		labelIdEmployee.setForeground(Color.WHITE);
 		labelIdEmployee.setFont(police);
 		bar.add(labelIdEmployee, BorderLayout.WEST);
-		bar.setBorder(BorderFactory.createMatteBorder(20, 100, 20, 100, bar.getBackground()));
 		
 		/**
 		 * Definition of the label idEmployee on header bar
