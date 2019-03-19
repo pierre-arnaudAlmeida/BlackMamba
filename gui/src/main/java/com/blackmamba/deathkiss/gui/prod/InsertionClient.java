@@ -43,6 +43,12 @@ public class InsertionClient extends JFrame {
 		JButton profilbouton = new JButton("Liste des profils");
 		profilbouton.setBounds(147, 0, 214, 23);
 		contentPane.add(profilbouton);
+		
+		// Creation of a list common area button
+		// And display on the contentPane
+		JButton listCommonAreabouton = new JButton("Liste des Partie Commune");
+		listCommonAreabouton.setBounds(147, 200, 214, 23);
+		contentPane.add(listCommonAreabouton);		
 
 		profilbouton.addActionListener(new ActionListener() {
 			/**
