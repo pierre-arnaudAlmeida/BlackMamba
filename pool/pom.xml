@@ -75,7 +75,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.blackmamba.deathkiss.socket.MainServer</mainClass>
+							<mainClass>com.blackmamba.deathkiss.socket.MainServerGUI</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>

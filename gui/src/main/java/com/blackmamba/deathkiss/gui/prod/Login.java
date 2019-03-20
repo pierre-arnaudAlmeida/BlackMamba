@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -20,14 +21,16 @@ import javax.swing.border.EmptyBorder;
 import com.blackmamba.deathkiss.gui.prod.connectionpool.DataSource;
 import com.blackmamba.deathkiss.gui.prod.connectionpool.JDBCConnectionPool;
 
-public class Login extends JFrame {
 
+public class Login extends JFrame {
+	String host = "127.0.0.1";
+	int port = 2345;
 	// Definition of differents fields
 	private JPanel contentPane;
 	private JTextField id_employeeField;
 	private JPasswordField passwordField;
 	private ResultSet result = null;
-	static Logger logger = Logger.getLogger("logger");
+	private static Logger logger = Logger.getLogger("logger");
 
 	public Login() {
 
@@ -99,6 +102,9 @@ public class Login extends JFrame {
 			 */
 			public void actionPerformed(ActionEvent e) {
 
+				Thread t = new Thread(new ClientSocket(host, port));
+				t.start();
+				
 				String idfield = id_employeeField.getText();
 				char[] password = passwordField.getPassword();
 				String passwordfield = new String(password);

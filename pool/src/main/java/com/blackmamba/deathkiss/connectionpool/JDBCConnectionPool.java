@@ -17,9 +17,10 @@ import org.apache.logging.log4j.Logger;
 
 public class JDBCConnectionPool implements Runnable {
 
-	// Definition of differents fields
+	/**
+	 *  Definition of diferents fields
+	 */
 	private static final Logger logger = LogManager.getLogger(JDBCConnectionPool.class);
-
 	private String driver;
 	private String url;
 	private String user;

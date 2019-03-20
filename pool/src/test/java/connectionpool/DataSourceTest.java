@@ -16,7 +16,7 @@ import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
 class DataSourceTest {
 
 	private static final Logger logger = LogManager.getLogger(DataSourceTest.class);
-	
+
 	/**
 	 * Test GetConnection
 	 */
@@ -29,7 +29,6 @@ class DataSourceTest {
 			assertNotNull(con);
 			logger.log(Level.INFO, "Connection succed ");
 		} catch (Exception e) {
-			e.printStackTrace();
 			logger.log(Level.INFO, "SGBD connection is impossible " + e.getClass().getCanonicalName());
 		}
 	}
@@ -159,8 +158,8 @@ class DataSourceTest {
 			assertNotEquals(totalConnection1, totalConnection2);
 			logger.log(Level.INFO, "Number of Connection increased to " + totalConnection2);
 		} catch (Exception e) {
-		logger.log(Level.INFO, "Connection dont increase normaly " + e.getClass().getCanonicalName());
-	}
+			logger.log(Level.INFO, "Connection dont increase normaly " + e.getClass().getCanonicalName());
+		}
 	}
 
 	/*

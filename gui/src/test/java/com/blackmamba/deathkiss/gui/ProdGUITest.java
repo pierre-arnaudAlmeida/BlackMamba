@@ -9,9 +9,11 @@ import org.junit.jupiter.api.Test;
 import com.blackmamba.deathkiss.gui.prod.Login;
 
 class ProdGUITest {
-
-	Logger logger = Logger.getLogger("logger");
+	private static Logger logger = Logger.getLogger("logger");
 	
+	/**
+	 * Test the creation of the window of ProductionGUI
+	 */
 	@Test
 	void prodIHMTest() {
 		EventQueue.invokeLater(new Runnable() {
@@ -26,5 +28,4 @@ class ProdGUITest {
 			}
 		});
 	}
-
 }

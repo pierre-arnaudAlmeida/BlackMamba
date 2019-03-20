@@ -1,4 +1,4 @@
-package com.blackmamba.deathkiss.socket;
+package com.blackmamba.deathkiss.gui.prod;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class ClientConnexion implements Runnable{
+public class ClientSocket implements Runnable{
 	private Socket connexion = null;
 	   private PrintWriter writer = null;
 	   private BufferedInputStream reader = null;
@@ -15,7 +15,7 @@ public class ClientConnexion implements Runnable{
 	   private static int count = 0;
 	   private String name = "Client-";   
 	   
-	   public ClientConnexion(String host, int port){
+	   public ClientSocket(String host, int port){
 	      name += ++count;
 	      try {
 	         connexion = new Socket(host, port);

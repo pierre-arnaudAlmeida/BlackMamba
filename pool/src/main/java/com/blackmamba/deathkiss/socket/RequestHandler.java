@@ -9,58 +9,64 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.blackmamba.deathkiss.connectionpool.DataSource;
 import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
 
-public class ResquestHandler implements Runnable{
+public class RequestHandler implements Runnable {
+	/**
+	 * Initialization of diferents parameters
+	 */
 	private Socket sock;
 	private JDBCConnectionPool pool;
 	private PrintWriter writer = null;
 	private BufferedInputStream reader = null;
 	private ResultSet result = null;
+	private static final Logger logger = LogManager.getLogger(RequestHandler.class);
 
-	public ResquestHandler(Socket pSock, JDBCConnectionPool pool){
-	      this.sock = pSock;
-	      this.pool = pool;
-	   }
+	public RequestHandler(Socket pSock, JDBCConnectionPool pool) {
+		this.sock = pSock;
+		this.pool = pool;
+	}
 
-	// Le traitement lancé dans un thread séparé
+	/**
+	 * Run the Thread
+	 * while the client connection is active they loop
+	 */
 	public void run() {
-
-		System.err.println("Lancement du traitement de la connexion cliente");
-
-		boolean closeConnexion = false;
-		// tant que la connexion est active, on traite les demandes
+		logger.log(Level.INFO, "Launch of treatement of client connection");
 		while (!sock.isClosed()) {
 			try {
 				pool = new JDBCConnectionPool(false);
 				writer = new PrintWriter(sock.getOutputStream(), true);
 				reader = new BufferedInputStream(sock.getInputStream());
-			
+
 				Connection con = DataSource.getConnectionFromJDBC(pool);
 				Statement st = con.createStatement();
-				String sql ="SELECT * FROM Employee";
+				String sql = "SELECT * FROM Employee";
 				result = st.executeQuery(sql);
 				result.next();
 				String nom = result.getObject(1).toString();
-				//System.out.println(nom);
 				writer.write(nom);
 				writer.flush();
 				String a = read();
 				if (a.equals("CLOSE")) {
 					sock.close();
 				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (SQLException | IOException e) {
+				logger.log(Level.INFO, "Impossible to execute the request " + e.getClass().getCanonicalName());
 			}
-		} if (sock.isClosed())System.out.println("connection closed");
+		}
+		if (sock.isClosed())
+			logger.log(Level.INFO, "Connection Closed");
 	}
 
-	// La méthode que nous utilisons pour lire les réponses
+	/**
+	 * Read the diferent response
+	 */
 	private String read() throws IOException {
 		String response = "";
 		int stream;
