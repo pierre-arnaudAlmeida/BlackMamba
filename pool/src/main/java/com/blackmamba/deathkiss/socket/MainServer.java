@@ -13,9 +13,6 @@ public class MainServer {
 		System.out.println("Serveur initialisé.");
 
 		//a enlever et le mettre dans le while du seervice processor
-		for (int i = 0; i < 5; i++) {
-			Thread t = new Thread(new ClientConnexion(host, port));
-			t.start();
-		}
+		
 	}
 }

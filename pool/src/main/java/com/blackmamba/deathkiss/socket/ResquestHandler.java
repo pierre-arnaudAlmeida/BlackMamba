@@ -12,38 +12,52 @@ import java.sql.Statement;
 import com.blackmamba.deathkiss.connectionpool.DataSource;
 import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
 
-public class ServerProcessor implements Runnable{
+public class ResquestHandler implements Runnable{
 	private Socket sock;
+	private JDBCConnectionPool pool;
 	private PrintWriter writer = null;
 	private BufferedInputStream reader = null;
 	private ResultSet result = null;
 
-	public ServerProcessor(Socket pSock){
-	      sock = pSock;
+	public ResquestHandler(Socket pSock, JDBCConnectionPool pool){
+	      this.sock = pSock;
+	      this.pool = pool;
 	   }
 
 	// Le traitement lancé dans un thread séparé
 	public void run() {
+
 		System.err.println("Lancement du traitement de la connexion cliente");
 
 		boolean closeConnexion = false;
 		// tant que la connexion est active, on traite les demandes
 		while (!sock.isClosed()) {
-			JDBCConnectionPool p;
 			try {
-				p = new JDBCConnectionPool(false);
-				Connection con = DataSource.getConnectionFromJDBC(p);
+				pool = new JDBCConnectionPool(false);
+				writer = new PrintWriter(sock.getOutputStream(), true);
+				reader = new BufferedInputStream(sock.getInputStream());
+			
+				Connection con = DataSource.getConnectionFromJDBC(pool);
 				Statement st = con.createStatement();
 				String sql ="SELECT * FROM Employee";
 				result = st.executeQuery(sql);
 				result.next();
 				String nom = result.getObject(1).toString();
-				System.out.println(nom);
+				//System.out.println(nom);
+				writer.write(nom);
+				writer.flush();
+				String a = read();
+				if (a.equals("CLOSE")) {
+					sock.close();
+				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		}
+		} if (sock.isClosed())System.out.println("connection closed");
 	}
 
 	// La méthode que nous utilisons pour lire les réponses

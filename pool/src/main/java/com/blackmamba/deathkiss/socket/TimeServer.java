@@ -5,6 +5,11 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import com.blackmamba.deathkiss.connectionpool.DataSource;
+import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
 
 public class TimeServer {
 	// On initialise des valeurs par défaut
@@ -41,22 +46,22 @@ public class TimeServer {
 		// Toujours dans un thread à part vu qu'il est dans une boucle infinie
 		Thread t = new Thread(new Runnable() {
 			public void run() {
+				JDBCConnectionPool pool;			
 				while (isRunning == true) {
-
 					try {
+						pool = new JDBCConnectionPool(false);
 						// On attend une connexion d'un client
 						Socket client = server.accept();
 
 						// Une fois reçue, on la traite dans un thread séparé
 						System.out.println("Connexion cliente reçue.");
-						Thread t = new Thread(new ServerProcessor(client));
+						Thread t = new Thread(new ResquestHandler(client,pool));
 						t.start();
 
-					} catch (IOException e) {
+					} catch (IOException | SQLException e) {
 						e.printStackTrace();
-					}
+					} 
 				}
-
 				try {
 					server.close();
 				} catch (IOException e) {
