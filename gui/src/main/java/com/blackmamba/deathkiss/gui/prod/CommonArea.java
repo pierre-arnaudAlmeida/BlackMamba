@@ -16,7 +16,7 @@ public class CommonArea extends JFrame {
 	private int idCommonArea;
 	private String nameCommonArea;
 	private int etageCommonArea;
-	static Logger logger = Logger.getLogger("logger");
+	private static Logger logger = Logger.getLogger("logger");
 
 	public CommonArea() {
 		setTitle("Liste Parties Communes");

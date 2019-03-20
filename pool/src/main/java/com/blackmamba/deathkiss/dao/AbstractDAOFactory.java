@@ -1,6 +1,5 @@
 package com.blackmamba.deathkiss.dao;
 
-import com.blackmamba.deathkiss.dao.json.JSONDAOFactory;
 import com.blackmamba.deathkiss.entity.CommonArea;
 import com.blackmamba.deathkiss.entity.Employee;
 import com.blackmamba.deathkiss.entity.Resident;
@@ -19,11 +18,7 @@ public abstract class AbstractDAOFactory {
 
 	public abstract DAO<SensorHistorical> getSensorHistoricalDAO();
 
-	public static AbstractDAOFactory getFactory(FactoryType type) {
-		if (type.equals(FactoryType.DAO_FACTORY))
+	public static AbstractDAOFactory getFactory() {
 			return new DAOFactory();
-		if (type.equals(FactoryType.JSON_DAO_FACTORY))
-			return new JSONDAOFactory();
-		return null;
 	}
 }

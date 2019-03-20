@@ -1,11 +1,9 @@
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\dao\ResidentDAO.java
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\entity\Resident.java
-D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\dao\json\JSONCommonAreaDAO.java
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\connectionpool\DataSource.java
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\dao\CommonAreaDAO.java
+D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\socket\MainServerGUI.java
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\connectionpool\JDBCConnectionPool.java
-D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\dao\json\JSONDAOFactory.java
-D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\dao\json\JSONResidentDAO.java
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\dao\SensorDAO.java
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\entity\CommonArea.java
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\dao\SensorHistoricalDAO.java
@@ -15,8 +13,8 @@ D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\dao\DAOFactory.jav
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\dao\EmployeeDAO.java
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\entity\SensorHistorical.java
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\dao\FactoryType.java
-D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\dao\json\JSONSensorDAO.java
-D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\dao\json\JSONSensorHistoricalDAO.java
-D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\dao\json\JSONEmployeeDAO.java
+D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\socket\RequestHandler.java
+D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\socket\TimeServer.java
+D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\socket\MainServer.java
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\dao\DAO.java
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\entity\Employee.java

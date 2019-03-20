@@ -28,9 +28,9 @@ public class ProfilClient extends JFrame {
 	private String name_employee;
 	private JTextField nameField;
 	private JTextField lastnameField;
-	static Logger logger = Logger.getLogger("logger");
-	ResultSet result = null;
-	ResultSetMetaData resultMeta = null;
+	private static Logger logger = Logger.getLogger("logger");
+	private ResultSet result = null;
+	private ResultSetMetaData resultMeta = null;
 
 	public ProfilClient() {
 
@@ -60,7 +60,7 @@ public class ProfilClient extends JFrame {
 					dispose();
 				} catch (Exception e1) {
 					logger.log(Level.INFO,
-							"Impossible to redirect to window 'InsertionClient' " + e1.getClass().getCanonicalName());
+							"Impossible redirect to window 'InsertionClient' " + e1.getClass().getCanonicalName());
 				}
 			}
 		});
@@ -152,7 +152,7 @@ public class ProfilClient extends JFrame {
 							setVisible(false);
 							dispose();
 						} catch (Exception e1) {
-							logger.log(Level.INFO, "Impossible to redirect to window 'ProfilClient' "
+							logger.log(Level.INFO, "Impossible redirect to window 'ProfilClient' "
 									+ e1.getClass().getCanonicalName());
 						}
 					}
@@ -231,14 +231,14 @@ public class ProfilClient extends JFrame {
 							setVisible(false);
 							dispose();
 						} catch (Exception e1) {
-							logger.log(Level.INFO, "Impossible to redirect to window 'ProfilClient' "
+							logger.log(Level.INFO, "Impossible redirect to window 'ProfilClient' "
 									+ e1.getClass().getCanonicalName());
 						}
 					}
 				});
 			}
 		} catch (Exception e) {
-			logger.log(Level.INFO, "Impossible to display more rows' " + e.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible display more rows' " + e.getClass().getCanonicalName());
 		}
 	}
 }

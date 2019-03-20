@@ -14,12 +14,6 @@ public abstract class DAO<T> {
 	Logger logger = Logger.getLogger("logger");
 
 	public DAO() {
-		try {
-			p = new JDBCConnectionPool(false);
-			this.con = DataSource.getConnectionFromJDBC(p);
-		} catch (Exception e) {
-			logger.log(Level.INFO, "SGBD connection is impossible " + e.getClass().getCanonicalName());
-		}
 	}
 
 	/**

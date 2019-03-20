@@ -26,7 +26,7 @@ public class InsertionClient extends JFrame {
 	private JTextField nameField;
 	private JTextField lastnameField;
 	private JPasswordField passwordField;
-	static Logger logger = Logger.getLogger("logger");
+	private static Logger logger = Logger.getLogger("logger");
 
 	public InsertionClient() {
 

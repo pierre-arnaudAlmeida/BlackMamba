@@ -30,7 +30,7 @@ public class Connexion extends JFrame {
 	private JPanel pan, pan2, pan3;
 	private Font police;
 	private String idEmployee, password;
-	char[] passwordfield;
+	private char[] passwordfield;
 	private static final Logger logger = LogManager.getLogger(Connexion.class);
 
 	public Connexion() {

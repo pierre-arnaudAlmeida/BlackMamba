@@ -5,70 +5,89 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.sql.SQLException;
+
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
 
 public class TimeServer {
-	// On initialise des valeurs par défaut
+	/**
+	 * Initialization of parameters
+	 */
 	private int port = 2345;
 	private String host = "127.0.0.1";
 	private ServerSocket server = null;
 	private boolean isRunning = true;
+	private static final Logger logger = LogManager.getLogger(TimeServer.class);
 
-	public TimeServer(){
-	      try {
-	         server = new ServerSocket(port, 100, InetAddress.getByName(host));
-	      } catch (UnknownHostException e) {
-	         e.printStackTrace();
-	      } catch (IOException e) {
-	         e.printStackTrace();
-	      }
-	   }
+	/**
+	 * Constructor without parameters
+	 */
+	public TimeServer() {
+		try {
+			server = new ServerSocket(port, 100, InetAddress.getByName(host));
+		} catch (UnknownHostException e) {
+			logger.log(Level.INFO, "IP Host dont find " + e.getClass().getCanonicalName());
+		} catch (IOException e) {
+			logger.log(Level.INFO, "Impossible create the socket" + e.getClass().getCanonicalName());
+		}
+	}
 
-	public TimeServer(String pHost, int pPort){
-	      host = pHost;
-	      port = pPort;
-	      try {
-	         server = new ServerSocket(port, 100, InetAddress.getByName(host));
-	      } catch (UnknownHostException e) {
-	         e.printStackTrace();
-	      } catch (IOException e) {
-	         e.printStackTrace();
-	      }
-	   }
+	/**
+	 * Constructor
+	 * 
+	 * @param Host
+	 * @param Port
+	 */
+	public TimeServer(String pHost, int pPort) {
+		this.host = pHost;
+		this.port = pPort;
+		try {
+			server = new ServerSocket(port, 100, InetAddress.getByName(host));
+		} catch (UnknownHostException e) {
+			logger.log(Level.INFO, "IP Host dont find " + e.getClass().getCanonicalName());
+		} catch (IOException e) {
+			logger.log(Level.INFO, "Impossible create the socket" + e.getClass().getCanonicalName());
+		}
+	}
 
-	// On lance notre serveur
+	/**
+	 * Launch the server Create a thread, and accept the socket if the number of
+	 * connection dont was on maximum
+	 */
 	public void open() {
-
-		// Toujours dans un thread à part vu qu'il est dans une boucle infinie
 		Thread t = new Thread(new Runnable() {
 			public void run() {
+				JDBCConnectionPool pool;
 				while (isRunning == true) {
-
 					try {
-						// On attend une connexion d'un client
+						pool = new JDBCConnectionPool(false);
 						Socket client = server.accept();
-
-						// Une fois reçue, on la traite dans un thread séparé
-						System.out.println("Connexion cliente reçue.");
-						Thread t = new Thread(new ServerProcessor(client));
+						logger.log(Level.INFO, "Client Connection recieved");
+						Thread t = new Thread(new RequestHandler(client, pool));
 						t.start();
-
-					} catch (IOException e) {
-						e.printStackTrace();
+					} catch (IOException | SQLException e) {
+						logger.log(Level.INFO, "Server already launch " + e.getClass().getCanonicalName());
 					}
 				}
-
 				try {
 					server.close();
+					logger.log(Level.INFO, "Server closed");
 				} catch (IOException e) {
-					e.printStackTrace();
+					logger.log(Level.INFO, "Impossible to close server " + e.getClass().getCanonicalName());
 					server = null;
 				}
 			}
 		});
-
 		t.start();
 	}
 
+	/**
+	 * Set false the Socket runner to Close the socket
+	 */
 	public void close() {
 		isRunning = false;
 	}

@@ -70,7 +70,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.blackmamba.deathkiss.ihm.prod.ProdIHM</mainClass>
+							<mainClass>com.blackmamba.deathkiss.gui.prod.ProdGUI</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
