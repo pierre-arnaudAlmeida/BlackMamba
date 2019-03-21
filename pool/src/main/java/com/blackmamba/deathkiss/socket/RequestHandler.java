@@ -25,6 +25,7 @@ public class RequestHandler implements Runnable {
 	private PrintWriter writer = null;
 	private BufferedInputStream reader = null;
 	private ResultSet result = null;
+	private String response;
 	private static final Logger logger = LogManager.getLogger(RequestHandler.class);
 
 	public RequestHandler(Socket pSock, JDBCConnectionPool pool) {
@@ -33,8 +34,7 @@ public class RequestHandler implements Runnable {
 	}
 
 	/**
-	 * Run the Thread
-	 * while the client connection is active they loop
+	 * Run the Thread while the client connection is active they loop
 	 */
 	public void run() {
 		logger.log(Level.INFO, "Launch of treatement of client connection");
@@ -44,18 +44,42 @@ public class RequestHandler implements Runnable {
 				writer = new PrintWriter(sock.getOutputStream(), true);
 				reader = new BufferedInputStream(sock.getInputStream());
 
-				Connection con = DataSource.getConnectionFromJDBC(pool);
-				Statement st = con.createStatement();
-				String sql = "SELECT * FROM Employee";
-				result = st.executeQuery(sql);
-				result.next();
-				String nom = result.getObject(1).toString();
-				writer.write(nom);
-				writer.flush();
-				String a = read();
-				if (a.equals("CLOSE")) {
-					sock.close();
+				response = read();
+				if (response.equals("OPEN")) {
+					Connection con = DataSource.getConnectionFromJDBC(pool);
+					response = "OK FOR CONNECTION";
+					writer.write(response);
+					writer.flush();
+
+					response = read();
+					if (!response.equals("")) {
+						Statement st = con.createStatement();
+						result = st.executeQuery(response);
+						result.next();
+
+						String nom = result.getObject(1).toString();
+						writer.write(nom);
+						writer.flush();
+
+						response = read();
+						if (response.equals("CLOSE")) {
+							sock.close();
+							logger.log(Level.INFO, "Socket Closed by Server");
+						}
+					} else {
+						response = "ERROR";
+						writer.write(response);
+						writer.flush();
+						logger.log(Level.INFO, "Resquest not recognized");
+						
+						response = read();
+						if (response.equals("CLOSE")) {
+							sock.close();
+							logger.log(Level.INFO, "Socket Closed by Server");
+						}
+					}
 				}
+
 			} catch (SQLException | IOException e) {
 				logger.log(Level.INFO, "Impossible to execute the request " + e.getClass().getCanonicalName());
 			}
