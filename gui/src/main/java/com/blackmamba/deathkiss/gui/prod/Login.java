@@ -2,9 +2,9 @@ package com.blackmamba.deathkiss.gui.prod;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,9 +18,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.blackmamba.deathkiss.gui.prod.connectionpool.DataSource;
-import com.blackmamba.deathkiss.gui.prod.connectionpool.JDBCConnectionPool;
-
+import com.blackmamba.deathkiss.entity.Employee;
 
 public class Login extends JFrame {
 	String host = "127.0.0.1";
@@ -31,6 +29,10 @@ public class Login extends JFrame {
 	private JPasswordField passwordField;
 	private ResultSet result = null;
 	private static Logger logger = Logger.getLogger("logger");
+	private String requestType;
+	private List<String> listDatas = new ArrayList<String>();
+	private Employee employee;
+	Object emp;
 
 	public Login() {
 
@@ -71,7 +73,7 @@ public class Login extends JFrame {
 		final JCheckBox showButton = new JCheckBox("Montrer le mot de passe");
 		showButton.setBounds(147, 150, 171, 23);
 		contentPane.add(showButton);
-		
+
 		showButton.addActionListener(new ActionListener() {
 			/**
 			 * Display the content of TextField password employee When we check the CheckBox
@@ -101,10 +103,9 @@ public class Login extends JFrame {
 			 * redirect to a new window if
 			 */
 			public void actionPerformed(ActionEvent e) {
+				requestType = "CONNECTION";
+				employee = new Employee();
 
-				Thread t = new Thread(new ClientSocket(host, port));
-				t.start();
-				
 				String idfield = id_employeeField.getText();
 				char[] password = passwordField.getPassword();
 				String passwordfield = new String(password);
@@ -114,28 +115,19 @@ public class Login extends JFrame {
 							JOptionPane.ERROR_MESSAGE);
 					logger.log(Level.INFO, "Attempt of connection without or with wrong characters");
 				} else {
-					JDBCConnectionPool p;
-					try {
-						p = new JDBCConnectionPool(false);
-						Connection con = DataSource.getConnectionFromJDBC(p);
+					employee.setIdEmployee(Integer.parseInt(idfield));
+					employee.setPassword(passwordfield);
 
-						Statement st = con.createStatement();
-						String sql = "SELECT nom_employee,prenom_employee FROM employee where (" + idfield
-								+ " = id_employee) and ('" + passwordfield + "' = mot_de_passe)";
-						result = st.executeQuery(sql);
-
-						result.next();
-						String nom = result.getObject(1).toString();
-						if (!nom.equals("")) {
-							logger.log(Level.INFO, "Good id employee and good password employee, Connection accepted");
-							InsertionClient frame = new InsertionClient();
-							frame.setVisible(true);
-							setVisible(false);
-							dispose();
-						}
-					} catch (Exception e1) {
-						logger.log(Level.INFO, "Attempt of connection with wrong password employee or id employee "
-								+ e1.getClass().getCanonicalName());
+					Thread t = new Thread(new ClientSocket(host, port, requestType, employee));
+					t.start();
+					if (!employee.getLastnameEmployee().equals("")) {
+						logger.log(Level.INFO, "Good id employee and good password employee, Connection accepted");
+						InsertionClient frame = new InsertionClient();
+						frame.setVisible(true);
+						setVisible(false);
+						dispose();
+					} else {
+						logger.log(Level.INFO, "Attempt of connection with wrong password employee or id employee");
 						JOptionPane.showMessageDialog(null, "L'identifiant ou le mot de passe est incorrect", "Erreur",
 								JOptionPane.ERROR_MESSAGE);
 					}

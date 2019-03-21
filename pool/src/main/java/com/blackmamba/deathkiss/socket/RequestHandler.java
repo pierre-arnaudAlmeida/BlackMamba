@@ -53,14 +53,17 @@ public class RequestHandler implements Runnable {
 
 					response = read();
 					if (!response.equals("")) {
+						logger.log(Level.INFO, "Request received on server");
 						Statement st = con.createStatement();
+						response = "SELECT * FROM Employee";
 						result = st.executeQuery(response);
 						result.next();
 
-						String nom = result.getObject(1).toString();
+						String nom = result.getObject(2).toString();
 						writer.write(nom);
 						writer.flush();
-
+						logger.log(Level.INFO, "Request send to client");
+						
 						response = read();
 						if (response.equals("CLOSE")) {
 							sock.close();
