@@ -57,7 +57,7 @@ public class MainServerGUI extends JFrame {
 								heure++;
 							}
 							time.setText(heure + ":" + minute + ":" + seconde);
-							logger.log(Level.INFO, heure + ":" + minute + ":" + seconde);
+							logger.log(Level.INFO, "Time launched : "+heure + ":" + minute + ":" + seconde);
 						}
 					};
 					final Timer timer1 = new Timer(delais, tache_timer);
