@@ -1,10 +1,7 @@
 package com.blackmamba.deathkiss.dao;
 
 import java.sql.Connection;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.blackmamba.deathkiss.connectionpool.DataSource;
 import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
 
 public abstract class DAO<T> {

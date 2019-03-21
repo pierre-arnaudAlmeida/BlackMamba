@@ -159,3 +159,14 @@
 2019-03-20 20:52:46 [main] INFO  DataSourceTest:50 - Insertion in SGBD failed java.sql.SQLException
 2019-03-20 20:52:56 [main] INFO  DataSourceTest:105 - Delete in SGBD failed java.sql.SQLException
 2019-03-20 20:53:06 [main] INFO  DataSourceTest:178 - Connection 1 and connection 2 are an unique connectionjava.sql.SQLException
+2019-03-21 17:36:47 [main] INFO  DataSourceTest:139 - Close all connection failed java.sql.SQLException
+2019-03-21 17:36:57 [main] INFO  DataSourceTest:227 - Limit reached, no available connection java.sql.SQLException
+2019-03-21 17:37:07 [main] INFO  DataSourceTest:205 - Limit reached, no available connection java.sql.SQLException
+2019-03-21 17:37:17 [main] INFO  DataSourceTest:122 - Return Connection failed java.sql.SQLException
+2019-03-21 17:37:27 [main] INFO  DataSourceTest:161 - Connection dont increase normaly java.sql.SQLException
+2019-03-21 17:37:37 [main] INFO  DataSourceTest:87 - Update in SGBD failed java.sql.SQLException
+2019-03-21 17:37:47 [main] INFO  DataSourceTest:69 - Data recovery in SGBD failed java.sql.SQLException
+2019-03-21 17:37:57 [main] INFO  DataSourceTest:32 - SGBD connection is impossible java.sql.SQLException
+2019-03-21 17:38:07 [main] INFO  DataSourceTest:50 - Insertion in SGBD failed java.sql.SQLException
+2019-03-21 17:38:17 [main] INFO  DataSourceTest:105 - Delete in SGBD failed java.sql.SQLException
+2019-03-21 17:38:27 [main] INFO  DataSourceTest:178 - Connection 1 and connection 2 are an unique connectionjava.sql.SQLException

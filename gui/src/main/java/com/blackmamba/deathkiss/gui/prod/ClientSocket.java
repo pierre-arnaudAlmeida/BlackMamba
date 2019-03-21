@@ -10,8 +10,6 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.blackmamba.deathkiss.socket.MainServerGUI;
-
 public class ClientSocket implements Runnable {
 	private Socket connexion = null;
 	private PrintWriter writer = null;
@@ -19,19 +17,13 @@ public class ClientSocket implements Runnable {
 	private static final Logger logger = LogManager.getLogger(ClientSocket.class);
 	private String response;
 
-	// Notre liste de commandes. Le serveur nous répondra différemment selon la
-	// commande utilisée.
-	private static int count = 0;
-	private String name = "Client-";
-
 	public ClientSocket(String host, int port) {
-		name += ++count;
 		try {
 			connexion = new Socket(host, port);
 		} catch (UnknownHostException e) {
-			e.printStackTrace();
+			logger.log(Level.INFO, "IP Host dont find " + e.getClass().getCanonicalName());
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.log(Level.INFO, "Impossible create the socket" + e.getClass().getCanonicalName());
 		}
 	}
 
@@ -59,11 +51,11 @@ public class ClientSocket implements Runnable {
 				response = read();
 				if (!response.equals("ERROR")) {
 					logger.log(Level.INFO, response);
-					
+
 					response = "CLOSE";
 					writer.write(response);
 					writer.flush();
-					
+
 					logger.log(Level.INFO, "Command CLOSE connection send to server");
 					writer.close();
 					logger.log(Level.INFO, "Connection Closed by client");

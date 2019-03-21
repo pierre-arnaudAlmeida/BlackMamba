@@ -340,3 +340,14 @@
 2019-03-21 16:30:56 [AWT-EventQueue-0] INFO  MainServerGUI:60 - Time launched : 0:0:3
 2019-03-21 16:30:56 [AWT-EventQueue-0] INFO  MainServerGUI:79 - Server Closed
 2019-03-21 16:30:56 [AWT-EventQueue-0] INFO  MainServerGUI:80 - Application closed
+2019-03-21 17:34:38 [main] INFO  DataSourceTest:139 - Close all connection failed java.sql.SQLException
+2019-03-21 17:34:48 [main] INFO  DataSourceTest:227 - Limit reached, no available connection java.sql.SQLException
+2019-03-21 17:34:58 [main] INFO  DataSourceTest:205 - Limit reached, no available connection java.sql.SQLException
+2019-03-21 17:35:08 [main] INFO  DataSourceTest:122 - Return Connection failed java.sql.SQLException
+2019-03-21 17:35:18 [main] INFO  DataSourceTest:161 - Connection dont increase normaly java.sql.SQLException
+2019-03-21 17:35:28 [main] INFO  DataSourceTest:87 - Update in SGBD failed java.sql.SQLException
+2019-03-21 17:35:38 [main] INFO  DataSourceTest:69 - Data recovery in SGBD failed java.sql.SQLException
+2019-03-21 17:35:48 [main] INFO  DataSourceTest:32 - SGBD connection is impossible java.sql.SQLException
+2019-03-21 17:35:58 [main] INFO  DataSourceTest:50 - Insertion in SGBD failed java.sql.SQLException
+2019-03-21 17:36:08 [main] INFO  DataSourceTest:105 - Delete in SGBD failed java.sql.SQLException
+2019-03-21 17:36:18 [main] INFO  DataSourceTest:178 - Connection 1 and connection 2 are an unique connectionjava.sql.SQLException
