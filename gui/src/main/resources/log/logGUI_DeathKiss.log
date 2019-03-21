@@ -159,3 +159,130 @@
 2019-03-20 20:52:46 [main] INFO  DataSourceTest:50 - Insertion in SGBD failed java.sql.SQLException
 2019-03-20 20:52:56 [main] INFO  DataSourceTest:105 - Delete in SGBD failed java.sql.SQLException
 2019-03-20 20:53:06 [main] INFO  DataSourceTest:178 - Connection 1 and connection 2 are an unique connectionjava.sql.SQLException
+2019-03-21 17:36:47 [main] INFO  DataSourceTest:139 - Close all connection failed java.sql.SQLException
+2019-03-21 17:36:57 [main] INFO  DataSourceTest:227 - Limit reached, no available connection java.sql.SQLException
+2019-03-21 17:37:07 [main] INFO  DataSourceTest:205 - Limit reached, no available connection java.sql.SQLException
+2019-03-21 17:37:17 [main] INFO  DataSourceTest:122 - Return Connection failed java.sql.SQLException
+2019-03-21 17:37:27 [main] INFO  DataSourceTest:161 - Connection dont increase normaly java.sql.SQLException
+2019-03-21 17:37:37 [main] INFO  DataSourceTest:87 - Update in SGBD failed java.sql.SQLException
+2019-03-21 17:37:47 [main] INFO  DataSourceTest:69 - Data recovery in SGBD failed java.sql.SQLException
+2019-03-21 17:37:57 [main] INFO  DataSourceTest:32 - SGBD connection is impossible java.sql.SQLException
+2019-03-21 17:38:07 [main] INFO  DataSourceTest:50 - Insertion in SGBD failed java.sql.SQLException
+2019-03-21 17:38:17 [main] INFO  DataSourceTest:105 - Delete in SGBD failed java.sql.SQLException
+2019-03-21 17:38:27 [main] INFO  DataSourceTest:178 - Connection 1 and connection 2 are an unique connectionjava.sql.SQLException
+2019-03-21 19:39:01 [main] INFO  DataSourceTest:137 - All connection are closed 
+2019-03-21 19:39:02 [main] INFO  DataSourceTest:224 - Connection 1 done
+2019-03-21 19:39:03 [main] INFO  DataSourceTest:224 - Connection 2 done
+2019-03-21 19:39:04 [main] INFO  DataSourceTest:224 - Connection 3 done
+2019-03-21 19:39:04 [main] INFO  DataSourceTest:227 - Limit reached, no available connection java.sql.SQLException
+2019-03-21 19:39:05 [main] INFO  DataSourceTest:194 - Connection 1 done
+2019-03-21 19:39:06 [main] INFO  DataSourceTest:197 - Connection 2 done
+2019-03-21 19:39:07 [main] INFO  DataSourceTest:200 - Connection 3 done
+2019-03-21 19:39:07 [main] INFO  DataSourceTest:205 - Limit reached, no available connection java.sql.SQLException
+2019-03-21 19:39:08 [main] INFO  DataSourceTest:120 - Return Connection succed 
+2019-03-21 19:39:09 [main] INFO  DataSourceTest:153 - Number of Connection is 1
+2019-03-21 19:39:11 [main] INFO  DataSourceTest:159 - Number of Connection increased to 3
+2019-03-21 19:39:12 [main] INFO  DataSourceTest:85 - Update in SGBD succed 
+2019-03-21 19:39:13 [main] INFO  DataSourceTest:67 - Data recovery in SGBD succed 
+2019-03-21 19:39:13 [main] INFO  DataSourceTest:30 - Connection succed 
+2019-03-21 19:39:15 [main] INFO  DataSourceTest:48 - Insertion in SGBD succed 
+2019-03-21 19:39:16 [main] INFO  DataSourceTest:103 - Delete in SGBD succed 
+2019-03-21 19:39:18 [main] INFO  DataSourceTest:176 - Connection 1 and connection 2 are different
+2019-03-21 19:41:07 [Thread-3] INFO  ClientSocket:42 - Command OPEN connection send to server
+2019-03-21 19:41:07 [Thread-3] INFO  ClientSocket:49 - Request Send to server
+2019-03-21 19:41:07 [Thread-3] INFO  ClientSocket:53 - 5
+2019-03-21 19:41:07 [Thread-3] INFO  ClientSocket:59 - Command CLOSE connection send to server
+2019-03-21 19:41:07 [Thread-3] INFO  ClientSocket:61 - Connection Closed by client
+2019-03-21 21:13:56 [main] INFO  DataSourceTest:137 - All connection are closed 
+2019-03-21 21:13:57 [main] INFO  DataSourceTest:224 - Connection 1 done
+2019-03-21 21:13:58 [main] INFO  DataSourceTest:224 - Connection 2 done
+2019-03-21 21:13:58 [main] INFO  DataSourceTest:224 - Connection 3 done
+2019-03-21 21:13:58 [main] INFO  DataSourceTest:227 - Limit reached, no available connection java.sql.SQLException
+2019-03-21 21:13:59 [main] INFO  DataSourceTest:194 - Connection 1 done
+2019-03-21 21:14:00 [main] INFO  DataSourceTest:197 - Connection 2 done
+2019-03-21 21:14:01 [main] INFO  DataSourceTest:200 - Connection 3 done
+2019-03-21 21:14:01 [main] INFO  DataSourceTest:205 - Limit reached, no available connection java.sql.SQLException
+2019-03-21 21:14:01 [main] INFO  DataSourceTest:120 - Return Connection succed 
+2019-03-21 21:14:02 [main] INFO  DataSourceTest:153 - Number of Connection is 1
+2019-03-21 21:14:04 [main] INFO  DataSourceTest:159 - Number of Connection increased to 3
+2019-03-21 21:14:05 [main] INFO  DataSourceTest:85 - Update in SGBD succed 
+2019-03-21 21:14:05 [main] INFO  DataSourceTest:67 - Data recovery in SGBD succed 
+2019-03-21 21:14:06 [main] INFO  DataSourceTest:30 - Connection succed 
+2019-03-21 21:14:07 [main] INFO  DataSourceTest:48 - Insertion in SGBD succed 
+2019-03-21 21:14:08 [main] INFO  DataSourceTest:103 - Delete in SGBD succed 
+2019-03-21 21:14:10 [main] INFO  DataSourceTest:176 - Connection 1 and connection 2 are different
+2019-03-21 21:16:27 [Thread-3] INFO  ClientSocket:49 - Command OPEN connection send to server
+2019-03-21 21:16:27 [Thread-3] INFO  ClientSocket:64 - Request Send to server
+2019-03-21 21:16:27 [Thread-3] INFO  ClientSocket:68 - root
+2019-03-21 21:16:27 [Thread-3] INFO  ClientSocket:74 - Command CLOSE connection send to server
+2019-03-21 21:16:27 [Thread-3] INFO  ClientSocket:76 - Connection Closed by client
+2019-03-21 21:27:52 [Thread-3] INFO  ClientSocket:50 - Command OPEN connection send to server
+2019-03-21 21:27:53 [Thread-3] INFO  ClientSocket:64 - Request Send to server
+2019-03-21 21:27:53 [Thread-3] INFO  ClientSocket:69 - root
+2019-03-21 21:27:53 [Thread-3] INFO  ClientSocket:75 - Command CLOSE connection send to server
+2019-03-21 21:27:53 [Thread-3] INFO  ClientSocket:77 - Connection Closed by client
+2019-03-21 21:28:02 [Thread-4] INFO  ClientSocket:50 - Command OPEN connection send to server
+2019-03-21 21:28:02 [Thread-4] INFO  ClientSocket:64 - Request Send to server
+2019-03-21 21:28:02 [Thread-4] INFO  ClientSocket:69 - root
+2019-03-21 21:28:02 [Thread-4] INFO  ClientSocket:75 - Command CLOSE connection send to server
+2019-03-21 21:28:02 [Thread-4] INFO  ClientSocket:77 - Connection Closed by client
+2019-03-21 21:30:00 [Thread-3] INFO  ClientSocket:50 - Command OPEN connection send to server
+2019-03-21 21:30:01 [Thread-3] INFO  ClientSocket:64 - Request Send to server
+2019-03-21 21:30:01 [Thread-3] INFO  ClientSocket:68 - root
+2019-03-21 21:30:01 [Thread-3] INFO  ClientSocket:74 - Command CLOSE connection send to server
+2019-03-21 21:30:01 [Thread-3] INFO  ClientSocket:76 - Connection Closed by client
+2019-03-21 21:54:11 [Thread-3] INFO  ClientSocket:53 - Command OPEN connection send to server
+2019-03-21 21:54:11 [Thread-3] INFO  ClientSocket:67 - Request Send to server
+2019-03-21 21:54:11 [Thread-3] INFO  ClientSocket:71 - root
+2019-03-21 21:54:11 [Thread-3] INFO  ClientSocket:79 - Command CLOSE connection send to server
+2019-03-21 21:54:11 [Thread-3] INFO  ClientSocket:81 - Connection Closed by client
+2019-03-21 21:56:07 [Thread-3] INFO  ClientSocket:53 - Command OPEN connection send to server
+2019-03-21 21:56:07 [Thread-3] INFO  ClientSocket:67 - Request Send to server
+2019-03-21 21:56:07 [Thread-3] INFO  ClientSocket:71 - root
+2019-03-21 21:56:07 [Thread-3] INFO  ClientSocket:79 - Command CLOSE connection send to server
+2019-03-21 21:56:07 [Thread-3] INFO  ClientSocket:81 - Connection Closed by client
+2019-03-21 21:56:42 [Thread-3] INFO  ClientSocket:53 - Command OPEN connection send to server
+2019-03-21 21:56:43 [Thread-3] INFO  ClientSocket:67 - Request Send to server
+2019-03-21 21:56:43 [Thread-3] INFO  ClientSocket:71 - root
+2019-03-21 21:56:43 [Thread-3] INFO  ClientSocket:79 - Command CLOSE connection send to server
+2019-03-21 21:56:43 [Thread-3] INFO  ClientSocket:81 - Connection Closed by client
+2019-03-21 21:58:03 [Thread-3] INFO  ClientSocket:53 - Command OPEN connection send to server
+2019-03-21 21:58:03 [Thread-3] INFO  ClientSocket:67 - Request Send to server
+2019-03-21 21:58:03 [Thread-3] INFO  ClientSocket:71 - root
+2019-03-21 21:58:03 [Thread-3] INFO  ClientSocket:79 - Command CLOSE connection send to server
+2019-03-21 21:58:03 [Thread-3] INFO  ClientSocket:81 - Connection Closed by client
+2019-03-21 21:59:39 [Thread-3] INFO  ClientSocket:53 - Command OPEN connection send to server
+2019-03-21 21:59:39 [Thread-3] INFO  ClientSocket:67 - Request Send to server
+2019-03-21 21:59:39 [Thread-3] INFO  ClientSocket:71 - root
+2019-03-21 21:59:39 [Thread-3] INFO  ClientSocket:79 - Command CLOSE connection send to server
+2019-03-21 21:59:39 [Thread-3] INFO  ClientSocket:81 - Connection Closed by client
+2019-03-21 22:02:03 [Thread-3] INFO  ClientSocket:53 - Command OPEN connection send to server
+2019-03-21 22:02:04 [Thread-3] INFO  ClientSocket:67 - Request Send to server
+2019-03-21 22:02:04 [Thread-3] INFO  ClientSocket:71 - root
+2019-03-21 22:02:04 [Thread-3] INFO  ClientSocket:79 - Command CLOSE connection send to server
+2019-03-21 22:02:04 [Thread-3] INFO  ClientSocket:81 - Connection Closed by client
+2019-03-21 22:04:00 [Thread-3] INFO  ClientSocket:53 - Command OPEN connection send to server
+2019-03-21 22:04:00 [Thread-3] INFO  ClientSocket:67 - Request Send to server
+2019-03-21 22:04:00 [Thread-3] INFO  ClientSocket:71 - root
+2019-03-21 22:04:00 [Thread-3] INFO  ClientSocket:79 - Command CLOSE connection send to server
+2019-03-21 22:04:00 [Thread-3] INFO  ClientSocket:81 - Connection Closed by client
+2019-03-21 22:04:56 [Thread-3] INFO  ClientSocket:53 - Command OPEN connection send to server
+2019-03-21 22:04:56 [Thread-3] INFO  ClientSocket:67 - Request Send to server
+2019-03-21 22:04:56 [Thread-3] INFO  ClientSocket:71 - root
+2019-03-21 22:04:56 [Thread-3] INFO  ClientSocket:79 - Command CLOSE connection send to server
+2019-03-21 22:04:56 [Thread-3] INFO  ClientSocket:81 - Connection Closed by client
+2019-03-21 22:05:46 [Thread-3] INFO  ClientSocket:53 - Command OPEN connection send to server
+2019-03-21 22:05:46 [Thread-3] INFO  ClientSocket:67 - Request Send to server
+2019-03-21 22:05:46 [Thread-3] INFO  ClientSocket:71 - root
+2019-03-21 22:05:46 [Thread-3] INFO  ClientSocket:79 - Command CLOSE connection send to server
+2019-03-21 22:05:46 [Thread-3] INFO  ClientSocket:81 - Connection Closed by client
+2019-03-21 22:07:54 [Thread-3] INFO  ClientSocket:53 - Command OPEN connection send to server
+2019-03-21 22:07:55 [Thread-3] INFO  ClientSocket:67 - Request Send to server
+2019-03-21 22:07:55 [Thread-3] INFO  ClientSocket:71 - root
+2019-03-21 22:07:55 [Thread-3] INFO  ClientSocket:79 - Command CLOSE connection send to server
+2019-03-21 22:07:55 [Thread-3] INFO  ClientSocket:81 - Connection Closed by client
+2019-03-21 22:09:30 [Thread-3] INFO  ClientSocket:53 - Command OPEN connection send to server
+2019-03-21 22:09:31 [Thread-3] INFO  ClientSocket:67 - Request Send to server
+2019-03-21 22:09:31 [Thread-3] INFO  ClientSocket:71 - root
+2019-03-21 22:09:31 [Thread-3] INFO  ClientSocket:79 - Command CLOSE connection send to server
+2019-03-21 22:09:31 [Thread-3] INFO  ClientSocket:81 - Connection Closed by client

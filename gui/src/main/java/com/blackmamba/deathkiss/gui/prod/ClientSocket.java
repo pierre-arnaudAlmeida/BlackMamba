@@ -1,6 +1,7 @@
 package com.blackmamba.deathkiss.gui.prod;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -10,28 +11,30 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.blackmamba.deathkiss.socket.MainServerGUI;
+import com.blackmamba.deathkiss.entity.Employee;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ClientSocket implements Runnable {
+
 	private Socket connexion = null;
 	private PrintWriter writer = null;
 	private BufferedInputStream reader = null;
 	private static final Logger logger = LogManager.getLogger(ClientSocket.class);
 	private String response;
+	private String requestType;
+	private Object object;
+	BufferedWriter buffer = null;
+	static Employee emp = new Employee();
 
-	// Notre liste de commandes. Le serveur nous répondra différemment selon la
-	// commande utilisée.
-	private static int count = 0;
-	private String name = "Client-";
-
-	public ClientSocket(String host, int port) {
-		name += ++count;
+	public ClientSocket(String host, int port, String requestType, Object object) {
+		this.requestType = requestType;
+		this.object = object;
 		try {
 			connexion = new Socket(host, port);
 		} catch (UnknownHostException e) {
-			e.printStackTrace();
+			logger.log(Level.INFO, "IP Host dont find " + e.getClass().getCanonicalName());
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.log(Level.INFO, "Impossible create the socket" + e.getClass().getCanonicalName());
 		}
 	}
 
@@ -51,7 +54,14 @@ public class ClientSocket implements Runnable {
 
 			response = read();
 			if (response.equals("OK FOR CONNECTION")) {
-				response = "SELECT * FROM Employee";
+				switch (this.requestType) {
+				case "CONNECTION":
+					ObjectMapper connectionMapper = new ObjectMapper();
+					response = connectionMapper.writeValueAsString(object);
+					break;
+				default:
+					response = "";
+				}
 				writer.write(response);
 				writer.flush();
 				logger.log(Level.INFO, "Request Send to server");
@@ -59,11 +69,11 @@ public class ClientSocket implements Runnable {
 				response = read();
 				if (!response.equals("ERROR")) {
 					logger.log(Level.INFO, response);
-					
+
 					response = "CLOSE";
 					writer.write(response);
 					writer.flush();
-					
+
 					logger.log(Level.INFO, "Command CLOSE connection send to server");
 					writer.close();
 					logger.log(Level.INFO, "Connection Closed by client");
