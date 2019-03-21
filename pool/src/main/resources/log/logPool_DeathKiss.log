@@ -220,3 +220,110 @@
 2019-03-20 20:50:28 [main] INFO  DataSourceTest:50 - Insertion in SGBD failed java.sql.SQLException
 2019-03-20 20:50:38 [main] INFO  DataSourceTest:105 - Delete in SGBD failed java.sql.SQLException
 2019-03-20 20:50:48 [main] INFO  DataSourceTest:178 - Connection 1 and connection 2 are an unique connectionjava.sql.SQLException
+2019-03-21 16:15:06 [AWT-EventQueue-0] INFO  MainServerGUI:51 - Server Initialized
+2019-03-21 16:15:13 [AWT-EventQueue-0] INFO  MainServerGUI:80 - Server already launch
+2019-03-21 16:15:16 [AWT-EventQueue-0] INFO  MainServerGUI:80 - Server already launch
+2019-03-21 16:15:16 [Thread-3] INFO  TimeServer:73 - Server already launch java.sql.SQLException
+2019-03-21 16:15:16 [AWT-EventQueue-0] INFO  MainServerGUI:80 - Server already launch
+2019-03-21 16:15:17 [AWT-EventQueue-0] INFO  MainServerGUI:80 - Server already launch
+2019-03-21 16:15:19 [AWT-EventQueue-0] INFO  MainServerGUI:92 - Server Closed
+2019-03-21 16:15:19 [AWT-EventQueue-0] INFO  MainServerGUI:93 - Application closed
+2019-03-21 16:17:10 [AWT-EventQueue-0] INFO  MainServerGUI:42 - Server Initialized
+2019-03-21 16:17:12 [AWT-EventQueue-0] INFO  MainServerGUI:84 - Server Closed
+2019-03-21 16:17:12 [AWT-EventQueue-0] INFO  MainServerGUI:85 - Application closed
+2019-03-21 16:18:11 [AWT-EventQueue-0] INFO  MainServerGUI:42 - Server Initialized
+2019-03-21 16:18:21 [Thread-3] INFO  TimeServer:73 - Server already launch java.sql.SQLException
+2019-03-21 16:18:28 [AWT-EventQueue-0] INFO  MainServerGUI:72 - Server already launch
+2019-03-21 16:18:31 [Thread-3] INFO  TimeServer:73 - Server already launch java.sql.SQLException
+2019-03-21 16:18:32 [AWT-EventQueue-0] INFO  MainServerGUI:84 - Server Closed
+2019-03-21 16:18:32 [AWT-EventQueue-0] INFO  MainServerGUI:85 - Application closed
+2019-03-21 16:19:41 [AWT-EventQueue-0] INFO  MainServerGUI:42 - Server Initialized
+2019-03-21 16:19:42 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:1
+2019-03-21 16:19:43 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:2
+2019-03-21 16:19:44 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:3
+2019-03-21 16:19:45 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:4
+2019-03-21 16:19:46 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:5
+2019-03-21 16:19:47 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:6
+2019-03-21 16:19:48 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:7
+2019-03-21 16:19:49 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:8
+2019-03-21 16:19:50 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:9
+2019-03-21 16:19:51 [Thread-3] INFO  TimeServer:73 - Server already launch java.sql.SQLException
+2019-03-21 16:19:51 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:10
+2019-03-21 16:19:52 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:11
+2019-03-21 16:19:53 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:12
+2019-03-21 16:19:54 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:13
+2019-03-21 16:19:55 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:14
+2019-03-21 16:19:56 [AWT-EventQueue-0] INFO  MainServerGUI:76 - Server Closed
+2019-03-21 16:19:56 [AWT-EventQueue-0] INFO  MainServerGUI:77 - Application closed
+2019-03-21 16:20:00 [AWT-EventQueue-0] INFO  MainServerGUI:42 - Server Initialized
+2019-03-21 16:20:01 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:1
+2019-03-21 16:20:02 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:2
+2019-03-21 16:20:03 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:3
+2019-03-21 16:20:04 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:4
+2019-03-21 16:20:05 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:5
+2019-03-21 16:20:06 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:6
+2019-03-21 16:20:07 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:7
+2019-03-21 16:20:08 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:8
+2019-03-21 16:20:09 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:9
+2019-03-21 16:20:10 [Thread-3] INFO  TimeServer:73 - Server already launch java.sql.SQLException
+2019-03-21 16:20:10 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:10
+2019-03-21 16:20:11 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:11
+2019-03-21 16:20:12 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:12
+2019-03-21 16:20:13 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:13
+2019-03-21 16:20:14 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:14
+2019-03-21 16:20:15 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:15
+2019-03-21 16:20:16 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:16
+2019-03-21 16:20:17 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:17
+2019-03-21 16:20:18 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:18
+2019-03-21 16:20:19 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:19
+2019-03-21 16:20:20 [Thread-3] INFO  TimeServer:73 - Server already launch java.sql.SQLException
+2019-03-21 16:20:20 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:20
+2019-03-21 16:20:21 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:21
+2019-03-21 16:20:22 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:22
+2019-03-21 16:20:23 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:23
+2019-03-21 16:20:24 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:24
+2019-03-21 16:20:25 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:25
+2019-03-21 16:20:26 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:26
+2019-03-21 16:20:27 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:27
+2019-03-21 16:20:28 [AWT-EventQueue-0] INFO  MainServerGUI:76 - Server Closed
+2019-03-21 16:20:28 [AWT-EventQueue-0] INFO  MainServerGUI:77 - Application closed
+2019-03-21 16:21:08 [AWT-EventQueue-0] INFO  MainServerGUI:42 - Server Initialized
+2019-03-21 16:21:09 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:1
+2019-03-21 16:21:10 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:2
+2019-03-21 16:21:11 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:3
+2019-03-21 16:21:12 [AWT-EventQueue-0] INFO  MainServerGUI:57 - 0:0:4
+2019-03-21 16:21:12 [AWT-EventQueue-0] INFO  MainServerGUI:76 - Server Closed
+2019-03-21 16:21:12 [AWT-EventQueue-0] INFO  MainServerGUI:77 - Application closed
+2019-03-21 16:24:16 [AWT-EventQueue-0] INFO  MainServerGUI:42 - Server Initialized
+2019-03-21 16:24:17 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:1
+2019-03-21 16:24:18 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:2
+2019-03-21 16:24:19 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:3
+2019-03-21 16:24:20 [AWT-EventQueue-0] INFO  MainServerGUI:67 - Server already launch
+2019-03-21 16:24:20 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:4
+2019-03-21 16:24:21 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:5
+2019-03-21 16:24:22 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:6
+2019-03-21 16:24:23 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:7
+2019-03-21 16:24:24 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:8
+2019-03-21 16:24:25 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:9
+2019-03-21 16:24:26 [Thread-3] INFO  TimeServer:73 - Server deja launch java.sql.SQLException
+2019-03-21 16:24:26 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:10
+2019-03-21 16:24:27 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:11
+2019-03-21 16:24:28 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:12
+2019-03-21 16:24:28 [AWT-EventQueue-0] INFO  MainServerGUI:79 - Server Closed
+2019-03-21 16:24:28 [AWT-EventQueue-0] INFO  MainServerGUI:80 - Application closed
+2019-03-21 16:25:21 [AWT-EventQueue-0] INFO  MainServerGUI:42 - Server Initialized
+2019-03-21 16:25:22 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:1
+2019-03-21 16:25:23 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:2
+2019-03-21 16:25:24 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:3
+2019-03-21 16:25:25 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:4
+2019-03-21 16:25:26 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:5
+2019-03-21 16:25:27 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:6
+2019-03-21 16:25:28 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:7
+2019-03-21 16:25:29 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:8
+2019-03-21 16:25:30 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:9
+2019-03-21 16:25:32 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:10
+2019-03-21 16:25:33 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:11
+2019-03-21 16:25:34 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:12
+2019-03-21 16:25:35 [AWT-EventQueue-0] INFO  MainServerGUI:60 - 0:0:13
+2019-03-21 16:25:35 [AWT-EventQueue-0] INFO  MainServerGUI:79 - Server Closed
+2019-03-21 16:25:35 [AWT-EventQueue-0] INFO  MainServerGUI:80 - Application closed
