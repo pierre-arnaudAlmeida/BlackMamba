@@ -70,7 +70,6 @@ public class TimeServer {
 						Thread t = new Thread(new RequestHandler(client, pool));
 						t.start();
 					} catch (IOException | SQLException e) {
-						logger.log(Level.INFO, "Server already launch " + e.getClass().getCanonicalName());
 					}
 				}
 				try {
