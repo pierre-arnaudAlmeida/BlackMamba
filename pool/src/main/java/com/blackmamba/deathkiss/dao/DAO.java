@@ -2,15 +2,15 @@ package com.blackmamba.deathkiss.dao;
 
 import java.sql.Connection;
 import java.util.logging.Logger;
-import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
 
 public abstract class DAO<T> {
 
 	protected Connection con = null;
-	JDBCConnectionPool p;
+	
 	Logger logger = Logger.getLogger("logger");
 
-	public DAO() {
+	public DAO(Connection connection) {
+		this.con=connection;
 	}
 
 	/**

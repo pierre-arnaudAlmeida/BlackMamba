@@ -15,6 +15,8 @@ import org.apache.logging.log4j.Logger;
 
 import com.blackmamba.deathkiss.connectionpool.DataSource;
 import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
+import com.blackmamba.deathkiss.dao.DAO;
+import com.blackmamba.deathkiss.dao.EmployeeDAO;
 import com.blackmamba.deathkiss.entity.Employee;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -66,26 +68,12 @@ public class RequestHandler implements Runnable {
 							response = read();
 							if (!response.equals("")) {
 								logger.log(Level.INFO, "Request received on server");
-								////////////// CODE A METTRE DANS LE EMPLOYEE DAO POUR LA
-								////////////// CONNECTION//////////////////////
-								Statement st = con.createStatement();
-								response = "SELECT * FROM Employee";
-								result = st.executeQuery(response);
-								result.next();
 
-								Employee em = new Employee();
-								em.setIdEmployee(Integer.parseInt(result.getObject(1).toString()));
-								em.setLastnameEmployee(result.getObject(2).toString());
-								em.setNameEmployee(result.getObject(3).toString());
-								em.setPassword(result.getObject(4).toString());
-								em.setPoste(result.getObject(5).toString());
-								ObjectMapper obj = new ObjectMapper();
-								jsonString = obj.writeValueAsString(em);
-								////////////////////////////////////////////////////////////////////////////////////////
+								DAO<Employee> employeeDao = new EmployeeDAO(DataSource.getConnectionFromJDBC(pool));
+								jsonString = ((EmployeeDAO) employeeDao).connection(response);
 								writer.write(jsonString);
 								writer.flush();
 								logger.log(Level.INFO, "Response send to client");
-								/////////////////////////////////////////////////////////////////////////////////////////
 							} else {
 								logger.log(Level.INFO, "Request not recognized");
 							}

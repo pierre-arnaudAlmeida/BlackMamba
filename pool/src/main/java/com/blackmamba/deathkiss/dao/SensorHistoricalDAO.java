@@ -1,11 +1,13 @@
 package com.blackmamba.deathkiss.dao;
 
+import java.sql.Connection;
+
 import com.blackmamba.deathkiss.entity.SensorHistorical;
 
 public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 
-	public SensorHistoricalDAO() {
-		super();
+	public SensorHistoricalDAO(Connection con) {
+		super(con);
 	}
 
 	@Override
