@@ -20,8 +20,6 @@ import com.blackmamba.deathkiss.entity.Employee;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Login extends JFrame {
-	String host = "127.0.0.1";
-	int port = 2345;
 	// Definition of differents fields
 	private JPanel contentPane;
 	private JTextField id_employeeField;
@@ -119,7 +117,7 @@ public class Login extends JFrame {
 					ObjectMapper connectionMapper = new ObjectMapper();
 					try { 
 						jsonString = connectionMapper.writeValueAsString(employee);
-						new ClientSocket(host, port, requestType, jsonString, table);
+						new ClientSocket(requestType, jsonString, table);
 						jsonString = ClientSocket.getJson();
 						employee = connectionMapper.readValue(jsonString, Employee.class);
 					} catch (IOException e1) {

@@ -31,6 +31,7 @@ public class RequestHandler implements Runnable {
 	private String jsonString;
 	private ObjectMapper objectMapper;
 	private JsonNode jsonNode;
+	private boolean result;
 
 	public RequestHandler(Socket pSock, JDBCConnectionPool pool) {
 		this.sock = pSock;
@@ -88,8 +89,9 @@ public class RequestHandler implements Runnable {
 							case "Employee":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									// TODO
-									// Mettre les methode comme pour la connexion
+									DAO<Employee> employeeDao = new EmployeeDAO(DataSource.getConnectionFromJDBC(pool));
+									result = ((EmployeeDAO) employeeDao).create(response);
+									jsonString = "INSERTED";
 									writer.write(jsonString);
 									writer.flush();
 									logger.log(Level.INFO, "Response send to client");

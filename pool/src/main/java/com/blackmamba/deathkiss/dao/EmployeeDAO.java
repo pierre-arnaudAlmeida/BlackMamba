@@ -30,10 +30,16 @@ public class EmployeeDAO extends DAO<Employee> {
 		try {
 			Statement st = con.createStatement();
 			Employee employee = objectMapper.readValue(jsonString, Employee.class);
-		}catch(IOException | SQLException e) {
-			
+			request = "insert into employee (nom_employee, prenom_employee, mot_de_passe, poste) values ('"
+					+ employee.getLastnameEmployee() + "','" + employee.getNameEmployee() + "','"
+					+ employee.getPassword() + "','" + employee.getPoste() + "')";
+			st.executeQuery(request);
+			logger.log(Level.INFO, "User succesfully inserted in BDD");
+			return true;
+		} catch (IOException | SQLException e) {
+			logger.log(Level.INFO, "Impossible to insert data in BDD" + e.getClass().getCanonicalName());
+			return false;
 		}
-		return false;
 	}
 
 	@Override
