@@ -390,3 +390,14 @@
 2019-03-22 11:19:29 [AWT-EventQueue-0] INFO  ClientSocket:56 - {"idEmployee":5,"lastnameEmployee":"Almeida","nameEmployee":"arnaud","password":"root","poste":"PDG"}
 2019-03-22 11:19:29 [AWT-EventQueue-0] INFO  ClientSocket:63 - Command CLOSE connection send to server
 2019-03-22 11:19:29 [AWT-EventQueue-0] INFO  ClientSocket:65 - Connection Closed by client
+2019-03-22 16:34:07 [main] INFO  DataSourceTest:139 - Close all connection failed java.sql.SQLException
+2019-03-22 16:34:17 [main] INFO  DataSourceTest:227 - Limit reached, no available connection java.sql.SQLException
+2019-03-22 16:34:27 [main] INFO  DataSourceTest:205 - Limit reached, no available connection java.sql.SQLException
+2019-03-22 16:34:37 [main] INFO  DataSourceTest:122 - Return Connection failed java.sql.SQLException
+2019-03-22 16:34:47 [main] INFO  DataSourceTest:161 - Connection dont increase normaly java.sql.SQLException
+2019-03-22 16:34:57 [main] INFO  DataSourceTest:87 - Update in SGBD failed java.sql.SQLException
+2019-03-22 16:35:07 [main] INFO  DataSourceTest:69 - Data recovery in SGBD failed java.sql.SQLException
+2019-03-22 16:35:17 [main] INFO  DataSourceTest:32 - SGBD connection is impossible java.sql.SQLException
+2019-03-22 16:35:27 [main] INFO  DataSourceTest:50 - Insertion in SGBD failed java.sql.SQLException
+2019-03-22 16:35:37 [main] INFO  DataSourceTest:105 - Delete in SGBD failed java.sql.SQLException
+2019-03-22 16:35:47 [main] INFO  DataSourceTest:178 - Connection 1 and connection 2 are an unique connectionjava.sql.SQLException

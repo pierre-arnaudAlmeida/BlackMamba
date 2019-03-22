@@ -20,11 +20,13 @@ public class ClientSocket {
 	private static final Logger logger = LogManager.getLogger(ClientSocket.class);
 	private String requestType;
 	private String response;
+	private String table;
 	private static String jsonString;
 	static Employee emp = new Employee();
 
-	public ClientSocket(String host, int port, String requestType, String jsonString) {
+	public ClientSocket(String host, int port, String requestType, String jsonString, String table) {
 		this.requestType = requestType;
+		this.table = table;
 		ClientSocket.jsonString = jsonString;
 		try {
 			connexion = new Socket(host, port);
@@ -39,22 +41,22 @@ public class ClientSocket {
 			if (response.equals("OK FOR EXCHANGE")) {
 				switch (this.requestType) {
 				case "CONNECTION":
-					response = "CONNECTION";
+					response = "{ \"request\" : \"CONNECTION\", \"table\" : \""+this.table+"\" }";
 					break;
 				case "CREATE":
-					response = "CREATE";
+					response = "{ \"request\" : \"CREATE\", \"table\" : \""+this.table+"\" }";
 					break;
 				case "UPDATE":
-					response= "UPDATE";
+					response = "{ \"request\" : \"UPDATE\", \"table\" : \""+this.table+"\" }";
 					break;
 				case "DELETE":
-					response= "DELETE";
+					response = "{ \"request\" : \"DELETE\", \"table\" : \""+this.table+"\" }";
 					break;
 				case "READ":
-					response= "READ";
+					response = "{ \"request\" : \"READ\", \"table\" : \""+this.table+"\" }";
 					break;
 				case "READ ALL":
-					response= "READ ALL";
+					response = "{ \"request\" : \"READ ALL\", \"table\" : \""+this.table+"\" }";
 					break;
 				default:
 					response = "";
