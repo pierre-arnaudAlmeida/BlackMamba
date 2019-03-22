@@ -19,7 +19,7 @@ public abstract class DAO<T> {
 	 * @param obj
 	 * @return boolean
 	 */
-	public abstract boolean create(T obj);
+	public abstract boolean create(String jsonString);
 
 	/**
 	 * Delete method
@@ -27,7 +27,7 @@ public abstract class DAO<T> {
 	 * @param obj
 	 * @return boolean
 	 */
-	public abstract boolean delete(T obj);
+	public abstract boolean delete(String jsonString);
 
 	/**
 	 * Update method
@@ -35,7 +35,7 @@ public abstract class DAO<T> {
 	 * @param obj
 	 * @return boolean
 	 */
-	public abstract boolean update(T obj);
+	public abstract boolean update(String jsonString);
 
 	/**
 	 * Find informations with the id method
@@ -43,6 +43,6 @@ public abstract class DAO<T> {
 	 * @param obj
 	 * @return T
 	 */
-	public abstract T find(int id);
+	public abstract String find(String jsonString);
 
 }

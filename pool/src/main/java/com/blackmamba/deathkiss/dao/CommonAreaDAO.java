@@ -11,25 +11,25 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 	}
 
 	@Override
-	public boolean create(CommonArea obj) {
+	public boolean create(String jsonString) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean delete(CommonArea obj) {
+	public boolean delete(String jsonString) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean update(CommonArea obj) {
+	public boolean update(String jsonString) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public CommonArea find(int id) {
+	public String find(String jsonString) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -24,25 +24,38 @@ public class EmployeeDAO extends DAO<Employee> {
 	}
 
 	@Override
-	public boolean create(Employee obj) {
+	public boolean create(String jsonString) {
+		ObjectMapper objectMapper = new ObjectMapper();
+		String request;
+		try {
+			Statement st = con.createStatement();
+			Employee employee = objectMapper.readValue(jsonString, Employee.class);
+			request = "insert into employee (nom_employee, prenom_employee, mot_de_passe, poste) values ('"
+					+ employee.getLastnameEmployee() + "','" + employee.getNameEmployee() + "','"
+					+ employee.getPassword() + "','" + employee.getPoste() + "')";
+			st.executeQuery(request);
+			logger.log(Level.INFO, "User succesfully inserted in BDD");
+			return true;
+		} catch (IOException | SQLException e) {
+			logger.log(Level.INFO, "Impossible to insert data in BDD" + e.getClass().getCanonicalName());
+			return false;
+		}
+	}
+
+	@Override
+	public boolean delete(String jsonString) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean delete(Employee obj) {
+	public boolean update(String jsonString) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean update(Employee obj) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Employee find(int id) {
+	public String find(String jsonString) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -53,10 +66,11 @@ public class EmployeeDAO extends DAO<Employee> {
 		try {
 			Statement st = con.createStatement();
 			Employee employee = objectMapper.readValue(jsonString, Employee.class);
-			request = "SELECT * FROM Employee where id_employee='" + employee.getIdEmployee() + "' and mot_de_passe='"+employee.getPassword()+"';";
+			request = "SELECT * FROM Employee where id_employee='" + employee.getIdEmployee() + "' and mot_de_passe='"
+					+ employee.getPassword() + "';";
 			result = st.executeQuery(request);
 			result.next();
-			
+
 			employee.setIdEmployee(Integer.parseInt(result.getObject(1).toString()));
 			employee.setLastnameEmployee(result.getObject(2).toString());
 			employee.setNameEmployee(result.getObject(3).toString());

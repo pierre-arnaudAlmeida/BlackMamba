@@ -22,9 +22,12 @@ public class ClientSocket {
 	private String response;
 	private String table;
 	private static String jsonString;
+	private static String result;
 	static Employee emp = new Employee();
+	private String host = "127.0.0.1";
+	private int port = 2345;
 
-	public ClientSocket(String host, int port, String requestType, String jsonString, String table) {
+	public ClientSocket(String requestType, String jsonString, String table) {
 		this.requestType = requestType;
 		this.table = table;
 		ClientSocket.jsonString = jsonString;

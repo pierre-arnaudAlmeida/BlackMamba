@@ -2,8 +2,6 @@ package com.blackmamba.deathkiss.gui.prod;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -16,8 +14,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.blackmamba.deathkiss.gui.prod.connectionpool.DataSource;
-import com.blackmamba.deathkiss.gui.prod.connectionpool.JDBCConnectionPool;
+import com.blackmamba.deathkiss.entity.Employee;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class InsertionClient extends JFrame {
 
@@ -25,7 +23,12 @@ public class InsertionClient extends JFrame {
 	private JPanel contentPane;
 	private JTextField nameField;
 	private JTextField lastnameField;
+	private JTextField posteField;
 	private JPasswordField passwordField;
+	private Employee employee;
+	private String requestType;
+	private String table;
+	private String jsonString;
 	private static Logger logger = Logger.getLogger("logger");
 
 	public InsertionClient() {
@@ -63,12 +66,12 @@ public class InsertionClient extends JFrame {
 		// Creation of a list common area button
 		// And display on the contentPane
 		JButton listCommonAreabouton = new JButton("Liste des Parties Communes");
-		listCommonAreabouton.setBounds(147, 200, 214, 23);
+		listCommonAreabouton.setBounds(147, 220, 214, 23);
 		contentPane.add(listCommonAreabouton);
 		listCommonAreabouton.addActionListener(new ActionListener() {
 			/**
-			 * If we click in the  listCommonAreabouton we are redirect to the window 'CommonArea'
-			 * where we have the list of users
+			 * If we click in the listCommonAreabouton we are redirect to the window
+			 * 'CommonArea' where we have the list of users
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -82,7 +85,7 @@ public class InsertionClient extends JFrame {
 				}
 			}
 		});
-		
+
 		// Creation of label name
 		// And display on the contentPane
 		JLabel name = new JLabel("Pr\u00E9nom");
@@ -121,9 +124,18 @@ public class InsertionClient extends JFrame {
 		passwordField.setBounds(147, 123, 121, 20);
 		contentPane.add(passwordField);
 
+		JLabel poste = new JLabel("Poste");
+		poste.setBounds(147, 150, 130, 14);
+		contentPane.add(poste);
+
+		posteField = new JTextField();
+		posteField.setBounds(147, 170, 130, 20);
+		contentPane.add(posteField);
+		posteField.setColumns(10);
+
 		// Display the button showButton on the contentPane
 		final JCheckBox showButton = new JCheckBox("Montrer le mot de passe");
-		showButton.setBounds(147, 150, 171, 23);
+		showButton.setBounds(147, 190, 171, 23);
 		contentPane.add(showButton);
 
 		showButton.addActionListener(new ActionListener() {
@@ -153,27 +165,38 @@ public class InsertionClient extends JFrame {
 			 * they redirect to the window 'ProfilClient'
 			 */
 			public void actionPerformed(ActionEvent e) {
+				requestType = "CREATE";
+				employee = new Employee();
+				table = "Employee";
+
 				String namefield = nameField.getText();
 				String lastnamefield = lastnameField.getText();
+				String postefield = posteField.getText();
 				char[] password = passwordField.getPassword();
 				String passwordfield = new String(password);
 
-				if (namefield.equals("") || lastnamefield.equals("") || passwordfield.equals("")) {
+				if (namefield.equals("") || lastnamefield.equals("") || passwordfield.equals("")
+						|| postefield.equals("")) {
 					JOptionPane.showMessageDialog(null, "Vous n'avez pas remplis au moins l'un des 3 champs requis",
 							"Erreur", JOptionPane.ERROR_MESSAGE);
 					logger.log(Level.INFO, "Attempt of insertion without characters");
 				} else {
-					JDBCConnectionPool p;
+					employee.setLastnameEmployee(lastnamefield);
+					employee.setNameEmployee(namefield);
+					employee.setPassword(passwordfield);
+					employee.setPoste(postefield);
+					ObjectMapper connectionMapper = new ObjectMapper();
 					try {
-						p = new JDBCConnectionPool(false);
-						Connection con = DataSource.getConnectionFromJDBC(p);
-						Statement st = con.createStatement();
-						String sql = "insert into employee (nom_employee, prenom_employee, mot_de_passe) values ('"
-								+ lastnamefield + "','" + namefield + "','" + passwordfield + "')";
-						st.execute(sql);
-						logger.log(Level.INFO, "User succesfully inserted in BDD");
+						jsonString = connectionMapper.writeValueAsString(employee);
+						new ClientSocket(requestType, jsonString, table);
+						jsonString = ClientSocket.getJson();
+						if (!jsonString.equals("INSERTED")) {
+							JOptionPane.showMessageDialog(null, "L'insertion a échoué", "Erreur",
+									JOptionPane.ERROR_MESSAGE);
+							logger.log(Level.INFO, "Impossible to insert employee");
+						}
 					} catch (Exception e1) {
-						logger.log(Level.INFO, "Insertion in BDD failed " + e1.getClass().getCanonicalName());
+						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 					}
 
 					try {

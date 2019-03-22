@@ -4,10 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -29,12 +26,12 @@ public class RequestHandler implements Runnable {
 	private JDBCConnectionPool pool;
 	private PrintWriter writer = null;
 	private BufferedInputStream reader = null;
-	private ResultSet result = null;
 	private String response;
 	private static final Logger logger = LogManager.getLogger(RequestHandler.class);
 	private String jsonString;
 	private ObjectMapper objectMapper;
 	private JsonNode jsonNode;
+	private boolean result;
 
 	public RequestHandler(Socket pSock, JDBCConnectionPool pool) {
 		this.sock = pSock;
@@ -55,7 +52,6 @@ public class RequestHandler implements Runnable {
 
 				response = read();
 				if (response.equals("OPEN")) {
-					Connection con = DataSource.getConnectionFromJDBC(pool);
 					response = "OK FOR EXCHANGE";
 					writer.write(response);
 					writer.flush();
@@ -93,8 +89,9 @@ public class RequestHandler implements Runnable {
 							case "Employee":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									// TODO
-									// Mettre les methode comme pour la connexion
+									DAO<Employee> employeeDao = new EmployeeDAO(DataSource.getConnectionFromJDBC(pool));
+									result = ((EmployeeDAO) employeeDao).create(response);
+									jsonString = "INSERTED";
 									writer.write(jsonString);
 									writer.flush();
 									logger.log(Level.INFO, "Response send to client");

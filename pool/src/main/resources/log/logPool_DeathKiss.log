@@ -756,3 +756,93 @@
 2019-03-22 19:12:36 [main] INFO  DataSourceTest:48 - Insertion in SGBD succed 
 2019-03-22 19:12:36 [main] INFO  DataSourceTest:103 - Delete in SGBD succed 
 2019-03-22 19:12:38 [main] INFO  DataSourceTest:176 - Connection 1 and connection 2 are different
+2019-03-22 19:53:45 [main] INFO  DataSourceTest:137 - All connection are closed 
+2019-03-22 19:53:46 [main] INFO  DataSourceTest:224 - Connection 1 done
+2019-03-22 19:53:46 [main] INFO  DataSourceTest:224 - Connection 2 done
+2019-03-22 19:53:47 [main] INFO  DataSourceTest:224 - Connection 3 done
+2019-03-22 19:53:47 [main] INFO  DataSourceTest:227 - Limit reached, no available connection java.sql.SQLException
+2019-03-22 19:53:48 [main] INFO  DataSourceTest:194 - Connection 1 done
+2019-03-22 19:53:48 [main] INFO  DataSourceTest:197 - Connection 2 done
+2019-03-22 19:53:49 [main] INFO  DataSourceTest:200 - Connection 3 done
+2019-03-22 19:53:49 [main] INFO  DataSourceTest:205 - Limit reached, no available connection java.sql.SQLException
+2019-03-22 19:53:50 [main] INFO  DataSourceTest:120 - Return Connection succed 
+2019-03-22 19:53:51 [main] INFO  DataSourceTest:153 - Number of Connection is 1
+2019-03-22 19:53:52 [main] INFO  DataSourceTest:159 - Number of Connection increased to 3
+2019-03-22 19:53:53 [main] INFO  DataSourceTest:85 - Update in SGBD succed 
+2019-03-22 19:53:54 [main] INFO  DataSourceTest:67 - Data recovery in SGBD succed 
+2019-03-22 19:53:55 [main] INFO  DataSourceTest:30 - Connection succed 
+2019-03-22 19:53:55 [main] INFO  DataSourceTest:48 - Insertion in SGBD succed 
+2019-03-22 19:53:56 [main] INFO  DataSourceTest:103 - Delete in SGBD succed 
+2019-03-22 19:53:57 [main] INFO  DataSourceTest:176 - Connection 1 and connection 2 are different
+2019-03-22 20:57:57 [main] INFO  DataSourceTest:137 - All connection are closed 
+2019-03-22 20:57:58 [main] INFO  DataSourceTest:224 - Connection 1 done
+2019-03-22 20:57:58 [main] INFO  DataSourceTest:224 - Connection 2 done
+2019-03-22 20:57:59 [main] INFO  DataSourceTest:224 - Connection 3 done
+2019-03-22 20:57:59 [main] INFO  DataSourceTest:227 - Limit reached, no available connection java.sql.SQLException
+2019-03-22 20:58:00 [main] INFO  DataSourceTest:194 - Connection 1 done
+2019-03-22 20:58:00 [main] INFO  DataSourceTest:197 - Connection 2 done
+2019-03-22 20:58:01 [main] INFO  DataSourceTest:200 - Connection 3 done
+2019-03-22 20:58:01 [main] INFO  DataSourceTest:205 - Limit reached, no available connection java.sql.SQLException
+2019-03-22 20:58:01 [main] INFO  DataSourceTest:120 - Return Connection succed 
+2019-03-22 20:58:02 [main] INFO  DataSourceTest:153 - Number of Connection is 1
+2019-03-22 20:58:03 [main] INFO  DataSourceTest:159 - Number of Connection increased to 3
+2019-03-22 20:58:04 [main] INFO  DataSourceTest:85 - Update in SGBD succed 
+2019-03-22 20:58:05 [main] INFO  DataSourceTest:67 - Data recovery in SGBD succed 
+2019-03-22 20:58:05 [main] INFO  DataSourceTest:30 - Connection succed 
+2019-03-22 20:58:06 [main] INFO  DataSourceTest:48 - Insertion in SGBD succed 
+2019-03-22 20:58:07 [main] INFO  DataSourceTest:103 - Delete in SGBD succed 
+2019-03-22 20:58:08 [main] INFO  DataSourceTest:176 - Connection 1 and connection 2 are different
+2019-03-22 21:15:47 [main] INFO  DataSourceTest:137 - All connection are closed 
+2019-03-22 21:15:48 [main] INFO  DataSourceTest:224 - Connection 1 done
+2019-03-22 21:15:49 [main] INFO  DataSourceTest:224 - Connection 2 done
+2019-03-22 21:15:50 [main] INFO  DataSourceTest:224 - Connection 3 done
+2019-03-22 21:15:50 [main] INFO  DataSourceTest:227 - Limit reached, no available connection java.sql.SQLException
+2019-03-22 21:15:51 [main] INFO  DataSourceTest:194 - Connection 1 done
+2019-03-22 21:15:52 [main] INFO  DataSourceTest:197 - Connection 2 done
+2019-03-22 21:15:52 [main] INFO  DataSourceTest:200 - Connection 3 done
+2019-03-22 21:15:52 [main] INFO  DataSourceTest:205 - Limit reached, no available connection java.sql.SQLException
+2019-03-22 21:15:53 [main] INFO  DataSourceTest:120 - Return Connection succed 
+2019-03-22 21:15:54 [main] INFO  DataSourceTest:153 - Number of Connection is 1
+2019-03-22 21:15:56 [main] INFO  DataSourceTest:159 - Number of Connection increased to 3
+2019-03-22 21:15:57 [main] INFO  DataSourceTest:85 - Update in SGBD succed 
+2019-03-22 21:15:58 [main] INFO  DataSourceTest:67 - Data recovery in SGBD succed 
+2019-03-22 21:15:59 [main] INFO  DataSourceTest:30 - Connection succed 
+2019-03-22 21:16:00 [main] INFO  DataSourceTest:48 - Insertion in SGBD succed 
+2019-03-22 21:16:01 [main] INFO  DataSourceTest:103 - Delete in SGBD succed 
+2019-03-22 21:16:02 [main] INFO  DataSourceTest:176 - Connection 1 and connection 2 are different
+2019-03-22 21:19:03 [main] INFO  DataSourceTest:137 - All connection are closed 
+2019-03-22 21:19:04 [main] INFO  DataSourceTest:224 - Connection 1 done
+2019-03-22 21:19:05 [main] INFO  DataSourceTest:224 - Connection 2 done
+2019-03-22 21:19:06 [main] INFO  DataSourceTest:224 - Connection 3 done
+2019-03-22 21:19:06 [main] INFO  DataSourceTest:227 - Limit reached, no available connection java.sql.SQLException
+2019-03-22 21:19:07 [main] INFO  DataSourceTest:194 - Connection 1 done
+2019-03-22 21:19:08 [main] INFO  DataSourceTest:197 - Connection 2 done
+2019-03-22 21:19:09 [main] INFO  DataSourceTest:200 - Connection 3 done
+2019-03-22 21:19:09 [main] INFO  DataSourceTest:205 - Limit reached, no available connection java.sql.SQLException
+2019-03-22 21:19:10 [main] INFO  DataSourceTest:120 - Return Connection succed 
+2019-03-22 21:19:11 [main] INFO  DataSourceTest:153 - Number of Connection is 1
+2019-03-22 21:19:13 [main] INFO  DataSourceTest:159 - Number of Connection increased to 3
+2019-03-22 21:19:14 [main] INFO  DataSourceTest:85 - Update in SGBD succed 
+2019-03-22 21:19:15 [main] INFO  DataSourceTest:67 - Data recovery in SGBD succed 
+2019-03-22 21:19:16 [main] INFO  DataSourceTest:30 - Connection succed 
+2019-03-22 21:19:17 [main] INFO  DataSourceTest:48 - Insertion in SGBD succed 
+2019-03-22 21:19:18 [main] INFO  DataSourceTest:103 - Delete in SGBD succed 
+2019-03-22 21:19:20 [main] INFO  DataSourceTest:176 - Connection 1 and connection 2 are different
+2019-03-22 21:21:46 [main] INFO  DataSourceTest:137 - All connection are closed 
+2019-03-22 21:21:46 [main] INFO  DataSourceTest:224 - Connection 1 done
+2019-03-22 21:21:47 [main] INFO  DataSourceTest:224 - Connection 2 done
+2019-03-22 21:21:48 [main] INFO  DataSourceTest:224 - Connection 3 done
+2019-03-22 21:21:48 [main] INFO  DataSourceTest:227 - Limit reached, no available connection java.sql.SQLException
+2019-03-22 21:21:49 [main] INFO  DataSourceTest:194 - Connection 1 done
+2019-03-22 21:21:50 [main] INFO  DataSourceTest:197 - Connection 2 done
+2019-03-22 21:21:50 [main] INFO  DataSourceTest:200 - Connection 3 done
+2019-03-22 21:21:50 [main] INFO  DataSourceTest:205 - Limit reached, no available connection java.sql.SQLException
+2019-03-22 21:21:51 [main] INFO  DataSourceTest:120 - Return Connection succed 
+2019-03-22 21:21:51 [main] INFO  DataSourceTest:153 - Number of Connection is 1
+2019-03-22 21:21:53 [main] INFO  DataSourceTest:159 - Number of Connection increased to 3
+2019-03-22 21:21:54 [main] INFO  DataSourceTest:85 - Update in SGBD succed 
+2019-03-22 21:21:54 [main] INFO  DataSourceTest:67 - Data recovery in SGBD succed 
+2019-03-22 21:21:55 [main] INFO  DataSourceTest:30 - Connection succed 
+2019-03-22 21:21:56 [main] INFO  DataSourceTest:48 - Insertion in SGBD succed 
+2019-03-22 21:21:57 [main] INFO  DataSourceTest:103 - Delete in SGBD succed 
+2019-03-22 21:21:58 [main] INFO  DataSourceTest:176 - Connection 1 and connection 2 are different
