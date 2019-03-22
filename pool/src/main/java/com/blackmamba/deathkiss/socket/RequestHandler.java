@@ -15,6 +15,8 @@ import org.apache.logging.log4j.Logger;
 
 import com.blackmamba.deathkiss.connectionpool.DataSource;
 import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
+import com.blackmamba.deathkiss.entity.Employee;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class RequestHandler implements Runnable {
 	/**
@@ -27,6 +29,7 @@ public class RequestHandler implements Runnable {
 	private ResultSet result = null;
 	private String response;
 	private static final Logger logger = LogManager.getLogger(RequestHandler.class);
+	private String jsonString;
 
 	public RequestHandler(Socket pSock, JDBCConnectionPool pool) {
 		this.sock = pSock;
@@ -59,11 +62,19 @@ public class RequestHandler implements Runnable {
 						result = st.executeQuery(response);
 						result.next();
 
-						String nom = result.getObject(2).toString();
-						writer.write(nom);
+						Employee em = new Employee();
+						em.setIdEmployee(Integer.parseInt(result.getObject(1).toString()));
+						em.setLastnameEmployee(result.getObject(2).toString());
+						em.setNameEmployee(result.getObject(3).toString());
+						em.setPassword(result.getObject(4).toString());
+						em.setPoste(result.getObject(5).toString());
+						ObjectMapper obj = new ObjectMapper();
+						jsonString = obj.writeValueAsString(em);
+
+						writer.write(jsonString);
 						writer.flush();
 						logger.log(Level.INFO, "Request send to client");
-						
+
 						response = read();
 						if (response.equals("CLOSE")) {
 							sock.close();
@@ -74,7 +85,7 @@ public class RequestHandler implements Runnable {
 						writer.write(response);
 						writer.flush();
 						logger.log(Level.INFO, "Resquest not recognized");
-						
+
 						response = read();
 						if (response.equals("CLOSE")) {
 							sock.close();

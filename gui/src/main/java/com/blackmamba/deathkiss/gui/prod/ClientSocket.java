@@ -12,39 +12,25 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.blackmamba.deathkiss.entity.Employee;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class ClientSocket implements Runnable {
+public class ClientSocket {
 
 	private Socket connexion = null;
 	private PrintWriter writer = null;
 	private BufferedInputStream reader = null;
 	private static final Logger logger = LogManager.getLogger(ClientSocket.class);
 	private String response;
+	private static String responseRequest;
 	private String requestType;
-	private Object object;
+	private String jsonString;
 	BufferedWriter buffer = null;
 	static Employee emp = new Employee();
 
-	public ClientSocket(String host, int port, String requestType, Object object) {
+	public ClientSocket(String host, int port, String requestType, String jsonString) {
 		this.requestType = requestType;
-		this.object = object;
+		this.jsonString = jsonString;
 		try {
 			connexion = new Socket(host, port);
-		} catch (UnknownHostException e) {
-			logger.log(Level.INFO, "IP Host dont find " + e.getClass().getCanonicalName());
-		} catch (IOException e) {
-			logger.log(Level.INFO, "Impossible create the socket" + e.getClass().getCanonicalName());
-		}
-	}
-
-	public void run() {
-		try {
-			Thread.currentThread().sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		try {
 			writer = new PrintWriter(connexion.getOutputStream(), true);
 			reader = new BufferedInputStream(connexion.getInputStream());
 
@@ -56,8 +42,7 @@ public class ClientSocket implements Runnable {
 			if (response.equals("OK FOR CONNECTION")) {
 				switch (this.requestType) {
 				case "CONNECTION":
-					ObjectMapper connectionMapper = new ObjectMapper();
-					response = connectionMapper.writeValueAsString(object);
+					response = jsonString;
 					break;
 				default:
 					response = "";
@@ -69,7 +54,8 @@ public class ClientSocket implements Runnable {
 				response = read();
 				if (!response.equals("ERROR")) {
 					logger.log(Level.INFO, response);
-
+					responseRequest = response;
+					
 					response = "CLOSE";
 					writer.write(response);
 					writer.flush();
@@ -84,19 +70,11 @@ public class ClientSocket implements Runnable {
 				writer.close();
 				logger.log(Level.INFO, "Connection Closed by client");
 			}
-		} catch (IOException e1) {
-			logger.log(Level.INFO, "Impossible to OPEN the connection to server " + e1.getClass().getCanonicalName());
+		} catch (UnknownHostException e) {
+			logger.log(Level.INFO, "IP Host dont find " + e.getClass().getCanonicalName());
+		} catch (IOException e) {
+			logger.log(Level.INFO, "Impossible create the socket " + e.getClass().getCanonicalName());
 		}
-
-		try {
-			Thread.currentThread().sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
-		// writer.write("CLOSE");
-		// writer.flush();
-		// writer.close();
 	}
 
 	/**
@@ -109,5 +87,13 @@ public class ClientSocket implements Runnable {
 		stream = reader.read(b);
 		response = new String(b, 0, stream);
 		return response;
+	}
+
+	/**
+	 * Have the Json response from server
+	 * @return JsonString 
+	 */
+	static String getJson() {
+		return responseRequest;
 	}
 }
