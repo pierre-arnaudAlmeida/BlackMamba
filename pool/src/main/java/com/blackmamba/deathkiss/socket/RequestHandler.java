@@ -18,6 +18,7 @@ import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
 import com.blackmamba.deathkiss.dao.DAO;
 import com.blackmamba.deathkiss.dao.EmployeeDAO;
 import com.blackmamba.deathkiss.entity.Employee;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class RequestHandler implements Runnable {
@@ -32,6 +33,8 @@ public class RequestHandler implements Runnable {
 	private String response;
 	private static final Logger logger = LogManager.getLogger(RequestHandler.class);
 	private String jsonString;
+	private ObjectMapper objectMapper;
+	private JsonNode jsonNode;
 
 	public RequestHandler(Socket pSock, JDBCConnectionPool pool) {
 		this.sock = pSock;
@@ -48,17 +51,19 @@ public class RequestHandler implements Runnable {
 				pool = new JDBCConnectionPool(false);
 				writer = new PrintWriter(sock.getOutputStream(), true);
 				reader = new BufferedInputStream(sock.getInputStream());
+				objectMapper = new ObjectMapper();
 
 				response = read();
 				if (response.equals("OPEN")) {
 					Connection con = DataSource.getConnectionFromJDBC(pool);
-					response = "OK FOR EXCHANGE ";
+					response = "OK FOR EXCHANGE";
 					writer.write(response);
 					writer.flush();
 
 					response = read();
 					if (!response.equals("")) {
-						switch (response) {
+						jsonNode = objectMapper.readTree(response);
+						switch (jsonNode.get("request").asText()) {
 						case "CONNECTION":
 							response = "OK FOR REQUEST CONNECTION";
 							writer.write(response);
@@ -68,7 +73,6 @@ public class RequestHandler implements Runnable {
 							response = read();
 							if (!response.equals("")) {
 								logger.log(Level.INFO, "Request received on server");
-
 								DAO<Employee> employeeDao = new EmployeeDAO(DataSource.getConnectionFromJDBC(pool));
 								jsonString = ((EmployeeDAO) employeeDao).connection(response);
 								writer.write(jsonString);
@@ -85,17 +89,68 @@ public class RequestHandler implements Runnable {
 							logger.log(Level.INFO, "Request Type accepted by server");
 
 							response = read();
-							if (!response.equals("")) {
-								// Methode DAO pour la creation
-								// on recupere un jsonString qui est egale a 0 ou 1 si la creation a été faite
-								// ou pas
-								writer.write(jsonString);
-								writer.flush();
-								logger.log(Level.INFO, "Response send to client");
-							} else {
-								logger.log(Level.INFO, "Request not recognized");
+							switch (jsonNode.get("table").asText()) {
+							case "Employee":
+								if (!response.equals("")) {
+									logger.log(Level.INFO, "Request received on server");
+									// TODO
+									// Mettre les methode comme pour la connexion
+									writer.write(jsonString);
+									writer.flush();
+									logger.log(Level.INFO, "Response send to client");
+								} else {
+									logger.log(Level.INFO, "Request not recognized");
+								}
+								break;
+							case "Resident":
+								if (!response.equals("")) {
+									logger.log(Level.INFO, "Request received on server");
+									// TODO
+									// Mettre les methode comme pour la connexion
+									writer.write(jsonString);
+									writer.flush();
+									logger.log(Level.INFO, "Response send to client");
+								} else {
+									logger.log(Level.INFO, "Request not recognized");
+								}
+								break;
+							case "Sensor":
+								if (!response.equals("")) {
+									logger.log(Level.INFO, "Request received on server");
+									// TODO
+									// Mettre les methode comme pour la connexion
+									writer.write(jsonString);
+									writer.flush();
+									logger.log(Level.INFO, "Response send to client");
+								} else {
+									logger.log(Level.INFO, "Request not recognized");
+								}
+								break;
+							case "CommonArea":
+								if (!response.equals("")) {
+									logger.log(Level.INFO, "Request received on server");
+									// TODO
+									// Mettre les methode comme pour la connexion
+									writer.write(jsonString);
+									writer.flush();
+									logger.log(Level.INFO, "Response send to client");
+								} else {
+									logger.log(Level.INFO, "Request not recognized");
+								}
+								break;
+							case "SensorHistorical":
+								if (!response.equals("")) {
+									logger.log(Level.INFO, "Request received on server");
+									// TODO
+									// Mettre les methode comme pour la connexion
+									writer.write(jsonString);
+									writer.flush();
+									logger.log(Level.INFO, "Response send to client");
+								} else {
+									logger.log(Level.INFO, "Request not recognized");
+								}
+								break;
 							}
-							break;
 						case "UPDATE":
 							response = "OK FOR REQUEST UPDATE";
 							writer.write(response);
@@ -104,6 +159,7 @@ public class RequestHandler implements Runnable {
 
 							response = read();
 							if (!response.equals("")) {
+								// TODO
 								// Methode DAO pour la UPDATE
 								// on recupere un jsonString qui est egale a 0 ou 1 si la mise a jour a été
 								// faite ou pas
@@ -122,6 +178,7 @@ public class RequestHandler implements Runnable {
 
 							response = read();
 							if (!response.equals("")) {
+								// TODO
 								// Methode DAO pour la DELETE
 								// on recupere un jsonString qui est egale a 0 ou 1 si la suppression a été
 								// faite ou pas
@@ -140,6 +197,7 @@ public class RequestHandler implements Runnable {
 
 							response = read();
 							if (!response.equals("")) {
+								// TODO
 								// Methode DAO pour la READ
 								// on recupere un jsonString avec les infos d'une seule personne
 								writer.write(jsonString);
@@ -157,6 +215,7 @@ public class RequestHandler implements Runnable {
 
 							response = read();
 							if (!response.equals("")) {
+								// TODO
 								// Methode DAO pour la READ ALL
 								// on recupere un jsonString avec plusieurs ligne donc une liste d'object et
 								// chacun des object a plusieurs champs

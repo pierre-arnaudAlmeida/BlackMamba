@@ -53,10 +53,10 @@ public class EmployeeDAO extends DAO<Employee> {
 		try {
 			Statement st = con.createStatement();
 			Employee employee = objectMapper.readValue(jsonString, Employee.class);
-			request = "SELECT * FROM Employee where id_employee='" + employee.getIdEmployee() + "';";
+			request = "SELECT * FROM Employee where id_employee='" + employee.getIdEmployee() + "' and mot_de_passe='"+employee.getPassword()+"';";
 			result = st.executeQuery(request);
 			result.next();
-
+			
 			employee.setIdEmployee(Integer.parseInt(result.getObject(1).toString()));
 			employee.setLastnameEmployee(result.getObject(2).toString());
 			employee.setNameEmployee(result.getObject(3).toString());
@@ -69,7 +69,8 @@ public class EmployeeDAO extends DAO<Employee> {
 		} catch (SQLException | IOException e) {
 			logger.log(Level.INFO, "Impossible to get datas from BDD " + e.getClass().getCanonicalName());
 		}
-		return jsonString = "";
+		jsonString = "ERROR";
+		return jsonString;
 	}
 
 }

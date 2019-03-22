@@ -30,6 +30,7 @@ public class Login extends JFrame {
 	private String requestType;
 	private Employee employee;
 	private String jsonString;
+	private String table;
 
 	public Login() {
 
@@ -102,6 +103,7 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				requestType = "CONNECTION";
 				employee = new Employee();
+				table = "Employee";
 
 				String idfield = id_employeeField.getText();
 				char[] password = passwordField.getPassword();
@@ -115,9 +117,9 @@ public class Login extends JFrame {
 					employee.setIdEmployee(Integer.parseInt(idfield));
 					employee.setPassword(passwordfield);
 					ObjectMapper connectionMapper = new ObjectMapper();
-					try {
+					try { 
 						jsonString = connectionMapper.writeValueAsString(employee);
-						new ClientSocket(host, port, requestType, jsonString);
+						new ClientSocket(host, port, requestType, jsonString, table);
 						jsonString = ClientSocket.getJson();
 						employee = connectionMapper.readValue(jsonString, Employee.class);
 					} catch (IOException e1) {

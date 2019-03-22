@@ -1,9 +1,6 @@
 package com.blackmamba.deathkiss.dao;
 
 import java.sql.Connection;
-
-import com.blackmamba.deathkiss.connectionpool.DataSource;
-import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
 import com.blackmamba.deathkiss.entity.CommonArea;
 import com.blackmamba.deathkiss.entity.Employee;
 import com.blackmamba.deathkiss.entity.Resident;
@@ -12,9 +9,8 @@ import com.blackmamba.deathkiss.entity.SensorHistorical;
 
 public class DAOFactory extends AbstractDAOFactory {
 
-	protected JDBCConnectionPool pool;
-	protected final Connection con = null; //DataSource.getConnectionFromJDBC(pool);
-	
+	protected final Connection con = null;
+
 	@Override
 	public DAO<CommonArea> getCommonAreaDAO() {
 		// TODO Auto-generated method stub
