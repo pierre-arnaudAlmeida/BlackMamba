@@ -41,22 +41,22 @@ public class ClientSocket {
 			if (response.equals("OK FOR EXCHANGE")) {
 				switch (this.requestType) {
 				case "CONNECTION":
-					response = "{ \"request\" : \"CONNECTION\", \"table\" : \""+this.table+"\" }";
+					response = "{ \"request\" : \"CONNECTION\", \"table\" : \"" + this.table + "\" }";
 					break;
 				case "CREATE":
-					response = "{ \"request\" : \"CREATE\", \"table\" : \""+this.table+"\" }";
+					response = "{ \"request\" : \"CREATE\", \"table\" : \"" + this.table + "\" }";
 					break;
 				case "UPDATE":
-					response = "{ \"request\" : \"UPDATE\", \"table\" : \""+this.table+"\" }";
+					response = "{ \"request\" : \"UPDATE\", \"table\" : \"" + this.table + "\" }";
 					break;
 				case "DELETE":
-					response = "{ \"request\" : \"DELETE\", \"table\" : \""+this.table+"\" }";
+					response = "{ \"request\" : \"DELETE\", \"table\" : \"" + this.table + "\" }";
 					break;
 				case "READ":
-					response = "{ \"request\" : \"READ\", \"table\" : \""+this.table+"\" }";
+					response = "{ \"request\" : \"READ\", \"table\" : \"" + this.table + "\" }";
 					break;
 				case "READ ALL":
-					response = "{ \"request\" : \"READ ALL\", \"table\" : \""+this.table+"\" }";
+					response = "{ \"request\" : \"READ ALL\", \"table\" : \"" + this.table + "\" }";
 					break;
 				default:
 					response = "";
@@ -71,6 +71,25 @@ public class ClientSocket {
 					writer.write(response);
 					writer.flush();
 					logger.log(Level.INFO, "Request Send to server");
+
+					response = read();
+					if (!response.equals("ERROR")) {
+						this.jsonString = response;
+						logger.log(Level.INFO, "Datas received on client");
+						response = "CLOSE";
+						writer.write(response);
+						writer.flush();
+						logger.log(Level.INFO, "Command CLOSE connection send to server");
+						writer.close();
+						logger.log(Level.INFO, "Connection Closed by client");
+					} else {
+						response = "CLOSE";
+						writer.write(response);
+						writer.flush();
+						logger.log(Level.INFO, "Command CLOSE connection send to server");
+						writer.close();
+						logger.log(Level.INFO, "Connection Closed by client");
+					}
 				} else {
 					response = "CLOSE";
 					writer.write(response);

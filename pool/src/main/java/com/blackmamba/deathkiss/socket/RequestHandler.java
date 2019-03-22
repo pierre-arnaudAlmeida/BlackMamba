@@ -56,7 +56,7 @@ public class RequestHandler implements Runnable {
 				response = read();
 				if (response.equals("OPEN")) {
 					Connection con = DataSource.getConnectionFromJDBC(pool);
-					response = "OK FOR EXCHANGE ";
+					response = "OK FOR EXCHANGE";
 					writer.write(response);
 					writer.flush();
 
