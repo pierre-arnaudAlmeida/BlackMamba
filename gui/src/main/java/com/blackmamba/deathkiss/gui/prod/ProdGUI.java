@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 public class ProdGUI {
 
 	private static Logger logger = Logger.getLogger("logger");
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -15,7 +15,7 @@ public class ProdGUI {
 					Login frame = new Login();
 					frame.setVisible(true);
 				} catch (Exception e) {
-					logger.log(Level.INFO, "Impossible create the window 'Login' "+e.getClass().getCanonicalName());
+					logger.log(Level.INFO, "Impossible create the window 'Login' " + e.getClass().getCanonicalName());
 				}
 			}
 		});

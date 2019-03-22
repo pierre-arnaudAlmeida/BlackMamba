@@ -12,9 +12,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.blackmamba.deathkiss.entity.Employee;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class ClientSocket implements Runnable {
+public class ClientSocket {
 
 	private Socket connexion = null;
 	private PrintWriter writer = null;
@@ -32,20 +31,6 @@ public class ClientSocket implements Runnable {
 		this.jsonString = jsonString;
 		try {
 			connexion = new Socket(host, port);
-		} catch (UnknownHostException e) {
-			logger.log(Level.INFO, "IP Host dont find " + e.getClass().getCanonicalName());
-		} catch (IOException e) {
-			logger.log(Level.INFO, "Impossible create the socket " + e.getClass().getCanonicalName());
-		}
-	}
-
-	public void run() {
-		try {
-			Thread.currentThread().sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		try {
 			writer = new PrintWriter(connexion.getOutputStream(), true);
 			reader = new BufferedInputStream(connexion.getInputStream());
 
@@ -70,7 +55,7 @@ public class ClientSocket implements Runnable {
 				if (!response.equals("ERROR")) {
 					logger.log(Level.INFO, response);
 					responseRequest = response;
-
+					
 					response = "CLOSE";
 					writer.write(response);
 					writer.flush();
@@ -85,19 +70,11 @@ public class ClientSocket implements Runnable {
 				writer.close();
 				logger.log(Level.INFO, "Connection Closed by client");
 			}
-		} catch (IOException e1) {
-			logger.log(Level.INFO, "Impossible to OPEN the connection to server " + e1.getClass().getCanonicalName());
+		} catch (UnknownHostException e) {
+			logger.log(Level.INFO, "IP Host dont find " + e.getClass().getCanonicalName());
+		} catch (IOException e) {
+			logger.log(Level.INFO, "Impossible create the socket " + e.getClass().getCanonicalName());
 		}
-
-		try {
-			Thread.currentThread().sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
-		// writer.write("CLOSE");
-		// writer.flush();
-		// writer.close();
 	}
 
 	/**
@@ -112,7 +89,11 @@ public class ClientSocket implements Runnable {
 		return response;
 	}
 
-	static String sendJson() {
+	/**
+	 * Have the Json response from server
+	 * @return JsonString 
+	 */
+	static String getJson() {
 		return responseRequest;
 	}
 }

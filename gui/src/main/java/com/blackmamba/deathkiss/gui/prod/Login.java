@@ -2,6 +2,7 @@ package com.blackmamba.deathkiss.gui.prod;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,6 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import com.blackmamba.deathkiss.entity.Employee;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Login extends JFrame {
@@ -113,24 +113,21 @@ public class Login extends JFrame {
 				String passwordfield = new String(password);
 
 				if (passwordfield.equals("") || !(idfield.matches("[0-9]+[0-9]*"))) {
-					JOptionPane.showMessageDialog(null, "L'identifiant ou le mot de passe est incorrect", "Erreur", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "L'identifiant ou le mot de passe est incorrect", "Erreur",
+							JOptionPane.ERROR_MESSAGE);
 					logger.log(Level.INFO, "Attempt of connection without or with wrong characters");
 				} else {
 					employee.setIdEmployee(Integer.parseInt(idfield));
 					employee.setPassword(passwordfield);
-
 					ObjectMapper connectionMapper = new ObjectMapper();
 					try {
 						jsonString = connectionMapper.writeValueAsString(employee);
-					} catch (JsonProcessingException e1) {
-						logger.log(Level.INFO, "Impossible to parse in JSON " + e.getClass().getCanonicalName());
+						new ClientSocket(host, port, requestType, jsonString);
+						jsonString = ClientSocket.getJson();
+						employee = connectionMapper.readValue(jsonString, Employee.class);
+					} catch (IOException e1) {
+						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 					}
-
-					Thread t = new Thread(new ClientSocket(host, port, requestType, jsonString));
-					t.start();
-					jsonString = ClientSocket.sendJson();
-					System.out.println(jsonString);
-
 					if (!employee.getLastnameEmployee().equals("")) {
 						logger.log(Level.INFO, "Good id employee and good password employee, Connection accepted");
 						InsertionClient frame = new InsertionClient();
@@ -139,7 +136,8 @@ public class Login extends JFrame {
 						dispose();
 					} else {
 						logger.log(Level.INFO, "Attempt of connection with wrong password employee or id employee");
-						JOptionPane.showMessageDialog(null, "L'identifiant ou le mot de passe est incorrect", "Erreur", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "L'identifiant ou le mot de passe est incorrect", "Erreur",
+								JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			}
