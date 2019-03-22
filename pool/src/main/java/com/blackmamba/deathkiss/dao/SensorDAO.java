@@ -11,19 +11,19 @@ public class SensorDAO extends DAO<Sensor>{
 	}
 
 	@Override
-	public boolean create(Sensor obj) {
+	public boolean create(String jsonString) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean delete(Sensor obj) {
+	public boolean delete(String jsonString) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean update(Sensor obj) {
+	public boolean update(String jsonString) {
 		// TODO Auto-generated method stub
 		//on transmet une variable de type boolean qui spécifie si on modifie les informations ou bien juste l'etat
 		//quand on modifie un capteur on peut dire de qu'employee a gerer ou surveillé le capteur
@@ -31,7 +31,7 @@ public class SensorDAO extends DAO<Sensor>{
 	}
 
 	@Override
-	public Sensor find(int id) {
+	public String find(String jsonString) {
 		// TODO Auto-generated method stub
 		return null;
 	}

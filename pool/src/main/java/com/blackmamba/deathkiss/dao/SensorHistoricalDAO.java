@@ -11,25 +11,25 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 	}
 
 	@Override
-	public boolean create(SensorHistorical obj) {
+	public boolean create(String jsonString) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean delete(SensorHistorical obj) {
+	public boolean delete(String jsonString) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean update(SensorHistorical obj) {
+	public boolean update(String jsonString) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public SensorHistorical find(int id) {
+	public String find(String jsonString) {
 		// TODO Auto-generated method stub
 		return null;
 	}

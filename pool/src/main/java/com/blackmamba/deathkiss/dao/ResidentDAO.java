@@ -11,25 +11,25 @@ public class ResidentDAO extends DAO<Resident> {
 	}
 
 	@Override
-	public boolean create(Resident obj) {
+	public boolean create(String jsonString) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean delete(Resident obj) {
+	public boolean delete(String jsonString) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean update(Resident obj) {
+	public boolean update(String jsonString) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public Resident find(int id) {
+	public String find(String jsonString) {
 		// TODO Auto-generated method stub
 		return null;
 	}
