@@ -286,3 +286,9 @@
 2019-03-21 22:09:31 [Thread-3] INFO  ClientSocket:71 - root
 2019-03-21 22:09:31 [Thread-3] INFO  ClientSocket:79 - Command CLOSE connection send to server
 2019-03-21 22:09:31 [Thread-3] INFO  ClientSocket:81 - Connection Closed by client
+2019-03-22 09:52:28 [Thread-3] INFO  ClientSocket:54 - Command OPEN connection send to server
+2019-03-22 09:52:45 [Thread-4] INFO  ClientSocket:54 - Command OPEN connection send to server
+2019-03-22 10:03:42 [Thread-3] INFO  ClientSocket:54 - Command OPEN connection send to server
+2019-03-22 10:10:11 [Thread-3] INFO  ClientSocket:54 - Command OPEN connection send to server
+2019-03-22 10:13:56 [Thread-3] INFO  ClientSocket:54 - Command OPEN connection send to server
+2019-03-22 10:15:07 [Thread-3] INFO  ClientSocket:54 - Command OPEN connection send to server

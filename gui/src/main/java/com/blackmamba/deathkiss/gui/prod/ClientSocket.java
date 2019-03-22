@@ -21,20 +21,21 @@ public class ClientSocket implements Runnable {
 	private BufferedInputStream reader = null;
 	private static final Logger logger = LogManager.getLogger(ClientSocket.class);
 	private String response;
+	private static String responseRequest;
 	private String requestType;
-	private Object object;
+	private String jsonString;
 	BufferedWriter buffer = null;
 	static Employee emp = new Employee();
 
-	public ClientSocket(String host, int port, String requestType, Object object) {
+	public ClientSocket(String host, int port, String requestType, String jsonString) {
 		this.requestType = requestType;
-		this.object = object;
+		this.jsonString = jsonString;
 		try {
 			connexion = new Socket(host, port);
 		} catch (UnknownHostException e) {
 			logger.log(Level.INFO, "IP Host dont find " + e.getClass().getCanonicalName());
 		} catch (IOException e) {
-			logger.log(Level.INFO, "Impossible create the socket" + e.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible create the socket " + e.getClass().getCanonicalName());
 		}
 	}
 
@@ -56,8 +57,7 @@ public class ClientSocket implements Runnable {
 			if (response.equals("OK FOR CONNECTION")) {
 				switch (this.requestType) {
 				case "CONNECTION":
-					ObjectMapper connectionMapper = new ObjectMapper();
-					response = connectionMapper.writeValueAsString(object);
+					response = jsonString;
 					break;
 				default:
 					response = "";
@@ -69,6 +69,7 @@ public class ClientSocket implements Runnable {
 				response = read();
 				if (!response.equals("ERROR")) {
 					logger.log(Level.INFO, response);
+					responseRequest = response;
 
 					response = "CLOSE";
 					writer.write(response);
@@ -109,5 +110,9 @@ public class ClientSocket implements Runnable {
 		stream = reader.read(b);
 		response = new String(b, 0, stream);
 		return response;
+	}
+
+	static String sendJson() {
+		return responseRequest;
 	}
 }
