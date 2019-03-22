@@ -1,11 +1,13 @@
 package com.blackmamba.deathkiss.dao;
 
+import java.sql.Connection;
+
 import com.blackmamba.deathkiss.entity.CommonArea;
 
 public class CommonAreaDAO extends DAO<CommonArea> {
 
-	public CommonAreaDAO() {
-		super();
+	public CommonAreaDAO(Connection con) {
+		super(con);
 	}
 
 	@Override

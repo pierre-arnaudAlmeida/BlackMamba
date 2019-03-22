@@ -1,11 +1,13 @@
 package com.blackmamba.deathkiss.dao;
 
+import java.sql.Connection;
+
 import com.blackmamba.deathkiss.entity.Resident;
 
 public class ResidentDAO extends DAO<Resident> {
 
-	public ResidentDAO() {
-		super();
+	public ResidentDAO(Connection con) {
+		super(con);
 	}
 
 	@Override

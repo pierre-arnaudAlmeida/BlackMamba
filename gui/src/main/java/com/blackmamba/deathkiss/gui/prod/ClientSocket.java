@@ -1,7 +1,6 @@
 package com.blackmamba.deathkiss.gui.prod;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
@@ -19,16 +18,14 @@ public class ClientSocket {
 	private PrintWriter writer = null;
 	private BufferedInputStream reader = null;
 	private static final Logger logger = LogManager.getLogger(ClientSocket.class);
-	private String response;
-	private static String responseRequest;
 	private String requestType;
-	private String jsonString;
-	BufferedWriter buffer = null;
+	private String response;
+	private static String jsonString;
 	static Employee emp = new Employee();
 
 	public ClientSocket(String host, int port, String requestType, String jsonString) {
 		this.requestType = requestType;
-		this.jsonString = jsonString;
+		ClientSocket.jsonString = jsonString;
 		try {
 			connexion = new Socket(host, port);
 			writer = new PrintWriter(connexion.getOutputStream(), true);
@@ -39,34 +36,53 @@ public class ClientSocket {
 			logger.log(Level.INFO, "Command OPEN connection send to server");
 
 			response = read();
-			if (response.equals("OK FOR CONNECTION")) {
+			if (response.equals("OK FOR EXCHANGE")) {
 				switch (this.requestType) {
 				case "CONNECTION":
-					response = jsonString;
+					response = "CONNECTION";
+					break;
+				case "CREATE":
+					response = "CREATE";
+					break;
+				case "UPDATE":
+					response= "UPDATE";
+					break;
+				case "DELETE":
+					response= "DELETE";
+					break;
+				case "READ":
+					response= "READ";
+					break;
+				case "READ ALL":
+					response= "READ ALL";
 					break;
 				default:
 					response = "";
 				}
 				writer.write(response);
 				writer.flush();
-				logger.log(Level.INFO, "Request Send to server");
+				logger.log(Level.INFO, "Request Type Send to server");
 
 				response = read();
 				if (!response.equals("ERROR")) {
-					logger.log(Level.INFO, response);
-					responseRequest = response;
-					
+					response = jsonString;
+					writer.write(response);
+					writer.flush();
+					logger.log(Level.INFO, "Request Send to server");
+				} else {
 					response = "CLOSE";
 					writer.write(response);
 					writer.flush();
-
 					logger.log(Level.INFO, "Command CLOSE connection send to server");
 					writer.close();
 					logger.log(Level.INFO, "Connection Closed by client");
-				} else {
-					logger.log(Level.INFO, "ERROR, Impossible to Receive datas");
 				}
 			} else {
+				logger.log(Level.INFO, "ERROR, Impossible to Receive datas");
+				response = "CLOSE";
+				writer.write(response);
+				writer.flush();
+				logger.log(Level.INFO, "Command CLOSE connection send to server");
 				writer.close();
 				logger.log(Level.INFO, "Connection Closed by client");
 			}
@@ -91,9 +107,10 @@ public class ClientSocket {
 
 	/**
 	 * Have the Json response from server
-	 * @return JsonString 
+	 * 
+	 * @return JsonString
 	 */
 	static String getJson() {
-		return responseRequest;
+		return jsonString;
 	}
 }

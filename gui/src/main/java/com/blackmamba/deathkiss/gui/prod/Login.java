@@ -3,9 +3,6 @@ package com.blackmamba.deathkiss.gui.prod;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,10 +26,8 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField id_employeeField;
 	private JPasswordField passwordField;
-	private ResultSet result = null;
 	private static Logger logger = Logger.getLogger("logger");
 	private String requestType;
-	private List<String> listDatas = new ArrayList<String>();
 	private Employee employee;
 	private String jsonString;
 

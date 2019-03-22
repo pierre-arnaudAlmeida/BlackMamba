@@ -15,6 +15,8 @@ import org.apache.logging.log4j.Logger;
 
 import com.blackmamba.deathkiss.connectionpool.DataSource;
 import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
+import com.blackmamba.deathkiss.dao.DAO;
+import com.blackmamba.deathkiss.dao.EmployeeDAO;
 import com.blackmamba.deathkiss.entity.Employee;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -50,31 +52,129 @@ public class RequestHandler implements Runnable {
 				response = read();
 				if (response.equals("OPEN")) {
 					Connection con = DataSource.getConnectionFromJDBC(pool);
-					response = "OK FOR CONNECTION";
+					response = "OK FOR EXCHANGE ";
 					writer.write(response);
 					writer.flush();
 
 					response = read();
 					if (!response.equals("")) {
-						logger.log(Level.INFO, "Request received on server");
-						Statement st = con.createStatement();
-						response = "SELECT * FROM Employee";
-						result = st.executeQuery(response);
-						result.next();
+						switch (response) {
+						case "CONNECTION":
+							response = "OK FOR REQUEST CONNECTION";
+							writer.write(response);
+							writer.flush();
+							logger.log(Level.INFO, "Request Type accepted by server");
 
-						Employee em = new Employee();
-						em.setIdEmployee(Integer.parseInt(result.getObject(1).toString()));
-						em.setLastnameEmployee(result.getObject(2).toString());
-						em.setNameEmployee(result.getObject(3).toString());
-						em.setPassword(result.getObject(4).toString());
-						em.setPoste(result.getObject(5).toString());
-						ObjectMapper obj = new ObjectMapper();
-						jsonString = obj.writeValueAsString(em);
+							response = read();
+							if (!response.equals("")) {
+								logger.log(Level.INFO, "Request received on server");
 
-						writer.write(jsonString);
-						writer.flush();
-						logger.log(Level.INFO, "Request send to client");
+								DAO<Employee> employeeDao = new EmployeeDAO(DataSource.getConnectionFromJDBC(pool));
+								jsonString = ((EmployeeDAO) employeeDao).connection(response);
+								writer.write(jsonString);
+								writer.flush();
+								logger.log(Level.INFO, "Response send to client");
+							} else {
+								logger.log(Level.INFO, "Request not recognized");
+							}
+							break;
+						case "CREATE":
+							response = "OK FOR REQUEST CREATE";
+							writer.write(response);
+							writer.flush();
+							logger.log(Level.INFO, "Request Type accepted by server");
 
+							response = read();
+							if (!response.equals("")) {
+								// Methode DAO pour la creation
+								// on recupere un jsonString qui est egale a 0 ou 1 si la creation a été faite
+								// ou pas
+								writer.write(jsonString);
+								writer.flush();
+								logger.log(Level.INFO, "Response send to client");
+							} else {
+								logger.log(Level.INFO, "Request not recognized");
+							}
+							break;
+						case "UPDATE":
+							response = "OK FOR REQUEST UPDATE";
+							writer.write(response);
+							writer.flush();
+							logger.log(Level.INFO, "Request Type accepted by server");
+
+							response = read();
+							if (!response.equals("")) {
+								// Methode DAO pour la UPDATE
+								// on recupere un jsonString qui est egale a 0 ou 1 si la mise a jour a été
+								// faite ou pas
+								writer.write(jsonString);
+								writer.flush();
+								logger.log(Level.INFO, "Response send to client");
+							} else {
+								logger.log(Level.INFO, "Request not recognized");
+							}
+							break;
+						case "DELETE":
+							response = "OK FOR REQUEST DELETE";
+							writer.write(response);
+							writer.flush();
+							logger.log(Level.INFO, "Request Type accepted by server");
+
+							response = read();
+							if (!response.equals("")) {
+								// Methode DAO pour la DELETE
+								// on recupere un jsonString qui est egale a 0 ou 1 si la suppression a été
+								// faite ou pas
+								writer.write(jsonString);
+								writer.flush();
+								logger.log(Level.INFO, "Response send to client");
+							} else {
+								logger.log(Level.INFO, "Request not recognized");
+							}
+							break;
+						case "READ":
+							response = "OK FOR REQUEST READ";
+							writer.write(response);
+							writer.flush();
+							logger.log(Level.INFO, "Request Type accepted by server");
+
+							response = read();
+							if (!response.equals("")) {
+								// Methode DAO pour la READ
+								// on recupere un jsonString avec les infos d'une seule personne
+								writer.write(jsonString);
+								writer.flush();
+								logger.log(Level.INFO, "Response send to client");
+							} else {
+								logger.log(Level.INFO, "Request not recognized");
+							}
+							break;
+						case "READ ALL":
+							response = "OK FOR REQUEST READ ALL";
+							writer.write(response);
+							writer.flush();
+							logger.log(Level.INFO, "Request Type accepted by server");
+
+							response = read();
+							if (!response.equals("")) {
+								// Methode DAO pour la READ ALL
+								// on recupere un jsonString avec plusieurs ligne donc une liste d'object et
+								// chacun des object a plusieurs champs
+								writer.write(jsonString);
+								writer.flush();
+								logger.log(Level.INFO, "Response send to client");
+							} else {
+								logger.log(Level.INFO, "Request not recognized");
+							}
+							break;
+						default:
+							response = "ERROR";
+							writer.write(response);
+							writer.flush();
+							logger.log(Level.INFO, "Resquest Type not recognized by server");
+							sock.close();
+							logger.log(Level.INFO, "Socket Closed by Server");
+						}
 						response = read();
 						if (response.equals("CLOSE")) {
 							sock.close();
@@ -93,7 +193,6 @@ public class RequestHandler implements Runnable {
 						}
 					}
 				}
-
 			} catch (SQLException | IOException e) {
 				logger.log(Level.INFO, "Impossible to execute the request " + e.getClass().getCanonicalName());
 			}
