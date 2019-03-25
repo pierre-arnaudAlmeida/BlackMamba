@@ -6,11 +6,11 @@ import java.util.logging.Logger;
 public abstract class DAO<T> {
 
 	protected Connection con = null;
-	
+
 	Logger logger = Logger.getLogger("logger");
 
 	public DAO(Connection connection) {
-		this.con=connection;
+		this.con = connection;
 	}
 
 	/**
@@ -38,11 +38,19 @@ public abstract class DAO<T> {
 	public abstract boolean update(String jsonString);
 
 	/**
-	 * Find informations with the id method
+	 * Find informations with the id
 	 * 
 	 * @param obj
-	 * @return T
+	 * @return String
 	 */
-	public abstract String find(String jsonString);
+	public abstract String read(String jsonString);
+
+	/**
+	 * Give all lines from table
+	 * 
+	 * @param jsonString
+	 * @return String
+	 */
+	public abstract String readAll(String jsonString);
 
 }

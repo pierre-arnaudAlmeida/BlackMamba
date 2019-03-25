@@ -29,7 +29,7 @@ public class ResidentDAO extends DAO<Resident> {
 	}
 
 	@Override
-	public String find(String jsonString) {
+	public String read(String jsonString) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -38,5 +38,11 @@ public class ResidentDAO extends DAO<Resident> {
 		// TODO Auto-generated method stub
 		// Quand on badge on ajoute une date
 		return false;
+	}
+
+	@Override
+	public String readAll(String jsonString) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

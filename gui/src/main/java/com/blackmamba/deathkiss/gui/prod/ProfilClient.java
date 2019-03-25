@@ -16,8 +16,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import com.blackmamba.deathkiss.entity.Employee;
 import com.blackmamba.deathkiss.gui.prod.connectionpool.DataSource;
 import com.blackmamba.deathkiss.gui.prod.connectionpool.JDBCConnectionPool;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ProfilClient extends JFrame {
 
@@ -31,6 +33,10 @@ public class ProfilClient extends JFrame {
 	private static Logger logger = Logger.getLogger("logger");
 	private ResultSet result = null;
 	private ResultSetMetaData resultMeta = null;
+	private Employee employee;
+	private String requestType;
+	private String table;
+	private String jsonString;
 
 	public ProfilClient() {
 
@@ -130,20 +136,26 @@ public class ProfilClient extends JFrame {
 					 * the window 'ProfilClient' with the list of users actualized
 					 */
 					public void actionPerformed(ActionEvent e) {
-
+						requestType = "DELETE";
+						employee = new Employee();
+						table = "Employee";
+						
 						String s1 = deleteButton.getText().substring(11);
 						int i = Integer.parseInt(s1);
-
-						JDBCConnectionPool p;
+						
+						employee.setIdEmployee(i);
+						ObjectMapper connectionMapper = new ObjectMapper();
 						try {
-							p = new JDBCConnectionPool(false);
-							Connection con = DataSource.getConnectionFromJDBC(p);
-							Statement st = con.createStatement();
-							String sql = "DELETE FROM employee where id_employee = " + i;
-							st.execute(sql);
-							logger.log(Level.INFO, "Delete data in BDD succed ");
+							jsonString = connectionMapper.writeValueAsString(employee);
+							new ClientSocket(requestType, jsonString, table);
+							jsonString = ClientSocket.getJson();
+							if (!jsonString.equals("DELETED")) {
+								JOptionPane.showMessageDialog(null, "La suppression a échoué", "Erreur",
+										JOptionPane.ERROR_MESSAGE);
+								logger.log(Level.INFO, "Impossible to delete this employee");
+							}
 						} catch (Exception e1) {
-							logger.log(Level.INFO, "Delete data in BDD failed " + e1.getClass().getCanonicalName());
+							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 						}
 
 						try {
@@ -191,40 +203,54 @@ public class ProfilClient extends JFrame {
 					 * they display a popup
 					 */
 					public void actionPerformed(ActionEvent e) {
-
+						requestType = "UPDATE";
+						employee = new Employee();
+						table = "Employee";
+						
 						String s1 = modificationButton.getText().substring(13);
 						int i = Integer.parseInt(s1);
 						String lastnamefield = lastnameField.getText();
 						String namefield = nameField.getText();
 
-						JDBCConnectionPool p;
-						try {
-							String sql = null;
-							p = new JDBCConnectionPool(false);
-							Connection con = DataSource.getConnectionFromJDBC(p);
-							Statement st = con.createStatement();
-
+						if (lastnamefield.equals("") && (namefield.equals(""))) {
+							JOptionPane.showMessageDialog(null, "Champs vide", "Erreur", JOptionPane.ERROR_MESSAGE);
+						}else {
 							if (lastnamefield.equals("") && !(namefield.equals(""))) {
-								sql = "UPDATE employee SET prenom_employee = '" + namefield + "' where id_employee = "
-										+ i;
+								employee.setIdEmployee(i);
+								employee.setNameEmployee(namefield);
+								employee.setLastnameEmployee("");
+								employee.setPassword("");
+								employee.setPoste("");
 							}
 							if (namefield.equals("") && !(lastnamefield.equals(""))) {
-								sql = "UPDATE employee SET nom_employee = '" + lastnamefield + "' where id_employee = "
-										+ i;
+								employee.setIdEmployee(i);
+								employee.setNameEmployee("");
+								employee.setLastnameEmployee(lastnamefield);
+								employee.setPassword("");
+								employee.setPoste("");
 							}
-							if (lastnamefield.equals("") && (namefield.equals(""))) {
-								JOptionPane.showMessageDialog(null, "Champs vide", "Erreur", JOptionPane.ERROR_MESSAGE);
-							}
+							
 							if (!(namefield.equals("")) && !(lastnamefield.equals(""))) {
-								sql = "UPDATE employee SET nom_employee = '" + lastnamefield + "', prenom_employee = '"
-										+ namefield + "' where id_employee = " + i;
+								employee.setIdEmployee(i);
+								employee.setNameEmployee(namefield);
+								employee.setLastnameEmployee(lastnamefield);
+								employee.setPassword("");
+								employee.setPoste("");
 							}
-							st.execute(sql);
-							logger.log(Level.INFO, "Update in BDD succed ");
-						} catch (Exception e1) {
-							logger.log(Level.INFO, "Update in BDD failed " + e1.getClass().getCanonicalName());
+							ObjectMapper connectionMapper = new ObjectMapper();
+							try {
+								jsonString = connectionMapper.writeValueAsString(employee);
+								new ClientSocket(requestType, jsonString, table);
+								jsonString = ClientSocket.getJson();
+								if (!jsonString.equals("UPDATED")) {
+									JOptionPane.showMessageDialog(null, "La mise a jour a échoué", "Erreur",
+											JOptionPane.ERROR_MESSAGE);
+									logger.log(Level.INFO, "Impossible to update employee");
+								}
+							} catch (Exception e1) {
+								logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+							}
 						}
-
 						try {
 							ProfilClient frame = new ProfilClient();
 							frame.setVisible(true);
