@@ -29,7 +29,13 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 	}
 
 	@Override
-	public String find(String jsonString) {
+	public String read(String jsonString) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String readAll(String jsonString) {
 		// TODO Auto-generated method stub
 		return null;
 	}

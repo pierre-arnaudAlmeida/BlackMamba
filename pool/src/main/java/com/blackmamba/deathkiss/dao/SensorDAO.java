@@ -31,7 +31,7 @@ public class SensorDAO extends DAO<Sensor>{
 	}
 
 	@Override
-	public String find(String jsonString) {
+	public String read(String jsonString) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -46,6 +46,12 @@ public class SensorDAO extends DAO<Sensor>{
 		// Quand une fenetre popup s'ouvre pour prevenir d'un alerte, on utilise la methode report() en fonction de la
 		// ou les personnes qui ont reçu la notification
 		return false;
+	}
+
+	@Override
+	public String readAll(String jsonString) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

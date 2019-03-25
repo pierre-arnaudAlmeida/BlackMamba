@@ -16,7 +16,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class EmployeeDAO extends DAO<Employee> {
 
 	private ResultSet result = null;
-	private String request;
 	private static final Logger logger = LogManager.getLogger(EmployeeDAO.class);
 
 	public EmployeeDAO(Connection con) {
@@ -33,7 +32,7 @@ public class EmployeeDAO extends DAO<Employee> {
 			request = "insert into employee (nom_employee, prenom_employee, mot_de_passe, poste) values ('"
 					+ employee.getLastnameEmployee() + "','" + employee.getNameEmployee() + "','"
 					+ employee.getPassword() + "','" + employee.getPoste() + "')";
-			st.executeQuery(request);
+			st.execute(request);
 			logger.log(Level.INFO, "User succesfully inserted in BDD");
 			return true;
 		} catch (IOException | SQLException e) {
@@ -44,20 +43,45 @@ public class EmployeeDAO extends DAO<Employee> {
 
 	@Override
 	public boolean delete(String jsonString) {
-		// TODO Auto-generated method stub
-		return false;
+		ObjectMapper objectMapper = new ObjectMapper();
+		String request;
+		try {
+			Statement st = con.createStatement();
+			Employee employee = objectMapper.readValue(jsonString, Employee.class);
+			request = "DELETE FROM employee where id_employee = "+employee.getIdEmployee()+";";
+			st.execute(request);
+			logger.log(Level.INFO, "User succesfully deleted in BDD");
+			return true;
+		} catch (SQLException | IOException e) {
+			logger.log(Level.INFO, "Impossible to delete data in BDD" + e.getClass().getCanonicalName());
+			return false;
+		}
 	}
 
 	@Override
 	public boolean update(String jsonString) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public String find(String jsonString) {
-		// TODO Auto-generated method stub
-		return null;
+		ObjectMapper objectMapper = new ObjectMapper();
+		String request;
+		try {
+			Statement st = con.createStatement();
+			Employee employee = objectMapper.readValue(jsonString, Employee.class);
+			if (employee.getLastnameEmployee().equals("") && (!employee.getNameEmployee().equals(""))) {
+			request = "UPDATE employee SET prenom_employee = '"+ employee.getNameEmployee()+"' where id_employee = "
+					+employee.getIdEmployee();
+			} else if((!employee.getLastnameEmployee().equals("")) && employee.getNameEmployee().equals("")) {
+				request = "UPDATE employee SET nom_employee = '"+ employee.getLastnameEmployee()+"' where id_employee = "
+						+employee.getIdEmployee();
+			} else if((!employee.getLastnameEmployee().equals("")) && (!employee.getNameEmployee().equals(""))) {
+				request = "UPDATE employee SET nom_employee = '"+ employee.getLastnameEmployee()+"',prenom_employee = '"+ employee.getNameEmployee()+"' where id_employee = "
+						+employee.getIdEmployee();
+			} else return false;
+			st.execute(request);
+			logger.log(Level.INFO, "User succesfully update in BDD");
+			return true;
+		} catch (SQLException | IOException e) {
+			logger.log(Level.INFO, "Impossible to update data in BDD" + e.getClass().getCanonicalName());
+			return false;
+		}
 	}
 
 	public String connection(String jsonString) {
@@ -85,6 +109,18 @@ public class EmployeeDAO extends DAO<Employee> {
 		}
 		jsonString = "ERROR";
 		return jsonString;
+	}
+
+	@Override
+	public String read(String jsonString) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public String readAll(String jsonString) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
