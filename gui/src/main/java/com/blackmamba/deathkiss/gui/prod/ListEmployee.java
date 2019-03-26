@@ -40,8 +40,8 @@ public class ListEmployee extends JFrame {
 
 		// Creation of a back button
 		// And display on the contentPane
-		JButton backButton = new JButton("Insertion");
-		backButton.setBounds(0, 0, 100, 23);
+		JButton backButton = new JButton("Ajouter un employé");
+		backButton.setBounds(147, 0, 214, 23);
 		contentPane.add(backButton);
 
 		backButton.addActionListener(new ActionListener() {

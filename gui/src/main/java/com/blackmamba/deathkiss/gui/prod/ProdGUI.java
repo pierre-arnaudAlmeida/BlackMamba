@@ -12,7 +12,8 @@ public class ProdGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Login frame = new Login();
+					//Login frame = new Login();
+					InsertionEmployee frame = new InsertionEmployee();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					logger.log(Level.INFO, "Impossible create the window 'Login' " + e.getClass().getCanonicalName());

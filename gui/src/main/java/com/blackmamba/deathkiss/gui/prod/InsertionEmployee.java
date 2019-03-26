@@ -93,7 +93,14 @@ public class InsertionEmployee extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO redirect to insert CommonArea class
+				try {
+					InsertionCommonArea frame = new InsertionCommonArea();
+					frame.setVisible(true);
+					setVisible(false);
+				} catch (Exception e1) {
+					logger.log(Level.INFO,
+							"Impossible to access at window 'ListCommonArea' " + e1.getClass().getCanonicalName());
+				}
 			}
 		});
 

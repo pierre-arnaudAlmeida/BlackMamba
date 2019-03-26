@@ -26,21 +26,6 @@ public class ClientSocket {
 	private String host = "127.0.0.1";
 	private int port = 2345;
 
-	public ClientSocket() {
-		try {
-		connexion = new Socket(host, port);
-		writer = new PrintWriter(connexion.getOutputStream(), true);
-		reader = new BufferedInputStream(connexion.getInputStream());
-
-		writer.write("OPEN");
-		writer.flush();
-		logger.log(Level.INFO, "Command OPEN connection send to server");
-		response = read();
-		}catch (IOException e) {
-			
-		}
-	}
-	
 	public ClientSocket(String requestType, String jsonString, String table) {
 		this.requestType = requestType;
 		this.table = table;
