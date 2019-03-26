@@ -13,6 +13,8 @@ public class ProdGUI {
 			public void run() {
 				try {
 					Login frame = new Login();
+					//ProfilClient frame = new ProfilClient();
+					//InsertionClient frame = new InsertionClient();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					logger.log(Level.INFO, "Impossible create the window 'Login' " + e.getClass().getCanonicalName());

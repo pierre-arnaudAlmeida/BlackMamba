@@ -11,14 +11,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class CommonArea extends JFrame {
+public class ProfilCommonArea extends JFrame {
 	private JPanel contentPane;
 	private int idCommonArea;
 	private String nameCommonArea;
 	private int etageCommonArea;
 	private static Logger logger = Logger.getLogger("logger");
 
-	public CommonArea() {
+	public ProfilCommonArea(int idCommonArea) {
+		System.out.println(idCommonArea);
 		setTitle("Liste Parties Communes");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);

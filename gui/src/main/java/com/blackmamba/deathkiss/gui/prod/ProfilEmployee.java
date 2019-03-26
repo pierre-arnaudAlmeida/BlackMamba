@@ -21,7 +21,7 @@ import com.blackmamba.deathkiss.gui.prod.connectionpool.DataSource;
 import com.blackmamba.deathkiss.gui.prod.connectionpool.JDBCConnectionPool;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class ProfilClient extends JFrame {
+public class ProfilEmployee extends JFrame {
 
 	// Definition of differents fields
 	private JPanel contentPane;
@@ -38,9 +38,9 @@ public class ProfilClient extends JFrame {
 	private String table;
 	private String jsonString;
 
-	public ProfilClient() {
+	public ProfilEmployee() {
 
-		setTitle("Liste Employé");
+		setTitle("Profil Employee");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
@@ -50,23 +50,23 @@ public class ProfilClient extends JFrame {
 
 		// Creation of a back button
 		// And display on the contentPane
-		JButton backButton = new JButton("Insertion");
-		backButton.setBounds(0, 0, 100, 23);
+		JButton backButton = new JButton("Liste Employes");
+		backButton.setBounds(0, 0, 200, 23);
 		contentPane.add(backButton);
 
 		backButton.addActionListener(new ActionListener() {
 			/**
-			 * If they click in backButton c'est will redirect to InsertionClient
+			 * If they click in backButton c'est will redirect to ListEmployee
 			 */
 			public void actionPerformed(ActionEvent e) {
 				try {
-					InsertionClient frame = new InsertionClient();
+					ListEmployee frame = new ListEmployee();
 					frame.setVisible(true);
 					setVisible(false);
 					dispose();
 				} catch (Exception e1) {
 					logger.log(Level.INFO,
-							"Impossible redirect to window 'InsertionClient' " + e1.getClass().getCanonicalName());
+							"Impossible redirect to window 'List Employee' " + e1.getClass().getCanonicalName());
 				}
 			}
 		});
@@ -159,7 +159,7 @@ public class ProfilClient extends JFrame {
 						}
 
 						try {
-							ProfilClient frame = new ProfilClient();
+							ProfilEmployee frame = new ProfilEmployee();
 							frame.setVisible(true);
 							setVisible(false);
 							dispose();
@@ -252,7 +252,7 @@ public class ProfilClient extends JFrame {
 							}
 						}
 						try {
-							ProfilClient frame = new ProfilClient();
+							ProfilEmployee frame = new ProfilEmployee();
 							frame.setVisible(true);
 							setVisible(false);
 							dispose();

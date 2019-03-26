@@ -43,7 +43,7 @@ public class InsertionClient extends JFrame {
 
 		// Creation of a profil button
 		// And display on the contentPane
-		JButton profilbouton = new JButton("Liste des profils");
+		JButton profilbouton = new JButton("Liste des employes");
 		profilbouton.setBounds(147, 0, 214, 23);
 		contentPane.add(profilbouton);
 		profilbouton.addActionListener(new ActionListener() {
@@ -53,12 +53,12 @@ public class InsertionClient extends JFrame {
 			 */
 			public void actionPerformed(ActionEvent e) {
 				try {
-					ProfilClient frame = new ProfilClient();
+					ListEmployee frame = new ListEmployee();
 					frame.setVisible(true);
 					setVisible(false);
 				} catch (Exception e1) {
 					logger.log(Level.INFO,
-							"Impossible to access at window 'ProfilClient' " + e1.getClass().getCanonicalName());
+							"Impossible to access at window 'ListEmployee' " + e1.getClass().getCanonicalName());
 				}
 			}
 		});
@@ -76,12 +76,34 @@ public class InsertionClient extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					CommonArea frame = new CommonArea();
+					ListCommonArea frame = new ListCommonArea();
 					frame.setVisible(true);
 					setVisible(false);
 				} catch (Exception e1) {
 					logger.log(Level.INFO,
-							"Impossible to access at window 'CommonArea' " + e1.getClass().getCanonicalName());
+							"Impossible to access at window 'ListCommonArea' " + e1.getClass().getCanonicalName());
+				}
+			}
+		});
+
+		JButton insertCommonAreaButton = new JButton("Ajouter une partie commune");
+		insertCommonAreaButton.setBounds(147, 250, 214, 23);
+		contentPane.add(insertCommonAreaButton);
+		insertCommonAreaButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO redirect to insert CommonArea class
+				requestType = "READ ALL";
+				employee = new Employee();
+				table = "Employee";
+				try {
+					jsonString = "READ ALL";
+					new ClientSocket(requestType, jsonString, table);
+					jsonString = ClientSocket.getJson();
+					
+				} catch (Exception e1) {
+					logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 				}
 			}
 		});
@@ -200,7 +222,7 @@ public class InsertionClient extends JFrame {
 					}
 
 					try {
-						ProfilClient frame = new ProfilClient();
+						ProfilEmployee frame = new ProfilEmployee();
 						frame.setVisible(true);
 						setVisible(false);
 						dispose();
