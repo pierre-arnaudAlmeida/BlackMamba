@@ -42,9 +42,10 @@ public class ListCommonArea extends JFrame {
 			 */
 			public void actionPerformed(ActionEvent e) {
 				try {
-					InsertionClient frame = new InsertionClient();
+					InsertionEmployee frame = new InsertionEmployee();
 					frame.setVisible(true);
 					setVisible(false);
+					logger.log(Level.INFO, "Back to Insertion Employee");
 					dispose();
 				} catch (Exception e1) {
 					logger.log(Level.INFO,
@@ -95,6 +96,7 @@ public class ListCommonArea extends JFrame {
 						ProfilCommonArea frame = new ProfilCommonArea(commonArea.getIdCommonArea());
 						frame.setVisible(true);
 						setVisible(false);
+						logger.log(Level.INFO, "Go to Profil Common Area");
 						dispose();
 					} catch (Exception e1) {
 						logger.log(Level.INFO,

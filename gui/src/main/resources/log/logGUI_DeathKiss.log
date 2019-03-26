@@ -2818,3 +2818,10 @@
 2019-03-26 16:53:43 [AWT-EventQueue-0] INFO  ClientSocket:81 - Datas received on client
 2019-03-26 16:53:43 [AWT-EventQueue-0] INFO  ClientSocket:85 - Command CLOSE connection send to server
 2019-03-26 16:53:43 [AWT-EventQueue-0] INFO  ClientSocket:87 - Connection Closed by client
+2019-03-26 20:56:07 [AWT-EventQueue-0] INFO  ClientSocket:37 - Command OPEN connection send to server
+2019-03-26 20:57:13 [AWT-EventQueue-0] INFO  ClientSocket:55 - Command OPEN connection send to server
+2019-03-26 20:57:14 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Type Send to server
+2019-03-26 20:57:14 [AWT-EventQueue-0] INFO  ClientSocket:90 - Request Send to server
+2019-03-26 20:57:14 [AWT-EventQueue-0] INFO  ClientSocket:95 - Datas received on client
+2019-03-26 20:57:14 [AWT-EventQueue-0] INFO  ClientSocket:99 - Command CLOSE connection send to server
+2019-03-26 20:57:14 [AWT-EventQueue-0] INFO  ClientSocket:101 - Connection Closed by client

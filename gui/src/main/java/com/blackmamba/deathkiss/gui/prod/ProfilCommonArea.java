@@ -13,7 +13,6 @@ import javax.swing.border.EmptyBorder;
 
 public class ProfilCommonArea extends JFrame {
 	private JPanel contentPane;
-	private int idCommonArea;
 	private String nameCommonArea;
 	private int etageCommonArea;
 	private static Logger logger = Logger.getLogger("logger");
@@ -58,7 +57,7 @@ public class ProfilCommonArea extends JFrame {
 			 */
 			public void actionPerformed(ActionEvent e) {
 				try {
-					InsertionClient frame = new InsertionClient();
+					InsertionEmployee frame = new InsertionEmployee();
 					frame.setVisible(true);
 					setVisible(false);
 					dispose();

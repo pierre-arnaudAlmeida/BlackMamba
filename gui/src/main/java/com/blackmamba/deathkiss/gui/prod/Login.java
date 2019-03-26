@@ -115,7 +115,7 @@ public class Login extends JFrame {
 					employee.setIdEmployee(Integer.parseInt(idfield));
 					employee.setPassword(passwordfield);
 					ObjectMapper connectionMapper = new ObjectMapper();
-					try { 
+					try {
 						jsonString = connectionMapper.writeValueAsString(employee);
 						new ClientSocket(requestType, jsonString, table);
 						jsonString = ClientSocket.getJson();
@@ -124,10 +124,10 @@ public class Login extends JFrame {
 						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 					}
 					if (!employee.getLastnameEmployee().equals("")) {
-						logger.log(Level.INFO, "Good id employee and good password employee, Connection accepted");
-						InsertionClient frame = new InsertionClient();
+						InsertionEmployee frame = new InsertionEmployee();
 						frame.setVisible(true);
 						setVisible(false);
+						logger.log(Level.INFO, "Good id employee and good password employee, Connection accepted");
 						dispose();
 					} else {
 						logger.log(Level.INFO, "Attempt of connection with wrong password employee or id employee");

@@ -50,9 +50,10 @@ public class ListEmployee extends JFrame {
 			 */
 			public void actionPerformed(ActionEvent e) {
 				try {
-					InsertionClient frame = new InsertionClient();
+					InsertionEmployee frame = new InsertionEmployee();
 					frame.setVisible(true);
 					setVisible(false);
+					logger.log(Level.INFO, "Back to Insertion Employee");
 					dispose();
 				} catch (Exception e1) {
 					logger.log(Level.INFO,
@@ -108,10 +109,11 @@ public class ListEmployee extends JFrame {
 						ProfilEmployee frame = new ProfilEmployee(employees.getIdEmployee());
 						frame.setVisible(true);
 						setVisible(false);
+						logger.log(Level.INFO, "Go to Profil Employee");
 						dispose();
 					} catch (Exception e1) {
 						logger.log(Level.INFO,
-								"Impossible redirect to window 'ProfilClient' " + e1.getClass().getCanonicalName());
+								"Impossible redirect to window 'ProfilEmployee' " + e1.getClass().getCanonicalName());
 					}
 				}
 			});

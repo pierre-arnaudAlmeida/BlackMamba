@@ -17,7 +17,7 @@ import javax.swing.border.EmptyBorder;
 import com.blackmamba.deathkiss.entity.Employee;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class InsertionClient extends JFrame {
+public class InsertionEmployee extends JFrame {
 
 	// Definition of differents fields
 	private JPanel contentPane;
@@ -31,7 +31,7 @@ public class InsertionClient extends JFrame {
 	private String jsonString;
 	private static Logger logger = Logger.getLogger("logger");
 
-	public InsertionClient() {
+	public InsertionEmployee() {
 
 		setTitle("Insertion Employee");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -209,6 +209,8 @@ public class InsertionClient extends JFrame {
 							JOptionPane.showMessageDialog(null, "L'insertion a échoué", "Erreur",
 									JOptionPane.ERROR_MESSAGE);
 							logger.log(Level.INFO, "Impossible to insert employee");
+						} else {
+							logger.log(Level.INFO, "Insertion Succeded");
 						}
 					} catch (Exception e1) {
 						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
@@ -217,6 +219,7 @@ public class InsertionClient extends JFrame {
 					try {
 						ListEmployee frame = new ListEmployee();
 						frame.setVisible(true);
+						logger.log(Level.INFO, "Page List Employee opened");
 						setVisible(false);
 						dispose();
 					} catch (Exception e1) {

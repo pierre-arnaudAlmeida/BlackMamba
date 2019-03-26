@@ -263,14 +263,15 @@ public class ProfilEmployee extends JFrame {
 						employee.setPassword("");
 						employee.setPoste(postefield);
 					} else if (!(passwordfield.equals(""))) {
-						String verificationPassword = JOptionPane.showInputDialog(null, "Inserez votre mot de passe", "");
+						String verificationPassword = JOptionPane.showInputDialog(null, "Inserez votre mot de passe",
+								"");
 						String request = "CONNECTION";
 						emp = new Employee();
-						
+
 						emp.setIdEmployee(id);
 						emp.setPassword(verificationPassword);
 						ObjectMapper connectionMapper = new ObjectMapper();
-						try { 
+						try {
 							jsonString = connectionMapper.writeValueAsString(emp);
 							new ClientSocket(request, jsonString, table);
 							jsonString = ClientSocket.getJson();
