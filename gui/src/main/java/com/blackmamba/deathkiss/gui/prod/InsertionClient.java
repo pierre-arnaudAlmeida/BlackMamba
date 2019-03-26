@@ -94,17 +94,6 @@ public class InsertionClient extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO redirect to insert CommonArea class
-				requestType = "READ ALL";
-				employee = new Employee();
-				table = "Employee";
-				try {
-					jsonString = "READ ALL";
-					new ClientSocket(requestType, jsonString, table);
-					jsonString = ClientSocket.getJson();
-					
-				} catch (Exception e1) {
-					logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
-				}
 			}
 		});
 
@@ -146,10 +135,14 @@ public class InsertionClient extends JFrame {
 		passwordField.setBounds(147, 123, 121, 20);
 		contentPane.add(passwordField);
 
+		// Creation of label poste
+		// And display on the contentPane
 		JLabel poste = new JLabel("Poste");
 		poste.setBounds(147, 150, 130, 14);
 		contentPane.add(poste);
 
+		// Creation of TextField for poste
+		// And display on the contentPane
 		posteField = new JTextField();
 		posteField.setBounds(147, 170, 130, 20);
 		contentPane.add(posteField);
@@ -207,9 +200,9 @@ public class InsertionClient extends JFrame {
 					employee.setNameEmployee(namefield);
 					employee.setPassword(passwordfield);
 					employee.setPoste(postefield);
-					ObjectMapper connectionMapper = new ObjectMapper();
+					ObjectMapper insertMapper = new ObjectMapper();
 					try {
-						jsonString = connectionMapper.writeValueAsString(employee);
+						jsonString = insertMapper.writeValueAsString(employee);
 						new ClientSocket(requestType, jsonString, table);
 						jsonString = ClientSocket.getJson();
 						if (!jsonString.equals("INSERTED")) {
@@ -222,7 +215,7 @@ public class InsertionClient extends JFrame {
 					}
 
 					try {
-						ProfilEmployee frame = new ProfilEmployee();
+						ListEmployee frame = new ListEmployee();
 						frame.setVisible(true);
 						setVisible(false);
 						dispose();
