@@ -94,6 +94,17 @@ public class InsertionClient extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO redirect to insert CommonArea class
+				requestType = "READ ALL";
+				employee = new Employee();
+				table = "Employee";
+				try {
+					jsonString = "READ ALL";
+					new ClientSocket(requestType, jsonString, table);
+					jsonString = ClientSocket.getJson();
+					
+				} catch (Exception e1) {
+					logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+				}
 			}
 		});
 
