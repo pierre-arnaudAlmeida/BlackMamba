@@ -67,15 +67,71 @@ public class EmployeeDAO extends DAO<Employee> {
 		try {
 			Statement st = con.createStatement();
 			Employee employee = objectMapper.readValue(jsonString, Employee.class);
-			if (employee.getLastnameEmployee().equals("") && (!employee.getNameEmployee().equals(""))) {
+			if (employee.getPassword().equals("") && employee.getPoste().equals("")
+					&& employee.getLastnameEmployee().equals("") && !(employee.getNameEmployee().equals(""))) {
 				request = "UPDATE employee SET prenom_employee = '" + employee.getNameEmployee()
 						+ "' where id_employee = " + employee.getIdEmployee();
-			} else if ((!employee.getLastnameEmployee().equals("")) && employee.getNameEmployee().equals("")) {
+			} else if (employee.getPassword().equals("") && employee.getPoste().equals("")
+					&& !(employee.getLastnameEmployee().equals("")) && employee.getNameEmployee().equals("")) {
 				request = "UPDATE employee SET nom_employee = '" + employee.getLastnameEmployee()
 						+ "' where id_employee = " + employee.getIdEmployee();
-			} else if ((!employee.getLastnameEmployee().equals("")) && (!employee.getNameEmployee().equals(""))) {
-				request = "UPDATE employee SET nom_employee = '" + employee.getLastnameEmployee()
-						+ "',prenom_employee = '" + employee.getNameEmployee() + "' where id_employee = "
+			} else if (employee.getPassword().equals("") && employee.getPoste().equals("")
+					&& !(employee.getLastnameEmployee().equals("")) && !(employee.getNameEmployee().equals(""))) {
+				request = "UPDATE employee SET prenom_employee = '" + employee.getNameEmployee() + "', nom_employee = '"
+						+ employee.getLastnameEmployee() + "' where id_employee = " + employee.getIdEmployee();
+			} else if (employee.getPassword().equals("") && !(employee.getPoste().equals(""))
+					&& employee.getLastnameEmployee().equals("") && employee.getNameEmployee().equals("")) {
+				request = "UPDATE employee SET poste = '" + employee.getPoste() + "' where id_employee = "
+						+ employee.getIdEmployee();
+			} else if (employee.getPassword().equals("") && !(employee.getPoste().equals(""))
+					&& employee.getLastnameEmployee().equals("") && !(employee.getNameEmployee().equals(""))) {
+				request = "UPDATE employee SET prenom_employee = '" + employee.getNameEmployee() + "', poste = '"
+						+ employee.getPoste() + "' where id_employee = " + employee.getIdEmployee();
+			} else if (employee.getPassword().equals("") && !(employee.getPoste().equals(""))
+					&& !(employee.getLastnameEmployee().equals("")) && employee.getNameEmployee().equals("")) {
+				request = "UPDATE employee SET nom_employee = '" + employee.getLastnameEmployee() + "', poste = '"
+						+ employee.getPoste() + "' where id_employee = " + employee.getIdEmployee();
+			} else if (employee.getPassword().equals("") && !(employee.getPoste().equals(""))
+					&& !(employee.getLastnameEmployee().equals("")) && !(employee.getNameEmployee().equals(""))) {
+				request = "UPDATE employee SET prenom_employee = '" + employee.getNameEmployee() + "', nom_employee = '"
+						+ employee.getLastnameEmployee() + "',poste = '" + employee.getPoste()
+						+ "' where id_employee = " + employee.getIdEmployee();
+			} else if (!(employee.getPassword().equals("")) && employee.getPoste().equals("")
+					&& employee.getLastnameEmployee().equals("") && employee.getNameEmployee().equals("")) {
+				request = "UPDATE employee SET mot_de_passe = '" + employee.getPassword() + "' where id_employee = "
+						+ employee.getIdEmployee();
+			} else if (!(employee.getPassword().equals("")) && employee.getPoste().equals("")
+					&& employee.getLastnameEmployee().equals("") && !(employee.getNameEmployee().equals(""))) {
+				request = "UPDATE employee SET prenom_employee = '" + employee.getNameEmployee() + "', mot_de_passe = '"
+						+ employee.getPassword() + "' where id_employee = " + employee.getIdEmployee();
+			} else if (!(employee.getPassword().equals("")) && employee.getPoste().equals("")
+					&& !(employee.getLastnameEmployee().equals("")) && employee.getNameEmployee().equals("")) {
+				request = "UPDATE employee SET mot_de_passe = '" + employee.getPassword() + "', nom_employee = '"
+						+ employee.getLastnameEmployee() + "' where id_employee = " + employee.getIdEmployee();
+			} else if (!(employee.getPassword().equals("")) && employee.getPoste().equals("")
+					&& !(employee.getLastnameEmployee().equals("")) && !(employee.getNameEmployee().equals(""))) {
+				request = "UPDATE employee SET mot_de_passe = '" + employee.getPassword() + "', nom_employee = '"
+						+ employee.getLastnameEmployee() + "', prenom_employee = '" + employee.getNameEmployee()
+						+ "' where id_employee = " + employee.getIdEmployee();
+			} else if (!(employee.getPassword().equals("")) && !(employee.getPoste().equals(""))
+					&& employee.getLastnameEmployee().equals("") && employee.getNameEmployee().equals("")) {
+				request = "UPDATE employee SET mot_de_passe = '" + employee.getPassword() + "', poste = '"
+						+ employee.getPoste() + "' where id_employee = " + employee.getIdEmployee();
+			} else if (!(employee.getPassword().equals("")) && !(employee.getPoste().equals(""))
+					&& employee.getLastnameEmployee().equals("") && !(employee.getNameEmployee().equals(""))) {
+				request = "UPDATE employee SET mot_de_passe = '" + employee.getPassword() + "', poste = '"
+						+ employee.getPoste() + "', prenom_employee = '" + employee.getNameEmployee()
+						+ "' where id_employee = " + employee.getIdEmployee();
+			} else if (!(employee.getPassword().equals("")) && !(employee.getPoste().equals(""))
+					&& !(employee.getLastnameEmployee().equals("")) && employee.getNameEmployee().equals("")) {
+				request = "UPDATE employee SET mot_de_passe = '" + employee.getPassword() + "', poste = '"
+						+ employee.getPoste() + "', nom_employee = '" + employee.getLastnameEmployee()
+						+ "' where id_employee = " + employee.getIdEmployee();
+			} else if (!(employee.getPassword().equals("")) && !(employee.getPoste().equals(""))
+					&& !(employee.getLastnameEmployee().equals("")) && !(employee.getNameEmployee().equals(""))) {
+				request = "UPDATE employee SET mot_de_passe = '" + employee.getPassword() + "', poste = '"
+						+ employee.getPoste() + "', nom_employee = '" + employee.getLastnameEmployee()
+						+ "', prenom_employee = '" + employee.getNameEmployee() + "' where id_employee = "
 						+ employee.getIdEmployee();
 			} else
 				return false;
@@ -117,22 +173,43 @@ public class EmployeeDAO extends DAO<Employee> {
 
 	@Override
 	public String read(String jsonString) {
-		// TODO Auto-generated method stub
-		return null;
+		ObjectMapper objectMapper = new ObjectMapper();
+		String request;
+		try {
+			Statement st = con.createStatement();
+			Employee employee = objectMapper.readValue(jsonString, Employee.class);
+			request = "SELECT * FROM Employee where id_employee='" + employee.getIdEmployee() + "';";
+			result = st.executeQuery(request);
+			result.next();
+
+			employee.setIdEmployee(Integer.parseInt(result.getObject(1).toString()));
+			employee.setLastnameEmployee(result.getObject(2).toString());
+			employee.setNameEmployee(result.getObject(3).toString());
+			employee.setPassword(result.getObject(4).toString());
+			employee.setPoste(result.getObject(5).toString());
+			ObjectMapper obj = new ObjectMapper();
+			jsonString = obj.writeValueAsString(employee);
+			logger.log(Level.INFO, "User succesfully find in BDD");
+			return jsonString;
+		} catch (SQLException | IOException e) {
+			logger.log(Level.INFO, "Impossible to get datas from BDD " + e.getClass().getCanonicalName());
+		}
+		jsonString = "ERROR";
+		return jsonString;
 	}
 
 	@Override
 	public String readAll(String jsonString) {
-		ObjectMapper objectMapper = new ObjectMapper();
 		String request;
 		Employee employee;
 		List<Employee> listEmployee = new ArrayList<>();
 		try {
-			employee = new Employee();
+
 			Statement st = con.createStatement();
 			request = "SELECT * FROM Employee";
 			result = st.executeQuery(request);
 			while (result.next()) {
+				employee = new Employee();
 				employee.setIdEmployee(Integer.parseInt(result.getObject(1).toString()));
 				employee.setLastnameEmployee(result.getObject(2).toString());
 				employee.setNameEmployee(result.getObject(3).toString());
