@@ -2,6 +2,10 @@ package com.blackmamba.deathkiss.gui.prod;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,7 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import com.blackmamba.deathkiss.entity.CommonArea;
-import com.blackmamba.deathkiss.entity.Employee;
+import com.blackmamba.deathkiss.entity.Sensor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ProfilCommonArea extends JFrame {
@@ -26,6 +30,8 @@ public class ProfilCommonArea extends JFrame {
 	private String table;
 	private String jsonString;
 	private CommonArea commonArea;
+	private int nbSensorOnCommonArea;
+	private List<Sensor> listSensor = new ArrayList();
 	private static Logger logger = Logger.getLogger("logger");
 
 	public ProfilCommonArea(int idCommonArea) {
@@ -52,6 +58,21 @@ public class ProfilCommonArea extends JFrame {
 			logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 		}
 
+		requestType = "FIND BY COMMONAREA ID";
+		Sensor sensor = new Sensor();
+		table = "Sensor";
+		sensor.setIdCommonArea(idCommonArea);
+		try {
+			jsonString = readMapper.writeValueAsString(sensor);
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			Sensor[] Sensors = readMapper.readValue(jsonString, Sensor[].class);
+			listSensor = Arrays.asList(Sensors);
+			commonArea.setListSensor((Set<Sensor>) listSensor);
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+		}
+		
 		// Creation of label idCommonArea
 		// And display on the contentPane
 		JLabel idcommonArea = new JLabel("Id Partie Commune : " + commonArea.getIdCommonArea());
@@ -84,10 +105,16 @@ public class ProfilCommonArea extends JFrame {
 		contentPane.add(stageCommonAreaField);
 		stageCommonAreaField.setColumns(10);
 
+		// Creation of label Number of Sensor in CommonArea
+		// And display on the contentPane
+		JLabel nbSensorCommonArea = new JLabel("Nombre de capteur : "+ commonArea.getListSensor().size());
+		nbSensorCommonArea.setBounds(147, 180, 214, 14);
+		contentPane.add(nbSensorCommonArea);
+
 		// Creation of a delete button
 		// And display on the contentPane
 		JButton deleteButton = new JButton("Supprimer");
-		deleteButton.setBounds(147, 180, 214, 23);
+		deleteButton.setBounds(147, 210, 214, 23);
 		contentPane.add(deleteButton);
 		deleteButton.addActionListener(new ActionListener() {
 
@@ -148,22 +175,22 @@ public class ProfilCommonArea extends JFrame {
 		// Creation of a Update button
 		// And display on the contentPane
 		JButton updateButton = new JButton("Sauvegarder");
-		updateButton.setBounds(147, 210, 214, 23);
+		updateButton.setBounds(147, 240, 214, 23);
 		contentPane.add(updateButton);
 		updateButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				requestType = "UPDATE";
 				commonArea = new CommonArea();
 				table = "CommonArea";
-				
+
 				String nameCommonAreafield = nameCommonAreaField.getText().trim();
 				String stageCommonAreafield = stageCommonAreaField.getText().trim();
-				
+
 				if (nameCommonAreafield.equals("") && stageCommonAreafield.equals("")) {
 					JOptionPane.showMessageDialog(null, "Champs vide", "Erreur", JOptionPane.ERROR_MESSAGE);
-				}else {
+				} else {
 					if (nameCommonAreafield.equals("") && !(stageCommonAreafield.equals(""))) {
 						commonArea.setEtageCommonArea(Integer.parseInt(stageCommonAreafield));
 						commonArea.setNameCommonArea("");

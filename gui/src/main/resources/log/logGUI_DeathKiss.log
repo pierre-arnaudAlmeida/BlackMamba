@@ -3906,3 +3906,5 @@
 2019-03-27 15:03:01 [AWT-EventQueue-0] INFO  ClientSocket:80 - Datas received on client
 2019-03-27 15:03:01 [AWT-EventQueue-0] INFO  ClientSocket:84 - Command CLOSE connection send to server
 2019-03-27 15:03:01 [AWT-EventQueue-0] INFO  ClientSocket:86 - Connection Closed by client
+2019-03-27 16:02:49 [AWT-EventQueue-0] INFO  ClientSocket:115 - Impossible create the socket java.net.ConnectException
+2019-03-27 16:05:17 [AWT-EventQueue-0] INFO  ClientSocket:115 - Impossible create the socket java.net.ConnectException

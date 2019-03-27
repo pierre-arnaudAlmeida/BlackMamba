@@ -219,7 +219,6 @@ public class EmployeeDAO extends DAO<Employee> {
 			}
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(listEmployee);
-			logger.log(Level.INFO, jsonString);
 			return jsonString;
 		} catch (SQLException | IOException e) {
 			logger.log(Level.INFO, "Impossible to get datas from BDD " + e.getClass().getCanonicalName());
