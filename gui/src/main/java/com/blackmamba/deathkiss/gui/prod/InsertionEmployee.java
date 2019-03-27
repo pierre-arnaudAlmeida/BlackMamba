@@ -191,9 +191,9 @@ public class InsertionEmployee extends JFrame {
 				employee = new Employee();
 				table = "Employee";
 
-				String namefield = nameField.getText();
-				String lastnamefield = lastnameField.getText();
-				String postefield = posteField.getText();
+				String namefield = nameField.getText().trim();
+				String lastnamefield = lastnameField.getText().trim();
+				String postefield = posteField.getText().trim();
 				char[] password = passwordField.getPassword();
 				String passwordfield = new String(password);
 

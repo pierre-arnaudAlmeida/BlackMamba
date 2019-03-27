@@ -123,7 +123,7 @@ public class InsertionCommonArea extends JFrame {
 				commonArea = new CommonArea();
 				table = "CommonArea";
 
-				String nameCommonAreafield = nameCommonAreaField.getText();
+				String nameCommonAreafield = nameCommonAreaField.getText().trim();
 				String stageCommonAreafield = stageCommonAreaField.getText();
 
 				if (nameCommonAreafield.equals("") || stageCommonAreafield.equals("")) {

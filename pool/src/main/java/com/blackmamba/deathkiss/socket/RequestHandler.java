@@ -125,6 +125,7 @@ public class RequestHandler implements Runnable {
 									logger.log(Level.INFO, "Request received on server");
 									DAO<Sensor> sensorDao = new SensorDAO(DataSource.getConnectionFromJDBC(pool));
 									result = ((SensorDAO) sensorDao).create(response);
+									jsonString = "INSERTED";
 									writer.write(jsonString);
 									writer.flush();
 									logger.log(Level.INFO, "Response send to client");
@@ -138,6 +139,7 @@ public class RequestHandler implements Runnable {
 									DAO<CommonArea> commonAreaDao = new CommonAreaDAO(
 											DataSource.getConnectionFromJDBC(pool));
 									result = ((CommonAreaDAO) commonAreaDao).create(response);
+									jsonString = "INSERTED";
 									writer.write(jsonString);
 									writer.flush();
 									logger.log(Level.INFO, "Response send to client");
@@ -151,6 +153,7 @@ public class RequestHandler implements Runnable {
 									DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(
 											DataSource.getConnectionFromJDBC(pool));
 									result = ((SensorHistoricalDAO) sensorHistoricalDao).create(response);
+									jsonString = "INSERTED";
 									writer.write(jsonString);
 									writer.flush();
 									logger.log(Level.INFO, "Response send to client");

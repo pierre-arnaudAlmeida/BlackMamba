@@ -128,11 +128,11 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 				commonArea.setIdCommonArea(Integer.parseInt(result.getObject(1).toString()));
 				commonArea.setNameCommonArea(result.getObject(2).toString());
 				commonArea.setEtageCommonArea(Integer.parseInt(result.getObject(3).toString()));
+				commonArea.setListSensor(null);
 				listCommonArea.add(commonArea);
 			}
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(listCommonArea);
-			logger.log(Level.INFO, jsonString);
 			return jsonString;
 		} catch (SQLException | IOException e) {
 			logger.log(Level.INFO, "Impossible to get datas from BDD " + e.getClass().getCanonicalName());

@@ -95,7 +95,7 @@ public class ListCommonArea extends JFrame {
 			new ClientSocket(requestType, jsonString, table);
 			jsonString = ClientSocket.getJson();
 			CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
-			listCommonArea = Arrays.asList(commonArea);
+			listCommonArea = Arrays.asList(commonAreas);
 		} catch (Exception e1) {
 			logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 		}
