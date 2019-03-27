@@ -1,9 +1,8 @@
 package com.blackmamba.deathkiss.entity;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
-
-import com.blackmamba.deathkiss.entity.Sensor;
 
 public class CommonArea {
 
@@ -11,7 +10,8 @@ public class CommonArea {
 	private String nameCommonArea = "";
 	private int etageCommonArea = 0;
 
-	private Set<Sensor> listSensor = new HashSet<Sensor>();
+	private List<Sensor> listSensor = new ArrayList<Sensor>();
+			//new HashSet<Sensor>();
 
 	public CommonArea(int idCommonArea, String nameCommonArea, int etageCommonArea) {
 		super();
@@ -47,11 +47,11 @@ public class CommonArea {
 		this.etageCommonArea = etageCommonArea;
 	}
 
-	public Set<Sensor> getListSensor() {
+	public List<Sensor> getListSensor() {
 		return listSensor;
 	}
 
-	public void setListSensor(Set<Sensor> listSensor) {
+	public void setListSensor(List<Sensor> listSensor) {
 		this.listSensor = listSensor;
 	}
 

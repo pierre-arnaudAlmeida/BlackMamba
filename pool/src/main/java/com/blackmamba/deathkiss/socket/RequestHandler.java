@@ -67,7 +67,31 @@ public class RequestHandler implements Runnable {
 					response = read();
 					if (!response.equals("")) {
 						jsonNode = objectMapper.readTree(response);
+						logger.log(Level.INFO, response);
 						switch (jsonNode.get("request").asText()) {
+						case "FIND ALL":
+							// TODO
+							response = "OK FOR REQUEST FIND ALL";
+							writer.write(response);
+							writer.flush();
+							logger.log(Level.INFO, "Request Type accepted by server");
+
+							response = read();
+							switch (jsonNode.get("table").asText()) {
+							case "Sensor":
+								if (!response.equals("")) {
+									logger.log(Level.INFO, "Request received on server");
+									DAO<Sensor> sensorDao = new SensorDAO(DataSource.getConnectionFromJDBC(pool));
+									jsonString = ((SensorDAO) sensorDao).findAll(response);
+									writer.write(jsonString);
+									writer.flush();
+									logger.log(Level.INFO, "Response send to client");
+								} else {
+									logger.log(Level.INFO, "Request not recognized");
+								}
+								break;
+							}
+							break;
 						case "CONNECTION":
 							response = "OK FOR REQUEST CONNECTION";
 							writer.write(response);
@@ -460,6 +484,7 @@ public class RequestHandler implements Runnable {
 								}
 								break;
 							}
+							break;
 						}
 						response = read();
 						if (response.equals("CLOSE")) {

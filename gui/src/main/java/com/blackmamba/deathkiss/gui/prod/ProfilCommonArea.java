@@ -25,13 +25,12 @@ public class ProfilCommonArea extends JFrame {
 	private JPanel contentPane;
 	private JTextField nameCommonAreaField;
 	private JTextField stageCommonAreaField;
-	private int etageCommonArea;
 	private String requestType;
 	private String table;
 	private String jsonString;
+	private int nbSensor;
 	private CommonArea commonArea;
-	private int nbSensorOnCommonArea;
-	private List<Sensor> listSensor = new ArrayList();
+	private List<Sensor> listDeSensor = new ArrayList();
 	private static Logger logger = Logger.getLogger("logger");
 
 	public ProfilCommonArea(int idCommonArea) {
@@ -58,21 +57,6 @@ public class ProfilCommonArea extends JFrame {
 			logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 		}
 
-		requestType = "FIND BY COMMONAREA ID";
-		Sensor sensor = new Sensor();
-		table = "Sensor";
-		sensor.setIdCommonArea(idCommonArea);
-		try {
-			jsonString = readMapper.writeValueAsString(sensor);
-			new ClientSocket(requestType, jsonString, table);
-			jsonString = ClientSocket.getJson();
-			Sensor[] Sensors = readMapper.readValue(jsonString, Sensor[].class);
-			listSensor = Arrays.asList(Sensors);
-			commonArea.setListSensor((Set<Sensor>) listSensor);
-		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
-		}
-		
 		// Creation of label idCommonArea
 		// And display on the contentPane
 		JLabel idcommonArea = new JLabel("Id Partie Commune : " + commonArea.getIdCommonArea());
@@ -107,7 +91,7 @@ public class ProfilCommonArea extends JFrame {
 
 		// Creation of label Number of Sensor in CommonArea
 		// And display on the contentPane
-		JLabel nbSensorCommonArea = new JLabel("Nombre de capteur : "+ commonArea.getListSensor().size());
+		JLabel nbSensorCommonArea = new JLabel("Nombre de capteur : ");// TODO probleme connaitre la taille de la list
 		nbSensorCommonArea.setBounds(147, 180, 214, 14);
 		contentPane.add(nbSensorCommonArea);
 
@@ -229,6 +213,70 @@ public class ProfilCommonArea extends JFrame {
 				}
 			}
 		});
-		// TODO dans l'update mettre supperieur a 99 le nb d'étage pour valider l'update
+
+		// Creation of label ListSensors
+		// And display on the contentPane
+		JLabel listSensor = new JLabel("Liste des capteurs : ");
+		listSensor.setBounds(147, 270, 214, 14);
+		contentPane.add(listSensor);
+
+		requestType = "FIND ALL";
+		Sensor sensor = new Sensor();
+		table = "Sensor";
+		sensor.setIdCommonArea(idCommonArea);
+		try {
+			jsonString = readMapper.writeValueAsString(sensor);
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			Sensor[] listSensors = readMapper.readValue(jsonString, Sensor[].class);
+			listDeSensor = Arrays.asList(listSensors);
+			commonArea.setListSensor(listDeSensor);
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+		}
+		int x = 270;
+		for (Sensor sensors : listDeSensor) {
+			x = x + 30;
+			// Creation of label idCommonArea
+			// And display on the contentPane
+			JLabel idSensor = new JLabel("Id : " + sensors.getIdSensor());
+			idSensor.setBounds(10, x, 100, 14);
+			contentPane.add(idSensor);
+
+			// Creation of label name
+			// And display on the contentPane
+			JLabel nameSensor = new JLabel("Type du capteur : " + sensors.getTypeSensor());
+			nameSensor.setBounds(100, x, 200, 14);
+			contentPane.add(nameSensor);
+
+			// Creation of label stage
+			// And display on the contentPane
+			JLabel stateSensor = new JLabel("Etat : " + sensors.getSensorState());
+			stateSensor.setBounds(240, x, 200, 14);
+			contentPane.add(stateSensor);
+
+			// Creation of a access button
+			// And display on the contentPane
+			JButton accessButton = new JButton("Voir");
+			accessButton.setBounds(400, x, 100, 23);
+			contentPane.add(accessButton);
+
+			accessButton.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					try {
+						// TODO créer la classe ProfilSensor
+						// ProfilSensor frame = new ProfilSensor(sensors.getIdSensor());
+						// frame.setVisible(true);
+						// setVisible(false);
+						// logger.log(Level.INFO, "Go to Profil Common Area");
+						// dispose();
+					} catch (Exception e1) {
+						logger.log(Level.INFO,
+								"Impossible redirect to window 'CommonArea' " + e1.getClass().getCanonicalName());
+					}
+				}
+			});
+		}
 	}
 }

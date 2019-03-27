@@ -12,8 +12,8 @@ public class ProdGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					//Login frame = new Login();
-					ProfilCommonArea frame = new ProfilCommonArea(1);
+					Login frame = new Login();
+					//ProfilCommonArea frame = new ProfilCommonArea(1);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					logger.log(Level.INFO, "Impossible create the window 'Login' " + e.getClass().getCanonicalName());
