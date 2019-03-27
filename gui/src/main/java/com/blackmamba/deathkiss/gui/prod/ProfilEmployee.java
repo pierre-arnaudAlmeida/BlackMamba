@@ -82,7 +82,7 @@ public class ProfilEmployee extends JFrame {
 
 		// Creation of label id employee
 		// And display on the contentPane
-		JLabel idemployee = new JLabel("Id employé : " + employee.getIdEmployee());
+		JLabel idemployee = new JLabel("Id employ\u00E9 : " + employee.getIdEmployee());
 		idemployee.setBounds(10, 30, 200, 14);
 		contentPane.add(idemployee);
 
@@ -147,14 +147,14 @@ public class ProfilEmployee extends JFrame {
 					dispose();
 				} catch (Exception e1) {
 					logger.log(Level.INFO,
-							"Impossible redirect to window 'ProfilClient' " + e1.getClass().getCanonicalName());
+							"Impossible redirect to window 'ProfilEMployee' " + e1.getClass().getCanonicalName());
 				}
 			}
 		});
 
 		// Creation of label modification
 		// And display on the contentPane
-		JLabel modification = new JLabel("Modifiez");
+		JLabel modification = new JLabel("Modifier");
 		modification.setBounds(10, 60, 200, 14);
 		contentPane.add(modification);
 
@@ -203,9 +203,9 @@ public class ProfilEmployee extends JFrame {
 				employee = new Employee();
 				table = "Employee";
 
-				String lastnamefield = lastnameField.getText();
-				String namefield = nameField.getText();
-				String postefield = posteField.getText();
+				String lastnamefield = lastnameField.getText().trim();
+				String namefield = nameField.getText().trim();
+				String postefield = posteField.getText().trim();
 				char[] password = passwordField.getPassword();
 				String passwordfield = new String(password);
 
@@ -361,7 +361,7 @@ public class ProfilEmployee extends JFrame {
 					dispose();
 				} catch (Exception e1) {
 					logger.log(Level.INFO,
-							"Impossible redirect to window 'ProfilClient' " + e1.getClass().getCanonicalName());
+							"Impossible redirect to window 'ProfilEmployee' " + e1.getClass().getCanonicalName());
 				}
 			}
 		});

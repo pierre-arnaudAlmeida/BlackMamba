@@ -70,7 +70,7 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 			if (commonArea.getNameCommonArea().equals("") && commonArea.getEtageCommonArea() < 99) {
 				request = "UPDATE partie_commune SET etage_partie_commune = '" + commonArea.getEtageCommonArea()
 						+ "' where id_partie_commune = '" + commonArea.getIdCommonArea() + "'";
-			} else if (!(commonArea.getNameCommonArea().equals("")) && commonArea.getEtageCommonArea() > 99) {
+			} else if (!(commonArea.getNameCommonArea().equals("")) && commonArea.getEtageCommonArea() >= 99) {
 				request = "UPDATE partie_commune SET nom_partie_commune = '" + commonArea.getNameCommonArea()
 						+ "' where id_partie_commune = '" + commonArea.getIdCommonArea() + "'";
 			} else if (!(commonArea.getNameCommonArea().equals("")) && commonArea.getEtageCommonArea() < 99) {
