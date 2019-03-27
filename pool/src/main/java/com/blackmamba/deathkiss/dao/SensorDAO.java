@@ -54,4 +54,6 @@ public class SensorDAO extends DAO<Sensor>{
 		return null;
 	}
 
+	//TODO quand on cherche tout les capteur d'une partie commune on devrai faire dans le read une list de sensor comme une list d'employee
+	// en plus du read ALl
 }

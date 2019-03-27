@@ -2830,3 +2830,7 @@
 2019-03-26 22:35:20 [AWT-EventQueue-0] INFO  ClientSocket:115 - Impossible create the socket java.net.ConnectException
 2019-03-26 22:37:16 [AWT-EventQueue-0] INFO  ClientSocket:115 - Impossible create the socket java.net.ConnectException
 2019-03-26 22:37:17 [AWT-EventQueue-0] INFO  ClientSocket:115 - Impossible create the socket java.net.ConnectException
+2019-03-27 07:29:56 [AWT-EventQueue-0] INFO  ClientSocket:115 - Impossible create the socket java.net.ConnectException
+2019-03-27 07:34:17 [AWT-EventQueue-0] INFO  ClientSocket:115 - Impossible create the socket java.net.ConnectException
+2019-03-27 07:51:48 [AWT-EventQueue-0] INFO  ClientSocket:115 - Impossible create the socket java.net.ConnectException
+2019-03-27 07:54:43 [AWT-EventQueue-0] INFO  ClientSocket:115 - Impossible create the socket java.net.ConnectException

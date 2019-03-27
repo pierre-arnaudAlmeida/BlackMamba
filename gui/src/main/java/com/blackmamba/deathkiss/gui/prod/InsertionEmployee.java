@@ -106,7 +106,7 @@ public class InsertionEmployee extends JFrame {
 
 		// Creation of label name
 		// And display on the contentPane
-		JLabel name = new JLabel("Pr\u00E9nom");
+		JLabel name = new JLabel("Pr\u00E9nom :");
 		name.setBounds(147, 41, 72, 14);
 		contentPane.add(name);
 
@@ -119,7 +119,7 @@ public class InsertionEmployee extends JFrame {
 
 		// Creation of label lastname
 		// And display on the contentPane
-		JLabel lastname = new JLabel("Nom");
+		JLabel lastname = new JLabel("Nom :");
 		lastname.setBounds(264, 41, 98, 14);
 		contentPane.add(lastname);
 
@@ -132,7 +132,7 @@ public class InsertionEmployee extends JFrame {
 
 		// Creation of label password
 		// And display on the contentPane
-		JLabel password = new JLabel("Mot de passe");
+		JLabel password = new JLabel("Mot de passe :");
 		password.setBounds(147, 100, 98, 14);
 		contentPane.add(password);
 
@@ -144,7 +144,7 @@ public class InsertionEmployee extends JFrame {
 
 		// Creation of label poste
 		// And display on the contentPane
-		JLabel poste = new JLabel("Poste");
+		JLabel poste = new JLabel("Poste :");
 		poste.setBounds(147, 150, 130, 14);
 		contentPane.add(poste);
 

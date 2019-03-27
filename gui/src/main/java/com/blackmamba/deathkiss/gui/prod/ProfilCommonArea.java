@@ -67,5 +67,7 @@ public class ProfilCommonArea extends JFrame {
 				}
 			}
 		});
+		
+		//TODO dans l'update mettre supperieur a 99 le nb d'étage pour valider l'update
 	}
 }
