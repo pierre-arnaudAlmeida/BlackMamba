@@ -70,7 +70,12 @@ public class RequestHandler implements Runnable {
 						logger.log(Level.INFO, response);
 						switch (jsonNode.get("request").asText()) {
 						case "FIND ALL":
-							// TODO
+							// TODO pour chacune des classe
+							//sensH
+							//sens
+							//resi
+							//Emp
+							//CoA
 							response = "OK FOR REQUEST FIND ALL";
 							writer.write(response);
 							writer.flush();

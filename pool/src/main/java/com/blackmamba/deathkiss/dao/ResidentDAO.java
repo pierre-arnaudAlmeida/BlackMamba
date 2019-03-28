@@ -136,10 +136,15 @@ public class ResidentDAO extends DAO<Resident> {
 		return jsonString;
 	}
 
+	public String findByName(String jsonString) {
+		// TODO
+		return null;
+	}
+
 	public boolean badger(int idResident, int idSensor) {
 		// TODO Auto-generated method stub
 		// Quand on badge on ajoute une date
-		//Dans la table badger
+		// Dans la table badger
 		return false;
 	}
 }

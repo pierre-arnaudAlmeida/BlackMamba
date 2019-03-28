@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,7 +27,6 @@ public class ProfilCommonArea extends JFrame {
 	private String requestType;
 	private String table;
 	private String jsonString;
-	private int nbSensor;
 	private CommonArea commonArea;
 	private List<Sensor> listDeSensor = new ArrayList();
 	private static Logger logger = Logger.getLogger("logger");

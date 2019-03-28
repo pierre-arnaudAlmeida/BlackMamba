@@ -183,7 +183,7 @@ public class SensorDAO extends DAO<Sensor> {
 			if (sensor.getIdCommonArea() != 0) {
 				request = "SELECT * FROM capteur where id_partie_commune = '" + sensor.getIdCommonArea() + "'";
 			} else {
-				request = "SELECT * FROM capteur where id_capteur = '" + sensor.getIdSensor() + "'";
+				request = "SELECT * FROM capteur where type_capteur = '" + sensor.getTypeSensor() + "'";
 			}
 			result = st.executeQuery(request);
 			while (result.next()) {

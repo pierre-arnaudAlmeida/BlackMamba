@@ -145,37 +145,10 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 
 			Statement st = con.createStatement();
 			CommonArea area = objectMapper.readValue(jsonString, CommonArea.class);
-			request = "SELECT * FROM partie_commune where nom_partie_commune LIKE '%" + area.getNameCommonArea() + "%'";
-			result = st.executeQuery(request);
-			while (result.next()) {
-				commonArea = new CommonArea();
-				commonArea.setIdCommonArea(Integer.parseInt(result.getObject(1).toString()));
-				commonArea.setNameCommonArea(result.getObject(2).toString());
-				commonArea.setEtageCommonArea(Integer.parseInt(result.getObject(3).toString()));
-				commonArea.setListSensor(null);
-				listCommonArea.add(commonArea);
-			}
-			ObjectMapper obj = new ObjectMapper();
-			jsonString = obj.writeValueAsString(listCommonArea);
-			logger.log(Level.INFO, "CommonAreas succesfully find in BDD");
-			return jsonString;
-		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to get commonArea datas from BDD " + e.getClass().getCanonicalName());
-		}
-		jsonString = "ERROR";
-		return jsonString;
-	}
-
-	public String findByStage(String jsonString) {
-		ObjectMapper objectMapper = new ObjectMapper();
-		String request;
-		CommonArea commonArea;
-		List<CommonArea> listCommonArea = new ArrayList<>();
-		try {
-
-			Statement st = con.createStatement();
-			CommonArea area = objectMapper.readValue(jsonString, CommonArea.class);
-			request = "SELECT * FROM partie_commune where etage_partie_commune = '" + area.getEtageCommonArea() + "'";
+			if (!(area.getNameCommonArea().equals("")))
+				request = "SELECT * FROM partie_commune where nom_partie_commune LIKE '%" + area.getNameCommonArea() + "%'";
+			else
+				request = "SELECT * FROM partie_commune where etage_partie_commune = '" + area.getEtageCommonArea() + "'";
 			result = st.executeQuery(request);
 			while (result.next()) {
 				commonArea = new CommonArea();
