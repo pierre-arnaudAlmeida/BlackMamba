@@ -7,10 +7,10 @@ public class SensorHistorical {
 	private int idHistorical = 0;
 	private Date date = null;
 	private int idSensor = 0;
-	private int previousState = 0;
-	private int nextState = 0;
+	private boolean previousState = false;
+	private boolean nextState = false;
 
-	public SensorHistorical(int idHistorical, Date date, int idSensor, int previousState, int nextState) {
+	public SensorHistorical(int idHistorical, Date date, int idSensor, boolean previousState, boolean nextState) {
 		super();
 		this.idHistorical = idHistorical;
 		this.date = date;
@@ -46,19 +46,19 @@ public class SensorHistorical {
 		this.idSensor = idSensor;
 	}
 
-	public int getPreviousState() {
+	public boolean getPreviousState() {
 		return previousState;
 	}
 
-	public void setPreviousState(int previousState) {
+	public void setPreviousState(boolean previousState) {
 		this.previousState = previousState;
 	}
 
-	public int getNextState() {
+	public boolean getNextState() {
 		return nextState;
 	}
 
-	public void setNextState(int nextState) {
+	public void setNextState(boolean nextState) {
 		this.nextState = nextState;
 	}
 

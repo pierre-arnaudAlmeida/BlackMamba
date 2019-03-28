@@ -31,13 +31,12 @@ public class SensorDAO extends DAO<Sensor> {
 		try {
 			Statement st = con.createStatement();
 			Sensor sensor = objectMapper.readValue(jsonString, Sensor.class);
-			request = "insert into capteur (type_capteur, etat, id_partie_commune) values ('" + sensor.getTypeSensor()
-					+ "','" + sensor.getSensorState() + "','" + sensor.getIdCommonArea() + "')";
+			request = "insert into capteur (type_capteur, etat, id_partie_commune) values ('" + sensor.getTypeSensor() + "','" + sensor.getSensorState() + "','" + sensor.getIdCommonArea() + "')";
 			st.execute(request);
-			logger.log(Level.INFO, "User succesfully inserted in BDD");
+			logger.log(Level.INFO, "Sensor succesfully inserted in BDD");
 			return true;
 		} catch (IOException | SQLException e) {
-			logger.log(Level.INFO, "Impossible to insert data in BDD" + e.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to insert sensor datas in BDD" + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -51,10 +50,10 @@ public class SensorDAO extends DAO<Sensor> {
 			Sensor sensor = objectMapper.readValue(jsonString, Sensor.class);
 			request = "DELETE FROM capteur where id_capteur = " + sensor.getIdSensor() + ";";
 			st.execute(request);
-			logger.log(Level.INFO, "User succesfully deleted in BDD");
+			logger.log(Level.INFO, "Sensor succesfully deleted in BDD");
 			return true;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to delete data in BDD" + e.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to delete sensor data in BDD" + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -66,47 +65,33 @@ public class SensorDAO extends DAO<Sensor> {
 		try {
 			Statement st = con.createStatement();
 			Sensor sensor = objectMapper.readValue(jsonString, Sensor.class);
-			if ((sensor.getSensorState() == sensor.getSensorNextState()) && sensor.getTypeSensor().equals("")
-					&& (sensor.getIdCommonArea() != 0)) {
-				request = "UPDATE capteur SET id_partie_commune = '" + sensor.getIdCommonArea()
-						+ "' where id_capteur = " + sensor.getIdSensor();
-			} else if ((sensor.getSensorState() == sensor.getSensorNextState()) && !(sensor.getTypeSensor().equals(""))
-					&& (sensor.getIdCommonArea() == 0)) {
-				request = "UPDATE capteur SET type_capteur = '" + sensor.getTypeSensor() + "' where id_capteur = "
-						+ sensor.getIdSensor();
-			} else if ((sensor.getSensorState() == sensor.getSensorNextState()) && !(sensor.getTypeSensor().equals(""))
-					&& (sensor.getIdCommonArea() != 0)) {
-				request = "UPDATE capteur SET type_capteur = '" + sensor.getTypeSensor() + "', id_partie_commune = '"
-						+ sensor.getIdCommonArea() + "' where id_capteur = " + sensor.getIdSensor();
+			if ((sensor.getSensorState() == sensor.getSensorNextState()) && sensor.getTypeSensor().equals("") && (sensor.getIdCommonArea() != 0)) {
+				request = "UPDATE capteur SET id_partie_commune = '" + sensor.getIdCommonArea() + "' where id_capteur = " + sensor.getIdSensor();
+			} else if ((sensor.getSensorState() == sensor.getSensorNextState()) && !(sensor.getTypeSensor().equals("")) && (sensor.getIdCommonArea() == 0)) {
+				request = "UPDATE capteur SET type_capteur = '" + sensor.getTypeSensor() + "' where id_capteur = " + sensor.getIdSensor();
+			} else if ((sensor.getSensorState() == sensor.getSensorNextState()) && !(sensor.getTypeSensor().equals("")) && (sensor.getIdCommonArea() != 0)) {
+				request = "UPDATE capteur SET type_capteur = '" + sensor.getTypeSensor() + "', id_partie_commune = '" + sensor.getIdCommonArea() + "' where id_capteur = " + sensor.getIdSensor();
 			} else if (sensor.getSensorState() != sensor.getSensorNextState()) {
 				if (sensor.getSensorNextState() == true) {
 					if (sensor.getTypeSensor().equals("") && (sensor.getIdCommonArea() == 0)) {
 						request = "UPDATE capteur SET etat = 'ON' where id_capteur = " + sensor.getIdSensor();
 					} else if (sensor.getTypeSensor().equals("") && (sensor.getIdCommonArea() != 0)) {
-						request = "UPDATE capteur SET etat = 'ON', id_partie_commune = '" + sensor.getIdCommonArea()
-								+ "' where id_capteur = " + sensor.getIdSensor();
+						request = "UPDATE capteur SET etat = 'ON', id_partie_commune = '" + sensor.getIdCommonArea() + "' where id_capteur = " + sensor.getIdSensor();
 					} else if (!(sensor.getTypeSensor().equals("")) && (sensor.getIdCommonArea() == 0)) {
-						request = "UPDATE capteur SET etat = 'ON', type_capteur = '" + sensor.getTypeSensor()
-								+ "' where id_capteur = " + sensor.getIdSensor();
+						request = "UPDATE capteur SET etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "' where id_capteur = " + sensor.getIdSensor();
 					} else if (!(sensor.getTypeSensor().equals("")) && (sensor.getIdCommonArea() != 0)) {
-						request = "UPDATE capteur SET etat = 'ON', type_capteur = '" + sensor.getTypeSensor()
-								+ "', id_partie_commune = '" + sensor.getIdCommonArea() + "' where id_capteur = "
-								+ sensor.getIdSensor();
+						request = "UPDATE capteur SET etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "', id_partie_commune = '" + sensor.getIdCommonArea() + "' where id_capteur = " + sensor.getIdSensor();
 					} else
 						return false;
 				} else if (sensor.getSensorNextState() == false) {
 					if (sensor.getTypeSensor().equals("") && (sensor.getIdCommonArea() == 0)) {
 						request = "UPDATE capteur SET etat = 'OFF' where id_capteur = " + sensor.getIdSensor();
 					} else if (sensor.getTypeSensor().equals("") && (sensor.getIdCommonArea() != 0)) {
-						request = "UPDATE capteur SET etat = 'OFF', id_partie_commune = '" + sensor.getIdCommonArea()
-								+ "' where id_capteur = " + sensor.getIdSensor();
+						request = "UPDATE capteur SET etat = 'OFF', id_partie_commune = '" + sensor.getIdCommonArea() + "' where id_capteur = " + sensor.getIdSensor();
 					} else if (!(sensor.getTypeSensor().equals("")) && (sensor.getIdCommonArea() == 0)) {
-						request = "UPDATE capteur SET etat = 'OFF', type_capteur = '" + sensor.getTypeSensor()
-								+ "' where id_capteur = " + sensor.getIdSensor();
+						request = "UPDATE capteur SET etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "' where id_capteur = " + sensor.getIdSensor();
 					} else if (!(sensor.getTypeSensor().equals("")) && (sensor.getIdCommonArea() != 0)) {
-						request = "UPDATE capteur SET etat = 'OFF', type_capteur = '" + sensor.getTypeSensor()
-								+ "', id_partie_commune = '" + sensor.getIdCommonArea() + "' where id_capteur = "
-								+ sensor.getIdSensor();
+						request = "UPDATE capteur SET etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "', id_partie_commune = '" + sensor.getIdCommonArea() + "' where id_capteur = " + sensor.getIdSensor();
 					} else
 						return false;
 				} else
@@ -114,10 +99,10 @@ public class SensorDAO extends DAO<Sensor> {
 			} else
 				return false;
 			st.execute(request);
-			logger.log(Level.INFO, "User succesfully update in BDD");
+			logger.log(Level.INFO, "Sensor succesfully update in BDD");
 			return true;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to update data in BDD" + e.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to update sensor datas in BDD" + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -144,21 +129,13 @@ public class SensorDAO extends DAO<Sensor> {
 
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(sensor);
-			logger.log(Level.INFO, "User succesfully find in BDD");
+			logger.log(Level.INFO, "Sensor succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to get datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to get sensor datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;
-	}
-
-	public boolean report(int idEmployee, int idSensor) {
-		// TODO Auto-generated method stub
-		// Quand une fenetre popup s'ouvre pour prevenir d'un alerte, on utilise la
-		// methode report() en fonction de la
-		// ou les personnes qui ont reçu la notification
-		return false;
 	}
 
 	@Override
@@ -185,9 +162,10 @@ public class SensorDAO extends DAO<Sensor> {
 			}
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(listSensor);
+			logger.log(Level.INFO, "Sensors succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to get datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to get sensor datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;
@@ -202,7 +180,11 @@ public class SensorDAO extends DAO<Sensor> {
 
 			Statement st = con.createStatement();
 			Sensor sensor = objectMapper.readValue(jsonString, Sensor.class);
-			request = "SELECT * FROM capteur where id_partie_commune = '"+sensor.getIdCommonArea()+"'";
+			if (sensor.getIdCommonArea() != 0) {
+				request = "SELECT * FROM capteur where id_partie_commune = '" + sensor.getIdCommonArea() + "'";
+			} else {
+				request = "SELECT * FROM capteur where id_capteur = '" + sensor.getIdSensor() + "'";
+			}
 			result = st.executeQuery(request);
 			while (result.next()) {
 				sensors = new Sensor();
@@ -218,11 +200,20 @@ public class SensorDAO extends DAO<Sensor> {
 			}
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(listSensor);
+			logger.log(Level.INFO, "Sensors succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to get datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to get sensor datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;
+	}
+
+	public boolean report(int idEmployee, int idSensor) {
+		// TODO Auto-generated method stub
+		// Quand une fenetre popup s'ouvre pour prevenir d'un alerte, on utilise la
+		// methode report() en fonction de la
+		// ou les personnes qui ont reçu la notification
+		return false;
 	}
 }
