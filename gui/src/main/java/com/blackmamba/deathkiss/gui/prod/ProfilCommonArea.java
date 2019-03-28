@@ -20,6 +20,11 @@ import com.blackmamba.deathkiss.entity.CommonArea;
 import com.blackmamba.deathkiss.entity.Sensor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class ProfilCommonArea extends JFrame {
 	private JPanel contentPane;
 	private JTextField nameCommonAreaField;

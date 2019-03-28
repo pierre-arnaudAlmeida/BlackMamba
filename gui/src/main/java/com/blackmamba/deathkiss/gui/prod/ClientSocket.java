@@ -12,6 +12,11 @@ import org.apache.logging.log4j.Logger;
 
 import com.blackmamba.deathkiss.entity.Employee;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class ClientSocket {
 
 	private Socket connexion = null;

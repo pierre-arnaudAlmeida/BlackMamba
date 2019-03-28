@@ -26,6 +26,11 @@ import com.blackmamba.deathkiss.entity.SensorHistorical;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class RequestHandler implements Runnable {
 	/**
 	 * Initialization of diferents parameters
@@ -72,10 +77,6 @@ public class RequestHandler implements Runnable {
 						case "FIND ALL":
 							// TODO pour chacune des classe
 							//sensH
-							//sens
-							//resi
-							//Emp
-							//CoA
 							response = "OK FOR REQUEST FIND ALL";
 							writer.write(response);
 							writer.flush();
@@ -88,6 +89,54 @@ public class RequestHandler implements Runnable {
 									logger.log(Level.INFO, "Request received on server");
 									DAO<Sensor> sensorDao = new SensorDAO(DataSource.getConnectionFromJDBC(pool));
 									jsonString = ((SensorDAO) sensorDao).findAll(response);
+									writer.write(jsonString);
+									writer.flush();
+									logger.log(Level.INFO, "Response send to client");
+								} else {
+									logger.log(Level.INFO, "Request not recognized");
+								}
+								break;
+							case "Employee":
+								if (!response.equals("")) {
+									logger.log(Level.INFO, "Request received on server");
+									DAO<Employee> employeeDao = new EmployeeDAO(DataSource.getConnectionFromJDBC(pool));
+									jsonString = ((EmployeeDAO) employeeDao).findByName(response);
+									writer.write(jsonString);
+									writer.flush();
+									logger.log(Level.INFO, "Response send to client");
+								} else {
+									logger.log(Level.INFO, "Request not recognized");
+								}
+								break;
+							case "Resident":
+								if (!response.equals("")) {
+									logger.log(Level.INFO, "Request received on server");
+									DAO<Resident> residentDao = new ResidentDAO(DataSource.getConnectionFromJDBC(pool));
+									jsonString = ((ResidentDAO) residentDao).findByName(response);
+									writer.write(jsonString);
+									writer.flush();
+									logger.log(Level.INFO, "Response send to client");
+								} else {
+									logger.log(Level.INFO, "Request not recognized");
+								}
+								break;
+							case "CommonArea":
+								if (!response.equals("")) {
+									logger.log(Level.INFO, "Request received on server");
+									DAO<CommonArea> commonAreaDao = new CommonAreaDAO(DataSource.getConnectionFromJDBC(pool));
+									jsonString = ((CommonAreaDAO) commonAreaDao).findByName(response);
+									writer.write(jsonString);
+									writer.flush();
+									logger.log(Level.INFO, "Response send to client");
+								} else {
+									logger.log(Level.INFO, "Request not recognized");
+								}
+								break;
+							case "SensorHistorical":
+								if (!response.equals("")) {
+									logger.log(Level.INFO, "Request received on server");
+									DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(DataSource.getConnectionFromJDBC(pool));
+									jsonString = ((SensorHistoricalDAO) sensorHistoricalDao).findBySensor(response);
 									writer.write(jsonString);
 									writer.flush();
 									logger.log(Level.INFO, "Response send to client");

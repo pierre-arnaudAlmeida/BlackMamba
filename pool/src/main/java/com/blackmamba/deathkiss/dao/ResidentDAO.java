@@ -15,6 +15,11 @@ import org.apache.logging.log4j.Logger;
 import com.blackmamba.deathkiss.entity.Resident;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class ResidentDAO extends DAO<Resident> {
 
 	private ResultSet result = null;

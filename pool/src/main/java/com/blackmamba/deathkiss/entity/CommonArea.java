@@ -3,6 +3,11 @@ package com.blackmamba.deathkiss.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class CommonArea {
 
 	private int idCommonArea = 0;

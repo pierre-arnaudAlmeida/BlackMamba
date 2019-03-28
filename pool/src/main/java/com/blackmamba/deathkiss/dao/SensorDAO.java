@@ -13,8 +13,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.blackmamba.deathkiss.entity.Sensor;
+import com.blackmamba.deathkiss.entity.SensorType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class SensorDAO extends DAO<Sensor> {
 
 	private ResultSet result = null;
@@ -31,7 +37,8 @@ public class SensorDAO extends DAO<Sensor> {
 		try {
 			Statement st = con.createStatement();
 			Sensor sensor = objectMapper.readValue(jsonString, Sensor.class);
-			request = "insert into capteur (type_capteur, etat, id_partie_commune) values ('" + sensor.getTypeSensor() + "','" + sensor.getSensorState() + "','" + sensor.getIdCommonArea() + "')";
+			request = "insert into capteur (type_capteur, etat, id_partie_commune) values ('" + sensor.getTypeSensor()
+					+ "','" + sensor.getSensorState() + "','" + sensor.getIdCommonArea() + "')";
 			st.execute(request);
 			logger.log(Level.INFO, "Sensor succesfully inserted in BDD");
 			return true;
@@ -65,33 +72,47 @@ public class SensorDAO extends DAO<Sensor> {
 		try {
 			Statement st = con.createStatement();
 			Sensor sensor = objectMapper.readValue(jsonString, Sensor.class);
-			if ((sensor.getSensorState() == sensor.getSensorNextState()) && sensor.getTypeSensor().equals("") && (sensor.getIdCommonArea() != 0)) {
-				request = "UPDATE capteur SET id_partie_commune = '" + sensor.getIdCommonArea() + "' where id_capteur = " + sensor.getIdSensor();
-			} else if ((sensor.getSensorState() == sensor.getSensorNextState()) && !(sensor.getTypeSensor().equals("")) && (sensor.getIdCommonArea() == 0)) {
-				request = "UPDATE capteur SET type_capteur = '" + sensor.getTypeSensor() + "' where id_capteur = " + sensor.getIdSensor();
-			} else if ((sensor.getSensorState() == sensor.getSensorNextState()) && !(sensor.getTypeSensor().equals("")) && (sensor.getIdCommonArea() != 0)) {
-				request = "UPDATE capteur SET type_capteur = '" + sensor.getTypeSensor() + "', id_partie_commune = '" + sensor.getIdCommonArea() + "' where id_capteur = " + sensor.getIdSensor();
+			if ((sensor.getSensorState() == sensor.getSensorNextState()) && sensor.getTypeSensor() == null
+					&& (sensor.getIdCommonArea() != 0)) {
+				request = "UPDATE capteur SET id_partie_commune = '" + sensor.getIdCommonArea()
+						+ "' where id_capteur = " + sensor.getIdSensor();
+			} else if ((sensor.getSensorState() == sensor.getSensorNextState()) && (sensor.getTypeSensor() != null)
+					&& (sensor.getIdCommonArea() == 0)) {
+				request = "UPDATE capteur SET type_capteur = '" + sensor.getTypeSensor() + "' where id_capteur = "
+						+ sensor.getIdSensor();
+			} else if ((sensor.getSensorState() == sensor.getSensorNextState()) && (sensor.getTypeSensor() != null)
+					&& (sensor.getIdCommonArea() != 0)) {
+				request = "UPDATE capteur SET type_capteur = '" + sensor.getTypeSensor() + "', id_partie_commune = '"
+						+ sensor.getIdCommonArea() + "' where id_capteur = " + sensor.getIdSensor();
 			} else if (sensor.getSensorState() != sensor.getSensorNextState()) {
 				if (sensor.getSensorNextState() == true) {
-					if (sensor.getTypeSensor().equals("") && (sensor.getIdCommonArea() == 0)) {
+					if ((sensor.getTypeSensor() == null) && (sensor.getIdCommonArea() == 0)) {
 						request = "UPDATE capteur SET etat = 'ON' where id_capteur = " + sensor.getIdSensor();
-					} else if (sensor.getTypeSensor().equals("") && (sensor.getIdCommonArea() != 0)) {
-						request = "UPDATE capteur SET etat = 'ON', id_partie_commune = '" + sensor.getIdCommonArea() + "' where id_capteur = " + sensor.getIdSensor();
-					} else if (!(sensor.getTypeSensor().equals("")) && (sensor.getIdCommonArea() == 0)) {
-						request = "UPDATE capteur SET etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "' where id_capteur = " + sensor.getIdSensor();
-					} else if (!(sensor.getTypeSensor().equals("")) && (sensor.getIdCommonArea() != 0)) {
-						request = "UPDATE capteur SET etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "', id_partie_commune = '" + sensor.getIdCommonArea() + "' where id_capteur = " + sensor.getIdSensor();
+					} else if ((sensor.getTypeSensor() == null) && (sensor.getIdCommonArea() != 0)) {
+						request = "UPDATE capteur SET etat = 'ON', id_partie_commune = '" + sensor.getIdCommonArea()
+								+ "' where id_capteur = " + sensor.getIdSensor();
+					} else if ((sensor.getTypeSensor() != null) && (sensor.getIdCommonArea() == 0)) {
+						request = "UPDATE capteur SET etat = 'ON', type_capteur = '" + sensor.getTypeSensor()
+								+ "' where id_capteur = " + sensor.getIdSensor();
+					} else if ((sensor.getTypeSensor() != null) && (sensor.getIdCommonArea() != 0)) {
+						request = "UPDATE capteur SET etat = 'ON', type_capteur = '" + sensor.getTypeSensor()
+								+ "', id_partie_commune = '" + sensor.getIdCommonArea() + "' where id_capteur = "
+								+ sensor.getIdSensor();
 					} else
 						return false;
 				} else if (sensor.getSensorNextState() == false) {
-					if (sensor.getTypeSensor().equals("") && (sensor.getIdCommonArea() == 0)) {
+					if ((sensor.getTypeSensor() == null) && (sensor.getIdCommonArea() == 0)) {
 						request = "UPDATE capteur SET etat = 'OFF' where id_capteur = " + sensor.getIdSensor();
-					} else if (sensor.getTypeSensor().equals("") && (sensor.getIdCommonArea() != 0)) {
-						request = "UPDATE capteur SET etat = 'OFF', id_partie_commune = '" + sensor.getIdCommonArea() + "' where id_capteur = " + sensor.getIdSensor();
-					} else if (!(sensor.getTypeSensor().equals("")) && (sensor.getIdCommonArea() == 0)) {
-						request = "UPDATE capteur SET etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "' where id_capteur = " + sensor.getIdSensor();
-					} else if (!(sensor.getTypeSensor().equals("")) && (sensor.getIdCommonArea() != 0)) {
-						request = "UPDATE capteur SET etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "', id_partie_commune = '" + sensor.getIdCommonArea() + "' where id_capteur = " + sensor.getIdSensor();
+					} else if ((sensor.getTypeSensor() == null) && (sensor.getIdCommonArea() != 0)) {
+						request = "UPDATE capteur SET etat = 'OFF', id_partie_commune = '" + sensor.getIdCommonArea()
+								+ "' where id_capteur = " + sensor.getIdSensor();
+					} else if ((sensor.getTypeSensor() != null) && (sensor.getIdCommonArea() == 0)) {
+						request = "UPDATE capteur SET etat = 'OFF', type_capteur = '" + sensor.getTypeSensor()
+								+ "' where id_capteur = " + sensor.getIdSensor();
+					} else if ((sensor.getTypeSensor() != null) && (sensor.getIdCommonArea() != 0)) {
+						request = "UPDATE capteur SET etat = 'OFF', type_capteur = '" + sensor.getTypeSensor()
+								+ "', id_partie_commune = '" + sensor.getIdCommonArea() + "' where id_capteur = "
+								+ sensor.getIdSensor();
 					} else
 						return false;
 				} else
@@ -119,7 +140,27 @@ public class SensorDAO extends DAO<Sensor> {
 			result.next();
 
 			sensor.setIdSensor(Integer.parseInt(result.getObject(1).toString()));
-			sensor.setTypeSensor(result.getObject(2).toString());
+			if (result.getObject(2).toString().equals("SMOKE"))
+				sensor.setTypeSensor(SensorType.SMOKE);
+			else if (result.getObject(2).toString().equals("MOVE"))
+				sensor.setTypeSensor(SensorType.MOVE);
+			else if (result.getObject(2).toString().equals("TEMPERATURE"))
+				sensor.setTypeSensor(SensorType.TEMPERATURE);
+			else if (result.getObject(2).toString().equals("WINDOW"))
+				sensor.setTypeSensor(SensorType.WINDOW);
+			else if (result.getObject(2).toString().equals("DOOR"))
+				sensor.setTypeSensor(SensorType.DOOR);
+			else if (result.getObject(2).toString().equals("ELEVATOR"))
+				sensor.setTypeSensor(SensorType.ELEVATOR);
+			else if (result.getObject(2).toString().equals("LIGHT"))
+				sensor.setTypeSensor(SensorType.LIGHT);
+			else if (result.getObject(2).toString().equals("FIRE"))
+				sensor.setTypeSensor(SensorType.FIRE);
+			else if (result.getObject(2).toString().equals("BADGE"))
+				sensor.setTypeSensor(SensorType.BADGE);
+			else if (result.getObject(2).toString().equals("ROUTER"))
+				sensor.setTypeSensor(SensorType.ROUTER);
+
 			if (result.getObject(3).toString().equals("ON")) {
 				sensor.setSensorState(true);
 			} else if (result.getObject(3).toString().equals("OFF")) {
@@ -151,7 +192,27 @@ public class SensorDAO extends DAO<Sensor> {
 			while (result.next()) {
 				sensor = new Sensor();
 				sensor.setIdSensor(Integer.parseInt(result.getObject(1).toString()));
-				sensor.setTypeSensor(result.getObject(2).toString());
+				if (result.getObject(2).toString().equals("SMOKE"))
+					sensor.setTypeSensor(SensorType.SMOKE);
+				else if (result.getObject(2).toString().equals("MOVE"))
+					sensor.setTypeSensor(SensorType.MOVE);
+				else if (result.getObject(2).toString().equals("TEMPERATURE"))
+					sensor.setTypeSensor(SensorType.TEMPERATURE);
+				else if (result.getObject(2).toString().equals("WINDOW"))
+					sensor.setTypeSensor(SensorType.WINDOW);
+				else if (result.getObject(2).toString().equals("DOOR"))
+					sensor.setTypeSensor(SensorType.DOOR);
+				else if (result.getObject(2).toString().equals("ELEVATOR"))
+					sensor.setTypeSensor(SensorType.ELEVATOR);
+				else if (result.getObject(2).toString().equals("LIGHT"))
+					sensor.setTypeSensor(SensorType.LIGHT);
+				else if (result.getObject(2).toString().equals("FIRE"))
+					sensor.setTypeSensor(SensorType.FIRE);
+				else if (result.getObject(2).toString().equals("BADGE"))
+					sensor.setTypeSensor(SensorType.BADGE);
+				else if (result.getObject(2).toString().equals("ROUTER"))
+					sensor.setTypeSensor(SensorType.ROUTER);
+				
 				if (result.getObject(3).toString().equals("ON")) {
 					sensor.setSensorState(true);
 				} else if (result.getObject(3).toString().equals("OFF")) {
@@ -189,7 +250,27 @@ public class SensorDAO extends DAO<Sensor> {
 			while (result.next()) {
 				sensors = new Sensor();
 				sensors.setIdSensor(Integer.parseInt(result.getObject(1).toString()));
-				sensors.setTypeSensor(result.getObject(2).toString());
+				if (result.getObject(2).toString().equals("SMOKE"))
+					sensor.setTypeSensor(SensorType.SMOKE);
+				else if (result.getObject(2).toString().equals("MOVE"))
+					sensor.setTypeSensor(SensorType.MOVE);
+				else if (result.getObject(2).toString().equals("TEMPERATURE"))
+					sensor.setTypeSensor(SensorType.TEMPERATURE);
+				else if (result.getObject(2).toString().equals("WINDOW"))
+					sensor.setTypeSensor(SensorType.WINDOW);
+				else if (result.getObject(2).toString().equals("DOOR"))
+					sensor.setTypeSensor(SensorType.DOOR);
+				else if (result.getObject(2).toString().equals("ELEVATOR"))
+					sensor.setTypeSensor(SensorType.ELEVATOR);
+				else if (result.getObject(2).toString().equals("LIGHT"))
+					sensor.setTypeSensor(SensorType.LIGHT);
+				else if (result.getObject(2).toString().equals("FIRE"))
+					sensor.setTypeSensor(SensorType.FIRE);
+				else if (result.getObject(2).toString().equals("BADGE"))
+					sensor.setTypeSensor(SensorType.BADGE);
+				else if (result.getObject(2).toString().equals("ROUTER"))
+					sensor.setTypeSensor(SensorType.ROUTER);
+				
 				if (result.getObject(3).toString().equals("ON")) {
 					sensors.setSensorState(true);
 				} else if (result.getObject(3).toString().equals("OFF")) {

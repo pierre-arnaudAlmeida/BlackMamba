@@ -13,6 +13,11 @@ import org.apache.logging.log4j.Logger;
 
 import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class TimeServer {
 	/**
 	 * Initialization of parameters

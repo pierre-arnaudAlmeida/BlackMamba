@@ -17,6 +17,11 @@ import javax.swing.border.EmptyBorder;
 import com.blackmamba.deathkiss.entity.CommonArea;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class ListCommonArea extends JFrame {
 
 	// Definition of differents fields

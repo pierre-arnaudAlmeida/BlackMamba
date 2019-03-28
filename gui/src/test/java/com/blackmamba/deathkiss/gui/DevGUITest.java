@@ -19,7 +19,7 @@ class DevGUITest {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Window frame = new Window();
+					Window frame = new Window(0);
 					frame.setVisible(true);
 					assertTrue(frame.isShowing());
 				} catch (Exception e) {

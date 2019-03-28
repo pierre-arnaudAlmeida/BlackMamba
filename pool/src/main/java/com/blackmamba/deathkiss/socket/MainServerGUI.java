@@ -13,6 +13,11 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class MainServerGUI extends JFrame {
 	/**
 	 * Initialization of diferents parameters
@@ -57,7 +62,7 @@ public class MainServerGUI extends JFrame {
 								heure++;
 							}
 							time.setText(heure + ":" + minute + ":" + seconde);
-							logger.log(Level.INFO, "Time launched : "+heure + ":" + minute + ":" + seconde);
+							//logger.log(Level.INFO, "Time launched : "+heure + ":" + minute + ":" + seconde);
 						}
 					};
 					final Timer timer1 = new Timer(delais, tache_timer);

@@ -15,6 +15,11 @@ import org.apache.logging.log4j.Logger;
 import com.blackmamba.deathkiss.entity.Employee;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class EmployeeDAO extends DAO<Employee> {
 
 	private ResultSet result = null;

@@ -12,6 +12,11 @@ import org.apache.logging.log4j.Logger;
 
 import com.blackmamba.deathkiss.entity.Employee;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class ClientSocket {
 
 	private Socket connexion = null;
@@ -59,6 +64,9 @@ public class ClientSocket {
 					break;
 				case "READ ALL":
 					response = "{ \"request\" : \"READ ALL\", \"table\" : \"" + this.table + "\" }";
+					break;
+				case "FIND ALL":
+					response = "{ \"request\" : \"FIND ALL\", \"table\" : \"" + this.table + "\" }";
 					break;
 				default:
 					response = "";

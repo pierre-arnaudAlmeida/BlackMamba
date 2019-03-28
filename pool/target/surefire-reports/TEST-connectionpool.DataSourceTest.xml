@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="connectionpool.DataSourceTest" time="14.12" tests="11" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="connectionpool.DataSourceTest" time="13.869" tests="11" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="windows"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -18,7 +18,7 @@
     <property name="user.country" value="FR"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files (x86)\Java\jdk1.8.0_201\jre\bin"/>
-    <property name="sun.java.command" value="C:\Users\pierr\AppData\Local\Temp\surefire7984440091527140319\surefirebooter5326863227507412081.jar C:\Users\pierr\AppData\Local\Temp\surefire7984440091527140319 2019-03-27T20-11-00_512-jvmRun1 surefire9059303619621640659tmp surefire_06739803930334001896tmp"/>
+    <property name="sun.java.command" value="C:\Users\pierr\AppData\Local\Temp\surefire7021875313718284103\surefirebooter3539559018654620868.jar C:\Users\pierr\AppData\Local\Temp\surefire7021875313718284103 2019-03-28T20-59-32_988-jvmRun1 surefire5622741404426179323tmp surefire_05692830168297321850tmp"/>
     <property name="surefire.test.class.path" value="D:\Java\deathkiss\pool\target\test-classes;D:\Java\deathkiss\pool\target\classes;C:\Users\pierr\.m2\repository\org\postgresql\postgresql\42.2.5\postgresql-42.2.5.jar;C:\Users\pierr\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.2.0\junit-jupiter-engine-5.2.0.jar;C:\Users\pierr\.m2\repository\org\apiguardian\apiguardian-api\1.0.0\apiguardian-api-1.0.0.jar;C:\Users\pierr\.m2\repository\org\junit\platform\junit-platform-engine\1.2.0\junit-platform-engine-1.2.0.jar;C:\Users\pierr\.m2\repository\org\junit\platform\junit-platform-commons\1.2.0\junit-platform-commons-1.2.0.jar;C:\Users\pierr\.m2\repository\org\opentest4j\opentest4j\1.1.0\opentest4j-1.1.0.jar;C:\Users\pierr\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.2.0\junit-jupiter-api-5.2.0.jar;C:\Users\pierr\.m2\repository\org\junit\platform\junit-platform-launcher\1.2.0\junit-platform-launcher-1.2.0.jar;C:\Users\pierr\.m2\repository\org\apache\logging\log4j\log4j-core\2.11.2\log4j-core-2.11.2.jar;C:\Users\pierr\.m2\repository\org\apache\logging\log4j\log4j-api\2.11.2\log4j-api-2.11.2.jar;C:\Users\pierr\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.9.8\jackson-core-2.9.8.jar;C:\Users\pierr\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.9.8\jackson-databind-2.9.8.jar;C:\Users\pierr\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.9.0\jackson-annotations-2.9.0.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\pierr"/>
@@ -31,7 +31,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="C:\Users\pierr\AppData\Local\Temp\surefire7984440091527140319\surefirebooter5326863227507412081.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\pierr\AppData\Local\Temp\surefire7021875313718284103\surefirebooter3539559018654620868.jar"/>
     <property name="sun.boot.class.path" value="C:\Program Files (x86)\Java\jdk1.8.0_201\jre\lib\resources.jar;C:\Program Files (x86)\Java\jdk1.8.0_201\jre\lib\rt.jar;C:\Program Files (x86)\Java\jdk1.8.0_201\jre\lib\sunrsasign.jar;C:\Program Files (x86)\Java\jdk1.8.0_201\jre\lib\jsse.jar;C:\Program Files (x86)\Java\jdk1.8.0_201\jre\lib\jce.jar;C:\Program Files (x86)\Java\jdk1.8.0_201\jre\lib\charsets.jar;C:\Program Files (x86)\Java\jdk1.8.0_201\jre\lib\jfr.jar;C:\Program Files (x86)\Java\jdk1.8.0_201\jre\classes"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot Client Compiler"/>
@@ -60,15 +60,15 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="52.0"/>
   </properties>
-  <testcase name="testCloseConnectionsFromJDBC" classname="connectionpool.DataSourceTest" time="1.963"/>
-  <testcase name="testMaxConnectionsPossible" classname="connectionpool.DataSourceTest" time="2.079"/>
-  <testcase name="testMaxConnections" classname="connectionpool.DataSourceTest" time="2.237"/>
-  <testcase name="testReturnConnection" classname="connectionpool.DataSourceTest" time="0.673"/>
-  <testcase name="testTotalConnection" classname="connectionpool.DataSourceTest" time="1.834"/>
-  <testcase name="testUpdateData" classname="connectionpool.DataSourceTest" time="0.628"/>
-  <testcase name="testGetData" classname="connectionpool.DataSourceTest" time="0.741"/>
-  <testcase name="testGetConnectionFromJDBC" classname="connectionpool.DataSourceTest" time="0.617"/>
-  <testcase name="testInsertData" classname="connectionpool.DataSourceTest" time="0.69"/>
-  <testcase name="testDeleteData" classname="connectionpool.DataSourceTest" time="0.704"/>
-  <testcase name="testDifferentCOnnections" classname="connectionpool.DataSourceTest" time="1.328"/>
+  <testcase name="testCloseConnectionsFromJDBC" classname="connectionpool.DataSourceTest" time="1.931"/>
+  <testcase name="testMaxConnectionsPossible" classname="connectionpool.DataSourceTest" time="1.976"/>
+  <testcase name="testMaxConnections" classname="connectionpool.DataSourceTest" time="2"/>
+  <testcase name="testReturnConnection" classname="connectionpool.DataSourceTest" time="0.594"/>
+  <testcase name="testTotalConnection" classname="connectionpool.DataSourceTest" time="2.007"/>
+  <testcase name="testUpdateData" classname="connectionpool.DataSourceTest" time="0.712"/>
+  <testcase name="testGetData" classname="connectionpool.DataSourceTest" time="0.696"/>
+  <testcase name="testGetConnectionFromJDBC" classname="connectionpool.DataSourceTest" time="0.666"/>
+  <testcase name="testInsertData" classname="connectionpool.DataSourceTest" time="0.763"/>
+  <testcase name="testDeleteData" classname="connectionpool.DataSourceTest" time="0.695"/>
+  <testcase name="testDifferentCOnnections" classname="connectionpool.DataSourceTest" time="1.302"/>
 </testsuite>

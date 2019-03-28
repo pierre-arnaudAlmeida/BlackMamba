@@ -5,6 +5,11 @@ import java.sql.SQLException;
 
 import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class DataSource {
 
 	public static JDBCConnectionPool pool;

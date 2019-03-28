@@ -1,14 +1,19 @@
 package com.blackmamba.deathkiss.entity;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class Sensor {
 
 	private int idSensor = 0;
-	private String typeSensor = null;
+	private SensorType typeSensor = null;
 	private boolean sensorState = false;
 	private boolean sensorNextState = false;
 	private int idCommonArea = 0;
 
-	public Sensor(int idSensor, String typeSensor, boolean sensorState, int idCommonArea) {
+	public Sensor(int idSensor, SensorType typeSensor, boolean sensorState, int idCommonArea) {
 		super();
 		this.idSensor = idSensor;
 		this.typeSensor = typeSensor;
@@ -27,11 +32,11 @@ public class Sensor {
 		this.idSensor = idSensor;
 	}
 
-	public String getTypeSensor() {
+	public SensorType getTypeSensor() {
 		return typeSensor;
 	}
 
-	public void setTypeSensor(String typeSensor) {
+	public void setTypeSensor(SensorType typeSensor) {
 		this.typeSensor = typeSensor;
 	}
 

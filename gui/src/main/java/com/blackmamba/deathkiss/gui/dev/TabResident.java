@@ -16,18 +16,26 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class TabResident extends JPanel{
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
+public class TabResident extends JPanel {
 	private String message;
+	private int idemployee;
 	private JPanel bar;
 	private JLabel labelIdEmployee, idEmployee;
 	private Font police;
 	private JButton disconnection;
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
-	
+
 	public TabResident() {
 	}
-	
-	public TabResident(Color color,String title) {
+
+	public TabResident(Color color, String title, int idemployee) {
+		this.idemployee = idemployee;
+
 		/**
 		 * Definition of the structure of this tab
 		 */
@@ -36,7 +44,7 @@ public class TabResident extends JPanel{
 		bar.setPreferredSize(new Dimension((int) getToolkit().getScreenSize().getWidth(), 70));
 		bar.setLayout(new BorderLayout());
 		bar.setBorder(BorderFactory.createMatteBorder(20, 100, 20, 100, bar.getBackground()));
-		
+
 		/**
 		 * Definition of label Identifiant on header bar
 		 */
@@ -45,30 +53,30 @@ public class TabResident extends JPanel{
 		labelIdEmployee.setForeground(Color.WHITE);
 		labelIdEmployee.setFont(police);
 		bar.add(labelIdEmployee, BorderLayout.WEST);
-		
+
 		/**
 		 * Definition of the label idEmployee on header bar
 		 */
 		idEmployee = new JLabel();
-		idEmployee.setText("1");
+		idEmployee.setText("" + this.idemployee + "");
 		idEmployee.setFont(police);
 		idEmployee.setForeground(Color.WHITE);
 		bar.add(idEmployee, BorderLayout.CENTER);
-		
+
 		/**
 		 * Definition of the button and the different action after pressed the button
 		 */
 		disconnection = new JButton("Se Déconnecter");
-		bar.add(disconnection,BorderLayout.EAST);
+		bar.add(disconnection, BorderLayout.EAST);
 		disconnection.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				logger.log(Level.INFO, "Application closed, after disconnection");
 				System.exit(ABORT);
-				
+
 			}
 		});
-		
+
 		/**
 		 * Diferent parameters of the window
 		 */

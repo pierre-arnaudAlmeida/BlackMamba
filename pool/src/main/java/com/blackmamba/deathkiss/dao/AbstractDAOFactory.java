@@ -6,6 +6,11 @@ import com.blackmamba.deathkiss.entity.Resident;
 import com.blackmamba.deathkiss.entity.Sensor;
 import com.blackmamba.deathkiss.entity.SensorHistorical;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public abstract class AbstractDAOFactory {
 
 	public abstract DAO<CommonArea> getCommonAreaDAO();

@@ -16,8 +16,14 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class TabEmployes extends JPanel {
 	private String message;
+	private int idemployee;
 	private JPanel bar;
 	private JLabel labelIdEmployee, idEmployee;
 	private Font police;
@@ -27,7 +33,9 @@ public class TabEmployes extends JPanel {
 	public TabEmployes() {
 	}
 
-	public TabEmployes(Color color, String title) {
+	public TabEmployes(Color color, String title, int idemployee) {
+		this.idemployee = idemployee;
+
 		/**
 		 * Definition of the structure of this tab
 		 */
@@ -50,7 +58,7 @@ public class TabEmployes extends JPanel {
 		 * Definition of the label idEmployee on header bar
 		 */
 		idEmployee = new JLabel();
-		idEmployee.setText("1");
+		idEmployee.setText("" + this.idemployee + "");
 		idEmployee.setFont(police);
 		idEmployee.setForeground(Color.WHITE);
 		bar.add(idEmployee, BorderLayout.CENTER);
@@ -65,7 +73,7 @@ public class TabEmployes extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				logger.log(Level.INFO, "Application closed, after disconnection");
 				System.exit(ABORT);
-				
+
 			}
 		});
 

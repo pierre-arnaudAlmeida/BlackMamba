@@ -19,6 +19,11 @@ import org.apache.logging.log4j.Logger;
 import com.blackmamba.deathkiss.entity.SensorHistorical;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 
 	private ResultSet result = null;

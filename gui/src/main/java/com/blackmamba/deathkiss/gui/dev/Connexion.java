@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -19,17 +20,33 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.blackmamba.deathkiss.entity.Employee;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class Connexion extends JFrame {
 
 	private JPanel container;
+	private JPanel pan;
+	private JPanel pan2;
+	private JPanel pan3;
 	private JPasswordField textInputPassword;
 	private JTextField textInputIdEmployee;
 	private JLabel labelIdEmployee;
 	private JLabel labelPassword;
-	private JButton buttonConnection, buttonLeave;
-	private JPanel pan, pan2, pan3;
+	private JButton buttonConnection;
+	private JButton buttonLeave;
 	private Font police;
-	private String idEmployee, password;
+	private String idEmployee;
+	private String password;
+	private String requestType;
+	private String table;
+	private String jsonString;
+	private Employee employee;
 	private char[] passwordfield;
 	private static final Logger logger = LogManager.getLogger(Connexion.class);
 
@@ -48,7 +65,7 @@ public class Connexion extends JFrame {
 		/**
 		 * Definition of different pan present in the popup
 		 */
-		container.setBackground(Color.DARK_GRAY);
+		container.setBackground(Color.WHITE);
 		pan = new JPanel();
 		pan2 = new JPanel();
 		pan3 = new JPanel();
@@ -93,11 +110,16 @@ public class Connexion extends JFrame {
 		});
 
 		/**
-		 * Actions when we pressed the button Connection
+		 * Actions when we pressed the button Connection Send parameter to create an
+		 * socket to connect the employee
 		 */
 		buttonConnection.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				requestType = "CONNECTION";
+				employee = new Employee();
+				table = "Employee";
+
 				idEmployee = textInputIdEmployee.getText();
 				passwordfield = textInputPassword.getPassword();
 				password = new String(passwordfield);
@@ -107,25 +129,37 @@ public class Connexion extends JFrame {
 					JOptionPane.showMessageDialog(null, "Vous n'avez pas renseigné tout les champs", "Attention",
 							JOptionPane.WARNING_MESSAGE);
 				} else if ((idEmployee.matches("[0-9]+[0-9]*")) && !(password.equals(""))) {
-					Window frame = new Window();
-					setVisible(false);
-					dispose();
-					frame.setVisible(true);
-					System.out.println(idEmployee + " " + password);
+					employee.setIdEmployee(Integer.parseInt(idEmployee));
+					employee.setPassword(password);
+					ObjectMapper connectionMapper = new ObjectMapper();
+					try {
+						jsonString = connectionMapper.writeValueAsString(employee);
+						new ClientSocket(requestType, jsonString, table);
+						jsonString = ClientSocket.getJson();
+						employee = connectionMapper.readValue(jsonString, Employee.class);
+					} catch (IOException e1) {
+						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+					}
+					if (!employee.getLastnameEmployee().equals("")) {
+						Window frame = new Window(employee.getIdEmployee());
+						setVisible(false);
+						dispose();
+						frame.setVisible(true);
+						logger.log(Level.INFO, "Connection succesfuly accepted, redirection to Window");
+					} else {
+						logger.log(Level.INFO, "Attempt of connection with wrong password employee or id employee");
+						JOptionPane.showMessageDialog(null, "L'identifiant ou le mot de passe est incorrect", "Erreur",
+								JOptionPane.ERROR_MESSAGE);
+					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Une Erreur est survenue, relancez l'application", "Attention",
 							JOptionPane.WARNING_MESSAGE);
-					// TODO mettre un lister au bouton ok et fermer la fenetre connexion
 				}
-				/**
-				 * Envoi d'une requete de verif des id et mot de passe et ensuite on fait un
-				 * System.exit(DISPOSE_ON_CLOSE); quand le resultat est positif
-				 */
 			}
 		});
 
 		/**
-		 * Close the window if we press the button Se deconnecter
+		 * Close the window if we press the button Quitter
 		 */
 		buttonLeave.addActionListener(new ActionListener() {
 			@Override
@@ -134,7 +168,7 @@ public class Connexion extends JFrame {
 				System.exit(DISPOSE_ON_CLOSE);
 			}
 		});
-		
+
 		/**
 		 * Add components in the window container
 		 */

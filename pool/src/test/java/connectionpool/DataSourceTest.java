@@ -13,6 +13,11 @@ import org.junit.jupiter.api.Test;
 import com.blackmamba.deathkiss.connectionpool.DataSource;
 import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 class DataSourceTest {
 
 	private static final Logger logger = LogManager.getLogger(DataSourceTest.class);

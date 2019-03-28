@@ -7,6 +7,11 @@ import com.blackmamba.deathkiss.entity.Resident;
 import com.blackmamba.deathkiss.entity.Sensor;
 import com.blackmamba.deathkiss.entity.SensorHistorical;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class DAOFactory extends AbstractDAOFactory {
 
 	protected final Connection con = null;

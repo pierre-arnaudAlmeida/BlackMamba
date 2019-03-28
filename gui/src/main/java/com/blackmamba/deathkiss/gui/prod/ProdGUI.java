@@ -4,6 +4,11 @@ import java.awt.EventQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class ProdGUI {
 
 	private static Logger logger = Logger.getLogger("logger");

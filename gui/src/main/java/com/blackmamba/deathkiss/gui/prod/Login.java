@@ -19,6 +19,11 @@ import javax.swing.border.EmptyBorder;
 import com.blackmamba.deathkiss.entity.Employee;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class Login extends JFrame {
 	// Definition of differents fields
 	private JPanel contentPane;

@@ -1,5 +1,10 @@
 package com.blackmamba.deathkiss.entity;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class Employee {
 
 	private int idEmployee = 0;

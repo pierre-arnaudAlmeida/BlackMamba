@@ -2,6 +2,11 @@ package com.blackmamba.deathkiss.entity;
 
 import java.util.Date;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class SensorHistorical {
 
 	private int idHistorical = 0;

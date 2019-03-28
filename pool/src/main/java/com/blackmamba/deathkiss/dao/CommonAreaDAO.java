@@ -15,6 +15,11 @@ import org.apache.logging.log4j.Logger;
 import com.blackmamba.deathkiss.entity.CommonArea;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class CommonAreaDAO extends DAO<CommonArea> {
 
 	private ResultSet result = null;

@@ -3,6 +3,12 @@ package com.blackmamba.deathkiss.dao;
 import java.sql.Connection;
 import java.util.logging.Logger;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ * @param <T>
+ */
 public abstract class DAO<T> {
 
 	protected Connection con = null;

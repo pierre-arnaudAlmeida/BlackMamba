@@ -17,6 +17,11 @@ import javax.swing.border.EmptyBorder;
 import com.blackmamba.deathkiss.entity.Employee;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class InsertionEmployee extends JFrame {
 
 	// Definition of differents fields
@@ -233,7 +238,6 @@ public class InsertionEmployee extends JFrame {
 						logger.log(Level.INFO,
 								"Impossible to redirect to window 'ProfilClient' " + e1.getClass().getCanonicalName());
 					}
-
 				}
 			}
 		});

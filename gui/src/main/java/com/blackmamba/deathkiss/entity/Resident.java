@@ -1,5 +1,10 @@
 package com.blackmamba.deathkiss.entity;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class Resident {
 
 	private int idResident = 0;
