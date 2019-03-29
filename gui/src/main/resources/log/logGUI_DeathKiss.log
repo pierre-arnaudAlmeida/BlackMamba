@@ -4579,3 +4579,26 @@
 2019-03-28 21:23:38 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
 2019-03-28 21:23:38 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
 2019-03-28 21:23:38 [AWT-EventQueue-0] INFO  Connexion:139 - Connection succesfuly accepted, redirection to Window
+2019-03-29 11:49:00 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 11:49:13 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 11:49:15 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 11:49:16 [AWT-EventQueue-0] INFO  TabProfile:264 - Impossible to update employee
+2019-03-29 11:50:01 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 11:50:23 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 11:51:48 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 11:51:57 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 11:52:04 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 11:52:06 [AWT-EventQueue-0] INFO  TabProfile:267 - Impossible to update employee
+2019-03-29 11:52:11 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 11:52:13 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 11:52:14 [AWT-EventQueue-0] INFO  TabProfile:267 - Impossible to update employee
+2019-03-29 12:03:57 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 12:11:28 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 12:14:47 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 12:18:08 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 12:20:43 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 12:20:47 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 12:20:48 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 12:20:49 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 12:21:12 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 12:22:11 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
