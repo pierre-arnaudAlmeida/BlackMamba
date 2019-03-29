@@ -75,7 +75,7 @@ public class ListCommonArea extends JFrame {
 
 		insertButton.addActionListener(new ActionListener() {
 			/**
-			 * If they click in backButton it will be redirect to InsertionClient
+			 * If they click in backButton c'est will redirect to InsertionClient
 			 */
 			public void actionPerformed(ActionEvent e) {
 				try {
