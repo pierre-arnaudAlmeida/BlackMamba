@@ -6,8 +6,12 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -48,6 +52,7 @@ public class TabCommonArea extends JPanel {
 	private JButton listSensor;
 	private CommonArea commonArea;
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
+	private JList list;
 
 	public TabCommonArea() {
 	}
@@ -98,21 +103,38 @@ public class TabCommonArea extends JPanel {
 		});
 
 		///////////////////////// LIST EMPLOYEE////////////////////////////////////////
-		JList list;
+		
 		JScrollPane sc;
-		String[] emp = new String[100];
+		
 		int x = 0;
+		
+		DefaultListModel listM;
+		// TODO mettre une barre de recherche et on affiche les résultat dans le Jlist
+		listM = new DefaultListModel();
 		while (x < 100) {
-			emp[x] = "" + x;
+			listM.addElement(""+x+","+x);
 			x++;
 		}
-		// TODO mettre une barre de recherche et on affiche les résultat dans le Jlist
-
-		list = new JList(emp);
+		
+		list = new JList(listM);
 		sc = new JScrollPane(list);
 
 		sc.setBounds(30, 120, 300, ((int) getToolkit().getScreenSize().getHeight() - 300));
 		this.add(sc);
+		
+		MouseListener mouseListener = new MouseAdapter() {
+		     public void mouseClicked(MouseEvent e) {
+		         int index = list.locationToIndex(e.getPoint());
+		         System.out.println("clicked on Item " + index);
+		         String z= listM.getElementAt(index).toString();
+		         System.out.println(z);
+		         int q = z.indexOf(",");
+		         String i = z.substring(0,q);
+		         System.out.println(i);
+		         
+		     }
+		 };
+		 list.addMouseListener(mouseListener);
 
 		///////////////////////// LABEL///////////////////////////////////////////////
 		/**
@@ -208,7 +230,18 @@ public class TabCommonArea extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-
+				while(!listM.isEmpty()){
+					listM.removeElementAt(listM.size()-1);
+				}
+				int x=0;
+				while(x<40) {
+					//TODO nouvelle liste avec les infos de la recherche
+					listM.addElement("A"+x);
+					x++;
+				}
+				TabCommonArea a = new TabCommonArea();
+				a.setVisible(true);
+				setVisible(false);
 			}
 		});
 
@@ -224,7 +257,7 @@ public class TabCommonArea extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-
+			
 			}
 		});
 
