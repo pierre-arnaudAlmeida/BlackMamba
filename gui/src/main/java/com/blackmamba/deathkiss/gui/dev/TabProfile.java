@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 import org.apache.logging.log4j.Level;
@@ -53,7 +52,6 @@ public class TabProfile extends JPanel {
 	private Employee employee2;
 	private JButton disconnection;
 	private JButton save;
-	private JButton delete;
 	private JButton restaure;
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
 
@@ -221,15 +219,16 @@ public class TabProfile extends JPanel {
 				String newFunctionEmployee = textInputFunctionEmployee.getText().trim();
 				char[] password = textInputPasswordEmployee.getPassword();
 				String newPasswordEmployee = new String(password);
-				
+
 				/**
 				 * if text area are empty they open an popup
 				 */
-				if (newLastnameEmployee.equals("") || (newNameEmployee.equals("") || newFunctionEmployee.equals(""))) {
+				if (newLastnameEmployee.equals("") || newNameEmployee.equals("") || newFunctionEmployee.equals("")) {
 					JOptionPane.showMessageDialog(null, "Champs vide", "Erreur", JOptionPane.ERROR_MESSAGE);
 				} else {
 					/**
-					 * if they want to update the password they will input the current password to be verify by system
+					 * if they want to update the password they will input the current password to
+					 * be verify by system
 					 */
 					if (!(newPasswordEmployee.equals(""))) {
 						String verificationPassword = JOptionPane.showInputDialog(null, "Inserez ancien votre mot de passe", "");
