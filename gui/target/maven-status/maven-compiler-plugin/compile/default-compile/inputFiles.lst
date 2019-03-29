@@ -1,10 +1,7 @@
-D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\dev\Window.java
+D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\SensorType.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\prod\InsertionEmployee.java
-D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\dev\DevGUI.java
-D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\dev\TabCommonArea.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\prod\ProfilEmployee.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\SensorHistorical.java
-D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\Resident.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\prod\ProdGUI.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\Sensor.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\prod\ListCommonArea.java
@@ -12,9 +9,13 @@ D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\dev\TabResident
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\dev\TabHistorical.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\dev\TabEmployes.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\dev\TabSensor.java
-D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\prod\ClientSocket.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\dev\Connexion.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\dev\TabProfile.java
+D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\dev\Window.java
+D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\dev\DevGUI.java
+D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\dev\TabCommonArea.java
+D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\Resident.java
+D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\prod\ClientSocket.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\CommonArea.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\prod\InsertionCommonArea.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\Employee.java
