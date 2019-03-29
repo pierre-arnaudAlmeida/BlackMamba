@@ -4653,3 +4653,17 @@
 2019-03-29 14:33:09 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
 2019-03-29 14:34:28 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
 2019-03-29 14:35:53 [AWT-EventQueue-0] INFO  TabProfile:103 - Application closed, after disconnection
+2019-03-29 15:05:08 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 15:05:50 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 15:06:38 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 15:06:49 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 15:07:27 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 15:08:03 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 15:08:50 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 15:09:17 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 15:11:51 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 15:15:37 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 15:16:41 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 15:21:42 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 15:21:54 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
+2019-03-29 15:22:31 [AWT-EventQueue-0] INFO  ClientSocket:123 - Impossible create the socket java.net.ConnectException
