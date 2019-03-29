@@ -11,10 +11,14 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.blackmamba.deathkiss.entity.Employee;
 
 /**
  * 
@@ -29,6 +33,33 @@ public class TabResident extends JPanel {
 	private Font police;
 	private JButton disconnection;
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
+	/*
+	 * private String message;
+	private String requestType;
+	private String table;
+	private String jsonString;
+	private int idemployee;
+	private JPanel bar;
+	private JLabel labelIdEmployee;
+	private JLabel idEmployee;
+	private JLabel labelLastnameEmployee;
+	private JLabel labelNameEmployee;
+	private JLabel labelFunction;
+	private JLabel labelPassword;
+	private JTextField textInputLastnameEmployee;
+	private JTextField textInputNameEmployee;
+	private JTextField textInputFunctionEmployee;
+	private JPasswordField textInputPasswordEmployee;
+	private Font policeBar;
+	private Font policeLabel;
+	private Employee employee;
+	private Employee employee2;
+	private JButton disconnection;
+	private JButton save;
+	private JButton delete;
+	private JButton restaure;
+	private static final Logger logger = LogManager.getLogger(TabProfile.class);
+	 */
 
 	public TabResident() {
 	}

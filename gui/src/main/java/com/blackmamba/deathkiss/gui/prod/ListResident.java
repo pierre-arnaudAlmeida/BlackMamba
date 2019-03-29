@@ -14,28 +14,23 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.blackmamba.deathkiss.entity.CommonArea;
+import com.blackmamba.deathkiss.entity.Resident;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-/**
- * 
- * @author Pierre-Arnaud
- *
- */
-public class ListCommonArea extends JFrame {
+
+public class ListResident extends JFrame {
 
 	// Definition of differents fields
 	private JPanel contentPane;
 	private String requestType;
 	private String table;
 	private String jsonString;
-	private CommonArea commonArea;
-	private List<CommonArea> listCommonArea = new ArrayList();
+	private Resident resident;
+	private List<Resident> listResident = new ArrayList();
 	private static Logger logger = Logger.getLogger("logger");
 
-	public ListCommonArea() {
-
-		setTitle("Liste Partie Commune");
+	public ListResident() {
+		setTitle("Liste Resident");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
@@ -51,7 +46,7 @@ public class ListCommonArea extends JFrame {
 
 		backButton.addActionListener(new ActionListener() {
 			/**
-			 * If they click in backButton c'est will redirect to InsertionClient
+			 * If they click in backButton it will be redirect to InsertionClient
 			 */
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -69,61 +64,61 @@ public class ListCommonArea extends JFrame {
 
 		// Creation of a insert button
 		// And display on the contentPane
-		JButton insertButton = new JButton("Ajouter une partie commune");
+		JButton insertButton = new JButton("Ajouter un resident");
 		insertButton.setBounds(147, 30, 214, 23);
 		contentPane.add(insertButton);
 
 		insertButton.addActionListener(new ActionListener() {
 			/**
-			 * If they click in backButton it will be redirect to InsertionClient
+			 * If they click in backButton c'est will redirect to InsertionClient
 			 */
 			public void actionPerformed(ActionEvent e) {
 				try {
-					InsertionCommonArea frame = new InsertionCommonArea();
+					InsertionResident frame = new InsertionResident();
 					frame.setVisible(true);
 					setVisible(false);
-					logger.log(Level.INFO, "Go to Insertion CommonArea");
+					logger.log(Level.INFO, "Go to Insertion Resident");
 					dispose();
 				} catch (Exception e1) {
 					logger.log(Level.INFO,
-							"Impossible redirect to window 'InsertionCommonArea' " + e1.getClass().getCanonicalName());
+							"Impossible redirect to window 'InsertionResident' " + e1.getClass().getCanonicalName());
 				}
 			}
 		});
 
 		requestType = "READ ALL";
-		commonArea = new CommonArea();
-		table = "CommonArea";
+		resident = new Resident();
+		table = "Employee";
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			jsonString = "READ ALL";
 			new ClientSocket(requestType, jsonString, table);
 			jsonString = ClientSocket.getJson();
-			CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
-			listCommonArea = Arrays.asList(commonAreas);
+			Resident[] resident = objectMapper.readValue(jsonString, Resident[].class);
+			listResident = Arrays.asList(resident);
 		} catch (Exception e1) {
 			logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 		}
-		int x = 60;
-		for (CommonArea commonAreas : listCommonArea) {
+		int x = 0;
+		for (Resident resident : listResident) {
 			x = x + 30;
-			// Creation of label idCommonArea
+			// Creation of label id resident
 			// And display on the contentPane
-			JLabel idCommonArea = new JLabel("Id : " + commonAreas.getIdCommonArea());
-			idCommonArea.setBounds(10, x, 100, 14);
-			contentPane.add(idCommonArea);
+			JLabel idresident = new JLabel("Id : " + resident.getIdResident());
+			idresident.setBounds(10, x, 100, 14);
+			contentPane.add(idresident);
 
 			// Creation of label name
 			// And display on the contentPane
-			JLabel name = new JLabel("Nom : " + commonAreas.getNameCommonArea());
-			name.setBounds(100, x, 200, 14);
+			JLabel name = new JLabel("Pr\u00E9nom : " + resident.getNameResident());
+			name.setBounds(240, x, 200, 14);
 			contentPane.add(name);
 
-			// Creation of label stage
+			// Creation of label lastname
 			// And display on the contentPane
-			JLabel stage = new JLabel("\u00E9tage : " + commonAreas.getEtageCommonArea());
-			stage.setBounds(240, x, 200, 14);
-			contentPane.add(stage);
+			JLabel lastname = new JLabel("Nom : " + resident.getLastnameResident());
+			lastname.setBounds(100, x, 200, 14);
+			contentPane.add(lastname);
 
 			// Creation of a access button
 			// And display on the contentPane
@@ -135,17 +130,19 @@ public class ListCommonArea extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						ProfilCommonArea frame = new ProfilCommonArea(commonAreas.getIdCommonArea());
+						ProfilResident frame = new ProfilResident(resident.getIdResident());
 						frame.setVisible(true);
 						setVisible(false);
-						logger.log(Level.INFO, "Go to Profil Common Area");
+						logger.log(Level.INFO, "Go to Profil Resident");
 						dispose();
 					} catch (Exception e1) {
 						logger.log(Level.INFO,
-								"Impossible redirect to window 'CommonArea' " + e1.getClass().getCanonicalName());
+								"Impossible redirect to window 'ProfilResident' " + e1.getClass().getCanonicalName());
 					}
 				}
 			});
+
 		}
 	}
+
 }
