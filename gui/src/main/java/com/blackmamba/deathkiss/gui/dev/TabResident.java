@@ -22,7 +22,8 @@ import org.apache.logging.log4j.Logger;
  *
  */
 public class TabResident extends JPanel {
-	private String message;
+
+	private static final long serialVersionUID = 1L;
 	private int idemployee;
 	private JPanel bar;
 	private JLabel labelIdEmployee, idEmployee;
@@ -33,7 +34,7 @@ public class TabResident extends JPanel {
 	public TabResident() {
 	}
 
-	public TabResident(Color color, String title, int idemployee) {
+	public TabResident(Color color, int idemployee) {
 		this.idemployee = idemployee;
 
 		/**
@@ -82,7 +83,6 @@ public class TabResident extends JPanel {
 		 */
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);
-		this.message = title;
 		this.setBackground(color);
 	}
 }

@@ -9,6 +9,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -24,6 +27,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.blackmamba.deathkiss.entity.CommonArea;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * 
@@ -31,9 +35,15 @@ import com.blackmamba.deathkiss.entity.CommonArea;
  *
  */
 public class TabCommonArea extends JPanel {
-	private String message;
+
+	private static final long serialVersionUID = 1L;
 	private int idemployee;
+	private int index;
+	private String requestType;
+	private String table;
+	private String jsonString;
 	private JPanel bar;
+	private JList list;
 	private JLabel labelIdEmployee;
 	private JLabel idEmployee;
 	private JLabel labelNameCommonArea;
@@ -51,13 +61,15 @@ public class TabCommonArea extends JPanel {
 	private JButton restaure;
 	private JButton listSensor;
 	private CommonArea commonArea;
+	private JScrollPane sc;
+	private DefaultListModel listM;
+	private List<CommonArea> listCommonArea = new ArrayList();
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
-	private JList list;
 
 	public TabCommonArea() {
 	}
 
-	public TabCommonArea(Color color, String title, int idemployee) {
+	public TabCommonArea(Color color, int idemployee) {
 		this.idemployee = idemployee;
 
 		/**
@@ -103,38 +115,64 @@ public class TabCommonArea extends JPanel {
 		});
 
 		///////////////////////// LIST EMPLOYEE////////////////////////////////////////
-		
-		JScrollPane sc;
-		
-		int x = 0;
-		
-		DefaultListModel listM;
-		// TODO mettre une barre de recherche et on affiche les résultat dans le Jlist
-		listM = new DefaultListModel();
-		while (x < 100) {
-			listM.addElement(""+x+","+x);
-			x++;
+		commonArea = new CommonArea();
+		commonArea.setIdCommonArea(0);
+		commonArea.setNameCommonArea("");
+		commonArea.setEtageCommonArea(99);
+
+		requestType = "READ ALL";
+		table = "CommonArea";
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			jsonString = "READ ALL";
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
+			listCommonArea = Arrays.asList(commonAreas);
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 		}
-		
+
+		listM = new DefaultListModel();
+		for (CommonArea commonAreas : listCommonArea) {
+			listM.addElement(commonAreas.getIdCommonArea() + ", " + commonAreas.getNameCommonArea() + " "
+					+ commonAreas.getEtageCommonArea());
+		}
+
 		list = new JList(listM);
 		sc = new JScrollPane(list);
+		// TODO mettre une barre de recherche et on affiche les résultat dans le Jlist
 
 		sc.setBounds(30, 120, 300, ((int) getToolkit().getScreenSize().getHeight() - 300));
 		this.add(sc);
-		
+
 		MouseListener mouseListener = new MouseAdapter() {
-		     public void mouseClicked(MouseEvent e) {
-		         int index = list.locationToIndex(e.getPoint());
-		         System.out.println("clicked on Item " + index);
-		         String z= listM.getElementAt(index).toString();
-		         System.out.println(z);
-		         int q = z.indexOf(",");
-		         String i = z.substring(0,q);
-		         System.out.println(i);
-		         
-		     }
-		 };
-		 list.addMouseListener(mouseListener);
+			public void mouseClicked(MouseEvent e) {
+				index = list.locationToIndex(e.getPoint());
+				String substring = listM.getElementAt(index).toString();
+				int position = substring.indexOf(",");
+				String id = substring.substring(0, position);
+
+				requestType = "READ";
+				commonArea = new CommonArea();
+				table = "CommonArea";
+				ObjectMapper readMapper = new ObjectMapper();
+				commonArea.setIdCommonArea(Integer.parseInt(id));
+				try {
+					jsonString = readMapper.writeValueAsString(commonArea);
+					;
+					new ClientSocket(requestType, jsonString, table);
+					jsonString = ClientSocket.getJson();
+					commonArea = readMapper.readValue(jsonString, CommonArea.class);
+				} catch (Exception e1) {
+					logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+				}
+				textInputIdCommonArea.setText(Integer.toString(commonArea.getIdCommonArea()));
+				textInputNameCommonArea.setText(commonArea.getNameCommonArea());
+				textInputStageCommonArea.setText(Integer.toString(commonArea.getEtageCommonArea()));
+			}
+		};
+		list.addMouseListener(mouseListener);
 
 		///////////////////////// LABEL///////////////////////////////////////////////
 		/**
@@ -142,8 +180,8 @@ public class TabCommonArea extends JPanel {
 		 */
 		policeLabel = new Font("Arial", Font.BOLD, (int) getToolkit().getScreenSize().getWidth() / 80);
 		labelIdCommonArea = new JLabel("Id : ");
-		labelIdCommonArea.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4, (int) getToolkit().getScreenSize().getHeight() * 2 / 10, 100, 30);
-		// labelIdCommonArea.setBounds(770, 350, 100, 30);
+		labelIdCommonArea.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 2 / 10, 100, 30);
 		labelIdCommonArea.setFont(policeLabel);
 		this.add(labelIdCommonArea);
 
@@ -151,8 +189,8 @@ public class TabCommonArea extends JPanel {
 		 * Definition of label NameCommonArea
 		 */
 		labelNameCommonArea = new JLabel("Nom : ");
-		labelNameCommonArea.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4, (int) getToolkit().getScreenSize().getHeight() * 4 / 10, 200, 30);
-		// labelNameCommonArea.setBounds(330, 200, 100, 30);
+		labelNameCommonArea.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 4 / 10, 200, 30);
 		labelNameCommonArea.setFont(policeLabel);
 		this.add(labelNameCommonArea);
 
@@ -160,8 +198,8 @@ public class TabCommonArea extends JPanel {
 		 * Definition of label StageCommonArea
 		 */
 		labelStageCommonArea = new JLabel("Etage : ");
-		labelStageCommonArea.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4, (int) getToolkit().getScreenSize().getHeight() * 6 / 10, 200, 30);
-		// labelStageCommonArea.setBounds(770, 200, 100, 30);
+		labelStageCommonArea.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 6 / 10, 200, 30);
 		labelStageCommonArea.setFont(policeLabel);
 		this.add(labelStageCommonArea);
 
@@ -170,30 +208,37 @@ public class TabCommonArea extends JPanel {
 		 * Definition of textArea IdCommonArea
 		 */
 		textInputIdCommonArea = new JTextField();
-		textInputIdCommonArea.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4, (int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
-		// textInputIdCommonArea.setBounds(330, 250, 300, 40);
+		textInputIdCommonArea.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
 		textInputIdCommonArea.setFont(policeLabel);
-		// textInputIdCommonArea.setText(Integer.toString(commonArea.getIdCommonArea()));
+		textInputIdCommonArea.setEditable(false);
+		if (commonArea.getIdCommonArea() == 0)
+			textInputIdCommonArea.setText("");
+		else
+			textInputIdCommonArea.setText(Integer.toString(commonArea.getIdCommonArea()));
 		this.add(textInputIdCommonArea);
 
 		/**
 		 * Definition of textArea NameCommonArea
 		 */
 		textInputNameCommonArea = new JTextField();
-		textInputNameCommonArea.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4, (int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);
-		// textInputNameCommonArea.setBounds(770, 250, 300, 40);
+		textInputNameCommonArea.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);
 		textInputNameCommonArea.setFont(policeLabel);
-		// textInputNameCommonArea.setText(commonArea.getNameCommonArea());
+		textInputNameCommonArea.setText(commonArea.getNameCommonArea());
 		this.add(textInputNameCommonArea);
 
 		/**
 		 * Definition of textArea Stage
 		 */
 		textInputStageCommonArea = new JTextField();
-		textInputStageCommonArea.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4, (int) getToolkit().getScreenSize().getHeight() * 13 / 20, 300, 40);
-		// textInputStageCommonArea.setBounds(770, 400, 300, 40);
+		textInputStageCommonArea.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 13 / 20, 300, 40);
 		textInputStageCommonArea.setFont(policeLabel);
-		// textInputStageCommonArea.setText(Integer.toString(commonArea.getEtageCommonArea()));
+		if (commonArea.getEtageCommonArea() == 99)
+			textInputStageCommonArea.setText("");
+		else
+			textInputStageCommonArea.setText(Integer.toString(commonArea.getEtageCommonArea()));
 		this.add(textInputStageCommonArea);
 
 		//////////////////// BUTTON////////////////////////////////////////////////
@@ -202,7 +247,6 @@ public class TabCommonArea extends JPanel {
 		 */
 		addCommonArea = new JButton("Ajouter");
 		addCommonArea.setBounds(30, (int) getToolkit().getScreenSize().getHeight() - 150, 300, 40);
-		// addCommonArea.setBounds(147, 300, 100, 23);
 		this.add(addCommonArea);
 		addCommonArea.addActionListener(new ActionListener() {
 
@@ -222,21 +266,21 @@ public class TabCommonArea extends JPanel {
 		 * Definition of Button Save
 		 */
 		save = new JButton("Sauvegarder");
-		save.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4) + 250, (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
-		// save.setBounds(147, 300, 100, 23);
+		save.setBounds(((int) getToolkit().getScreenSize().getWidth() * 5 / 7),
+				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
 		this.add(save);
 		save.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				while(!listM.isEmpty()){
-					listM.removeElementAt(listM.size()-1);
+				while (!listM.isEmpty()) {
+					listM.removeElementAt(listM.size() - 1);
 				}
-				int x=0;
-				while(x<40) {
-					//TODO nouvelle liste avec les infos de la recherche
-					listM.addElement("A"+x);
+				int x = 0;
+				while (x < 40) {
+					// TODO nouvelle liste avec les infos de la recherche
+					listM.addElement("A" + x);
 					x++;
 				}
 				TabCommonArea a = new TabCommonArea();
@@ -249,15 +293,15 @@ public class TabCommonArea extends JPanel {
 		 * Definition of Button Delete
 		 */
 		delete = new JButton("Supprimer");
-		delete.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4) - 250, (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
-		// delete.setBounds(147, 400, 100, 23);
+		delete.setBounds(((int) getToolkit().getScreenSize().getWidth() * 3 / 7),
+				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
 		this.add(delete);
 		delete.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-			
+
 			}
 		});
 
@@ -265,14 +309,13 @@ public class TabCommonArea extends JPanel {
 		 * Definition of Button Restaure
 		 */
 		restaure = new JButton("Annuler");
-		restaure.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
-		// restaure.setBounds(147, 400, 100, 23);
+		restaure.setBounds(((int) getToolkit().getScreenSize().getWidth() * 4 / 7),
+				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
 		this.add(restaure);
 		restaure.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO reprendre les infos quand on clique sur un employee
 				textInputIdCommonArea.setText(Integer.toString(commonArea.getIdCommonArea()));
 				textInputNameCommonArea.setText(commonArea.getNameCommonArea());
 				textInputStageCommonArea.setText(Integer.toString(commonArea.getEtageCommonArea()));
@@ -280,8 +323,8 @@ public class TabCommonArea extends JPanel {
 		});
 
 		listSensor = new JButton("Liste Capteur");
-		listSensor.setBounds(((int) getToolkit().getScreenSize().getWidth() * 1 / 4), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
-		// listSensor.setBounds(147, 400, 100, 23);
+		listSensor.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 7),
+				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
 		this.add(listSensor);
 		listSensor.addActionListener(new ActionListener() {
 
@@ -291,20 +334,14 @@ public class TabCommonArea extends JPanel {
 
 			}
 		});
+
 		/**
 		 * Diferent parameter of the window
 		 */
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);
-		this.message = title;
 		this.setBackground(color);
-	}
 
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
+		// TODO mettre une image
 	}
 }

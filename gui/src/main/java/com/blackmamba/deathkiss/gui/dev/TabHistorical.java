@@ -22,7 +22,8 @@ import org.apache.logging.log4j.Logger;
  *
  */
 public class TabHistorical extends JPanel {
-	private String message;
+
+	private static final long serialVersionUID = 1L;
 	private int idemployee;
 	private JPanel bar;
 	private JLabel labelIdEmployee, idEmployee;
@@ -33,7 +34,7 @@ public class TabHistorical extends JPanel {
 	public TabHistorical() {
 	}
 
-	public TabHistorical(Color color, String title, int idemployee) {
+	public TabHistorical(Color color, int idemployee) {
 		this.idemployee = idemployee;
 		/**
 		 * Definition of the structure of this tab
@@ -81,15 +82,6 @@ public class TabHistorical extends JPanel {
 		 */
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);
-		this.message = title;
 		this.setBackground(color);
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
 	}
 }
