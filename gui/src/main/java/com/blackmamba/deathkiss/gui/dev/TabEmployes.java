@@ -40,7 +40,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 public class TabEmployes extends JPanel {
-	private String message;
+
+	private static final long serialVersionUID = 1L;
 	private String requestType;
 	private String table;
 	private String jsonString;
@@ -76,7 +77,7 @@ public class TabEmployes extends JPanel {
 	public TabEmployes() {
 	}
 
-	public TabEmployes(Color color, String title, int idemployee) {
+	public TabEmployes(Color color, int idemployee) {
 		this.idemployee = idemployee;
 
 		/**
@@ -129,7 +130,6 @@ public class TabEmployes extends JPanel {
 		employee.setPoste("");
 
 		requestType = "READ ALL";
-		employee = new Employee();
 		table = "Employee";
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
@@ -517,15 +517,6 @@ public class TabEmployes extends JPanel {
 		 */
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);
-		this.message = title;
 		this.setBackground(color);
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
 	}
 }

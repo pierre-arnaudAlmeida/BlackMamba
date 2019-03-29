@@ -19,12 +19,12 @@ public class DevGUI {
 			public void run() {
 				try {
 					//Lignes qui doivent etre décommenter pour que l'application fonctionne correctement
-					Connexion popupConnexion = new Connexion();
-					popupConnexion.setVisible(true);
+					//Connexion popupConnexion = new Connexion();
+					//popupConnexion.setVisible(true);
 					
 					//pour aller plus vite dans le visionnage de la seconde fenetre
-					//Window frame = new Window(80);
-					//frame.setVisible(true);
+					Window frame = new Window(80);
+					frame.setVisible(true);
 				} catch (Exception e) {
 					logger.log(Level.INFO, "Impossible to create the window 'window' "+e.getClass().getCanonicalName());
 				}

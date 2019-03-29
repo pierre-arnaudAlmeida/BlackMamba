@@ -19,9 +19,11 @@ import org.apache.logging.log4j.Logger;
  *
  */
 public class MainServerGUI extends JFrame {
+
 	/**
 	 * Initialization of diferents parameters
 	 */
+	private static final long serialVersionUID = 1L;
 	private static String host = "127.0.0.1";
 	private static int port = 2345;
 	private static int nbServer = 0;

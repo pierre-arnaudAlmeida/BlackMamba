@@ -31,7 +31,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 public class TabProfile extends JPanel {
-	private String message;
+
+	private static final long serialVersionUID = 1L;
 	private String requestType;
 	private String table;
 	private String jsonString;
@@ -57,7 +58,7 @@ public class TabProfile extends JPanel {
 	private JCheckBox showButton;
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
 
-	public TabProfile(Color color, String title, int idemployee) {
+	public TabProfile(Color color, int idemployee) {
 		this.idemployee = idemployee;
 
 		/**
@@ -211,7 +212,7 @@ public class TabProfile extends JPanel {
 		 */
 		showButton = new JCheckBox("Montrer le mot de passe");
 		showButton.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4,
-				((int) getToolkit().getScreenSize().getHeight() * 9 / 20)+50, 300, 40);
+				((int) getToolkit().getScreenSize().getHeight() * 9 / 20) + 50, 300, 40);
 		showButton.setBackground(color);
 		showButton.setFont(policeLabel);
 		this.add(showButton);
@@ -311,8 +312,8 @@ public class TabProfile extends JPanel {
 									JOptionPane.ERROR_MESSAGE);
 							logger.log(Level.INFO, "Impossible to update employee");
 						} else {
-						JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos",
-								JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos",
+									JOptionPane.INFORMATION_MESSAGE);
 						}
 					} catch (Exception e1) {
 						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
@@ -345,16 +346,7 @@ public class TabProfile extends JPanel {
 		 */
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);
-		this.message = title;
 		this.setBackground(color);
-		//TODO mettre une image
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
+		// TODO mettre une image
 	}
 }
