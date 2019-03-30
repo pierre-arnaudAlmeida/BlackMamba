@@ -84,7 +84,7 @@ public class ClientSocket {
 
 					response = read();
 					if (!response.equals("ERROR")) {
-						this.jsonString = response;
+						ClientSocket.jsonString = response;
 						logger.log(Level.INFO, "Datas received on client");
 						response = "CLOSE";
 						writer.write(response);

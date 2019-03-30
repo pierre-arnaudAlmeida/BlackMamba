@@ -6,22 +6,24 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/**
- * 
- * @author Pierre-Arnaud
- *
- */
-public class TabResident extends JPanel {
+import com.blackmamba.deathkiss.entity.CommonArea;
+import com.blackmamba.deathkiss.entity.Sensor;
+
+public class TabListSensor extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private int idemployee;
@@ -30,14 +32,16 @@ public class TabResident extends JPanel {
 	private JLabel idEmployee;
 	private Font police;
 	private JButton disconnection;
-	private static final Logger logger = LogManager.getLogger(TabProfile.class);
+	private CommonArea commonArea;
+	private List<Sensor> listSensor = new ArrayList<Sensor>();
+	private static final Logger logger = LogManager.getLogger(TabListSensor.class);
+	private Object[][] listM;
 
-	public TabResident() {
+	public TabListSensor() {
 	}
 
-	public TabResident(Color color, int idemployee) {
+	public TabListSensor(CommonArea area, int idemployee) {
 		this.idemployee = idemployee;
-
 		/**
 		 * Definition of the structure of this tab
 		 */
@@ -47,6 +51,7 @@ public class TabResident extends JPanel {
 		bar.setLayout(new BorderLayout());
 		bar.setBorder(BorderFactory.createMatteBorder(20, 100, 20, 100, bar.getBackground()));
 
+		///////////////////////// BAR/////////////////////////////////////////////////
 		/**
 		 * Definition of label Identifiant on header bar
 		 */
@@ -78,12 +83,32 @@ public class TabResident extends JPanel {
 
 			}
 		});
-
+		
+		Object[][] data = {   
+			      {"Cysboy", "6boy"},
+			      {"BZHHydde", "BZH"},
+			      {"IamBow", "BoW"},
+			      {"FunMan", "Year"}
+			    };
+		
+		String[] titre = { "a", "b", "c" };
+		JTable tableau = new JTable(new DefaultTableModel(data, titre));
+		tableau.setBounds(300, 300, 500, 500);
+		this.add(tableau);
 		/**
 		 * Diferent parameters of the window
 		 */
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);
-		this.setBackground(color);
+		this.setBackground(Color.GRAY);
+
 	}
+	// TODO un tableau avec une liste de tout les capteur de la common area, les
+	// infos des capteurs
+	// si on clique sur un capteur ya un bouton qui permet d'acceder au capteur
+	// et un bouton qui permet de faire une nouvelle recherche de partie commune et
+	// qui ferme donc le tabListsensor
+	// et redirige vers la page common Area
+	// ++ une barre de recherche dans la list des infos du tableau donc avoir deux
+	// tableau un avec toutes les infos et un autre avec les infos de la recherche
 }

@@ -56,6 +56,7 @@ public class TabProfile extends JPanel {
 	private JButton save;
 	private JButton restaure;
 	private JCheckBox showButton;
+	private ObjectMapper readMapper;
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
 
 	public TabProfile(Color color, int idemployee) {
@@ -109,11 +110,10 @@ public class TabProfile extends JPanel {
 		requestType = "READ";
 		employee = new Employee();
 		table = "Employee";
-		ObjectMapper readMapper = new ObjectMapper();
+		readMapper = new ObjectMapper();
 		employee.setIdEmployee(idemployee);
 		try {
 			jsonString = readMapper.writeValueAsString(employee);
-			;
 			new ClientSocket(requestType, jsonString, table);
 			jsonString = ClientSocket.getJson();
 			employee = readMapper.readValue(jsonString, Employee.class);
@@ -129,7 +129,6 @@ public class TabProfile extends JPanel {
 		labelLastnameEmployee = new JLabel("Nom : ");
 		labelLastnameEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4,
 				(int) getToolkit().getScreenSize().getHeight() * 2 / 10, 200, 30);
-		// labelLastnameEmployee.setBounds(330, 200, 100, 30);
 		labelLastnameEmployee.setFont(policeLabel);
 		this.add(labelLastnameEmployee);
 
@@ -139,7 +138,6 @@ public class TabProfile extends JPanel {
 		labelNameEmployee = new JLabel("Prenom : ");
 		labelNameEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 4,
 				(int) getToolkit().getScreenSize().getHeight() * 2 / 10, 200, 30);
-		// labelNameEmployee.setBounds(770, 200, 100, 30);
 		labelNameEmployee.setFont(policeLabel);
 		this.add(labelNameEmployee);
 
@@ -149,7 +147,6 @@ public class TabProfile extends JPanel {
 		labelFunction = new JLabel("Poste : ");
 		labelFunction.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 4,
 				(int) getToolkit().getScreenSize().getHeight() * 4 / 10, 100, 30);
-		// labelFunction.setBounds(770, 350, 100, 30);
 		labelFunction.setFont(policeLabel);
 		this.add(labelFunction);
 
@@ -159,7 +156,6 @@ public class TabProfile extends JPanel {
 		labelPassword = new JLabel("Mot de passe : ");
 		labelPassword.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4,
 				(int) getToolkit().getScreenSize().getHeight() * 4 / 10, 200, 30);
-		// labelPassword.setBounds(330, 350, 200, 30);
 		labelPassword.setFont(policeLabel);
 		this.add(labelPassword);
 
@@ -170,7 +166,6 @@ public class TabProfile extends JPanel {
 		textInputLastnameEmployee = new JTextField();
 		textInputLastnameEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4,
 				(int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
-		// textInputLastnameEmployee.setBounds(330, 250, 300, 40);
 		textInputLastnameEmployee.setFont(policeLabel);
 		textInputLastnameEmployee.setText(employee.getLastnameEmployee());
 		this.add(textInputLastnameEmployee);
@@ -181,7 +176,6 @@ public class TabProfile extends JPanel {
 		textInputNameEmployee = new JTextField();
 		textInputNameEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 4,
 				(int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
-		// textInputNameEmployee.setBounds(770, 250, 300, 40);
 		textInputNameEmployee.setFont(policeLabel);
 		textInputNameEmployee.setText(employee.getNameEmployee());
 		this.add(textInputNameEmployee);
@@ -192,7 +186,6 @@ public class TabProfile extends JPanel {
 		textInputPasswordEmployee = new JPasswordField();
 		textInputPasswordEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4,
 				(int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);
-		// textInputPasswordEmployee.setBounds(330, 400, 300, 40);
 		textInputPasswordEmployee.setFont(policeLabel);
 		this.add(textInputPasswordEmployee);
 
@@ -202,7 +195,6 @@ public class TabProfile extends JPanel {
 		textInputFunctionEmployee = new JTextField();
 		textInputFunctionEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 4,
 				(int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);
-		// textInputFunctionEmployee.setBounds(770, 400, 300, 40);
 		textInputFunctionEmployee.setFont(policeLabel);
 		textInputFunctionEmployee.setText(employee.getPoste());
 		this.add(textInputFunctionEmployee);
@@ -237,7 +229,6 @@ public class TabProfile extends JPanel {
 		save = new JButton("Sauvegarder");
 		save.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4) + 250,
 				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
-		// save.setBounds(147, 300, 100, 23);
 		this.add(save);
 		save.addActionListener(new ActionListener() {
 			/**
@@ -273,12 +264,11 @@ public class TabProfile extends JPanel {
 
 						employee2.setIdEmployee(employee.getIdEmployee());
 						employee2.setPassword(verificationPassword);
-						ObjectMapper connectionMapper = new ObjectMapper();
 						try {
-							jsonString = connectionMapper.writeValueAsString(employee2);
+							jsonString = readMapper.writeValueAsString(employee2);
 							new ClientSocket(request, jsonString, table);
 							jsonString = ClientSocket.getJson();
-							employee2 = connectionMapper.readValue(jsonString, Employee.class);
+							employee2 = readMapper.readValue(jsonString, Employee.class);
 						} catch (IOException e1) {
 							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 						}
@@ -302,9 +292,8 @@ public class TabProfile extends JPanel {
 						employee.setNameEmployee(newNameEmployee);
 						employee.setPoste(newFunctionEmployee);
 					}
-					ObjectMapper connectionMapper = new ObjectMapper();
 					try {
-						jsonString = connectionMapper.writeValueAsString(employee);
+						jsonString = readMapper.writeValueAsString(employee);
 						new ClientSocket(requestType, jsonString, table);
 						jsonString = ClientSocket.getJson();
 						if (!jsonString.equals("UPDATED")) {
@@ -328,7 +317,6 @@ public class TabProfile extends JPanel {
 		restaure = new JButton("Annuler");
 		restaure.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4),
 				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
-		// restaure.setBounds(147, 400, 100, 23);
 		this.add(restaure);
 		restaure.addActionListener(new ActionListener() {
 
