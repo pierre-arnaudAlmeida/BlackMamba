@@ -10,7 +10,14 @@ import javax.swing.*;
  */
 public class Window extends JFrame {
 
-	private JTabbedPane tab;
+	private static final long serialVersionUID = 1L;
+	private static JTabbedPane tab;
+	private TabEmployes tabEmployes;
+	private TabCommonArea tabCommonArea;
+	private TabSensor tabSensor;
+	private TabResident tabResident;
+	private TabHistorical tabHistorical;
+	private TabProfile tabProfile;
 	private int idEmployee;
 
 	public Window(int idEmployee) {
@@ -19,12 +26,12 @@ public class Window extends JFrame {
 		/**
 		 * Creation of diferents tabs
 		 */
-		TabEmployes tabEmployes = new TabEmployes(Color.GRAY, this.idEmployee);
-		TabCommonArea tabCommonArea = new TabCommonArea(Color.GRAY, this.idEmployee);
-		TabSensor tabSensor = new TabSensor(Color.GRAY, this.idEmployee);
-		TabResident tabResident = new TabResident(Color.GRAY, this.idEmployee);
-		TabHistorical tabHistorical = new TabHistorical(Color.GRAY, this.idEmployee);
-		TabProfile tlogin = new TabProfile(Color.GRAY, this.idEmployee);
+		tabEmployes = new TabEmployes(Color.GRAY, this.idEmployee);
+		tabCommonArea = new TabCommonArea(Color.GRAY, this.idEmployee);
+		tabSensor = new TabSensor(Color.GRAY, this.idEmployee);
+		tabResident = new TabResident(Color.GRAY, this.idEmployee);
+		tabHistorical = new TabHistorical(Color.GRAY, this.idEmployee);
+		tabProfile = new TabProfile(Color.GRAY, this.idEmployee);
 
 		/**
 		 * Add of the title of tabs
@@ -40,7 +47,7 @@ public class Window extends JFrame {
 		tab.add("Onglet " + tabOfTab[2], tabSensor);
 		tab.add("Onglet " + tabOfTab[3], tabResident);
 		tab.add("Onglet " + tabOfTab[4], tabHistorical);
-		tab.add("Onglet " + tabOfTab[5], tlogin);
+		tab.add("Onglet " + tabOfTab[5], tabProfile);
 
 		/**
 		 * Diferent parameters of the window
@@ -50,5 +57,17 @@ public class Window extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().add(tab);
+		
+	}
+	public static void goToTab(int index){
+	tab.setSelectedIndex(index);
+	}
+	
+	public static JTabbedPane getTab() {
+		return tab;
+	}
+
+	public void setTab(JTabbedPane tab) {
+		Window.tab = tab;
 	}
 }

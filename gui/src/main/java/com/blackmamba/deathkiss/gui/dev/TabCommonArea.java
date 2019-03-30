@@ -18,8 +18,10 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 import org.apache.logging.log4j.Level;
@@ -27,6 +29,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.blackmamba.deathkiss.entity.CommonArea;
+import com.blackmamba.deathkiss.gui.dev.ClientSocket;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -43,7 +46,6 @@ public class TabCommonArea extends JPanel {
 	private String table;
 	private String jsonString;
 	private JPanel bar;
-	private JList list;
 	private JLabel labelIdEmployee;
 	private JLabel idEmployee;
 	private JLabel labelNameCommonArea;
@@ -62,9 +64,10 @@ public class TabCommonArea extends JPanel {
 	private JButton listSensor;
 	private CommonArea commonArea;
 	private JScrollPane sc;
-	private DefaultListModel listM;
-	private List<CommonArea> listCommonArea = new ArrayList();
+	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
+	private JList list;
+	private DefaultListModel listM;
 
 	public TabCommonArea() {
 	}
@@ -135,13 +138,12 @@ public class TabCommonArea extends JPanel {
 
 		listM = new DefaultListModel();
 		for (CommonArea commonAreas : listCommonArea) {
-			listM.addElement(commonAreas.getIdCommonArea() + ", " + commonAreas.getNameCommonArea() + " "
+			listM.addElement(commonAreas.getIdCommonArea() + "# " + commonAreas.getNameCommonArea() + " "
 					+ commonAreas.getEtageCommonArea());
 		}
 
 		list = new JList(listM);
 		sc = new JScrollPane(list);
-		// TODO mettre une barre de recherche et on affiche les résultat dans le Jlist
 
 		sc.setBounds(30, 120, 300, ((int) getToolkit().getScreenSize().getHeight() - 300));
 		this.add(sc);
@@ -150,7 +152,7 @@ public class TabCommonArea extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				index = list.locationToIndex(e.getPoint());
 				String substring = listM.getElementAt(index).toString();
-				int position = substring.indexOf(",");
+				int position = substring.indexOf("#");
 				String id = substring.substring(0, position);
 
 				requestType = "READ";
@@ -229,7 +231,7 @@ public class TabCommonArea extends JPanel {
 		this.add(textInputNameCommonArea);
 
 		/**
-		 * Definition of textArea Stage
+		 * Definition of textArea StageCommonArea
 		 */
 		textInputStageCommonArea = new JTextField();
 		textInputStageCommonArea.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
@@ -243,7 +245,7 @@ public class TabCommonArea extends JPanel {
 
 		//////////////////// BUTTON////////////////////////////////////////////////
 		/**
-		 * Definition of Button AddEmployee
+		 * Definition of Button AddCommonArea
 		 */
 		addCommonArea = new JButton("Ajouter");
 		addCommonArea.setBounds(30, (int) getToolkit().getScreenSize().getHeight() - 150, 300, 40);
@@ -252,13 +254,58 @@ public class TabCommonArea extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				// Quand on clique on recupere le id de la commonArea que l'on vient de cliquer
-				// et
-				// on fait une recherche dans la bdd avec un read, si ensuite les information
-				// des textinput sont equal
-				// au info recu de la bdd alors on fait une popup sinon on fait un create dans
-				// la base avec les infos des text input
+				requestType = "CREATE";
+				table = "CommonArea";
+
+				String newNameCommonArea = textInputNameCommonArea.getText().trim();
+				String newStageCommonArea = textInputStageCommonArea.getText().trim();
+				String newIdCommonArea = textInputIdCommonArea.getText().trim();
+
+				if (!(newIdCommonArea.equals(""))) {
+					JOptionPane.showMessageDialog(null, "Vous ne pouvez pas ajouter une partie commune deja ajouté",
+							"Erreur", JOptionPane.ERROR_MESSAGE);
+					logger.log(Level.INFO, "Attempt of insertion with existant parameters");
+				} else if (newNameCommonArea.equals("") || newStageCommonArea.equals("")) {
+					JOptionPane.showMessageDialog(null, "Vous n'avez pas remplis au moins l'un des deux champs requis",
+							"Erreur", JOptionPane.ERROR_MESSAGE);
+					logger.log(Level.INFO, "Attempt of insertion without characters");
+				} else if (!(newStageCommonArea.matches("[0-9]+[0-9]*"))) {
+					JOptionPane.showMessageDialog(null, "L'etage ne contient pas de lettre uniquement un chiffre",
+							"Erreur", JOptionPane.ERROR_MESSAGE);
+				} else {
+					commonArea.setNameCommonArea(newNameCommonArea);
+					commonArea.setEtageCommonArea(Integer.parseInt(newStageCommonArea));
+					ObjectMapper insertMapper = new ObjectMapper();
+					try {
+						jsonString = insertMapper.writeValueAsString(commonArea);
+						new ClientSocket(requestType, jsonString, table);
+						jsonString = ClientSocket.getJson();
+						if (!jsonString.equals("INSERTED")) {
+							JOptionPane.showMessageDialog(null, "L'insertion a échoué", "Erreur",
+									JOptionPane.ERROR_MESSAGE);
+							logger.log(Level.INFO, "Impossible to insert commonArea");
+						} else {
+							logger.log(Level.INFO, "Insertion Succeded");
+							requestType = "READ ALL";
+							table = "CommonArea";
+							jsonString = "READ ALL";
+							new ClientSocket(requestType, jsonString, table);
+							jsonString = ClientSocket.getJson();
+							CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
+							listCommonArea = Arrays.asList(commonAreas);
+
+							int x = listCommonArea.size() - 1;
+
+							commonArea = listCommonArea.get(x);
+							listM.addElement(commonArea.getIdCommonArea() + "# " + commonArea.getNameCommonArea() + " "
+									+ commonArea.getEtageCommonArea());
+							JOptionPane.showMessageDialog(null, "L'insertion a été éffectué", "Infos",
+									JOptionPane.INFORMATION_MESSAGE);
+						}
+					} catch (Exception e1) {
+						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+					}
+				}
 			}
 		});
 
@@ -273,19 +320,41 @@ public class TabCommonArea extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				while (!listM.isEmpty()) {
-					listM.removeElementAt(listM.size() - 1);
+				requestType = "UPDATE";
+				table = "CommonArea";
+
+				commonArea.setIdCommonArea(Integer.parseInt(textInputIdCommonArea.getText()));
+				String newNameCommonArea = textInputNameCommonArea.getText().trim();
+				String newStageCommonArea = textInputStageCommonArea.getText().trim();
+
+				if (newNameCommonArea.equals("") || newStageCommonArea.equals("")) {
+					JOptionPane.showMessageDialog(null, "Champs vide", "Erreur", JOptionPane.ERROR_MESSAGE);
+				} else if (!(newStageCommonArea.matches("[0-9]+[0-9]*"))) {
+					JOptionPane.showMessageDialog(null, "L'etage ne contient pas de lettre uniquement un chiffre",
+							"Erreur", JOptionPane.ERROR_MESSAGE);
+				} else {
+					commonArea.setNameCommonArea(newNameCommonArea);
+					commonArea.setEtageCommonArea(Integer.parseInt(newStageCommonArea));
+					ObjectMapper insertMapper = new ObjectMapper();
+					try {
+						jsonString = insertMapper.writeValueAsString(commonArea);
+						new ClientSocket(requestType, jsonString, table);
+						jsonString = ClientSocket.getJson();
+						if (!jsonString.equals("UPDATED")) {
+							JOptionPane.showMessageDialog(null, "La Mise a jour a échoué", "Erreur",
+									JOptionPane.ERROR_MESSAGE);
+							logger.log(Level.INFO, "Impossible to update commonArea");
+						} else {
+							logger.log(Level.INFO, "Update Succeded");
+							listM.set(index, commonArea.getIdCommonArea() + "# " + commonArea.getNameCommonArea() + " "
+									+ commonArea.getEtageCommonArea());
+							JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos",
+									JOptionPane.INFORMATION_MESSAGE);
+						}
+					} catch (Exception e1) {
+						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+					}
 				}
-				int x = 0;
-				while (x < 40) {
-					// TODO nouvelle liste avec les infos de la recherche
-					listM.addElement("A" + x);
-					x++;
-				}
-				TabCommonArea a = new TabCommonArea();
-				a.setVisible(true);
-				setVisible(false);
 			}
 		});
 
@@ -300,8 +369,28 @@ public class TabCommonArea extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-
+				requestType = "DELETE";
+				table = "CommonArea";
+				ObjectMapper connectionMapper = new ObjectMapper();
+				try {
+					jsonString = connectionMapper.writeValueAsString(commonArea);
+					new ClientSocket(requestType, jsonString, table);
+					jsonString = ClientSocket.getJson();
+					if (!jsonString.equals("DELETED")) {
+						JOptionPane.showMessageDialog(null, "La suppression a échoué", "Erreur",
+								JOptionPane.ERROR_MESSAGE);
+						logger.log(Level.INFO, "Impossible to delete this commonArea");
+					} else {
+						JOptionPane.showMessageDialog(null, "Suppression de la partie commune", "Infos",
+								JOptionPane.INFORMATION_MESSAGE);
+					}
+				} catch (Exception e1) {
+					logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+				}
+				listM.removeElementAt(index);
+				textInputIdCommonArea.setText("");
+				textInputNameCommonArea.setText("");
+				textInputStageCommonArea.setText("");
 			}
 		});
 
@@ -330,7 +419,11 @@ public class TabCommonArea extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				JTabbedPane tab = new JTabbedPane();
+				tab = Window.getTab();
+				TabListSensor tabListSensor = new TabListSensor(commonArea, idemployee);
+				tab.add("Onglet Liste des Capteurs", tabListSensor);
+				Window.goToTab(6);
 
 			}
 		});
@@ -343,5 +436,10 @@ public class TabCommonArea extends JPanel {
 		this.setBackground(color);
 
 		// TODO mettre une image
+		// TODO mettre une barre de recherche et on affiche les résultat dans le Jlist
+		// Si il fait une recherche vide soit on met une pop up soit on affiche tout les
+		// commonAreas
+		// on crée deux list une avec tout les commonArea et une apres la recherche et
+		// comme ca on a pas besoin de refaire une demande!!
 	}
 }

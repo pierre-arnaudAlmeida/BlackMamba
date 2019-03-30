@@ -54,7 +54,6 @@ public class TabEmployes extends JPanel {
 	private JLabel labelNameEmployee;
 	private JLabel labelFunction;
 	private JLabel labelPassword;
-	private JList list;
 	private JTextField textInputLastnameEmployee;
 	private JTextField textInputNameEmployee;
 	private JTextField textInputFunctionEmployee;
@@ -70,9 +69,11 @@ public class TabEmployes extends JPanel {
 	private Employee employee;
 	private Employee employee2;
 	private JScrollPane sc;
-	private DefaultListModel listM;
-	private List<Employee> listEmployee = new ArrayList();
+	private ObjectMapper objectMapper;
+	private List<Employee> listEmployee = new ArrayList<Employee>();
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
+	private JList list;
+	private DefaultListModel listM;
 
 	public TabEmployes() {
 	}
@@ -131,7 +132,7 @@ public class TabEmployes extends JPanel {
 
 		requestType = "READ ALL";
 		table = "Employee";
-		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper = new ObjectMapper();
 		try {
 			jsonString = "READ ALL";
 			new ClientSocket(requestType, jsonString, table);
@@ -144,13 +145,12 @@ public class TabEmployes extends JPanel {
 
 		listM = new DefaultListModel();
 		for (Employee employees : listEmployee) {
-			listM.addElement(employees.getIdEmployee() + ", " + employees.getLastnameEmployee() + " "
+			listM.addElement(employees.getIdEmployee() + "# " + employees.getLastnameEmployee() + " "
 					+ employees.getNameEmployee() + " " + employees.getPoste());
 		}
 
 		list = new JList(listM);
 		sc = new JScrollPane(list);
-		// TODO mettre une barre de recherche et on affiche les résultat dans le Jlist
 
 		sc.setBounds(30, 120, 300, ((int) getToolkit().getScreenSize().getHeight() - 300));
 		this.add(sc);
@@ -159,20 +159,19 @@ public class TabEmployes extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				index = list.locationToIndex(e.getPoint());
 				String substring = listM.getElementAt(index).toString();
-				int position = substring.indexOf(",");
+				int position = substring.indexOf("#");
 				String id = substring.substring(0, position);
 
 				requestType = "READ";
 				employee = new Employee();
 				table = "Employee";
-				ObjectMapper readMapper = new ObjectMapper();
 				employee.setIdEmployee(Integer.parseInt(id));
 				try {
-					jsonString = readMapper.writeValueAsString(employee);
+					jsonString = objectMapper.writeValueAsString(employee);
 					;
 					new ClientSocket(requestType, jsonString, table);
 					jsonString = ClientSocket.getJson();
-					employee = readMapper.readValue(jsonString, Employee.class);
+					employee = objectMapper.readValue(jsonString, Employee.class);
 				} catch (Exception e1) {
 					logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 				}
@@ -308,13 +307,12 @@ public class TabEmployes extends JPanel {
 				} else {
 					requestType = "READ";
 					table = "Employee";
-					ObjectMapper readMapper = new ObjectMapper();
 					try {
-						jsonString = readMapper.writeValueAsString(employee);
+						jsonString = objectMapper.writeValueAsString(employee);
 						;
 						new ClientSocket(requestType, jsonString, table);
 						jsonString = ClientSocket.getJson();
-						employee = readMapper.readValue(jsonString, Employee.class);
+						employee = objectMapper.readValue(jsonString, Employee.class);
 					} catch (Exception e1) {
 						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 					}
@@ -331,9 +329,8 @@ public class TabEmployes extends JPanel {
 						employee.setNameEmployee(newNameEmployee);
 						employee.setPassword(newPasswordEmployee);
 						employee.setPoste(newFunctionEmployee);
-						ObjectMapper insertMapper = new ObjectMapper();
 						try {
-							jsonString = insertMapper.writeValueAsString(employee);
+							jsonString = objectMapper.writeValueAsString(employee);
 							new ClientSocket(requestType, jsonString, table);
 							jsonString = ClientSocket.getJson();
 							if (!jsonString.equals("INSERTED")) {
@@ -353,7 +350,7 @@ public class TabEmployes extends JPanel {
 								int x = listEmployee.size() - 1;
 
 								employee = listEmployee.get(x);
-								listM.addElement(employee.getIdEmployee() + ", " + employee.getLastnameEmployee() + " "
+								listM.addElement(employee.getIdEmployee() + "# " + employee.getLastnameEmployee() + " "
 										+ employee.getNameEmployee() + " " + employee.getPoste());
 								JOptionPane.showMessageDialog(null, "L'insertion a été éffectué", "Infos",
 										JOptionPane.INFORMATION_MESSAGE);
@@ -381,10 +378,8 @@ public class TabEmployes extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				requestType = "UPDATE";
-				employee = new Employee();
 				table = "Employee";
 
-				employee.setIdEmployee(idemployee);
 				String newLastnameEmployee = textInputLastnameEmployee.getText().trim();
 				String newNameEmployee = textInputNameEmployee.getText().trim();
 				String newFunctionEmployee = textInputFunctionEmployee.getText().trim();
@@ -409,17 +404,15 @@ public class TabEmployes extends JPanel {
 
 						employee2.setIdEmployee(employee.getIdEmployee());
 						employee2.setPassword(verificationPassword);
-						ObjectMapper connectionMapper = new ObjectMapper();
 						try {
-							jsonString = connectionMapper.writeValueAsString(employee2);
+							jsonString = objectMapper.writeValueAsString(employee2);
 							new ClientSocket(request, jsonString, table);
 							jsonString = ClientSocket.getJson();
-							employee2 = connectionMapper.readValue(jsonString, Employee.class);
+							employee2 = objectMapper.readValue(jsonString, Employee.class);
 						} catch (IOException e1) {
 							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 						}
 						if (!(employee2.getLastnameEmployee().equals(""))) {
-							employee.setIdEmployee(idemployee);
 							employee.setLastnameEmployee(newLastnameEmployee);
 							employee.setNameEmployee(newNameEmployee);
 							employee.setPoste(newFunctionEmployee);
@@ -430,14 +423,12 @@ public class TabEmployes extends JPanel {
 									"Erreur, Mauvais mot de passe", JOptionPane.ERROR_MESSAGE);
 						}
 					} else {
-						employee.setIdEmployee(idemployee);
 						employee.setLastnameEmployee(newLastnameEmployee);
 						employee.setNameEmployee(newNameEmployee);
 						employee.setPoste(newFunctionEmployee);
 					}
-					ObjectMapper connectionMapper = new ObjectMapper();
 					try {
-						jsonString = connectionMapper.writeValueAsString(employee);
+						jsonString = objectMapper.writeValueAsString(employee);
 						new ClientSocket(requestType, jsonString, table);
 						jsonString = ClientSocket.getJson();
 						if (!jsonString.equals("UPDATED")) {
@@ -445,7 +436,10 @@ public class TabEmployes extends JPanel {
 									JOptionPane.ERROR_MESSAGE);
 							logger.log(Level.INFO, "Impossible to update employee");
 						} else {
+							logger.log(Level.INFO, "Insertion Succeded");
 							textInputPasswordEmployee.setText("");
+							listM.set(index, employee.getIdEmployee() + "# " + employee.getLastnameEmployee() + " "
+									+ employee.getNameEmployee() + " " + employee.getPoste() + "");
 							JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos",
 									JOptionPane.INFORMATION_MESSAGE);
 						}
@@ -488,9 +482,8 @@ public class TabEmployes extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				requestType = "DELETE";
 				table = "Employee";
-				ObjectMapper connectionMapper = new ObjectMapper();
 				try {
-					jsonString = connectionMapper.writeValueAsString(employee);
+					jsonString = objectMapper.writeValueAsString(employee);
 					new ClientSocket(requestType, jsonString, table);
 					jsonString = ClientSocket.getJson();
 					if (!jsonString.equals("DELETED")) {
@@ -518,5 +511,7 @@ public class TabEmployes extends JPanel {
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);
 		this.setBackground(color);
+
+		// TODO mettre une barre de recherche et on affiche les résultat dans le Jlist
 	}
 }
