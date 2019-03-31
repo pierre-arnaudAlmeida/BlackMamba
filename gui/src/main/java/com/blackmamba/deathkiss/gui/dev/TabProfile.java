@@ -104,6 +104,7 @@ public class TabProfile extends JPanel {
 			}
 		});
 
+		///////////////////////// GET DATAS//////////////////////////////////////////
 		/**
 		 * Recuparation of information about employee
 		 */
@@ -142,15 +143,6 @@ public class TabProfile extends JPanel {
 		this.add(labelNameEmployee);
 
 		/**
-		 * Definition of label Function
-		 */
-		labelFunction = new JLabel("Poste : ");
-		labelFunction.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 4,
-				(int) getToolkit().getScreenSize().getHeight() * 4 / 10, 100, 30);
-		labelFunction.setFont(policeLabel);
-		this.add(labelFunction);
-
-		/**
 		 * Definition of label Password
 		 */
 		labelPassword = new JLabel("Mot de passe : ");
@@ -158,6 +150,15 @@ public class TabProfile extends JPanel {
 				(int) getToolkit().getScreenSize().getHeight() * 4 / 10, 200, 30);
 		labelPassword.setFont(policeLabel);
 		this.add(labelPassword);
+
+		/**
+		 * Definition of label Function
+		 */
+		labelFunction = new JLabel("Poste : ");
+		labelFunction.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 4,
+				(int) getToolkit().getScreenSize().getHeight() * 4 / 10, 100, 30);
+		labelFunction.setFont(policeLabel);
+		this.add(labelFunction);
 
 		//////////////////// TEXT AREA////////////////////////////////////////////////
 		/**

@@ -9199,3 +9199,453 @@
 2019-03-31 15:46:19 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
 2019-03-31 15:46:19 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
 2019-03-31 15:46:19 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 15:57:25 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 15:57:28 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 15:57:28 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 15:57:28 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 15:57:28 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 15:57:28 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 15:57:29 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 15:57:29 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 15:57:30 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 15:57:30 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 15:57:30 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 15:57:30 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 15:57:30 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 15:57:30 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 15:57:30 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 15:57:31 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 15:57:31 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 15:57:31 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 15:57:33 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 15:57:34 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 15:57:34 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 15:57:35 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 15:57:35 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 15:57:35 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 15:58:40 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 15:58:41 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 15:58:41 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 15:58:41 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 15:58:41 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 15:58:41 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 15:58:41 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 15:58:42 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 15:58:42 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 15:58:42 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 15:58:42 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 15:58:42 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 15:58:42 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 15:58:43 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 15:58:43 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 15:58:43 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 15:58:43 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 15:58:43 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 15:58:46 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 15:58:47 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 15:58:47 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 15:58:47 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 15:58:47 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 15:58:47 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 15:58:47 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 15:58:48 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 15:58:48 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 15:58:48 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 15:58:48 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 15:58:48 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 15:59:19 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 15:59:20 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 15:59:20 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 15:59:20 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 15:59:20 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 15:59:20 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 15:59:26 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 15:59:27 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 15:59:27 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 15:59:27 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 15:59:27 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 15:59:27 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 15:59:37 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 15:59:38 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 15:59:38 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 15:59:38 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 15:59:38 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 15:59:38 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 16:06:25 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 16:06:26 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 16:06:26 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 16:06:26 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 16:06:26 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 16:06:26 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 16:06:26 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 16:06:27 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 16:06:27 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 16:06:27 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 16:06:27 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 16:06:27 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 16:06:27 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 16:06:28 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 16:06:28 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 16:06:28 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 16:06:28 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 16:06:28 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 16:31:40 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 16:31:41 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 16:31:41 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 16:31:41 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 16:31:41 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 16:31:41 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 16:31:41 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 16:31:42 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 16:31:42 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 16:31:42 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 16:31:42 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 16:31:42 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 16:31:42 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 16:31:43 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 16:31:43 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 16:31:43 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 16:31:43 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 16:31:43 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 16:33:36 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 16:33:37 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 16:33:37 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 16:33:37 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 16:33:37 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 16:33:37 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 16:33:37 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 16:33:38 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 16:33:38 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 16:33:38 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 16:33:38 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 16:33:38 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 16:33:38 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 16:33:39 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 16:33:39 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 16:33:39 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 16:33:39 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 16:33:39 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 16:34:08 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 16:34:09 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 16:34:09 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 16:34:09 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 16:34:09 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 16:34:09 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 16:34:09 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 16:34:10 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 16:34:10 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 16:34:10 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 16:34:10 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 16:34:10 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 16:34:10 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 16:34:11 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 16:34:11 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 16:34:11 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 16:34:11 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 16:34:11 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 16:37:40 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 16:37:41 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 16:37:41 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 16:37:41 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 16:37:41 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 16:37:41 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 16:37:41 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 16:37:43 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 16:37:43 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 16:37:43 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 16:37:43 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 16:37:43 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 16:50:53 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 16:50:54 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 16:50:54 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 16:50:54 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 16:50:54 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 16:50:54 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 16:50:54 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 16:50:55 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 16:50:55 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 16:50:55 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 16:50:55 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 16:50:55 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 16:50:55 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 16:50:56 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 16:50:56 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 16:50:56 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 16:50:56 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 16:50:56 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 16:55:30 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 16:55:31 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 16:55:31 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 16:55:31 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 16:55:31 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 16:55:31 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 16:55:31 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 16:55:32 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 16:55:32 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 16:55:32 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 16:55:32 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 16:55:32 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 16:55:32 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 16:55:33 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 16:55:33 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 16:55:33 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 16:55:33 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 16:55:33 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:09:29 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:09:33 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:09:33 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:09:33 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:09:33 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:09:33 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:09:34 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:09:34 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:09:34 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:09:34 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:09:34 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:09:34 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:09:34 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:09:35 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:09:35 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:09:36 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:09:36 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:09:36 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:09:36 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:09:36 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:09:36 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:09:36 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:09:36 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:09:36 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:09:41 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:09:42 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:09:42 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:09:42 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:09:42 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:09:42 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:16:29 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:16:29 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:16:29 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:16:30 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:16:30 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:16:30 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:16:30 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:16:31 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:16:31 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:16:31 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:16:31 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:16:31 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:16:31 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:16:32 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:16:32 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:16:32 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:16:32 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:16:32 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:16:32 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:16:33 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:16:33 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:16:33 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:16:33 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:16:33 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:16:36 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:16:37 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:16:37 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:16:37 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:16:37 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:16:37 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:17:21 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:17:22 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:17:22 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:17:22 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:17:22 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:17:22 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:17:22 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:17:23 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:17:23 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:17:23 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:17:23 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:17:23 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:17:23 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:17:24 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:17:24 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:17:24 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:17:24 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:17:24 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:17:24 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:17:25 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:17:25 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:17:25 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:17:25 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:17:25 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:17:30 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:17:30 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:17:30 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:17:31 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:17:31 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:17:31 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:17:31 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:17:32 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:17:32 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:17:32 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:17:32 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:17:32 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:17:36 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:17:37 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:17:37 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:17:37 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:17:37 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:17:37 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:17:37 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:17:43 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:17:43 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:17:43 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:17:43 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:17:43 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:17:43 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:17:44 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:17:44 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:17:44 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:17:44 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:17:44 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:17:44 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:17:45 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:17:45 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:17:45 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:17:45 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:17:45 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:17:48 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:17:49 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:17:49 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:17:49 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:17:49 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:17:49 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:19:33 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:19:34 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:19:34 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:19:34 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:19:34 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:19:34 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:19:34 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:19:35 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:19:35 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:19:35 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:19:35 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:19:35 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:19:35 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:19:36 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:19:36 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:19:36 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:19:36 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:19:36 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:19:36 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:19:37 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:19:37 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:19:37 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:19:37 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:19:37 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:19:41 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:19:42 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:19:42 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:19:42 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:19:42 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:19:42 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:19:47 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:19:48 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:19:48 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:19:48 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:19:48 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:19:48 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:19:48 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:19:49 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:19:49 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:19:49 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:19:49 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:19:49 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:19:49 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:19:50 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:19:50 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:19:50 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:19:50 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:19:50 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:19:50 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:19:51 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:19:51 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:19:51 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:19:51 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:19:51 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:20:52 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:20:56 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:20:56 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:20:56 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:20:56 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:20:56 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:20:56 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:20:57 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:20:57 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:20:57 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:20:57 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:20:57 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:20:57 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:20:58 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:20:58 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:20:58 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:20:58 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:20:58 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:20:58 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:20:59 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:20:59 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:20:59 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:20:59 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:20:59 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:21:10 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:21:11 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:21:11 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:21:11 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:21:11 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:21:11 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:21:17 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:21:18 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:21:18 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:21:18 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:21:18 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:21:18 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:21:18 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:21:19 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:21:19 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:21:19 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:21:19 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:21:19 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:21:19 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:21:20 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:21:20 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:21:20 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:21:20 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:21:20 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:21:20 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:21:21 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:21:21 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:21:21 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:21:21 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:21:21 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:22:49 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:22:50 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:22:50 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:22:50 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:22:50 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:22:50 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:22:50 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:22:51 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:22:51 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:22:51 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:22:51 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:22:51 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:22:51 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:22:52 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:22:52 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:22:52 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:22:52 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:22:52 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client
+2019-03-31 17:22:52 [AWT-EventQueue-0] INFO  ClientSocket:45 - Command OPEN connection send to server
+2019-03-31 17:22:52 [AWT-EventQueue-0] INFO  ClientSocket:76 - Request Type Send to server
+2019-03-31 17:22:52 [AWT-EventQueue-0] INFO  ClientSocket:83 - Request Send to server
+2019-03-31 17:22:53 [AWT-EventQueue-0] INFO  ClientSocket:88 - Datas received on client
+2019-03-31 17:22:53 [AWT-EventQueue-0] INFO  ClientSocket:92 - Command CLOSE connection send to server
+2019-03-31 17:22:53 [AWT-EventQueue-0] INFO  ClientSocket:94 - Connection Closed by client

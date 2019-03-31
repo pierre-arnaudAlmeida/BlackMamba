@@ -131,6 +131,7 @@ public class TabListSensor extends JPanel {
 			tableModel.addRow(newRow);
 		}
 		// TODO ScrollPane au tableau
+		//faire en premier tabSensor pour en ajouter plein
 
 		tableau.setBounds((int) getToolkit().getScreenSize().getWidth() * 3 / 10,
 				(int) getToolkit().getScreenSize().getHeight() * 2 / 10,
@@ -192,7 +193,6 @@ public class TabListSensor extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				JTabbedPane tab = new JTabbedPane();
 				tab = Window.getTab();
 				tab.remove(6);
@@ -210,6 +210,7 @@ public class TabListSensor extends JPanel {
 	}
 
 	// TODO
+	//mettre une image
 	// ++ une barre de recherche dans la list des infos du tableau donc avoir deux
 	// tableau un avec toutes les infos et un autre avec les infos de la recherche
 }

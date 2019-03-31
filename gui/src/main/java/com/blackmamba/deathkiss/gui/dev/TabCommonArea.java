@@ -369,28 +369,33 @@ public class TabCommonArea extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				requestType = "DELETE";
-				table = "CommonArea";
-				ObjectMapper connectionMapper = new ObjectMapper();
-				try {
-					jsonString = connectionMapper.writeValueAsString(commonArea);
-					new ClientSocket(requestType, jsonString, table);
-					jsonString = ClientSocket.getJson();
-					if (!jsonString.equals("DELETED")) {
-						JOptionPane.showMessageDialog(null, "La suppression a échoué", "Erreur",
-								JOptionPane.ERROR_MESSAGE);
-						logger.log(Level.INFO, "Impossible to delete this commonArea");
-					} else {
-						JOptionPane.showMessageDialog(null, "Suppression de la partie commune", "Infos",
-								JOptionPane.INFORMATION_MESSAGE);
+				if (commonArea.getIdCommonArea() != 0) {
+					requestType = "DELETE";
+					table = "CommonArea";
+					ObjectMapper connectionMapper = new ObjectMapper();
+					try {
+						jsonString = connectionMapper.writeValueAsString(commonArea);
+						new ClientSocket(requestType, jsonString, table);
+						jsonString = ClientSocket.getJson();
+						if (!jsonString.equals("DELETED")) {
+							JOptionPane.showMessageDialog(null, "La suppression a échoué", "Erreur",
+									JOptionPane.ERROR_MESSAGE);
+							logger.log(Level.INFO, "Impossible to delete this commonArea");
+						} else {
+							JOptionPane.showMessageDialog(null, "Suppression de la partie commune", "Infos",
+									JOptionPane.INFORMATION_MESSAGE);
+						}
+					} catch (Exception e1) {
+						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 					}
-				} catch (Exception e1) {
-					logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+					listM.removeElementAt(index);
+					textInputIdCommonArea.setText("");
+					textInputNameCommonArea.setText("");
+					textInputStageCommonArea.setText("");
+				} else {
+					JOptionPane.showMessageDialog(null, "Veuillez selectionner une partie commune à supprimer",
+							"Erreur", JOptionPane.ERROR_MESSAGE);
 				}
-				listM.removeElementAt(index);
-				textInputIdCommonArea.setText("");
-				textInputNameCommonArea.setText("");
-				textInputStageCommonArea.setText("");
 			}
 		});
 
@@ -432,12 +437,14 @@ public class TabCommonArea extends JPanel {
 						if (tab.isEnabledAt(6) == false) {
 						} else {
 							tab.remove(6);
-							TabListSensor tabListSensor = new TabListSensor(commonArea, idemployee, "Onglet Liste des Capteurs");
+							TabListSensor tabListSensor = new TabListSensor(commonArea, idemployee,
+									"Onglet Liste des Capteurs");
 							tab.add("Onglet Liste des Capteurs", tabListSensor);
 							Window.goToTab(6);
 						}
 					} catch (IndexOutOfBoundsException e1) {
-						TabListSensor tabListSensor = new TabListSensor(commonArea, idemployee, "Onglet Liste des Capteurs");
+						TabListSensor tabListSensor = new TabListSensor(commonArea, idemployee,
+								"Onglet Liste des Capteurs");
 						tab.add("Onglet Liste des Capteurs", tabListSensor);
 						Window.goToTab(6);
 					}
