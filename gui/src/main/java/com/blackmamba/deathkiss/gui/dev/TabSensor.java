@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -16,11 +18,11 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
@@ -30,6 +32,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.blackmamba.deathkiss.entity.CommonArea;
 import com.blackmamba.deathkiss.entity.Sensor;
+import com.blackmamba.deathkiss.entity.SensorType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -53,9 +56,8 @@ public class TabSensor extends JPanel {
 	private JLabel labelTypeSensor;
 	private JLabel labelStateSensor;
 	private JTextField textInputIdSensor;
-	private JTextField textInputNameCommonArea; // TODO changer faire une lite déroulante avec tout les nom de partie
-												// commune
-	private JTextField textInputTypeSensor; // TODO mettre liste déroulante
+	private JComboBox textInputNameCommonArea;
+	private JComboBox textInputTypeSensor;
 	private Font policeBar;
 	private Font policeLabel;
 	private JButton disconnection;
@@ -63,10 +65,12 @@ public class TabSensor extends JPanel {
 	private JButton save;
 	private JButton restaure;
 	private JButton delete;
+	private JButton switchButton;
 	private Sensor sensor;
 	private CommonArea commonArea;
 	private ObjectMapper objectMapper;
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
+	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
 	private DefaultListModel listM;
 	private JList list;
@@ -172,13 +176,48 @@ public class TabSensor extends JPanel {
 					logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 				}
 				textInputIdSensor.setText(Integer.toString(sensor.getIdSensor()));
-				textInputNameCommonArea.setText("");// TODO faire une recherche du nom de la partie commune
-				// textInputTypeSensor.setText(sensor.getTypeSensor());//TODO faire la liste
-				// déroulante
-				// TODO mettre le state du sensor;
+				for (CommonArea areas : listCommonArea) {
+					if (areas.getIdCommonArea() == sensor.getIdCommonArea()) {
+						textInputNameCommonArea.setSelectedItem(commonArea.getNameCommonArea());
+					}
+				}
+				textInputTypeSensor.setSelectedItem(sensor.getTypeSensor().toString());
+				if (sensor.getSensorState() == true) {
+					switchButton.setText("ON");
+					switchButton.setBackground(Color.GREEN);
+				} else {
+					switchButton.setText("OFF");
+					switchButton.setBackground(Color.RED);
+				}
+				//TODO faire un maj des nom de commonArea a chaque click
+				// TODO mettre la recherche de nom de partie commune
 			}
 		};
 		list.addMouseListener(mouseListener);
+
+		///////////////////////// LIST COMMON AREA//////////////////////////////////////
+		requestType = "READ ALL";
+		table = "CommonArea";
+		objectMapper = new ObjectMapper();
+		try {
+			jsonString = "READ ALL";
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
+			listCommonArea = Arrays.asList(commonAreas);
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+		}
+		commonArea = new CommonArea();
+		textInputNameCommonArea = new JComboBox();
+		String areasAdd = "";
+		for (CommonArea commonAreas : listCommonArea) {
+			if (!areasAdd.contains(commonAreas.getNameCommonArea()))
+				textInputNameCommonArea
+						.addItem(commonAreas.getNameCommonArea() + " #" + commonAreas.getIdCommonArea());
+			areasAdd = areasAdd + commonAreas.getNameCommonArea() + ",";
+		}
+
 		///////////////////////// LABEL/////////////////////////////////////////////////
 		/**
 		 * Definition of label IdSensor
@@ -235,37 +274,67 @@ public class TabSensor extends JPanel {
 		/**
 		 * Definition of textArea NameCommonArea
 		 */
-		textInputNameCommonArea = new JTextField();
 		textInputNameCommonArea.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
 				(int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
 		textInputNameCommonArea.setFont(policeLabel);
-		textInputNameCommonArea.setText("");// TODO set = commonArea.getNameCommonAre() on doit pour ca faire une
-											// requete en fonction de l'idsensor recuperer apres le clic sur la ligne
-											// dans la list
 		this.add(textInputNameCommonArea);
 
 		/**
 		 * Definition of textArea TypeSensor
 		 */
-		textInputTypeSensor = new JPasswordField();
+		String[] types = { "SMOKE", "MOVE", "TEMPERATURE", "WINDOW", "DOOR", "ELEVATOR", "LIGHT", "FIRE", "BADGE",
+				"ROUTER" };
+		textInputTypeSensor = new JComboBox(types);
 		textInputTypeSensor.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
 				(int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);
 		textInputTypeSensor.setFont(policeLabel);
-		textInputTypeSensor.setText("");// TODO mettre un des choix de la liste déroulante qui est equal a celui de
-										// l'objet Sensor
 		this.add(textInputTypeSensor);
+		textInputTypeSensor.addItemListener(new ItemListener() {
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getItem().toString().equals("SMOKE"))
+					sensor.setTypeSensor(SensorType.SMOKE);
+				else if (e.getItem().toString().equals("MOVE"))
+					sensor.setTypeSensor(SensorType.MOVE);
+				else if (e.getItem().toString().equals("TEMPERATURE"))
+					sensor.setTypeSensor(SensorType.TEMPERATURE);
+				else if (e.getItem().toString().equals("WINDOW"))
+					sensor.setTypeSensor(SensorType.WINDOW);
+				else if (e.getItem().toString().equals("DOOR"))
+					sensor.setTypeSensor(SensorType.DOOR);
+				else if (e.getItem().toString().equals("ELEVATOR"))
+					sensor.setTypeSensor(SensorType.ELEVATOR);
+				else if (e.getItem().toString().equals("LIGHT"))
+					sensor.setTypeSensor(SensorType.LIGHT);
+				else if (e.getItem().toString().equals("FIRE"))
+					sensor.setTypeSensor(SensorType.FIRE);
+				else if (e.getItem().toString().equals("BADGE"))
+					sensor.setTypeSensor(SensorType.BADGE);
+			}
+		});
 
 		/**
 		 * Definition of textArea StateSensor
 		 */
-		// TODO mettre un check box
-		// textInputFunctionEmployee = new JTextField();
-		// textInputFunctionEmployee.setBounds((int)
-		// getToolkit().getScreenSize().getWidth() * 4 / 7,
-		// (int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);
-		// textInputFunctionEmployee.setFont(policeLabel);
-		// textInputFunctionEmployee.setText(employee.getPoste());
-		// this.add(textInputFunctionEmployee);
+		switchButton = new JButton();
+		switchButton.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 9 / 20, 100, 40);
+		switchButton.setText("OFF");
+		switchButton.setBackground(Color.RED);
+		switchButton.setFont(policeLabel);
+		this.add(switchButton);
+		switchButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				if (switchButton.getText().equals("ON")) {
+					switchButton.setText("OFF");
+					switchButton.setBackground(Color.RED);
+				} else if (switchButton.getText().equals("OFF")) {
+					switchButton.setText("ON");
+					switchButton.setBackground(Color.GREEN);
+				}
+			}
+		});
 
 		///////////////////////// BUTTON/////////////////////////////////////////////////
 		/**
@@ -311,10 +380,15 @@ public class TabSensor extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				textInputIdSensor.setText(Integer.toString(sensor.getIdCommonArea()));
-				textInputNameCommonArea.setText(commonArea.getNameCommonArea());
-				textInputTypeSensor.setText("");// TODO mettre la valeur de la list
-				// TODO mettre l'etat du capteur
-
+				textInputNameCommonArea.setSelectedItem(commonArea.getNameCommonArea());
+				textInputTypeSensor.setSelectedItem(sensor.getTypeSensor().toString());
+				if (sensor.getSensorState() == true) {
+					switchButton.setText("ON");
+					switchButton.setBackground(Color.GREEN);
+				} else {
+					switchButton.setText("OFF");
+					switchButton.setBackground(Color.RED);
+				}
 			}
 		});
 
@@ -330,29 +404,28 @@ public class TabSensor extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (sensor.getIdSensor() != 0) {
-				requestType = "DELETE";
-				table = "Sensor";
-				ObjectMapper connectionMapper = new ObjectMapper();
-				try {
-					jsonString = connectionMapper.writeValueAsString(sensor);
-					new ClientSocket(requestType, jsonString, table);
-					jsonString = ClientSocket.getJson();
-					if (!jsonString.equals("DELETED")) {
-						JOptionPane.showMessageDialog(null, "La suppression a échoué", "Erreur",
-								JOptionPane.ERROR_MESSAGE);
-						logger.log(Level.INFO, "Impossible to delete this sensor");
-					} else {
-						JOptionPane.showMessageDialog(null, "Suppression du capteur", "Infos",
-								JOptionPane.INFORMATION_MESSAGE);
+					requestType = "DELETE";
+					table = "Sensor";
+					ObjectMapper connectionMapper = new ObjectMapper();
+					try {
+						jsonString = connectionMapper.writeValueAsString(sensor);
+						new ClientSocket(requestType, jsonString, table);
+						jsonString = ClientSocket.getJson();
+						if (!jsonString.equals("DELETED")) {
+							JOptionPane.showMessageDialog(null, "La suppression a échoué", "Erreur",
+									JOptionPane.ERROR_MESSAGE);
+							logger.log(Level.INFO, "Impossible to delete this sensor");
+						} else {
+							JOptionPane.showMessageDialog(null, "Suppression du capteur", "Infos",
+									JOptionPane.INFORMATION_MESSAGE);
+						}
+					} catch (Exception e1) {
+						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 					}
-				} catch (Exception e1) {
-					logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
-				}
-				listM.removeElementAt(index);
-				textInputIdSensor.setText("");
-				textInputNameCommonArea.setText("");
-				textInputTypeSensor.setText("");
-				// TODO mettre l'etat du sensor a false
+					listM.removeElementAt(index);
+					textInputIdSensor.setText("");
+					switchButton.setText("OFF");
+					switchButton.setBackground(Color.WHITE);
 				} else {
 					JOptionPane.showMessageDialog(null, "Veuillez selectionner un capteur à supprimer", "Erreur",
 							JOptionPane.ERROR_MESSAGE);
@@ -368,4 +441,5 @@ public class TabSensor extends JPanel {
 		this.add(bar, BorderLayout.NORTH);
 		this.setBackground(color);
 	}
+	// TODO mettre le nom et l'id de la partie commune
 }
