@@ -30,6 +30,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class Connexion extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel container;
 	private JPanel pan;
 	private JPanel pan2;

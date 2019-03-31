@@ -72,7 +72,7 @@ public class TabCommonArea extends JPanel {
 	public TabCommonArea() {
 	}
 
-	public TabCommonArea(Color color, int idemployee) {
+	public TabCommonArea(Color color, int idemployee, String title) {
 		this.idemployee = idemployee;
 
 		/**
@@ -369,28 +369,33 @@ public class TabCommonArea extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				requestType = "DELETE";
-				table = "CommonArea";
-				ObjectMapper connectionMapper = new ObjectMapper();
-				try {
-					jsonString = connectionMapper.writeValueAsString(commonArea);
-					new ClientSocket(requestType, jsonString, table);
-					jsonString = ClientSocket.getJson();
-					if (!jsonString.equals("DELETED")) {
-						JOptionPane.showMessageDialog(null, "La suppression a échoué", "Erreur",
-								JOptionPane.ERROR_MESSAGE);
-						logger.log(Level.INFO, "Impossible to delete this commonArea");
-					} else {
-						JOptionPane.showMessageDialog(null, "Suppression de la partie commune", "Infos",
-								JOptionPane.INFORMATION_MESSAGE);
+				if (commonArea.getIdCommonArea() != 0) {
+					requestType = "DELETE";
+					table = "CommonArea";
+					ObjectMapper connectionMapper = new ObjectMapper();
+					try {
+						jsonString = connectionMapper.writeValueAsString(commonArea);
+						new ClientSocket(requestType, jsonString, table);
+						jsonString = ClientSocket.getJson();
+						if (!jsonString.equals("DELETED")) {
+							JOptionPane.showMessageDialog(null, "La suppression a échoué", "Erreur",
+									JOptionPane.ERROR_MESSAGE);
+							logger.log(Level.INFO, "Impossible to delete this commonArea");
+						} else {
+							JOptionPane.showMessageDialog(null, "Suppression de la partie commune", "Infos",
+									JOptionPane.INFORMATION_MESSAGE);
+						}
+					} catch (Exception e1) {
+						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 					}
-				} catch (Exception e1) {
-					logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+					listM.removeElementAt(index);
+					textInputIdCommonArea.setText("");
+					textInputNameCommonArea.setText("");
+					textInputStageCommonArea.setText("");
+				} else {
+					JOptionPane.showMessageDialog(null, "Veuillez selectionner une partie commune à supprimer",
+							"Erreur", JOptionPane.ERROR_MESSAGE);
 				}
-				listM.removeElementAt(index);
-				textInputIdCommonArea.setText("");
-				textInputNameCommonArea.setText("");
-				textInputStageCommonArea.setText("");
 			}
 		});
 
@@ -411,6 +416,9 @@ public class TabCommonArea extends JPanel {
 			}
 		});
 
+		/**
+		 * Definition of Button ListSensor
+		 */
 		listSensor = new JButton("Liste Capteur");
 		listSensor.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 7),
 				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
@@ -419,12 +427,28 @@ public class TabCommonArea extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JTabbedPane tab = new JTabbedPane();
-				tab = Window.getTab();
-				TabListSensor tabListSensor = new TabListSensor(commonArea, idemployee);
-				tab.add("Onglet Liste des Capteurs", tabListSensor);
-				Window.goToTab(6);
-
+				if (commonArea.getIdCommonArea() == 0) {
+					JOptionPane.showMessageDialog(null, "Veuillez selectionner une partie commune", "Erreur",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+					JTabbedPane tab = new JTabbedPane();
+					tab = Window.getTab();
+					try {
+						if (tab.isEnabledAt(6) == false) {
+						} else {
+							tab.remove(6);
+							TabListSensor tabListSensor = new TabListSensor(commonArea, idemployee,
+									"Onglet Liste des Capteurs");
+							tab.add("Onglet Liste des Capteurs", tabListSensor);
+							Window.goToTab(6);
+						}
+					} catch (IndexOutOfBoundsException e1) {
+						TabListSensor tabListSensor = new TabListSensor(commonArea, idemployee,
+								"Onglet Liste des Capteurs");
+						tab.add("Onglet Liste des Capteurs", tabListSensor);
+						Window.goToTab(6);
+					}
+				}
 			}
 		});
 

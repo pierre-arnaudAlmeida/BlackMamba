@@ -78,7 +78,7 @@ public class TabEmployes extends JPanel {
 	public TabEmployes() {
 	}
 
-	public TabEmployes(Color color, int idemployee) {
+	public TabEmployes(Color color, int idemployee, String title) {
 		this.idemployee = idemployee;
 
 		/**
@@ -261,6 +261,7 @@ public class TabEmployes extends JPanel {
 		textInputFunctionEmployee.setText(employee.getPoste());
 		this.add(textInputFunctionEmployee);
 
+		///////////////////////// BUTTON/////////////////////////////////////////////////
 		/**
 		 * Button to displpay the password
 		 */
@@ -285,7 +286,6 @@ public class TabEmployes extends JPanel {
 			}
 		});
 
-		///////////////////////// BUTTON/////////////////////////////////////////////////
 		/**
 		 * Definition of Button AddEmployee
 		 */
@@ -369,7 +369,6 @@ public class TabEmployes extends JPanel {
 		save = new JButton("Sauvegarder");
 		save.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4) + 250,
 				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
-		// save.setBounds(147, 300, 100, 23);
 		this.add(save);
 		save.addActionListener(new ActionListener() {
 			/**
@@ -456,7 +455,6 @@ public class TabEmployes extends JPanel {
 		restaure = new JButton("Annuler");
 		restaure.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4),
 				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
-		// restaure.setBounds(147, 400, 100, 23);
 		this.add(restaure);
 		restaure.addActionListener(new ActionListener() {
 
@@ -480,28 +478,33 @@ public class TabEmployes extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				requestType = "DELETE";
-				table = "Employee";
-				try {
-					jsonString = objectMapper.writeValueAsString(employee);
-					new ClientSocket(requestType, jsonString, table);
-					jsonString = ClientSocket.getJson();
-					if (!jsonString.equals("DELETED")) {
-						JOptionPane.showMessageDialog(null, "La suppression a échoué", "Erreur",
-								JOptionPane.ERROR_MESSAGE);
-						logger.log(Level.INFO, "Impossible to delete this employee");
-					} else {
-						JOptionPane.showMessageDialog(null, "Suppression de l'Employé", "Infos",
-								JOptionPane.INFORMATION_MESSAGE);
+				if (employee.getIdEmployee() != 0) {
+					requestType = "DELETE";
+					table = "Employee";
+					try {
+						jsonString = objectMapper.writeValueAsString(employee);
+						new ClientSocket(requestType, jsonString, table);
+						jsonString = ClientSocket.getJson();
+						if (!jsonString.equals("DELETED")) {
+							JOptionPane.showMessageDialog(null, "La suppression a échoué", "Erreur",
+									JOptionPane.ERROR_MESSAGE);
+							logger.log(Level.INFO, "Impossible to delete this employee");
+						} else {
+							JOptionPane.showMessageDialog(null, "Suppression de l'Employé", "Infos",
+									JOptionPane.INFORMATION_MESSAGE);
+						}
+					} catch (Exception e1) {
+						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 					}
-				} catch (Exception e1) {
-					logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+					listM.removeElementAt(index);
+					textInputLastnameEmployee.setText("");
+					textInputNameEmployee.setText("");
+					textInputFunctionEmployee.setText("");
+					textInputPasswordEmployee.setText("");
+				} else {
+					JOptionPane.showMessageDialog(null, "Veuillez selectionner un employé à supprimer", "Erreur",
+							JOptionPane.ERROR_MESSAGE);
 				}
-				listM.removeElementAt(index);
-				textInputLastnameEmployee.setText("");
-				textInputNameEmployee.setText("");
-				textInputFunctionEmployee.setText("");
-				textInputPasswordEmployee.setText("");
 			}
 		});
 

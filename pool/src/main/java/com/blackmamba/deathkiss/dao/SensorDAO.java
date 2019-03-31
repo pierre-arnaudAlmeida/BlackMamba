@@ -37,8 +37,13 @@ public class SensorDAO extends DAO<Sensor> {
 		try {
 			Statement st = con.createStatement();
 			Sensor sensor = objectMapper.readValue(jsonString, Sensor.class);
+			String state = null;
+			if (sensor.getSensorState() == true) {
+				state = "ON";
+			} else
+				state = "OFF";
 			request = "insert into capteur (type_capteur, etat, id_partie_commune) values ('" + sensor.getTypeSensor()
-					+ "','" + sensor.getSensorState() + "','" + sensor.getIdCommonArea() + "')";
+					+ "','" + state + "','" + sensor.getIdCommonArea() + "')";
 			st.execute(request);
 			logger.log(Level.INFO, "Sensor succesfully inserted in BDD");
 			return true;
@@ -212,7 +217,7 @@ public class SensorDAO extends DAO<Sensor> {
 					sensor.setTypeSensor(SensorType.BADGE);
 				else if (result.getObject(2).toString().equals("ROUTER"))
 					sensor.setTypeSensor(SensorType.ROUTER);
-				
+
 				if (result.getObject(3).toString().equals("ON")) {
 					sensor.setSensorState(true);
 				} else if (result.getObject(3).toString().equals("OFF")) {
@@ -270,7 +275,7 @@ public class SensorDAO extends DAO<Sensor> {
 					sensor.setTypeSensor(SensorType.BADGE);
 				else if (result.getObject(2).toString().equals("ROUTER"))
 					sensor.setTypeSensor(SensorType.ROUTER);
-				
+
 				if (result.getObject(3).toString().equals("ON")) {
 					sensors.setSensorState(true);
 				} else if (result.getObject(3).toString().equals("OFF")) {
