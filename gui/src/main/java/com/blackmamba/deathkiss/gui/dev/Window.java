@@ -26,12 +26,12 @@ public class Window extends JFrame {
 		/**
 		 * Creation of diferents tabs
 		 */
-		tabEmployes = new TabEmployes(Color.GRAY, this.idEmployee);
-		tabCommonArea = new TabCommonArea(Color.GRAY, this.idEmployee);
-		tabSensor = new TabSensor(Color.GRAY, this.idEmployee);
-		tabResident = new TabResident(Color.GRAY, this.idEmployee);
-		tabHistorical = new TabHistorical(Color.GRAY, this.idEmployee);
-		tabProfile = new TabProfile(Color.GRAY, this.idEmployee);
+		tabEmployes = new TabEmployes(Color.GRAY, this.idEmployee, "Onglet Employés");
+		tabCommonArea = new TabCommonArea(Color.GRAY, this.idEmployee, "Onglet Parties Communes");
+		tabSensor = new TabSensor(Color.GRAY, this.idEmployee, "Onglet Capteurs", 0);
+		tabResident = new TabResident(Color.GRAY, this.idEmployee, "Onglet Résidents");
+		tabHistorical = new TabHistorical(Color.GRAY, this.idEmployee, "Onglet Historiques");
+		tabProfile = new TabProfile(Color.GRAY, this.idEmployee, "Onglet Profil");
 
 		/**
 		 * Add of the title of tabs

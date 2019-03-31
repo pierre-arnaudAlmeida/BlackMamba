@@ -59,7 +59,7 @@ public class TabProfile extends JPanel {
 	private ObjectMapper readMapper;
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
 
-	public TabProfile(Color color, int idemployee) {
+	public TabProfile(Color color, int idemployee, String title) {
 		this.idemployee = idemployee;
 
 		/**

@@ -78,7 +78,7 @@ public class TabEmployes extends JPanel {
 	public TabEmployes() {
 	}
 
-	public TabEmployes(Color color, int idemployee) {
+	public TabEmployes(Color color, int idemployee, String title) {
 		this.idemployee = idemployee;
 
 		/**

@@ -34,7 +34,7 @@ public class TabSensor extends JPanel {
 	public TabSensor() {
 	}
 
-	public TabSensor(Color color, int idemployee) {
+	public TabSensor(Color color, int idemployee, String title, int idSensor) {
 		this.idemployee = idemployee;
 
 		/**
@@ -81,6 +81,7 @@ public class TabSensor extends JPanel {
 		/**
 		 * Diferent parameter of the window
 		 */
+		
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);
 		this.setBackground(color);

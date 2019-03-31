@@ -72,7 +72,7 @@ public class TabCommonArea extends JPanel {
 	public TabCommonArea() {
 	}
 
-	public TabCommonArea(Color color, int idemployee) {
+	public TabCommonArea(Color color, int idemployee, String title) {
 		this.idemployee = idemployee;
 
 		/**
@@ -411,6 +411,9 @@ public class TabCommonArea extends JPanel {
 			}
 		});
 
+		/**
+		 * Definition of Button ListSensor
+		 */
 		listSensor = new JButton("Liste Capteur");
 		listSensor.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 7),
 				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
@@ -419,12 +422,26 @@ public class TabCommonArea extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JTabbedPane tab = new JTabbedPane();
-				tab = Window.getTab();
-				TabListSensor tabListSensor = new TabListSensor(commonArea, idemployee);
-				tab.add("Onglet Liste des Capteurs", tabListSensor);
-				Window.goToTab(6);
-
+				if (commonArea.getIdCommonArea() == 0) {
+					JOptionPane.showMessageDialog(null, "Veuillez selectionner une partie commune", "Erreur",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+					JTabbedPane tab = new JTabbedPane();
+					tab = Window.getTab();
+					try {
+						if (tab.isEnabledAt(6) == false) {
+						} else {
+							tab.remove(6);
+							TabListSensor tabListSensor = new TabListSensor(commonArea, idemployee, "Onglet Liste des Capteurs");
+							tab.add("Onglet Liste des Capteurs", tabListSensor);
+							Window.goToTab(6);
+						}
+					} catch (IndexOutOfBoundsException e1) {
+						TabListSensor tabListSensor = new TabListSensor(commonArea, idemployee, "Onglet Liste des Capteurs");
+						tab.add("Onglet Liste des Capteurs", tabListSensor);
+						Window.goToTab(6);
+					}
+				}
 			}
 		});
 

@@ -34,7 +34,7 @@ public class TabHistorical extends JPanel {
 	public TabHistorical() {
 	}
 
-	public TabHistorical(Color color, int idemployee) {
+	public TabHistorical(Color color, int idemployee, String title) {
 		this.idemployee = idemployee;
 		/**
 		 * Definition of the structure of this tab

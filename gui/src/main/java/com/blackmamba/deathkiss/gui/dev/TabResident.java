@@ -35,7 +35,7 @@ public class TabResident extends JPanel {
 	public TabResident() {
 	}
 
-	public TabResident(Color color, int idemployee) {
+	public TabResident(Color color, int idemployee, String title) {
 		this.idemployee = idemployee;
 
 		/**
