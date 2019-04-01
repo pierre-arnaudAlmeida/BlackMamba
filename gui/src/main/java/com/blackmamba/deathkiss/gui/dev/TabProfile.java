@@ -240,7 +240,7 @@ public class TabProfile extends JPanel {
 				requestType = "UPDATE";
 				employee = new Employee();
 				table = "Employee";
-
+//TODO verif password
 				String newLastnameEmployee = textInputLastnameEmployee.getText().trim();
 				String newNameEmployee = textInputNameEmployee.getText().trim();
 				String newFunctionEmployee = textInputFunctionEmployee.getText().trim();

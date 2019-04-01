@@ -14,7 +14,6 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -25,11 +24,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.entity.CommonArea;
 import com.blackmamba.deathkiss.entity.Sensor;
 import com.blackmamba.deathkiss.entity.SensorType;
@@ -56,8 +53,6 @@ public class TabSensor extends JPanel {
 	private JLabel labelTypeSensor;
 	private JLabel labelStateSensor;
 	private JTextField textInputIdSensor;
-	private JComboBox textInputNameCommonArea;
-	private JComboBox textInputTypeSensor;
 	private Font policeBar;
 	private Font policeLabel;
 	private JButton disconnection;
@@ -67,14 +62,16 @@ public class TabSensor extends JPanel {
 	private JButton delete;
 	private JButton switchButton;
 	private Sensor sensor;
+	private JScrollPane sc;
 	private CommonArea commonArea;
 	private ObjectMapper objectMapper;
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
+	private JComboBox textInputNameCommonArea;
+	private JComboBox textInputTypeSensor;
 	private DefaultListModel listM;
 	private JList list;
-	private JScrollPane sc;
 
 	public TabSensor() {
 	}
@@ -145,7 +142,7 @@ public class TabSensor extends JPanel {
 
 		listM = new DefaultListModel();
 		for (Sensor sensors : listSensor) {
-			listM.addElement(sensors.getIdSensor() + "# " + sensors.getTypeSensor() + " " + sensors.getSensorState()
+			listM.addElement(sensors.getIdSensor() + "#" + sensors.getTypeSensor() + " " + sensors.getSensorState()
 					+ " " + sensors.getIdCommonArea());
 		}
 
@@ -189,35 +186,16 @@ public class TabSensor extends JPanel {
 					switchButton.setText("OFF");
 					switchButton.setBackground(Color.RED);
 				}
-				//TODO faire un maj des nom de commonArea a chaque click
-				// TODO mettre la recherche de nom de partie commune
+				updateListAreas();
 			}
 		};
 		list.addMouseListener(mouseListener);
 
-		///////////////////////// LIST COMMON AREA//////////////////////////////////////
-		requestType = "READ ALL";
-		table = "CommonArea";
-		objectMapper = new ObjectMapper();
-		try {
-			jsonString = "READ ALL";
-			new ClientSocket(requestType, jsonString, table);
-			jsonString = ClientSocket.getJson();
-			CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
-			listCommonArea = Arrays.asList(commonAreas);
-		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
-		}
-		commonArea = new CommonArea();
-		textInputNameCommonArea = new JComboBox();
-		String areasAdd = "";
-		for (CommonArea commonAreas : listCommonArea) {
-			if (!areasAdd.contains(commonAreas.getNameCommonArea()))
-				textInputNameCommonArea
-						.addItem(commonAreas.getNameCommonArea() + " #" + commonAreas.getIdCommonArea());
-			areasAdd = areasAdd + commonAreas.getNameCommonArea() + ",";
-		}
-
+		/**
+		 * Call the method define at end to update the list of CommonAreas availables
+		 * they will be execute one time at creation of the window
+		 */
+		updateListAreas();
 		///////////////////////// LABEL/////////////////////////////////////////////////
 		/**
 		 * Definition of label IdSensor
@@ -347,8 +325,81 @@ public class TabSensor extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				requestType = "CREATE";
+				table = "Sensor";
 
+				if (textInputIdSensor.getText().toString().equals("")) {
+					sensor.setIdSensor(0);
+				} else {
+					sensor.setIdSensor(Integer.parseInt(textInputIdSensor.getText().toString()));
+				}
+				String newNameCommonArea = textInputNameCommonArea.getSelectedItem().toString();
+				int position = newNameCommonArea.indexOf("#");
+				String id = newNameCommonArea.substring(position + 1, newNameCommonArea.length());
+				sensor.setIdCommonArea(Integer.parseInt(id));
+
+				String newStateSensor = switchButton.getText();
+				if (newStateSensor.equals("ON"))
+					sensor.setSensorState(true);
+				else
+					sensor.setSensorState(false);
+
+				String newTypeSensor = textInputTypeSensor.getSelectedItem().toString();
+				if (newTypeSensor.equals("SMOKE"))
+					sensor.setTypeSensor(SensorType.SMOKE);
+				else if (newTypeSensor.equals("MOVE"))
+					sensor.setTypeSensor(SensorType.MOVE);
+				else if (newTypeSensor.equals("TEMPERATURE"))
+					sensor.setTypeSensor(SensorType.TEMPERATURE);
+				else if (newTypeSensor.equals("WINDOW"))
+					sensor.setTypeSensor(SensorType.WINDOW);
+				else if (newTypeSensor.equals("DOOR"))
+					sensor.setTypeSensor(SensorType.DOOR);
+				else if (newTypeSensor.equals("ELEVATOR"))
+					sensor.setTypeSensor(SensorType.ELEVATOR);
+				else if (newTypeSensor.equals("LIGHT"))
+					sensor.setTypeSensor(SensorType.LIGHT);
+				else if (newTypeSensor.equals("FIRE"))
+					sensor.setTypeSensor(SensorType.FIRE);
+				else if (newTypeSensor.equals("BADGE"))
+					sensor.setTypeSensor(SensorType.BADGE);
+
+				if (sensor.getIdSensor() != 0) {
+					JOptionPane.showMessageDialog(null, "Voulez vous inserer ou modifier ce capteur ?", "Erreur",
+							JOptionPane.QUESTION_MESSAGE);// TODO mettre le cas ou l'on veut update et insert
+				} else {
+					ObjectMapper insertMapper = new ObjectMapper();
+					try {
+						jsonString = insertMapper.writeValueAsString(sensor);
+						new ClientSocket(requestType, jsonString, table);
+						jsonString = ClientSocket.getJson();
+						if (!jsonString.equals("INSERTED")) {
+							JOptionPane.showMessageDialog(null, "L'ajout a échoué", "Erreur",
+									JOptionPane.ERROR_MESSAGE);
+							logger.log(Level.INFO, "Impossible to insert sensor");
+						} else {
+							logger.log(Level.INFO, "Insertion Succeded");
+							requestType = "READ ALL";
+							table = "Sensor";
+							jsonString = "READ ALL";
+							new ClientSocket(requestType, jsonString, table);
+							jsonString = ClientSocket.getJson();
+							Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
+							listSensor = Arrays.asList(sensors);
+
+							int x = listSensor.size() - 1;
+
+							sensor = listSensor.get(x);
+							listM.addElement(sensor.getIdSensor() + "#" + sensor.getTypeSensor() + " "
+									+ sensor.getSensorState() + " " + sensor.getIdCommonArea());
+							JOptionPane.showMessageDialog(null, "Linsertion à été effectuer", "Infos",
+									JOptionPane.INFORMATION_MESSAGE);
+						}
+					} catch (Exception e1) {
+						logger.log(Level.INFO,
+								"Impossible to parse in JSON Sensor Datas" + e1.getClass().getCanonicalName());
+					}
+				}
 			}
 		});
 
@@ -363,8 +414,66 @@ public class TabSensor extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				requestType = "UPDATE";
+				table = "Sensor";
 
+				sensor.setIdSensor(Integer.parseInt(textInputIdSensor.getText()));
+				String newNameCommonArea = textInputNameCommonArea.getSelectedItem().toString();
+				int position = newNameCommonArea.indexOf("#");
+				String id = newNameCommonArea.substring(position + 1, newNameCommonArea.length());
+				sensor.setIdCommonArea(Integer.parseInt(id));
+
+				String newStateSensor = switchButton.getText();
+				if (newStateSensor.equals("ON"))
+					sensor.setSensorState(true);
+				else
+					sensor.setSensorState(false);
+
+				String newTypeSensor = textInputTypeSensor.getSelectedItem().toString();
+				if (newTypeSensor.equals("SMOKE"))
+					sensor.setTypeSensor(SensorType.SMOKE);
+				else if (newTypeSensor.equals("MOVE"))
+					sensor.setTypeSensor(SensorType.MOVE);
+				else if (newTypeSensor.equals("TEMPERATURE"))
+					sensor.setTypeSensor(SensorType.TEMPERATURE);
+				else if (newTypeSensor.equals("WINDOW"))
+					sensor.setTypeSensor(SensorType.WINDOW);
+				else if (newTypeSensor.equals("DOOR"))
+					sensor.setTypeSensor(SensorType.DOOR);
+				else if (newTypeSensor.equals("ELEVATOR"))
+					sensor.setTypeSensor(SensorType.ELEVATOR);
+				else if (newTypeSensor.equals("LIGHT"))
+					sensor.setTypeSensor(SensorType.LIGHT);
+				else if (newTypeSensor.equals("FIRE"))
+					sensor.setTypeSensor(SensorType.FIRE);
+				else if (newTypeSensor.equals("BADGE"))
+					sensor.setTypeSensor(SensorType.BADGE);
+
+				if (sensor.getIdSensor() == 0) {
+					JOptionPane.showMessageDialog(null, "Veuillez selectionner un capteur à mettre a jour", "Erreur",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+					ObjectMapper insertMapper = new ObjectMapper();
+					try {
+						jsonString = insertMapper.writeValueAsString(sensor);
+						new ClientSocket(requestType, jsonString, table);
+						jsonString = ClientSocket.getJson();
+						if (!jsonString.equals("UPDATED")) {
+							JOptionPane.showMessageDialog(null, "La Mise a jour a échoué", "Erreur",
+									JOptionPane.ERROR_MESSAGE);
+							logger.log(Level.INFO, "Impossible to update sensor");
+						} else {
+							logger.log(Level.INFO, "Update Succeded");
+							listM.set(index, sensor.getIdSensor() + "#" + sensor.getTypeSensor() + " "
+									+ sensor.getSensorState() + " " + sensor.getIdCommonArea());
+							JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos",
+									JOptionPane.INFORMATION_MESSAGE);
+						}
+					} catch (Exception e1) {
+						logger.log(Level.INFO,
+								"Impossible to parse in JSON sensor datas" + e1.getClass().getCanonicalName());
+					}
+				}
 			}
 		});
 
@@ -376,9 +485,14 @@ public class TabSensor extends JPanel {
 				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
 		this.add(restaure);
 		restaure.addActionListener(new ActionListener() {
-
+			/**
+			 * when the button Restaure is pressed, we define the textAreas as the last
+			 * sensor datas selected in the list by the user
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// TODO mettre une condition si le champs id est vide
+				// a faire pour tout les "annuler"
 				textInputIdSensor.setText(Integer.toString(sensor.getIdCommonArea()));
 				textInputNameCommonArea.setSelectedItem(commonArea.getNameCommonArea());
 				textInputTypeSensor.setSelectedItem(sensor.getTypeSensor().toString());
@@ -400,7 +514,10 @@ public class TabSensor extends JPanel {
 				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
 		this.add(delete);
 		delete.addActionListener(new ActionListener() {
-
+			/**
+			 * When we pressed the button delete we get the id of the sensor and we send it
+			 * to server, to be deleted by him
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (sensor.getIdSensor() != 0) {
@@ -418,9 +535,11 @@ public class TabSensor extends JPanel {
 						} else {
 							JOptionPane.showMessageDialog(null, "Suppression du capteur", "Infos",
 									JOptionPane.INFORMATION_MESSAGE);
+							logger.log(Level.INFO, "Deletion of sensor succed");
 						}
 					} catch (Exception e1) {
-						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+						logger.log(Level.INFO,
+								"Impossible to parse in JSON Sensor datas" + e1.getClass().getCanonicalName());
 					}
 					listM.removeElementAt(index);
 					textInputIdSensor.setText("");
@@ -441,5 +560,36 @@ public class TabSensor extends JPanel {
 		this.add(bar, BorderLayout.NORTH);
 		this.setBackground(color);
 	}
-	// TODO mettre le nom et l'id de la partie commune
+
+	///////////////////////// LIST COMMON AREA//////////////////////////////////////
+	/**
+	 * updateListAreas get all the CommonAreas available in the data base and will
+	 * transform that in a list
+	 */
+	public void updateListAreas() {
+		requestType = "READ ALL";
+		table = "CommonArea";
+		objectMapper = new ObjectMapper();
+		try {
+			jsonString = "READ ALL";
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
+			listCommonArea = Arrays.asList(commonAreas);
+			logger.log(Level.INFO, "Recuperation of all Common Areas available succed");
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON Common Area datas " + e1.getClass().getCanonicalName());
+		}
+		commonArea = new CommonArea();
+		textInputNameCommonArea = new JComboBox();
+		String areasAdd = "";
+		for (CommonArea commonAreas : listCommonArea) {
+			if (!areasAdd.contains(commonAreas.getNameCommonArea() + " #" + commonAreas.getIdCommonArea()))
+				textInputNameCommonArea.addItem(commonAreas.getNameCommonArea() + " #" + commonAreas.getIdCommonArea());
+			areasAdd = areasAdd + commonAreas.getNameCommonArea() + " #" + commonAreas.getIdCommonArea() + ",";
+		}
+		logger.log(Level.INFO, "Convertion of all Common Areas available in a list succed");
+	}
+	// TODO mettre la recherche de nom de partie commune
+	// définir un thread qui va faire des requete toute les 10sec
 }

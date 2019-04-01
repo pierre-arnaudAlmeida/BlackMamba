@@ -475,7 +475,10 @@ public class TabEmployes extends JPanel {
 				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
 		this.add(delete);
 		delete.addActionListener(new ActionListener() {
-
+			/**
+			 * When we pressed the button delete we get the id of the employee and we send
+			 * it to server, to be deleted by him
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (employee.getIdEmployee() != 0) {
