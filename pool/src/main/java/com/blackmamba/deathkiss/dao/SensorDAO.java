@@ -77,6 +77,7 @@ public class SensorDAO extends DAO<Sensor> {
 		try {
 			Statement st = con.createStatement();
 			Sensor sensor = objectMapper.readValue(jsonString, Sensor.class);
+			request = "UPDATE capteur SET id_partie_commune = null where id_capteur = " + sensor.getIdSensor();
 			if ((sensor.getSensorState() == sensor.getSensorNextState()) && sensor.getTypeSensor() == null
 					&& (sensor.getIdCommonArea() != 0)) {
 				request = "UPDATE capteur SET id_partie_commune = '" + sensor.getIdCommonArea()
@@ -255,27 +256,28 @@ public class SensorDAO extends DAO<Sensor> {
 				sensor = new Sensor();
 				sensor.setIdSensor(Integer.parseInt(result.getObject(1).toString()));
 				if (result.getObject(2).toString().equals("SMOKE")) {
-					sensor.setTypeSensor(SensorType.SMOKE);}
-				else if (result.getObject(2).toString().equals("MOVE")) {
-					sensor.setTypeSensor(SensorType.MOVE);}
-				else if (result.getObject(2).toString().equals("TEMPERATURE")) {
-					sensor.setTypeSensor(SensorType.TEMPERATURE);}
-				else if (result.getObject(2).toString().equals("WINDOW")) {
-					sensor.setTypeSensor(SensorType.WINDOW);}
-				else if (result.getObject(2).toString().equals("DOOR")) {
-					sensor.setTypeSensor(SensorType.DOOR);}
-				else if (result.getObject(2).toString().equals("ELEVATOR")) {
-					sensor.setTypeSensor(SensorType.ELEVATOR);}
-				else if (result.getObject(2).toString().equals("LIGHT")) {
-					sensor.setTypeSensor(SensorType.LIGHT);}
-				else if (result.getObject(2).toString().equals("FIRE")) {
-					sensor.setTypeSensor(SensorType.FIRE);}
-				else if (result.getObject(2).toString().equals("BADGE")) {
-					sensor.setTypeSensor(SensorType.BADGE);}
-				else if (result.getObject(2).toString().equals("ROUTER")) {
-					sensor.setTypeSensor(SensorType.ROUTER);}
-				else sensor.setTypeSensor(null);
-				
+					sensor.setTypeSensor(SensorType.SMOKE);
+				} else if (result.getObject(2).toString().equals("MOVE")) {
+					sensor.setTypeSensor(SensorType.MOVE);
+				} else if (result.getObject(2).toString().equals("TEMPERATURE")) {
+					sensor.setTypeSensor(SensorType.TEMPERATURE);
+				} else if (result.getObject(2).toString().equals("WINDOW")) {
+					sensor.setTypeSensor(SensorType.WINDOW);
+				} else if (result.getObject(2).toString().equals("DOOR")) {
+					sensor.setTypeSensor(SensorType.DOOR);
+				} else if (result.getObject(2).toString().equals("ELEVATOR")) {
+					sensor.setTypeSensor(SensorType.ELEVATOR);
+				} else if (result.getObject(2).toString().equals("LIGHT")) {
+					sensor.setTypeSensor(SensorType.LIGHT);
+				} else if (result.getObject(2).toString().equals("FIRE")) {
+					sensor.setTypeSensor(SensorType.FIRE);
+				} else if (result.getObject(2).toString().equals("BADGE")) {
+					sensor.setTypeSensor(SensorType.BADGE);
+				} else if (result.getObject(2).toString().equals("ROUTER")) {
+					sensor.setTypeSensor(SensorType.ROUTER);
+				} else
+					sensor.setTypeSensor(null);
+
 				if (result.getObject(3).toString().equals("ON")) {
 					sensor.setSensorState(true);
 				} else if (result.getObject(3).toString().equals("OFF")) {

@@ -29,6 +29,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.blackmamba.deathkiss.entity.CommonArea;
+import com.blackmamba.deathkiss.entity.Sensor;
 import com.blackmamba.deathkiss.gui.dev.ClientSocket;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -64,7 +65,9 @@ public class TabCommonArea extends JPanel {
 	private JButton listSensor;
 	private CommonArea commonArea;
 	private JScrollPane sc;
+	private ObjectMapper objectMapper;
 	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
+	private List<Sensor> listSensorUsed = new ArrayList<Sensor>();
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
 	private JList list;
 	private DefaultListModel listM;
@@ -125,7 +128,7 @@ public class TabCommonArea extends JPanel {
 
 		requestType = "READ ALL";
 		table = "CommonArea";
-		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper = new ObjectMapper();
 		try {
 			jsonString = "READ ALL";
 			new ClientSocket(requestType, jsonString, table);
@@ -368,7 +371,45 @@ public class TabCommonArea extends JPanel {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (commonArea.getIdCommonArea() != 0) {
+				// TODO recuperer la list des capteur en fonction de idcommmonArea (find All)
+				// puis faire une boucle pour update les capteurs
+				// et donc retirer les idcommonArea puis supp la commonArea
+				if (!textInputIdCommonArea.getText().toString().equals("")) {
+
+					requestType = "FIND ALL";
+					table = "Sensor";
+					objectMapper = new ObjectMapper();
+					try {
+						jsonString = "FIND ALL";
+						new ClientSocket(requestType, jsonString, table);
+						jsonString = ClientSocket.getJson();
+						Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
+						listSensorUsed = Arrays.asList(sensors);
+					} catch (Exception e1) {
+						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+					}
+					if (!listSensorUsed.isEmpty()) {
+						for (Sensor sens : listSensorUsed) {
+							requestType = "UPDATE";
+							table = "Sensor";
+							sens.setIdCommonArea(0);
+							ObjectMapper insertMapper = new ObjectMapper();
+							try {
+								jsonString = insertMapper.writeValueAsString(sens);
+								new ClientSocket(requestType, jsonString, table);
+								jsonString = ClientSocket.getJson();
+								if (!jsonString.equals("UPDATED")) {
+									logger.log(Level.INFO, "Impossible to update sensor");
+								} else {
+									logger.log(Level.INFO, "Update Succeded");
+								}
+							} catch (Exception e1) {
+								logger.log(Level.INFO,
+										"Impossible to parse in JSON sensor datas" + e1.getClass().getCanonicalName());
+							}
+						}
+					}
+
 					requestType = "DELETE";
 					table = "CommonArea";
 					ObjectMapper connectionMapper = new ObjectMapper();
@@ -395,16 +436,17 @@ public class TabCommonArea extends JPanel {
 					JOptionPane.showMessageDialog(null, "Veuillez selectionner une partie commune à supprimer",
 							"Erreur", JOptionPane.ERROR_MESSAGE);
 				}
-			}//TODO bug delete
-			//TODO supprimer la commonArea du capteur quand on supprime la partie commune 
+			}
 		});
 
 		/**
 		 * Definition of Button Restaure
 		 */
 		restaure = new JButton("Annuler");
-		restaure.setBounds(((int) getToolkit().getScreenSize().getWidth() * 4 / 7),
-				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
+		restaure.setBounds(((int)
+
+		getToolkit().getScreenSize().getWidth() * 4 / 7), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150,
+				40);
 		this.add(restaure);
 		restaure.addActionListener(new ActionListener() {
 

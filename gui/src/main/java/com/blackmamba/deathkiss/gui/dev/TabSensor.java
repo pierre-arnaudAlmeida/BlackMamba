@@ -121,6 +121,11 @@ public class TabSensor extends JPanel {
 			}
 		});
 
+		/**
+		 * Definition of the List CommonArea
+		 */
+		textInputNameCommonArea = new JComboBox();
+		
 		///////////////////////// FROM LIST SENSOR//////////////////////////////////////
 		if (idSensor != 0) {
 			requestType = "READ";
@@ -191,10 +196,27 @@ public class TabSensor extends JPanel {
 				} catch (Exception e1) {
 					logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 				}
+				requestType = "READ";
+				commonArea = new CommonArea();
+				table = "CommonArea";
+				ObjectMapper readMapper = new ObjectMapper();
+				commonArea.setIdCommonArea(sensor.getIdCommonArea());
+				try {
+					jsonString = readMapper.writeValueAsString(commonArea);
+					;
+					new ClientSocket(requestType, jsonString, table);
+					jsonString = ClientSocket.getJson();
+					commonArea = readMapper.readValue(jsonString, CommonArea.class);
+				} catch (Exception e1) {
+					logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+				}
+				
 				textInputIdSensor.setText(Integer.toString(sensor.getIdSensor()));
-				for (CommonArea areas : listCommonArea) {
-					if (areas.getIdCommonArea() == sensor.getIdCommonArea()) {
-						textInputNameCommonArea.setSelectedItem(commonArea.getNameCommonArea());
+				String str = commonArea.getNameCommonArea()+" #"+sensor.getIdCommonArea();
+				for (int i=0; i<textInputNameCommonArea.getItemCount(); i++) {
+					if(textInputNameCommonArea.getItemAt(i).toString().contains(str)) {
+					System.out.println(textInputNameCommonArea.getItemAt(i).toString());
+					textInputNameCommonArea.setSelectedIndex(i);
 					}
 				}
 				textInputTypeSensor.setSelectedItem(sensor.getTypeSensor().toString());
@@ -205,7 +227,6 @@ public class TabSensor extends JPanel {
 					switchButton.setText("OFF");
 					switchButton.setBackground(Color.RED);
 				}
-				updateListAreas();
 			}
 		};
 		list.addMouseListener(mouseListener);
@@ -599,8 +620,6 @@ public class TabSensor extends JPanel {
 		} catch (Exception e1) {
 			logger.log(Level.INFO, "Impossible to parse in JSON Common Area datas " + e1.getClass().getCanonicalName());
 		}
-		commonArea = new CommonArea();
-		textInputNameCommonArea = new JComboBox();
 		String areasAdd = "";
 		for (CommonArea commonAreas : listCommonArea) {
 			if (!areasAdd.contains(commonAreas.getNameCommonArea() + " #" + commonAreas.getIdCommonArea()))
