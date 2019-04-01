@@ -73,7 +73,6 @@ public class RequestHandler implements Runnable {
 					response = read();
 					if (!response.equals("")) {
 						jsonNode = objectMapper.readTree(response);
-						logger.log(Level.INFO, response);
 						switch (jsonNode.get("request").asText()) {
 						case "FIND ALL":
 							// TODO pour chacune des classe
