@@ -53,7 +53,7 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 		try {
 			Statement st = con.createStatement();
 			CommonArea commonArea = objectMapper.readValue(jsonString, CommonArea.class);
-			request = "DELETE FROM partie_commune where id_partie_commune = " + commonArea.getIdCommonArea() + ";";
+			request = "DELETE FROM partie_commune where id_partie_commune = " + commonArea.getIdCommonArea();
 			st.execute(request);
 			logger.log(Level.INFO, "CommonArea succesfully deleted in BDD");
 			return true;
