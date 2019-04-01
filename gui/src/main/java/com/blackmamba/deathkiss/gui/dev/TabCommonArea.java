@@ -366,7 +366,10 @@ public class TabCommonArea extends JPanel {
 				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
 		this.add(delete);
 		delete.addActionListener(new ActionListener() {
-
+			/**
+			 * When we pressed the button delete we get the id of the CommonArea and we send
+			 * it to server, to be deleted by him
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (commonArea.getIdCommonArea() != 0) {
