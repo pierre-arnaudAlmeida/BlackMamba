@@ -240,7 +240,6 @@ public class SensorDAO extends DAO<Sensor> {
 	public String findAll(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
 		String request;
-		Sensor sensors;
 		List<Sensor> listSensor = new ArrayList<>();
 		try {
 
@@ -253,36 +252,37 @@ public class SensorDAO extends DAO<Sensor> {
 			}
 			result = st.executeQuery(request);
 			while (result.next()) {
-				sensors = new Sensor();
-				sensors.setIdSensor(Integer.parseInt(result.getObject(1).toString()));
-				if (result.getObject(2).toString().equals("SMOKE"))
-					sensor.setTypeSensor(SensorType.SMOKE);
-				else if (result.getObject(2).toString().equals("MOVE"))
-					sensor.setTypeSensor(SensorType.MOVE);
-				else if (result.getObject(2).toString().equals("TEMPERATURE"))
-					sensor.setTypeSensor(SensorType.TEMPERATURE);
-				else if (result.getObject(2).toString().equals("WINDOW"))
-					sensor.setTypeSensor(SensorType.WINDOW);
-				else if (result.getObject(2).toString().equals("DOOR"))
-					sensor.setTypeSensor(SensorType.DOOR);
-				else if (result.getObject(2).toString().equals("ELEVATOR"))
-					sensor.setTypeSensor(SensorType.ELEVATOR);
-				else if (result.getObject(2).toString().equals("LIGHT"))
-					sensor.setTypeSensor(SensorType.LIGHT);
-				else if (result.getObject(2).toString().equals("FIRE"))
-					sensor.setTypeSensor(SensorType.FIRE);
-				else if (result.getObject(2).toString().equals("BADGE"))
-					sensor.setTypeSensor(SensorType.BADGE);
-				else if (result.getObject(2).toString().equals("ROUTER"))
-					sensor.setTypeSensor(SensorType.ROUTER);
-
+				sensor = new Sensor();
+				sensor.setIdSensor(Integer.parseInt(result.getObject(1).toString()));
+				if (result.getObject(2).toString().equals("SMOKE")) {
+					sensor.setTypeSensor(SensorType.SMOKE);}
+				else if (result.getObject(2).toString().equals("MOVE")) {
+					sensor.setTypeSensor(SensorType.MOVE);}
+				else if (result.getObject(2).toString().equals("TEMPERATURE")) {
+					sensor.setTypeSensor(SensorType.TEMPERATURE);}
+				else if (result.getObject(2).toString().equals("WINDOW")) {
+					sensor.setTypeSensor(SensorType.WINDOW);}
+				else if (result.getObject(2).toString().equals("DOOR")) {
+					sensor.setTypeSensor(SensorType.DOOR);}
+				else if (result.getObject(2).toString().equals("ELEVATOR")) {
+					sensor.setTypeSensor(SensorType.ELEVATOR);}
+				else if (result.getObject(2).toString().equals("LIGHT")) {
+					sensor.setTypeSensor(SensorType.LIGHT);}
+				else if (result.getObject(2).toString().equals("FIRE")) {
+					sensor.setTypeSensor(SensorType.FIRE);}
+				else if (result.getObject(2).toString().equals("BADGE")) {
+					sensor.setTypeSensor(SensorType.BADGE);}
+				else if (result.getObject(2).toString().equals("ROUTER")) {
+					sensor.setTypeSensor(SensorType.ROUTER);}
+				else sensor.setTypeSensor(null);
+				
 				if (result.getObject(3).toString().equals("ON")) {
-					sensors.setSensorState(true);
+					sensor.setSensorState(true);
 				} else if (result.getObject(3).toString().equals("OFF")) {
-					sensors.setSensorState(false);
+					sensor.setSensorState(false);
 				}
-				sensors.setIdCommonArea(Integer.parseInt(result.getObject(4).toString()));
-				listSensor.add(sensors);
+				sensor.setIdCommonArea(Integer.parseInt(result.getObject(4).toString()));
+				listSensor.add(sensor);
 			}
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(listSensor);

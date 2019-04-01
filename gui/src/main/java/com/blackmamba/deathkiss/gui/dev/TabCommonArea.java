@@ -261,11 +261,7 @@ public class TabCommonArea extends JPanel {
 				String newStageCommonArea = textInputStageCommonArea.getText().trim();
 				String newIdCommonArea = textInputIdCommonArea.getText().trim();
 
-				if (!(newIdCommonArea.equals(""))) {
-					JOptionPane.showMessageDialog(null, "Vous ne pouvez pas ajouter une partie commune deja ajouté",
-							"Erreur", JOptionPane.ERROR_MESSAGE);
-					logger.log(Level.INFO, "Attempt of insertion with existant parameters");
-				} else if (newNameCommonArea.equals("") || newStageCommonArea.equals("")) {
+				if (newNameCommonArea.equals("") || newStageCommonArea.equals("")) {
 					JOptionPane.showMessageDialog(null, "Vous n'avez pas remplis au moins l'un des deux champs requis",
 							"Erreur", JOptionPane.ERROR_MESSAGE);
 					logger.log(Level.INFO, "Attempt of insertion without characters");
@@ -399,7 +395,8 @@ public class TabCommonArea extends JPanel {
 					JOptionPane.showMessageDialog(null, "Veuillez selectionner une partie commune à supprimer",
 							"Erreur", JOptionPane.ERROR_MESSAGE);
 				}
-			}
+			}//TODO bug delete
+			//TODO supprimer la commonArea du capteur quand on supprime la partie commune 
 		});
 
 		/**
@@ -413,7 +410,11 @@ public class TabCommonArea extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				textInputIdCommonArea.setText(Integer.toString(commonArea.getIdCommonArea()));
+				if (commonArea.getIdCommonArea() == 0) {
+					textInputIdCommonArea.setText("");
+				} else {
+					textInputIdCommonArea.setText(Integer.toString(commonArea.getIdCommonArea()));
+				}
 				textInputNameCommonArea.setText(commonArea.getNameCommonArea());
 				textInputStageCommonArea.setText(Integer.toString(commonArea.getEtageCommonArea()));
 			}

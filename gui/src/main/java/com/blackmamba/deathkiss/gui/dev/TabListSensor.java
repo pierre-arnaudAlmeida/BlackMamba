@@ -14,13 +14,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -28,7 +29,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.blackmamba.deathkiss.entity.CommonArea;
 import com.blackmamba.deathkiss.entity.Sensor;
-import com.blackmamba.deathkiss.gui.dev.ClientSocket;
+import com.blackmamba.deathkiss.entity.SensorType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TabListSensor extends JPanel {
@@ -48,11 +49,12 @@ public class TabListSensor extends JPanel {
 	private JButton checkSensor;
 	private JButton newCommonArea;
 	private CommonArea commonArea;
-	private JTable tableau;
-	private DefaultTableModel tableModel;
+	private JList tableau;
+	private DefaultListModel tableModel;
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private static final Logger logger = LogManager.getLogger(TabListSensor.class);
 	private Object[][] listM;
+	private JScrollPane sc;
 
 	public TabListSensor() {
 	}
@@ -119,37 +121,29 @@ public class TabListSensor extends JPanel {
 			logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 		}
 
-		Object[] titles = { "Identifiant Capteur", "Type", "Etat", "Nom Partie Commune" };
-		tableModel = new DefaultTableModel(titles, 0);
-		tableau = new JTable(tableModel);
-
-		tableModel.addRow(titles);
+		tableModel = new DefaultListModel();
+		tableau = new JList(tableModel);
+		tableModel.addElement("Identifiant, Capteur Type, Etat, Nom Partie Commune");
 
 		for (Sensor sensors : listSensor) {
-			Object[] newRow = { Integer.toString(sensors.getIdSensor()), sensors.getTypeSensor(),
-					sensors.getSensorState(), area.getNameCommonArea() };
-			tableModel.addRow(newRow);
+			tableModel.addElement(Integer.toString(sensors.getIdSensor()) + " " + sensors.getTypeSensor() + " "
+					+ sensors.getSensorState() + " " + area.getNameCommonArea());
 		}
-		// TODO ScrollPane au tableau
-		//faire en premier tabSensor pour en ajouter plein
 
-		tableau.setBounds((int) getToolkit().getScreenSize().getWidth() * 3 / 10,
+		sc = new JScrollPane(tableau);
+		sc.setBounds((int) getToolkit().getScreenSize().getWidth() * 3 / 10,
 				(int) getToolkit().getScreenSize().getHeight() * 2 / 10,
 				(int) getToolkit().getScreenSize().getWidth() * 1 / 2,
 				(int) getToolkit().getScreenSize().getHeight() * 1 / 2);
 
-		this.add(tableau);
+		this.add(sc);
 
 		MouseListener mouseListener = new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				if (index != 0) {
-					tableau.setValueAt(index, index, 0);
-				}
-				index = tableau.getSelectedRow();
-				if (index != 0) {
-					idSensor = Integer.parseInt(tableau.getValueAt(index, 0).toString());
-					System.out.println(idSensor);
-				}
+				index = tableau.locationToIndex(e.getPoint());
+				String substring = tableModel.getElementAt(index).toString();
+				int position = substring.indexOf(" ");
+				index = Integer.parseInt(substring.substring(0, position));
 			}
 		};
 		tableau.addMouseListener(mouseListener);
@@ -210,7 +204,7 @@ public class TabListSensor extends JPanel {
 	}
 
 	// TODO
-	//mettre une image
+	// mettre une image
 	// ++ une barre de recherche dans la list des infos du tableau donc avoir deux
 	// tableau un avec toutes les infos et un autre avec les infos de la recherche
 }
