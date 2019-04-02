@@ -31,6 +31,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.blackmamba.deathkiss.entity.CommonArea;
+import com.blackmamba.deathkiss.entity.Employee;
 import com.blackmamba.deathkiss.entity.Sensor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -68,10 +69,12 @@ public class TabCommonArea extends JPanel {
 	private JButton listSensor;
 	private JButton validButton;
 	private CommonArea commonArea;
+	private CommonArea commonArea2;
 	private Sensor sensor;
 	private JScrollPane sc;
 	private ObjectMapper objectMapper;
 	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
+	private List<CommonArea> listSearchCommonArea = new ArrayList<CommonArea>();
 	private List<Sensor> listSensorUsed = new ArrayList<Sensor>();
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
 	private JList list;
@@ -151,7 +154,72 @@ public class TabCommonArea extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				commonArea = new CommonArea();
+				String searchReceived = searchBar.getText().trim();
+				if (!searchReceived.equals("")) {
+					if (searchReceived.matches("[0-9]+[0-9]*")) {
+						requestType = "READ";
+						commonArea2 = new CommonArea();
+						table = "CommonArea";
+						commonArea2.setIdCommonArea(Integer.parseInt(searchReceived));
+						try {
+							jsonString = objectMapper.writeValueAsString(commonArea2);
+							new ClientSocket(requestType, jsonString, table);
+							jsonString = ClientSocket.getJson();
+							commonArea2 = objectMapper.readValue(jsonString, CommonArea.class);
+						} catch (Exception e1) {
+							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+						}
+						listM.removeAllElements();
+						listM.addElement("Capteur possédant l'id " + searchReceived);
+						if (!commonArea2.getNameCommonArea().equals(""))
+							listM.addElement(commonArea2.getIdCommonArea() + "# " + commonArea2.getNameCommonArea()
+									+ " " + commonArea2.getEtageCommonArea());
 
+						// TODO find all mais sur l'etage
+					} else {
+						searchReceived = Normalizer.normalize(searchReceived, Normalizer.Form.NFD)
+								.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+						commonArea2 = new CommonArea();
+						commonArea2.setNameCommonArea(searchReceived);
+						requestType = "FIND ALL";
+						table = "CommonArea";
+						objectMapper = new ObjectMapper();
+						try {
+							jsonString = objectMapper.writeValueAsString(commonArea2);
+							new ClientSocket(requestType, jsonString, table);
+							jsonString = ClientSocket.getJson();
+							CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
+							listSearchCommonArea = Arrays.asList(commonAreas);
+						} catch (Exception e1) {
+							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+						}
+						listM.removeAllElements();
+						for (CommonArea commonAreas : listSearchCommonArea) {
+							listM.addElement(commonAreas.getIdCommonArea() + "# " + commonAreas.getNameCommonArea()
+									+ " " + commonAreas.getEtageCommonArea());
+						}
+					}
+				} else {
+					requestType = "READ ALL";
+					table = "CommonArea";
+					objectMapper = new ObjectMapper();
+					try {
+						jsonString = "READ ALL";
+						new ClientSocket(requestType, jsonString, table);
+						jsonString = ClientSocket.getJson();
+						CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
+						listCommonArea = Arrays.asList(commonAreas);
+					} catch (Exception e1) {
+						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+					}
+					listM.removeAllElements();
+					for (CommonArea commonAreas : listCommonArea) {
+						listM.addElement(commonAreas.getIdCommonArea() + "# " + commonAreas.getNameCommonArea() + " "
+								+ commonAreas.getEtageCommonArea());
+					}
+				}
+				searchBar.setText("");
 			}
 		});
 
@@ -308,7 +376,7 @@ public class TabCommonArea extends JPanel {
 					JOptionPane.showMessageDialog(null, "L'etage ne contient pas de lettre uniquement un chiffre",
 							"Erreur", JOptionPane.ERROR_MESSAGE);
 				} else {
-					commonArea.setNameCommonArea(newNameCommonArea);
+					commonArea.setNameCommonArea(newNameCommonArea.toUpperCase());
 					commonArea.setEtageCommonArea(Integer.parseInt(newStageCommonArea));
 					ObjectMapper insertMapper = new ObjectMapper();
 					try {
@@ -370,7 +438,7 @@ public class TabCommonArea extends JPanel {
 					JOptionPane.showMessageDialog(null, "L'etage ne contient pas de lettre uniquement un chiffre",
 							"Erreur", JOptionPane.ERROR_MESSAGE);
 				} else {
-					commonArea.setNameCommonArea(newNameCommonArea);
+					commonArea.setNameCommonArea(newNameCommonArea.toUpperCase());
 					commonArea.setEtageCommonArea(Integer.parseInt(newStageCommonArea));
 					ObjectMapper insertMapper = new ObjectMapper();
 					try {
@@ -524,7 +592,7 @@ public class TabCommonArea extends JPanel {
 							JOptionPane.ERROR_MESSAGE);
 				} else {
 					JTabbedPane tab = new JTabbedPane();
-					tab = Window.getTab();
+					tab = Frame.getTab();
 					try {
 						if (tab.isEnabledAt(6) == false) {
 						} else {
@@ -532,13 +600,13 @@ public class TabCommonArea extends JPanel {
 							TabListSensor tabListSensor = new TabListSensor(commonArea, idemployee,
 									"Onglet Liste des Capteurs");
 							tab.add("Onglet Liste des Capteurs", tabListSensor);
-							Window.goToTab(6);
+							Frame.goToTab(6);
 						}
 					} catch (IndexOutOfBoundsException e1) {
 						TabListSensor tabListSensor = new TabListSensor(commonArea, idemployee,
 								"Onglet Liste des Capteurs");
 						tab.add("Onglet Liste des Capteurs", tabListSensor);
-						Window.goToTab(6);
+						Frame.goToTab(6);
 					}
 				}
 			}

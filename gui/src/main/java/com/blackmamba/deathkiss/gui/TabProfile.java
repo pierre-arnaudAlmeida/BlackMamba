@@ -267,9 +267,9 @@ public class TabProfile extends JPanel {
 						}
 						if (!(employee2.getLastnameEmployee().equals(""))) {
 							employee.setIdEmployee(idemployee);
-							employee.setLastnameEmployee(newLastnameEmployee);
+							employee.setLastnameEmployee(newLastnameEmployee.toUpperCase());
 							employee.setNameEmployee(newNameEmployee);
-							employee.setPoste(newFunctionEmployee);
+							employee.setPoste(newFunctionEmployee.toUpperCase());
 							employee.setPassword(newPasswordEmployee);
 							textInputPasswordEmployee.setText("");
 							try {
@@ -296,9 +296,9 @@ public class TabProfile extends JPanel {
 						}
 					} else {
 						employee.setIdEmployee(idemployee);
-						employee.setLastnameEmployee(newLastnameEmployee);
+						employee.setLastnameEmployee(newLastnameEmployee.toUpperCase());
 						employee.setNameEmployee(newNameEmployee);
-						employee.setPoste(newFunctionEmployee);
+						employee.setPoste(newFunctionEmployee.toUpperCase());
 					}
 				}
 			}

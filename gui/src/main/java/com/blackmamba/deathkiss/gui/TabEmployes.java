@@ -428,10 +428,10 @@ public class TabEmployes extends JPanel {
 						requestType = "CREATE";
 						table = "Employee";
 
-						employee.setLastnameEmployee(newLastnameEmployee);
+						employee.setLastnameEmployee(newLastnameEmployee.toUpperCase());
 						employee.setNameEmployee(newNameEmployee);
 						employee.setPassword(newPasswordEmployee);
-						employee.setPoste(newFunctionEmployee);
+						employee.setPoste(newFunctionEmployee.toUpperCase());
 						try {
 							jsonString = objectMapper.writeValueAsString(employee);
 							new ClientSocket(requestType, jsonString, table);
@@ -526,9 +526,9 @@ public class TabEmployes extends JPanel {
 							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 						}
 						if (!(employee2.getLastnameEmployee().equals(""))) {
-							employee.setLastnameEmployee(newLastnameEmployee);
+							employee.setLastnameEmployee(newLastnameEmployee.toUpperCase());
 							employee.setNameEmployee(newNameEmployee);
-							employee.setPoste(newFunctionEmployee);
+							employee.setPoste(newFunctionEmployee.toUpperCase());
 							employee.setPassword(newPasswordEmployee);
 							try {
 								jsonString = objectMapper.writeValueAsString(employee);
@@ -556,9 +556,9 @@ public class TabEmployes extends JPanel {
 									"Erreur, Mauvais mot de passe", JOptionPane.ERROR_MESSAGE);
 						}
 					} else {
-						employee.setLastnameEmployee(newLastnameEmployee);
+						employee.setLastnameEmployee(newLastnameEmployee.toUpperCase());
 						employee.setNameEmployee(newNameEmployee);
-						employee.setPoste(newFunctionEmployee);
+						employee.setPoste(newFunctionEmployee.toUpperCase());
 					}
 				}
 			}

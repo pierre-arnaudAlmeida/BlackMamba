@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.jupiter.api.Test;
 
-import com.blackmamba.deathkiss.gui.Window;
+import com.blackmamba.deathkiss.gui.Frame;
 
 class MainGUITest {
 	private static Logger logger = Logger.getLogger("logger");
@@ -19,7 +19,7 @@ class MainGUITest {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Window frame = new Window(0);
+					Frame frame = new Frame(0);
 					frame.setVisible(true);
 					assertTrue(frame.isShowing());
 				} catch (Exception e) {

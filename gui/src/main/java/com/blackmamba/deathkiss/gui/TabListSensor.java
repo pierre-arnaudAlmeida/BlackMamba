@@ -156,13 +156,13 @@ public class TabListSensor extends JPanel {
 							JOptionPane.ERROR_MESSAGE);
 				} else {
 					JTabbedPane tab = new JTabbedPane();
-					tab = Window.getTab();
+					tab = Frame.getTab();
 
 					tab.remove(2);
 					TabSensor tabSensor = new TabSensor(Color.GRAY, idemployee, "Onglet Capteurs", index);
 					tab.add(tabSensor, 2);
 					tab.setTitleAt(2, "Onglet Capteurs");
-					Window.goToTab(2);
+					Frame.goToTab(2);
 				}
 			}
 		});
@@ -179,9 +179,9 @@ public class TabListSensor extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JTabbedPane tab = new JTabbedPane();
-				tab = Window.getTab();
+				tab = Frame.getTab();
 				tab.remove(6);
-				Window.goToTab(1);
+				Frame.goToTab(1);
 			}
 		});
 

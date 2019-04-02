@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: connectionpool.DataSourceTest
 -------------------------------------------------------------------------------
-Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.606 s - in connectionpool.DataSourceTest
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.885 s - in connectionpool.DataSourceTest
