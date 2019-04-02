@@ -1,4 +1,4 @@
-package com.blackmamba.deathkiss.gui.dev;
+package com.blackmamba.deathkiss.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -19,7 +19,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.blackmamba.deathkiss.entity.Employee;
-import com.blackmamba.deathkiss.gui.dev.ClientSocket;
+import com.blackmamba.deathkiss.gui.ClientSocket;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -72,20 +72,11 @@ public class TabProfile extends JPanel {
 		/**
 		 * Definition of label Identifiant on header bar
 		 */
-		labelIdEmployee = new JLabel("Identifiant :   ");
+		labelIdEmployee = new JLabel("Identifiant :   "+this.idemployee +"    ");
 		policeBar = new Font("Arial", Font.BOLD, 16);
 		labelIdEmployee.setForeground(Color.WHITE);
 		labelIdEmployee.setFont(policeBar);
 		bar.add(labelIdEmployee, BorderLayout.WEST);
-
-		/**
-		 * Definition of the label idEmployee on header bar
-		 */
-		idEmployee = new JLabel();
-		idEmployee.setText("" + this.idemployee + "");
-		idEmployee.setFont(policeBar);
-		idEmployee.setForeground(Color.WHITE);
-		bar.add(idEmployee, BorderLayout.CENTER);
 
 		/**
 		 * Definition of the button and the different action after pressed the button

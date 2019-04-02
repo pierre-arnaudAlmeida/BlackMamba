@@ -1,4 +1,4 @@
-package com.blackmamba.deathkiss.gui.dev;
+package com.blackmamba.deathkiss.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -46,13 +46,16 @@ public class TabSensor extends JPanel {
 	private int idemployee;
 	private int index;
 	private JPanel bar;
+	private JPanel search;
 	private JLabel labelIdEmployee;
 	private JLabel idEmployee;
+	private JLabel labelSearch;
 	private JLabel labelIdSensor;
 	private JLabel labelNameCommonArea;
 	private JLabel labelTypeSensor;
 	private JLabel labelStateSensor;
 	private JTextField textInputIdSensor;
+	private JTextField searchBar;
 	private Font policeBar;
 	private Font policeLabel;
 	private JButton disconnection;
@@ -61,6 +64,7 @@ public class TabSensor extends JPanel {
 	private JButton restaure;
 	private JButton delete;
 	private JButton switchButton;
+	private JButton validButton;
 	private Sensor sensor;
 	private JScrollPane sc;
 	private CommonArea commonArea;
@@ -70,6 +74,7 @@ public class TabSensor extends JPanel {
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
 	private JComboBox textInputNameCommonArea;
 	private JComboBox textInputTypeSensor;
+	private JComboBox typeSearch;
 	private DefaultListModel listM;
 	private JList list;
 
@@ -92,20 +97,11 @@ public class TabSensor extends JPanel {
 		/**
 		 * Definition of label Identifiant on header bar
 		 */
-		labelIdEmployee = new JLabel("Identifiant :   ");
+		labelIdEmployee = new JLabel("Identifiant :   "+this.idemployee +"    ");
 		policeBar = new Font("Arial", Font.BOLD, 16);
 		labelIdEmployee.setForeground(Color.WHITE);
 		labelIdEmployee.setFont(policeBar);
 		bar.add(labelIdEmployee, BorderLayout.WEST);
-
-		/**
-		 * Definition of the label idEmployee on header bar
-		 */
-		idEmployee = new JLabel();
-		idEmployee.setText("" + this.idemployee + "");
-		idEmployee.setFont(policeBar);
-		idEmployee.setForeground(Color.WHITE);
-		bar.add(idEmployee, BorderLayout.CENTER);
 
 		/**
 		 * Definition of the button and the different action after pressed the button
@@ -121,6 +117,52 @@ public class TabSensor extends JPanel {
 			}
 		});
 
+		/**
+		 * Definition of the panel Search
+		 */
+		search = new JPanel();
+		search.setBackground(Color.DARK_GRAY);
+		search.setBorder(BorderFactory.createMatteBorder(0, 25, 0, 25, bar.getBackground()));
+		bar.add(search);
+
+		/**
+		 * Definition of the label search and add on panel search
+		 */
+		labelSearch = new JLabel();
+		labelSearch.setText("Recherche : ");
+		labelSearch.setFont(policeBar);
+		labelSearch.setForeground(Color.WHITE);
+		search.add(labelSearch);
+
+		/**
+		 * Definition of the textField seachBar and add panel search
+		 */
+		searchBar = new JTextField();
+		searchBar.setPreferredSize(new Dimension(350, 30));
+		search.add(searchBar);
+
+		/**
+		 * Definition of the list of possible choice
+		 */
+		typeSearch = new JComboBox();
+		typeSearch.setPreferredSize(new Dimension(150, 30));
+		search.add(typeSearch);
+
+		/**
+		 * Definition of the ValidButton
+		 */
+		validButton = new JButton();
+		validButton.setText("Valider");
+		search.add(validButton);
+		validButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		
 		/**
 		 * Definition of the List CommonArea
 		 */

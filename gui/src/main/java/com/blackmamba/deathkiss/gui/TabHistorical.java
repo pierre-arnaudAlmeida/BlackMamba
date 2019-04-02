@@ -1,4 +1,4 @@
-package com.blackmamba.deathkiss.gui.dev;
+package com.blackmamba.deathkiss.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -48,20 +48,11 @@ public class TabHistorical extends JPanel {
 		/**
 		 * Definition of label Identifiant on header bar
 		 */
-		labelIdEmployee = new JLabel("Identifiant :   ");
+		labelIdEmployee = new JLabel("Identifiant :   "+this.idemployee +"    ");
 		police = new Font("Arial", Font.BOLD, 16);
 		labelIdEmployee.setForeground(Color.WHITE);
 		labelIdEmployee.setFont(police);
 		bar.add(labelIdEmployee, BorderLayout.WEST);
-
-		/**
-		 * Definition of the label idEmployee on header bar
-		 */
-		idEmployee = new JLabel();
-		idEmployee.setText("" + this.idemployee + "");
-		idEmployee.setFont(police);
-		idEmployee.setForeground(Color.WHITE);
-		bar.add(idEmployee, BorderLayout.CENTER);
 
 		/**
 		 * Definition of the button and the different action after pressed the button
