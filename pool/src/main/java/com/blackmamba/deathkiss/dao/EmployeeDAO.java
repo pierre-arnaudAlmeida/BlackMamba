@@ -242,7 +242,7 @@ public class EmployeeDAO extends DAO<Employee> {
 
 			Statement st = con.createStatement();
 			Employee emp = objectMapper.readValue(jsonString, Employee.class);
-			request = "SELECT * FROM employee where ((nom_employee LIKE '%"+emp.getLastnameEmployee()+"%') or (prenom_employee LIKE '%"+emp.getLastnameEmployee()+"%') or (poste LIKE '%"+emp.getLastnameEmployee()+"%'))";
+			request = "SELECT * FROM employee where ((nom_employee LIKE '%"+emp.getLastnameEmployee().toUpperCase()+"%') or (prenom_employee LIKE '%"+emp.getLastnameEmployee().toLowerCase()+"%') or (prenom_employee LIKE '%"+emp.getLastnameEmployee().toUpperCase()+"%') or (poste LIKE '%"+emp.getLastnameEmployee().toLowerCase()+"%') or (poste LIKE '%"+emp.getLastnameEmployee().toUpperCase()+"%'))";
 			result = st.executeQuery(request);
 			while (result.next()) {
 				employee = new Employee();

@@ -8,7 +8,7 @@ import javax.swing.*;
  * @author Pierre-Arnaud
  *
  */
-public class Window extends JFrame {
+public class Frame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private static JTabbedPane tab;
@@ -20,7 +20,7 @@ public class Window extends JFrame {
 	private TabProfile tabProfile;
 	private int idEmployee;
 
-	public Window(int idEmployee) {
+	public Frame(int idEmployee) {
 		this.idEmployee = idEmployee;
 
 		/**
@@ -68,6 +68,6 @@ public class Window extends JFrame {
 	}
 
 	public void setTab(JTabbedPane tab) {
-		Window.tab = tab;
+		Frame.tab = tab;
 	}
 }

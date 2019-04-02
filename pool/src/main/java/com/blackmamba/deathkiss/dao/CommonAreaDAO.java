@@ -151,7 +151,7 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 			Statement st = con.createStatement();
 			CommonArea area = objectMapper.readValue(jsonString, CommonArea.class);
 			if (!(area.getNameCommonArea().equals("")))
-				request = "SELECT * FROM partie_commune where nom_partie_commune LIKE '%" + area.getNameCommonArea() + "%'";
+				request = "SELECT * FROM partie_commune where nom_partie_commune LIKE '%" + area.getNameCommonArea().toUpperCase() + "%'";
 			else
 				request = "SELECT * FROM partie_commune where etage_partie_commune = '" + area.getEtageCommonArea() + "'";
 			result = st.executeQuery(request);
