@@ -1,4 +1,4 @@
-package com.blackmamba.deathkiss.gui.dev;
+package com.blackmamba.deathkiss.gui;
 
 
 import java.awt.EventQueue;
@@ -10,7 +10,7 @@ import java.util.logging.Logger;
  * @author Pierre-Arnaud
  *
  */
-public class DevGUI {
+public class MainGUI {
 	
 	static Logger logger = Logger.getLogger("logger");
 	

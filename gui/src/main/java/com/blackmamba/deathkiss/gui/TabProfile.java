@@ -1,4 +1,4 @@
-package com.blackmamba.deathkiss.gui.dev;
+package com.blackmamba.deathkiss.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -7,7 +7,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -16,13 +15,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.entity.Employee;
-import com.blackmamba.deathkiss.gui.dev.ClientSocket;
+import com.blackmamba.deathkiss.gui.ClientSocket;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -75,20 +72,11 @@ public class TabProfile extends JPanel {
 		/**
 		 * Definition of label Identifiant on header bar
 		 */
-		labelIdEmployee = new JLabel("Identifiant :   ");
+		labelIdEmployee = new JLabel("Identifiant :   "+this.idemployee +"    ");
 		policeBar = new Font("Arial", Font.BOLD, 16);
 		labelIdEmployee.setForeground(Color.WHITE);
 		labelIdEmployee.setFont(policeBar);
 		bar.add(labelIdEmployee, BorderLayout.WEST);
-
-		/**
-		 * Definition of the label idEmployee on header bar
-		 */
-		idEmployee = new JLabel();
-		idEmployee.setText("" + this.idemployee + "");
-		idEmployee.setFont(policeBar);
-		idEmployee.setForeground(Color.WHITE);
-		bar.add(idEmployee, BorderLayout.CENTER);
 
 		/**
 		 * Definition of the button and the different action after pressed the button
@@ -240,7 +228,7 @@ public class TabProfile extends JPanel {
 				requestType = "UPDATE";
 				employee = new Employee();
 				table = "Employee";
-//TODO verif password
+
 				String newLastnameEmployee = textInputLastnameEmployee.getText().trim();
 				String newNameEmployee = textInputNameEmployee.getText().trim();
 				String newFunctionEmployee = textInputFunctionEmployee.getText().trim();
@@ -263,7 +251,7 @@ public class TabProfile extends JPanel {
 						String request = "CONNECTION";
 						employee2 = new Employee();
 
-						employee2.setIdEmployee(employee.getIdEmployee());
+						employee2.setIdEmployee(idemployee);
 						employee2.setPassword(verificationPassword);
 						try {
 							jsonString = readMapper.writeValueAsString(employee2);
@@ -273,15 +261,30 @@ public class TabProfile extends JPanel {
 						} catch (IOException e1) {
 							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 						}
-						if ((employee2.getPassword().equals(verificationPassword))) {
+						if (!(employee2.getLastnameEmployee().equals(""))) {
 							employee.setIdEmployee(idemployee);
 							employee.setLastnameEmployee(newLastnameEmployee);
 							employee.setNameEmployee(newNameEmployee);
 							employee.setPoste(newFunctionEmployee);
 							employee.setPassword(newPasswordEmployee);
 							textInputPasswordEmployee.setText("");
-							JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos",
-									JOptionPane.INFORMATION_MESSAGE);
+							try {
+								jsonString = readMapper.writeValueAsString(employee);
+								new ClientSocket(requestType, jsonString, table);
+								jsonString = ClientSocket.getJson();
+								if (!jsonString.equals("UPDATED")) {
+									JOptionPane.showMessageDialog(null, "La mise a jour a échoué", "Erreur",
+											JOptionPane.ERROR_MESSAGE);
+									logger.log(Level.INFO, "Impossible to update employee");
+								} else {
+									logger.log(Level.INFO, "Update Succeded");
+									JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos",
+											JOptionPane.INFORMATION_MESSAGE);
+								}
+							} catch (Exception e1) {
+								logger.log(Level.INFO,
+										"Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+							}
 						} else {
 							JOptionPane.showMessageDialog(null,
 									"Prend nous pour des amateurs encore une fois et on te bloque",
@@ -292,21 +295,6 @@ public class TabProfile extends JPanel {
 						employee.setLastnameEmployee(newLastnameEmployee);
 						employee.setNameEmployee(newNameEmployee);
 						employee.setPoste(newFunctionEmployee);
-					}
-					try {
-						jsonString = readMapper.writeValueAsString(employee);
-						new ClientSocket(requestType, jsonString, table);
-						jsonString = ClientSocket.getJson();
-						if (!jsonString.equals("UPDATED")) {
-							JOptionPane.showMessageDialog(null, "La mise a jour a échoué", "Erreur",
-									JOptionPane.ERROR_MESSAGE);
-							logger.log(Level.INFO, "Impossible to update employee");
-						} else {
-							JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos",
-									JOptionPane.INFORMATION_MESSAGE);
-						}
-					} catch (Exception e1) {
-						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 					}
 				}
 			}
@@ -320,7 +308,10 @@ public class TabProfile extends JPanel {
 				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
 		this.add(restaure);
 		restaure.addActionListener(new ActionListener() {
-
+			/**
+			 * when we pressed the button restaure we initialize the textArea with the last
+			 * informations of the employee
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				textInputLastnameEmployee.setText(employee.getLastnameEmployee());
@@ -336,6 +327,5 @@ public class TabProfile extends JPanel {
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);
 		this.setBackground(color);
-		// TODO mettre une image
 	}
 }

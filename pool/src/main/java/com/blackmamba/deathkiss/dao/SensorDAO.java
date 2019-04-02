@@ -77,52 +77,24 @@ public class SensorDAO extends DAO<Sensor> {
 		try {
 			Statement st = con.createStatement();
 			Sensor sensor = objectMapper.readValue(jsonString, Sensor.class);
-			request = "UPDATE capteur SET id_partie_commune = null where id_capteur = " + sensor.getIdSensor();
-			if ((sensor.getSensorState() == sensor.getSensorNextState()) && sensor.getTypeSensor() == null
-					&& (sensor.getIdCommonArea() != 0)) {
-				request = "UPDATE capteur SET id_partie_commune = '" + sensor.getIdCommonArea()
-						+ "' where id_capteur = " + sensor.getIdSensor();
-			} else if ((sensor.getSensorState() == sensor.getSensorNextState()) && (sensor.getTypeSensor() != null)
-					&& (sensor.getIdCommonArea() == 0)) {
-				request = "UPDATE capteur SET type_capteur = '" + sensor.getTypeSensor() + "' where id_capteur = "
-						+ sensor.getIdSensor();
-			} else if ((sensor.getSensorState() == sensor.getSensorNextState()) && (sensor.getTypeSensor() != null)
-					&& (sensor.getIdCommonArea() != 0)) {
-				request = "UPDATE capteur SET type_capteur = '" + sensor.getTypeSensor() + "', id_partie_commune = '"
-						+ sensor.getIdCommonArea() + "' where id_capteur = " + sensor.getIdSensor();
-			} else if (sensor.getSensorState() != sensor.getSensorNextState()) {
-				if (sensor.getSensorNextState() == true) {
-					if ((sensor.getTypeSensor() == null) && (sensor.getIdCommonArea() == 0)) {
-						request = "UPDATE capteur SET etat = 'ON' where id_capteur = " + sensor.getIdSensor();
-					} else if ((sensor.getTypeSensor() == null) && (sensor.getIdCommonArea() != 0)) {
-						request = "UPDATE capteur SET etat = 'ON', id_partie_commune = '" + sensor.getIdCommonArea()
-								+ "' where id_capteur = " + sensor.getIdSensor();
-					} else if ((sensor.getTypeSensor() != null) && (sensor.getIdCommonArea() == 0)) {
-						request = "UPDATE capteur SET etat = 'ON', type_capteur = '" + sensor.getTypeSensor()
-								+ "' where id_capteur = " + sensor.getIdSensor();
-					} else if ((sensor.getTypeSensor() != null) && (sensor.getIdCommonArea() != 0)) {
-						request = "UPDATE capteur SET etat = 'ON', type_capteur = '" + sensor.getTypeSensor()
-								+ "', id_partie_commune = '" + sensor.getIdCommonArea() + "' where id_capteur = "
-								+ sensor.getIdSensor();
-					} else
-						return false;
-				} else if (sensor.getSensorNextState() == false) {
-					if ((sensor.getTypeSensor() == null) && (sensor.getIdCommonArea() == 0)) {
-						request = "UPDATE capteur SET etat = 'OFF' where id_capteur = " + sensor.getIdSensor();
-					} else if ((sensor.getTypeSensor() == null) && (sensor.getIdCommonArea() != 0)) {
-						request = "UPDATE capteur SET etat = 'OFF', id_partie_commune = '" + sensor.getIdCommonArea()
-								+ "' where id_capteur = " + sensor.getIdSensor();
-					} else if ((sensor.getTypeSensor() != null) && (sensor.getIdCommonArea() == 0)) {
-						request = "UPDATE capteur SET etat = 'OFF', type_capteur = '" + sensor.getTypeSensor()
-								+ "' where id_capteur = " + sensor.getIdSensor();
-					} else if ((sensor.getTypeSensor() != null) && (sensor.getIdCommonArea() != 0)) {
-						request = "UPDATE capteur SET etat = 'OFF', type_capteur = '" + sensor.getTypeSensor()
-								+ "', id_partie_commune = '" + sensor.getIdCommonArea() + "' where id_capteur = "
-								+ sensor.getIdSensor();
-					} else
-						return false;
-				} else
-					return false;
+			if (sensor.getSensorState() == true) {
+				if (sensor.getIdCommonArea() == 0) {
+					request = "UPDATE capteur SET id_partie_commune = null, etat = 'ON', type_capteur = '"
+							+ sensor.getTypeSensor() + "' where id_capteur = " + sensor.getIdSensor();
+				} else {
+					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea()
+							+ ", etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "' where id_capteur = "
+							+ sensor.getIdSensor();
+				}
+			} else if (sensor.getSensorState() == false) {
+				if (sensor.getIdCommonArea() == 0) {
+					request = "UPDATE capteur SET id_partie_commune = null, etat = 'OFF', type_capteur = '"
+							+ sensor.getTypeSensor() + "' where id_capteur = " + sensor.getIdSensor();
+				} else {
+					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea()
+							+ ", etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "' where id_capteur = "
+							+ sensor.getIdSensor();
+				}
 			} else
 				return false;
 			st.execute(request);
@@ -172,7 +144,13 @@ public class SensorDAO extends DAO<Sensor> {
 			} else if (result.getObject(3).toString().equals("OFF")) {
 				sensor.setSensorState(false);
 			}
-			sensor.setIdCommonArea(Integer.parseInt(result.getObject(4).toString()));
+			try {
+				if (!result.getObject(4).equals("")) {
+					sensor.setIdCommonArea(Integer.parseInt(result.getObject(4).toString()));
+				}
+			} catch (Exception e) {
+				sensor.setIdCommonArea(0);
+			}
 
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(sensor);
@@ -224,7 +202,13 @@ public class SensorDAO extends DAO<Sensor> {
 				} else if (result.getObject(3).toString().equals("OFF")) {
 					sensor.setSensorState(false);
 				}
-				sensor.setIdCommonArea(Integer.parseInt(result.getObject(4).toString()));
+				try {
+					if (!result.getObject(4).equals("")) {
+						sensor.setIdCommonArea(Integer.parseInt(result.getObject(4).toString()));
+					}
+				} catch (Exception e) {
+					sensor.setIdCommonArea(0);
+				}
 				listSensor.add(sensor);
 			}
 			ObjectMapper obj = new ObjectMapper();
@@ -283,7 +267,13 @@ public class SensorDAO extends DAO<Sensor> {
 				} else if (result.getObject(3).toString().equals("OFF")) {
 					sensor.setSensorState(false);
 				}
-				sensor.setIdCommonArea(Integer.parseInt(result.getObject(4).toString()));
+				try {
+					if (!result.getObject(4).equals("")) {
+						sensor.setIdCommonArea(Integer.parseInt(result.getObject(4).toString()));
+					}
+				} catch (Exception e) {
+					sensor.setIdCommonArea(0);
+				}
 				listSensor.add(sensor);
 			}
 			ObjectMapper obj = new ObjectMapper();

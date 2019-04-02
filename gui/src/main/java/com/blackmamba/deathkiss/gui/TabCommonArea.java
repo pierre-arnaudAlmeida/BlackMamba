@@ -1,4 +1,4 @@
-package com.blackmamba.deathkiss.gui.dev;
+package com.blackmamba.deathkiss.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,6 +16,7 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -30,7 +31,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.blackmamba.deathkiss.entity.CommonArea;
 import com.blackmamba.deathkiss.entity.Sensor;
-import com.blackmamba.deathkiss.gui.dev.ClientSocket;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -47,14 +47,18 @@ public class TabCommonArea extends JPanel {
 	private String table;
 	private String jsonString;
 	private JPanel bar;
+	private JPanel search;
 	private JLabel labelIdEmployee;
 	private JLabel idEmployee;
 	private JLabel labelNameCommonArea;
 	private JLabel labelStageCommonArea;
 	private JLabel labelIdCommonArea;
+	private JLabel labelSearch;
 	private JTextField textInputNameCommonArea;
 	private JTextField textInputStageCommonArea;
 	private JTextField textInputIdCommonArea;
+	private JTextField searchBar;
+	private JComboBox typeSearch;
 	private Font policeBar;
 	private Font policeLabel;
 	private JButton disconnection;
@@ -63,7 +67,9 @@ public class TabCommonArea extends JPanel {
 	private JButton delete;
 	private JButton restaure;
 	private JButton listSensor;
+	private JButton validButton;
 	private CommonArea commonArea;
+	private Sensor sensor;
 	private JScrollPane sc;
 	private ObjectMapper objectMapper;
 	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
@@ -91,20 +97,11 @@ public class TabCommonArea extends JPanel {
 		/**
 		 * Definition of label Identifiant on header bar
 		 */
-		labelIdEmployee = new JLabel("Identifiant :   ");
+		labelIdEmployee = new JLabel("Identifiant :   " + this.idemployee + "    ");
 		policeBar = new Font("Arial", Font.BOLD, 16);
 		labelIdEmployee.setForeground(Color.WHITE);
 		labelIdEmployee.setFont(policeBar);
 		bar.add(labelIdEmployee, BorderLayout.WEST);
-
-		/**
-		 * Definition of the label idEmployee on header bar
-		 */
-		idEmployee = new JLabel();
-		idEmployee.setText("" + this.idemployee + "");
-		idEmployee.setFont(policeBar);
-		idEmployee.setForeground(Color.WHITE);
-		bar.add(idEmployee, BorderLayout.CENTER);
 
 		/**
 		 * Definition of the button and the different action after pressed the button
@@ -116,6 +113,52 @@ public class TabCommonArea extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				logger.log(Level.INFO, "Application closed, after disconnection");
 				System.exit(ABORT);
+
+			}
+		});
+
+		/**
+		 * Definition of the panel Search
+		 */
+		search = new JPanel();
+		search.setBackground(Color.DARK_GRAY);
+		search.setBorder(BorderFactory.createMatteBorder(0, 25, 0, 25, bar.getBackground()));
+		bar.add(search);
+
+		/**
+		 * Definition of the label search and add on panel search
+		 */
+		labelSearch = new JLabel();
+		labelSearch.setText("Recherche : ");
+		labelSearch.setFont(policeBar);
+		labelSearch.setForeground(Color.WHITE);
+		search.add(labelSearch);
+
+		/**
+		 * Definition of the textField seachBar and add panel search
+		 */
+		searchBar = new JTextField();
+		searchBar.setPreferredSize(new Dimension(350, 30));
+		search.add(searchBar);
+
+		/**
+		 * Definition of the list of possible choice
+		 */
+		typeSearch = new JComboBox();
+		typeSearch.setPreferredSize(new Dimension(150, 30));
+		search.add(typeSearch);
+
+		/**
+		 * Definition of the ValidButton
+		 */
+		validButton = new JButton();
+		validButton.setText("Valider");
+		search.add(validButton);
+		validButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
 
 			}
 		});
@@ -165,7 +208,6 @@ public class TabCommonArea extends JPanel {
 				commonArea.setIdCommonArea(Integer.parseInt(id));
 				try {
 					jsonString = readMapper.writeValueAsString(commonArea);
-					;
 					new ClientSocket(requestType, jsonString, table);
 					jsonString = ClientSocket.getJson();
 					commonArea = readMapper.readValue(jsonString, CommonArea.class);
@@ -371,16 +413,15 @@ public class TabCommonArea extends JPanel {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO recuperer la list des capteur en fonction de idcommmonArea (find All)
-				// puis faire une boucle pour update les capteurs
-				// et donc retirer les idcommonArea puis supp la commonArea
 				if (!textInputIdCommonArea.getText().toString().equals("")) {
 
 					requestType = "FIND ALL";
 					table = "Sensor";
 					objectMapper = new ObjectMapper();
+					sensor = new Sensor();
 					try {
-						jsonString = "FIND ALL";
+						sensor.setIdCommonArea(commonArea.getIdCommonArea());
+						jsonString = objectMapper.writeValueAsString(sensor);
 						new ClientSocket(requestType, jsonString, table);
 						jsonString = ClientSocket.getJson();
 						Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
@@ -505,7 +546,6 @@ public class TabCommonArea extends JPanel {
 		this.add(bar, BorderLayout.NORTH);
 		this.setBackground(color);
 
-		// TODO mettre une image
 		// TODO mettre une barre de recherche et on affiche les résultat dans le Jlist
 		// Si il fait une recherche vide soit on met une pop up soit on affiche tout les
 		// commonAreas

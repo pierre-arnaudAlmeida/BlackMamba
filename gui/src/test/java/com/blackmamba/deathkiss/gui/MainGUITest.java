@@ -6,24 +6,25 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.jupiter.api.Test;
 
-import com.blackmamba.deathkiss.gui.prod.Login;
+import com.blackmamba.deathkiss.gui.Window;
 
-class ProdGUITest {
+class MainGUITest {
 	private static Logger logger = Logger.getLogger("logger");
-	
+
 	/**
-	 * Test the creation of the window of ProductionGUI
+	 * Test the creation of the window DeveloppementGUI
 	 */
 	@Test
-	void prodIHMTest() {
+	void devIHMTest() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Login frame = new Login();
+					Window frame = new Window(0);
 					frame.setVisible(true);
 					assertTrue(frame.isShowing());
 				} catch (Exception e) {
-					logger.log(Level.INFO, "Impossible to display the window 'Login' " + e.getClass().getCanonicalName());
+					logger.log(Level.INFO,
+							"Impossible to display the window 'Window' " + e.getClass().getCanonicalName());
 				}
 			}
 		});
