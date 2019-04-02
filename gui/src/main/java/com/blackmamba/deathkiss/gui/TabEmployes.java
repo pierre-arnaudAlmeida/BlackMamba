@@ -14,12 +14,10 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -27,11 +25,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.entity.Employee;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -170,9 +166,11 @@ public class TabEmployes extends JPanel {
 							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 						}
 						listM.removeAllElements();
-						if (!employee2.getLastnameEmployee().equals(""))
+						if (!employee2.getLastnameEmployee().equals("")) {
+							listM.addElement("Résultat pour l'employé avec l'id : " + searchReceived);
 							listM.addElement(employee2.getIdEmployee() + "# " + employee2.getLastnameEmployee() + " "
 									+ employee2.getNameEmployee() + " " + employee2.getPoste());
+						}
 					} else {
 						searchReceived = Normalizer.normalize(searchReceived, Normalizer.Form.NFD)
 								.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
@@ -190,6 +188,8 @@ public class TabEmployes extends JPanel {
 							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 						}
 						listM.removeAllElements();
+						if (listSearchEmployee.size() > 0)
+							listM.addElement("Résultat pour : " + searchReceived);
 						for (Employee employees : listSearchEmployee) {
 							listM.addElement(employees.getIdEmployee() + "# " + employees.getLastnameEmployee() + " "
 									+ employees.getNameEmployee() + " " + employees.getPoste());
@@ -209,6 +209,7 @@ public class TabEmployes extends JPanel {
 						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 					}
 					listM.removeAllElements();
+					listM.addElement("Tout les employés ");
 					for (Employee employees : listEmployee) {
 						listM.addElement(employees.getIdEmployee() + "# " + employees.getLastnameEmployee() + " "
 								+ employees.getNameEmployee() + " " + employees.getPoste());

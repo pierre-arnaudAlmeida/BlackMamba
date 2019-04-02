@@ -8,6 +8,11 @@ import org.junit.jupiter.api.Test;
 
 import com.blackmamba.deathkiss.gui.Frame;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 class MainGUITest {
 	private static Logger logger = Logger.getLogger("logger");
 

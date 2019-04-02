@@ -30,10 +30,8 @@ public class TabResident extends JPanel {
 	private JPanel bar;
 	private JPanel search;
 	private JLabel labelIdEmployee;
-	private JLabel idEmployee;
 	private JLabel labelSearch;
 	private JTextField searchBar;
-	private JComboBox typeSearch;
 	private Font policeBar;
 	private JButton disconnection;
 	private JButton validButton;
@@ -57,7 +55,7 @@ public class TabResident extends JPanel {
 		/**
 		 * Definition of label Identifiant on header bar
 		 */
-		labelIdEmployee = new JLabel("Identifiant :   "+this.idemployee +"    ");
+		labelIdEmployee = new JLabel("Identifiant :   " + this.idemployee + "    ");
 		policeBar = new Font("Arial", Font.BOLD, 16);
 		labelIdEmployee.setForeground(Color.WHITE);
 		labelIdEmployee.setFont(policeBar);
@@ -76,7 +74,7 @@ public class TabResident extends JPanel {
 
 			}
 		});
-		
+
 		/**
 		 * Definition of the panel Search
 		 */
@@ -102,13 +100,6 @@ public class TabResident extends JPanel {
 		search.add(searchBar);
 
 		/**
-		 * Definition of the list of possible choice
-		 */
-		typeSearch = new JComboBox();
-		typeSearch.setPreferredSize(new Dimension(150, 30));
-		search.add(typeSearch);
-
-		/**
 		 * Definition of the ValidButton
 		 */
 		validButton = new JButton();
@@ -122,7 +113,7 @@ public class TabResident extends JPanel {
 
 			}
 		});
-		
+
 		/**
 		 * Diferent parameters of the window
 		 */

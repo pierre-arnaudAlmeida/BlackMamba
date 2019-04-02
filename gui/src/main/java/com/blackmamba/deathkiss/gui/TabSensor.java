@@ -29,7 +29,6 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.blackmamba.deathkiss.entity.CommonArea;
-import com.blackmamba.deathkiss.entity.Employee;
 import com.blackmamba.deathkiss.entity.Sensor;
 import com.blackmamba.deathkiss.entity.SensorType;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -170,13 +169,14 @@ public class TabSensor extends JPanel {
 							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 						}
 						listM.removeAllElements();
-						if (sensor2.getTypeSensor() != null)
+						if (sensor2.getTypeSensor() != null) {
+							listM.addElement("Résultat pour un capteur avec l'id : " + searchReceived);
 							listM.addElement(sensor2.getIdSensor() + "#" + sensor2.getTypeSensor() + " "
 									+ sensor2.getSensorState() + " " + sensor2.getIdCommonArea());
-					} else {
+						}
 						searchReceived = Normalizer.normalize(searchReceived, Normalizer.Form.NFD)
 								.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
-						sensor2.setIdSensor(Integer.parseInt(searchReceived));
+						sensor2.setIdCommonArea(Integer.parseInt(searchReceived));
 						requestType = "FIND ALL";
 						table = "Sensor";
 						objectMapper = new ObjectMapper();
@@ -190,6 +190,89 @@ public class TabSensor extends JPanel {
 							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 						}
 						listM.removeAllElements();
+						if (listSearchSensor.size() > 0)
+							listM.addElement("Résultat capteurs avec l'id partie commune  : " + searchReceived);
+						for (Sensor sensors : listSearchSensor) {
+							listM.addElement(sensors.getIdSensor() + "#" + sensors.getTypeSensor() + " "
+									+ sensors.getSensorState() + " " + sensors.getIdCommonArea());
+						}
+					} else {
+						// TODO mettre avec les type de sensor
+						sensor2 = new Sensor();
+						if (searchReceived.toUpperCase().equals("S") || searchReceived.toUpperCase().equals("SM")
+								|| searchReceived.toUpperCase().equals("SMO")
+								|| searchReceived.toUpperCase().equals("SMOK")
+								|| searchReceived.toUpperCase().equals("SMOKE")) {
+							sensor2.setTypeSensor(SensorType.SMOKE);
+						} else if (searchReceived.toUpperCase().equals("M") || searchReceived.toUpperCase().equals("MO")
+								|| searchReceived.toUpperCase().equals("MOV")
+								|| searchReceived.toUpperCase().equals("MOVE")) {
+							sensor2.setTypeSensor(SensorType.MOVE);
+						} else if (searchReceived.toUpperCase().equals("T") || searchReceived.toUpperCase().equals("TE")
+								|| searchReceived.toUpperCase().equals("TEM")
+								|| searchReceived.toUpperCase().equals("TEMP")
+								|| searchReceived.toUpperCase().equals("TEMPE")
+								|| searchReceived.toUpperCase().equals("TEMPER")
+								|| searchReceived.toUpperCase().equals("TEMPERA")
+								|| searchReceived.toUpperCase().equals("TEMPERAT")
+								|| searchReceived.toUpperCase().equals("TEMPERATU")
+								|| searchReceived.toUpperCase().equals("TEMPERATUR")
+								|| searchReceived.toUpperCase().equals("TEMPERATURE")) {
+							sensor2.setTypeSensor(SensorType.TEMPERATURE);
+						} else if (searchReceived.toUpperCase().equals("W") || searchReceived.toUpperCase().equals("WI")
+								|| searchReceived.toUpperCase().equals("WIN")
+								|| searchReceived.toUpperCase().equals("WIND")
+								|| searchReceived.toUpperCase().equals("WINDO")
+								|| searchReceived.toUpperCase().equals("WINDOW")) {
+							sensor2.setTypeSensor(SensorType.WINDOW);
+						} else if (searchReceived.toUpperCase().equals("D") || searchReceived.toUpperCase().equals("DO")
+								|| searchReceived.toUpperCase().equals("DOO")
+										| searchReceived.toUpperCase().equals("DOOR")) {
+							sensor2.setTypeSensor(SensorType.DOOR);
+						} else if (searchReceived.toUpperCase().equals("E") || searchReceived.toUpperCase().equals("EL")
+								|| searchReceived.toUpperCase().equals("ELE")
+								|| searchReceived.toUpperCase().equals("ELEV")
+								|| searchReceived.toUpperCase().equals("ELEVA")
+								|| searchReceived.toUpperCase().equals("ELEVAT")
+								|| searchReceived.toUpperCase().equals("ELEVATO")
+								|| searchReceived.toUpperCase().equals("ELEVATOR")) {
+							sensor2.setTypeSensor(SensorType.ELEVATOR);
+						} else if (searchReceived.toUpperCase().equals("L") || searchReceived.toUpperCase().equals("LI")
+								|| searchReceived.toUpperCase().equals("LIG")
+								|| searchReceived.toUpperCase().equals("LIGH")
+								|| searchReceived.toUpperCase().equals("LIGHT")) {
+							sensor2.setTypeSensor(SensorType.LIGHT);
+						} else if (searchReceived.toUpperCase().equals("F") || searchReceived.toUpperCase().equals("FI")
+								|| searchReceived.toUpperCase().equals("FIR")
+								|| searchReceived.toUpperCase().equals("FIRE")) {
+							sensor2.setTypeSensor(SensorType.FIRE);
+						} else if (searchReceived.toUpperCase().equals("B") || searchReceived.toUpperCase().equals("BA")
+								|| searchReceived.toUpperCase().equals("BAD")
+								|| searchReceived.toUpperCase().equals("BADG")
+								|| searchReceived.toUpperCase().equals("BADGE")) {
+							sensor2.setTypeSensor(SensorType.BADGE);
+						} else if (searchReceived.toUpperCase().equals("R") || searchReceived.toUpperCase().equals("RO")
+								|| searchReceived.toUpperCase().equals("ROU")
+								|| searchReceived.toUpperCase().equals("ROUT")
+								|| searchReceived.toUpperCase().equals("ROUTE")
+								|| searchReceived.toUpperCase().equals("ROUTER")) {
+							sensor2.setTypeSensor(SensorType.ROUTER);
+						}
+						requestType = "FIND ALL";
+						table = "Sensor";
+						objectMapper = new ObjectMapper();
+						try {
+							jsonString = objectMapper.writeValueAsString(sensor2);
+							new ClientSocket(requestType, jsonString, table);
+							jsonString = ClientSocket.getJson();
+							Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
+							listSearchSensor = Arrays.asList(sensors);
+						} catch (Exception e1) {
+							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+						}
+						listM.removeAllElements();
+						if (listSearchSensor.size() > 0)
+							listM.addElement("Résultat pour le type de capteur : " + searchReceived);
 						for (Sensor sensors : listSearchSensor) {
 							listM.addElement(sensors.getIdSensor() + "#" + sensors.getTypeSensor() + " "
 									+ sensors.getSensorState() + " " + sensors.getIdCommonArea());
@@ -209,13 +292,13 @@ public class TabSensor extends JPanel {
 						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 					}
 					listM.removeAllElements();
+					listM.addElement("Tout les capteurs");
 					for (Sensor sensors : listSensor) {
 						listM.addElement(sensors.getIdSensor() + "#" + sensors.getTypeSensor() + " "
 								+ sensors.getSensorState() + " " + sensors.getIdCommonArea());
 					}
 				}
 				searchBar.setText("");
-				//TODO faire une recherche sur le type de capteur
 			}
 		});
 

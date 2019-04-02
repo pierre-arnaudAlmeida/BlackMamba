@@ -153,7 +153,6 @@ public class TabCommonArea extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				commonArea = new CommonArea();
 				String searchReceived = searchBar.getText().trim();
 				if (!searchReceived.equals("")) {
@@ -171,12 +170,31 @@ public class TabCommonArea extends JPanel {
 							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 						}
 						listM.removeAllElements();
-						listM.addElement("Capteur possédant l'id " + searchReceived);
-						if (!commonArea2.getNameCommonArea().equals(""))
+						if (!commonArea2.getNameCommonArea().equals("")) {
+							listM.addElement("Résultat pour une partie communne avec l'id : " + searchReceived);
 							listM.addElement(commonArea2.getIdCommonArea() + "# " + commonArea2.getNameCommonArea()
 									+ " " + commonArea2.getEtageCommonArea());
-
-						// TODO find all mais sur l'etage
+						}
+						commonArea2 = new CommonArea();
+						commonArea2.setEtageCommonArea(Integer.parseInt(searchReceived));
+						requestType = "FIND ALL";
+						table = "CommonArea";
+						objectMapper = new ObjectMapper();
+						try {
+							jsonString = objectMapper.writeValueAsString(commonArea2);
+							new ClientSocket(requestType, jsonString, table);
+							jsonString = ClientSocket.getJson();
+							CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
+							listSearchCommonArea = Arrays.asList(commonAreas);
+						} catch (Exception e1) {
+							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+						}
+						if (listSearchCommonArea.size() > 0)
+							listM.addElement("Résultat pour les parties communes à l'étage : " + searchReceived);
+						for (CommonArea commonAreas : listSearchCommonArea) {
+							listM.addElement(commonAreas.getIdCommonArea() + "# " + commonAreas.getNameCommonArea()
+									+ " " + commonAreas.getEtageCommonArea());
+						}
 					} else {
 						searchReceived = Normalizer.normalize(searchReceived, Normalizer.Form.NFD)
 								.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
@@ -195,6 +213,8 @@ public class TabCommonArea extends JPanel {
 							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 						}
 						listM.removeAllElements();
+						if (listSearchCommonArea.size() > 0)
+							listM.addElement("Résultat pour une partie commune avec : " + searchReceived);
 						for (CommonArea commonAreas : listSearchCommonArea) {
 							listM.addElement(commonAreas.getIdCommonArea() + "# " + commonAreas.getNameCommonArea()
 									+ " " + commonAreas.getEtageCommonArea());
@@ -214,6 +234,8 @@ public class TabCommonArea extends JPanel {
 						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 					}
 					listM.removeAllElements();
+					if (listCommonArea.size() > 0)
+						listM.addElement("Toutes les parties communes");
 					for (CommonArea commonAreas : listCommonArea) {
 						listM.addElement(commonAreas.getIdCommonArea() + "# " + commonAreas.getNameCommonArea() + " "
 								+ commonAreas.getEtageCommonArea());

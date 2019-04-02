@@ -32,6 +32,11 @@ import com.blackmamba.deathkiss.entity.Sensor;
 import com.blackmamba.deathkiss.entity.SensorType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class TabListSensor extends JPanel {
 
 	private static final long serialVersionUID = 1L;
