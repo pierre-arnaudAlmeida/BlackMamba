@@ -215,7 +215,6 @@ public class TabSensor extends JPanel {
 				String str = commonArea.getNameCommonArea()+" #"+sensor.getIdCommonArea();
 				for (int i=0; i<textInputNameCommonArea.getItemCount(); i++) {
 					if(textInputNameCommonArea.getItemAt(i).toString().contains(str)) {
-					System.out.println(textInputNameCommonArea.getItemAt(i).toString());
 					textInputNameCommonArea.setSelectedIndex(i);
 					}
 				}
@@ -560,7 +559,7 @@ public class TabSensor extends JPanel {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (sensor.getIdSensor() != 0) {
+				if (!textInputIdSensor.getText().toString().equals("")) {
 					requestType = "DELETE";
 					table = "Sensor";
 					ObjectMapper connectionMapper = new ObjectMapper();
@@ -631,4 +630,6 @@ public class TabSensor extends JPanel {
 	// TODO mettre la recherche de nom de partie commune
 	// définir un thread qui va faire des requete toute les 10sec
 	// TODO affiche pas la bonne partie commune
+	//pas d'actualisation de la list des partie commune COmbobox
+	//pas d'actualisation de la listM des capteurs a gauche créer une methode + la synchro
 }

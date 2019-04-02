@@ -64,6 +64,7 @@ public class TabCommonArea extends JPanel {
 	private JButton restaure;
 	private JButton listSensor;
 	private CommonArea commonArea;
+	private Sensor sensor;
 	private JScrollPane sc;
 	private ObjectMapper objectMapper;
 	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
@@ -165,7 +166,6 @@ public class TabCommonArea extends JPanel {
 				commonArea.setIdCommonArea(Integer.parseInt(id));
 				try {
 					jsonString = readMapper.writeValueAsString(commonArea);
-					;
 					new ClientSocket(requestType, jsonString, table);
 					jsonString = ClientSocket.getJson();
 					commonArea = readMapper.readValue(jsonString, CommonArea.class);
@@ -379,8 +379,10 @@ public class TabCommonArea extends JPanel {
 					requestType = "FIND ALL";
 					table = "Sensor";
 					objectMapper = new ObjectMapper();
+					sensor = new Sensor();
 					try {
-						jsonString = "FIND ALL";
+						sensor.setIdCommonArea(commonArea.getIdCommonArea());
+						jsonString = objectMapper.writeValueAsString(sensor);
 						new ClientSocket(requestType, jsonString, table);
 						jsonString = ClientSocket.getJson();
 						Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
