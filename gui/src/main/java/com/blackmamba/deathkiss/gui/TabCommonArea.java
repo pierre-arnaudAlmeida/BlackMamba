@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -49,7 +50,6 @@ public class TabCommonArea extends JPanel {
 	private JPanel bar;
 	private JPanel search;
 	private JLabel labelIdEmployee;
-	private JLabel idEmployee;
 	private JLabel labelNameCommonArea;
 	private JLabel labelStageCommonArea;
 	private JLabel labelIdCommonArea;
@@ -58,7 +58,6 @@ public class TabCommonArea extends JPanel {
 	private JTextField textInputStageCommonArea;
 	private JTextField textInputIdCommonArea;
 	private JTextField searchBar;
-	private JComboBox typeSearch;
 	private Font policeBar;
 	private Font policeLabel;
 	private JButton disconnection;
@@ -89,7 +88,7 @@ public class TabCommonArea extends JPanel {
 		 */
 		bar = new JPanel();
 		bar.setBackground(Color.DARK_GRAY);
-		bar.setPreferredSize(new Dimension((int) getToolkit().getScreenSize().getWidth(), 70));
+		bar.setPreferredSize(new Dimension((int) getToolkit().getScreenSize().getWidth(), 80));
 		bar.setLayout(new BorderLayout());
 		bar.setBorder(BorderFactory.createMatteBorder(20, 100, 20, 100, bar.getBackground()));
 
@@ -140,13 +139,6 @@ public class TabCommonArea extends JPanel {
 		searchBar = new JTextField();
 		searchBar.setPreferredSize(new Dimension(350, 30));
 		search.add(searchBar);
-
-		/**
-		 * Definition of the list of possible choice
-		 */
-		typeSearch = new JComboBox();
-		typeSearch.setPreferredSize(new Dimension(150, 30));
-		search.add(typeSearch);
 
 		/**
 		 * Definition of the ValidButton
@@ -303,6 +295,8 @@ public class TabCommonArea extends JPanel {
 				table = "CommonArea";
 
 				String newNameCommonArea = textInputNameCommonArea.getText().trim();
+				newNameCommonArea = Normalizer.normalize(newNameCommonArea, Normalizer.Form.NFD)
+						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				String newStageCommonArea = textInputStageCommonArea.getText().trim();
 				String newIdCommonArea = textInputIdCommonArea.getText().trim();
 
@@ -366,6 +360,8 @@ public class TabCommonArea extends JPanel {
 
 				commonArea.setIdCommonArea(Integer.parseInt(textInputIdCommonArea.getText()));
 				String newNameCommonArea = textInputNameCommonArea.getText().trim();
+				newNameCommonArea = Normalizer.normalize(newNameCommonArea, Normalizer.Form.NFD)
+						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				String newStageCommonArea = textInputStageCommonArea.getText().trim();
 
 				if (newNameCommonArea.equals("") || newStageCommonArea.equals("")) {
@@ -470,6 +466,11 @@ public class TabCommonArea extends JPanel {
 						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 					}
 					listM.removeElementAt(index);
+					commonArea.setIdCommonArea(0);
+					commonArea.setEtageCommonArea(0);
+					commonArea.setListSensor(null);
+					commonArea.setNameCommonArea("");
+
 					textInputIdCommonArea.setText("");
 					textInputNameCommonArea.setText("");
 					textInputStageCommonArea.setText("");
@@ -499,7 +500,11 @@ public class TabCommonArea extends JPanel {
 					textInputIdCommonArea.setText(Integer.toString(commonArea.getIdCommonArea()));
 				}
 				textInputNameCommonArea.setText(commonArea.getNameCommonArea());
-				textInputStageCommonArea.setText(Integer.toString(commonArea.getEtageCommonArea()));
+				if (commonArea.getEtageCommonArea() == 0) {
+					textInputStageCommonArea.setText("");
+				} else {
+					textInputStageCommonArea.setText(Integer.toString(commonArea.getEtageCommonArea()));
+				}
 			}
 		});
 
@@ -545,11 +550,5 @@ public class TabCommonArea extends JPanel {
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);
 		this.setBackground(color);
-
-		// TODO mettre une barre de recherche et on affiche les résultat dans le Jlist
-		// Si il fait une recherche vide soit on met une pop up soit on affiche tout les
-		// commonAreas
-		// on crée deux list une avec tout les commonArea et une apres la recherche et
-		// comme ca on a pas besoin de refaire une demande!!
 	}
 }

@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,7 +33,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.blackmamba.deathkiss.entity.Employee;
-import com.blackmamba.deathkiss.gui.ClientSocket;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -52,7 +52,6 @@ public class TabEmployes extends JPanel {
 	private JPanel search;
 	private JLabel labelIdEmployee;
 	private JLabel labelSearch;
-	private JLabel idEmployee;
 	private JLabel labelLastnameEmployee;
 	private JLabel labelNameEmployee;
 	private JLabel labelFunction;
@@ -75,8 +74,8 @@ public class TabEmployes extends JPanel {
 	private Employee employee2;
 	private JScrollPane sc;
 	private ObjectMapper objectMapper;
-	private JComboBox typeSearch;
 	private List<Employee> listEmployee = new ArrayList<Employee>();
+	private List<Employee> listSearchEmployee = new ArrayList<Employee>();
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
 	private JList list;
 	private DefaultListModel listM;
@@ -100,7 +99,7 @@ public class TabEmployes extends JPanel {
 		/**
 		 * Definition of label Identifiant on header bar
 		 */
-		labelIdEmployee = new JLabel("Identifiant :   "+this.idemployee +"    ");
+		labelIdEmployee = new JLabel("Identifiant :   " + this.idemployee + "    ");
 		policeBar = new Font("Arial", Font.BOLD, 16);
 		labelIdEmployee.setForeground(Color.WHITE);
 		labelIdEmployee.setFont(policeBar);
@@ -145,13 +144,6 @@ public class TabEmployes extends JPanel {
 		search.add(searchBar);
 
 		/**
-		 * Definition of the list of possible choice
-		 */
-		typeSearch = new JComboBox();
-		typeSearch.setPreferredSize(new Dimension(150, 30));
-		search.add(typeSearch);
-
-		/**
 		 * Definition of the ValidButton
 		 */
 		validButton = new JButton();
@@ -161,11 +153,71 @@ public class TabEmployes extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-
+				employee2 = new Employee();
+				String searchReceived = searchBar.getText().trim();
+				if (!searchReceived.equals("")) {
+					if (searchReceived.matches("[0-9]+[0-9]*")) {
+						requestType = "READ";
+						employee2 = new Employee();
+						table = "Employee";
+						employee2.setIdEmployee(Integer.parseInt(searchReceived));
+						try {
+							jsonString = objectMapper.writeValueAsString(employee2);
+							new ClientSocket(requestType, jsonString, table);
+							jsonString = ClientSocket.getJson();
+							employee2 = objectMapper.readValue(jsonString, Employee.class);
+						} catch (Exception e1) {
+							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+						}
+						listM.removeAllElements();
+						if (!employee2.getLastnameEmployee().equals(""))
+							listM.addElement(employee2.getIdEmployee() + "# " + employee2.getLastnameEmployee() + " "
+									+ employee2.getNameEmployee() + " " + employee2.getPoste());
+					} else {
+						searchReceived = Normalizer.normalize(searchReceived, Normalizer.Form.NFD)
+								.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+						employee2.setLastnameEmployee(searchReceived);
+						requestType = "FIND ALL";
+						table = "Employee";
+						objectMapper = new ObjectMapper();
+						try {
+							jsonString = objectMapper.writeValueAsString(employee2);
+							new ClientSocket(requestType, jsonString, table);
+							jsonString = ClientSocket.getJson();
+							Employee[] employees = objectMapper.readValue(jsonString, Employee[].class);
+							listSearchEmployee = Arrays.asList(employees);
+						} catch (Exception e1) {
+							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+						}
+						listM.removeAllElements();
+						for (Employee employees : listSearchEmployee) {
+							listM.addElement(employees.getIdEmployee() + "# " + employees.getLastnameEmployee() + " "
+									+ employees.getNameEmployee() + " " + employees.getPoste());
+						}
+					}
+				} else {
+					requestType = "READ ALL";
+					table = "Employee";
+					objectMapper = new ObjectMapper();
+					try {
+						jsonString = "READ ALL";
+						new ClientSocket(requestType, jsonString, table);
+						jsonString = ClientSocket.getJson();
+						Employee[] employees = objectMapper.readValue(jsonString, Employee[].class);
+						listEmployee = Arrays.asList(employees);
+					} catch (Exception e1) {
+						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+					}
+					listM.removeAllElements();
+					for (Employee employees : listEmployee) {
+						listM.addElement(employees.getIdEmployee() + "# " + employees.getLastnameEmployee() + " "
+								+ employees.getNameEmployee() + " " + employees.getPoste());
+					}
+				}
+				searchBar.setText("");
 			}
 		});
-		
+
 		///////////////////////// LIST EMPLOYEE////////////////////////////////////////
 		employee = new Employee();
 		employee.setLastnameEmployee("");
@@ -198,6 +250,7 @@ public class TabEmployes extends JPanel {
 		sc.setBounds(30, 120, 300, ((int) getToolkit().getScreenSize().getHeight() - 300));
 		this.add(sc);
 
+		index = -9999;
 		MouseListener mouseListener = new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				index = list.locationToIndex(e.getPoint());
@@ -211,7 +264,6 @@ public class TabEmployes extends JPanel {
 				employee.setIdEmployee(Integer.parseInt(id));
 				try {
 					jsonString = objectMapper.writeValueAsString(employee);
-					;
 					new ClientSocket(requestType, jsonString, table);
 					jsonString = ClientSocket.getJson();
 					employee = objectMapper.readValue(jsonString, Employee.class);
@@ -340,13 +392,21 @@ public class TabEmployes extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String newLastnameEmployee = textInputLastnameEmployee.getText().trim();
+				newLastnameEmployee = Normalizer.normalize(newLastnameEmployee, Normalizer.Form.NFD)
+						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				String newNameEmployee = textInputNameEmployee.getText().trim();
+				newNameEmployee = Normalizer.normalize(newNameEmployee, Normalizer.Form.NFD)
+						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				String newFunctionEmployee = textInputFunctionEmployee.getText().trim();
+				newFunctionEmployee = Normalizer.normalize(newFunctionEmployee, Normalizer.Form.NFD)
+						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				char[] password = textInputPasswordEmployee.getPassword();
-				String newPasswordEmployee = new String(password);
+				String newPasswordEmployee = new String(password).trim();
 
-				if (newLastnameEmployee.equals("") || newNameEmployee.equals("") || newFunctionEmployee.equals("")) {
-					JOptionPane.showMessageDialog(null, "Champs vide", "Erreur", JOptionPane.ERROR_MESSAGE);
+				if (newLastnameEmployee.equals("") || newNameEmployee.equals("") || newFunctionEmployee.equals("")
+						|| newPasswordEmployee.equals("")) {
+					JOptionPane.showMessageDialog(null, "Champs vide ou contient uniquement des espaces", "Erreur",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
 					requestType = "READ";
 					table = "Employee";
@@ -397,6 +457,11 @@ public class TabEmployes extends JPanel {
 										+ employee.getNameEmployee() + " " + employee.getPoste());
 								JOptionPane.showMessageDialog(null, "L'insertion a été éffectué", "Infos",
 										JOptionPane.INFORMATION_MESSAGE);
+
+								textInputLastnameEmployee.setText("");
+								textInputNameEmployee.setText("");
+								textInputFunctionEmployee.setText("");
+								textInputPasswordEmployee.setText("");
 							}
 						} catch (Exception e1) {
 							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
@@ -423,8 +488,14 @@ public class TabEmployes extends JPanel {
 				table = "Employee";
 
 				String newLastnameEmployee = textInputLastnameEmployee.getText().trim();
+				newLastnameEmployee = Normalizer.normalize(newLastnameEmployee, Normalizer.Form.NFD)
+						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				String newNameEmployee = textInputNameEmployee.getText().trim();
+				newNameEmployee = Normalizer.normalize(newNameEmployee, Normalizer.Form.NFD)
+						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				String newFunctionEmployee = textInputFunctionEmployee.getText().trim();
+				newFunctionEmployee = Normalizer.normalize(newFunctionEmployee, Normalizer.Form.NFD)
+						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				char[] password = textInputPasswordEmployee.getPassword();
 				String newPasswordEmployee = new String(password);
 
@@ -501,7 +572,9 @@ public class TabEmployes extends JPanel {
 				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
 		this.add(restaure);
 		restaure.addActionListener(new ActionListener() {
-
+			/**
+			 * set the values of the last employee selected
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				textInputLastnameEmployee.setText(employee.getLastnameEmployee());
@@ -525,7 +598,7 @@ public class TabEmployes extends JPanel {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (employee.getIdEmployee() != 0) {
+				if (index != -9999) {
 					requestType = "DELETE";
 					table = "Employee";
 					try {
@@ -544,6 +617,12 @@ public class TabEmployes extends JPanel {
 						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 					}
 					listM.removeElementAt(index);
+					employee.setIdEmployee(0);
+					employee.setLastnameEmployee("");
+					employee.setNameEmployee("");
+					employee.setPoste("");
+					employee.setPassword("");
+
 					textInputLastnameEmployee.setText("");
 					textInputNameEmployee.setText("");
 					textInputFunctionEmployee.setText("");
@@ -561,7 +640,5 @@ public class TabEmployes extends JPanel {
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);
 		this.setBackground(color);
-
-		// TODO mettre une barre de recherche et on affiche les résultat dans le Jlist
 	}
 }

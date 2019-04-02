@@ -74,6 +74,7 @@ public class TimeServer {
 						logger.log(Level.INFO, "Client Connection recieved");
 						Thread t = new Thread(new RequestHandler(client, pool));
 						t.start();
+						
 					} catch (IOException | SQLException e) {
 					}
 				}

@@ -232,6 +232,8 @@ public class SensorDAO extends DAO<Sensor> {
 			Sensor sensor = objectMapper.readValue(jsonString, Sensor.class);
 			if (sensor.getIdCommonArea() != 0) {
 				request = "SELECT * FROM capteur where id_partie_commune = '" + sensor.getIdCommonArea() + "'";
+			} else if (sensor.getIdSensor() != 0) {
+				request = "SELECT * FROM capteur where id_capteur = '" + sensor.getIdSensor() + "'";
 			} else {
 				request = "SELECT * FROM capteur where type_capteur = '" + sensor.getTypeSensor() + "'";
 			}
