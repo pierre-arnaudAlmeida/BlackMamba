@@ -416,6 +416,26 @@ public class TabEmployes extends JPanel {
 							employee.setNameEmployee(newNameEmployee);
 							employee.setPoste(newFunctionEmployee);
 							employee.setPassword(newPasswordEmployee);
+							try {
+								jsonString = objectMapper.writeValueAsString(employee);
+								new ClientSocket(requestType, jsonString, table);
+								jsonString = ClientSocket.getJson();
+								if (!jsonString.equals("UPDATED")) {
+									JOptionPane.showMessageDialog(null, "La mise a jour a échoué", "Erreur",
+											JOptionPane.ERROR_MESSAGE);
+									logger.log(Level.INFO, "Impossible to update employee");
+								} else {
+									logger.log(Level.INFO, "Update Succeded");
+									textInputPasswordEmployee.setText("");
+									listM.set(index, employee.getIdEmployee() + "# " + employee.getLastnameEmployee()
+											+ " " + employee.getNameEmployee() + " " + employee.getPoste() + "");
+									JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos",
+											JOptionPane.INFORMATION_MESSAGE);
+								}
+							} catch (Exception e1) {
+								logger.log(Level.INFO,
+										"Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+							}
 						} else {
 							JOptionPane.showMessageDialog(null,
 									"Prend nous pour des amateurs encore une fois et on te bloque",
@@ -425,25 +445,6 @@ public class TabEmployes extends JPanel {
 						employee.setLastnameEmployee(newLastnameEmployee);
 						employee.setNameEmployee(newNameEmployee);
 						employee.setPoste(newFunctionEmployee);
-					}
-					try {
-						jsonString = objectMapper.writeValueAsString(employee);
-						new ClientSocket(requestType, jsonString, table);
-						jsonString = ClientSocket.getJson();
-						if (!jsonString.equals("UPDATED")) {
-							JOptionPane.showMessageDialog(null, "La mise a jour a échoué", "Erreur",
-									JOptionPane.ERROR_MESSAGE);
-							logger.log(Level.INFO, "Impossible to update employee");
-						} else {
-							logger.log(Level.INFO, "Insertion Succeded");
-							textInputPasswordEmployee.setText("");
-							listM.set(index, employee.getIdEmployee() + "# " + employee.getLastnameEmployee() + " "
-									+ employee.getNameEmployee() + " " + employee.getPoste() + "");
-							JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos",
-									JOptionPane.INFORMATION_MESSAGE);
-						}
-					} catch (Exception e1) {
-						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 					}
 				}
 			}

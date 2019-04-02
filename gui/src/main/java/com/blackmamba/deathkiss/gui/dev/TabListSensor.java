@@ -204,7 +204,6 @@ public class TabListSensor extends JPanel {
 	}
 
 	// TODO
-	// mettre une image
 	// ++ une barre de recherche dans la list des infos du tableau donc avoir deux
 	// tableau un avec toutes les infos et un autre avec les infos de la recherche
 }

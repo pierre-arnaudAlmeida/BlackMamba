@@ -371,9 +371,6 @@ public class TabCommonArea extends JPanel {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO recuperer la list des capteur en fonction de idcommmonArea (find All)
-				// puis faire une boucle pour update les capteurs
-				// et donc retirer les idcommonArea puis supp la commonArea
 				if (!textInputIdCommonArea.getText().toString().equals("")) {
 
 					requestType = "FIND ALL";
@@ -507,7 +504,6 @@ public class TabCommonArea extends JPanel {
 		this.add(bar, BorderLayout.NORTH);
 		this.setBackground(color);
 
-		// TODO mettre une image
 		// TODO mettre une barre de recherche et on affiche les résultat dans le Jlist
 		// Si il fait une recherche vide soit on met une pop up soit on affiche tout les
 		// commonAreas
