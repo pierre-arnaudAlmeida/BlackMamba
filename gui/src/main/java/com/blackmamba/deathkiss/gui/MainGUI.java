@@ -23,7 +23,7 @@ public class MainGUI {
 					//popupConnexion.setVisible(true);
 					
 					//pour aller plus vite dans le visionnage de la seconde fenetre
-					Frame frame = new Frame(80);
+					Frame frame = new Frame(169);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					logger.log(Level.INFO, "Impossible to create the window 'window' "+e.getClass().getCanonicalName());

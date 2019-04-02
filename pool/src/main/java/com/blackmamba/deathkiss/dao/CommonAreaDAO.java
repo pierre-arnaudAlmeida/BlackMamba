@@ -36,7 +36,8 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 		try {
 			Statement st = con.createStatement();
 			CommonArea commonArea = objectMapper.readValue(jsonString, CommonArea.class);
-			request = "insert into partie_commune (nom_partie_commune, etage_partie_commune) values ('" + commonArea.getNameCommonArea() + "','" + commonArea.getEtageCommonArea() + "')";
+			request = "insert into partie_commune (nom_partie_commune, etage_partie_commune) values ('"
+					+ commonArea.getNameCommonArea() + "','" + commonArea.getEtageCommonArea() + "')";
 			st.execute(request);
 			logger.log(Level.INFO, "CommonArea succesfully inserted in BDD");
 			return true;
@@ -71,11 +72,15 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 			Statement st = con.createStatement();
 			CommonArea commonArea = objectMapper.readValue(jsonString, CommonArea.class);
 			if (commonArea.getNameCommonArea().equals("") && commonArea.getEtageCommonArea() < 99) {
-				request = "UPDATE partie_commune SET etage_partie_commune = '" + commonArea.getEtageCommonArea() + "' where id_partie_commune = '" + commonArea.getIdCommonArea() + "'";
+				request = "UPDATE partie_commune SET etage_partie_commune = '" + commonArea.getEtageCommonArea()
+						+ "' where id_partie_commune = '" + commonArea.getIdCommonArea() + "'";
 			} else if (!(commonArea.getNameCommonArea().equals("")) && commonArea.getEtageCommonArea() >= 99) {
-				request = "UPDATE partie_commune SET nom_partie_commune = '" + commonArea.getNameCommonArea() + "' where id_partie_commune = '" + commonArea.getIdCommonArea() + "'";
+				request = "UPDATE partie_commune SET nom_partie_commune = '" + commonArea.getNameCommonArea()
+						+ "' where id_partie_commune = '" + commonArea.getIdCommonArea() + "'";
 			} else if (!(commonArea.getNameCommonArea().equals("")) && commonArea.getEtageCommonArea() < 99) {
-				request = "UPDATE partie_commune SET etage_partie_commune = '" + commonArea.getEtageCommonArea() + "', nom_partie_commune = '" + commonArea.getNameCommonArea() + "' where id_partie_commune = '" + commonArea.getIdCommonArea() + "'";
+				request = "UPDATE partie_commune SET etage_partie_commune = '" + commonArea.getEtageCommonArea()
+						+ "', nom_partie_commune = '" + commonArea.getNameCommonArea() + "' where id_partie_commune = '"
+						+ commonArea.getIdCommonArea() + "'";
 			} else
 				return false;
 			st.execute(request);
@@ -151,9 +156,11 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 			Statement st = con.createStatement();
 			CommonArea area = objectMapper.readValue(jsonString, CommonArea.class);
 			if (!(area.getNameCommonArea().equals("")))
-				request = "SELECT * FROM partie_commune where nom_partie_commune LIKE '%" + area.getNameCommonArea().toUpperCase() + "%'";
+				request = "SELECT * FROM partie_commune where nom_partie_commune LIKE '%"
+						+ area.getNameCommonArea().toUpperCase() + "%'";
 			else
-				request = "SELECT * FROM partie_commune where etage_partie_commune = '" + area.getEtageCommonArea() + "'";
+				request = "SELECT * FROM partie_commune where etage_partie_commune = '" + area.getEtageCommonArea()
+						+ "'";
 			result = st.executeQuery(request);
 			while (result.next()) {
 				commonArea = new CommonArea();
