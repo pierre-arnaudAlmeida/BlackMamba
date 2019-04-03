@@ -11,13 +11,14 @@ import java.util.logging.Logger;
  */
 public class MainGUI {
 
+	private static Connexion popupConnexion;
 	private static Logger logger = Logger.getLogger("logger");
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					// Connexion popupConnexion = new Connexion();
+					//popupConnexion = new Connexion();
 					// popupConnexion.setVisible(true);
 					logger.log(Level.INFO, "Application runned");
 

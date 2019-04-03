@@ -35,6 +35,14 @@ public class MainServer {
 	public static void main(String[] args) throws SQLException {
 		TimeServer ts = new TimeServer(host, port);
 		ts.open();
+
+		logger.log(Level.INFO, "______           _   _     _    _         ");
+		logger.log(Level.INFO, "|  _  \\         | | | |   | |  (_)        ");
+		logger.log(Level.INFO, "| | | |___  __ _| |_| |__ | | ___ ___ ___ ");
+		logger.log(Level.INFO, "| | | / _ \\/ _` | __| '_ \\| |/ / / __/ __|");
+		logger.log(Level.INFO, "| |/ /  __/ (_| | |_| | | |   <| \\__ \\__ \\");
+		logger.log(Level.INFO, "|___/ \\___|\\__,_|\\__|_| |_|_|\\_\\_|___/___/");
+		logger.log(Level.INFO, "                                          ");
 		logger.log(Level.INFO, "Server Initialized");
 
 		/**
