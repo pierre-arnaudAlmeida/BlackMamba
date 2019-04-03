@@ -15,6 +15,7 @@ D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\entity\SensorHisto
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\dao\FactoryType.java
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\socket\RequestHandler.java
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\socket\TimeServer.java
+D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\socket\JDBCConnectionPool.java
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\entity\SensorType.java
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\socket\MainServer.java
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\dao\DAO.java

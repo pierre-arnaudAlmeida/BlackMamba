@@ -31,12 +31,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 public class RequestHandler implements Runnable {
-	
+
 	/**
 	 * Initialization of diferents parameters
 	 */
 	private Socket sock;
-	private JDBCConnectionPool pool;
 	private PrintWriter writer = null;
 	private BufferedInputStream reader = null;
 	private String response;
@@ -47,9 +46,9 @@ public class RequestHandler implements Runnable {
 	private boolean result;
 	private Connection connection;
 
-	public RequestHandler(Socket pSock, JDBCConnectionPool pool) {
+	public RequestHandler(Socket pSock, Connection connection) {
 		this.sock = pSock;
-		this.pool = pool;
+		this.connection = connection;
 	}
 
 	/**
@@ -84,7 +83,7 @@ public class RequestHandler implements Runnable {
 							case "Sensor":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<Sensor> sensorDao = new SensorDAO(connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<Sensor> sensorDao = new SensorDAO(connection);
 									jsonString = ((SensorDAO) sensorDao).findAll(response);
 									writer.write(jsonString);
 									writer.flush();
@@ -96,7 +95,7 @@ public class RequestHandler implements Runnable {
 							case "Employee":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<Employee> employeeDao = new EmployeeDAO(connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<Employee> employeeDao = new EmployeeDAO(connection);
 									jsonString = ((EmployeeDAO) employeeDao).findByName(response);
 									writer.write(jsonString);
 									writer.flush();
@@ -108,7 +107,7 @@ public class RequestHandler implements Runnable {
 							case "Resident":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<Resident> residentDao = new ResidentDAO(connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<Resident> residentDao = new ResidentDAO(connection);
 									jsonString = ((ResidentDAO) residentDao).findByName(response);
 									writer.write(jsonString);
 									writer.flush();
@@ -120,7 +119,7 @@ public class RequestHandler implements Runnable {
 							case "CommonArea":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<CommonArea> commonAreaDao = new CommonAreaDAO(connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<CommonArea> commonAreaDao = new CommonAreaDAO(connection);
 									jsonString = ((CommonAreaDAO) commonAreaDao).findByName(response);
 									writer.write(jsonString);
 									writer.flush();
@@ -132,7 +131,7 @@ public class RequestHandler implements Runnable {
 							case "SensorHistorical":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(connection);
 									jsonString = ((SensorHistoricalDAO) sensorHistoricalDao).findBySensor(response);
 									writer.write(jsonString);
 									writer.flush();
@@ -152,7 +151,7 @@ public class RequestHandler implements Runnable {
 							response = read();
 							if (!response.equals("")) {
 								logger.log(Level.INFO, "Request received on server");
-								DAO<Employee> employeeDao = new EmployeeDAO(connection = DataSource.getConnectionFromJDBC(pool));
+								DAO<Employee> employeeDao = new EmployeeDAO(connection);
 								jsonString = ((EmployeeDAO) employeeDao).connection(response);
 								writer.write(jsonString);
 								writer.flush();
@@ -172,7 +171,7 @@ public class RequestHandler implements Runnable {
 							case "Employee":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<Employee> employeeDao = new EmployeeDAO(connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<Employee> employeeDao = new EmployeeDAO(connection);
 									setResult(((EmployeeDAO) employeeDao).create(response));
 									jsonString = "INSERTED";
 									writer.write(jsonString);
@@ -185,7 +184,7 @@ public class RequestHandler implements Runnable {
 							case "Resident":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<Resident> residentDao = new ResidentDAO(connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<Resident> residentDao = new ResidentDAO(connection);
 									setResult(((ResidentDAO) residentDao).create(response));
 									jsonString = "INSERTED";
 									writer.write(jsonString);
@@ -198,7 +197,7 @@ public class RequestHandler implements Runnable {
 							case "Sensor":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<Sensor> sensorDao = new SensorDAO(connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<Sensor> sensorDao = new SensorDAO(connection);
 									setResult(((SensorDAO) sensorDao).create(response));
 									jsonString = "INSERTED";
 									writer.write(jsonString);
@@ -211,8 +210,7 @@ public class RequestHandler implements Runnable {
 							case "CommonArea":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<CommonArea> commonAreaDao = new CommonAreaDAO(
-											connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<CommonArea> commonAreaDao = new CommonAreaDAO(connection);
 									setResult(((CommonAreaDAO) commonAreaDao).create(response));
 									jsonString = "INSERTED";
 									writer.write(jsonString);
@@ -225,8 +223,7 @@ public class RequestHandler implements Runnable {
 							case "SensorHistorical":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(
-											connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(connection);
 									setResult(((SensorHistoricalDAO) sensorHistoricalDao).create(response));
 									jsonString = "INSERTED";
 									writer.write(jsonString);
@@ -249,7 +246,7 @@ public class RequestHandler implements Runnable {
 							case "Employee":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<Employee> employeeDao = new EmployeeDAO(connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<Employee> employeeDao = new EmployeeDAO(connection);
 									setResult(((EmployeeDAO) employeeDao).update(response));
 									jsonString = "UPDATED";
 									writer.write(jsonString);
@@ -262,7 +259,7 @@ public class RequestHandler implements Runnable {
 							case "Resident":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<Resident> residentDao = new ResidentDAO(connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<Resident> residentDao = new ResidentDAO(connection);
 									setResult(((ResidentDAO) residentDao).update(response));
 									jsonString = "UPDATED";
 									writer.write(jsonString);
@@ -275,7 +272,7 @@ public class RequestHandler implements Runnable {
 							case "Sensor":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<Sensor> sensorDao = new SensorDAO(connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<Sensor> sensorDao = new SensorDAO(connection);
 									setResult(((SensorDAO) sensorDao).update(response));
 									jsonString = "UPDATED";
 									writer.write(jsonString);
@@ -288,8 +285,7 @@ public class RequestHandler implements Runnable {
 							case "CommonArea":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<CommonArea> commonAreaDao = new CommonAreaDAO(
-											connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<CommonArea> commonAreaDao = new CommonAreaDAO(connection);
 									setResult(((CommonAreaDAO) commonAreaDao).update(response));
 									jsonString = "UPDATED";
 									writer.write(jsonString);
@@ -302,8 +298,7 @@ public class RequestHandler implements Runnable {
 							case "SensorHistorical":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(
-											connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(connection);
 									setResult(((SensorHistoricalDAO) sensorHistoricalDao).update(response));
 									jsonString = "UPDATED";
 									writer.write(jsonString);
@@ -326,7 +321,7 @@ public class RequestHandler implements Runnable {
 							case "Employee":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<Employee> employeeDao = new EmployeeDAO( connection =DataSource.getConnectionFromJDBC(pool));
+									DAO<Employee> employeeDao = new EmployeeDAO(connection);
 									setResult(((EmployeeDAO) employeeDao).delete(response));
 									jsonString = "DELETED";
 									writer.write(jsonString);
@@ -339,7 +334,7 @@ public class RequestHandler implements Runnable {
 							case "Resident":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<Resident> residentDao = new ResidentDAO(connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<Resident> residentDao = new ResidentDAO(connection);
 									setResult(((ResidentDAO) residentDao).delete(response));
 									jsonString = "DELETED";
 									writer.write(jsonString);
@@ -352,7 +347,7 @@ public class RequestHandler implements Runnable {
 							case "Sensor":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<Sensor> sensorDao = new SensorDAO(connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<Sensor> sensorDao = new SensorDAO(connection);
 									setResult(((SensorDAO) sensorDao).delete(response));
 									jsonString = "DELETED";
 									writer.write(jsonString);
@@ -365,8 +360,7 @@ public class RequestHandler implements Runnable {
 							case "CommonArea":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<CommonArea> commonAreaDao = new CommonAreaDAO(
-											connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<CommonArea> commonAreaDao = new CommonAreaDAO(connection);
 									setResult(((CommonAreaDAO) commonAreaDao).delete(response));
 									jsonString = "DELETED";
 									writer.write(jsonString);
@@ -379,8 +373,7 @@ public class RequestHandler implements Runnable {
 							case "SensorHistorical":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(
-											connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(connection);
 									setResult(((SensorHistoricalDAO) sensorHistoricalDao).delete(response));
 									jsonString = "DELETED";
 									writer.write(jsonString);
@@ -403,7 +396,7 @@ public class RequestHandler implements Runnable {
 							case "Employee":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<Employee> employeeDao = new EmployeeDAO(connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<Employee> employeeDao = new EmployeeDAO(connection);
 									jsonString = ((EmployeeDAO) employeeDao).read(response);
 									writer.write(jsonString);
 									writer.flush();
@@ -415,7 +408,7 @@ public class RequestHandler implements Runnable {
 							case "Resident":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<Resident> residentDao = new ResidentDAO(connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<Resident> residentDao = new ResidentDAO(connection);
 									jsonString = ((ResidentDAO) residentDao).read(response);
 									writer.write(jsonString);
 									writer.flush();
@@ -427,7 +420,7 @@ public class RequestHandler implements Runnable {
 							case "Sensor":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<Sensor> sensorDao = new SensorDAO(connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<Sensor> sensorDao = new SensorDAO(connection);
 									jsonString = ((SensorDAO) sensorDao).read(response);
 									writer.write(jsonString);
 									writer.flush();
@@ -439,8 +432,7 @@ public class RequestHandler implements Runnable {
 							case "CommonArea":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<CommonArea> commonAreaDao = new CommonAreaDAO(
-											connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<CommonArea> commonAreaDao = new CommonAreaDAO(connection);
 									jsonString = ((CommonAreaDAO) commonAreaDao).read(response);
 									writer.write(jsonString);
 									writer.flush();
@@ -452,8 +444,7 @@ public class RequestHandler implements Runnable {
 							case "SensorHistorical":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(
-											connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(connection);
 									jsonString = ((SensorHistoricalDAO) sensorHistoricalDao).read(response);
 									writer.write(jsonString);
 									writer.flush();
@@ -475,7 +466,7 @@ public class RequestHandler implements Runnable {
 							case "Employee":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<Employee> employeeDao = new EmployeeDAO(connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<Employee> employeeDao = new EmployeeDAO(connection);
 									jsonString = ((EmployeeDAO) employeeDao).readAll(response);
 									writer.write(jsonString);
 									writer.flush();
@@ -487,7 +478,7 @@ public class RequestHandler implements Runnable {
 							case "Resident":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<Resident> residentDao = new ResidentDAO( connection =DataSource.getConnectionFromJDBC(pool));
+									DAO<Resident> residentDao = new ResidentDAO(connection);
 									jsonString = ((ResidentDAO) residentDao).readAll(response);
 									writer.write(jsonString);
 									writer.flush();
@@ -499,7 +490,7 @@ public class RequestHandler implements Runnable {
 							case "Sensor":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<Sensor> sensorDao = new SensorDAO( connection = DataSource.getConnectionFromJDBC(pool));
+									DAO<Sensor> sensorDao = new SensorDAO(connection);
 									jsonString = ((SensorDAO) sensorDao).readAll(response);
 									writer.write(jsonString);
 									writer.flush();
@@ -511,8 +502,7 @@ public class RequestHandler implements Runnable {
 							case "CommonArea":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<CommonArea> commonAreaDao = new CommonAreaDAO(
-											connection =DataSource.getConnectionFromJDBC(pool));
+									DAO<CommonArea> commonAreaDao = new CommonAreaDAO(connection);
 									jsonString = ((CommonAreaDAO) commonAreaDao).readAll(response);
 									writer.write(jsonString);
 									writer.flush();
@@ -524,8 +514,7 @@ public class RequestHandler implements Runnable {
 							case "SensorHistorical":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
-									DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(
-											connection =DataSource.getConnectionFromJDBC(pool));
+									DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(connection);
 									jsonString = ((SensorHistoricalDAO) sensorHistoricalDao).readAll(response);
 									writer.write(jsonString);
 									writer.flush();
@@ -540,7 +529,6 @@ public class RequestHandler implements Runnable {
 						response = read();
 						if (response.equals("CLOSE")) {
 							sock.close();
-							DataSource.returnConnection(pool, connection);//TODO
 							logger.log(Level.INFO, "Socket Closed by Server");
 						}
 					} else {
@@ -566,7 +554,7 @@ public class RequestHandler implements Runnable {
 						logger.log(Level.INFO, "Socket Closed by Server");
 					}
 				}
-			} catch (SQLException | IOException e) {
+			} catch (IOException e) {
 				logger.log(Level.INFO, "Impossible to execute the request " + e.getClass().getCanonicalName());
 			}
 		}
