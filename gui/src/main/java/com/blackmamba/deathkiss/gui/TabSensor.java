@@ -74,10 +74,10 @@ public class TabSensor extends JPanel {
 	private List<Sensor> listSearchSensor = new ArrayList<Sensor>();
 	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
-	private JComboBox textInputNameCommonArea;
-	private JComboBox textInputTypeSensor;
-	private DefaultListModel listM;
-	private JList list;
+	private JComboBox<String> textInputNameCommonArea;
+	private JComboBox<String> textInputTypeSensor;
+	private DefaultListModel<String> listM;
+	private JList<String> list;
 
 	public TabSensor() {
 	}
@@ -189,7 +189,6 @@ public class TabSensor extends JPanel {
 						} catch (Exception e1) {
 							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 						}
-						listM.removeAllElements();
 						if (listSearchSensor.size() > 0)
 							listM.addElement("Résultat capteurs avec l'id partie commune  : " + searchReceived);
 						for (Sensor sensors : listSearchSensor) {
@@ -197,7 +196,6 @@ public class TabSensor extends JPanel {
 									+ sensors.getSensorState() + " " + sensors.getIdCommonArea());
 						}
 					} else {
-						// TODO mettre avec les type de sensor
 						sensor2 = new Sensor();
 						if (searchReceived.toUpperCase().equals("S") || searchReceived.toUpperCase().equals("SM")
 								|| searchReceived.toUpperCase().equals("SMO")
@@ -305,7 +303,7 @@ public class TabSensor extends JPanel {
 		/**
 		 * Definition of the List CommonArea
 		 */
-		textInputNameCommonArea = new JComboBox();
+		textInputNameCommonArea = new JComboBox<String>();
 
 		///////////////////////// FROM LIST SENSOR//////////////////////////////////////
 		if (idSensor != 0) {
@@ -345,13 +343,13 @@ public class TabSensor extends JPanel {
 			logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 		}
 
-		listM = new DefaultListModel();
+		listM = new DefaultListModel<String>();
 		for (Sensor sensors : listSensor) {
 			listM.addElement(sensors.getIdSensor() + "#" + sensors.getTypeSensor() + " " + sensors.getSensorState()
 					+ " " + sensors.getIdCommonArea());
 		}
 
-		list = new JList(listM);
+		list = new JList<String>(listM);
 		sc = new JScrollPane(list);
 
 		sc.setBounds(30, 120, 300, ((int) getToolkit().getScreenSize().getHeight() - 300));
@@ -482,7 +480,7 @@ public class TabSensor extends JPanel {
 		 */
 		String[] types = { "SMOKE", "MOVE", "TEMPERATURE", "WINDOW", "DOOR", "ELEVATOR", "LIGHT", "FIRE", "BADGE",
 				"ROUTER" };
-		textInputTypeSensor = new JComboBox(types);
+		textInputTypeSensor = new JComboBox<String>(types);
 		textInputTypeSensor.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
 				(int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);
 		textInputTypeSensor.setFont(policeLabel);

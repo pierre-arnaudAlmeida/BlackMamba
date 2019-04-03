@@ -18,7 +18,7 @@ import org.apache.logging.log4j.Logger;
  * @author Pierre-Arnaud
  *
  */
-public class JDBCConnectionPool implements Runnable {
+public class JDBCConnectionPool{
 
 	/**
 	 *  Definition of diferents fields
@@ -28,14 +28,13 @@ public class JDBCConnectionPool implements Runnable {
 	private String url;
 	private String user;
 	private String password;
-	private int maxConnection;
+	private int maxConnection, nbcon;
 	private boolean busy;
 	private boolean connectionPending = false;
 	final Properties prop = new Properties();
 
 	// Definition of Lists
 	private List<Connection> availableConnections, availableConnectionsArrayList;
-	private List<Connection> busyConnections, busyConnectionsArrayList;
 
 	/**
 	 * Get informations from confirugation.propreties Initialization of fields with
@@ -51,7 +50,7 @@ public class JDBCConnectionPool implements Runnable {
 		int initialConnections = 0;
 
 		ResourceBundle rs = ResourceBundle.getBundle("config");
-
+nbcon=0;
 		this.driver = rs.getString("db.driver");
 		this.url = rs.getString("db.url");
 		this.user = rs.getString("db.username");
@@ -67,8 +66,6 @@ public class JDBCConnectionPool implements Runnable {
 		}
 		availableConnectionsArrayList = new ArrayList<Connection>(initialConnections);
 		availableConnections = Collections.synchronizedList(availableConnectionsArrayList);
-		busyConnectionsArrayList = new ArrayList<Connection>();
-		busyConnections = Collections.synchronizedList(busyConnectionsArrayList);
 		for (int i = 0; i < initialConnections; i++) {
 			availableConnections.add(newConnection());
 		}
@@ -87,55 +84,26 @@ public class JDBCConnectionPool implements Runnable {
 			int lastIndex = availableConnections.size() - 1;
 			availableConnections.remove(lastIndex);
 			if (existingConnection.isClosed()) {
+				nbcon--;
 				notifyAll();
 				return (getConnection());
 			} else {
-				busyConnections.add(existingConnection);
+				nbcon++;
 				return (existingConnection);
 			}
 		} else {
-			if ((getTotalConnections() < maxConnection) && !connectionPending) {
-				backgroundConnection();
+			if ((nbcon < maxConnection)) {
+				Connection connection = newConnection();
+				synchronized (this) {
+					availableConnections.add(connection);
+					notifyAll();}
 			} else if (!busy) {
 				throw new SQLException("Connection limit reached");
-			}
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				logger.log(Level.INFO, "Mise en attente des Thread " + e.getClass().getCanonicalName());
 			}
 			return (getConnection());
 		}
 	}
 
-	/**
-	 * Run the method start to run the different process define on method Run()
-	 */
-	private void backgroundConnection() {
-		connectionPending = true;
-		try {
-			Thread connectThread = new Thread(this);
-			connectThread.start();
-		} catch (OutOfMemoryError e) {
-			logger.log(Level.INFO, "Out of Memory " + e.getClass().getCanonicalName());
-		}
-	}
-
-	/**
-	 * Create a connection and add on available list
-	 */
-	public void run() {
-		try {
-			Connection connection = newConnection();
-			synchronized (this) {
-				availableConnections.add(connection);
-				connectionPending = false;
-				notifyAll();
-			}
-		} catch (Exception e) {
-			logger.log(Level.INFO, e.getMessage() + " " + e.getClass().getCanonicalName());
-		}
-	}
 
 	/**
 	 * Creation of the connection with the informations from the file @return
@@ -163,8 +131,8 @@ public class JDBCConnectionPool implements Runnable {
 	 * @param connection
 	 */
 	public synchronized void free(Connection connection) {
-		busyConnections.remove(connection);
 		availableConnections.add(connection);
+		nbcon--;
 		notifyAll();
 	}
 
@@ -174,7 +142,7 @@ public class JDBCConnectionPool implements Runnable {
 	 * @return
 	 */
 	public synchronized int getTotalConnections() {
-		return (availableConnections.size() + busyConnections.size());
+		return (availableConnections.size());
 	}
 
 	/**
@@ -184,8 +152,7 @@ public class JDBCConnectionPool implements Runnable {
 	public synchronized void closeAllConnections() {
 		closeConnections(availableConnections);
 		availableConnections = new ArrayList<Connection>();
-		closeConnections(busyConnections);
-		busyConnections = new ArrayList<Connection>();
+		nbcon=0;
 	}
 
 	/**

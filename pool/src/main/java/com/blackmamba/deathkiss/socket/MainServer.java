@@ -2,9 +2,9 @@ package com.blackmamba.deathkiss.socket;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.Timer;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,8 +30,9 @@ public class MainServer {
 	 * Main to open the Server
 	 * 
 	 * @param args
+	 * @throws SQLException
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		TimeServer ts = new TimeServer(host, port);
 		ts.open();
 		logger.log(Level.INFO, "Server Initialized");
@@ -51,7 +52,6 @@ public class MainServer {
 					minute = 0;
 					heure++;
 				}
-				logger.log(Level.INFO, "Time launched : " + heure + ":" + minute + ":" + seconde);
 			}
 		};
 		final Timer timer1 = new Timer(delais, tache_timer);

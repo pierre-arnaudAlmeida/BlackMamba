@@ -80,7 +80,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.blackmamba.deathkiss.gui.prod.ProdGUI</mainClass>
+							<mainClass>com.blackmamba.deathkiss.gui.MainGUI</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>

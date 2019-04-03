@@ -31,16 +31,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class Connexion extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel container;
-	private JPanel pan;
-	private JPanel pan2;
-	private JPanel pan3;
+	private JPanel frameContainer;
+	private JPanel idEmployeePan;
+	private JPanel passwordEmployeePan;
+	private JPanel buttonPan;
 	private JPasswordField textInputPassword;
 	private JTextField textInputIdEmployee;
 	private JLabel labelIdEmployee;
 	private JLabel labelPassword;
-	private JButton buttonConnection;
-	private JButton buttonLeave;
+	private JButton connectionButton;
+	private JButton leaveButton;
 	private Font police;
 	private String idEmployee;
 	private String password;
@@ -52,69 +52,73 @@ public class Connexion extends JFrame {
 	private static final Logger logger = LogManager.getLogger(Connexion.class);
 
 	public Connexion() {
-		/**
-		 * initialisation of different element
-		 */
-		container = new JPanel();
-		labelIdEmployee = new JLabel("Identifiant");
-		textInputIdEmployee = new JTextField();
-		labelPassword = new JLabel("Mot de Passe");
-		textInputPassword = new JPasswordField();
-		buttonConnection = new JButton("Se Connecter");
-		buttonLeave = new JButton("Quitter");
 
 		/**
-		 * Definition of different pan present in the popup
+		 * initialisation of container of frame
 		 */
-		container.setBackground(Color.WHITE);
-		pan = new JPanel();
-		pan2 = new JPanel();
-		pan3 = new JPanel();
+		frameContainer = new JPanel();
+		frameContainer.setBackground(Color.WHITE);
+
+		idEmployeePan = new JPanel();
+		idEmployeePan.setBackground(Color.WHITE);
+		passwordEmployeePan = new JPanel();
+		passwordEmployeePan.setBackground(Color.WHITE);
+		buttonPan = new JPanel();
+
+		/**
+		 * Definition of font
+		 */
 		police = new Font("Arial", Font.BOLD, 14);
 
+		///////////////////////// LABEL/////////////////////////////////////////////////
 		/**
-		 * Line who get the identifiant employee
+		 * Definition of labelIdEmployee
 		 */
+		labelIdEmployee = new JLabel("Identifiant");
 		labelIdEmployee.setPreferredSize(new Dimension(100, 30));
-		pan.add(labelIdEmployee);
+		idEmployeePan.add(labelIdEmployee);
+
+		/**
+		 * Definition of labelPassord
+		 */
+		labelPassword = new JLabel("Mot de Passe");
+		labelPassword.setPreferredSize(new Dimension(100, 30));
+		passwordEmployeePan.add(labelPassword);
+
+		///////////////////////// TEXTFIELD////////////////////////////////////////////
+		/**
+		 * Definition of IdEmployee TextField
+		 */
+		textInputIdEmployee = new JTextField();
 		textInputIdEmployee.setFont(police);
 		textInputIdEmployee.setPreferredSize(new Dimension(150, 30));
 		textInputIdEmployee.setForeground(Color.BLACK);
-		pan.add(textInputIdEmployee);
-		pan.setBackground(Color.WHITE);
+		idEmployeePan.add(textInputIdEmployee);
 
 		/**
-		 * Line who get the password employee
+		 * Definition of PasswordField
 		 */
-		labelPassword.setPreferredSize(new Dimension(100, 30));
-		pan2.add(labelPassword);
+		textInputPassword = new JPasswordField();
 		textInputPassword.setFont(police);
 		textInputPassword.setPreferredSize(new Dimension(150, 30));
 		textInputPassword.setForeground(Color.BLACK);
-		pan2.add(textInputPassword);
-		pan2.setBackground(Color.WHITE);
+		passwordEmployeePan.add(textInputPassword);
 
+		///////////////////////// BUTTON/////////////////////////////////////////////////
 		/**
-		 * Display the content of TextField password employee When we check the CheckBox
-		 * "Montrer le mot de passe"
-		 */
-		final JCheckBox showButton = new JCheckBox("Montrer le mot de passe");
-		showButton.setBounds(147, 150, 171, 23);
-		showButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (showButton.isSelected()) {
-					textInputPassword.setEchoChar((char) 0);
-				} else {
-					textInputPassword.setEchoChar('*');
-				}
-			}
-		});
-
-		/**
+		 * Definition of connectionButton
+		 * 
 		 * Actions when we pressed the button Connection Send parameter to create an
 		 * socket to connect the employee
 		 */
-		buttonConnection.addActionListener(new ActionListener() {
+		connectionButton = new JButton("Se Connecter");
+		buttonPan.add(connectionButton);
+		connectionButton.addActionListener(new ActionListener() {
+			/**
+			 * We check if the id are just numerics and if his not null and the password
+			 * need to be not null to send the request, else we display a popup to inform
+			 * the user
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				requestType = "CONNECTION";
@@ -139,7 +143,8 @@ public class Connexion extends JFrame {
 						jsonString = ClientSocket.getJson();
 						employee = connectionMapper.readValue(jsonString, Employee.class);
 					} catch (IOException e1) {
-						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+						logger.log(Level.INFO,
+								"Impossible to parse in JSON connection datas" + e1.getClass().getCanonicalName());
 					}
 					if (!employee.getLastnameEmployee().equals("")) {
 						Frame frame = new Frame(employee.getIdEmployee());
@@ -153,6 +158,7 @@ public class Connexion extends JFrame {
 								JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
+					logger.log(Level.INFO, "Crash of application, Application closed");
 					JOptionPane.showMessageDialog(null, "Une Erreur est survenue, relancez l'application", "Attention",
 							JOptionPane.WARNING_MESSAGE);
 				}
@@ -160,9 +166,13 @@ public class Connexion extends JFrame {
 		});
 
 		/**
+		 * Definition of leaveButton
+		 * 
 		 * Close the window if we press the button Quitter
 		 */
-		buttonLeave.addActionListener(new ActionListener() {
+		leaveButton = new JButton("Quitter");
+		buttonPan.add(leaveButton);
+		leaveButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				logger.log(Level.INFO, "Application closed, after disconnection");
@@ -171,19 +181,36 @@ public class Connexion extends JFrame {
 		});
 
 		/**
+		 * Definition of showButton
+		 */
+		final JCheckBox showButton = new JCheckBox("Montrer le mot de passe");
+		showButton.setBounds(147, 150, 171, 23);
+		showButton.addActionListener(new ActionListener() {
+			/**
+			 * Display the content of TextField password employee When we check the CheckBox
+			 * "Montrer le mot de passe"
+			 */
+			public void actionPerformed(ActionEvent e) {
+				if (showButton.isSelected()) {
+					textInputPassword.setEchoChar((char) 0);
+				} else {
+					textInputPassword.setEchoChar('*');
+				}
+			}
+		});
+
+		/**
 		 * Add components in the window container
 		 */
-		pan3.add(buttonConnection);
-		pan3.add(buttonLeave);
-		container.add(pan);
-		container.add(pan2);
-		container.add(showButton);
-		container.add(pan3);
+		frameContainer.add(idEmployeePan);
+		frameContainer.add(passwordEmployeePan);
+		frameContainer.add(showButton);
+		frameContainer.add(buttonPan);
 
 		/**
 		 * diferent parameters of the window
 		 */
-		this.setContentPane(container);
+		this.setContentPane(frameContainer);
 		this.setTitle("Connexion");
 		this.setSize(350, 200);
 		this.setLocationRelativeTo(null);

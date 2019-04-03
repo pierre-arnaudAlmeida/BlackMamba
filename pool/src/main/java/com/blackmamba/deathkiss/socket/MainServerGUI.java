@@ -2,13 +2,11 @@ package com.blackmamba.deathkiss.socket;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,18 +30,23 @@ public class MainServerGUI extends JFrame {
 	private int minute = 0;
 	private int seconde = 0;
 	private ActionListener tache_timer;
+	Timer timer1;
 
 	public MainServerGUI() {
 		JLabel time = new JLabel();
+		JPanel container = new JPanel();
 		/**
 		 * Create a button to launch the server
 		 */
+		TimeServer ts = new TimeServer(host, port);
+
 		JButton launch = new JButton("Lancer le server");
 		launch.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				ts.load();
 				if (nbServer == 0) {
-					TimeServer ts = new TimeServer(host, port);
+
 					ts.open();
 					nbServer++;
 					logger.log(Level.INFO, "Server Initialized");
@@ -64,10 +67,47 @@ public class MainServerGUI extends JFrame {
 								heure++;
 							}
 							time.setText(heure + ":" + minute + ":" + seconde);
-							//logger.log(Level.INFO, "Time launched : "+heure + ":" + minute + ":" + seconde);
 						}
 					};
-					final Timer timer1 = new Timer(delais, tache_timer);
+					timer1 = new Timer(delais, tache_timer);
+					timer1.start();
+
+				} else {
+					logger.log(Level.INFO, "Server already launch");
+				}
+			}
+		});
+
+		JButton launchFake = new JButton("Lancer le server Brider");
+		launchFake.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ts.load();
+				if (nbServer == 0) {
+
+					ts.openFake();
+					nbServer++;
+					logger.log(Level.INFO, "Server Initialized");
+
+					/**
+					 * Creation of Timer to know how many time the server was launch
+					 */
+					int delais = 1000;
+					tache_timer = new ActionListener() {
+						public void actionPerformed(ActionEvent e1) {
+							seconde++;
+							if (seconde == 60) {
+								seconde = 0;
+								minute++;
+							}
+							if (minute == 60) {
+								minute = 0;
+								heure++;
+							}
+							time.setText(heure + ":" + minute + ":" + seconde);
+						}
+					};
+					timer1 = new Timer(delais, tache_timer);
 					timer1.start();
 
 				} else {
@@ -83,17 +123,21 @@ public class MainServerGUI extends JFrame {
 		stop.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				ts.close();
+				timer1.stop();
+				nbServer = 0;
 				logger.log(Level.INFO, "Server Closed");
 				logger.log(Level.INFO, "Application closed");
-				System.exit(DISPOSE_ON_CLOSE);
+				// System.exit(DISPOSE_ON_CLOSE);
 			}
 		});
 
 		/**
 		 * Create of panel to add the button
 		 */
-		JPanel container = new JPanel();
+
 		container.add(launch);
+		container.add(launchFake);
 		container.add(stop);
 		container.add(time);
 

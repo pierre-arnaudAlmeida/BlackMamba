@@ -73,8 +73,8 @@ public class TabEmployes extends JPanel {
 	private List<Employee> listEmployee = new ArrayList<Employee>();
 	private List<Employee> listSearchEmployee = new ArrayList<Employee>();
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
-	private JList list;
-	private DefaultListModel listM;
+	private JList<String> list;
+	private DefaultListModel<String> listM;
 
 	public TabEmployes() {
 	}
@@ -239,13 +239,13 @@ public class TabEmployes extends JPanel {
 			logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 		}
 
-		listM = new DefaultListModel();
+		listM = new DefaultListModel<String>();
 		for (Employee employees : listEmployee) {
 			listM.addElement(employees.getIdEmployee() + "# " + employees.getLastnameEmployee() + " "
 					+ employees.getNameEmployee() + " " + employees.getPoste());
 		}
 
-		list = new JList(listM);
+		list = new JList<String>(listM);
 		sc = new JScrollPane(list);
 
 		sc.setBounds(30, 120, 300, ((int) getToolkit().getScreenSize().getHeight() - 300));
