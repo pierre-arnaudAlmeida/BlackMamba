@@ -2,6 +2,9 @@ package com.blackmamba.deathkiss.gui;
 
 import java.awt.Color;
 import javax.swing.*;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * 
@@ -10,6 +13,9 @@ import javax.swing.*;
  */
 public class Frame extends JFrame {
 
+	/**
+	 * Diferent parameters used
+	 */
 	private static final long serialVersionUID = 1L;
 	private static JTabbedPane tab;
 	private TabEmployes tabEmployes;
@@ -19,9 +25,21 @@ public class Frame extends JFrame {
 	private TabHistorical tabHistorical;
 	private TabProfile tabProfile;
 	private int idEmployee;
+	private static final Logger logger = LogManager.getLogger(Frame.class);
 
 	public Frame(int idEmployee) {
 		this.idEmployee = idEmployee;
+
+		/**
+		 * LOGO
+		 */
+		logger.log(Level.INFO, "______           _   _     _    _         ");
+		logger.log(Level.INFO, "|  _  \\         | | | |   | |  (_)        ");
+		logger.log(Level.INFO, "| | | |___  __ _| |_| |__ | | ___ ___ ___ ");
+		logger.log(Level.INFO, "| | | / _ \\/ _` | __| '_ \\| |/ / / __/ __|");
+		logger.log(Level.INFO, "| |/ /  __/ (_| | |_| | | |   <| \\__ \\__ \\");
+		logger.log(Level.INFO, "|___/ \\___|\\__,_|\\__|_| |_|_|\\_\\_|___/___/");
+		logger.log(Level.INFO, "                                          ");
 
 		/**
 		 * Creation of diferents tabs
@@ -57,7 +75,6 @@ public class Frame extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().add(tab);
-
 	}
 
 	/**

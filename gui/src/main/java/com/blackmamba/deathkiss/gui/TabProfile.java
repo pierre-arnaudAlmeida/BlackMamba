@@ -327,24 +327,6 @@ public class TabProfile extends JPanel {
 			}
 		});
 
-		JButton sleep = new JButton("sleep");
-		sleep.setBounds(500,
-				500, 200, 40);
-		this.add(sleep);
-		sleep.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				requestType = "SLEEP";
-				try {
-					jsonString = readMapper.writeValueAsString(employee2);
-					new ClientSocket(requestType, jsonString, table);
-				} catch (IOException e1) {
-					logger.log(Level.INFO, "bugg sleep " + e1.getClass().getCanonicalName());
-				}
-			}
-		});
 		/**
 		 * Diferent parameters of the window
 		 */
