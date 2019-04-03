@@ -12,7 +12,6 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -22,14 +21,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.entity.CommonArea;
 import com.blackmamba.deathkiss.entity.Sensor;
-import com.blackmamba.deathkiss.entity.SensorType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -42,24 +38,22 @@ public class TabListSensor extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private int idemployee;
 	private int index;
-	private int idSensor;
 	private String requestType;
 	private String table;
 	private String jsonString;
 	private JPanel bar;
 	private JLabel labelIdEmployee;
-	private JLabel idEmployee;
 	private Font police;
 	private JButton disconnection;
 	private JButton checkSensor;
 	private JButton newCommonArea;
 	private CommonArea commonArea;
-	private JList tableau;
-	private DefaultListModel tableModel;
+	private JScrollPane sc;
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private static final Logger logger = LogManager.getLogger(TabListSensor.class);
 	private Object[][] listM;
-	private JScrollPane sc;
+	private JList<String> tableau;
+	private DefaultListModel<String> tableModel;
 
 	public TabListSensor() {
 	}
@@ -79,7 +73,7 @@ public class TabListSensor extends JPanel {
 		/**
 		 * Definition of label Identifiant on header bar
 		 */
-		labelIdEmployee = new JLabel("Identifiant :   "+this.idemployee +"    ");
+		labelIdEmployee = new JLabel("Identifiant :   " + this.idemployee + "    ");
 		police = new Font("Arial", Font.BOLD, 16);
 		labelIdEmployee.setForeground(Color.WHITE);
 		labelIdEmployee.setFont(police);
@@ -117,8 +111,8 @@ public class TabListSensor extends JPanel {
 			logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 		}
 
-		tableModel = new DefaultListModel();
-		tableau = new JList(tableModel);
+		tableModel = new DefaultListModel<String>();
+		tableau = new JList<String>(tableModel);
 		tableModel.addElement("Identifiant, Capteur Type, Etat, Nom Partie Commune");
 
 		for (Sensor sensors : listSensor) {
@@ -198,8 +192,4 @@ public class TabListSensor extends JPanel {
 		this.setBackground(Color.GRAY);
 
 	}
-
-	// TODO
-	// ++ une barre de recherche dans la list des infos du tableau donc avoir deux
-	// tableau un avec toutes les infos et un autre avec les infos de la recherche
 }

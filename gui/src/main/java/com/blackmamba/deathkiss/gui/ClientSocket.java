@@ -34,7 +34,7 @@ public class ClientSocket {
 	public ClientSocket(String requestType, String jsonString, String table) {
 		this.requestType = requestType;
 		this.table = table;
-		ClientSocket.jsonString = jsonString;
+		ClientSocket.setJsonString(jsonString);
 		try {
 			connexion = new Socket(host, port);
 			writer = new PrintWriter(connexion.getOutputStream(), true);
@@ -84,7 +84,7 @@ public class ClientSocket {
 
 					response = read();
 					if (!response.equals("ERROR")) {
-						ClientSocket.jsonString = response;
+						ClientSocket.setJsonString(response);
 						logger.log(Level.INFO, "Datas received on client");
 						response = "CLOSE";
 						writer.write(response);
@@ -141,7 +141,11 @@ public class ClientSocket {
 	 * 
 	 * @return JsonString
 	 */
-	static String getJson() {
+	public static String getJson() {
 		return jsonString;
+	}
+
+	public static void setJsonString(String jsonString) {
+		ClientSocket.jsonString = jsonString;// TODO ca a été modifier voir résultat
 	}
 }

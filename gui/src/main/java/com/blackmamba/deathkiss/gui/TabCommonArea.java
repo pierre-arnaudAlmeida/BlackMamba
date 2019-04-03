@@ -13,11 +13,9 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -25,13 +23,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.entity.CommonArea;
-import com.blackmamba.deathkiss.entity.Employee;
 import com.blackmamba.deathkiss.entity.Sensor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -77,8 +72,8 @@ public class TabCommonArea extends JPanel {
 	private List<CommonArea> listSearchCommonArea = new ArrayList<CommonArea>();
 	private List<Sensor> listSensorUsed = new ArrayList<Sensor>();
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
-	private JList list;
-	private DefaultListModel listM;
+	private JList<String> list;
+	private DefaultListModel<String> listM;
 
 	public TabCommonArea() {
 	}
@@ -264,13 +259,13 @@ public class TabCommonArea extends JPanel {
 			logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 		}
 
-		listM = new DefaultListModel();
+		listM = new DefaultListModel<String>();
 		for (CommonArea commonAreas : listCommonArea) {
 			listM.addElement(commonAreas.getIdCommonArea() + "# " + commonAreas.getNameCommonArea() + " "
 					+ commonAreas.getEtageCommonArea());
 		}
 
-		list = new JList(listM);
+		list = new JList<String>(listM);
 		sc = new JScrollPane(list);
 
 		sc.setBounds(30, 120, 300, ((int) getToolkit().getScreenSize().getHeight() - 300));

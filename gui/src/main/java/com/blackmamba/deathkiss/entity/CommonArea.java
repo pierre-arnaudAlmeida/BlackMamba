@@ -15,7 +15,6 @@ public class CommonArea {
 	private int etageCommonArea = 0;
 
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
-			//new HashSet<Sensor>();
 
 	public CommonArea(int idCommonArea, String nameCommonArea, int etageCommonArea) {
 		super();

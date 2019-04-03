@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.text.Normalizer;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -73,7 +72,7 @@ public class TabProfile extends JPanel {
 		/**
 		 * Definition of label Identifiant on header bar
 		 */
-		labelIdEmployee = new JLabel("Identifiant :   "+this.idemployee +"    ");
+		labelIdEmployee = new JLabel("Identifiant :   " + this.idemployee + "    ");
 		policeBar = new Font("Arial", Font.BOLD, 16);
 		labelIdEmployee.setForeground(Color.WHITE);
 		labelIdEmployee.setFont(policeBar);
@@ -231,11 +230,14 @@ public class TabProfile extends JPanel {
 				table = "Employee";
 
 				String newLastnameEmployee = textInputLastnameEmployee.getText().trim();
-				newLastnameEmployee = Normalizer.normalize(newLastnameEmployee, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+				newLastnameEmployee = Normalizer.normalize(newLastnameEmployee, Normalizer.Form.NFD)
+						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				String newNameEmployee = textInputNameEmployee.getText().trim();
-				newNameEmployee = Normalizer.normalize(newNameEmployee, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+				newNameEmployee = Normalizer.normalize(newNameEmployee, Normalizer.Form.NFD)
+						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				String newFunctionEmployee = textInputFunctionEmployee.getText().trim();
-				newFunctionEmployee = Normalizer.normalize(newFunctionEmployee, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+				newFunctionEmployee = Normalizer.normalize(newFunctionEmployee, Normalizer.Form.NFD)
+						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				char[] password = textInputPasswordEmployee.getPassword();
 				String newPasswordEmployee = new String(password);
 

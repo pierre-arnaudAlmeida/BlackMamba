@@ -6,12 +6,10 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,7 +24,7 @@ public class TabHistorical extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private int idemployee;
 	private JPanel bar;
-	private JLabel labelIdEmployee, idEmployee;
+	private JLabel labelIdEmployee;
 	private Font police;
 	private JButton disconnection;
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);

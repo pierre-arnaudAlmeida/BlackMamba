@@ -2201,3 +2201,21 @@
 2019-04-02 20:57:06 [main] INFO  DataSourceTest:53 - Insertion in SGBD succed 
 2019-04-02 20:57:07 [main] INFO  DataSourceTest:108 - Delete in SGBD succed 
 2019-04-02 20:57:08 [main] INFO  DataSourceTest:181 - Connection 1 and connection 2 are different
+2019-04-03 08:50:51 [main] INFO  DataSourceTest:142 - All connection are closed 
+2019-04-03 08:50:52 [main] INFO  DataSourceTest:229 - Connection 1 done
+2019-04-03 08:50:52 [main] INFO  DataSourceTest:229 - Connection 2 done
+2019-04-03 08:50:52 [main] INFO  DataSourceTest:229 - Connection 3 done
+2019-04-03 08:50:52 [main] INFO  DataSourceTest:232 - Limit reached, no available connection java.sql.SQLException
+2019-04-03 08:50:52 [main] INFO  DataSourceTest:199 - Connection 1 done
+2019-04-03 08:50:53 [main] INFO  DataSourceTest:202 - Connection 2 done
+2019-04-03 08:50:53 [main] INFO  DataSourceTest:205 - Connection 3 done
+2019-04-03 08:50:53 [main] INFO  DataSourceTest:210 - Limit reached, no available connection java.sql.SQLException
+2019-04-03 08:50:53 [main] INFO  DataSourceTest:125 - Return Connection succed 
+2019-04-03 08:50:53 [main] INFO  DataSourceTest:158 - Number of Connection is 1
+2019-04-03 08:50:54 [main] INFO  DataSourceTest:164 - Number of Connection increased to 3
+2019-04-03 08:50:54 [main] INFO  DataSourceTest:90 - Update in SGBD succed 
+2019-04-03 08:50:55 [main] INFO  DataSourceTest:72 - Data recovery in SGBD succed 
+2019-04-03 08:50:55 [main] INFO  DataSourceTest:35 - Connection succed 
+2019-04-03 08:50:55 [main] INFO  DataSourceTest:53 - Insertion in SGBD succed 
+2019-04-03 08:50:56 [main] INFO  DataSourceTest:108 - Delete in SGBD succed 
+2019-04-03 08:50:56 [main] INFO  DataSourceTest:181 - Connection 1 and connection 2 are different

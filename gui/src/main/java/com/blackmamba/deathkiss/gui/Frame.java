@@ -57,16 +57,32 @@ public class Frame extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().add(tab);
-		
+
 	}
-	public static void goToTab(int index){
-	tab.setSelectedIndex(index);
+
+	/**
+	 * Method to switch to as other tab
+	 * 
+	 * @param index
+	 */
+	public static void goToTab(int index) {
+		tab.setSelectedIndex(index);
 	}
-	
+
+	/**
+	 * Method to get the actual tab of frame
+	 * 
+	 * @return
+	 */
 	public static JTabbedPane getTab() {
 		return tab;
 	}
 
+	/**
+	 * Method to add a new tab on frame
+	 * 
+	 * @param tab
+	 */
 	public void setTab(JTabbedPane tab) {
 		Frame.tab = tab;
 	}
