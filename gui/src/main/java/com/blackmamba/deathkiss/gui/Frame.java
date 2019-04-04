@@ -67,6 +67,7 @@ public class Frame extends JFrame {
 		tab.add("Onglet " + tabOfTab[4], tabHistorical);
 		tab.add("Onglet " + tabOfTab[5], tabProfile);
 
+		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
 		 * Diferent parameters of the window
 		 */

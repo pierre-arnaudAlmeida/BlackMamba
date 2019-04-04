@@ -30,6 +30,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class TabProfile extends JPanel {
 
+	/**
+	 * Different parameters used
+	 */
 	private static final long serialVersionUID = 1L;
 	private String requestType;
 	private String table;
@@ -93,8 +96,9 @@ public class TabProfile extends JPanel {
 		});
 
 		///////////////////////// GET DATAS//////////////////////////////////////////
+		// TODO synchro while true on met un wait et on met la methode
 		/**
-		 * Recuparation of information about employee
+		 * Recuperation of information about employee who sign in the application
 		 */
 		requestType = "READ";
 		employee = new Employee();
@@ -106,8 +110,9 @@ public class TabProfile extends JPanel {
 			new ClientSocket(requestType, jsonString, table);
 			jsonString = ClientSocket.getJson();
 			employee = readMapper.readValue(jsonString, Employee.class);
+			logger.log(Level.INFO, "Find Employee data succed");
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
 		}
 
 		///////////////////////// LABEL///////////////////////////////////////////////
@@ -116,8 +121,7 @@ public class TabProfile extends JPanel {
 		 */
 		policeLabel = new Font("Arial", Font.BOLD, (int) getToolkit().getScreenSize().getWidth() / 80);
 		labelLastnameEmployee = new JLabel("Nom : ");
-		labelLastnameEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4,
-				(int) getToolkit().getScreenSize().getHeight() * 2 / 10, 200, 30);
+		labelLastnameEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4, (int) getToolkit().getScreenSize().getHeight() * 2 / 10, 200, 30);
 		labelLastnameEmployee.setFont(policeLabel);
 		this.add(labelLastnameEmployee);
 
@@ -125,8 +129,7 @@ public class TabProfile extends JPanel {
 		 * Definition of label NameEmployee
 		 */
 		labelNameEmployee = new JLabel("Prenom : ");
-		labelNameEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 4,
-				(int) getToolkit().getScreenSize().getHeight() * 2 / 10, 200, 30);
+		labelNameEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 4, (int) getToolkit().getScreenSize().getHeight() * 2 / 10, 200, 30);
 		labelNameEmployee.setFont(policeLabel);
 		this.add(labelNameEmployee);
 
@@ -134,8 +137,7 @@ public class TabProfile extends JPanel {
 		 * Definition of label Password
 		 */
 		labelPassword = new JLabel("Mot de passe : ");
-		labelPassword.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4,
-				(int) getToolkit().getScreenSize().getHeight() * 4 / 10, 200, 30);
+		labelPassword.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4, (int) getToolkit().getScreenSize().getHeight() * 4 / 10, 200, 30);
 		labelPassword.setFont(policeLabel);
 		this.add(labelPassword);
 
@@ -143,8 +145,7 @@ public class TabProfile extends JPanel {
 		 * Definition of label Function
 		 */
 		labelFunction = new JLabel("Poste : ");
-		labelFunction.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 4,
-				(int) getToolkit().getScreenSize().getHeight() * 4 / 10, 100, 30);
+		labelFunction.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 4, (int) getToolkit().getScreenSize().getHeight() * 4 / 10, 100, 30);
 		labelFunction.setFont(policeLabel);
 		this.add(labelFunction);
 
@@ -153,8 +154,7 @@ public class TabProfile extends JPanel {
 		 * Definition of textArea LastnameEmployee
 		 */
 		textInputLastnameEmployee = new JTextField();
-		textInputLastnameEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4,
-				(int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
+		textInputLastnameEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4, (int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
 		textInputLastnameEmployee.setFont(policeLabel);
 		textInputLastnameEmployee.setText(employee.getLastnameEmployee());
 		this.add(textInputLastnameEmployee);
@@ -163,8 +163,7 @@ public class TabProfile extends JPanel {
 		 * Definition of textArea NameEmployee
 		 */
 		textInputNameEmployee = new JTextField();
-		textInputNameEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 4,
-				(int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
+		textInputNameEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 4, (int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
 		textInputNameEmployee.setFont(policeLabel);
 		textInputNameEmployee.setText(employee.getNameEmployee());
 		this.add(textInputNameEmployee);
@@ -173,8 +172,7 @@ public class TabProfile extends JPanel {
 		 * Definition of textArea Password
 		 */
 		textInputPasswordEmployee = new JPasswordField();
-		textInputPasswordEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4,
-				(int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);
+		textInputPasswordEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4, (int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);
 		textInputPasswordEmployee.setFont(policeLabel);
 		this.add(textInputPasswordEmployee);
 
@@ -182,8 +180,7 @@ public class TabProfile extends JPanel {
 		 * Definition of textArea Function
 		 */
 		textInputFunctionEmployee = new JTextField();
-		textInputFunctionEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 4,
-				(int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);
+		textInputFunctionEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 4, (int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);
 		textInputFunctionEmployee.setFont(policeLabel);
 		textInputFunctionEmployee.setText(employee.getPoste());
 		this.add(textInputFunctionEmployee);
@@ -192,12 +189,10 @@ public class TabProfile extends JPanel {
 		 * Button to displpay the password
 		 */
 		showButton = new JCheckBox("Montrer le mot de passe");
-		showButton.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4,
-				((int) getToolkit().getScreenSize().getHeight() * 9 / 20) + 50, 300, 40);
+		showButton.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4, ((int) getToolkit().getScreenSize().getHeight() * 9 / 20) + 50, 300, 40);
 		showButton.setBackground(color);
 		showButton.setFont(policeLabel);
 		this.add(showButton);
-
 		showButton.addActionListener(new ActionListener() {
 			/**
 			 * Display the content of TextField password employee When we check the CheckBox
@@ -211,17 +206,19 @@ public class TabProfile extends JPanel {
 				}
 			}
 		});
+
 		//////////////////// BUTTON////////////////////////////////////////////////
 		/**
 		 * Definition of Button Save
 		 */
 		save = new JButton("Sauvegarder");
-		save.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4) + 250,
-				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
+		save.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4) + 250, (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
 		this.add(save);
 		save.addActionListener(new ActionListener() {
 			/**
-			 * Get datas inserted on text area
+			 * When we pressed the button save we update the Employee datas we check if the
+			 * informations are correct, if the textField are not empty and we supress the
+			 * special caracters
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -230,14 +227,11 @@ public class TabProfile extends JPanel {
 				table = "Employee";
 
 				String newLastnameEmployee = textInputLastnameEmployee.getText().trim();
-				newLastnameEmployee = Normalizer.normalize(newLastnameEmployee, Normalizer.Form.NFD)
-						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+				newLastnameEmployee = Normalizer.normalize(newLastnameEmployee, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				String newNameEmployee = textInputNameEmployee.getText().trim();
-				newNameEmployee = Normalizer.normalize(newNameEmployee, Normalizer.Form.NFD)
-						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+				newNameEmployee = Normalizer.normalize(newNameEmployee, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				String newFunctionEmployee = textInputFunctionEmployee.getText().trim();
-				newFunctionEmployee = Normalizer.normalize(newFunctionEmployee, Normalizer.Form.NFD)
-						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+				newFunctionEmployee = Normalizer.normalize(newFunctionEmployee, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				char[] password = textInputPasswordEmployee.getPassword();
 				String newPasswordEmployee = new String(password);
 
@@ -252,8 +246,7 @@ public class TabProfile extends JPanel {
 					 * be verify by system
 					 */
 					if (!(newPasswordEmployee.equals(""))) {
-						String verificationPassword = JOptionPane.showInputDialog(null,
-								"Inserez ancien votre mot de passe", "");
+						String verificationPassword = JOptionPane.showInputDialog(null, "Inserez ancien votre mot de passe", "");
 						String request = "CONNECTION";
 						employee2 = new Employee();
 
@@ -265,8 +258,11 @@ public class TabProfile extends JPanel {
 							jsonString = ClientSocket.getJson();
 							employee2 = readMapper.readValue(jsonString, Employee.class);
 						} catch (IOException e1) {
-							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+							logger.log(Level.INFO, "Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
 						}
+						/**
+						 * If the password is correct they send the datas to be updated
+						 */
 						if (!(employee2.getLastnameEmployee().equals(""))) {
 							employee.setIdEmployee(idemployee);
 							employee.setLastnameEmployee(newLastnameEmployee.toUpperCase());
@@ -279,22 +275,17 @@ public class TabProfile extends JPanel {
 								new ClientSocket(requestType, jsonString, table);
 								jsonString = ClientSocket.getJson();
 								if (!jsonString.equals("UPDATED")) {
-									JOptionPane.showMessageDialog(null, "La mise a jour a échoué", "Erreur",
-											JOptionPane.ERROR_MESSAGE);
+									JOptionPane.showMessageDialog(null, "La mise a jour a échoué", "Erreur", JOptionPane.ERROR_MESSAGE);
 									logger.log(Level.INFO, "Impossible to update employee");
 								} else {
 									logger.log(Level.INFO, "Update Succeded");
-									JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos",
-											JOptionPane.INFORMATION_MESSAGE);
+									JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos", JOptionPane.INFORMATION_MESSAGE);
 								}
 							} catch (Exception e1) {
-								logger.log(Level.INFO,
-										"Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+								logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 							}
 						} else {
-							JOptionPane.showMessageDialog(null,
-									"Prend nous pour des amateurs encore une fois et on te bloque",
-									"Erreur, Mauvais mot de passe", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Prend nous pour des amateurs encore une fois et on te bloque", "Erreur, Mauvais mot de passe", JOptionPane.ERROR_MESSAGE);
 						}
 					} else {
 						employee.setIdEmployee(idemployee);
@@ -310,8 +301,7 @@ public class TabProfile extends JPanel {
 		 * Definition of Button Restaure
 		 */
 		restaure = new JButton("Annuler");
-		restaure.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4),
-				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
+		restaure.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
 		this.add(restaure);
 		restaure.addActionListener(new ActionListener() {
 			/**
@@ -327,8 +317,9 @@ public class TabProfile extends JPanel {
 			}
 		});
 
+		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
-		 * Diferent parameters of the window
+		 * Different parameters of the window
 		 */
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);

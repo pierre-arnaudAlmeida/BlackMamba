@@ -28,8 +28,9 @@ public class TimeServer {
 	private boolean isRunning = true;
 	private static final Logger logger = LogManager.getLogger(TimeServer.class);
 	private JDBCConnectionPool pool;
-	private Connection connectionBlocked;
+	private int numberConnection;
 	private Connection connectionGived;
+	private Socket client;
 
 	/**
 	 * Constructor without parameters
@@ -70,13 +71,12 @@ public class TimeServer {
 	 * Launch the server Create a thread, and accept the socket if the number of
 	 * connection dont was on maximum
 	 */
-
 	public void open() {
 		Thread th = new Thread(new Runnable() {
 			public void run() {
 				while (isRunning == true) {
 					try {
-						Socket client = server.accept();
+						client = server.accept();
 						connectionGived = DataSource.getConnectionFromJDBC(pool);
 						logger.log(Level.INFO, "Client Connection recieved");
 						Thread t = new Thread(new RequestHandler(client, connectionGived));
@@ -98,13 +98,23 @@ public class TimeServer {
 		th.start();
 	}
 
+	/**
+	 * Launch the server Create a thread, and accept the socket and get all the
+	 * connection available to block the server and don't let the next users to make
+	 * a request
+	 */
 	public void openFake() {
+		numberConnection = 0;
 		Thread th = new Thread(new Runnable() {
 			public void run() {
 				while (isRunning == true) {
 					try {
-						Socket client = server.accept();
-						connectionBlocked = DataSource.getConnectionFromJDBC(pool);
+						client = server.accept();
+						// TODO while ajouter
+						while (numberConnection < DataSource.getMaxConnectionFromJDBC(pool)) {
+							DataSource.getConnectionFromJDBC(pool);
+							numberConnection++;
+						}
 						connectionGived = DataSource.getConnectionFromJDBC(pool);
 						logger.log(Level.INFO, "Client Connection recieved");
 						Thread t = new Thread(new RequestHandler(client, connectionGived));
@@ -133,6 +143,9 @@ public class TimeServer {
 		isRunning = false;
 	}
 
+	/**
+	 * Set true the Socket runner to open the socket
+	 */
 	public void load() {
 		isRunning = true;
 	}

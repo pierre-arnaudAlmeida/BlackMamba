@@ -204,6 +204,7 @@ public class Connexion extends JFrame {
 		frameContainer.add(showButton);
 		frameContainer.add(buttonPan);
 
+		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
 		 * diferent parameters of the window
 		 */

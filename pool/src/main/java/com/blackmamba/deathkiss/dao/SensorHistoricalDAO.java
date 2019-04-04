@@ -11,11 +11,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.entity.SensorHistorical;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -33,6 +31,10 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 		super(con);
 	}
 
+	/**
+	 * Convert the JSON string in Object and create a request to insert values in
+	 * table 'historique' return a boolean
+	 */
 	@Override
 	public boolean create(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -61,6 +63,10 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 		}
 	}
 
+	/**
+	 * Convert the JSON string in Object and create a request to delete values in
+	 * table 'historique' return a boolean
+	 */
 	@Override
 	public boolean delete(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -78,13 +84,22 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 		}
 	}
 
+	/**
+	 * Convert the JSON string in Object and create a request to update values in
+	 * table 'historique' return a boolean
+	 */
 	@Override
 	public boolean update(String jsonString) {
 		// TODO Auto-generated method stub
-		// peu d'utilité car c'est un historique pas interessant de l'update, mais methode à faire
+		// peu d'utilité car c'est un historique pas interessant de l'update, mais
+		// methode à faire
 		return false;
 	}
 
+	/**
+	 * Convert the JSON string in Object and create a request to read (select)
+	 * values in table 'historique' return a JSON string
+	 */
 	@Override
 	public String read(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -121,6 +136,10 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 		return jsonString;
 	}
 
+	/**
+	 * Convert the JSON string in Object and create a request to read (select) all
+	 * values in table 'historique' return a JSON string
+	 */
 	@Override
 	public String readAll(String jsonString) {
 		String request;
@@ -159,8 +178,13 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 		return jsonString;
 	}
 
+	/**
+	 * Convert the JSON string in Object and create a request to read (select) all
+	 * values in table 'hisotrique' by the id of commonArea or the type of sensor or
+	 * the state of sensor
+	 */
 	public String findBySensor(String jsonString) {
-		//TODO faire une recherche mais par id capteur
+		// TODO faire une recherche mais par id capteur
 		return null;
 	}
 }

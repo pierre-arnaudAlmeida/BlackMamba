@@ -5,12 +5,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.Connection;
-import java.sql.SQLException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.blackmamba.deathkiss.connectionpool.DataSource;
-import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
 import com.blackmamba.deathkiss.dao.CommonAreaDAO;
 import com.blackmamba.deathkiss.dao.DAO;
 import com.blackmamba.deathkiss.dao.EmployeeDAO;
@@ -52,7 +49,8 @@ public class RequestHandler implements Runnable {
 	}
 
 	/**
-	 * Run the Thread while the client connection is active they loop
+	 * Run the Thread while the client connection is active they loop when
+	 * connection is not closed
 	 */
 	public void run() {
 		logger.log(Level.INFO, "Launch of treatement of client connection");
@@ -62,12 +60,19 @@ public class RequestHandler implements Runnable {
 				reader = new BufferedInputStream(sock.getInputStream());
 				objectMapper = new ObjectMapper();
 
+				/**
+				 * wait the request from client
+				 */
 				response = read();
 				if (response.equals("OPEN")) {
 					response = "OK FOR EXCHANGE";
 					writer.write(response);
 					writer.flush();
 
+					/**
+					 * wait the requestType and the table from client and choose witch case they
+					 * will execute with the requestType and the table
+					 */
 					response = read();
 					if (!response.equals("")) {
 						jsonNode = objectMapper.readTree(response);
@@ -563,7 +568,7 @@ public class RequestHandler implements Runnable {
 	}
 
 	/**
-	 * Read the diferent response
+	 * Read the different response
 	 */
 	private String read() throws IOException {
 		String response = "";
@@ -574,6 +579,9 @@ public class RequestHandler implements Runnable {
 		return response;
 	}
 
+	/**
+	 * return the result of the execution of request
+	 */
 	public boolean isResult() {
 		return result;
 	}
