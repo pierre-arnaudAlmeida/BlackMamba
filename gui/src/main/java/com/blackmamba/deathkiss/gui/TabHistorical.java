@@ -70,6 +70,7 @@ public class TabHistorical extends JPanel {
 			}
 		});
 
+		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
 		 * Different parameters of the window
 		 */

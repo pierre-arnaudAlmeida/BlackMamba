@@ -103,6 +103,7 @@ public class TabListSensor extends JPanel {
 		});
 
 		///////////////////////// TABLE/////////////////////////////////////////////////
+		//TODO synchro
 		/**
 		 * They find all the Sensors present in the CommonArea with the id sent by the
 		 * TabCommonArea And add all this sensor in a list do be displayed
@@ -199,6 +200,7 @@ public class TabListSensor extends JPanel {
 			}
 		});
 
+		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
 		 * Different parameters of the window
 		 */

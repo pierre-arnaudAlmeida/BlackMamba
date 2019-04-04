@@ -250,9 +250,9 @@ public class TabCommonArea extends JPanel {
 						jsonString = ClientSocket.getJson();
 						CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
 						listCommonArea = Arrays.asList(commonAreas);
-						logger.log(Level.INFO, "Find Employees datas succed");
+						logger.log(Level.INFO, "Find CommonArea datas succed");
 					} catch (Exception e1) {
-						logger.log(Level.INFO, "Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
+						logger.log(Level.INFO, "Impossible to parse in JSON CommonArea datas" + e1.getClass().getCanonicalName());
 					}
 					listM.removeAllElements();
 					if (listCommonArea.size() > 0)
@@ -326,7 +326,7 @@ public class TabCommonArea extends JPanel {
 					commonArea = readMapper.readValue(jsonString, CommonArea.class);
 					logger.log(Level.INFO, "Find CommonArea data succed");
 				} catch (Exception e1) {
-					logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+					logger.log(Level.INFO, "Impossible to parse in JSON CommonArea datas" + e1.getClass().getCanonicalName());
 				}
 				textInputIdCommonArea.setText(Integer.toString(commonArea.getIdCommonArea()));
 				textInputNameCommonArea.setText(commonArea.getNameCommonArea());
@@ -456,7 +456,7 @@ public class TabCommonArea extends JPanel {
 							JOptionPane.showMessageDialog(null, "L'insertion a été éffectué", "Infos", JOptionPane.INFORMATION_MESSAGE);
 						}
 					} catch (Exception e1) {
-						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+						logger.log(Level.INFO, "Impossible to parse in JSON CommonArea data" + e1.getClass().getCanonicalName());
 					}
 				}
 			}
@@ -508,7 +508,7 @@ public class TabCommonArea extends JPanel {
 							JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos", JOptionPane.INFORMATION_MESSAGE);
 						}
 					} catch (Exception e1) {
-						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+						logger.log(Level.INFO, "Impossible to parse in JSON CommonArea" + e1.getClass().getCanonicalName());
 					}
 				}
 			}
@@ -545,7 +545,7 @@ public class TabCommonArea extends JPanel {
 						listSensorUsed = Arrays.asList(sensors);
 						logger.log(Level.INFO, "Find Sensor data succed");
 					} catch (Exception e1) {
-						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+						logger.log(Level.INFO, "Impossible to parse in JSON Sensor data" + e1.getClass().getCanonicalName());
 					}
 					if (!listSensorUsed.isEmpty()) {
 						for (Sensor sens : listSensorUsed) {
@@ -583,7 +583,7 @@ public class TabCommonArea extends JPanel {
 							logger.log(Level.INFO, "Deletion of CommonArea succed");
 						}
 					} catch (Exception e1) {
-						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+						logger.log(Level.INFO, "Impossible to parse in JSON CommonArea" + e1.getClass().getCanonicalName());
 					}
 					listM.removeElementAt(index);
 					commonArea.setIdCommonArea(0);
@@ -664,6 +664,7 @@ public class TabCommonArea extends JPanel {
 			}
 		});
 
+		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
 		 * Different parameter of the window
 		 */

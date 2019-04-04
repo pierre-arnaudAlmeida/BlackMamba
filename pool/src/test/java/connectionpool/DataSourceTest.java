@@ -57,7 +57,7 @@ class DataSourceTest {
 	}
 
 	/**
-	 * Test get datas in SGBD
+	 * Test get data in SGBD
 	 */
 	@Test
 	void testGetData() {
@@ -76,7 +76,7 @@ class DataSourceTest {
 	}
 
 	/**
-	 * Test update in SGBD
+	 * Test update data in SGBD
 	 */
 	@Test
 	void testUpdateData() {
@@ -94,7 +94,7 @@ class DataSourceTest {
 	}
 
 	/**
-	 * Test delete in SGBD
+	 * Test delete data in SGBD
 	 */
 	@Test
 	void testDeleteData() {
@@ -180,8 +180,7 @@ class DataSourceTest {
 			assertNotEquals(con, con2);
 			logger.log(Level.INFO, "Connection 1 and connection 2 are different");
 		} catch (Exception e) {
-			logger.log(Level.INFO,
-					"Connection 1 and connection 2 are an unique connection" + e.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Connection 1 and connection 2 are an unique connection" + e.getClass().getCanonicalName());
 		}
 	}
 

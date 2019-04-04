@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,12 +17,11 @@ import org.apache.logging.log4j.Logger;
  * @author Pierre-Arnaud
  *
  */
-public class JDBCConnectionPool{
+public class JDBCConnectionPool {
 
 	/**
-	 *  Definition of diferents fields
+	 * Definition of different fields
 	 */
-	private static final Logger logger = LogManager.getLogger(JDBCConnectionPool.class);
 	private String driver;
 	private String url;
 	private String user;
@@ -32,9 +30,9 @@ public class JDBCConnectionPool{
 	private int numberConnection;
 	private boolean busy;
 	final Properties prop = new Properties();
-
-	// Definition of Lists
-	private List<Connection> availableConnections, availableConnectionsArrayList;
+	private static final Logger logger = LogManager.getLogger(JDBCConnectionPool.class);
+	private List<Connection> availableConnections;
+	private List<Connection> availableConnectionsArrayList;
 
 	/**
 	 * Get informations from confirugation.propreties Initialization of fields with
@@ -50,7 +48,7 @@ public class JDBCConnectionPool{
 		int initialConnections = 0;
 
 		ResourceBundle rs = ResourceBundle.getBundle("config");
-numberConnection=0;
+		numberConnection = 0;
 		this.driver = rs.getString("db.driver");
 		this.url = rs.getString("db.url");
 		this.user = rs.getString("db.username");
@@ -73,7 +71,8 @@ numberConnection=0;
 
 	/**
 	 * Return a connection if is possible, and if the limit of connection are
-	 * reached they insert in busy connection list
+	 * reached they look at the maxConnection and add one if the number of
+	 * connection initialize is inferior Else they catch an exception
 	 * 
 	 * @return return the connection
 	 * @throws SQLException
@@ -96,7 +95,8 @@ numberConnection=0;
 				Connection connection = newConnection();
 				synchronized (this) {
 					availableConnections.add(connection);
-					notifyAll();}
+					notifyAll();
+				}
 			} else if (!busy) {
 				throw new SQLException("Connection limit reached");
 			}
@@ -104,11 +104,11 @@ numberConnection=0;
 		}
 	}
 
-
 	/**
-	 * Creation of the connection with the informations from the file @return
-	 * Connection @throws
+	 * Creation of a new connection available to be added on available List of
+	 * connection
 	 * 
+	 * @return Connection
 	 * @throws ClassNotFoundException
 	 */
 	private Connection newConnection() throws SQLException {
@@ -125,8 +125,7 @@ numberConnection=0;
 	}
 
 	/**
-	 * Add a connection from the busy connection list to available connection list
-	 * and remove the connection from the busy connection list
+	 * free a connection and add it on the available connection list
 	 * 
 	 * @param connection
 	 */
@@ -137,7 +136,7 @@ numberConnection=0;
 	}
 
 	/**
-	 * Return the total number of available connection list and busy connection list
+	 * Return the total number of available connection on availableConnection List
 	 * 
 	 * @return
 	 */
@@ -146,13 +145,12 @@ numberConnection=0;
 	}
 
 	/**
-	 * CLose all connection of the available connection list and busy connection
-	 * list
+	 * CLose all connection of the available connection list
 	 */
 	public synchronized void closeAllConnections() {
 		closeConnections(availableConnections);
 		availableConnections = new ArrayList<Connection>();
-		numberConnection=0;
+		numberConnection = 0;
 	}
 
 	/**
@@ -173,10 +171,20 @@ numberConnection=0;
 		}
 	}
 
+	/**
+	 * Getter to the MaxConnection value
+	 * 
+	 * @return
+	 */
 	public int getMaxConnection() {
 		return maxConnection;
 	}
 
+	/**
+	 * Setter to the MaxConnection value
+	 * 
+	 * @param maxConnection
+	 */
 	public void setMaxConnection(int maxConnection) {
 		this.maxConnection = maxConnection;
 	}

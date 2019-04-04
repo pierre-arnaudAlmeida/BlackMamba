@@ -19,28 +19,52 @@ import org.apache.logging.log4j.Logger;
 public class MainServerGUI extends JFrame {
 
 	/**
-	 * Initialization of diferents parameters
+	 * Initialization of different parameters
 	 */
 	private static final long serialVersionUID = 1L;
 	private static String host = "127.0.0.1";
 	private static int port = 2345;
 	private static int nbServer = 0;
-	private static final Logger logger = LogManager.getLogger(MainServerGUI.class);
 	private int heure = 0;
 	private int minute = 0;
 	private int seconde = 0;
+	private static final Logger logger = LogManager.getLogger(MainServerGUI.class);
 	private ActionListener tache_timer;
+	private TimeServer ts;
+	private JLabel time;
+	private JPanel container;
+	private JButton launch;
+	private JButton launchFake;
+	private JButton stop;
 	Timer timer1;
 
+	/**
+	 * Main to open the Server
+	 * 
+	 */
 	public MainServerGUI() {
-		JLabel time = new JLabel();
-		JPanel container = new JPanel();
+		time = new JLabel();
+		container = new JPanel();
 		/**
 		 * Create a button to launch the server
 		 */
-		TimeServer ts = new TimeServer(host, port);
+		ts = new TimeServer(host, port);
 
-		JButton launch = new JButton("Lancer le server");
+		/**
+		 * LOGO
+		 */
+		logger.log(Level.INFO, "______           _   _     _    _         ");
+		logger.log(Level.INFO, "|  _  \\         | | | |   | |  (_)        ");
+		logger.log(Level.INFO, "| | | |___  __ _| |_| |__ | | ___ ___ ___ ");
+		logger.log(Level.INFO, "| | | / _ \\/ _` | __| '_ \\| |/ / / __/ __|");
+		logger.log(Level.INFO, "| |/ /  __/ (_| | |_| | | |   <| \\__ \\__ \\");
+		logger.log(Level.INFO, "|___/ \\___|\\__,_|\\__|_| |_|_|\\_\\_|___/___/");
+		logger.log(Level.INFO, "                                          ");
+
+		/**
+		 * Button who invoke the normal method who give one connection to one socket
+		 */
+		launch = new JButton("Lancer le server");
 		launch.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -49,14 +73,7 @@ public class MainServerGUI extends JFrame {
 
 					ts.open();
 					nbServer++;
-					
-					logger.log(Level.INFO, "______           _   _     _    _         ");
-					logger.log(Level.INFO, "|  _  \\         | | | |   | |  (_)        ");
-					logger.log(Level.INFO, "| | | |___  __ _| |_| |__ | | ___ ___ ___ ");
-					logger.log(Level.INFO, "| | | / _ \\/ _` | __| '_ \\| |/ / / __/ __|");
-					logger.log(Level.INFO, "| |/ /  __/ (_| | |_| | | |   <| \\__ \\__ \\");
-					logger.log(Level.INFO, "|___/ \\___|\\__,_|\\__|_| |_|_|\\_\\_|___/___/");
-					logger.log(Level.INFO, "                                          ");
+
 					logger.log(Level.INFO, "Server Initialized");
 
 					/**
@@ -77,6 +94,7 @@ public class MainServerGUI extends JFrame {
 							time.setText(heure + ":" + minute + ":" + seconde);
 						}
 					};
+
 					timer1 = new Timer(delais, tache_timer);
 					timer1.start();
 
@@ -86,7 +104,11 @@ public class MainServerGUI extends JFrame {
 			}
 		});
 
-		JButton launchFake = new JButton("Lancer le server Brider");
+		/**
+		 * Button to invoke the method who create a socket accept who block all the
+		 * connection but accept the socket
+		 */
+		launchFake = new JButton("Lancer le server Brider");
 		launchFake.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -125,10 +147,13 @@ public class MainServerGUI extends JFrame {
 		});
 
 		/**
-		 * Create a button to stop the server and close the window
+		 * Create a button to stop the server
 		 */
-		JButton stop = new JButton("Arreter le server");
+		stop = new JButton("Arreter le server");
 		stop.addActionListener(new ActionListener() {
+			/**
+			 * Stop the server, stop the timer and set the number to server launch to 0
+			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ts.close();
@@ -136,19 +161,20 @@ public class MainServerGUI extends JFrame {
 				nbServer = 0;
 				logger.log(Level.INFO, "Server Closed");
 				logger.log(Level.INFO, "Application closed");
-				// System.exit(DISPOSE_ON_CLOSE);
 			}
 		});
 
 		/**
-		 * Create of panel to add the button
+		 * Add the buttons to container
 		 */
-
 		container.add(launch);
 		container.add(launchFake);
 		container.add(stop);
 		container.add(time);
 
+		/**
+		 * Define the frame
+		 */
 		this.setContentPane(container);
 		this.setTitle("Server");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

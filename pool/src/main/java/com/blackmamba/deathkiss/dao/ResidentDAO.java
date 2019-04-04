@@ -7,11 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.entity.Resident;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -29,6 +27,10 @@ public class ResidentDAO extends DAO<Resident> {
 		super(con);
 	}
 
+	/**
+	 * Convert the JSON string in Object and create a request to insert values in
+	 * table 'resident' return a boolean
+	 */
 	@Override
 	public boolean create(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -46,6 +48,10 @@ public class ResidentDAO extends DAO<Resident> {
 		}
 	}
 
+	/**
+	 * Convert the JSON string in Object and create a request to delete values in
+	 * table 'resident' return a boolean
+	 */
 	@Override
 	public boolean delete(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -63,6 +69,10 @@ public class ResidentDAO extends DAO<Resident> {
 		}
 	}
 
+	/**
+	 * Convert the JSON string in Object and create a request to update values in
+	 * table 'resident' return a boolean
+	 */
 	@Override
 	public boolean update(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -87,6 +97,10 @@ public class ResidentDAO extends DAO<Resident> {
 		}
 	}
 
+	/**
+	 * Convert the JSON string in Object and create a request to read (select)
+	 * values in table 'resident' return a JSON string
+	 */
 	@Override
 	public String read(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -113,6 +127,10 @@ public class ResidentDAO extends DAO<Resident> {
 		return jsonString;
 	}
 
+	/**
+	 * Convert the JSON string in Object and create a request to read (select) all
+	 * values in table 'resident' return a JSON string
+	 */
 	@Override
 	public String readAll(String jsonString) {
 		String request;
@@ -141,11 +159,22 @@ public class ResidentDAO extends DAO<Resident> {
 		return jsonString;
 	}
 
+	/**
+	 * Convert the JSON string in Object and create a request to read (select) all
+	 * values in table 'resident' by the name or lastName
+	 */
 	public String findByName(String jsonString) {
 		// TODO
 		return null;
 	}
 
+	/**
+	 * Insert on table 'badger' when the resident badge in the elevator
+	 * 
+	 * @param idResident
+	 * @param idSensor
+	 * @return
+	 */
 	public boolean badger(int idResident, int idSensor) {
 		// TODO Auto-generated method stub
 		// Quand on badge on ajoute une date

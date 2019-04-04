@@ -651,6 +651,7 @@ public class TabEmployes extends JPanel {
 			}
 		});
 
+		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
 		 * Different parameters of the window
 		 */

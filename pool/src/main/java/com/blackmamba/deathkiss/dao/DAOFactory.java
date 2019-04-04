@@ -16,33 +16,43 @@ public class DAOFactory extends AbstractDAOFactory {
 
 	protected final Connection con = null;
 
+	/**
+	 * Return a CommonArea Object
+	 */
 	@Override
 	public DAO<CommonArea> getCommonAreaDAO() {
-		// TODO Auto-generated method stub
 		return new CommonAreaDAO(con);
 	}
 
+	/**
+	 * Return a Employee Object
+	 */
 	@Override
 	public DAO<Employee> getEmployeeDAO() {
-		// TODO Auto-generated method stub
 		return new EmployeeDAO(con);
 	}
 
+	/**
+	 * Return a Resident Object
+	 */
 	@Override
 	public DAO<Resident> getResidentDAO() {
-		// TODO Auto-generated method stub
 		return new ResidentDAO(con);
 	}
 
+	/**
+	 * Return a Sensor Object
+	 */
 	@Override
 	public DAO<Sensor> getSensorDAO() {
-		// TODO Auto-generated method stub
 		return new SensorDAO(con);
 	}
 
+	/**
+	 * Return a SensorHistorical Object
+	 */
 	@Override
 	public DAO<SensorHistorical> getSensorHistoricalDAO() {
-		// TODO Auto-generated method stub
 		return new SensorHistoricalDAO(con);
 	}
 
