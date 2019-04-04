@@ -28,9 +28,9 @@ public class JDBCConnectionPool{
 	private String url;
 	private String user;
 	private String password;
-	private int maxConnection, nbcon;
+	private int maxConnection;
+	private int numberConnection;
 	private boolean busy;
-	private boolean connectionPending = false;
 	final Properties prop = new Properties();
 
 	// Definition of Lists
@@ -50,7 +50,7 @@ public class JDBCConnectionPool{
 		int initialConnections = 0;
 
 		ResourceBundle rs = ResourceBundle.getBundle("config");
-nbcon=0;
+numberConnection=0;
 		this.driver = rs.getString("db.driver");
 		this.url = rs.getString("db.url");
 		this.user = rs.getString("db.username");
@@ -84,15 +84,15 @@ nbcon=0;
 			int lastIndex = availableConnections.size() - 1;
 			availableConnections.remove(lastIndex);
 			if (existingConnection.isClosed()) {
-				nbcon--;
+				numberConnection--;
 				notifyAll();
 				return (getConnection());
 			} else {
-				nbcon++;
+				numberConnection++;
 				return (existingConnection);
 			}
 		} else {
-			if ((nbcon < maxConnection)) {
+			if ((numberConnection < maxConnection)) {
 				Connection connection = newConnection();
 				synchronized (this) {
 					availableConnections.add(connection);
@@ -132,7 +132,7 @@ nbcon=0;
 	 */
 	public synchronized void free(Connection connection) {
 		availableConnections.add(connection);
-		nbcon--;
+		numberConnection--;
 		notifyAll();
 	}
 
@@ -152,7 +152,7 @@ nbcon=0;
 	public synchronized void closeAllConnections() {
 		closeConnections(availableConnections);
 		availableConnections = new ArrayList<Connection>();
-		nbcon=0;
+		numberConnection=0;
 	}
 
 	/**
@@ -171,5 +171,13 @@ nbcon=0;
 		} catch (SQLException e) {
 			logger.log(Level.INFO, e.getClass().getCanonicalName());
 		}
+	}
+
+	public int getMaxConnection() {
+		return maxConnection;
+	}
+
+	public void setMaxConnection(int maxConnection) {
+		this.maxConnection = maxConnection;
 	}
 }

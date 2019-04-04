@@ -14,6 +14,7 @@ import com.blackmamba.deathkiss.gui.Frame;
  *
  */
 class MainGUITest {
+	
 	private static Logger logger = Logger.getLogger("logger");
 
 	/**
@@ -28,8 +29,7 @@ class MainGUITest {
 					frame.setVisible(true);
 					assertTrue(frame.isShowing());
 				} catch (Exception e) {
-					logger.log(Level.INFO,
-							"Impossible to display the window 'Window' " + e.getClass().getCanonicalName());
+					logger.log(Level.INFO, "Impossible to display the window 'Window' " + e.getClass().getCanonicalName());
 				}
 			}
 		});

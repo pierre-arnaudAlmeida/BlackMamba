@@ -44,4 +44,8 @@ public class DataSource {
 	public static void closeConnectionsFromJDBC(JDBCConnectionPool pool) {
 		pool.closeAllConnections();
 	}
+	
+	public static int getMaxConnectionFromJDBC(JDBCConnectionPool pool) {
+		return pool.getMaxConnection();
+	}
 }

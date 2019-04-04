@@ -28,7 +28,7 @@ public class TimeServer {
 	private boolean isRunning = true;
 	private static final Logger logger = LogManager.getLogger(TimeServer.class);
 	private JDBCConnectionPool pool;
-	private Connection connectionBlocked;
+	private int numberConnection;
 	private Connection connectionGived;
 
 	/**
@@ -99,12 +99,17 @@ public class TimeServer {
 	}
 
 	public void openFake() {
+		numberConnection = 0;
 		Thread th = new Thread(new Runnable() {
 			public void run() {
 				while (isRunning == true) {
 					try {
 						Socket client = server.accept();
-						connectionBlocked = DataSource.getConnectionFromJDBC(pool);
+						// TODO while ajouter
+						while (numberConnection < DataSource.getMaxConnectionFromJDBC(pool)) {
+							DataSource.getConnectionFromJDBC(pool);
+							numberConnection++;
+						}
 						connectionGived = DataSource.getConnectionFromJDBC(pool);
 						logger.log(Level.INFO, "Client Connection recieved");
 						Thread t = new Thread(new RequestHandler(client, connectionGived));
