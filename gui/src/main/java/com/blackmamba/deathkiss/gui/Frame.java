@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Logger;
 public class Frame extends JFrame {
 
 	/**
-	 * Diferent parameters used
+	 * Different parameters used
 	 */
 	private static final long serialVersionUID = 1L;
 	private static JTabbedPane tab;
@@ -42,7 +42,7 @@ public class Frame extends JFrame {
 		logger.log(Level.INFO, "                                          ");
 
 		/**
-		 * Creation of diferents tabs
+		 * Creation of different tabs
 		 */
 		tabEmployes = new TabEmployes(Color.GRAY, this.idEmployee, "Onglet Employés");
 		tabCommonArea = new TabCommonArea(Color.GRAY, this.idEmployee, "Onglet Parties Communes");
@@ -69,7 +69,7 @@ public class Frame extends JFrame {
 
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
-		 * Diferent parameters of the window
+		 * Different parameters of the window
 		 */
 		this.setTitle("Deathkiss");
 		this.setSize((int) getToolkit().getScreenSize().getWidth(), (int) getToolkit().getScreenSize().getHeight());

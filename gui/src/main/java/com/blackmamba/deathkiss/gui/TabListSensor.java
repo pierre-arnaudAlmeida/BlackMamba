@@ -51,10 +51,12 @@ public class TabListSensor extends JPanel {
 	private JButton checkSensor;
 	private JButton newCommonArea;
 	private CommonArea commonArea;
+	private CommonArea area;
 	private JScrollPane sc;
 	private Object[][] listM;
 	private JTabbedPane tab;
 	private TabSensor tabSensor;
+	private Thread threadListSensor;
 	private JList<String> tableau;
 	private DefaultListModel<String> tableModel;
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
@@ -65,7 +67,24 @@ public class TabListSensor extends JPanel {
 
 	public TabListSensor(CommonArea area, int idemployee, String title) {
 		this.idemployee = idemployee;
+		this.setArea(area);
 
+		setThreadListSensor(new Thread(new Runnable() {
+			/**
+			 * Loop and update every 30 seconds the list of Sensors
+			 */
+			@Override
+			public void run() {
+				while (true) {
+					updateListSensor();
+					try {
+						Thread.sleep(30000);
+					} catch (InterruptedException e) {
+						logger.log(Level.INFO, "Impossible to sleep the thread" + e.getClass().getCanonicalName());
+					}
+				}
+			}
+		}));
 		/**
 		 * Definition of the structure of this tab
 		 */
@@ -103,7 +122,96 @@ public class TabListSensor extends JPanel {
 		});
 
 		///////////////////////// TABLE/////////////////////////////////////////////////
-		//TODO synchro
+		// TODO synchro
+
+		tableModel = new DefaultListModel<String>();
+		tableau = new JList<String>(tableModel);
+		updateListSensor();
+
+		sc = new JScrollPane(tableau);
+		sc.setBounds((int) getToolkit().getScreenSize().getWidth() * 3 / 10,
+				(int) getToolkit().getScreenSize().getHeight() * 2 / 10,
+				(int) getToolkit().getScreenSize().getWidth() * 1 / 2,
+				(int) getToolkit().getScreenSize().getHeight() * 1 / 2);
+		this.add(sc);
+
+		/**
+		 * Get the id of the sensor selected by the user to be used after
+		 */
+		MouseListener mouseListener = new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				index = tableau.locationToIndex(e.getPoint());
+				String substring = tableModel.getElementAt(index).toString();
+				int position = substring.indexOf(" ");
+				index = Integer.parseInt(substring.substring(0, position));
+			}
+		};
+		tableau.addMouseListener(mouseListener);
+
+		///////////////////////// BUTTON/////////////////////////////////////////////////
+		/**
+		 * Definition of Button CheckSensor
+		 */
+		checkSensor = new JButton("Afficher le capteur");
+		checkSensor.setBounds(((int) getToolkit().getScreenSize().getWidth() * 5 / 10),
+				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
+		this.add(checkSensor);
+		checkSensor.addActionListener(new ActionListener() {
+			/**
+			 * If we pressed the CheckSensorButton we go to the TabSensor to watch the
+			 * informations about this sensor
+			 */
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (index == 0) {
+					JOptionPane.showMessageDialog(null, "Veuillez selectionner un capteur", "Erreur",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+					tab = new JTabbedPane();
+					tab = Frame.getTab();
+
+					tab.remove(2);
+					tabSensor = new TabSensor(Color.GRAY, idemployee, "Onglet Capteurs", index);
+					tab.add(tabSensor, 2);
+					tab.setTitleAt(2, "Onglet Capteurs");
+					Frame.goToTab(2);
+				}
+			}
+		});
+
+		/**
+		 * Definition of Button newCommonArea
+		 */
+		newCommonArea = new JButton("Nouvelle Partie Commune");
+		newCommonArea.setBounds(((int) getToolkit().getScreenSize().getWidth() * 3 / 10),
+				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
+		this.add(newCommonArea);
+		newCommonArea.addActionListener(new ActionListener() {
+			/**
+			 * If we pressed the newCommonAreaButton we close this Tab, and we go to
+			 * TabCommonArea to find a new CommonArea
+			 */
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tab = new JTabbedPane();
+				tab = Frame.getTab();
+				tab.remove(6);
+				Frame.goToTab(1);
+			}
+		});
+		threadListSensor.start();
+
+		///////////////////////// FRAME/////////////////////////////////////////////////
+		/**
+		 * Different parameters of the window
+		 */
+		this.setLayout(new BorderLayout());
+		this.add(bar, BorderLayout.NORTH);
+		this.setBackground(Color.GRAY);
+
+	}
+
+	public void updateListSensor() {
 		/**
 		 * They find all the Sensors present in the CommonArea with the id sent by the
 		 * TabCommonArea And add all this sensor in a list do be displayed
@@ -126,88 +234,13 @@ public class TabListSensor extends JPanel {
 			logger.log(Level.INFO, "Impossible to parse in JSON Sensor datas" + e1.getClass().getCanonicalName());
 		}
 
-		tableModel = new DefaultListModel<String>();
-		tableau = new JList<String>(tableModel);
+		tableModel.removeAllElements();
 		tableModel.addElement("Identifiant, Capteur Type, Etat, Nom Partie Commune");
 
 		for (Sensor sensors : listSensor) {
-			tableModel.addElement(Integer.toString(sensors.getIdSensor()) + " " + sensors.getTypeSensor() + " " + sensors.getSensorState() + " " + area.getNameCommonArea());
+			tableModel.addElement(Integer.toString(sensors.getIdSensor()) + " " + sensors.getTypeSensor() + " "
+					+ sensors.getSensorState() + " " + area.getNameCommonArea());
 		}
-
-		sc = new JScrollPane(tableau);
-		sc.setBounds((int) getToolkit().getScreenSize().getWidth() * 3 / 10, (int) getToolkit().getScreenSize().getHeight() * 2 / 10, (int) getToolkit().getScreenSize().getWidth() * 1 / 2, (int) getToolkit().getScreenSize().getHeight() * 1 / 2);
-		this.add(sc);
-
-		/**
-		 * Get the id of the sensor selected by the user to be used after
-		 */
-		MouseListener mouseListener = new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				index = tableau.locationToIndex(e.getPoint());
-				String substring = tableModel.getElementAt(index).toString();
-				int position = substring.indexOf(" ");
-				index = Integer.parseInt(substring.substring(0, position));
-			}
-		};
-		tableau.addMouseListener(mouseListener);
-
-		///////////////////////// BUTTON/////////////////////////////////////////////////
-		/**
-		 * Definition of Button CheckSensor
-		 */
-		checkSensor = new JButton("Afficher le capteur");
-		checkSensor.setBounds(((int) getToolkit().getScreenSize().getWidth() * 5 / 10), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
-		this.add(checkSensor);
-		checkSensor.addActionListener(new ActionListener() {
-			/**
-			 * If we pressed the CheckSensorButton we go to the TabSensor to watch the
-			 * informations about this sensor
-			 */
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (index == 0) {
-					JOptionPane.showMessageDialog(null, "Veuillez selectionner un capteur", "Erreur", JOptionPane.ERROR_MESSAGE);
-				} else {
-					tab = new JTabbedPane();
-					tab = Frame.getTab();
-
-					tab.remove(2);
-					tabSensor = new TabSensor(Color.GRAY, idemployee, "Onglet Capteurs", index);
-					tab.add(tabSensor, 2);
-					tab.setTitleAt(2, "Onglet Capteurs");
-					Frame.goToTab(2);
-				}
-			}
-		});
-
-		/**
-		 * Definition of Button newCommonArea
-		 */
-		newCommonArea = new JButton("Nouvelle Partie Commune");
-		newCommonArea.setBounds(((int) getToolkit().getScreenSize().getWidth() * 3 / 10), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
-		this.add(newCommonArea);
-		newCommonArea.addActionListener(new ActionListener() {
-			/**
-			 * If we pressed the newCommonAreaButton we close this Tab, and we go to
-			 * TabCommonArea to find a new CommonArea
-			 */
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				tab = new JTabbedPane();
-				tab = Frame.getTab();
-				tab.remove(6);
-				Frame.goToTab(1);
-			}
-		});
-
-		///////////////////////// FRAME/////////////////////////////////////////////////
-		/**
-		 * Different parameters of the window
-		 */
-		this.setLayout(new BorderLayout());
-		this.add(bar, BorderLayout.NORTH);
-		this.setBackground(Color.GRAY);
-
 	}
 
 	/**
@@ -226,5 +259,21 @@ public class TabListSensor extends JPanel {
 	 */
 	public void setListM(Object[][] listM) {
 		this.listM = listM;
+	}
+
+	public CommonArea getArea() {
+		return area;
+	}
+
+	public void setArea(CommonArea area) {
+		this.area = area;
+	}
+
+	public Thread getThreadListSensor() {
+		return threadListSensor;
+	}
+
+	public void setThreadListSensor(Thread threadListSensor) {
+		this.threadListSensor = threadListSensor;
 	}
 }
