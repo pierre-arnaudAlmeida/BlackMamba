@@ -18,8 +18,8 @@ public class MainGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					//FIXME
-					//popupConnexion = new Connexion();
+					// FIXME
+					// popupConnexion = new Connexion();
 					// popupConnexion.setVisible(true);
 					logger.log(Level.INFO, "Application runned");
 
