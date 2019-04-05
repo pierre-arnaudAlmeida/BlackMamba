@@ -239,29 +239,7 @@ public class TabEmployes extends JPanel {
 		});
 
 		///////////////////////// LIST EMPLOYEE////////////////////////////////////////
-		// TODO Synchro
-		employee = new Employee();
-		employee.setLastnameEmployee("");
-		employee.setNameEmployee("");
-		employee.setPassword("");
-		employee.setPoste("");
-
-		/**
-		 * Find all the Employee in the data base and add on list to be displayed
-		 */
-		requestType = "READ ALL";
-		table = "Employee";
-		objectMapper = new ObjectMapper();
-		try {
-			jsonString = "READ ALL";
-			new ClientSocket(requestType, jsonString, table);
-			jsonString = ClientSocket.getJson();
-			Employee[] employees = objectMapper.readValue(jsonString, Employee[].class);
-			listEmployee = Arrays.asList(employees);
-			logger.log(Level.INFO, "Find Employees datas succed");
-		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Employees datas" + e1.getClass().getCanonicalName());
-		}
+		updateListEmployee();
 
 		listM = new DefaultListModel<String>();
 		for (Employee employees : listEmployee) {
@@ -651,6 +629,22 @@ public class TabEmployes extends JPanel {
 			}
 		});
 
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (true) {
+					updateListEmployee();
+					try {
+						Thread.sleep(30000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		t.start();
+
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
 		 * Different parameters of the window
@@ -658,5 +652,36 @@ public class TabEmployes extends JPanel {
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);
 		this.setBackground(color);
+	}
+
+	/**
+	 * Method to update the set the listEmployee with the data received from Server
+	 */
+	public void updateListEmployee() {
+		/**
+		 * Declare the Object Employee
+		 */
+		employee = new Employee();
+		employee.setLastnameEmployee("");
+		employee.setNameEmployee("");
+		employee.setPassword("");
+		employee.setPoste("");
+
+		/**
+		 * Find all the Employee in the data base and add on list to be displayed
+		 */
+		requestType = "READ ALL";
+		table = "Employee";
+		objectMapper = new ObjectMapper();
+		try {
+			jsonString = "READ ALL";
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			Employee[] employees = objectMapper.readValue(jsonString, Employee[].class);
+			listEmployee = Arrays.asList(employees);
+			logger.log(Level.INFO, "Find Employees datas succed");
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON Employees datas" + e1.getClass().getCanonicalName());
+		}
 	}
 }

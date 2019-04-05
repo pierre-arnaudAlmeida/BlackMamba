@@ -406,7 +406,7 @@ public class TabCommonArea extends JPanel {
 		addCommonArea.addActionListener(new ActionListener() {
 			/**
 			 * When we pressed the button addCommonArea we supress the space and we get out
-			 * the special caraters and verify if the textField are empty or not If one of
+			 * the special caracters and verify if the textField are empty or not If one of
 			 * them is empty they send a message to user else they send the request to
 			 * server
 			 */
@@ -487,7 +487,7 @@ public class TabCommonArea extends JPanel {
 				if (newNameCommonArea.equals("") || newStageCommonArea.equals("")) {
 					JOptionPane.showMessageDialog(null, "Champs vide", "Erreur", JOptionPane.ERROR_MESSAGE);
 					/**
-					 * if text area do not contains numerics they open an popup
+					 * if text area do not contains numerics they open an pop-up
 					 */
 				} else if (!(newStageCommonArea.matches("[0-9]+[0-9]*"))) {
 					JOptionPane.showMessageDialog(null, "L'etage ne contient pas de lettre uniquement un chiffre", "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -529,7 +529,7 @@ public class TabCommonArea extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (!textInputIdCommonArea.getText().toString().equals("")) {
 					/**
-					 * we get all the Sensor wo have the commonArea id and we set to null the
+					 * we get all the Sensor who have the commonArea id and we set to null the
 					 * idCommonArea in Sensor table and them we can delete the CommonArea
 					 */
 					requestType = "FIND ALL";

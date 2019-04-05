@@ -51,7 +51,7 @@ public class Connexion extends JFrame {
 	public Connexion() {
 
 		/**
-		 * initialisation of container of frame
+		 * initialization of container of frame
 		 */
 		frameContainer = new JPanel();
 		frameContainer.setBackground(Color.WHITE);
@@ -113,7 +113,7 @@ public class Connexion extends JFrame {
 		connectionButton.addActionListener(new ActionListener() {
 			/**
 			 * We check if the id are just numerics and if his not null and the password
-			 * need to be not null to send the request, else we display a popup to inform
+			 * need to be not null to send the request, else we display a pop-up to inform
 			 * the user
 			 */
 			@Override
@@ -206,7 +206,7 @@ public class Connexion extends JFrame {
 
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
-		 * diferent parameters of the window
+		 * different parameters of the window
 		 */
 		this.setContentPane(frameContainer);
 		this.setTitle("Connexion");

@@ -18,7 +18,7 @@ import com.blackmamba.deathkiss.entity.Employee;
 public class ClientSocket {
 
 	/**
-	 * Diferent parameters used
+	 * Different parameters used
 	 */
 	private Socket connexion = null;
 	private PrintWriter writer = null;
@@ -97,7 +97,7 @@ public class ClientSocket {
 
 					response = read();
 					/**
-					 * Reveive the datas in JSON string after the execution by server
+					 * Receive the data in JSON string after the execution by server
 					 */
 					if (!response.equals("ERROR")) {
 						ClientSocket.setJsonString(response);
@@ -145,7 +145,7 @@ public class ClientSocket {
 	}
 
 	/**
-	 * Read the diferent response
+	 * Read the different response
 	 */
 	private String read() throws IOException {
 		String response = "";
@@ -157,7 +157,7 @@ public class ClientSocket {
 	}
 
 	/**
-	 * Have the Json response from server
+	 * Have the JSON response from server
 	 * 
 	 * @return JsonString
 	 */
