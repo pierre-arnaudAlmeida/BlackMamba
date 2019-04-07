@@ -1,7 +1,11 @@
 package com.blackmamba.deathkiss.socket;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -45,6 +49,7 @@ public class MainServerGUI extends JFrame {
 	public MainServerGUI() {
 		time = new JLabel();
 		container = new JPanel();
+		container.setLayout(new GridLayout(2, 2));
 		/**
 		 * Create a button to launch the server
 		 */
@@ -64,7 +69,7 @@ public class MainServerGUI extends JFrame {
 		/**
 		 * Button who invoke the normal method who give one connection to one socket
 		 */
-		launch = new JButton("Lancer le server");
+		launch = new JButton("Lancer le serveur");
 		launch.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -108,7 +113,7 @@ public class MainServerGUI extends JFrame {
 		 * Button to invoke the method who create a socket accept who block all the
 		 * connection but accept the socket
 		 */
-		launchFake = new JButton("Lancer le server Brider");
+		launchFake = new JButton("Lancer le serveur Brider");
 		launchFake.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -179,7 +184,7 @@ public class MainServerGUI extends JFrame {
 		this.setTitle("Server");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		this.setSize(300, 100);
+		this.setSize(300, 150);
 	}
 
 	/**

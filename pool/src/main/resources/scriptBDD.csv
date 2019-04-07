@@ -23,9 +23,26 @@ CREATE DATABASE pds
     CONNECTION LIMIT = -1;
 
 --Creation tables
+CREATE TABLE public.employee
+(
+    id_employee integer NOT NULL DEFAULT,
+    nom_employee text COLLATE pg_catalog."default" NOT NULL,
+    prenom_employee text COLLATE pg_catalog."default" NOT NULL,
+    mot_de_passe text COLLATE pg_catalog."default" NOT NULL,
+    poste text COLLATE pg_catalog."default",
+    CONSTRAINT employee_pkey PRIMARY KEY (id_employee)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.employee
+    OWNER to postgres;
+    
 CREATE TABLE public.resident
 (
-    id_resident integer NOT NULL DEFAULT nextval('resident_id_resident_seq'::regclass),
+    id_resident integer NOT NULL,
     nom_resident text COLLATE pg_catalog."default" NOT NULL,
     prenom_resident text COLLATE pg_catalog."default",
     CONSTRAINT resident_pkey PRIMARY KEY (id_resident)
@@ -38,31 +55,9 @@ TABLESPACE pg_default;
 ALTER TABLE public.resident
     OWNER to postgres;
 
-CREATE TABLE public.surveiller
-(
-    id_employee integer NOT NULL,
-    id_resident integer NOT NULL,
-    CONSTRAINT surveiller_pkey PRIMARY KEY (id_employee, id_resident),
-    CONSTRAINT id_employee FOREIGN KEY (id_employee)
-        REFERENCES public.employee (id_employee) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION,
-    CONSTRAINT id_resident FOREIGN KEY (id_resident)
-        REFERENCES public.resident (id_resident) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
-
-ALTER TABLE public.surveiller
-    OWNER to postgres;
-
 CREATE TABLE public.partie_commune
 (
-    id_partie_commune integer NOT NULL DEFAULT nextval('partie_commune_id_partie_commune_seq'::regclass),
+    id_partie_commune integer NOT NULL,
     nom_partie_commune text COLLATE pg_catalog."default" NOT NULL,
     etage_partie_commune integer NOT NULL,
     CONSTRAINT partie_commune_pkey PRIMARY KEY (id_partie_commune)
@@ -77,7 +72,7 @@ ALTER TABLE public.partie_commune
 
 CREATE TABLE public.capteur
 (
-    id_capteur integer NOT NULL DEFAULT nextval('capteur_id_capteur_seq'::regclass),
+    id_capteur integer NOT NULL,
     type_capteur text COLLATE pg_catalog."default" NOT NULL,
     etat text COLLATE pg_catalog."default" NOT NULL,
     id_partie_commune integer,
@@ -99,6 +94,28 @@ CREATE INDEX fki_id_partie_commune
     ON public.capteur USING btree
     (id_partie_commune)
     TABLESPACE pg_default;
+    
+CREATE TABLE public.surveiller
+(
+    id_employee integer NOT NULL,
+    id_resident integer NOT NULL,
+    CONSTRAINT surveiller_pkey PRIMARY KEY (id_employee, id_resident),
+    CONSTRAINT id_employee FOREIGN KEY (id_employee)
+        REFERENCES public.employee (id_employee) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT id_resident FOREIGN KEY (id_resident)
+        REFERENCES public.resident (id_resident) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.surveiller
+    OWNER to postgres;
 
 CREATE TABLE public.gerer
 (
@@ -156,7 +173,7 @@ ALTER TABLE public.signaler
 
 CREATE TABLE public.historique
 (
-    id_historique integer NOT NULL DEFAULT nextval('historique_id_historique_seq'::regclass),
+    id_historique integer NOT NULL,
     date_historique timestamp without time zone NOT NULL,
     etat_avant text COLLATE pg_catalog."default" NOT NULL,
     etat_apres text COLLATE pg_catalog."default" NOT NULL,
@@ -173,23 +190,6 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE public.historique
-    OWNER to postgres;
-
-CREATE TABLE public.employee
-(
-    id_employee integer NOT NULL DEFAULT nextval('employee_id_employee_seq'::regclass),
-    nom_employee text COLLATE pg_catalog."default" NOT NULL,
-    prenom_employee text COLLATE pg_catalog."default" NOT NULL,
-    mot_de_passe text COLLATE pg_catalog."default" NOT NULL,
-    poste text COLLATE pg_catalog."default",
-    CONSTRAINT employee_pkey PRIMARY KEY (id_employee)
-)
-WITH (
-    OIDS = FALSE
-)
-TABLESPACE pg_default;
-
-ALTER TABLE public.employee
     OWNER to postgres;
 
 CREATE TABLE public.badger
