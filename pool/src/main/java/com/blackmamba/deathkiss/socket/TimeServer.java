@@ -110,7 +110,6 @@ public class TimeServer {
 				while (isRunning == true) {
 					try {
 						client = server.accept();
-						// TODO while ajouter
 						while (numberConnection < DataSource.getMaxConnectionFromJDBC(pool)) {
 							DataSource.getConnectionFromJDBC(pool);
 							numberConnection++;
