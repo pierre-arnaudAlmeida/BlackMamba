@@ -680,36 +680,41 @@ public class TabEmployes extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(index);
 				if (index != -9999) {
-					requestType = "DELETE";
-					table = "Employee";
-					try {
-						jsonString = objectMapper.writeValueAsString(employee);
-						new ClientSocket(requestType, jsonString, table);
-						jsonString = ClientSocket.getJson();
-						if (!jsonString.equals("DELETED")) {
-							JOptionPane.showMessageDialog(null, "La suppression a échoué", "Erreur",
-									JOptionPane.ERROR_MESSAGE);
-							logger.log(Level.INFO, "Impossible to delete this employee");
-						} else {
-							JOptionPane.showMessageDialog(null, "Suppression de l'Employé", "Info",
-									JOptionPane.INFORMATION_MESSAGE);
+					if (employee.getIdEmployee() != idemployee && employee.getIdEmployee() != 1) {
+						requestType = "DELETE";
+						table = "Employee";
+						try {
+							jsonString = objectMapper.writeValueAsString(employee);
+							new ClientSocket(requestType, jsonString, table);
+							jsonString = ClientSocket.getJson();
+							if (!jsonString.equals("DELETED")) {
+								JOptionPane.showMessageDialog(null, "La suppression a échoué", "Erreur",
+										JOptionPane.ERROR_MESSAGE);
+								logger.log(Level.INFO, "Impossible to delete this employee");
+							} else {
+								JOptionPane.showMessageDialog(null, "Suppression de l'Employé", "Info",
+										JOptionPane.INFORMATION_MESSAGE);
+							}
+						} catch (Exception e1) {
+							logger.log(Level.INFO,
+									"Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
 						}
-					} catch (Exception e1) {
-						logger.log(Level.INFO,
-								"Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
-					}
-					listM.removeElementAt(index);
-					index = (-9999);
-					employee.setIdEmployee(0);
-					employee.setLastnameEmployee("");
-					employee.setNameEmployee("");
-					employee.setPoste("");
-					employee.setPassword("");
+						listM.removeElementAt(index);
+						index = (-9999);
+						employee.setIdEmployee(0);
+						employee.setLastnameEmployee("");
+						employee.setNameEmployee("");
+						employee.setPoste("");
+						employee.setPassword("");
 
-					textInputLastnameEmployee.setText("");
-					textInputNameEmployee.setText("");
-					textInputFunctionEmployee.setText("");
-					textInputPasswordEmployee.setText("");
+						textInputLastnameEmployee.setText("");
+						textInputNameEmployee.setText("");
+						textInputFunctionEmployee.setText("");
+						textInputPasswordEmployee.setText("");
+					} else {
+						JOptionPane.showMessageDialog(null, "Vous ne pouvez pas vous auto supprimer", "Erreur",
+								JOptionPane.ERROR_MESSAGE);
+					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Veuillez selectionner un employé à supprimer", "Erreur",
 							JOptionPane.ERROR_MESSAGE);

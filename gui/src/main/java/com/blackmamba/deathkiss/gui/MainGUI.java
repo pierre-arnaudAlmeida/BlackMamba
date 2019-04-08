@@ -18,10 +18,13 @@ public class MainGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					popupConnexion = new Connexion();
-					popupConnexion.setVisible(true);
+					// FIXME
+					// popupConnexion = new Connexion();
+					// popupConnexion.setVisible(true);
 					logger.log(Level.INFO, "Application runned");
 
+					Frame frame = new Frame(169);
+					frame.setVisible(true);
 				} catch (Exception e) {
 					logger.log(Level.INFO,
 							"Impossible to create the window 'window' " + e.getClass().getCanonicalName());
