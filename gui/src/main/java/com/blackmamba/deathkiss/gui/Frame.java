@@ -5,6 +5,8 @@ import javax.swing.*;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.blackmamba.deathkiss.entity.Employee;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * 
@@ -25,10 +27,39 @@ public class Frame extends JFrame {
 	private TabHistorical tabHistorical;
 	private TabProfile tabProfile;
 	private int idEmployee;
+	private String requestType;
+	private String table;
+	private String jsonString;
+	private Employee employee;
+	private ObjectMapper objectMapper;
+	private Thread threadFrame;
 	private static final Logger logger = LogManager.getLogger(Frame.class);
 
 	public Frame(int idEmployee) {
 		this.idEmployee = idEmployee;
+
+		///////////////////////// Thread/////////////////////////////////////////////////
+		setThreadFrame(new Thread(new Runnable() {
+			/**
+			 * Loop and update every 30 sec the list of employees
+			 */
+			@Override
+			public void run() {
+				while (true) {
+					verificationUser(idEmployee);
+					if (employee.getLastnameEmployee().equals("")) {
+						JOptionPane.showMessageDialog(null, "Votre compte a été supprimer vous allez etre déconnecter",
+								"Erreur", JOptionPane.ERROR_MESSAGE);
+						System.exit(ABORT);
+					}
+					try {
+						Thread.sleep(30000);
+					} catch (InterruptedException e) {
+						logger.log(Level.INFO, "Impossible to sleep the thread" + e.getClass().getCanonicalName());
+					}
+				}
+			}
+		}));
 
 		/**
 		 * LOGO
@@ -78,6 +109,23 @@ public class Frame extends JFrame {
 		this.getContentPane().add(tab);
 	}
 
+	public void verificationUser(int id) {
+		requestType = "READ";
+		employee = new Employee();
+		table = "Employee";
+		employee.setIdEmployee(id);
+		objectMapper = new ObjectMapper();
+		try {
+			jsonString = objectMapper.writeValueAsString(employee);
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			employee = objectMapper.readValue(jsonString, Employee.class);
+			logger.log(Level.INFO, "Find Employee data succed");
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
+		}
+	}
+
 	/**
 	 * Method to switch to as other tab
 	 * 
@@ -103,5 +151,13 @@ public class Frame extends JFrame {
 	 */
 	public void setTab(JTabbedPane tab) {
 		Frame.tab = tab;
+	}
+
+	public Thread getThreadFrame() {
+		return threadFrame;
+	}
+
+	public void setThreadFrame(Thread threadFrame) {
+		this.threadFrame = threadFrame;
 	}
 }
