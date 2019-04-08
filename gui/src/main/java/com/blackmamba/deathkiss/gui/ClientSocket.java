@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Properties;
+import java.util.ResourceBundle;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,18 +26,27 @@ public class ClientSocket {
 	private Socket connexion = null;
 	private PrintWriter writer = null;
 	private BufferedInputStream reader = null;
-	private static final Logger logger = LogManager.getLogger(ClientSocket.class);
+	private int port;
 	private String requestType;
 	private String response;
 	private String table;
+	private String host;
 	private static String jsonString;
-	static Employee emp = new Employee();
-	private String host = "127.0.0.1";
-	private int port = 2345;
+	private static Employee emp = new Employee();
+	private final Properties prop = new Properties();
+	private static final Logger logger = LogManager.getLogger(ClientSocket.class);
+
+	public ClientSocket() {
+	}
 
 	public ClientSocket(String requestType, String jsonString, String table) {
 		this.requestType = requestType;
 		this.table = table;
+
+		ResourceBundle rs = ResourceBundle.getBundle("config");
+		this.host = rs.getString("server.host");
+		this.port = Integer.parseInt(rs.getString("server.port"));
+
 		ClientSocket.setJsonString(jsonString);
 		/**
 		 * Create a new socket and send to host
@@ -172,5 +184,17 @@ public class ClientSocket {
 	 */
 	public static void setJsonString(String jsonString) {
 		ClientSocket.jsonString = jsonString;
+	}
+
+	public Properties getProp() {
+		return prop;
+	}
+
+	public static Employee getEmp() {
+		return emp;
+	}
+
+	public static void setEmp(Employee emp) {
+		ClientSocket.emp = emp;
 	}
 }

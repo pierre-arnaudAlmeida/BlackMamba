@@ -29,7 +29,7 @@ public class JDBCConnectionPool {
 	private int maxConnection;
 	private int numberConnection;
 	private boolean busy;
-	final Properties prop = new Properties();
+	private final Properties prop = new Properties();
 	private static final Logger logger = LogManager.getLogger(JDBCConnectionPool.class);
 	private List<Connection> availableConnections;
 	private List<Connection> availableConnectionsArrayList;
@@ -49,15 +49,13 @@ public class JDBCConnectionPool {
 
 		ResourceBundle rs = ResourceBundle.getBundle("config");
 		numberConnection = 0;
+		this.busy = busy;
 		this.driver = rs.getString("db.driver");
 		this.url = rs.getString("db.url");
 		this.user = rs.getString("db.username");
 		this.password = rs.getString("db.password");
-		int x = Integer.valueOf(rs.getString("db.maxConnections"));
-		this.maxConnection = x;
-		int y = Integer.valueOf(rs.getString("db.initialConnections"));
-		initialConnections = y;
-		this.busy = busy;
+		this.maxConnection = Integer.parseInt(rs.getString("db.maxConnections"));
+		initialConnections = Integer.parseInt(rs.getString("db.initialConnections"));
 
 		if (initialConnections > maxConnection) {
 			initialConnections = maxConnection;
@@ -187,5 +185,9 @@ public class JDBCConnectionPool {
 	 */
 	public void setMaxConnection(int maxConnection) {
 		this.maxConnection = maxConnection;
+	}
+
+	public Properties getProp() {
+		return prop;
 	}
 }

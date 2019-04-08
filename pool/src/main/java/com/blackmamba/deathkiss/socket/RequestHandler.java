@@ -36,8 +36,8 @@ public class RequestHandler implements Runnable {
 	private PrintWriter writer = null;
 	private BufferedInputStream reader = null;
 	private String response;
-	private static final Logger logger = LogManager.getLogger(RequestHandler.class);
 	private String jsonString;
+	private static final Logger logger = LogManager.getLogger(RequestHandler.class);
 	private ObjectMapper objectMapper;
 	private JsonNode jsonNode;
 	private boolean result;

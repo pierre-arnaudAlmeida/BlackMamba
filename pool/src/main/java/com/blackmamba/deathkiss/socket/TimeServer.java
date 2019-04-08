@@ -7,6 +7,9 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Properties;
+import java.util.ResourceBundle;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,22 +25,25 @@ public class TimeServer {
 	/**
 	 * Initialization of parameters
 	 */
-	private int port = 2345;
-	private String host = "127.0.0.1";
+	private int port;
+	private String host;
 	private ServerSocket server = null;
 	private boolean isRunning = true;
-	private static final Logger logger = LogManager.getLogger(TimeServer.class);
 	private JDBCConnectionPool pool;
 	private int numberConnection;
 	private Connection connectionGived;
 	private Socket client;
+	private final Properties prop = new Properties();
+	private static final Logger logger = LogManager.getLogger(TimeServer.class);
 
 	/**
 	 * Constructor without parameters
 	 */
 	public TimeServer() {
+		ResourceBundle rs = ResourceBundle.getBundle("config");
 		try {
-			server = new ServerSocket(port, 100, InetAddress.getByName(host));
+			server = new ServerSocket(Integer.parseInt(rs.getString("server.default.port")), 100,
+					InetAddress.getByName(rs.getString("server.default.host")));
 		} catch (UnknownHostException e) {
 			logger.log(Level.INFO, "IP Host dont find " + e.getClass().getCanonicalName());
 		} catch (IOException e) {
@@ -69,7 +75,7 @@ public class TimeServer {
 
 	/**
 	 * Launch the server Create a thread, and accept the socket if the number of
-	 * connection dont was on maximum
+	 * connection don't was on maximum
 	 */
 	public void open() {
 		Thread th = new Thread(new Runnable() {
@@ -147,5 +153,9 @@ public class TimeServer {
 	 */
 	public void load() {
 		isRunning = true;
+	}
+
+	public Properties getProp() {
+		return prop;
 	}
 }

@@ -3,6 +3,7 @@ package com.blackmamba.deathkiss.socket;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 import javax.swing.Timer;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -34,6 +35,9 @@ public class MainServer {
 	 * @throws SQLException
 	 */
 	public static void main(String[] args) throws SQLException {
+		ResourceBundle rs = ResourceBundle.getBundle("config");
+		host = rs.getString("server.host");
+		port = Integer.parseInt(rs.getString("server.port"));
 		ts = new TimeServer(host, port);
 		ts.open();
 
