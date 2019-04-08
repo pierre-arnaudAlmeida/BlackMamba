@@ -1,11 +1,14 @@
 package com.blackmamba.deathkiss.socket;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.Properties;
+import java.util.ResourceBundle;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,13 +29,12 @@ public class MainServerGUI extends JFrame {
 	 * Initialization of different parameters
 	 */
 	private static final long serialVersionUID = 1L;
-	private static String host = "127.0.0.1";
-	private static int port = 2345;
+	private String host;
+	private int port;
 	private static int nbServer = 0;
 	private int heure = 0;
 	private int minute = 0;
 	private int seconde = 0;
-	private static final Logger logger = LogManager.getLogger(MainServerGUI.class);
 	private ActionListener tache_timer;
 	private TimeServer ts;
 	private JLabel time;
@@ -40,13 +42,19 @@ public class MainServerGUI extends JFrame {
 	private JButton launch;
 	private JButton launchFake;
 	private JButton stop;
-	Timer timer1;
+	private Timer timer1;
+	private final Properties prop = new Properties();
+	private static final Logger logger = LogManager.getLogger(MainServerGUI.class);
 
 	/**
 	 * Main to open the Server
 	 * 
 	 */
 	public MainServerGUI() {
+		ResourceBundle rs = ResourceBundle.getBundle("config");
+		this.host = rs.getString("server.host");
+		this.port = Integer.parseInt(rs.getString("server.port"));
+
 		time = new JLabel();
 		container = new JPanel();
 		container.setLayout(new GridLayout(2, 2));
@@ -195,5 +203,9 @@ public class MainServerGUI extends JFrame {
 	public static void main(String[] args) {
 		MainServerGUI frame = new MainServerGUI();
 		frame.setVisible(true);
+	}
+
+	public Properties getProp() {
+		return prop;
 	}
 }
