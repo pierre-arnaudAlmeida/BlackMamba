@@ -57,6 +57,7 @@ public class TabSensor extends JPanel {
 	private JLabel labelNameCommonArea;
 	private JLabel labelTypeSensor;
 	private JLabel labelStateSensor;
+	private JLabel labelHeadList;
 	private JTextField textInputIdSensor;
 	private JTextField searchBar;
 	private Font policeBar;
@@ -500,6 +501,13 @@ public class TabSensor extends JPanel {
 		labelStateSensor.setFont(policeLabel);
 		this.add(labelStateSensor);
 
+		/**
+		 * Definition of label HeadList
+		 */
+		labelHeadList = new JLabel("ID /Type /Etat /ID Partie Commune");
+		labelHeadList.setBounds(40, 90, 200, 30);
+		labelHeadList.setFont(policeBar);
+		this.add(labelHeadList);
 		//////////////////// TEXT AREA////////////////////////////////////////////////
 		/**
 		 * Definition of textArea IdSensor

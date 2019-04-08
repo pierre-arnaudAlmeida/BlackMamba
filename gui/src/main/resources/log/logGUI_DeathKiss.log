@@ -37802,3 +37802,241 @@
 2019-04-08 21:14:43 [AWT-EventQueue-0] INFO  Frame:71 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
 2019-04-08 21:14:43 [AWT-EventQueue-0] INFO  Frame:72 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
 2019-04-08 21:14:43 [AWT-EventQueue-0] INFO  Frame:73 -                                           
+2019-04-08 22:52:06 [AWT-EventQueue-0] INFO  Frame:67 - ______           _   _     _    _         
+2019-04-08 22:52:06 [AWT-EventQueue-0] INFO  Frame:68 - |  _  \         | | | |   | |  (_)        
+2019-04-08 22:52:06 [AWT-EventQueue-0] INFO  Frame:69 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-08 22:52:06 [AWT-EventQueue-0] INFO  Frame:70 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-08 22:52:06 [AWT-EventQueue-0] INFO  Frame:71 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-08 22:52:06 [AWT-EventQueue-0] INFO  Frame:72 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-08 22:52:06 [AWT-EventQueue-0] INFO  Frame:73 -                                           
+2019-04-08 22:52:28 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.ConnectException
+2019-04-08 22:52:28 [AWT-EventQueue-0] INFO  TabEmployes:771 - Impossible to parse in JSON Employees datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:52:42 [AWT-EventQueue-0] INFO  Frame:67 - ______           _   _     _    _         
+2019-04-08 22:52:42 [AWT-EventQueue-0] INFO  Frame:68 - |  _  \         | | | |   | |  (_)        
+2019-04-08 22:52:42 [AWT-EventQueue-0] INFO  Frame:69 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-08 22:52:42 [AWT-EventQueue-0] INFO  Frame:70 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-08 22:52:42 [AWT-EventQueue-0] INFO  Frame:71 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-08 22:52:42 [AWT-EventQueue-0] INFO  Frame:72 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-08 22:52:42 [AWT-EventQueue-0] INFO  Frame:73 -                                           
+2019-04-08 22:52:43 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:52:43 [AWT-EventQueue-0] INFO  TabEmployes:771 - Impossible to parse in JSON Employees datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:52:43 [Thread-3] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:52:43 [Thread-3] INFO  TabEmployes:771 - Impossible to parse in JSON Employees datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:52:43 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:52:43 [AWT-EventQueue-0] INFO  TabCommonArea:739 - Impossible to parse in JSON CommonArea datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:52:43 [Thread-4] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:52:43 [Thread-4] INFO  TabCommonArea:739 - Impossible to parse in JSON CommonArea datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:52:43 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:52:43 [AWT-EventQueue-0] INFO  TabSensor:900 - Impossible to parse in JSON Sensor datacom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:52:43 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:52:43 [AWT-EventQueue-0] INFO  TabSensor:868 - Impossible to parse in JSON Common Area datas com.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:52:43 [AWT-EventQueue-0] INFO  TabSensor:877 - Convertion of all Common Areas available in a list succed
+2019-04-08 22:52:43 [Thread-5] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:52:43 [Thread-5] INFO  TabSensor:900 - Impossible to parse in JSON Sensor datacom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:52:43 [Thread-5] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:52:43 [Thread-5] INFO  TabSensor:868 - Impossible to parse in JSON Common Area datas com.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:52:43 [Thread-5] INFO  TabSensor:877 - Convertion of all Common Areas available in a list succed
+2019-04-08 22:52:43 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:52:43 [AWT-EventQueue-0] INFO  TabProfile:381 - Find Employee data succed
+2019-04-08 22:52:43 [Thread-6] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:52:43 [Thread-6] INFO  TabProfile:381 - Find Employee data succed
+2019-04-08 22:53:00 [AWT-EventQueue-0] INFO  Frame:67 - ______           _   _     _    _         
+2019-04-08 22:53:00 [AWT-EventQueue-0] INFO  Frame:68 - |  _  \         | | | |   | |  (_)        
+2019-04-08 22:53:00 [AWT-EventQueue-0] INFO  Frame:69 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-08 22:53:00 [AWT-EventQueue-0] INFO  Frame:70 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-08 22:53:00 [AWT-EventQueue-0] INFO  Frame:71 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-08 22:53:00 [AWT-EventQueue-0] INFO  Frame:72 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-08 22:53:00 [AWT-EventQueue-0] INFO  Frame:73 -                                           
+2019-04-08 22:53:01 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:53:01 [AWT-EventQueue-0] INFO  TabEmployes:771 - Impossible to parse in JSON Employees datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:53:01 [Thread-3] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:53:01 [Thread-3] INFO  TabEmployes:771 - Impossible to parse in JSON Employees datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:53:01 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:53:01 [AWT-EventQueue-0] INFO  TabCommonArea:739 - Impossible to parse in JSON CommonArea datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:53:01 [Thread-4] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:53:01 [Thread-4] INFO  TabCommonArea:739 - Impossible to parse in JSON CommonArea datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:53:01 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:53:01 [AWT-EventQueue-0] INFO  TabSensor:900 - Impossible to parse in JSON Sensor datacom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:53:01 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:53:01 [AWT-EventQueue-0] INFO  TabSensor:868 - Impossible to parse in JSON Common Area datas com.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:53:01 [AWT-EventQueue-0] INFO  TabSensor:877 - Convertion of all Common Areas available in a list succed
+2019-04-08 22:53:01 [Thread-5] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:53:01 [Thread-5] INFO  TabSensor:900 - Impossible to parse in JSON Sensor datacom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:53:01 [Thread-5] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:53:01 [Thread-5] INFO  TabSensor:868 - Impossible to parse in JSON Common Area datas com.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:53:01 [Thread-5] INFO  TabSensor:877 - Convertion of all Common Areas available in a list succed
+2019-04-08 22:53:01 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:53:01 [AWT-EventQueue-0] INFO  TabProfile:381 - Find Employee data succed
+2019-04-08 22:53:01 [Thread-6] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:53:01 [Thread-6] INFO  TabProfile:381 - Find Employee data succed
+2019-04-08 22:53:15 [AWT-EventQueue-0] INFO  Frame:67 - ______           _   _     _    _         
+2019-04-08 22:53:15 [AWT-EventQueue-0] INFO  Frame:68 - |  _  \         | | | |   | |  (_)        
+2019-04-08 22:53:15 [AWT-EventQueue-0] INFO  Frame:69 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-08 22:53:15 [AWT-EventQueue-0] INFO  Frame:70 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-08 22:53:15 [AWT-EventQueue-0] INFO  Frame:71 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-08 22:53:15 [AWT-EventQueue-0] INFO  Frame:72 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-08 22:53:15 [AWT-EventQueue-0] INFO  Frame:73 -                                           
+2019-04-08 22:53:15 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:53:15 [AWT-EventQueue-0] INFO  TabEmployes:771 - Impossible to parse in JSON Employees datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:53:15 [Thread-3] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:53:15 [Thread-3] INFO  TabEmployes:771 - Impossible to parse in JSON Employees datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:53:15 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:53:15 [AWT-EventQueue-0] INFO  TabCommonArea:739 - Impossible to parse in JSON CommonArea datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:53:15 [Thread-4] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:53:15 [Thread-4] INFO  TabCommonArea:739 - Impossible to parse in JSON CommonArea datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:53:15 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:53:15 [AWT-EventQueue-0] INFO  TabSensor:900 - Impossible to parse in JSON Sensor datacom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:53:15 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:53:15 [AWT-EventQueue-0] INFO  TabSensor:868 - Impossible to parse in JSON Common Area datas com.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:53:15 [AWT-EventQueue-0] INFO  TabSensor:877 - Convertion of all Common Areas available in a list succed
+2019-04-08 22:53:15 [Thread-5] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:53:15 [Thread-5] INFO  TabSensor:900 - Impossible to parse in JSON Sensor datacom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:53:15 [Thread-5] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:53:15 [Thread-5] INFO  TabSensor:868 - Impossible to parse in JSON Common Area datas com.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:53:15 [Thread-5] INFO  TabSensor:877 - Convertion of all Common Areas available in a list succed
+2019-04-08 22:53:15 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:53:15 [AWT-EventQueue-0] INFO  TabProfile:381 - Find Employee data succed
+2019-04-08 22:53:15 [Thread-6] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:53:15 [Thread-6] INFO  TabProfile:381 - Find Employee data succed
+2019-04-08 22:54:22 [AWT-EventQueue-0] INFO  Frame:67 - ______           _   _     _    _         
+2019-04-08 22:54:22 [AWT-EventQueue-0] INFO  Frame:68 - |  _  \         | | | |   | |  (_)        
+2019-04-08 22:54:22 [AWT-EventQueue-0] INFO  Frame:69 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-08 22:54:22 [AWT-EventQueue-0] INFO  Frame:70 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-08 22:54:22 [AWT-EventQueue-0] INFO  Frame:71 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-08 22:54:22 [AWT-EventQueue-0] INFO  Frame:72 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-08 22:54:22 [AWT-EventQueue-0] INFO  Frame:73 -                                           
+2019-04-08 22:54:22 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:54:22 [AWT-EventQueue-0] INFO  TabEmployes:770 - Impossible to parse in JSON Employees datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:54:22 [Thread-3] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:54:22 [Thread-3] INFO  TabEmployes:770 - Impossible to parse in JSON Employees datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:54:22 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:54:22 [AWT-EventQueue-0] INFO  TabCommonArea:747 - Impossible to parse in JSON CommonArea datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:54:22 [Thread-4] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:54:22 [Thread-4] INFO  TabCommonArea:747 - Impossible to parse in JSON CommonArea datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:54:22 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:54:22 [AWT-EventQueue-0] INFO  TabSensor:900 - Impossible to parse in JSON Sensor datacom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:54:22 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:54:22 [AWT-EventQueue-0] INFO  TabSensor:868 - Impossible to parse in JSON Common Area datas com.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:54:22 [AWT-EventQueue-0] INFO  TabSensor:877 - Convertion of all Common Areas available in a list succed
+2019-04-08 22:54:22 [Thread-5] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:54:22 [Thread-5] INFO  TabSensor:900 - Impossible to parse in JSON Sensor datacom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:54:22 [Thread-5] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:54:22 [Thread-5] INFO  TabSensor:868 - Impossible to parse in JSON Common Area datas com.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:54:22 [Thread-5] INFO  TabSensor:877 - Convertion of all Common Areas available in a list succed
+2019-04-08 22:54:23 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:54:23 [AWT-EventQueue-0] INFO  TabProfile:381 - Find Employee data succed
+2019-04-08 22:54:23 [Thread-6] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:54:23 [Thread-6] INFO  TabProfile:381 - Find Employee data succed
+2019-04-08 22:54:42 [AWT-EventQueue-0] INFO  Frame:67 - ______           _   _     _    _         
+2019-04-08 22:54:42 [AWT-EventQueue-0] INFO  Frame:68 - |  _  \         | | | |   | |  (_)        
+2019-04-08 22:54:42 [AWT-EventQueue-0] INFO  Frame:69 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-08 22:54:42 [AWT-EventQueue-0] INFO  Frame:70 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-08 22:54:42 [AWT-EventQueue-0] INFO  Frame:71 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-08 22:54:42 [AWT-EventQueue-0] INFO  Frame:72 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-08 22:54:42 [AWT-EventQueue-0] INFO  Frame:73 -                                           
+2019-04-08 22:54:43 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:54:43 [AWT-EventQueue-0] INFO  TabEmployes:770 - Impossible to parse in JSON Employees datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:54:43 [Thread-3] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:54:43 [Thread-3] INFO  TabEmployes:770 - Impossible to parse in JSON Employees datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:54:43 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:54:43 [AWT-EventQueue-0] INFO  TabCommonArea:747 - Impossible to parse in JSON CommonArea datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:54:43 [Thread-4] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:54:43 [Thread-4] INFO  TabCommonArea:747 - Impossible to parse in JSON CommonArea datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:54:43 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:54:43 [AWT-EventQueue-0] INFO  TabSensor:900 - Impossible to parse in JSON Sensor datacom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:54:43 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:54:43 [AWT-EventQueue-0] INFO  TabSensor:868 - Impossible to parse in JSON Common Area datas com.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:54:43 [AWT-EventQueue-0] INFO  TabSensor:877 - Convertion of all Common Areas available in a list succed
+2019-04-08 22:54:43 [Thread-5] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:54:43 [Thread-5] INFO  TabSensor:900 - Impossible to parse in JSON Sensor datacom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:54:43 [Thread-5] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:54:43 [Thread-5] INFO  TabSensor:868 - Impossible to parse in JSON Common Area datas com.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:54:43 [Thread-5] INFO  TabSensor:877 - Convertion of all Common Areas available in a list succed
+2019-04-08 22:54:43 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:54:43 [AWT-EventQueue-0] INFO  TabProfile:381 - Find Employee data succed
+2019-04-08 22:54:43 [Thread-6] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:54:43 [Thread-6] INFO  TabProfile:381 - Find Employee data succed
+2019-04-08 22:55:13 [Thread-3] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:55:13 [Thread-4] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:55:13 [Thread-3] INFO  TabEmployes:770 - Impossible to parse in JSON Employees datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:55:13 [Thread-4] INFO  TabCommonArea:747 - Impossible to parse in JSON CommonArea datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:55:13 [Thread-5] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:55:13 [Thread-5] INFO  TabSensor:900 - Impossible to parse in JSON Sensor datacom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:55:13 [Thread-5] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:55:13 [Thread-5] INFO  TabSensor:868 - Impossible to parse in JSON Common Area datas com.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:55:13 [Thread-5] INFO  TabSensor:877 - Convertion of all Common Areas available in a list succed
+2019-04-08 22:55:13 [Thread-6] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:55:13 [Thread-6] INFO  TabProfile:381 - Find Employee data succed
+2019-04-08 22:55:43 [Thread-4] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:55:43 [Thread-3] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:55:43 [Thread-3] INFO  TabEmployes:770 - Impossible to parse in JSON Employees datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:55:43 [Thread-4] INFO  TabCommonArea:747 - Impossible to parse in JSON CommonArea datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:55:43 [Thread-5] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:55:43 [Thread-5] INFO  TabSensor:900 - Impossible to parse in JSON Sensor datacom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:55:43 [Thread-5] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:55:43 [Thread-5] INFO  TabSensor:868 - Impossible to parse in JSON Common Area datas com.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:55:43 [Thread-5] INFO  TabSensor:877 - Convertion of all Common Areas available in a list succed
+2019-04-08 22:55:43 [Thread-6] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:55:43 [Thread-6] INFO  TabProfile:381 - Find Employee data succed
+2019-04-08 22:56:13 [Thread-3] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:56:13 [Thread-4] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:56:13 [Thread-4] INFO  TabCommonArea:747 - Impossible to parse in JSON CommonArea datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:56:13 [Thread-3] INFO  TabEmployes:770 - Impossible to parse in JSON Employees datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:56:13 [Thread-5] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:56:13 [Thread-5] INFO  TabSensor:900 - Impossible to parse in JSON Sensor datacom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:56:13 [Thread-5] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:56:13 [Thread-5] INFO  TabSensor:868 - Impossible to parse in JSON Common Area datas com.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:56:13 [Thread-5] INFO  TabSensor:877 - Convertion of all Common Areas available in a list succed
+2019-04-08 22:56:13 [Thread-6] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:56:13 [Thread-6] INFO  TabProfile:381 - Find Employee data succed
+2019-04-08 22:56:25 [AWT-EventQueue-0] INFO  Frame:67 - ______           _   _     _    _         
+2019-04-08 22:56:25 [AWT-EventQueue-0] INFO  Frame:68 - |  _  \         | | | |   | |  (_)        
+2019-04-08 22:56:25 [AWT-EventQueue-0] INFO  Frame:69 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-08 22:56:25 [AWT-EventQueue-0] INFO  Frame:70 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-08 22:56:25 [AWT-EventQueue-0] INFO  Frame:71 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-08 22:56:25 [AWT-EventQueue-0] INFO  Frame:72 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-08 22:56:25 [AWT-EventQueue-0] INFO  Frame:73 -                                           
+2019-04-08 22:56:25 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:56:25 [AWT-EventQueue-0] INFO  TabEmployes:770 - Impossible to parse in JSON Employees datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:56:25 [Thread-3] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:56:25 [Thread-3] INFO  TabEmployes:770 - Impossible to parse in JSON Employees datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:56:25 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:56:25 [AWT-EventQueue-0] INFO  TabCommonArea:747 - Impossible to parse in JSON CommonArea datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:56:25 [Thread-4] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:56:25 [Thread-4] INFO  TabCommonArea:747 - Impossible to parse in JSON CommonArea datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:56:25 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:56:25 [AWT-EventQueue-0] INFO  TabSensor:908 - Impossible to parse in JSON Sensor datacom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:56:25 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:56:25 [AWT-EventQueue-0] INFO  TabSensor:876 - Impossible to parse in JSON Common Area datas com.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:56:25 [AWT-EventQueue-0] INFO  TabSensor:885 - Convertion of all Common Areas available in a list succed
+2019-04-08 22:56:25 [Thread-5] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:56:25 [Thread-5] INFO  TabSensor:908 - Impossible to parse in JSON Sensor datacom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:56:25 [Thread-5] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:56:25 [Thread-5] INFO  TabSensor:876 - Impossible to parse in JSON Common Area datas com.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:56:25 [Thread-5] INFO  TabSensor:885 - Convertion of all Common Areas available in a list succed
+2019-04-08 22:56:25 [AWT-EventQueue-0] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:56:25 [AWT-EventQueue-0] INFO  TabProfile:381 - Find Employee data succed
+2019-04-08 22:56:25 [Thread-6] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:56:25 [Thread-6] INFO  TabProfile:381 - Find Employee data succed
+2019-04-08 22:56:43 [Thread-4] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:56:43 [Thread-3] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:56:43 [Thread-4] INFO  TabCommonArea:747 - Impossible to parse in JSON CommonArea datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:56:43 [Thread-3] INFO  TabEmployes:770 - Impossible to parse in JSON Employees datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:56:43 [Thread-5] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:56:43 [Thread-5] INFO  TabSensor:900 - Impossible to parse in JSON Sensor datacom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:56:43 [Thread-5] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:56:43 [Thread-5] INFO  TabSensor:868 - Impossible to parse in JSON Common Area datas com.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:56:43 [Thread-5] INFO  TabSensor:877 - Convertion of all Common Areas available in a list succed
+2019-04-08 22:56:43 [Thread-6] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:56:43 [Thread-6] INFO  TabProfile:381 - Find Employee data succed
+2019-04-08 22:57:13 [Thread-4] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:57:13 [Thread-3] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:57:13 [Thread-4] INFO  TabCommonArea:747 - Impossible to parse in JSON CommonArea datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:57:13 [Thread-3] INFO  TabEmployes:770 - Impossible to parse in JSON Employees datascom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:57:13 [Thread-5] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:57:13 [Thread-5] INFO  TabSensor:900 - Impossible to parse in JSON Sensor datacom.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:57:13 [Thread-5] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:57:13 [Thread-5] INFO  TabSensor:868 - Impossible to parse in JSON Common Area datas com.fasterxml.jackson.core.JsonParseException
+2019-04-08 22:57:13 [Thread-5] INFO  TabSensor:877 - Convertion of all Common Areas available in a list succed
+2019-04-08 22:57:13 [Thread-6] INFO  ClientSocket:155 - Impossible create the socket java.net.NoRouteToHostException
+2019-04-08 22:57:13 [Thread-6] INFO  TabProfile:381 - Find Employee data succed

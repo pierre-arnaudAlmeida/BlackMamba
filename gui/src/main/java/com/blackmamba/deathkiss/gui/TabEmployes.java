@@ -55,6 +55,7 @@ public class TabEmployes extends JPanel {
 	private JLabel labelNameEmployee;
 	private JLabel labelFunction;
 	private JLabel labelPassword;
+	private JLabel labelHeadList;
 	private JTextField textInputLastnameEmployee;
 	private JTextField textInputNameEmployee;
 	private JTextField textInputFunctionEmployee;
@@ -349,6 +350,13 @@ public class TabEmployes extends JPanel {
 		labelFunction.setFont(policeLabel);
 		this.add(labelFunction);
 
+		/**
+		 * Definition of label HeadList
+		 */
+		labelHeadList = new JLabel("ID /Nom /Prenom /Poste");
+		labelHeadList.setBounds(40, 90, 200, 30);
+		labelHeadList.setFont(policeBar);
+		this.add(labelHeadList);
 		//////////////////// TEXT AREA////////////////////////////////////////////////
 		/**
 		 * Definition of textArea LastnameEmployee

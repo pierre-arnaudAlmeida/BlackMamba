@@ -53,6 +53,7 @@ public class TabCommonArea extends JPanel {
 	private JLabel labelStageCommonArea;
 	private JLabel labelIdCommonArea;
 	private JLabel labelSearch;
+	private JLabel labelHeadList;
 	private JTextField textInputNameCommonArea;
 	private JTextField textInputStageCommonArea;
 	private JTextField textInputIdCommonArea;
@@ -372,6 +373,13 @@ public class TabCommonArea extends JPanel {
 		labelStageCommonArea.setFont(policeLabel);
 		this.add(labelStageCommonArea);
 
+		/**
+		 * Definition of label HeadList
+		 */
+		labelHeadList = new JLabel("ID /Nom /Etage");
+		labelHeadList.setBounds(40,90, 200, 30);
+		labelHeadList.setFont(policeBar);
+		this.add(labelHeadList);
 		//////////////////// TEXT AREA////////////////////////////////////////////////
 		/**
 		 * Definition of textArea IdCommonArea
