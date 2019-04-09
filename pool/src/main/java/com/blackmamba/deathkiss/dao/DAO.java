@@ -1,7 +1,6 @@
 package com.blackmamba.deathkiss.dao;
 
 import java.sql.Connection;
-import java.util.logging.Logger;
 
 /**
  * 
@@ -12,8 +11,6 @@ import java.util.logging.Logger;
 public abstract class DAO<T> {
 
 	protected Connection con = null;
-
-	Logger logger = Logger.getLogger("logger");
 
 	public DAO(Connection connection) {
 		this.con = connection;

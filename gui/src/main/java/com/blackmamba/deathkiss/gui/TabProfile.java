@@ -30,6 +30,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class TabProfile extends JPanel {
 
+	/**
+	 * Different parameters used
+	 */
 	private static final long serialVersionUID = 1L;
 	private String requestType;
 	private String table;
@@ -54,10 +57,28 @@ public class TabProfile extends JPanel {
 	private JButton restaure;
 	private JCheckBox showButton;
 	private ObjectMapper readMapper;
+	private Thread threadProfile;
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
 
 	public TabProfile(Color color, int idemployee, String title) {
 		this.idemployee = idemployee;
+
+		setThreadProfile(new Thread(new Runnable() {
+			/**
+			 * Loop and update every 30 sec the list of employees
+			 */
+			@Override
+			public void run() {
+				while (true) {
+					updateEmployee();
+					try {
+						Thread.sleep(30000);
+					} catch (InterruptedException e) {
+						logger.log(Level.INFO, "Impossible to sleep the thread" + e.getClass().getCanonicalName());
+					}
+				}
+			}
+		}));
 
 		/**
 		 * Definition of the structures of this tab
@@ -91,24 +112,6 @@ public class TabProfile extends JPanel {
 
 			}
 		});
-
-		///////////////////////// GET DATAS//////////////////////////////////////////
-		/**
-		 * Recuparation of information about employee
-		 */
-		requestType = "READ";
-		employee = new Employee();
-		table = "Employee";
-		readMapper = new ObjectMapper();
-		employee.setIdEmployee(idemployee);
-		try {
-			jsonString = readMapper.writeValueAsString(employee);
-			new ClientSocket(requestType, jsonString, table);
-			jsonString = ClientSocket.getJson();
-			employee = readMapper.readValue(jsonString, Employee.class);
-		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
-		}
 
 		///////////////////////// LABEL///////////////////////////////////////////////
 		/**
@@ -156,7 +159,6 @@ public class TabProfile extends JPanel {
 		textInputLastnameEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4,
 				(int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
 		textInputLastnameEmployee.setFont(policeLabel);
-		textInputLastnameEmployee.setText(employee.getLastnameEmployee());
 		this.add(textInputLastnameEmployee);
 
 		/**
@@ -166,7 +168,6 @@ public class TabProfile extends JPanel {
 		textInputNameEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 4,
 				(int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
 		textInputNameEmployee.setFont(policeLabel);
-		textInputNameEmployee.setText(employee.getNameEmployee());
 		this.add(textInputNameEmployee);
 
 		/**
@@ -185,7 +186,6 @@ public class TabProfile extends JPanel {
 		textInputFunctionEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 4,
 				(int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);
 		textInputFunctionEmployee.setFont(policeLabel);
-		textInputFunctionEmployee.setText(employee.getPoste());
 		this.add(textInputFunctionEmployee);
 
 		/**
@@ -197,7 +197,6 @@ public class TabProfile extends JPanel {
 		showButton.setBackground(color);
 		showButton.setFont(policeLabel);
 		this.add(showButton);
-
 		showButton.addActionListener(new ActionListener() {
 			/**
 			 * Display the content of TextField password employee When we check the CheckBox
@@ -211,6 +210,10 @@ public class TabProfile extends JPanel {
 				}
 			}
 		});
+
+		///////////////////////// GET DATAS//////////////////////////////////////////
+		updateEmployee();
+
 		//////////////////// BUTTON////////////////////////////////////////////////
 		/**
 		 * Definition of Button Save
@@ -221,7 +224,9 @@ public class TabProfile extends JPanel {
 		this.add(save);
 		save.addActionListener(new ActionListener() {
 			/**
-			 * Get datas inserted on text area
+			 * When we pressed the button save we update the Employee datas we check if the
+			 * informations are correct, if the textField are not empty and we supress the
+			 * special caracters
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -265,8 +270,12 @@ public class TabProfile extends JPanel {
 							jsonString = ClientSocket.getJson();
 							employee2 = readMapper.readValue(jsonString, Employee.class);
 						} catch (IOException e1) {
-							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+							logger.log(Level.INFO,
+									"Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
 						}
+						/**
+						 * If the password is correct they send the datas to be updated
+						 */
 						if (!(employee2.getLastnameEmployee().equals(""))) {
 							employee.setIdEmployee(idemployee);
 							employee.setLastnameEmployee(newLastnameEmployee.toUpperCase());
@@ -301,6 +310,23 @@ public class TabProfile extends JPanel {
 						employee.setLastnameEmployee(newLastnameEmployee.toUpperCase());
 						employee.setNameEmployee(newNameEmployee);
 						employee.setPoste(newFunctionEmployee.toUpperCase());
+
+						try {
+							jsonString = readMapper.writeValueAsString(employee);
+							new ClientSocket(requestType, jsonString, table);
+							jsonString = ClientSocket.getJson();
+							if (!jsonString.equals("UPDATED")) {
+								JOptionPane.showMessageDialog(null, "La mise a jour a échoué", "Erreur",
+										JOptionPane.ERROR_MESSAGE);
+								logger.log(Level.INFO, "Impossible to update employee");
+							} else {
+								logger.log(Level.INFO, "Update Succeded");
+								JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos",
+										JOptionPane.INFORMATION_MESSAGE);
+							}
+						} catch (Exception e1) {
+							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+						}
 					}
 				}
 			}
@@ -326,12 +352,47 @@ public class TabProfile extends JPanel {
 				textInputPasswordEmployee.setText("");
 			}
 		});
+		threadProfile.start();
 
+		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
-		 * Diferent parameters of the window
+		 * Different parameters of the window
 		 */
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);
 		this.setBackground(color);
+	}
+
+	///////////////////////// GET DATAS//////////////////////////////////////////
+	/**
+	 * Recuperation of information about employee who sign in the application
+	 */
+	public void updateEmployee() {
+		requestType = "READ";
+		employee = new Employee();
+		table = "Employee";
+		readMapper = new ObjectMapper();
+		employee.setIdEmployee(idemployee);
+		try {
+			jsonString = readMapper.writeValueAsString(employee);
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			employee = readMapper.readValue(jsonString, Employee.class);
+			logger.log(Level.INFO, "Find Employee data succed");
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
+		}
+		textInputLastnameEmployee.setText(employee.getLastnameEmployee());
+		textInputNameEmployee.setText(employee.getNameEmployee());
+		textInputFunctionEmployee.setText(employee.getPoste());
+		textInputPasswordEmployee.setText("");
+	}
+
+	public Thread getThreadProfile() {
+		return threadProfile;
+	}
+
+	public void setThreadProfile(Thread threadProfile) {
+		this.threadProfile = threadProfile;
 	}
 }

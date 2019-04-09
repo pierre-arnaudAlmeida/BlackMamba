@@ -24,6 +24,6 @@ public abstract class AbstractDAOFactory {
 	public abstract DAO<SensorHistorical> getSensorHistoricalDAO();
 
 	public static AbstractDAOFactory getFactory() {
-			return new DAOFactory();
+		return new DAOFactory();
 	}
 }

@@ -3,7 +3,7 @@ package com.blackmamba.deathkiss.socket;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-
+import java.util.ResourceBundle;
 import javax.swing.Timer;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class MainServer {
 	/**
-	 * Initialization of diferents parameters
+	 * Initialization of different parameters
 	 */
 	private static String host = "127.0.0.1";
 	private static int port = 2345;
@@ -25,6 +25,8 @@ public class MainServer {
 	private static int minute = 0;
 	private static int seconde = 0;
 	private static ActionListener tache_timer;
+	private static Server ts;
+	static Timer timer1;
 
 	/**
 	 * Main to open the Server
@@ -33,7 +35,10 @@ public class MainServer {
 	 * @throws SQLException
 	 */
 	public static void main(String[] args) throws SQLException {
-		TimeServer ts = new TimeServer(host, port);
+		ResourceBundle rs = ResourceBundle.getBundle("config");
+		host = rs.getString("server.host");
+		port = Integer.parseInt(rs.getString("server.port"));
+		ts = new Server(host, port);
 		ts.open();
 
 		logger.log(Level.INFO, "______           _   _     _    _         ");
@@ -62,7 +67,8 @@ public class MainServer {
 				}
 			}
 		};
-		final Timer timer1 = new Timer(delais, tache_timer);
+
+		timer1 = new Timer(delais, tache_timer);
 		timer1.start();
 	}
 }

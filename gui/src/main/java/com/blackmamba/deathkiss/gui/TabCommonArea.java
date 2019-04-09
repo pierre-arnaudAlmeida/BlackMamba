@@ -37,6 +37,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class TabCommonArea extends JPanel {
 
+	/**
+	 * Different parameters used
+	 */
 	private static final long serialVersionUID = 1L;
 	private int idemployee;
 	private int index;
@@ -50,6 +53,7 @@ public class TabCommonArea extends JPanel {
 	private JLabel labelStageCommonArea;
 	private JLabel labelIdCommonArea;
 	private JLabel labelSearch;
+	private JLabel labelHeadList;
 	private JTextField textInputNameCommonArea;
 	private JTextField textInputStageCommonArea;
 	private JTextField textInputIdCommonArea;
@@ -70,18 +74,38 @@ public class TabCommonArea extends JPanel {
 	private JTabbedPane tab;
 	private TabListSensor tabListSensor;
 	private ObjectMapper objectMapper;
+	private Thread threadCommonArea;
+	private JList<String> list;
+	private DefaultListModel<String> listM;
 	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
 	private List<CommonArea> listSearchCommonArea = new ArrayList<CommonArea>();
 	private List<Sensor> listSensorUsed = new ArrayList<Sensor>();
-	private static final Logger logger = LogManager.getLogger(TabProfile.class);
-	private JList<String> list;
-	private DefaultListModel<String> listM;
+	private static final Logger logger = LogManager.getLogger(TabCommonArea.class);
 
 	public TabCommonArea() {
 	}
 
 	public TabCommonArea(Color color, int idemployee, String title) {
 		this.idemployee = idemployee;
+
+		///////////////////////// Thread/////////////////////////////////////////////////
+		setThreadCommonArea(new Thread(new Runnable() {
+			/**
+			 * Loop and update every 30 seconds the list of commonAreas
+			 */
+			@Override
+			public void run() {
+				while (true) {
+					updateCommonAreaSelected();
+					updateListCommonArea();
+					try {
+						Thread.sleep(30000);
+					} catch (InterruptedException e) {
+						logger.log(Level.INFO, "Impossible to sleep the thread " + e.getClass().getCanonicalName());
+					}
+				}
+			}
+		}));
 
 		/**
 		 * Definition of the structure of this tab
@@ -153,9 +177,9 @@ public class TabCommonArea extends JPanel {
 			/**
 			 * Verify the content of the search if they match with just numerics they will
 			 * send a request to search the CommonArea with the id written in the research
-			 * or the stage of the CommonArea. And add all the results on a list to display
-			 * But if there is letter and numerics they will send a request to return all
-			 * the CommonArea when the name contains the research
+			 * the idCommonArea or the stage of the CommonArea. And add all the results on a
+			 * list to display But if there is letter and numerics they will send a request
+			 * to return all the CommonArea when the name contains the research
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -178,13 +202,13 @@ public class TabCommonArea extends JPanel {
 							logger.log(Level.INFO, "Find CommonArea data succed");
 						} catch (Exception e1) {
 							logger.log(Level.INFO,
-									"Impossible to parse in JSON CommonArea datas" + e1.getClass().getCanonicalName());
+									"Impossible to parse in JSON CommonArea datas " + e1.getClass().getCanonicalName());
 						}
 						listM.removeAllElements();
 						if (!commonArea2.getNameCommonArea().equals("")) {
 							listM.addElement("Résultat pour une partie communne avec l'id : " + searchReceived);
 							listM.addElement(commonArea2.getIdCommonArea() + "# " + commonArea2.getNameCommonArea()
-									+ " " + commonArea2.getEtageCommonArea());
+									+ " ," + commonArea2.getEtageCommonArea());
 						}
 						/**
 						 * Find CommonArea with the stage
@@ -203,17 +227,17 @@ public class TabCommonArea extends JPanel {
 							logger.log(Level.INFO, "Find CommonArea data succed");
 						} catch (Exception e1) {
 							logger.log(Level.INFO,
-									"Impossible to parse in JSON CommonArea datas" + e1.getClass().getCanonicalName());
+									"Impossible to parse in JSON CommonArea datas " + e1.getClass().getCanonicalName());
 						}
 						if (listSearchCommonArea.size() > 0)
 							listM.addElement("Résultat pour les parties communes à l'étage : " + searchReceived);
 						for (CommonArea commonAreas : listSearchCommonArea) {
 							listM.addElement(commonAreas.getIdCommonArea() + "# " + commonAreas.getNameCommonArea()
-									+ " " + commonAreas.getEtageCommonArea());
+									+ " ," + commonAreas.getEtageCommonArea());
 						}
 					} else {
 						/**
-						 * If the research is letter and numerics
+						 * If the research contains letter and numerics
 						 */
 						searchReceived = Normalizer.normalize(searchReceived, Normalizer.Form.NFD)
 								.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
@@ -231,14 +255,14 @@ public class TabCommonArea extends JPanel {
 							logger.log(Level.INFO, "Find CommonArea data succed");
 						} catch (Exception e1) {
 							logger.log(Level.INFO,
-									"Impossible to parse in JSON CommonArea datas" + e1.getClass().getCanonicalName());
+									"Impossible to parse in JSON CommonArea datas " + e1.getClass().getCanonicalName());
 						}
 						listM.removeAllElements();
 						if (listSearchCommonArea.size() > 0)
 							listM.addElement("Résultat pour une partie commune avec : " + searchReceived);
 						for (CommonArea commonAreas : listSearchCommonArea) {
 							listM.addElement(commonAreas.getIdCommonArea() + "# " + commonAreas.getNameCommonArea()
-									+ " " + commonAreas.getEtageCommonArea());
+									+ " ," + commonAreas.getEtageCommonArea());
 						}
 					}
 				} else {
@@ -254,15 +278,16 @@ public class TabCommonArea extends JPanel {
 						jsonString = ClientSocket.getJson();
 						CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
 						listCommonArea = Arrays.asList(commonAreas);
-						logger.log(Level.INFO, "Find CommonArea data succed");
+						logger.log(Level.INFO, "Find CommonArea datas succed");
 					} catch (Exception e1) {
-						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+						logger.log(Level.INFO,
+								"Impossible to parse in JSON CommonArea datas" + e1.getClass().getCanonicalName());
 					}
 					listM.removeAllElements();
 					if (listCommonArea.size() > 0)
 						listM.addElement("Toutes les parties communes");
 					for (CommonArea commonAreas : listCommonArea) {
-						listM.addElement(commonAreas.getIdCommonArea() + "# " + commonAreas.getNameCommonArea() + " "
+						listM.addElement(commonAreas.getIdCommonArea() + "# " + commonAreas.getNameCommonArea() + " ,"
 								+ commonAreas.getEtageCommonArea());
 					}
 				}
@@ -271,71 +296,50 @@ public class TabCommonArea extends JPanel {
 		});
 
 		///////////////////////// LIST COMMONAREA////////////////////////////////////
-		// TODO faire une synchro
-		commonArea = new CommonArea();
-		commonArea.setIdCommonArea(0);
-		commonArea.setNameCommonArea("");
-		commonArea.setEtageCommonArea(99);
-
-		/**
-		 * Find all the CommonArea in the data base and add on list to be displayed
-		 */
-		requestType = "READ ALL";
-		table = "CommonArea";
-		objectMapper = new ObjectMapper();
-		try {
-			jsonString = "READ ALL";
-			new ClientSocket(requestType, jsonString, table);
-			jsonString = ClientSocket.getJson();
-			CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
-			listCommonArea = Arrays.asList(commonAreas);
-			logger.log(Level.INFO, "Find CommonArea data succed");
-		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON CommonArea datas" + e1.getClass().getCanonicalName());
-		}
-
 		listM = new DefaultListModel<String>();
-		for (CommonArea commonAreas : listCommonArea) {
-			listM.addElement(commonAreas.getIdCommonArea() + "# " + commonAreas.getNameCommonArea() + " "
-					+ commonAreas.getEtageCommonArea());
-		}
-
 		list = new JList<String>(listM);
+		updateListCommonArea();
+
 		sc = new JScrollPane(list);
 		sc.setBounds(30, 120, 300, ((int) getToolkit().getScreenSize().getHeight() - 300));
 		this.add(sc);
 
 		/**
 		 * when we pressed a line in the list they will send a request to get all the
-		 * information about the CommonArea to be displayed on the textField
+		 * information about the CommonArea selected to be displayed on the textField
 		 */
+		index = -9999;
 		MouseListener mouseListener = new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				index = list.locationToIndex(e.getPoint());
 				String substring = listM.getElementAt(index).toString();
 				int position = substring.indexOf("#");
-				String id = substring.substring(0, position);
+				System.out.println(position);
+				if (position > -1) {
+					String id = substring.substring(0, position);
 
-				/**
-				 * Find the CommonArea by the id get on list
-				 */
-				requestType = "READ";
-				commonArea = new CommonArea();
-				table = "CommonArea";
-				ObjectMapper readMapper = new ObjectMapper();
-				commonArea.setIdCommonArea(Integer.parseInt(id));
-				try {
-					jsonString = readMapper.writeValueAsString(commonArea);
-					new ClientSocket(requestType, jsonString, table);
-					jsonString = ClientSocket.getJson();
-					commonArea = readMapper.readValue(jsonString, CommonArea.class);
-					logger.log(Level.INFO, "Find CommonArea data succed");
-				} catch (Exception e1) {
-					logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+					/**
+					 * Find the CommonArea by the id get on list
+					 */
+					requestType = "READ";
+					commonArea = new CommonArea();
+					table = "CommonArea";
+					ObjectMapper readMapper = new ObjectMapper();
+					commonArea.setIdCommonArea(Integer.parseInt(id));
+					try {
+						jsonString = readMapper.writeValueAsString(commonArea);
+						new ClientSocket(requestType, jsonString, table);
+						jsonString = ClientSocket.getJson();
+						commonArea = readMapper.readValue(jsonString, CommonArea.class);
+						logger.log(Level.INFO, "Find CommonArea data succed");
+					} catch (Exception e1) {
+						logger.log(Level.INFO,
+								"Impossible to parse in JSON CommonArea datas " + e1.getClass().getCanonicalName());
+					}
+					textInputIdCommonArea.setText(Integer.toString(commonArea.getIdCommonArea()));
+					textInputNameCommonArea.setText(commonArea.getNameCommonArea());
+					textInputStageCommonArea.setText(Integer.toString(commonArea.getEtageCommonArea()));
 				}
-				textInputIdCommonArea.setText(Integer.toString(commonArea.getIdCommonArea()));
-				textInputNameCommonArea.setText(commonArea.getNameCommonArea());
-				textInputStageCommonArea.setText(Integer.toString(commonArea.getEtageCommonArea()));
 			}
 		};
 		list.addMouseListener(mouseListener);
@@ -369,6 +373,13 @@ public class TabCommonArea extends JPanel {
 		labelStageCommonArea.setFont(policeLabel);
 		this.add(labelStageCommonArea);
 
+		/**
+		 * Definition of label HeadList
+		 */
+		labelHeadList = new JLabel("ID /Nom /Etage");
+		labelHeadList.setBounds(40, 90, 200, 30);
+		labelHeadList.setFont(policeBar);
+		this.add(labelHeadList);
 		//////////////////// TEXT AREA////////////////////////////////////////////////
 		/**
 		 * Definition of textArea IdCommonArea
@@ -417,7 +428,7 @@ public class TabCommonArea extends JPanel {
 		addCommonArea.addActionListener(new ActionListener() {
 			/**
 			 * When we pressed the button addCommonArea we supress the space and we get out
-			 * the special caraters and verify if the textField are empty or not If one of
+			 * the special caracters and verify if the textField are empty or not If one of
 			 * them is empty they send a message to user else they send the request to
 			 * server
 			 */
@@ -467,13 +478,14 @@ public class TabCommonArea extends JPanel {
 
 							int x = listCommonArea.size() - 1;
 							commonArea = listCommonArea.get(x);
-							listM.addElement(commonArea.getIdCommonArea() + "# " + commonArea.getNameCommonArea() + " "
+							listM.addElement(commonArea.getIdCommonArea() + "# " + commonArea.getNameCommonArea() + " ,"
 									+ commonArea.getEtageCommonArea());
 							JOptionPane.showMessageDialog(null, "L'insertion a été éffectué", "Infos",
 									JOptionPane.INFORMATION_MESSAGE);
 						}
 					} catch (Exception e1) {
-						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+						logger.log(Level.INFO,
+								"Impossible to parse in JSON CommonArea data " + e1.getClass().getCanonicalName());
 					}
 				}
 			}
@@ -489,8 +501,8 @@ public class TabCommonArea extends JPanel {
 		save.addActionListener(new ActionListener() {
 			/**
 			 * When we pressed the button save we update the commonArea datas we check if
-			 * the informations are corect, if the stage is only numerics and if the name of
-			 * the commonArea is not empty
+			 * the informations are correct, if the stage is only numerics and if the name
+			 * of the commonArea is not empty
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -505,6 +517,9 @@ public class TabCommonArea extends JPanel {
 
 				if (newNameCommonArea.equals("") || newStageCommonArea.equals("")) {
 					JOptionPane.showMessageDialog(null, "Champs vide", "Erreur", JOptionPane.ERROR_MESSAGE);
+					/**
+					 * if text area do not contains numerics they open an pop-up
+					 */
 				} else if (!(newStageCommonArea.matches("[0-9]+[0-9]*"))) {
 					JOptionPane.showMessageDialog(null, "L'etage ne contient pas de lettre uniquement un chiffre",
 							"Erreur", JOptionPane.ERROR_MESSAGE);
@@ -528,8 +543,12 @@ public class TabCommonArea extends JPanel {
 									JOptionPane.INFORMATION_MESSAGE);
 						}
 					} catch (Exception e1) {
-						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+						logger.log(Level.INFO,
+								"Impossible to parse in JSON CommonArea" + e1.getClass().getCanonicalName());
 					}
+					textInputIdCommonArea.setText("");
+					textInputNameCommonArea.setText("");
+					textInputStageCommonArea.setText("");
 				}
 			}
 		});
@@ -548,76 +567,86 @@ public class TabCommonArea extends JPanel {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (!textInputIdCommonArea.getText().toString().equals("")) {
-					/**
-					 * we get all the Sensor wo have the commonArea id and we set to null the
-					 * idCommonArea in Sensor table and them we can delete the CommonArea
-					 */
-					requestType = "FIND ALL";
-					table = "Sensor";
-					objectMapper = new ObjectMapper();
-					sensor = new Sensor();
-					try {
-						sensor.setIdCommonArea(commonArea.getIdCommonArea());
-						jsonString = objectMapper.writeValueAsString(sensor);
-						new ClientSocket(requestType, jsonString, table);
-						jsonString = ClientSocket.getJson();
-						Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
-						listSensorUsed = Arrays.asList(sensors);
-						logger.log(Level.INFO, "Find Sensor data succed");
-					} catch (Exception e1) {
-						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
-					}
-					if (!listSensorUsed.isEmpty()) {
-						for (Sensor sens : listSensorUsed) {
-							requestType = "UPDATE";
-							table = "Sensor";
-							sens.setIdCommonArea(0);
-							ObjectMapper insertMapper = new ObjectMapper();
-							try {
-								jsonString = insertMapper.writeValueAsString(sens);
-								new ClientSocket(requestType, jsonString, table);
-								jsonString = ClientSocket.getJson();
-								if (!jsonString.equals("UPDATED")) {
-									logger.log(Level.INFO, "Impossible to update sensor");
-								} else {
-									logger.log(Level.INFO, "Update Succeded");
+				if (index != -9999) {
+					String substring = listM.getElementAt(index).toString();
+					int position = substring.indexOf("#");
+					if (position > -1) {
+						/**
+						 * we get all the Sensor who have the commonArea id and we set to null the
+						 * idCommonArea in Sensor table and them we can delete the CommonArea
+						 */
+						requestType = "FIND ALL";
+						table = "Sensor";
+						objectMapper = new ObjectMapper();
+						sensor = new Sensor();
+						try {
+							sensor.setIdCommonArea(commonArea.getIdCommonArea());
+							jsonString = objectMapper.writeValueAsString(sensor);
+							new ClientSocket(requestType, jsonString, table);
+							jsonString = ClientSocket.getJson();
+							Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
+							listSensorUsed = Arrays.asList(sensors);
+							logger.log(Level.INFO, "Find Sensor data succed");
+						} catch (Exception e1) {
+							logger.log(Level.INFO,
+									"Impossible to parse in JSON Sensor data" + e1.getClass().getCanonicalName());
+						}
+						if (!listSensorUsed.isEmpty()) {
+							for (Sensor sens : listSensorUsed) {
+								requestType = "UPDATE";
+								table = "Sensor";
+								sens.setIdCommonArea(0);
+								ObjectMapper insertMapper = new ObjectMapper();
+								try {
+									jsonString = insertMapper.writeValueAsString(sens);
+									new ClientSocket(requestType, jsonString, table);
+									jsonString = ClientSocket.getJson();
+									if (!jsonString.equals("UPDATED")) {
+										logger.log(Level.INFO, "Impossible to update sensor");
+									} else {
+										logger.log(Level.INFO, "Update Succeded");
+									}
+								} catch (Exception e1) {
+									logger.log(Level.INFO, "Impossible to parse in JSON sensor datas "
+											+ e1.getClass().getCanonicalName());
 								}
-							} catch (Exception e1) {
-								logger.log(Level.INFO,
-										"Impossible to parse in JSON sensor datas" + e1.getClass().getCanonicalName());
 							}
 						}
-					}
 
-					requestType = "DELETE";
-					table = "CommonArea";
-					ObjectMapper connectionMapper = new ObjectMapper();
-					try {
-						jsonString = connectionMapper.writeValueAsString(commonArea);
-						new ClientSocket(requestType, jsonString, table);
-						jsonString = ClientSocket.getJson();
-						if (!jsonString.equals("DELETED")) {
-							JOptionPane.showMessageDialog(null, "La suppression a échoué", "Erreur",
-									JOptionPane.ERROR_MESSAGE);
-							logger.log(Level.INFO, "Impossible to delete this commonArea");
-						} else {
-							JOptionPane.showMessageDialog(null, "Suppression de la partie commune", "Infos",
-									JOptionPane.INFORMATION_MESSAGE);
-							logger.log(Level.INFO, "Deletion of CommonArea succed");
+						requestType = "DELETE";
+						table = "CommonArea";
+						ObjectMapper connectionMapper = new ObjectMapper();
+						try {
+							jsonString = connectionMapper.writeValueAsString(commonArea);
+							new ClientSocket(requestType, jsonString, table);
+							jsonString = ClientSocket.getJson();
+							if (!jsonString.equals("DELETED")) {
+								JOptionPane.showMessageDialog(null, "La suppression a échoué", "Erreur",
+										JOptionPane.ERROR_MESSAGE);
+								logger.log(Level.INFO, "Impossible to delete this commonArea");
+							} else {
+								JOptionPane.showMessageDialog(null, "Suppression de la partie commune", "Infos",
+										JOptionPane.INFORMATION_MESSAGE);
+								logger.log(Level.INFO, "Deletion of CommonArea succed");
+							}
+						} catch (Exception e1) {
+							logger.log(Level.INFO,
+									"Impossible to parse in JSON CommonArea" + e1.getClass().getCanonicalName());
 						}
-					} catch (Exception e1) {
-						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
-					}
-					listM.removeElementAt(index);
-					commonArea.setIdCommonArea(0);
-					commonArea.setEtageCommonArea(0);
-					commonArea.setListSensor(null);
-					commonArea.setNameCommonArea("");
+						listM.removeElementAt(index);
+						index = -9999;
+						commonArea.setIdCommonArea(0);
+						commonArea.setEtageCommonArea(0);
+						commonArea.setListSensor(null);
+						commonArea.setNameCommonArea("");
 
-					textInputIdCommonArea.setText("");
-					textInputNameCommonArea.setText("");
-					textInputStageCommonArea.setText("");
+						textInputIdCommonArea.setText("");
+						textInputNameCommonArea.setText("");
+						textInputStageCommonArea.setText("");
+					} else {
+						JOptionPane.showMessageDialog(null, "Veuillez selectionner une partie commune à supprimer",
+								"Erreur", JOptionPane.ERROR_MESSAGE);
+					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Veuillez selectionner une partie commune à supprimer",
 							"Erreur", JOptionPane.ERROR_MESSAGE);
@@ -691,12 +720,89 @@ public class TabCommonArea extends JPanel {
 				}
 			}
 		});
+		threadCommonArea.start();
 
+		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
-		 * Diferent parameter of the window
+		 * Different parameter of the window
 		 */
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);
 		this.setBackground(color);
+	}
+
+	public void updateListCommonArea() {
+		commonArea = new CommonArea();
+		commonArea.setIdCommonArea(0);
+		commonArea.setNameCommonArea("");
+		commonArea.setEtageCommonArea(99);
+
+		/**
+		 * Find all the CommonArea in the data base and add on list to be displayed
+		 */
+		requestType = "READ ALL";
+		table = "CommonArea";
+		objectMapper = new ObjectMapper();
+		try {
+			jsonString = "READ ALL";
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
+			listCommonArea = Arrays.asList(commonAreas);
+			logger.log(Level.INFO, "Find CommonArea data succed");
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON CommonArea datas " + e1.getClass().getCanonicalName());
+		}
+
+		listM.removeAllElements();
+		listM.addElement("Toutes les parties communes");
+		for (CommonArea commonAreas : listCommonArea) {
+			listM.addElement(commonAreas.getIdCommonArea() + "# " + commonAreas.getNameCommonArea() + " ,"
+					+ commonAreas.getEtageCommonArea());
+		}
+		if (listM.isEmpty() && (!listCommonArea.isEmpty())) {
+			updateListCommonArea();
+		}
+	}
+
+	public void updateCommonAreaSelected() {
+		if (index != -9999) {
+			String substring = listM.getElementAt(index).toString();
+			int position = substring.indexOf("#");
+			System.out.println(position);
+			if (position > -1) {
+				String id = substring.substring(0, position);
+
+				/**
+				 * Find the CommonArea by the id get on list
+				 */
+				requestType = "READ";
+				commonArea = new CommonArea();
+				table = "CommonArea";
+				ObjectMapper readMapper = new ObjectMapper();
+				commonArea.setIdCommonArea(Integer.parseInt(id));
+				try {
+					jsonString = readMapper.writeValueAsString(commonArea);
+					new ClientSocket(requestType, jsonString, table);
+					jsonString = ClientSocket.getJson();
+					commonArea = readMapper.readValue(jsonString, CommonArea.class);
+					logger.log(Level.INFO, "Find CommonArea data succed");
+				} catch (Exception e1) {
+					logger.log(Level.INFO,
+							"Impossible to parse in JSON CommonArea datas " + e1.getClass().getCanonicalName());
+				}
+				textInputIdCommonArea.setText(Integer.toString(commonArea.getIdCommonArea()));
+				textInputNameCommonArea.setText(commonArea.getNameCommonArea());
+				textInputStageCommonArea.setText(Integer.toString(commonArea.getEtageCommonArea()));
+			}
+		}
+	}
+
+	public Thread getThreadCommonArea() {
+		return threadCommonArea;
+	}
+
+	public void setThreadCommonArea(Thread threadCommonArea) {
+		this.threadCommonArea = threadCommonArea;
 	}
 }

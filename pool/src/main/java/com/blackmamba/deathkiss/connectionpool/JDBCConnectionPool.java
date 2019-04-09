@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,23 +17,22 @@ import org.apache.logging.log4j.Logger;
  * @author Pierre-Arnaud
  *
  */
-public class JDBCConnectionPool{
+public class JDBCConnectionPool {
 
 	/**
-	 *  Definition of diferents fields
+	 * Definition of different fields
 	 */
-	private static final Logger logger = LogManager.getLogger(JDBCConnectionPool.class);
 	private String driver;
 	private String url;
 	private String user;
 	private String password;
-	private int maxConnection, nbcon;
+	private int maxConnection;
+	private int numberConnection;
 	private boolean busy;
-	private boolean connectionPending = false;
-	final Properties prop = new Properties();
-
-	// Definition of Lists
-	private List<Connection> availableConnections, availableConnectionsArrayList;
+	private final Properties prop = new Properties();
+	private static final Logger logger = LogManager.getLogger(JDBCConnectionPool.class);
+	private List<Connection> availableConnections;
+	private List<Connection> availableConnectionsArrayList;
 
 	/**
 	 * Get informations from confirugation.propreties Initialization of fields with
@@ -50,16 +48,14 @@ public class JDBCConnectionPool{
 		int initialConnections = 0;
 
 		ResourceBundle rs = ResourceBundle.getBundle("config");
-nbcon=0;
+		numberConnection = 0;
+		this.busy = busy;
 		this.driver = rs.getString("db.driver");
 		this.url = rs.getString("db.url");
 		this.user = rs.getString("db.username");
 		this.password = rs.getString("db.password");
-		int x = Integer.valueOf(rs.getString("db.maxConnections"));
-		this.maxConnection = x;
-		int y = Integer.valueOf(rs.getString("db.initialConnections"));
-		initialConnections = y;
-		this.busy = busy;
+		this.maxConnection = Integer.parseInt(rs.getString("db.maxConnections"));
+		initialConnections = Integer.parseInt(rs.getString("db.initialConnections"));
 
 		if (initialConnections > maxConnection) {
 			initialConnections = maxConnection;
@@ -73,7 +69,8 @@ nbcon=0;
 
 	/**
 	 * Return a connection if is possible, and if the limit of connection are
-	 * reached they insert in busy connection list
+	 * reached they look at the maxConnection and add one if the number of
+	 * connection initialize is inferior Else they catch an exception
 	 * 
 	 * @return return the connection
 	 * @throws SQLException
@@ -84,19 +81,20 @@ nbcon=0;
 			int lastIndex = availableConnections.size() - 1;
 			availableConnections.remove(lastIndex);
 			if (existingConnection.isClosed()) {
-				nbcon--;
+				numberConnection--;
 				notifyAll();
 				return (getConnection());
 			} else {
-				nbcon++;
+				numberConnection++;
 				return (existingConnection);
 			}
 		} else {
-			if ((nbcon < maxConnection)) {
+			if ((numberConnection < maxConnection)) {
 				Connection connection = newConnection();
 				synchronized (this) {
 					availableConnections.add(connection);
-					notifyAll();}
+					notifyAll();
+				}
 			} else if (!busy) {
 				throw new SQLException("Connection limit reached");
 			}
@@ -104,11 +102,11 @@ nbcon=0;
 		}
 	}
 
-
 	/**
-	 * Creation of the connection with the informations from the file @return
-	 * Connection @throws
+	 * Creation of a new connection available to be added on available List of
+	 * connection
 	 * 
+	 * @return Connection
 	 * @throws ClassNotFoundException
 	 */
 	private Connection newConnection() throws SQLException {
@@ -125,19 +123,18 @@ nbcon=0;
 	}
 
 	/**
-	 * Add a connection from the busy connection list to available connection list
-	 * and remove the connection from the busy connection list
+	 * free a connection and add it on the available connection list
 	 * 
 	 * @param connection
 	 */
 	public synchronized void free(Connection connection) {
 		availableConnections.add(connection);
-		nbcon--;
+		numberConnection--;
 		notifyAll();
 	}
 
 	/**
-	 * Return the total number of available connection list and busy connection list
+	 * Return the total number of available connection on availableConnection List
 	 * 
 	 * @return
 	 */
@@ -146,13 +143,12 @@ nbcon=0;
 	}
 
 	/**
-	 * CLose all connection of the available connection list and busy connection
-	 * list
+	 * CLose all connection of the available connection list
 	 */
 	public synchronized void closeAllConnections() {
 		closeConnections(availableConnections);
 		availableConnections = new ArrayList<Connection>();
-		nbcon=0;
+		numberConnection = 0;
 	}
 
 	/**
@@ -171,5 +167,27 @@ nbcon=0;
 		} catch (SQLException e) {
 			logger.log(Level.INFO, e.getClass().getCanonicalName());
 		}
+	}
+
+	/**
+	 * Getter to the MaxConnection value
+	 * 
+	 * @return
+	 */
+	public int getMaxConnection() {
+		return maxConnection;
+	}
+
+	/**
+	 * Setter to the MaxConnection value
+	 * 
+	 * @param maxConnection
+	 */
+	public void setMaxConnection(int maxConnection) {
+		this.maxConnection = maxConnection;
+	}
+
+	public Properties getProp() {
+		return prop;
 	}
 }

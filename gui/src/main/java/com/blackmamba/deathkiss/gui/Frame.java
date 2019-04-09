@@ -5,6 +5,8 @@ import javax.swing.*;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.blackmamba.deathkiss.entity.Employee;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * 
@@ -14,7 +16,7 @@ import org.apache.logging.log4j.Logger;
 public class Frame extends JFrame {
 
 	/**
-	 * Diferent parameters used
+	 * Different parameters used
 	 */
 	private static final long serialVersionUID = 1L;
 	private static JTabbedPane tab;
@@ -25,10 +27,39 @@ public class Frame extends JFrame {
 	private TabHistorical tabHistorical;
 	private TabProfile tabProfile;
 	private int idEmployee;
+	private String requestType;
+	private String table;
+	private String jsonString;
+	private Employee employee;
+	private ObjectMapper objectMapper;
+	private Thread threadFrame;
 	private static final Logger logger = LogManager.getLogger(Frame.class);
 
 	public Frame(int idEmployee) {
 		this.idEmployee = idEmployee;
+
+		///////////////////////// Thread/////////////////////////////////////////////////
+		setThreadFrame(new Thread(new Runnable() {
+			/**
+			 * Loop and update every 30 sec the list of employees
+			 */
+			@Override
+			public void run() {
+				while (true) {
+					verificationUser(idEmployee);
+					if (employee.getLastnameEmployee().equals("")) {
+						JOptionPane.showMessageDialog(null, "Votre compte a été supprimer vous allez etre déconnecter",
+								"Erreur", JOptionPane.ERROR_MESSAGE);
+						System.exit(ABORT);
+					}
+					try {
+						Thread.sleep(30000);
+					} catch (InterruptedException e) {
+						logger.log(Level.INFO, "Impossible to sleep the thread" + e.getClass().getCanonicalName());
+					}
+				}
+			}
+		}));
 
 		/**
 		 * LOGO
@@ -42,7 +73,7 @@ public class Frame extends JFrame {
 		logger.log(Level.INFO, "                                          ");
 
 		/**
-		 * Creation of diferents tabs
+		 * Creation of different tabs
 		 */
 		tabEmployes = new TabEmployes(Color.GRAY, this.idEmployee, "Onglet Employés");
 		tabCommonArea = new TabCommonArea(Color.GRAY, this.idEmployee, "Onglet Parties Communes");
@@ -67,14 +98,32 @@ public class Frame extends JFrame {
 		tab.add("Onglet " + tabOfTab[4], tabHistorical);
 		tab.add("Onglet " + tabOfTab[5], tabProfile);
 
+		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
-		 * Diferent parameters of the window
+		 * Different parameters of the window
 		 */
 		this.setTitle("Deathkiss");
 		this.setSize((int) getToolkit().getScreenSize().getWidth(), (int) getToolkit().getScreenSize().getHeight());
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().add(tab);
+	}
+
+	public void verificationUser(int id) {
+		requestType = "READ";
+		employee = new Employee();
+		table = "Employee";
+		employee.setIdEmployee(id);
+		objectMapper = new ObjectMapper();
+		try {
+			jsonString = objectMapper.writeValueAsString(employee);
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			employee = objectMapper.readValue(jsonString, Employee.class);
+			logger.log(Level.INFO, "Find Employee data succed");
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
+		}
 	}
 
 	/**
@@ -102,5 +151,13 @@ public class Frame extends JFrame {
 	 */
 	public void setTab(JTabbedPane tab) {
 		Frame.tab = tab;
+	}
+
+	public Thread getThreadFrame() {
+		return threadFrame;
+	}
+
+	public void setThreadFrame(Thread threadFrame) {
+		this.threadFrame = threadFrame;
 	}
 }

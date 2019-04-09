@@ -2,7 +2,6 @@ package com.blackmamba.deathkiss.connectionpool;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-
 import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
 
 /**
@@ -36,12 +35,23 @@ public class DataSource {
 	}
 
 	/**
-	 * Close all connection using the method closeAllConnection from JDBCCOnnectionPool
-	 * On ferme toutes les connexions en utilisatn la méthode closeAllConnections()
+	 * Close all connection using the method closeAllConnection from
+	 * JDBCCOnnectionPool On ferme toutes les connexions en utilisatn la méthode
+	 * closeAllConnections()
 	 * 
 	 * @param pool
 	 */
 	public static void closeConnectionsFromJDBC(JDBCConnectionPool pool) {
 		pool.closeAllConnections();
+	}
+
+	/**
+	 * Return the number max of Connection in JDBCConnectionPool
+	 * 
+	 * @param pool
+	 * @return int
+	 */
+	public static int getMaxConnectionFromJDBC(JDBCConnectionPool pool) {
+		return pool.getMaxConnection();
 	}
 }

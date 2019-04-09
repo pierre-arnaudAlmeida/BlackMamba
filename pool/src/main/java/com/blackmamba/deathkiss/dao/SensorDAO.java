@@ -7,11 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.entity.Sensor;
 import com.blackmamba.deathkiss.entity.SensorType;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,6 +28,10 @@ public class SensorDAO extends DAO<Sensor> {
 		super(con);
 	}
 
+	/**
+	 * Convert the JSON string in Object and create a request to insert values in
+	 * table 'capteur' return a boolean
+	 */
 	@Override
 	public boolean create(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -42,8 +44,7 @@ public class SensorDAO extends DAO<Sensor> {
 				state = "ON";
 			} else
 				state = "OFF";
-			request = "insert into capteur (type_capteur, etat, id_partie_commune) values ('" + sensor.getTypeSensor()
-					+ "','" + state + "','" + sensor.getIdCommonArea() + "')";
+			request = "insert into capteur (type_capteur, etat, id_partie_commune) values ('" + sensor.getTypeSensor() + "','" + state + "','" + sensor.getIdCommonArea() + "')";
 			st.execute(request);
 			logger.log(Level.INFO, "Sensor succesfully inserted in BDD");
 			return true;
@@ -53,6 +54,10 @@ public class SensorDAO extends DAO<Sensor> {
 		}
 	}
 
+	/**
+	 * Convert the JSON string in Object and create a request to delete values in
+	 * table 'capteur' return a boolean
+	 */
 	@Override
 	public boolean delete(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -70,6 +75,10 @@ public class SensorDAO extends DAO<Sensor> {
 		}
 	}
 
+	/**
+	 * Convert the JSON string in Object and create a request to update values in
+	 * table 'capteur' return a boolean
+	 */
 	@Override
 	public boolean update(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -79,21 +88,15 @@ public class SensorDAO extends DAO<Sensor> {
 			Sensor sensor = objectMapper.readValue(jsonString, Sensor.class);
 			if (sensor.getSensorState() == true) {
 				if (sensor.getIdCommonArea() == 0) {
-					request = "UPDATE capteur SET id_partie_commune = null, etat = 'ON', type_capteur = '"
-							+ sensor.getTypeSensor() + "' where id_capteur = " + sensor.getIdSensor();
+					request = "UPDATE capteur SET id_partie_commune = null, etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "' where id_capteur = " + sensor.getIdSensor();
 				} else {
-					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea()
-							+ ", etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "' where id_capteur = "
-							+ sensor.getIdSensor();
+					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea() + ", etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "' where id_capteur = " + sensor.getIdSensor();
 				}
 			} else if (sensor.getSensorState() == false) {
 				if (sensor.getIdCommonArea() == 0) {
-					request = "UPDATE capteur SET id_partie_commune = null, etat = 'OFF', type_capteur = '"
-							+ sensor.getTypeSensor() + "' where id_capteur = " + sensor.getIdSensor();
+					request = "UPDATE capteur SET id_partie_commune = null, etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "' where id_capteur = " + sensor.getIdSensor();
 				} else {
-					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea()
-							+ ", etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "' where id_capteur = "
-							+ sensor.getIdSensor();
+					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea() + ", etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "' where id_capteur = " + sensor.getIdSensor();
 				}
 			} else
 				return false;
@@ -106,6 +109,10 @@ public class SensorDAO extends DAO<Sensor> {
 		}
 	}
 
+	/**
+	 * Convert the JSON string in Object and create a request to read (select)
+	 * values in table 'capteur' return a JSON string
+	 */
 	@Override
 	public String read(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -163,6 +170,10 @@ public class SensorDAO extends DAO<Sensor> {
 		return jsonString;
 	}
 
+	/**
+	 * Convert the JSON string in Object and create a request to read (select) all
+	 * values in table 'capteur' return a JSON string
+	 */
 	@Override
 	public String readAll(String jsonString) {
 		String request;
@@ -222,6 +233,10 @@ public class SensorDAO extends DAO<Sensor> {
 		return jsonString;
 	}
 
+	/**
+	 * Convert the JSON string in Object and create a request to read (select) all
+	 * values in table 'capteur' by the type of sensor or the id of commonArea
+	 */
 	public String findAll(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
 		String request;
@@ -232,7 +247,7 @@ public class SensorDAO extends DAO<Sensor> {
 			Sensor sensor = objectMapper.readValue(jsonString, Sensor.class);
 			if (sensor.getIdCommonArea() != 0) {
 				request = "SELECT * FROM capteur where id_partie_commune = '" + sensor.getIdCommonArea() + "'";
-			}else {
+			} else {
 				request = "SELECT * FROM capteur where type_capteur = '" + sensor.getTypeSensor() + "'";
 			}
 			result = st.executeQuery(request);

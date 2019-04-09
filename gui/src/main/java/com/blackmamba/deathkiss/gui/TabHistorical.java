@@ -21,13 +21,16 @@ import org.apache.logging.log4j.Logger;
  */
 public class TabHistorical extends JPanel {
 
+	/**
+	 * Different parameters used
+	 */
 	private static final long serialVersionUID = 1L;
 	private int idemployee;
 	private JPanel bar;
 	private JLabel labelIdEmployee;
 	private Font police;
 	private JButton disconnection;
-	private static final Logger logger = LogManager.getLogger(TabProfile.class);
+	private static final Logger logger = LogManager.getLogger(TabHistorical.class);
 
 	public TabHistorical() {
 	}
@@ -43,10 +46,11 @@ public class TabHistorical extends JPanel {
 		bar.setLayout(new BorderLayout());
 		bar.setBorder(BorderFactory.createMatteBorder(20, 100, 20, 100, bar.getBackground()));
 
+		///////////////////////// BAR/////////////////////////////////////////////////
 		/**
 		 * Definition of label Identifiant on header bar
 		 */
-		labelIdEmployee = new JLabel("Identifiant :   "+this.idemployee +"    ");
+		labelIdEmployee = new JLabel("Identifiant :   " + this.idemployee + "    ");
 		police = new Font("Arial", Font.BOLD, 16);
 		labelIdEmployee.setForeground(Color.WHITE);
 		labelIdEmployee.setFont(police);
@@ -66,8 +70,9 @@ public class TabHistorical extends JPanel {
 			}
 		});
 
+		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
-		 * Diferent parameters of the window
+		 * Different parameters of the window
 		 */
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);
