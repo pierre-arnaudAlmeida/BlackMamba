@@ -204,13 +204,13 @@ public class TabSensor extends JPanel {
 							logger.log(Level.INFO, "Find Sensor data succed");
 						} catch (Exception e1) {
 							logger.log(Level.INFO,
-									"Impossible to parse in JSON Sensor datas" + e1.getClass().getCanonicalName());
+									"Impossible to parse in JSON Sensor datas " + e1.getClass().getCanonicalName());
 						}
 						listM.removeAllElements();
 						if (sensor2.getTypeSensor() != null) {
 							listM.addElement("Résultat pour un capteur avec l'id : " + searchReceived);
-							listM.addElement(sensor2.getIdSensor() + "#" + sensor2.getTypeSensor() + " "
-									+ sensor2.getSensorState() + " " + sensor2.getIdCommonArea());
+							listM.addElement(sensor2.getIdSensor() + "# " + sensor2.getTypeSensor() + " ,"
+									+ sensor2.getSensorState() + " ," + sensor2.getIdCommonArea());
 						}
 						/**
 						 * Find Sensor with IdCommonArea
@@ -235,8 +235,8 @@ public class TabSensor extends JPanel {
 						if (listSearchSensor.size() > 0)
 							listM.addElement("Résultat capteurs avec l'id partie commune  : " + searchReceived);
 						for (Sensor sensors : listSearchSensor) {
-							listM.addElement(sensors.getIdSensor() + "#" + sensors.getTypeSensor() + " "
-									+ sensors.getSensorState() + " " + sensors.getIdCommonArea());
+							listM.addElement(sensors.getIdSensor() + "# " + sensors.getTypeSensor() + " ,"
+									+ sensors.getSensorState() + " ," + sensors.getIdCommonArea());
 						}
 					} else {
 						/**
@@ -321,8 +321,8 @@ public class TabSensor extends JPanel {
 						if (listSearchSensor.size() > 0)
 							listM.addElement("Résultat pour le type de capteur : " + searchReceived);
 						for (Sensor sensors : listSearchSensor) {
-							listM.addElement(sensors.getIdSensor() + "#" + sensors.getTypeSensor() + " "
-									+ sensors.getSensorState() + " " + sensors.getIdCommonArea());
+							listM.addElement(sensors.getIdSensor() + "# " + sensors.getTypeSensor() + " ,"
+									+ sensors.getSensorState() + " ," + sensors.getIdCommonArea());
 						}
 					}
 				} else {
@@ -341,13 +341,13 @@ public class TabSensor extends JPanel {
 						logger.log(Level.INFO, "Find Sensor datas succed");
 					} catch (Exception e1) {
 						logger.log(Level.INFO,
-								"Impossible to parse in JSON Sensor data" + e1.getClass().getCanonicalName());
+								"Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
 					}
 					listM.removeAllElements();
 					listM.addElement("Tout les capteurs");
 					for (Sensor sensors : listSensor) {
-						listM.addElement(sensors.getIdSensor() + "#" + sensors.getTypeSensor() + " "
-								+ sensors.getSensorState() + " " + sensors.getIdCommonArea());
+						listM.addElement(sensors.getIdSensor() + "# " + sensors.getTypeSensor() + " ,"
+								+ sensors.getSensorState() + " ," + sensors.getIdCommonArea());
 					}
 				}
 				searchBar.setText("");
@@ -665,8 +665,8 @@ public class TabSensor extends JPanel {
 						listSensor = Arrays.asList(sensors);
 						int x = listSensor.size() - 1;
 						sensor = listSensor.get(x);
-						listM.addElement(sensor.getIdSensor() + "#" + sensor.getTypeSensor() + " "
-								+ sensor.getSensorState() + " " + sensor.getIdCommonArea());
+						listM.addElement(sensor.getIdSensor() + "# " + sensor.getTypeSensor() + " ,"
+								+ sensor.getSensorState() + " ," + sensor.getIdCommonArea());
 						logger.log(Level.INFO, "Find Sensor succeded");
 						JOptionPane.showMessageDialog(null, "Linsertion à été effectuer", "Infos",
 								JOptionPane.INFORMATION_MESSAGE);
@@ -752,8 +752,8 @@ public class TabSensor extends JPanel {
 							logger.log(Level.INFO, "Impossible to update sensor");
 						} else {
 							logger.log(Level.INFO, "Update Succeded");
-							listM.set(index, sensor.getIdSensor() + "#" + sensor.getTypeSensor() + " "
-									+ sensor.getSensorState() + " " + sensor.getIdCommonArea());
+							listM.set(index, sensor.getIdSensor() + "# " + sensor.getTypeSensor() + " ,"
+									+ sensor.getSensorState() + " ," + sensor.getIdCommonArea());
 							JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos",
 									JOptionPane.INFORMATION_MESSAGE);
 						}
@@ -905,12 +905,15 @@ public class TabSensor extends JPanel {
 			listSensor = Arrays.asList(sensors);
 			logger.log(Level.INFO, "Find Sensor data succed");
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Sensor data" + e1.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
 		}
 		listM.removeAllElements();
 		for (Sensor sensors : listSensor) {
-			listM.addElement(sensors.getIdSensor() + "#" + sensors.getTypeSensor() + " " + sensors.getSensorState()
-					+ " " + sensors.getIdCommonArea());
+			listM.addElement(sensors.getIdSensor() + "# " + sensors.getTypeSensor() + " ," + sensors.getSensorState()
+					+ " ," + sensors.getIdCommonArea());
+		}
+		if (listM.isEmpty() && (!listSensor.isEmpty())) {
+			updateListSensor();
 		}
 	}
 

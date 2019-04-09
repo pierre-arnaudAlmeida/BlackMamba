@@ -207,7 +207,7 @@ public class TabEmployes extends JPanel {
 						if (!employee2.getLastnameEmployee().equals("")) {
 							listM.addElement("Résultat pour l'employé avec l'id : " + searchReceived);
 							listM.addElement(employee2.getIdEmployee() + "# " + employee2.getLastnameEmployee() + " "
-									+ employee2.getNameEmployee() + " " + employee2.getPoste());
+									+ employee2.getNameEmployee() + " ," + employee2.getPoste());
 						}
 					} else {
 						/**
@@ -235,7 +235,7 @@ public class TabEmployes extends JPanel {
 							listM.addElement("Résultat pour : " + searchReceived);
 						for (Employee employees : listSearchEmployee) {
 							listM.addElement(employees.getIdEmployee() + "# " + employees.getLastnameEmployee() + " "
-									+ employees.getNameEmployee() + " " + employees.getPoste());
+									+ employees.getNameEmployee() + " ," + employees.getPoste());
 						}
 					}
 				} else {
@@ -260,7 +260,7 @@ public class TabEmployes extends JPanel {
 					listM.addElement("Tout les employés ");
 					for (Employee employees : listEmployee) {
 						listM.addElement(employees.getIdEmployee() + "# " + employees.getLastnameEmployee() + " "
-								+ employees.getNameEmployee() + " " + employees.getPoste());
+								+ employees.getNameEmployee() + " ," + employees.getPoste());
 					}
 				}
 				searchBar.setText("");
@@ -515,7 +515,7 @@ public class TabEmployes extends JPanel {
 
 								employee = listEmployee.get(x);
 								listM.addElement(employee.getIdEmployee() + "# " + employee.getLastnameEmployee() + " "
-										+ employee.getNameEmployee() + " " + employee.getPoste());
+										+ employee.getNameEmployee() + " ," + employee.getPoste());
 								JOptionPane.showMessageDialog(null, "L'insertion a été éffectué", "Infos",
 										JOptionPane.INFORMATION_MESSAGE);
 
@@ -609,7 +609,7 @@ public class TabEmployes extends JPanel {
 									logger.log(Level.INFO, "Update Succeded");
 									textInputPasswordEmployee.setText("");
 									listM.set(index, employee.getIdEmployee() + "# " + employee.getLastnameEmployee()
-											+ " " + employee.getNameEmployee() + " " + employee.getPoste() + "");
+											+ " " + employee.getNameEmployee() + " ," + employee.getPoste() + "");
 									JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos",
 											JOptionPane.INFORMATION_MESSAGE);
 								}
@@ -638,7 +638,7 @@ public class TabEmployes extends JPanel {
 								logger.log(Level.INFO, "Update Succeded");
 								textInputPasswordEmployee.setText("");
 								listM.set(index, employee.getIdEmployee() + "# " + employee.getLastnameEmployee() + " "
-										+ employee.getNameEmployee() + " " + employee.getPoste() + "");
+										+ employee.getNameEmployee() + " ," + employee.getPoste() + "");
 								JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos",
 										JOptionPane.INFORMATION_MESSAGE);
 							}
@@ -688,40 +688,48 @@ public class TabEmployes extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(index);
 				if (index != -9999) {
-					if (employee.getIdEmployee() != idemployee && employee.getIdEmployee() != 1) {
-						requestType = "DELETE";
-						table = "Employee";
-						try {
-							jsonString = objectMapper.writeValueAsString(employee);
-							new ClientSocket(requestType, jsonString, table);
-							jsonString = ClientSocket.getJson();
-							if (!jsonString.equals("DELETED")) {
-								JOptionPane.showMessageDialog(null, "La suppression a échoué", "Erreur",
-										JOptionPane.ERROR_MESSAGE);
-								logger.log(Level.INFO, "Impossible to delete this employee");
-							} else {
-								JOptionPane.showMessageDialog(null, "Suppression de l'Employé", "Info",
-										JOptionPane.INFORMATION_MESSAGE);
+					String substring = listM.getElementAt(index).toString();
+					int position = substring.indexOf("#");
+					if (position > -1) {
+						if (employee.getIdEmployee() != idemployee && employee.getIdEmployee() != 1) {
+							requestType = "DELETE";
+							table = "Employee";
+							try {
+								jsonString = objectMapper.writeValueAsString(employee);
+								new ClientSocket(requestType, jsonString, table);
+								jsonString = ClientSocket.getJson();
+								if (!jsonString.equals("DELETED")) {
+									JOptionPane.showMessageDialog(null, "La suppression a échoué", "Erreur",
+											JOptionPane.ERROR_MESSAGE);
+									logger.log(Level.INFO, "Impossible to delete this employee");
+								} else {
+									JOptionPane.showMessageDialog(null, "Suppression de l'Employé", "Info",
+											JOptionPane.INFORMATION_MESSAGE);
+								}
+							} catch (Exception e1) {
+								logger.log(Level.INFO, "Impossible to parse in JSON Employee datas"
+										+ e1.getClass().getCanonicalName());
 							}
-						} catch (Exception e1) {
-							logger.log(Level.INFO,
-									"Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
-						}
-						listM.removeElementAt(index);
-						index = (-9999);
-						employee.setIdEmployee(0);
-						employee.setLastnameEmployee("");
-						employee.setNameEmployee("");
-						employee.setPoste("");
-						employee.setPassword("");
+							listM.removeElementAt(index);
+							index = (-9999);
+							employee.setIdEmployee(0);
+							employee.setLastnameEmployee("");
+							employee.setNameEmployee("");
+							employee.setPoste("");
+							employee.setPassword("");
 
-						textInputLastnameEmployee.setText("");
-						textInputNameEmployee.setText("");
-						textInputFunctionEmployee.setText("");
-						textInputPasswordEmployee.setText("");
+							textInputLastnameEmployee.setText("");
+							textInputNameEmployee.setText("");
+							textInputFunctionEmployee.setText("");
+							textInputPasswordEmployee.setText("");
+						} else {
+							JOptionPane.showMessageDialog(null, "Vous ne pouvez pas vous auto supprimer", "Erreur",
+									JOptionPane.ERROR_MESSAGE);
+						}
 					} else {
-						JOptionPane.showMessageDialog(null, "Vous ne pouvez pas vous auto supprimer", "Erreur",
+						JOptionPane.showMessageDialog(null, "Veuillez selectionner un employé à supprimer", "Erreur",
 								JOptionPane.ERROR_MESSAGE);
+
 					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Veuillez selectionner un employé à supprimer", "Erreur",
@@ -767,12 +775,16 @@ public class TabEmployes extends JPanel {
 			listEmployee = Arrays.asList(employees);
 			logger.log(Level.INFO, "Find Employees datas succed");
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Employees datas" + e1.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to parse in JSON Employees datas " + e1.getClass().getCanonicalName());
 		}
 		listM.removeAllElements();
+		listM.addElement("Tout les employés ");
 		for (Employee employees : listEmployee) {
 			listM.addElement(employees.getIdEmployee() + "# " + employees.getLastnameEmployee() + " "
-					+ employees.getNameEmployee() + " " + employees.getPoste());
+					+ employees.getNameEmployee() + " ," + employees.getPoste());
+		}
+		if (listM.isEmpty() && (!listEmployee.isEmpty())) {
+			updateListEmployee();
 		}
 
 	}
