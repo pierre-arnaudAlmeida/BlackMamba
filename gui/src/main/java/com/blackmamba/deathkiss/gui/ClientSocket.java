@@ -40,7 +40,6 @@ public class ClientSocket {
 	}
 
 	public ClientSocket(String requestType, String jsonString, String table) {
-		
 		this.requestType = requestType;
 		this.table = table;
 
@@ -62,6 +61,7 @@ public class ClientSocket {
 			logger.log(Level.INFO, "Command OPEN connection send to server");
 
 			response = read();
+
 			/**
 			 * Send to server the type of request and the table where we do the request
 			 * coded in JSON

@@ -143,7 +143,7 @@ public class Connexion extends JFrame {
 						logger.log(Level.INFO,
 								"Impossible to parse in JSON connection datas" + e1.getClass().getCanonicalName());
 					}
-					if (!employee.getLastnameEmployee().equals("")) {
+					if (!employee.getPoste().equals("")) {
 						Frame frame = new Frame(employee.getIdEmployee());
 						setVisible(false);
 						dispose();
