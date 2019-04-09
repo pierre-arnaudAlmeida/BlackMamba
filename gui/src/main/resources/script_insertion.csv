@@ -23,7 +23,7 @@ insert into partie_commune (nom_partie_commune, etage_partie_commune) values ('A
 insert into partie_commune (nom_partie_commune, etage_partie_commune) values ('HALL', 0);
 
 --Réinitialiser les compteurs des identifiants et insertions des capteurs de base
-capteur_id_capteur_seq;
+select setval('capteur_id_capteur_seq', 1);
 insert into capteur (id_capteur,type_capteur, etat, id_partie_commune) values (1,'SMOKE','ON',1);
 insert into capteur (type_capteur, etat, id_partie_commune) values ('WINDOW','ON',2);
 insert into capteur (type_capteur, etat, id_partie_commune) values ('SMOKE','OFF',2);
