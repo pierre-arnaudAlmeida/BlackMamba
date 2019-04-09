@@ -21,7 +21,7 @@ import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
  * @author Pierre-Arnaud
  *
  */
-public class TimeServer {
+public class Server {
 	/**
 	 * Initialization of parameters
 	 */
@@ -34,12 +34,12 @@ public class TimeServer {
 	private Connection connectionGived;
 	private Socket client;
 	private final Properties prop = new Properties();
-	private static final Logger logger = LogManager.getLogger(TimeServer.class);
+	private static final Logger logger = LogManager.getLogger(Server.class);
 
 	/**
 	 * Constructor without parameters
 	 */
-	public TimeServer() {
+	public Server() {
 		ResourceBundle rs = ResourceBundle.getBundle("config");
 		try {
 			server = new ServerSocket(Integer.parseInt(rs.getString("server.default.port")), 100,
@@ -57,7 +57,7 @@ public class TimeServer {
 	 * @param Host
 	 * @param Port
 	 */
-	public TimeServer(String pHost, int pPort) {
+	public Server(String pHost, int pPort) {
 		this.host = pHost;
 		this.port = pPort;
 		try {
