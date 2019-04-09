@@ -36,7 +36,7 @@ public class MainServerGUI extends JFrame {
 	private int minute = 0;
 	private int seconde = 0;
 	private ActionListener tache_timer;
-	private TimeServer ts;
+	private Server ts;
 	private JLabel time;
 	private JPanel container;
 	private JButton launch;
@@ -61,7 +61,7 @@ public class MainServerGUI extends JFrame {
 		/**
 		 * Create a button to launch the server
 		 */
-		ts = new TimeServer(host, port);
+		ts = new Server(host, port);
 
 		/**
 		 * LOGO

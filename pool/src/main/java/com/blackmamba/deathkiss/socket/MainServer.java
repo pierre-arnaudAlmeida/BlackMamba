@@ -25,7 +25,7 @@ public class MainServer {
 	private static int minute = 0;
 	private static int seconde = 0;
 	private static ActionListener tache_timer;
-	private static TimeServer ts;
+	private static Server ts;
 	static Timer timer1;
 
 	/**
@@ -38,7 +38,7 @@ public class MainServer {
 		ResourceBundle rs = ResourceBundle.getBundle("config");
 		host = rs.getString("server.host");
 		port = Integer.parseInt(rs.getString("server.port"));
-		ts = new TimeServer(host, port);
+		ts = new Server(host, port);
 		ts.open();
 
 		logger.log(Level.INFO, "______           _   _     _    _         ");
