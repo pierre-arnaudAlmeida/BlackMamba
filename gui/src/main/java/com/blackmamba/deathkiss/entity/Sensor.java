@@ -1,5 +1,7 @@
 package com.blackmamba.deathkiss.entity;
 
+import java.util.Date;
+
 /**
  * 
  * @author Pierre-Arnaud
@@ -10,15 +12,23 @@ public class Sensor {
 	private int idSensor = 0;
 	private SensorType typeSensor = null;
 	private boolean sensorState = false;
-	private boolean sensorNextState = false;
 	private int idCommonArea = 0;
+	private AlertState alertState = null;
+	private Sensitivity maxSensitivity = null;
+	private Date startActivity = null;
+	private Date endActivity = null;
 
-	public Sensor(int idSensor, SensorType typeSensor, boolean sensorState, int idCommonArea) {
+	public Sensor(int idSensor, SensorType typeSensor, boolean sensorState, int idCommonArea, AlertState alertState,
+			Sensitivity maxSensitivity, Date startActivity, Date endActivity) {
 		super();
 		this.idSensor = idSensor;
 		this.typeSensor = typeSensor;
 		this.sensorState = sensorState;
 		this.idCommonArea = idCommonArea;
+		this.alertState = alertState;
+		this.maxSensitivity = maxSensitivity;
+		this.startActivity = startActivity;
+		this.endActivity = endActivity;
 	}
 
 	public Sensor() {
@@ -56,12 +66,36 @@ public class Sensor {
 		this.idCommonArea = idCommonArea;
 	}
 
-	public boolean getSensorNextState() {
-		return sensorNextState;
+	public AlertState getAlertState() {
+		return alertState;
 	}
 
-	public void setSensorNextState(boolean sensorNextState) {
-		this.sensorNextState = sensorNextState;
+	public void setAlertState(AlertState alertState) {
+		this.alertState = alertState;
+	}
+
+	public Sensitivity getSensitivity() {
+		return maxSensitivity;
+	}
+
+	public void setSensitivity(Sensitivity sensitivity) {
+		this.maxSensitivity = sensitivity;
+	}
+
+	public Date getStartActivity() {
+		return startActivity;
+	}
+
+	public void setStartActivity(Date startActivity) {
+		this.startActivity = startActivity;
+	}
+
+	public Date getEndActivity() {
+		return endActivity;
+	}
+
+	public void setEndActivity(Date endActivity) {
+		this.endActivity = endActivity;
 	}
 
 }

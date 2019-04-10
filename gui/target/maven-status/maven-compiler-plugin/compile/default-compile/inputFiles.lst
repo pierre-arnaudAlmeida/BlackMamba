@@ -8,8 +8,11 @@ D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\Sensor.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\TabCommonArea.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\TabResident.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\TabProfile.java
+D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\Sensitivity.java
+D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\Message.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\CommonArea.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\Connexion.java
+D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\AlertState.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\Frame.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\TabListSensor.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\ClientSocket.java
