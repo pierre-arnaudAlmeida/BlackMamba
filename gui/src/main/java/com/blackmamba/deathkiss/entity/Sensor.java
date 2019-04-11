@@ -17,9 +17,10 @@ public class Sensor {
 	private Sensitivity maxSensitivity = null;
 	private Date startActivity = null;
 	private Date endActivity = null;
+	private String parameter = null;
 
 	public Sensor(int idSensor, SensorType typeSensor, boolean sensorState, int idCommonArea, AlertState alertState,
-			Sensitivity maxSensitivity, Date startActivity, Date endActivity) {
+			Sensitivity maxSensitivity, Date startActivity, Date endActivity, String parameter) {
 		super();
 		this.idSensor = idSensor;
 		this.typeSensor = typeSensor;
@@ -29,6 +30,7 @@ public class Sensor {
 		this.maxSensitivity = maxSensitivity;
 		this.startActivity = startActivity;
 		this.endActivity = endActivity;
+		this.parameter = parameter;
 	}
 
 	public Sensor() {
@@ -96,6 +98,14 @@ public class Sensor {
 
 	public void setEndActivity(Date endActivity) {
 		this.endActivity = endActivity;
+	}
+
+	public String getParameter() {
+		return parameter;
+	}
+
+	public void setParameter(String parameter) {
+		this.parameter = parameter;
 	}
 
 }
