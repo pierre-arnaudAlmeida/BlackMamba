@@ -3,9 +3,6 @@ package com.blackmamba.deathkiss.socket;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
