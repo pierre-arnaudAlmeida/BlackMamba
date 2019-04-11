@@ -13,14 +13,13 @@ public class Message {
 	private AlertState alertState = null;
 	private int idSensor = 0;
 	private Date alertDate = null;
-	private String parameter = null;
 
-	public Message(int idMessage, AlertState alertState, int idSensor, Date alertDate, String parameter) {
+	public Message(int idMessage, AlertState alertState, int idSensor, Date alertDate) {
 		this.idMessage = idMessage;
 		this.alertState = alertState;
 		this.idSensor = idSensor;
 		this.alertDate = alertDate;
-		this.parameter = parameter;
+
 	}
 
 	public Message() {
@@ -57,13 +56,4 @@ public class Message {
 	public void setAlertDate(Date alertDate) {
 		this.alertDate = alertDate;
 	}
-
-	public String getParameter() {
-		return parameter;
-	}
-
-	public void setParameter(String parameter) {
-		this.parameter = parameter;
-	}
-
 }
