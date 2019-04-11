@@ -5,16 +5,18 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.blackmamba.deathkiss.entity.Employee;
+import com.blackmamba.deathkiss.entity.AlertState;
 import com.blackmamba.deathkiss.entity.Message;
-import com.blackmamba.deathkiss.entity.Resident;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -25,6 +27,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class MessageDAO extends DAO<Message> {
 
 	private ResultSet result = null;
+	private SimpleDateFormat dateFormat;
+	private Date alertDate;
 	private static final Logger logger = LogManager.getLogger(MessageDAO.class);
 
 	public MessageDAO(Connection con) {
@@ -37,15 +41,14 @@ public class MessageDAO extends DAO<Message> {
 	 */
 	@Override
 	public boolean create(String jsonString) {
-		//TODO date
 		ObjectMapper objectMapper = new ObjectMapper();
 		String request;
+
 		try {
 			Statement st = con.createStatement();
 			Message message = objectMapper.readValue(jsonString, Message.class);
-			request = "insert into message (type_alerte,id_capteur,date_alerte,parametre) values ('"
-					+ message.getAlertState() + "','" + message.getIdSensor() + "','" + message.getAlertDate() + "','"
-					+ message.getParameter() + "')";
+			java.sql.Date sqlDate = new java.sql.Date(message.getAlertDate().getTime());
+			request = "insert into message (type_alerte,id_capteur,date_alerte,parametre) values ('" + message.getAlertState() + "','" + message.getIdSensor() + "','" + sqlDate + "','" + message.getParameter() + "')";
 			st.execute(request);
 			logger.log(Level.INFO, "Message succesfully inserted in BDD ");
 			return true;
@@ -76,15 +79,13 @@ public class MessageDAO extends DAO<Message> {
 
 	@Override
 	public boolean update(String jsonString) {
-		//TODO date
 		ObjectMapper objectMapper = new ObjectMapper();
 		String request;
 		try {
 			Statement st = con.createStatement();
 			Message message = objectMapper.readValue(jsonString, Message.class);
-			request = "UPDATE message SET type_alerte = '" + message.getAlertState() + "', id_capteur = '"
-					+ message.getIdSensor() + "', date_alerte = '" + message.getAlertDate() + "', parametre = '"
-					+ message.getParameter();
+			java.sql.Date sqlDate = new java.sql.Date(message.getAlertDate().getTime());
+			request = "UPDATE message SET type_alerte = '" + message.getAlertState() + "', id_capteur = '" + message.getIdSensor() + "', date_alerte = '" + sqlDate + "', parametre = '" + message.getParameter();
 			st.execute(request);
 			logger.log(Level.INFO, "Message succesfully update in BDD");
 			return true;
@@ -96,7 +97,6 @@ public class MessageDAO extends DAO<Message> {
 
 	@Override
 	public String read(String jsonString) {
-		// TODO
 		ObjectMapper objectMapper = new ObjectMapper();
 		String request;
 		try {
@@ -107,16 +107,27 @@ public class MessageDAO extends DAO<Message> {
 			result.next();
 
 			message.setIdMessage(Integer.parseInt(result.getObject(1).toString()));
-			message.setAlertState(result.getObject(2).toString());
+			if (result.getObject(2).toString().equals("NORMAL")) {
+				message.setAlertState(AlertState.NORMAL);
+			} else if (result.getObject(2).toString().equals("ALERT")) {
+				message.setAlertState(AlertState.ALERT);
+			} else if (result.getObject(2).toString().equals("DOWN")) {
+				message.setAlertState(AlertState.DOWN);
+			} else
+				message.setAlertState(null);
 			message.setIdSensor(Integer.parseInt(result.getObject(3).toString()));
-			message.setAlertDate(result.getObject(4).toString());
+
+			dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+			alertDate = dateFormat.parse(result.getObject(4).toString());
+			message.setAlertDate(alertDate);
+
 			message.setParameter(result.getObject(5).toString());
 
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(message);
 			logger.log(Level.INFO, "Message succesfully find in BDD");
 			return jsonString;
-		} catch (SQLException | IOException e) {
+		} catch (SQLException | IOException | ParseException e) {
 			logger.log(Level.INFO, "Impossible to get message datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
@@ -125,7 +136,6 @@ public class MessageDAO extends DAO<Message> {
 
 	@Override
 	public String readAll(String jsonString) {
-		// TODO
 		String request;
 		Message message;
 		List<Message> listMessage = new ArrayList<>();
@@ -137,9 +147,20 @@ public class MessageDAO extends DAO<Message> {
 			while (result.next()) {
 				message = new Message();
 				message.setIdMessage(Integer.parseInt(result.getObject(1).toString()));
-				message.setAlertState(result.getObject(2).toString());
+				if (result.getObject(2).toString().equals("NORMAL")) {
+					message.setAlertState(AlertState.NORMAL);
+				} else if (result.getObject(2).toString().equals("ALERT")) {
+					message.setAlertState(AlertState.ALERT);
+				} else if (result.getObject(2).toString().equals("DOWN")) {
+					message.setAlertState(AlertState.DOWN);
+				} else
+					message.setAlertState(null);
 				message.setIdSensor(Integer.parseInt(result.getObject(3).toString()));
-				message.setAlertDate(result.getObject(4).toString());
+
+				dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+				alertDate = dateFormat.parse(result.getObject(4).toString());
+				message.setAlertDate(alertDate);
+
 				message.setParameter(result.getObject(5).toString());
 				listMessage.add(message);
 			}
@@ -147,7 +168,7 @@ public class MessageDAO extends DAO<Message> {
 			jsonString = obj.writeValueAsString(listMessage);
 			logger.log(Level.INFO, "Message succesfully find in BDD");
 			return jsonString;
-		} catch (SQLException | IOException e) {
+		} catch (SQLException | IOException | ParseException e) {
 			logger.log(Level.INFO, "Impossible to get messages datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
