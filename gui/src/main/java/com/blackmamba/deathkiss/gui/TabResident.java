@@ -389,7 +389,7 @@ public class TabResident extends JPanel {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {}
-
+			//TODO
 		});
 
 		
@@ -408,7 +408,7 @@ public class TabResident extends JPanel {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				//TODO
 			}
 		});
 
@@ -428,14 +428,14 @@ public class TabResident extends JPanel {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
-	
+				//TODO
 			}
 		});
 
 		
 		
 		/**
-		 * Definition of Button Restaur
+		 * Definition of Button Restore
 		 */
 		restaure = new JButton("Annuler");
 		restaure.setBounds(((int)
@@ -450,7 +450,7 @@ public class TabResident extends JPanel {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
-	
+				//TODO
 			}
 		});
 
