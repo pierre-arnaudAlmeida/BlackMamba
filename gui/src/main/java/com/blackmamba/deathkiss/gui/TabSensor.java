@@ -632,7 +632,7 @@ public class TabSensor extends JPanel {
 			} else {
 				switchButton.setText("OFF");
 				switchButton.setBackground(Color.RED);
-			} // TODO
+			}
 		}
 		///////////////////////// BUTTON/////////////////////////////////////////////////
 		/**
