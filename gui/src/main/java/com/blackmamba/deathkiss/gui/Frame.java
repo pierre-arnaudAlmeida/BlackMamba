@@ -50,8 +50,7 @@ public class Frame extends JFrame {
 				while (true) {
 					verificationUser(idEmployee);
 					if (employee.getLastnameEmployee().equals("")) {
-						JOptionPane.showMessageDialog(null, "Votre compte a été supprimer vous allez etre déconnecter",
-								"Erreur", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Votre compte a été supprimer vous allez etre déconnecter", "Erreur", JOptionPane.ERROR_MESSAGE);
 						System.exit(ABORT);
 					}
 					try {
@@ -101,7 +100,7 @@ public class Frame extends JFrame {
 		tab.add("Onglet " + tabOfTab[5], tabProfile);
 
 		///////////////////////// ALERT/////////////////////////////////////////////////
-		//TODO
+		// TODO
 		setThreadAlert(new Thread(new Runnable() {
 			/**
 			 * Loop and update every second the alerts
@@ -110,7 +109,6 @@ public class Frame extends JFrame {
 			public void run() {
 				monitoringAlert = new MonitoringAlert();
 				while (true) {
-					monitoringAlert.getMessages();
 				}
 			}
 		}));
