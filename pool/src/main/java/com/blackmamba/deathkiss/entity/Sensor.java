@@ -1,5 +1,6 @@
 package com.blackmamba.deathkiss.entity;
 
+import java.sql.Time;
 import java.util.Date;
 
 /**
@@ -15,12 +16,12 @@ public class Sensor {
 	private int idCommonArea = 0;
 	private AlertState alertState = null;
 	private Sensitivity maxSensitivity = null;
-	private Date startActivity = null;
-	private Date endActivity = null;
+	private Time startActivity = null;
+	private Time endActivity = null;
 	private String parameter = null;
 
 	public Sensor(int idSensor, SensorType typeSensor, boolean sensorState, int idCommonArea, AlertState alertState,
-			Sensitivity maxSensitivity, Date startActivity, Date endActivity, String parameter) {
+			Sensitivity maxSensitivity, Time startActivity, Time endActivity, String parameter) {
 		super();
 		this.idSensor = idSensor;
 		this.typeSensor = typeSensor;
@@ -88,7 +89,7 @@ public class Sensor {
 		return startActivity;
 	}
 
-	public void setStartActivity(Date startActivity) {
+	public void setStartActivity(Time startActivity) {
 		this.startActivity = startActivity;
 	}
 
@@ -96,7 +97,7 @@ public class Sensor {
 		return endActivity;
 	}
 
-	public void setEndActivity(Date endActivity) {
+	public void setEndActivity(Time endActivity) {
 		this.endActivity = endActivity;
 	}
 

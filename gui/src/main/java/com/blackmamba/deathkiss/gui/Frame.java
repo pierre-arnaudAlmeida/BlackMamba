@@ -108,10 +108,14 @@ public class Frame extends JFrame {
 			@Override
 			public void run() {
 				monitoringAlert = new MonitoringAlert();
-				while (true) {
-				}
+				monitoringAlert.getSensor(1);
+				monitoringAlert.getAllSensor();
+//				while (true) {
+//				}
 			}
 		}));
+		threadAlert.start();
+		threadFrame.start();
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
 		 * Different parameters of the window

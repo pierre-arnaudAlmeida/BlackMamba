@@ -60,6 +60,7 @@ public class MonitoringAlert {
 			jsonString = "READ ALL";
 			new ClientSocket(requestType, jsonString, table);
 			jsonString = ClientSocket.getJson();
+			logger.log(Level.INFO, jsonString);
 			Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
 			listSensor = Arrays.asList(sensors);
 			logger.log(Level.INFO, "Find Sensor datas succed");
@@ -167,6 +168,7 @@ public class MonitoringAlert {
 	public void getSensor(int idSensor) {
 		requestType = "READ";
 		sensor = new Sensor();
+		objectMapper = new ObjectMapper();
 		table = "Sensor";
 		sensor.setIdSensor(idSensor);
 		try {
@@ -175,10 +177,8 @@ public class MonitoringAlert {
 			jsonString = ClientSocket.getJson();
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
 			logger.log(Level.INFO, "Find Sensor data succed");
-			// return sensor;TODO
 		} catch (Exception e1) {
 			logger.log(Level.INFO, "Impossible to parse in JSON Sensor datas " + e1.getClass().getCanonicalName());
-			// return null;
 		}
 	}
 }
