@@ -12,18 +12,15 @@ public class SensorHistorical {
 	private int idHistorical = 0;
 	private Date date = null;
 	private int idSensor = 0;
-	private boolean previousState = false;
-	private boolean nextState = false;
+	private boolean sensorState = false;
 	private AlertState alertState = null;
 
-	public SensorHistorical(int idHistorical, Date date, int idSensor, boolean previousState, boolean nextState,
-			AlertState alertState) {
+	public SensorHistorical(int idHistorical, Date date, int idSensor, boolean sensorState, AlertState alertState) {
 		super();
 		this.idHistorical = idHistorical;
 		this.date = date;
 		this.idSensor = idSensor;
-		this.previousState = previousState;
-		this.nextState = nextState;
+		this.sensorState = sensorState;
 		this.alertState = alertState;
 	}
 
@@ -54,28 +51,20 @@ public class SensorHistorical {
 		this.idSensor = idSensor;
 	}
 
-	public boolean getPreviousState() {
-		return previousState;
-	}
-
-	public void setPreviousState(boolean previousState) {
-		this.previousState = previousState;
-	}
-
-	public boolean getNextState() {
-		return nextState;
-	}
-
-	public void setNextState(boolean nextState) {
-		this.nextState = nextState;
-	}
-
 	public AlertState getAlertState() {
 		return alertState;
 	}
 
 	public void setAlertState(AlertState alertState) {
 		this.alertState = alertState;
+	}
+
+	public boolean getSensorState() {
+		return sensorState;
+	}
+
+	public void setSensorState(boolean sensorState) {
+		this.sensorState = sensorState;
 	}
 
 }
