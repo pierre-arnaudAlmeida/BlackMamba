@@ -26,59 +26,15 @@ public class MonitoringAlert {
 	private SimpleDateFormat formater;
 	private List<Message> listMessage = new ArrayList<Message>();
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
+	private List<Sensor> listSensorDown = new ArrayList<Sensor>();
 	private static final Logger logger = LogManager.getLogger(MonitoringAlert.class);
 
 	public MonitoringAlert() {
 	}
 
-	public void getMessages() {
-		/**
-		 * Declare the Object Messages
-		 */
-		currentDate = new Date();
-		message.setAlertDate(currentDate);
-		/**
-		 * Find all the Messages in the data base and add on list to be treated
-		 */
-		requestType = "READ ALL";
-		table = "Message";
-		objectMapper = new ObjectMapper();
-		try {
-			jsonString = objectMapper.writeValueAsString(message);
-			new ClientSocket(requestType, jsonString, table);
-			jsonString = ClientSocket.getJson();
-			Message[] messages = objectMapper.readValue(jsonString, Message[].class);
-			listMessage = Arrays.asList(messages);
-			logger.log(Level.INFO, "Find Messages datas succed");
-		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Messages datas " + e1.getClass().getCanonicalName());
-		}
-		// AFFICHE les id des messages;
-		for (Message mess : listMessage) {
-			System.out.println(mess.getIdMessage());
-		}
-	}
-
-	public void getSensor(int idSensor) {
-		requestType = "READ";
-		sensor = new Sensor();
-		table = "Sensor";
-		sensor.setIdSensor(idSensor);
-		try {
-			jsonString = objectMapper.writeValueAsString(sensor);
-			new ClientSocket(requestType, jsonString, table);
-			jsonString = ClientSocket.getJson();
-			sensor = objectMapper.readValue(jsonString, Sensor.class);
-			logger.log(Level.INFO, "Find Sensor data succed");
-			// return sensor;
-		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Sensor datas " + e1.getClass().getCanonicalName());
-			// return null;
-		}
-	}
-
 	public void alertTreatment() {
-		getMessages();
+		currentDate = new Date();
+		getMessages(currentDate);
 		for (Message messages : listMessage) {
 			if (messages.getAlertState() == AlertState.ALERT) {
 				System.out.println("une alerte pour l'id : " + messages.getIdSensor());
@@ -119,7 +75,7 @@ public class MonitoringAlert {
 		for (Sensor sensors : listSensor) {
 			if (sensors.getSensorState() == true) {
 				// si le capteur est alllumer
-
+				// TODO
 				// si la date acutelle+30 == la date de début du capteur
 				// alors on verifie dans la list des messages si le capteur (avec idsensor) si
 				// il ya eu un message normal alert ou down avec la date actuelle a la minute
@@ -140,9 +96,89 @@ public class MonitoringAlert {
 		// sinon on envoi un message vers l'ihm en le catégorisant comme DOWN
 	}
 
-	// TODO verifier si le capteur a envoyer un message toute les heures
+	// TODO verifier si tout les capteurs actif on envoyer un message toute les
+	// heures
 	// faire un thread dans Frame qui se met en pause toute les heures
 	// et qui appele la methode
-	public void verifySensorActivity() {
+	// definir un "currentDate = new Date();" juste avant la pause 1h
+	public void verifySensorActivity(Date currentDate) {
+		int numberOfSensor;
+		getAllSensor();
+		getMessages(currentDate);
+		for (Sensor sensors : listSensor) {
+			numberOfSensor = 0;
+			if (sensors.getSensorState() == true) {
+				for (Message messages : listMessage) {
+					if (sensors.getIdSensor() == messages.getIdSensor()) {
+						numberOfSensor++;
+					}
+				}
+				if (numberOfSensor < 1) {
+					listSensorDown.add(sensors);
+				}
+			}
+		}
+		for (Sensor sensors : listSensorDown) {
+			// on update les sensors TODO
+			// faire une update de la methode update dans sensorDao prend pas en compte tout
+			// les parametres
+			sensors.setAlertState(AlertState.DOWN);
+			updateSensorAlertState(sensors);
+		}
+	}
+
+	public void updateSensorAlertState(Sensor sensor) {
+		objectMapper = new ObjectMapper();
+		try {
+			jsonString = objectMapper.writeValueAsString(sensor);
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			if (!jsonString.equals("UPDATED")) {
+				logger.log(Level.INFO, "Impossible to update sensor");
+			} else {
+				logger.log(Level.INFO, "Update Succeded");
+			}
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON sensor datas" + e1.getClass().getCanonicalName());
+		}
+	}
+
+	public void getMessages(Date curentDate) {
+		requestType = "READ ALL";
+		table = "Message";
+		message.setAlertDate(currentDate);
+		objectMapper = new ObjectMapper();
+		try {
+			jsonString = objectMapper.writeValueAsString(message);
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			Message[] messages = objectMapper.readValue(jsonString, Message[].class);
+			listMessage = Arrays.asList(messages);
+			logger.log(Level.INFO, "Find Messages datas succed");
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON Messages datas " + e1.getClass().getCanonicalName());
+		}
+		// AFFICHE les id des messages;TODO
+		for (Message mess : listMessage) {
+			System.out.println(mess.getIdMessage());
+		}
+	}
+
+	public void getSensor(int idSensor) {
+		requestType = "READ";
+		sensor = new Sensor();
+		table = "Sensor";
+		sensor.setIdSensor(idSensor);
+		try {
+			jsonString = objectMapper.writeValueAsString(sensor);
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			sensor = objectMapper.readValue(jsonString, Sensor.class);
+			logger.log(Level.INFO, "Find Sensor data succed");
+			// return sensor;TODO
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON Sensor datas " + e1.getClass().getCanonicalName());
+			// return null;
+		}
 	}
 }
