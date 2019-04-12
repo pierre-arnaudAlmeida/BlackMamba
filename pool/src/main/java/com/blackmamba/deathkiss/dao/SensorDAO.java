@@ -5,11 +5,15 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.blackmamba.deathkiss.entity.AlertState;
+import com.blackmamba.deathkiss.entity.Sensitivity;
 import com.blackmamba.deathkiss.entity.Sensor;
 import com.blackmamba.deathkiss.entity.SensorType;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -44,7 +48,11 @@ public class SensorDAO extends DAO<Sensor> {
 				state = "ON";
 			} else
 				state = "OFF";
-			request = "insert into capteur (type_capteur, etat, id_partie_commune) values ('" + sensor.getTypeSensor() + "','" + state + "','" + sensor.getIdCommonArea() + "')";
+
+			request = "insert into capteur (type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,parametre) values ('"
+					+ sensor.getTypeSensor() + "','" + state + "','" + sensor.getIdCommonArea() + "','"
+					+ sensor.getAlertState() + "','" + sensor.getSensitivity() + "','" + sensor.getStartActivity()
+					+ "','" + sensor.getEndActivity() + "','" + sensor.getParameter() + "')";
 			st.execute(request);
 			logger.log(Level.INFO, "Sensor succesfully inserted in BDD");
 			return true;
@@ -88,15 +96,31 @@ public class SensorDAO extends DAO<Sensor> {
 			Sensor sensor = objectMapper.readValue(jsonString, Sensor.class);
 			if (sensor.getSensorState() == true) {
 				if (sensor.getIdCommonArea() == 0) {
-					request = "UPDATE capteur SET id_partie_commune = null, etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "' where id_capteur = " + sensor.getIdSensor();
+					request = "UPDATE capteur SET id_partie_commune = null, etat = 'ON', type_capteur = '"
+							+ sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='"
+							+ sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity() + "',heure_fin='"
+							+ sensor.getEndActivity() + "',parametre='" + sensor.getParameter()
+							+ "' where id_capteur = " + sensor.getIdSensor();
 				} else {
-					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea() + ", etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "' where id_capteur = " + sensor.getIdSensor();
+					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea()
+							+ ", etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='"
+							+ sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='"
+							+ sensor.getStartActivity() + "',heure_fin='" + sensor.getEndActivity() + "',parametre='"
+							+ sensor.getParameter() + "' where id_capteur = " + sensor.getIdSensor();
 				}
 			} else if (sensor.getSensorState() == false) {
 				if (sensor.getIdCommonArea() == 0) {
-					request = "UPDATE capteur SET id_partie_commune = null, etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "' where id_capteur = " + sensor.getIdSensor();
+					request = "UPDATE capteur SET id_partie_commune = null, etat = 'OFF', type_capteur = '"
+							+ sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='"
+							+ sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity() + "',heure_fin='"
+							+ sensor.getEndActivity() + "',parametre='" + sensor.getParameter()
+							+ "' where id_capteur = " + sensor.getIdSensor();
 				} else {
-					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea() + ", etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "' where id_capteur = " + sensor.getIdSensor();
+					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea()
+							+ ", etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='"
+							+ sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='"
+							+ sensor.getStartActivity() + "',heure_fin='" + sensor.getEndActivity() + "',parametre='"
+							+ sensor.getParameter() + "' where id_capteur = " + sensor.getIdSensor();
 				}
 			} else
 				return false;
@@ -151,6 +175,7 @@ public class SensorDAO extends DAO<Sensor> {
 			} else if (result.getObject(3).toString().equals("OFF")) {
 				sensor.setSensorState(false);
 			}
+
 			try {
 				if (!result.getObject(4).equals("")) {
 					sensor.setIdCommonArea(Integer.parseInt(result.getObject(4).toString()));
@@ -159,6 +184,25 @@ public class SensorDAO extends DAO<Sensor> {
 				sensor.setIdCommonArea(0);
 			}
 
+			if (result.getObject(5).toString().equals("NORMAL")) {
+				sensor.setAlertState(AlertState.NORMAL);
+			} else if (result.getObject(5).toString().equals("ALERT")) {
+				sensor.setAlertState(AlertState.ALERT);
+			} else if (result.getObject(5).toString().equals("DOWN")) {
+				sensor.setAlertState(AlertState.DOWN);
+			}
+
+			if (result.getObject(6).toString().equals("LOW")) {
+				sensor.setSensitivity(Sensitivity.LOW);
+			} else if (result.getObject(6).toString().equals("MEDIUM")) {
+				sensor.setSensitivity(Sensitivity.MEDIUM);
+			} else if (result.getObject(6).toString().equals("HIGH")) {
+				sensor.setSensitivity(Sensitivity.HIGH);
+			}
+
+			sensor.setStartActivity(Time.valueOf(result.getObject(7).toString()));
+			sensor.setEndActivity(Time.valueOf(result.getObject(8).toString()));
+			sensor.setParameter(result.getObject(9).toString());
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(sensor);
 			logger.log(Level.INFO, "Sensor succesfully find in BDD");
@@ -220,6 +264,25 @@ public class SensorDAO extends DAO<Sensor> {
 				} catch (Exception e) {
 					sensor.setIdCommonArea(0);
 				}
+				if (result.getObject(5).toString().equals("NORMAL")) {
+					sensor.setAlertState(AlertState.NORMAL);
+				} else if (result.getObject(5).toString().equals("ALERT")) {
+					sensor.setAlertState(AlertState.ALERT);
+				} else if (result.getObject(5).toString().equals("DOWN")) {
+					sensor.setAlertState(AlertState.DOWN);
+				}
+
+				if (result.getObject(6).toString().equals("LOW")) {
+					sensor.setSensitivity(Sensitivity.LOW);
+				} else if (result.getObject(6).toString().equals("MEDIUM")) {
+					sensor.setSensitivity(Sensitivity.MEDIUM);
+				} else if (result.getObject(6).toString().equals("HIGH")) {
+					sensor.setSensitivity(Sensitivity.HIGH);
+				}
+
+				sensor.setStartActivity(Time.valueOf(result.getObject(7).toString()));
+				sensor.setEndActivity(Time.valueOf(result.getObject(8).toString()));
+				sensor.setParameter(result.getObject(9).toString());
 				listSensor.add(sensor);
 			}
 			ObjectMapper obj = new ObjectMapper();
@@ -289,6 +352,25 @@ public class SensorDAO extends DAO<Sensor> {
 				} catch (Exception e) {
 					sensor.setIdCommonArea(0);
 				}
+				if (result.getObject(5).toString().equals("NORMAL")) {
+					sensor.setAlertState(AlertState.NORMAL);
+				} else if (result.getObject(5).toString().equals("ALERT")) {
+					sensor.setAlertState(AlertState.ALERT);
+				} else if (result.getObject(5).toString().equals("DOWN")) {
+					sensor.setAlertState(AlertState.DOWN);
+				}
+
+				if (result.getObject(6).toString().equals("LOW")) {
+					sensor.setSensitivity(Sensitivity.LOW);
+				} else if (result.getObject(6).toString().equals("MEDIUM")) {
+					sensor.setSensitivity(Sensitivity.MEDIUM);
+				} else if (result.getObject(6).toString().equals("HIGH")) {
+					sensor.setSensitivity(Sensitivity.HIGH);
+				}
+
+				sensor.setStartActivity(Time.valueOf(result.getObject(7).toString()));
+				sensor.setEndActivity(Time.valueOf(result.getObject(8).toString()));
+				sensor.setParameter(result.getObject(9).toString());
 				listSensor.add(sensor);
 			}
 			ObjectMapper obj = new ObjectMapper();

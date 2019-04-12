@@ -977,7 +977,6 @@ public class TabSensor extends JPanel {
 				sensor.setIdSensor(Integer.parseInt(id));
 				try {
 					jsonString = objectMapper.writeValueAsString(sensor);
-					;
 					new ClientSocket(requestType, jsonString, table);
 					jsonString = ClientSocket.getJson();
 					sensor = objectMapper.readValue(jsonString, Sensor.class);

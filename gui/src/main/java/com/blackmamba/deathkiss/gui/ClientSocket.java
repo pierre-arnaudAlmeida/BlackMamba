@@ -162,7 +162,7 @@ public class ClientSocket {
 	private String read() throws IOException {
 		String response = "";
 		int stream;
-		byte[] b = new byte[4096];
+		byte[] b = new byte[524288];
 		stream = reader.read(b);
 		response = new String(b, 0, stream);
 		return response;
