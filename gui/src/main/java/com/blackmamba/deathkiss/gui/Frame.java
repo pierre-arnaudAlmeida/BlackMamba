@@ -26,6 +26,7 @@ public class Frame extends JFrame {
 	private TabResident tabResident;
 	private TabHistorical tabHistorical;
 	private TabProfile tabProfile;
+	private MonitoringAlert monitoringAlert;
 	private int idEmployee;
 	private String requestType;
 	private String table;
@@ -33,6 +34,7 @@ public class Frame extends JFrame {
 	private Employee employee;
 	private ObjectMapper objectMapper;
 	private Thread threadFrame;
+	private Thread threadAlert;
 	private static final Logger logger = LogManager.getLogger(Frame.class);
 
 	public Frame(int idEmployee) {
@@ -98,6 +100,20 @@ public class Frame extends JFrame {
 		tab.add("Onglet " + tabOfTab[4], tabHistorical);
 		tab.add("Onglet " + tabOfTab[5], tabProfile);
 
+		///////////////////////// ALERT/////////////////////////////////////////////////
+		//TODO
+		setThreadAlert(new Thread(new Runnable() {
+			/**
+			 * Loop and update every second the alerts
+			 */
+			@Override
+			public void run() {
+				monitoringAlert = new MonitoringAlert();
+				while (true) {
+					monitoringAlert.getMessages();
+				}
+			}
+		}));
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
 		 * Different parameters of the window
@@ -159,5 +175,13 @@ public class Frame extends JFrame {
 
 	public void setThreadFrame(Thread threadFrame) {
 		this.threadFrame = threadFrame;
+	}
+
+	public Thread getThreadAlert() {
+		return threadAlert;
+	}
+
+	public void setThreadAlert(Thread threadAlert) {
+		this.threadAlert = threadAlert;
 	}
 }

@@ -46,8 +46,7 @@ public class MessageDAO extends DAO<Message> {
 			Statement st = con.createStatement();
 			Message message = objectMapper.readValue(jsonString, Message.class);
 			java.sql.Date sqlDate = new java.sql.Date(message.getAlertDate().getTime());
-			request = "insert into message (type_alerte,id_capteur,date_alerte) values ('" + message.getAlertState()
-					+ "','" + message.getIdSensor() + "','" + sqlDate + ")";
+			request = "insert into message (type_alerte,id_capteur,date_alerte) values ('" + message.getAlertState() + "','" + message.getIdSensor() + "','" + sqlDate + ")";
 			st.execute(request);
 			logger.log(Level.INFO, "Message succesfully inserted in BDD ");
 			return true;
@@ -64,9 +63,7 @@ public class MessageDAO extends DAO<Message> {
 		try {
 			Statement st = con.createStatement();
 			Message message = objectMapper.readValue(jsonString, Message.class);
-			request = "DELETE FROM message where date_alerte = " + message.getAlertDate() + ";";// TODO mettre quand
-																								// c'est inferieur a une
-																								// certaine date
+			request = "DELETE FROM message where date_alerte < " + message.getAlertDate() + ";";
 			st.execute(request);
 			logger.log(Level.INFO, "Messages succesfully deleted in BDD ");
 			return true;
@@ -84,8 +81,7 @@ public class MessageDAO extends DAO<Message> {
 			Statement st = con.createStatement();
 			Message message = objectMapper.readValue(jsonString, Message.class);
 			java.sql.Date sqlDate = new java.sql.Date(message.getAlertDate().getTime());
-			request = "UPDATE message SET type_alerte = '" + message.getAlertState() + "', id_capteur = '"
-					+ message.getIdSensor() + "', date_alerte = '" + sqlDate;
+			request = "UPDATE message SET type_alerte = '" + message.getAlertState() + "', id_capteur = '" + message.getIdSensor() + "', date_alerte = '" + sqlDate;
 			st.execute(request);
 			logger.log(Level.INFO, "Message succesfully update in BDD");
 			return true;
@@ -135,34 +131,35 @@ public class MessageDAO extends DAO<Message> {
 	@Override
 	public String readAll(String jsonString) {
 		String request;
-		Message message;
+		Message message2;
+		ObjectMapper objectMapper = new ObjectMapper();
 		List<Message> listMessage = new ArrayList<>();
 		try {
 
 			Statement st = con.createStatement();
-			request = "SELECT * FROM message";
+			Message message = objectMapper.readValue(jsonString, Message.class);
+			request = "SELECT * FROM message where date_alerte >=" + message.getAlertDate() + ";";
 			result = st.executeQuery(request);
 			while (result.next()) {
-				message = new Message();
-				message.setIdMessage(Integer.parseInt(result.getObject(1).toString()));
+				message2 = new Message();
+				message2.setIdMessage(Integer.parseInt(result.getObject(1).toString()));
 				if (result.getObject(2).toString().equals("NORMAL")) {
-					message.setAlertState(AlertState.NORMAL);
+					message2.setAlertState(AlertState.NORMAL);
 				} else if (result.getObject(2).toString().equals("ALERT")) {
-					message.setAlertState(AlertState.ALERT);
+					message2.setAlertState(AlertState.ALERT);
 				} else if (result.getObject(2).toString().equals("DOWN")) {
-					message.setAlertState(AlertState.DOWN);
+					message2.setAlertState(AlertState.DOWN);
 				} else
-					message.setAlertState(null);
-				message.setIdSensor(Integer.parseInt(result.getObject(3).toString()));
+					message2.setAlertState(null);
+				message2.setIdSensor(Integer.parseInt(result.getObject(3).toString()));
 
 				dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 				alertDate = dateFormat.parse(result.getObject(4).toString());
-				message.setAlertDate(alertDate);
+				message2.setAlertDate(alertDate);
 
-				listMessage.add(message);
+				listMessage.add(message2);
 			}
-			ObjectMapper obj = new ObjectMapper();
-			jsonString = obj.writeValueAsString(listMessage);
+			jsonString = objectMapper.writeValueAsString(listMessage);
 			logger.log(Level.INFO, "Message succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException | ParseException e) {
