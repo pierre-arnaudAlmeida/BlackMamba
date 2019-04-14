@@ -1,6 +1,5 @@
 package com.blackmamba.deathkiss.gui;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,6 +32,7 @@ public class MonitoringAlert {
 	public MonitoringAlert() {
 	}
 
+	// Fonctionne
 	public void alertTreatment() {
 		currentDate = new Date();
 		getMessages(currentDate);
@@ -43,7 +43,7 @@ public class MonitoringAlert {
 				if (sensor.getSensorState() == true) {
 					System.out.println("et le capteur est allumer");
 				}
-			} else if (message.getAlertState() == AlertState.DOWN) {
+			} else if (messages.getAlertState() == AlertState.DOWN) {
 				System.out.println("capteur en panne pour l'id : " + messages.getIdSensor());
 				getSensor(messages.getIdSensor());
 				if (sensor.getSensorState() == true) {
@@ -81,38 +81,40 @@ public class MonitoringAlert {
 		// sinon on envoi un message vers l'ihm en le catégorisant comme DOWN
 	}
 
-	// TODO verifier si tout les capteurs actif on envoyer un message toute les
-	// heures
-	// faire un thread dans Frame qui se met en pause toute les heures
-	// et qui appele la methode
-	// definir un "currentDate = new Date();" juste avant la pause 1h
+	// Fonctionne
 	public void verifySensorActivity(Date currentDate) {
-		int numberOfSensor;
+		int numberOfIteration;
+
+		for (int i = 0; i < listSensorDown.size(); i++)
+			listSensorDown.remove(i);
+
 		getAllSensor();
-		//getMessages(currentDate);
+		getMessages(currentDate);
 		for (Sensor sensors : listSensor) {
-			numberOfSensor = 0;
+			numberOfIteration = 0;
 			if (sensors.getSensorState() == true) {
 				for (Message messages : listMessage) {
 					if (sensors.getIdSensor() == messages.getIdSensor()) {
-						numberOfSensor++;
+						numberOfIteration++;
 					}
 				}
-				if (numberOfSensor < 1) {
+				if (numberOfIteration < 1) {
 					listSensorDown.add(sensors);
 				}
 			}
 		}
-		for (Sensor sensors : listSensorDown) {
-			// on update les sensors TODO
-			// faire une update de la methode update dans sensorDao prend pas en compte tout
-			// les parametres
-			sensors.setAlertState(AlertState.DOWN);
-			updateSensorAlertState(sensors);
+		if (!listSensorDown.isEmpty()) {
+			for (Sensor sensors : listSensorDown) {
+				sensors.setAlertState(AlertState.DOWN);
+				updateSensorAlertState(sensors);
+			}
 		}
 	}
 
+	// Fonctionne
 	public void updateSensorAlertState(Sensor sensor) {
+		requestType = "UPDATE";
+		table = "Sensor";
 		objectMapper = new ObjectMapper();
 		try {
 			jsonString = objectMapper.writeValueAsString(sensor);
@@ -128,6 +130,7 @@ public class MonitoringAlert {
 		}
 	}
 
+	// Fonctionne
 	public void getMessages(Date curDate) {
 		requestType = "READ ALL";
 		table = "Message";
@@ -144,15 +147,9 @@ public class MonitoringAlert {
 		} catch (Exception e1) {
 			logger.log(Level.INFO, "Impossible to parse in JSON Messages datas " + e1.getClass().getCanonicalName());
 		}
-		// AFFICHE les id des messages;TODO
-		for (Message mess : listMessage) {
-				System.out.println(mess.getAlertDate());
-			
-			
-		}
 	}
 
-	//Fonctionne
+	// Fonctionne
 	public void getSensor(int idSensor) {
 		requestType = "READ";
 		sensor = new Sensor();
@@ -170,8 +167,8 @@ public class MonitoringAlert {
 			logger.log(Level.INFO, "Impossible to parse in JSON Sensor datas " + e1.getClass().getCanonicalName());
 		}
 	}
-	
-	//Fonctionne
+
+	// Fonctionne
 	public void getAllSensor() {
 		requestType = "READ ALL";
 		table = "Sensor";

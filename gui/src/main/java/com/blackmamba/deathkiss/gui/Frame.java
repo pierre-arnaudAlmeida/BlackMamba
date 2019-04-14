@@ -41,6 +41,7 @@ public class Frame extends JFrame {
 	private ObjectMapper objectMapper;
 	private Thread threadFrame;
 	private Thread threadAlert;
+	private Thread threadActivity;
 	private static final Logger logger = LogManager.getLogger(Frame.class);
 
 	public Frame(int idEmployee) {
@@ -56,7 +57,8 @@ public class Frame extends JFrame {
 				while (true) {
 					verificationUser(idEmployee);
 					if (employee.getLastnameEmployee().equals("")) {
-						JOptionPane.showMessageDialog(null, "Votre compte a été supprimer vous allez etre déconnecter", "Erreur", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Votre compte a été supprimer vous allez etre déconnecter",
+								"Erreur", JOptionPane.ERROR_MESSAGE);
 						System.exit(ABORT);
 					}
 					try {
@@ -114,15 +116,32 @@ public class Frame extends JFrame {
 			@Override
 			public void run() {
 				monitoringAlert = new MonitoringAlert();
-				Date curentDate = new Date();
-				//System.out.println(curentDate);
-				monitoringAlert.getMessages(curentDate);
+				monitoringAlert.alertTreatment();
 //				while (true) {
 //				}
 			}
 		}));
+		setThreadActivity(new Thread(new Runnable() {
+			/**
+			 * Loop and verify if the capteur have send a message to system
+			 */
+			@Override
+			public void run() {
+				monitoringAlert = new MonitoringAlert();
+				while (true) {
+					Date currentDate = new Date();
+					try {
+						threadActivity.sleep(3600000);
+					} catch (InterruptedException e) {
+						logger.log(Level.INFO, "Impossible to sleep the thread " + e.getClass().getCanonicalName());
+					}
+					monitoringAlert.verifySensorActivity(currentDate);
+				}
+			}
+		}));
 		threadAlert.start();
 		threadFrame.start();
+		// threadActivity.start();
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
 		 * Different parameters of the window
@@ -192,5 +211,13 @@ public class Frame extends JFrame {
 
 	public void setThreadAlert(Thread threadAlert) {
 		this.threadAlert = threadAlert;
+	}
+
+	public Thread getThreadActivity() {
+		return threadActivity;
+	}
+
+	public void setThreadActivity(Thread threadActivity) {
+		this.threadActivity = threadActivity;
 	}
 }
