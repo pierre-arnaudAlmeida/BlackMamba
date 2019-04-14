@@ -1,5 +1,6 @@
 package com.blackmamba.deathkiss.gui;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,23 +53,6 @@ public class MonitoringAlert {
 		}
 	}
 
-	public void getAllSensor() {
-		requestType = "READ ALL";
-		table = "Sensor";
-		objectMapper = new ObjectMapper();
-		try {
-			jsonString = "READ ALL";
-			new ClientSocket(requestType, jsonString, table);
-			jsonString = ClientSocket.getJson();
-			logger.log(Level.INFO, jsonString);
-			Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
-			listSensor = Arrays.asList(sensors);
-			logger.log(Level.INFO, "Find Sensor datas succed");
-		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
-		}
-	}
-
 	// verification si le capteur est actif et a envoyer un message 30 min avant le
 	// passage a la sensibilité HIGH
 	public void verifySensorMessageBeforActivity(List<Message> listMessage) {
@@ -105,7 +89,7 @@ public class MonitoringAlert {
 	public void verifySensorActivity(Date currentDate) {
 		int numberOfSensor;
 		getAllSensor();
-		getMessages(currentDate);
+		//getMessages(currentDate);
 		for (Sensor sensors : listSensor) {
 			numberOfSensor = 0;
 			if (sensors.getSensorState() == true) {
@@ -144,10 +128,11 @@ public class MonitoringAlert {
 		}
 	}
 
-	public void getMessages(Date curentDate) {
+	public void getMessages(Date curDate) {
 		requestType = "READ ALL";
 		table = "Message";
-		message.setAlertDate(currentDate);
+		message = new Message();
+		message.setAlertDate(curDate);
 		objectMapper = new ObjectMapper();
 		try {
 			jsonString = objectMapper.writeValueAsString(message);
@@ -161,10 +146,13 @@ public class MonitoringAlert {
 		}
 		// AFFICHE les id des messages;TODO
 		for (Message mess : listMessage) {
-			System.out.println(mess.getIdMessage());
+				System.out.println(mess.getAlertDate());
+			
+			
 		}
 	}
 
+	//Fonctionne
 	public void getSensor(int idSensor) {
 		requestType = "READ";
 		sensor = new Sensor();
@@ -175,10 +163,28 @@ public class MonitoringAlert {
 			jsonString = objectMapper.writeValueAsString(sensor);
 			new ClientSocket(requestType, jsonString, table);
 			jsonString = ClientSocket.getJson();
+			logger.log(Level.INFO, jsonString);
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
 			logger.log(Level.INFO, "Find Sensor data succed");
 		} catch (Exception e1) {
 			logger.log(Level.INFO, "Impossible to parse in JSON Sensor datas " + e1.getClass().getCanonicalName());
+		}
+	}
+	
+	//Fonctionne
+	public void getAllSensor() {
+		requestType = "READ ALL";
+		table = "Sensor";
+		objectMapper = new ObjectMapper();
+		try {
+			jsonString = "READ ALL";
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
+			listSensor = Arrays.asList(sensors);
+			logger.log(Level.INFO, "Find Sensor datas succed");
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
 		}
 	}
 }
