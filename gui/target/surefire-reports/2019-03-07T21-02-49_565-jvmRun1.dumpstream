@@ -1,0 +1,475 @@
+# Created at 2019-03-07T21:02:53.279
+Unexpected IOException: I,1,sun.desktop,windows
+
+
+# Created at 2019-03-07T21:02:53.300
+Unexpected IOException: I,1,awt.toolkit,sun.awt.windows.WToolkit
+
+
+# Created at 2019-03-07T21:02:53.310
+Unexpected IOException: I,1,file.encoding.pkg,sun.io
+
+
+# Created at 2019-03-07T21:02:53.321
+Unexpected IOException: I,1,java.specification.version,1.8
+
+
+# Created at 2019-03-07T21:02:53.333
+Unexpected IOException: I,1,sun.cpu.isalist,
+
+
+# Created at 2019-03-07T21:02:53.343
+Unexpected IOException: I,1,sun.jnu.encoding,Cp1252
+
+
+# Created at 2019-03-07T21:02:53.354
+Unexpected IOException: I,1,java.class.path,D:\005CJava\005CBlackMamba\005Cihm\005Ctarget\005Ctest-classes;D:\005CJava\005CBlackMamba\005Cihm\005Ctarget\005Cclasses;C:\005CUsers\005Cpierr\005C.m2\005Crepository\005Corg\005Cpostgresql\005Cpostgresql\005C42.2.5\005Cpostgresql-42.2.5.jar;C:\005CUsers\005Cpierr\005C.m2\005Crepository\005Corg\005Cjunit\005Cjupiter\005Cjunit-jupiter-engine\005C5.2.0\005Cjunit-jupiter-engine-5.2.0.jar;C:\005CUsers\005Cpierr\005C.m2\005Crepository\005Corg\005Capiguardian\005Capiguardian-api\005C1.0.0\005Capiguardian-api-1.0.0.jar;C:\005CUsers\005Cpierr\005C.m2\005Crepository\005Corg\005Cjunit\005Cplatform\005Cjunit-platform-engine\005C1.2.0\005Cjunit-platform-engine-1.2.0.jar;C:\005CUsers\005Cpierr\005C.m2\005Crepository\005Corg\005Cjunit\005Cplatform\005Cjunit-platform-commons\005C1.2.0\005Cjunit-platform-commons-1.2.0.jar;C:\005CUsers\005Cpierr\005C.m2\005Crepository\005Corg\005Copentest4j\005Copentest4j\005C1.1.0\005Copentest4j-1.1.0.jar;C:\005CUsers\005Cpierr\005C.m2\005Crepository\005Corg\005Cjunit\005Cjupiter\005Cjunit-jupiter-api\005C5.2.0\005Cjunit-jupiter-api-5.2.0.jar;C:\005CUsers\005Cpierr\005C.m2\005Crepository\005Corg\005Cjunit\005Cplatform\005Cjunit-platform-launcher\005C1.2.0\005Cjunit-platform-launcher-1.2.0.jar;
+
+
+# Created at 2019-03-07T21:02:53.364
+Unexpected IOException: I,1,java.vm.vendor,Oracle Corporation
+
+
+# Created at 2019-03-07T21:02:53.373
+Unexpected IOException: I,1,sun.arch.data.model,32
+
+
+# Created at 2019-03-07T21:02:53.383
+Unexpected IOException: I,1,user.variant,
+
+
+# Created at 2019-03-07T21:02:53.393
+Unexpected IOException: I,1,java.vendor.url,http://java.oracle.com/
+
+
+# Created at 2019-03-07T21:02:53.403
+Unexpected IOException: I,1,user.timezone,Europe/Paris
+
+
+# Created at 2019-03-07T21:02:53.413
+Unexpected IOException: I,1,os.name,Windows 10
+
+
+# Created at 2019-03-07T21:02:53.424
+Unexpected IOException: I,1,java.vm.specification.version,1.8
+
+
+# Created at 2019-03-07T21:02:53.434
+Unexpected IOException: I,1,user.country,FR
+
+
+# Created at 2019-03-07T21:02:53.445
+Unexpected IOException: I,1,sun.java.launcher,SUN_STANDARD
+
+
+# Created at 2019-03-07T21:02:53.455
+Unexpected IOException: I,1,sun.boot.library.path,C:\005CProgram Files (x86)\005CJava\005Cjdk1.8.0_201\005Cjre\005Cbin
+
+
+# Created at 2019-03-07T21:02:53.465
+Unexpected IOException: I,1,sun.java.command,C:\005CUsers\005Cpierr\005CAppData\005CLocal\005CTemp\005Csurefire5411433243604623934\005Csurefirebooter7519255365851449421.jar C:\005CUsers\005Cpierr\005CAppData\005CLocal\005CTemp\005Csurefire5411433243604623934 2019-03-07T21-02-49_565-jvmRun1 surefire3665030198547591373tmp surefire_01038168443255936601tmp
+
+
+# Created at 2019-03-07T21:02:53.477
+Unexpected IOException: I,1,surefire.test.class.path,D:\005CJava\005CBlackMamba\005Cihm\005Ctarget\005Ctest-classes;D:\005CJava\005CBlackMamba\005Cihm\005Ctarget\005Cclasses;C:\005CUsers\005Cpierr\005C.m2\005Crepository\005Corg\005Cpostgresql\005Cpostgresql\005C42.2.5\005Cpostgresql-42.2.5.jar;C:\005CUsers\005Cpierr\005C.m2\005Crepository\005Corg\005Cjunit\005Cjupiter\005Cjunit-jupiter-engine\005C5.2.0\005Cjunit-jupiter-engine-5.2.0.jar;C:\005CUsers\005Cpierr\005C.m2\005Crepository\005Corg\005Capiguardian\005Capiguardian-api\005C1.0.0\005Capiguardian-api-1.0.0.jar;C:\005CUsers\005Cpierr\005C.m2\005Crepository\005Corg\005Cjunit\005Cplatform\005Cjunit-platform-engine\005C1.2.0\005Cjunit-platform-engine-1.2.0.jar;C:\005CUsers\005Cpierr\005C.m2\005Crepository\005Corg\005Cjunit\005Cplatform\005Cjunit-platform-commons\005C1.2.0\005Cjunit-platform-commons-1.2.0.jar;C:\005CUsers\005Cpierr\005C.m2\005Crepository\005Corg\005Copentest4j\005Copentest4j\005C1.1.0\005Copentest4j-1.1.0.jar;C:\005CUsers\005Cpierr\005C.m2\005Crepository\005Corg\005Cjunit\005Cjupiter\005Cjunit-jupiter-api\005C5.2.0\005Cjunit-jupiter-api-5.2.0.jar;C:\005CUsers\005Cpierr\005C.m2\005Crepository\005Corg\005Cjunit\005Cplatform\005Cjunit-platform-launcher\005C1.2.0\005Cjunit-platform-launcher-1.2.0.jar;
+
+
+# Created at 2019-03-07T21:02:53.490
+Unexpected IOException: I,1,sun.cpu.endian,little
+
+
+# Created at 2019-03-07T21:02:53.503
+Unexpected IOException: I,1,user.home,C:\005CUsers\005Cpierr
+
+
+# Created at 2019-03-07T21:02:53.516
+Unexpected IOException: I,1,user.language,fr
+
+
+# Created at 2019-03-07T21:02:53.527
+Unexpected IOException: I,1,java.specification.vendor,Oracle Corporation
+
+
+# Created at 2019-03-07T21:02:53.539
+Unexpected IOException: I,1,java.home,C:\005CProgram Files (x86)\005CJava\005Cjdk1.8.0_201\005Cjre
+
+
+# Created at 2019-03-07T21:02:53.550
+Unexpected IOException: I,1,basedir,D:\005CJava\005CBlackMamba\005Cihm
+
+
+# Created at 2019-03-07T21:02:53.562
+Unexpected IOException: I,1,file.separator,\005C
+
+
+# Created at 2019-03-07T21:02:53.577
+Unexpected IOException: I,1,line.separator,\000D\000A
+
+
+# Created at 2019-03-07T21:02:53.592
+Unexpected IOException: I,1,java.vm.specification.vendor,Oracle Corporation
+
+
+# Created at 2019-03-07T21:02:53.607
+Unexpected IOException: I,1,java.specification.name,Java Platform API Specification
+
+
+# Created at 2019-03-07T21:02:53.619
+Unexpected IOException: I,1,java.awt.graphicsenv,sun.awt.Win32GraphicsEnvironment
+
+
+# Created at 2019-03-07T21:02:53.632
+Unexpected IOException: I,1,surefire.real.class.path,C:\005CUsers\005Cpierr\005CAppData\005CLocal\005CTemp\005Csurefire5411433243604623934\005Csurefirebooter7519255365851449421.jar
+
+
+# Created at 2019-03-07T21:02:53.643
+Unexpected IOException: I,1,sun.boot.class.path,C:\005CProgram Files (x86)\005CJava\005Cjdk1.8.0_201\005Cjre\005Clib\005Cresources.jar;C:\005CProgram Files (x86)\005CJava\005Cjdk1.8.0_201\005Cjre\005Clib\005Crt.jar;C:\005CProgram Files (x86)\005CJava\005Cjdk1.8.0_201\005Cjre\005Clib\005Csunrsasign.jar;C:\005CProgram Files (x86)\005CJava\005Cjdk1.8.0_201\005Cjre\005Clib\005Cjsse.jar;C:\005CProgram Files (x86)\005CJava\005Cjdk1.8.0_201\005Cjre\005Clib\005Cjce.jar;C:\005CProgram Files (x86)\005CJava\005Cjdk1.8.0_201\005Cjre\005Clib\005Ccharsets.jar;C:\005CProgram Files (x86)\005CJava\005Cjdk1.8.0_201\005Cjre\005Clib\005Cjfr.jar;C:\005CProgram Files (x86)\005CJava\005Cjdk1.8.0_201\005Cjre\005Cclasses
+
+
+# Created at 2019-03-07T21:02:53.654
+Unexpected IOException: I,1,user.script,
+
+
+# Created at 2019-03-07T21:02:53.665
+Unexpected IOException: I,1,sun.management.compiler,HotSpot Client Compiler
+
+
+# Created at 2019-03-07T21:02:53.676
+Unexpected IOException: I,1,java.runtime.version,1.8.0_201-b09
+
+
+# Created at 2019-03-07T21:02:53.688
+Unexpected IOException: I,1,user.name,Pierre-Arnaud
+
+
+# Created at 2019-03-07T21:02:53.700
+Unexpected IOException: I,1,path.separator,;
+
+
+# Created at 2019-03-07T21:02:53.711
+Unexpected IOException: I,1,os.version,10.0
+
+
+# Created at 2019-03-07T21:02:53.723
+Unexpected IOException: I,1,java.endorsed.dirs,C:\005CProgram Files (x86)\005CJava\005Cjdk1.8.0_201\005Cjre\005Clib\005Cendorsed
+
+
+# Created at 2019-03-07T21:02:53.735
+Unexpected IOException: I,1,java.runtime.name,Java(TM) SE Runtime Environment
+
+
+# Created at 2019-03-07T21:02:53.746
+Unexpected IOException: I,1,file.encoding,Cp1252
+
+
+# Created at 2019-03-07T21:02:53.757
+Unexpected IOException: I,1,java.vm.name,Java HotSpot(TM) Client VM
+
+
+# Created at 2019-03-07T21:02:53.769
+Unexpected IOException: I,1,localRepository,C:\005CUsers\005Cpierr\005C.m2\005Crepository
+
+
+# Created at 2019-03-07T21:02:53.780
+Unexpected IOException: I,1,java.vendor.url.bug,http://bugreport.sun.com/bugreport/
+
+
+# Created at 2019-03-07T21:02:53.791
+Unexpected IOException: I,1,java.io.tmpdir,C:\005CUsers\005Cpierr\005CAppData\005CLocal\005CTemp\005C
+
+
+# Created at 2019-03-07T21:02:53.803
+Unexpected IOException: I,1,java.version,1.8.0_201
+
+
+# Created at 2019-03-07T21:02:53.814
+Unexpected IOException: I,1,user.dir,D:\005CJava\005CBlackMamba\005Cihm
+
+
+# Created at 2019-03-07T21:02:53.825
+Unexpected IOException: I,1,os.arch,x86
+
+
+# Created at 2019-03-07T21:02:53.836
+Unexpected IOException: I,1,java.vm.specification.name,Java Virtual Machine Specification
+
+
+# Created at 2019-03-07T21:02:53.847
+Unexpected IOException: I,1,java.awt.printerjob,sun.awt.windows.WPrinterJob
+
+
+# Created at 2019-03-07T21:02:53.856
+Unexpected IOException: I,1,sun.os.patch.level,
+
+
+# Created at 2019-03-07T21:02:53.864
+Unexpected IOException: I,1,java.library.path,C:\005CProgram Files (x86)\005CJava\005Cjdk1.8.0_201\005Cjre\005Cbin;C:\005CWINDOWS\005CSun\005CJava\005Cbin;C:\005CWINDOWS\005Csystem32;C:\005CWINDOWS;D:\005COracle\005Capp\005Coracle\005Cproduct\005C11.2.0\005Cserver\005Cbin;C:\005CProgram Files (x86)\005CCommon Files\005COracle\005CJava\005Cjavapath;C:\005CWINDOWS\005Csystem32;C:\005CWINDOWS;C:\005CWINDOWS\005CSystem32\005CWbem;C:\005CWINDOWS\005CSystem32\005CWindowsPowerShell\005Cv1.0\005C;C:\005CWINDOWS\005CSystem32\005COpenSSH\005C;D:\005COpenVPN\005Cbin;D:\005CPostgreSQL\005Cbin;C:\005CUsers\005Cpierr\005CAppData\005CLocal\005CMicrosoft\005CWindowsApps;C:\005CUsers\005Cpierr\005CAppData\005CLocal\005CGitHubDesktop\005Cbin;%USERPROFILE%\005CAppData\005CLocal\005CMicrosoft\005CWindowsApps;;.
+
+
+# Created at 2019-03-07T21:02:53.873
+Unexpected IOException: I,1,java.vm.info,mixed mode
+
+
+# Created at 2019-03-07T21:02:53.887
+Unexpected IOException: I,1,java.vendor,Oracle Corporation
+
+
+# Created at 2019-03-07T21:02:53.896
+Unexpected IOException: I,1,java.vm.version,25.201-b09
+
+
+# Created at 2019-03-07T21:02:53.905
+Unexpected IOException: I,1,java.ext.dirs,C:\005CProgram Files (x86)\005CJava\005Cjdk1.8.0_201\005Cjre\005Clib\005Cext;C:\005CWINDOWS\005CSun\005CJava\005Clib\005Cext
+
+
+# Created at 2019-03-07T21:02:53.914
+Unexpected IOException: I,1,sun.io.unicode.encoding,UnicodeLittle
+
+
+# Created at 2019-03-07T21:02:53.935
+Unexpected IOException: I,1,java.class.version,52.0
+
+
+# Created at 2019-03-07T21:02:54.324
+Unexpected IOException: 1,1,org.apache.maven.surefire.junitplatform.JUnitPlatformProvider,com.pds.blackmamba.ihm.connectionpool.DataSourceTest,null,null,null
+
+
+# Created at 2019-03-07T21:02:54.351
+Unexpected IOException: 5,1,com.pds.blackmamba.ihm.connectionpool.DataSourceTest,testCloseConnectionsFromJDBC,null,null,null
+
+
+# Created at 2019-03-07T21:02:54.841
+Unexpected IOException with stream: mars 07, 2019 9:02:54 PM com.pds.blackmamba.ihm.connectionpool.DataSourceTest testCloseConnectionsFromJDBC
+INFOS: All connection are closed 
+
+
+# Created at 2019-03-07T21:02:54.859
+Unexpected IOException: 6,1,com.pds.blackmamba.ihm.connectionpool.DataSourceTest,testCloseConnectionsFromJDBC,null,null,null
+
+
+# Created at 2019-03-07T21:02:54.873
+Unexpected IOException: 5,1,com.pds.blackmamba.ihm.connectionpool.DataSourceTest,testMaxConnectionsPossible,null,null,null
+
+
+# Created at 2019-03-07T21:02:54.947
+Unexpected IOException with stream: mars 07, 2019 9:02:54 PM com.pds.blackmamba.ihm.connectionpool.DataSourceTest testMaxConnectionsPossible
+INFOS: Connection 1 done
+
+
+# Created at 2019-03-07T21:02:55.117
+Unexpected IOException with stream: mars 07, 2019 9:02:55 PM com.pds.blackmamba.ihm.connectionpool.DataSourceTest testMaxConnectionsPossible
+INFOS: Connection 2 done
+
+
+# Created at 2019-03-07T21:02:55.194
+Unexpected IOException with stream: mars 07, 2019 9:02:55 PM com.pds.blackmamba.ihm.connectionpool.DataSourceTest testMaxConnectionsPossible
+INFOS: Connection 3 done
+
+
+# Created at 2019-03-07T21:02:55.266
+Unexpected IOException with stream: mars 07, 2019 9:02:55 PM com.pds.blackmamba.ihm.connectionpool.DataSourceTest testMaxConnectionsPossible
+INFOS: Connection 4 done
+
+
+# Created at 2019-03-07T21:02:55.350
+Unexpected IOException with stream: mars 07, 2019 9:02:55 PM com.pds.blackmamba.ihm.connectionpool.DataSourceTest testMaxConnectionsPossible
+INFOS: Connection 5 done
+
+
+# Created at 2019-03-07T21:02:55.421
+Unexpected IOException with stream: mars 07, 2019 9:02:55 PM com.pds.blackmamba.ihm.connectionpool.DataSourceTest testMaxConnectionsPossible
+INFOS: Connection 6 done
+
+
+# Created at 2019-03-07T21:02:55.503
+Unexpected IOException with stream: mars 07, 2019 9:02:55 PM com.pds.blackmamba.ihm.connectionpool.DataSourceTest testMaxConnectionsPossible
+INFOS: Connection 7 done
+
+
+# Created at 2019-03-07T21:02:55.573
+Unexpected IOException with stream: mars 07, 2019 9:02:55 PM com.pds.blackmamba.ihm.connectionpool.DataSourceTest testMaxConnectionsPossible
+INFOS: Connection 8 done
+
+
+# Created at 2019-03-07T21:02:55.648
+Unexpected IOException with stream: mars 07, 2019 9:02:55 PM com.pds.blackmamba.ihm.connectionpool.DataSourceTest testMaxConnectionsPossible
+INFOS: Connection 9 done
+
+
+# Created at 2019-03-07T21:02:55.815
+Unexpected IOException with stream: mars 07, 2019 9:02:55 PM com.pds.blackmamba.ihm.connectionpool.DataSourceTest testMaxConnectionsPossible
+INFOS: Connection 10 done
+
+
+# Created at 2019-03-07T21:02:55.828
+Unexpected IOException with stream: mars 07, 2019 9:02:55 PM com.pds.blackmamba.ihm.connectionpool.DataSourceTest testMaxConnectionsPossible
+INFOS: Limit reached, no available connection java.sql.SQLException
+
+
+# Created at 2019-03-07T21:02:55.840
+Unexpected IOException: 6,1,com.pds.blackmamba.ihm.connectionpool.DataSourceTest,testMaxConnectionsPossible,null,null,null
+
+
+# Created at 2019-03-07T21:02:55.853
+Unexpected IOException: 5,1,com.pds.blackmamba.ihm.connectionpool.DataSourceTest,testMaxConnections,null,null,null
+
+
+# Created at 2019-03-07T21:02:56.025
+Unexpected IOException with stream: mars 07, 2019 9:02:56 PM com.pds.blackmamba.ihm.connectionpool.DataSourceTest testMaxConnections
+INFOS: Connection 1 done
+
+
+# Created at 2019-03-07T21:02:56.199
+Unexpected IOException with stream: mars 07, 2019 9:02:56 PM com.pds.blackmamba.ihm.connectionpool.DataSourceTest testMaxConnections
+INFOS: Connection 2 done
+
+
+# Created at 2019-03-07T21:02:56.275
+Unexpected IOException with stream: mars 07, 2019 9:02:56 PM com.pds.blackmamba.ihm.connectionpool.DataSourceTest testMaxConnections
+INFOS: Connection 3 done
+
+
+# Created at 2019-03-07T21:02:56.445
+Unexpected IOException with stream: mars 07, 2019 9:02:56 PM com.pds.blackmamba.ihm.connectionpool.DataSourceTest testMaxConnections
+INFOS: Connection 4 done
+
+
+# Created at 2019-03-07T21:02:56.457
+Unexpected IOException: 6,1,com.pds.blackmamba.ihm.connectionpool.DataSourceTest,testMaxConnections,null,null,null
+
+
+# Created at 2019-03-07T21:02:56.469
+Unexpected IOException: 5,1,com.pds.blackmamba.ihm.connectionpool.DataSourceTest,testReturnConnection,null,null,null
+
+
+# Created at 2019-03-07T21:02:56.548
+Unexpected IOException with stream: mars 07, 2019 9:02:56 PM com.pds.blackmamba.ihm.connectionpool.DataSourceTest testReturnConnection
+INFOS: Return Connection succed 
+
+
+# Created at 2019-03-07T21:02:56.560
+Unexpected IOException: 6,1,com.pds.blackmamba.ihm.connectionpool.DataSourceTest,testReturnConnection,null,null,null
+
+
+# Created at 2019-03-07T21:02:56.573
+Unexpected IOException: 5,1,com.pds.blackmamba.ihm.connectionpool.DataSourceTest,testTotalConnection,null,null,null
+
+
+# Created at 2019-03-07T21:02:56.743
+Unexpected IOException with stream: mars 07, 2019 9:02:56 PM com.pds.blackmamba.ihm.connectionpool.DataSourceTest testTotalConnection
+INFOS: Number of Connection is 1
+
+
+# Created at 2019-03-07T21:02:57.016
+Unexpected IOException: 7,1,com.pds.blackmamba.ihm.connectionpool.DataSourceTest,testTotalConnection,null,org/junit/Assert,null,org/junit/Assert,DataSourceTest.testTotalConnection:157 NoClassDefFound org/junit/Assert,java.lang.NoClassDefFoundError: org/junit/Assert\000A\0009at com.pds.blackmamba.ihm.connectionpool.DataSourceTest.testTotalConnection(DataSourceTest.java:157)\000ACaused by: java.lang.ClassNotFoundException: org.junit.Assert\000A\0009at com.pds.blackmamba.ihm.connectionpool.DataSourceTest.testTotalConnection(DataSourceTest.java:157)\000A
+
+
+# Created at 2019-03-07T21:02:57.038
+Unexpected IOException: 5,1,com.pds.blackmamba.ihm.connectionpool.DataSourceTest,testUpdateData,null,null,null
+
+
+# Created at 2019-03-07T21:02:57.233
+Unexpected IOException with stream: mars 07, 2019 9:02:57 PM com.pds.blackmamba.ihm.connectionpool.DataSourceTest testUpdateData
+INFOS: Update in SGBD succed 
+
+
+# Created at 2019-03-07T21:02:57.245
+Unexpected IOException: 6,1,com.pds.blackmamba.ihm.connectionpool.DataSourceTest,testUpdateData,null,null,null
+
+
+# Created at 2019-03-07T21:02:57.260
+Unexpected IOException: 5,1,com.pds.blackmamba.ihm.connectionpool.DataSourceTest,testGetData,null,null,null
+
+
+# Created at 2019-03-07T21:02:57.474
+Unexpected IOException with stream: mars 07, 2019 9:02:57 PM com.pds.blackmamba.ihm.connectionpool.DataSourceTest testGetData
+INFOS: Data recovery in SGBD succed 
+
+
+# Created at 2019-03-07T21:02:57.486
+Unexpected IOException: 6,1,com.pds.blackmamba.ihm.connectionpool.DataSourceTest,testGetData,null,null,null
+
+
+# Created at 2019-03-07T21:02:57.504
+Unexpected IOException: 5,1,com.pds.blackmamba.ihm.connectionpool.DataSourceTest,testGetConnectionFromJDBC,null,null,null
+
+
+# Created at 2019-03-07T21:02:57.585
+Unexpected IOException with stream: mars 07, 2019 9:02:57 PM com.pds.blackmamba.ihm.connectionpool.DataSourceTest testGetConnectionFromJDBC
+INFOS: Connection succed 
+
+
+# Created at 2019-03-07T21:02:57.596
+Unexpected IOException: 6,1,com.pds.blackmamba.ihm.connectionpool.DataSourceTest,testGetConnectionFromJDBC,null,null,null
+
+
+# Created at 2019-03-07T21:02:57.610
+Unexpected IOException: 5,1,com.pds.blackmamba.ihm.connectionpool.DataSourceTest,testInsertData,null,null,null
+
+
+# Created at 2019-03-07T21:02:57.945
+Unexpected IOException with stream: mars 07, 2019 9:02:57 PM com.pds.blackmamba.ihm.connectionpool.DataSourceTest testInsertData
+INFOS: Insertion in SGBD succed 
+
+
+# Created at 2019-03-07T21:02:57.958
+Unexpected IOException: 6,1,com.pds.blackmamba.ihm.connectionpool.DataSourceTest,testInsertData,null,null,null
+
+
+# Created at 2019-03-07T21:02:57.971
+Unexpected IOException: 5,1,com.pds.blackmamba.ihm.connectionpool.DataSourceTest,testDeleteData,null,null,null
+
+
+# Created at 2019-03-07T21:02:58.312
+Unexpected IOException with stream: mars 07, 2019 9:02:58 PM com.pds.blackmamba.ihm.connectionpool.DataSourceTest testDeleteData
+INFOS: Delete in SGBD succed 
+
+
+# Created at 2019-03-07T21:02:58.325
+Unexpected IOException: 6,1,com.pds.blackmamba.ihm.connectionpool.DataSourceTest,testDeleteData,null,null,null
+
+
+# Created at 2019-03-07T21:02:58.338
+Unexpected IOException: 5,1,com.pds.blackmamba.ihm.connectionpool.DataSourceTest,testDifferentCOnnections,null,null,null
+
+
+# Created at 2019-03-07T21:02:58.491
+Unexpected IOException: 7,1,com.pds.blackmamba.ihm.connectionpool.DataSourceTest,testDifferentCOnnections,null,org/junit/Assert,null,org/junit/Assert,DataSourceTest.testDifferentCOnnections:174 NoClassDefFound org/junit/Assert,java.lang.NoClassDefFoundError: org/junit/Assert\000A\0009at com.pds.blackmamba.ihm.connectionpool.DataSourceTest.testDifferentCOnnections(DataSourceTest.java:174)\000A
+
+
+# Created at 2019-03-07T21:02:58.517
+Unexpected IOException: 2,1,org.apache.maven.surefire.junitplatform.JUnitPlatformProvider,com.pds.blackmamba.ihm.connectionpool.DataSourceTest,null,null,null
+
+
+# Created at 2019-03-07T21:02:58.531
+Unexpected IOException: 1,1,org.apache.maven.surefire.junitplatform.JUnitPlatformProvider,com.pds.blackmamba.ihm.DevIHMTest,null,null,null
+
+
+# Created at 2019-03-07T21:02:58.545
+Unexpected IOException: 5,1,com.pds.blackmamba.ihm.DevIHMTest,devIHMTest,null,null,null
+
+
+# Created at 2019-03-07T21:02:58.685
+Unexpected IOException: 6,1,com.pds.blackmamba.ihm.DevIHMTest,devIHMTest,null,null,null
+
+
+# Created at 2019-03-07T21:02:58.697
+Unexpected IOException: 2,1,org.apache.maven.surefire.junitplatform.JUnitPlatformProvider,com.pds.blackmamba.ihm.DevIHMTest,null,null,null
+
+
+# Created at 2019-03-07T21:02:58.711
+Unexpected IOException: 1,1,org.apache.maven.surefire.junitplatform.JUnitPlatformProvider,com.pds.blackmamba.ihm.ProdIHMTest,null,null,null
+
+
+# Created at 2019-03-07T21:02:58.724
+Unexpected IOException: 5,1,com.pds.blackmamba.ihm.ProdIHMTest,prodIHMTest,null,null,null
+
+
+# Created at 2019-03-07T21:02:58.738
+Unexpected IOException: 6,1,com.pds.blackmamba.ihm.ProdIHMTest,prodIHMTest,null,null,null
+
+
+# Created at 2019-03-07T21:02:58.750
+Unexpected IOException: 2,1,org.apache.maven.surefire.junitplatform.JUnitPlatformProvider,com.pds.blackmamba.ihm.ProdIHMTest,null,null,null
+
+

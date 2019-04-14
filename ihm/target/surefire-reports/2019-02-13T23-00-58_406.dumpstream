@@ -1,4 +1,0 @@
-# Created at 2019-02-13T23:00:59.409
-Boot Manifest-JAR contains absolute paths in classpath 'D:\Java\BlackMamba\ihm\target\test-classes'
-Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
-

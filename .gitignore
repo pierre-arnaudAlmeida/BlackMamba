@@ -1,1 +1,6 @@
-/target/
+BlackMamba/target/
+/.settings/
+/gui/target/
+/gui/.settings/
+/connectionpool/target/
+/connectionpool/.settings/
