@@ -1,6 +1,5 @@
 package com.blackmamba.deathkiss.gui;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -89,7 +88,7 @@ public class MonitoringAlert {
 	public void verifySensorActivity(Date currentDate) {
 		int numberOfSensor;
 		getAllSensor();
-		//getMessages(currentDate);
+		// getMessages(currentDate);
 		for (Sensor sensors : listSensor) {
 			numberOfSensor = 0;
 			if (sensors.getSensorState() == true) {
@@ -112,7 +111,10 @@ public class MonitoringAlert {
 		}
 	}
 
+	// Fonctionne
 	public void updateSensorAlertState(Sensor sensor) {
+		requestType = "UPDATE";
+		table = "Sensor";
 		objectMapper = new ObjectMapper();
 		try {
 			jsonString = objectMapper.writeValueAsString(sensor);
@@ -128,6 +130,7 @@ public class MonitoringAlert {
 		}
 	}
 
+	// Fonctionne
 	public void getMessages(Date curDate) {
 		requestType = "READ ALL";
 		table = "Message";
@@ -144,15 +147,9 @@ public class MonitoringAlert {
 		} catch (Exception e1) {
 			logger.log(Level.INFO, "Impossible to parse in JSON Messages datas " + e1.getClass().getCanonicalName());
 		}
-		// AFFICHE les id des messages;TODO
-		for (Message mess : listMessage) {
-				System.out.println(mess.getAlertDate());
-			
-			
-		}
 	}
 
-	//Fonctionne
+	// Fonctionne
 	public void getSensor(int idSensor) {
 		requestType = "READ";
 		sensor = new Sensor();
@@ -170,8 +167,8 @@ public class MonitoringAlert {
 			logger.log(Level.INFO, "Impossible to parse in JSON Sensor datas " + e1.getClass().getCanonicalName());
 		}
 	}
-	
-	//Fonctionne
+
+	// Fonctionne
 	public void getAllSensor() {
 		requestType = "READ ALL";
 		table = "Sensor";

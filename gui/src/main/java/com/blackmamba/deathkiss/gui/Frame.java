@@ -1,7 +1,6 @@
 package com.blackmamba.deathkiss.gui;
 
 import java.awt.Color;
-import java.util.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -11,7 +10,11 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.blackmamba.deathkiss.entity.AlertState;
 import com.blackmamba.deathkiss.entity.Employee;
+import com.blackmamba.deathkiss.entity.Sensitivity;
+import com.blackmamba.deathkiss.entity.Sensor;
+import com.blackmamba.deathkiss.entity.SensorType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -114,9 +117,17 @@ public class Frame extends JFrame {
 			@Override
 			public void run() {
 				monitoringAlert = new MonitoringAlert();
-				Date curentDate = new Date();
-				//System.out.println(curentDate);
-				monitoringAlert.getMessages(curentDate);
+				Sensor sensor = new Sensor();
+				sensor.setIdSensor(111);
+				sensor.setAlertState(AlertState.NORMAL);
+				sensor.setEndActivity(null);
+				sensor.setIdCommonArea(8);
+				sensor.setParameter("");
+				sensor.setSensitivity(Sensitivity.MEDIUM);
+				sensor.setSensorState(true);
+				sensor.setStartActivity(null);
+				sensor.setTypeSensor(SensorType.ELEVATOR);
+				monitoringAlert.updateSensorAlertState(sensor);
 //				while (true) {
 //				}
 			}
