@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import com.blackmamba.deathkiss.entity.Employee;
 
 /**
@@ -162,7 +163,7 @@ public class ClientSocket {
 	private String read() throws IOException {
 		String response = "";
 		int stream;
-		byte[] b = new byte[524288];
+		byte[] b = new byte[8192];
 		stream = reader.read(b);
 		response = new String(b, 0, stream);
 		return response;

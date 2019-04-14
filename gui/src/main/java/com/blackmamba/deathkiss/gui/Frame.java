@@ -1,10 +1,16 @@
 package com.blackmamba.deathkiss.gui;
 
 import java.awt.Color;
-import javax.swing.*;
+import java.util.Date;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import com.blackmamba.deathkiss.entity.Employee;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -108,8 +114,9 @@ public class Frame extends JFrame {
 			@Override
 			public void run() {
 				monitoringAlert = new MonitoringAlert();
-				monitoringAlert.getSensor(1);
-				monitoringAlert.getAllSensor();
+				Date curentDate = new Date();
+				//System.out.println(curentDate);
+				monitoringAlert.getMessages(curentDate);
 //				while (true) {
 //				}
 			}
