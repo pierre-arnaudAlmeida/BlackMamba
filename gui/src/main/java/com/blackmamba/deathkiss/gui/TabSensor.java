@@ -272,7 +272,7 @@ public class TabSensor extends JPanel {
 							sensor2.setTypeSensor(SensorType.WINDOW);
 						} else if (searchReceived.toUpperCase().equals("D") || searchReceived.toUpperCase().equals("DO")
 								|| searchReceived.toUpperCase().equals("DOO")
-										| searchReceived.toUpperCase().equals("DOOR")) {
+								|| searchReceived.toUpperCase().equals("DOOR")) {
 							sensor2.setTypeSensor(SensorType.DOOR);
 						} else if (searchReceived.toUpperCase().equals("E") || searchReceived.toUpperCase().equals("EL")
 								|| searchReceived.toUpperCase().equals("ELE")
@@ -632,7 +632,7 @@ public class TabSensor extends JPanel {
 			} else {
 				switchButton.setText("OFF");
 				switchButton.setBackground(Color.RED);
-			} // TODO
+			}
 		}
 		///////////////////////// BUTTON/////////////////////////////////////////////////
 		/**
@@ -977,7 +977,6 @@ public class TabSensor extends JPanel {
 				sensor.setIdSensor(Integer.parseInt(id));
 				try {
 					jsonString = objectMapper.writeValueAsString(sensor);
-					;
 					new ClientSocket(requestType, jsonString, table);
 					jsonString = ClientSocket.getJson();
 					sensor = objectMapper.readValue(jsonString, Sensor.class);

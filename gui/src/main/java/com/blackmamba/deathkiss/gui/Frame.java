@@ -1,10 +1,16 @@
 package com.blackmamba.deathkiss.gui;
 
 import java.awt.Color;
-import javax.swing.*;
+import java.util.Date;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import com.blackmamba.deathkiss.entity.Employee;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -35,6 +41,7 @@ public class Frame extends JFrame {
 	private ObjectMapper objectMapper;
 	private Thread threadFrame;
 	private Thread threadAlert;
+	private Thread threadActivity;
 	private static final Logger logger = LogManager.getLogger(Frame.class);
 
 	public Frame(int idEmployee) {
@@ -101,7 +108,7 @@ public class Frame extends JFrame {
 		tab.add("Onglet " + tabOfTab[5], tabProfile);
 
 		///////////////////////// ALERT/////////////////////////////////////////////////
-		//TODO
+		// TODO
 		setThreadAlert(new Thread(new Runnable() {
 			/**
 			 * Loop and update every second the alerts
@@ -109,11 +116,32 @@ public class Frame extends JFrame {
 			@Override
 			public void run() {
 				monitoringAlert = new MonitoringAlert();
+				monitoringAlert.alertTreatment();
+//				while (true) {
+//				}
+			}
+		}));
+		setThreadActivity(new Thread(new Runnable() {
+			/**
+			 * Loop and verify if the capteur have send a message to system
+			 */
+			@Override
+			public void run() {
+				monitoringAlert = new MonitoringAlert();
 				while (true) {
-					monitoringAlert.getMessages();
+					Date currentDate = new Date();
+					try {
+						threadActivity.sleep(3600000);
+					} catch (InterruptedException e) {
+						logger.log(Level.INFO, "Impossible to sleep the thread " + e.getClass().getCanonicalName());
+					}
+					monitoringAlert.verifySensorActivity(currentDate);
 				}
 			}
 		}));
+		threadAlert.start();
+		threadFrame.start();
+		// threadActivity.start();
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
 		 * Different parameters of the window
@@ -183,5 +211,13 @@ public class Frame extends JFrame {
 
 	public void setThreadAlert(Thread threadAlert) {
 		this.threadAlert = threadAlert;
+	}
+
+	public Thread getThreadActivity() {
+		return threadActivity;
+	}
+
+	public void setThreadActivity(Thread threadActivity) {
+		this.threadActivity = threadActivity;
 	}
 }
