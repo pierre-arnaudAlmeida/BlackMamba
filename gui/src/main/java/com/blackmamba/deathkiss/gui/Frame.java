@@ -108,7 +108,6 @@ public class Frame extends JFrame {
 		tab.add("Onglet " + tabOfTab[5], tabProfile);
 
 		///////////////////////// ALERT/////////////////////////////////////////////////
-		// TODO
 		setThreadAlert(new Thread(new Runnable() {
 			/**
 			 * Loop and update every second the alerts
@@ -116,7 +115,7 @@ public class Frame extends JFrame {
 			@Override
 			public void run() {
 				monitoringAlert = new MonitoringAlert();
-				//monitoringAlert.alertTreatment();
+				// monitoringAlert.alertTreatment();
 				monitoringAlert.verifySensorMessageBeforeActivity();
 //				while (true) {
 //				}
@@ -132,7 +131,7 @@ public class Frame extends JFrame {
 				while (true) {
 					Date currentDate = new Date();
 					try {
-						threadActivity.sleep(3600000);
+						Thread.sleep(3600000);
 					} catch (InterruptedException e) {
 						logger.log(Level.INFO, "Impossible to sleep the thread " + e.getClass().getCanonicalName());
 					}
@@ -142,7 +141,7 @@ public class Frame extends JFrame {
 		}));
 		threadAlert.start();
 		threadFrame.start();
-		// threadActivity.start();
+		threadActivity.start();
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
 		 * Different parameters of the window

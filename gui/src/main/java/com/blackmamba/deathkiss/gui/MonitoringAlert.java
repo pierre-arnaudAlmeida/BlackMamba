@@ -21,8 +21,15 @@ public class MonitoringAlert {
 	private Message message;
 	private Sensor sensor;
 	private Date currentDate;
+	private Date curDate;
+	private Date beforeDate;
+	private Date afterDate;
+	private Calendar calBefore;
+	private Calendar calAfter;
 	private ObjectMapper objectMapper;
 	private String jsonString;
+	private int numberOfMessages;
+	private int numberOfIteration;
 	private SimpleDateFormat formater;
 	private List<Message> listMessage = new ArrayList<Message>();
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
@@ -54,44 +61,39 @@ public class MonitoringAlert {
 	}
 
 	public void verifySensorMessageBeforeActivity() {
-		Date curDate = new Date();
-		Calendar calBefore = Calendar.getInstance();
-		Calendar calAfter = Calendar.getInstance();
+		curDate = new Date();
+		calBefore = Calendar.getInstance();
+		calAfter = Calendar.getInstance();
 		calBefore.add(Calendar.MINUTE, 29);
 		calAfter.add(Calendar.MINUTE, 31);
-		Date beforeDate = calBefore.getTime();
-		Date afterDate = calAfter.getTime();
+		beforeDate = calBefore.getTime();
+		afterDate = calAfter.getTime();
 		formater = new SimpleDateFormat("h:mm a");
+
 		getAllSensor();
 		getAllMessages(curDate);
+
 		for (Sensor sensors : listSensor) {
 			if (sensors.getSensorState() == true
 					&& (formater.format(sensors.getStartActivity()).compareTo(formater.format(beforeDate)) >= 0)
 					&& (formater.format(sensors.getStartActivity()).compareTo(formater.format(afterDate)) <= 0)) {
+				numberOfMessages = 0;
 				for (Message messages : listMessage) {
-					// TODO
-					// alors on verifie
-					// si il ya eu un message a la date actuelle(ou a partir de la beforeDate)
-
-					// si il y en a un alors on fait rien
-					// sinon on le déclare en DOWN
-
+					if ((messages.getIdSensor() == sensors.getIdSensor())
+							&& (formater.format(messages.getAlertDate()).compareTo(formater.format(afterDate)) <= 0)) {
+						numberOfMessages++;
+					}
+				}
+				if (numberOfMessages == 0) {
+					sensors.setAlertState(AlertState.DOWN);
+					updateSensorAlertState(sensors);
 				}
 			}
-			System.out.println(formater.format(beforeDate));
-			System.out.println(formater.format(afterDate));
 		}
-		// TODO on cherche tout les capteurs et pour chaque capteur on va verifier
-		// l'heure a laquelle il change de sensibilité et on va vérifier si dans les
-		// message pour l'idSensor on trouve un message NORMAL pour prévenir de sont
-		// activité
-		// sinon on envoi un message vers l'ihm en le catégorisant comme DOWN
 	}
 
 	// Fonctionne
 	public void verifySensorActivity(Date currentDate) {
-		int numberOfIteration;
-
 		for (int i = 0; i < listSensorDown.size(); i++)
 			listSensorDown.remove(i);
 
