@@ -116,7 +116,8 @@ public class Frame extends JFrame {
 			@Override
 			public void run() {
 				monitoringAlert = new MonitoringAlert();
-				monitoringAlert.alertTreatment();
+				//monitoringAlert.alertTreatment();
+				monitoringAlert.verifySensorMessageBeforeActivity();
 //				while (true) {
 //				}
 			}

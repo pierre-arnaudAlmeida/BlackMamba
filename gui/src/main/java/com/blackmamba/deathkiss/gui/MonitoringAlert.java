@@ -35,44 +35,51 @@ public class MonitoringAlert {
 	// Fonctionne
 	public void alertTreatment() {
 		currentDate = new Date();
-		getMessages(currentDate);
+		getAllMessages(currentDate);
 		for (Message messages : listMessage) {
 			if (messages.getAlertState() == AlertState.ALERT) {
-				System.out.println("une alerte pour l'id : " + messages.getIdSensor());
 				getSensor(messages.getIdSensor());
 				if (sensor.getSensorState() == true) {
-					System.out.println("et le capteur est allumer");
+					sensor.setAlertState(AlertState.ALERT);
+					updateSensorAlertState(sensor);
 				}
 			} else if (messages.getAlertState() == AlertState.DOWN) {
-				System.out.println("capteur en panne pour l'id : " + messages.getIdSensor());
 				getSensor(messages.getIdSensor());
 				if (sensor.getSensorState() == true) {
-					System.out.println("et le capteur est allumer");
+					sensor.setAlertState(AlertState.DOWN);
+					updateSensorAlertState(sensor);
 				}
 			}
 		}
 	}
 
-	// verification si le capteur est actif et a envoyer un message 30 min avant le
-	// passage a la sensibilité HIGH
-	public void verifySensorMessageBeforActivity(List<Message> listMessage) {
+	public void verifySensorMessageBeforeActivity() {
+		Date curDate = new Date();
+		Calendar calBefore = Calendar.getInstance();
+		Calendar calAfter = Calendar.getInstance();
+		calBefore.add(Calendar.MINUTE, 29);
+		calAfter.add(Calendar.MINUTE, 31);
+		Date beforeDate = calBefore.getTime();
+		Date afterDate = calAfter.getTime();
+		formater = new SimpleDateFormat("h:mm a");
 		getAllSensor();
+		getAllMessages(curDate);
 		for (Sensor sensors : listSensor) {
-			if (sensors.getSensorState() == true) {
-				// si le capteur est alllumer
-				// TODO
-				// si la date acutelle+30 == la date de début du capteur
-				// alors on verifie dans la list des messages si le capteur (avec idsensor) si
-				// il ya eu un message normal alert ou down avec la date actuelle a la minute
-				// si oui on fait rien sinon on envoi une pop-up down
-			}
-			Calendar cal = Calendar.getInstance();
-			cal.add(Calendar.MINUTE, 30);
-			Date currentDate = cal.getTime();
-			formater = new SimpleDateFormat("h:mm a");
-			if (formater.format(sensors.getStartActivity()) == formater.format(currentDate)) {
+			if (sensors.getSensorState() == true
+					&& (formater.format(sensors.getStartActivity()).compareTo(formater.format(beforeDate)) >= 0)
+					&& (formater.format(sensors.getStartActivity()).compareTo(formater.format(afterDate)) <= 0)) {
+				for (Message messages : listMessage) {
+					// TODO
+					// alors on verifie
+					// si il ya eu un message a la date actuelle(ou a partir de la beforeDate)
 
+					// si il y en a un alors on fait rien
+					// sinon on le déclare en DOWN
+
+				}
 			}
+			System.out.println(formater.format(beforeDate));
+			System.out.println(formater.format(afterDate));
 		}
 		// TODO on cherche tout les capteurs et pour chaque capteur on va verifier
 		// l'heure a laquelle il change de sensibilité et on va vérifier si dans les
@@ -89,7 +96,7 @@ public class MonitoringAlert {
 			listSensorDown.remove(i);
 
 		getAllSensor();
-		getMessages(currentDate);
+		getAllMessages(currentDate);
 		for (Sensor sensors : listSensor) {
 			numberOfIteration = 0;
 			if (sensors.getSensorState() == true) {
@@ -131,7 +138,7 @@ public class MonitoringAlert {
 	}
 
 	// Fonctionne
-	public void getMessages(Date curDate) {
+	public void getAllMessages(Date curDate) {
 		requestType = "READ ALL";
 		table = "Message";
 		message = new Message();

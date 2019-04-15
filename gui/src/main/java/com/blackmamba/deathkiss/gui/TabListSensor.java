@@ -122,8 +122,6 @@ public class TabListSensor extends JPanel {
 		});
 
 		///////////////////////// TABLE/////////////////////////////////////////////////
-		// TODO synchro
-
 		tableModel = new DefaultListModel<String>();
 		tableau = new JList<String>(tableModel);
 		updateListSensor();
