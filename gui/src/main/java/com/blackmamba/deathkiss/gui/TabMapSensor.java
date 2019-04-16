@@ -1,14 +1,15 @@
 package com.blackmamba.deathkiss.gui;
 
-import javax.swing.JPanel;
-
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Polygon;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import com.blackmamba.deathkiss.entity.Message;
+import com.blackmamba.deathkiss.entity.Sensor;
 
 /**
  * @author Raymond
@@ -18,9 +19,13 @@ import javax.swing.JFrame;
 public class TabMapSensor extends JPanel implements MouseListener {
 
 
-	private static final long serialVersionUID = 1L;
-	private Polygon surface;
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7348020021300445245L;
+	private Polygon surface;
+	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	
 	
 	

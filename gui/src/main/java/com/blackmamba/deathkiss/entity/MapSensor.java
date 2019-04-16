@@ -11,17 +11,18 @@ import java.util.List;
 public class MapSensor {
 	
 /**
-	A modifier et finaliser plus tard
+*	TODO A modifier et finaliser plus tard
 */	
 
 	private int idMapSensor = 0;
-	//private Message message = null;
+	private List<Message> listMessage = new ArrayList<Message>();
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	
-	public MapSensor(int idMapSensor, List<Sensor> listSensor) {
+	public MapSensor(int idMapSensor, List<Sensor> listSensor, List<Message> listMessage) {
 		super();
 		this.idMapSensor = idMapSensor;
 		this.listSensor = listSensor;
+		this.listMessage = listMessage;
 	}
 	
 	
