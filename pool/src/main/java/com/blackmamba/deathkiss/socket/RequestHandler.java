@@ -79,6 +79,10 @@ public class RequestHandler implements Runnable {
 					if (!response.equals("")) {
 						jsonNode = objectMapper.readTree(response);
 						switch (jsonNode.get("request").asText()) {
+						case "GET ALERT":
+							//TODO
+							//renvoyer les alertes au format json
+							break;
 						case "FIND ALL":
 							response = "OK FOR REQUEST FIND ALL";
 							writer.write(response);
