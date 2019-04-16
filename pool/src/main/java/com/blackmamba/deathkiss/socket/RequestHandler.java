@@ -82,6 +82,16 @@ public class RequestHandler implements Runnable {
 						case "GET ALERT":
 							// TODO
 							// renvoyer les alertes au format json
+							// Donc renvoyer la list des Alertes
+							MonitoringAlert monitoringAlert = new MonitoringAlert();
+							ObjectMapper obj = new ObjectMapper();
+							jsonString = obj.writeValueAsString(monitoringAlert.getListAlert());
+							logger.log(Level.INFO, jsonString);// TODO verifier que ca renvoi des valeurs quand on a une
+																// list avec et sans trucs
+							monitoringAlert.setListAlert(null);// mettre a vide quand on a envoyer les alertes au client
+							break;
+						case "ALERT":
+							// TODO ajouter une alerte a la listMessages
 							break;
 						case "FIND ALL":
 							response = "OK FOR REQUEST FIND ALL";

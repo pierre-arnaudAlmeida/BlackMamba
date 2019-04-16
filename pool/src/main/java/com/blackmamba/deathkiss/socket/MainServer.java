@@ -18,8 +18,8 @@ public class MainServer {
 	/**
 	 * Initialization of different parameters
 	 */
-	private static String host = "127.0.0.1";
-	private static int port = 2345;
+	private static String host;
+	private static int port;
 	private static final Logger logger = LogManager.getLogger(MainServer.class);
 	private static int heure = 0;
 	private static int minute = 0;

@@ -18,10 +18,12 @@ import com.blackmamba.deathkiss.connectionpool.DataSource;
 import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
 import com.blackmamba.deathkiss.dao.DAO;
 import com.blackmamba.deathkiss.dao.SensorDAO;
-import com.blackmamba.deathkiss.entity.Alert;
+import com.blackmamba.deathkiss.dao.SensorHistoricalDAO;
 import com.blackmamba.deathkiss.entity.AlertState;
 import com.blackmamba.deathkiss.entity.Message;
 import com.blackmamba.deathkiss.entity.Sensor;
+import com.blackmamba.deathkiss.entity.SensorHistorical;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -49,7 +51,8 @@ public class MonitoringAlert {
 	private Thread threadVerifySensorActivity;
 	private Connection connectionGived;
 	private boolean result;
-	private List<Alert> listAlert = new ArrayList<Alert>();
+	private List<Message> listAlert = new ArrayList<Message>();
+	private List<Message> listMessage = new ArrayList<Message>();
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private List<Sensor> listSensorDown = new ArrayList<Sensor>();
 	private static final Logger logger = LogManager.getLogger(MonitoringAlert.class);
@@ -61,23 +64,28 @@ public class MonitoringAlert {
 
 	}
 
+	public MonitoringAlert() {
+	}
+
 	// Fonctionne
 	// envoyer des infos comme la temperature l taux de dioxyde carbone et ensuite
 	// c'est ca q(uon choisi l'&actrion a faire
 	public void alertTreatment() {
 		currentDate = new Date();
-		for (Alert alerts : listAlert) {
-			if (alerts.getAlertState() == AlertState.ALERT) {
-				getSensor(alerts.getIdSensor());
+		for (Message messages : listMessage) {
+			if (messages.getAlertState() == AlertState.ALERT) {
+				getSensor(messages.getIdSensor());
 				if (sensor.getSensorState() == true) {
 					sensor.setAlertState(AlertState.ALERT);
 					updateSensorAlertState(sensor);
 				}
-			} else if (alerts.getAlertState() == AlertState.DOWN) {
-				getSensor(alerts.getIdSensor());
+			} else if (messages.getAlertState() == AlertState.DOWN) {
+				getSensor(messages.getIdSensor());
 				if (sensor.getSensorState() == true) {
 					sensor.setAlertState(AlertState.DOWN);
 					updateSensorAlertState(sensor);
+					// TODO quand il est en alerte on l'ajoute dans la listAlerte
+					// et on supprime tout les messages de la listMessage avec l'idSensor
 				}
 			}
 		}
@@ -100,7 +108,7 @@ public class MonitoringAlert {
 					&& (formater.format(sensors.getStartActivity()).compareTo(formater.format(beforeDate)) >= 0)
 					&& (formater.format(sensors.getStartActivity()).compareTo(formater.format(afterDate)) <= 0)) {
 				numberOfMessages = 0;
-				for (Alert alerts : listAlert) {
+				for (Message alerts : listMessage) {
 					if ((alerts.getIdSensor() == sensors.getIdSensor())
 							&& (formater.format(alerts.getAlertDate()).compareTo(formater.format(afterDate)) <= 0)) {
 						numberOfMessages++;
@@ -136,8 +144,8 @@ public class MonitoringAlert {
 					for (Sensor sensors : listSensor) {
 						numberOfIteration = 0;
 						if (sensors.getSensorState() == true) {
-							for (Alert alerts : listAlert) {
-								if (sensors.getIdSensor() == alerts.getIdSensor()) {
+							for (Message messages : listMessage) {
+								if (sensors.getIdSensor() == messages.getIdSensor()) {
 									numberOfIteration++;
 								}
 							}
@@ -147,9 +155,15 @@ public class MonitoringAlert {
 						}
 					}
 					if (!listSensorDown.isEmpty()) {
-						for (Sensor sensors : listSensorDown) {
-							sensors.setAlertState(AlertState.DOWN);
-							updateSensorAlertState(sensors);
+						if (listSensorDown.size() == listSensor.size()) {
+							// TODO remplir la list d'alerte a envoyer au client avec des valeurs spéciale
+							// pour détecter rapidement la grosse panne
+						} else {
+							for (Sensor sensors : listSensorDown) {
+								sensors.setAlertState(AlertState.DOWN);
+								updateSensorAlertState(sensors);
+								addHistorical(sensors);
+							}
 						}
 					}
 					try {
@@ -221,6 +235,19 @@ public class MonitoringAlert {
 
 	}
 
+	public void addHistorical(Sensor sensor) {
+		try {
+			jsonString = objectMapper.writeValueAsString(sensor);
+			connectionGived = DataSource.getConnectionFromJDBC(pool);
+			DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(connectionGived);
+			setResult(((SensorHistoricalDAO) sensorHistoricalDao).create(jsonString));
+			DataSource.returnConnection(pool, connectionGived);
+			logger.log(Level.INFO, "Insertion SensorHistorical datas succed");
+		} catch (SQLException | JsonProcessingException e) {
+			logger.log(Level.INFO, "Impossible to get datas " + e.getClass().getCanonicalName());
+		}
+	}
+
 	public boolean isResult() {
 		return result;
 	}
@@ -235,5 +262,13 @@ public class MonitoringAlert {
 
 	public void setThreadVerifySensorActivity(Thread threadVerifySensorActivity) {
 		this.threadVerifySensorActivity = threadVerifySensorActivity;
+	}
+
+	public List<Message> getListAlert() {
+		return listAlert;
+	}
+
+	public void setListAlert(List<Message> listAlert) {
+		this.listAlert = listAlert;
 	}
 }

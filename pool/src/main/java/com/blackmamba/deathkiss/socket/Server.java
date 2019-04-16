@@ -32,6 +32,7 @@ public class Server {
 	private JDBCConnectionPool pool;
 	private Connection connectionGived;
 	private Socket client;
+	private MonitoringAlert monitoringAlert;
 	private final Properties prop = new Properties();
 	private static final Logger logger = LogManager.getLogger(Server.class);
 
@@ -146,7 +147,7 @@ public class Server {
 	 */
 	public void treatment() {
 		// TODO
-		MonitoringAlert monitoringAlert = new MonitoringAlert(pool);
+		monitoringAlert = new MonitoringAlert(pool);
 		monitoringAlert.getAllSensor();
 	}
 
@@ -166,5 +167,13 @@ public class Server {
 
 	public Properties getProp() {
 		return prop;
+	}
+
+	public MonitoringAlert getMonitoringAlert() {
+		return monitoringAlert;
+	}
+
+	public void setMonitoringAlert(MonitoringAlert monitoringAlert) {
+		this.monitoringAlert = monitoringAlert;
 	}
 }

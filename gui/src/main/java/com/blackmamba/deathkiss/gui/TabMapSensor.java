@@ -2,46 +2,31 @@ package com.blackmamba.deathkiss.gui;
 
 import java.awt.Color;
 import java.awt.Polygon;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JPanel;
-
 import org.apache.logging.log4j.Level;
-
 import com.blackmamba.deathkiss.entity.CommonArea;
 import com.blackmamba.deathkiss.entity.Sensor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.text.Normalizer;
-import java.util.Arrays;
-
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.blackmamba.deathkiss.entity.Alert;
 import com.blackmamba.deathkiss.entity.Message;
-import com.blackmamba.deathkiss.entity.SensorType;
 
 /**
  * @author Raymond
@@ -124,7 +109,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 
 			}
 		});
-		
+
 		/**
 		 * Definition of the panel Search
 		 */
@@ -155,8 +140,6 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		validButton = new JButton();
 		validButton.setText("Valider");
 		search.add(validButton);
-		
-		
 
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
