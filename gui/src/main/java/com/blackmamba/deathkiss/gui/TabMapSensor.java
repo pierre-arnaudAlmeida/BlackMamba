@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Polygon;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -16,11 +17,23 @@ import javax.swing.JFrame;
 
 public class TabMapSensor extends JPanel implements MouseListener {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
+	private static final long serialVersionUID = 1L;
+	private Polygon surface;
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
@@ -50,12 +63,6 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		// TODO Auto-generated method stub
 		
 	}
-
-
-	
-	
-	
-	
 	
 	
 //	  public void paint(Graphics g) {
