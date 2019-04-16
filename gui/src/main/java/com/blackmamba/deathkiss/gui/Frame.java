@@ -168,11 +168,11 @@ public class Frame extends JFrame {
 	 * Get all Alert stocked on server and add on listAlert
 	 */
 	public void getAlert() {
-		requestType = "ALERT";
+		requestType = "GET ALERT";
 		table = "Alert";
 		objectMapper = new ObjectMapper();
 		try {
-			jsonString = "ALERT";
+			jsonString = "GET ALERT";
 			new ClientSocket(requestType, jsonString, table);
 			jsonString = ClientSocket.getJson();
 			Alert[] alerts = objectMapper.readValue(jsonString, Alert[].class);

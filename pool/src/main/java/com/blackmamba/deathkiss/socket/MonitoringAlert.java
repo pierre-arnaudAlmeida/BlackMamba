@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -18,11 +19,17 @@ import com.blackmamba.deathkiss.connectionpool.DataSource;
 import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
 import com.blackmamba.deathkiss.dao.DAO;
 import com.blackmamba.deathkiss.dao.SensorDAO;
+import com.blackmamba.deathkiss.entity.Alert;
 import com.blackmamba.deathkiss.entity.AlertState;
 import com.blackmamba.deathkiss.entity.Message;
 import com.blackmamba.deathkiss.entity.Sensor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * 
+ * @author Pierre-Arnaud
+ *
+ */
 public class MonitoringAlert {
 
 	private String requestType;
@@ -41,13 +48,15 @@ public class MonitoringAlert {
 	private SimpleDateFormat formater;
 	private JDBCConnectionPool pool;
 	private Connection connectionGived;
-	private List<Message> listMessage = new ArrayList<Message>();
+	private boolean result;
+	private List<Alert> listAlert = new ArrayList<Alert>();
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private List<Sensor> listSensorDown = new ArrayList<Sensor>();
 	private static final Logger logger = LogManager.getLogger(MonitoringAlert.class);
 
 	public MonitoringAlert(JDBCConnectionPool pool) {
 		this.pool = pool;
+		ResourceBundle rs = ResourceBundle.getBundle("alert");
 	}
 
 	// Fonctionne
@@ -55,16 +64,16 @@ public class MonitoringAlert {
 	// c'est ca q(uon choisi l'&actrion a faire
 	public void alertTreatment() {
 		currentDate = new Date();
-		getAllMessages(currentDate);
-		for (Message messages : listMessage) {
-			if (messages.getAlertState() == AlertState.ALERT) {
-				getSensor(messages.getIdSensor());
+		// getAllMessages(currentDate); remplacer par la list TODO
+		for (Alert alerts : listAlert) {
+			if (alerts.getAlertState() == AlertState.ALERT) {
+				getSensor(alerts.getIdSensor());
 				if (sensor.getSensorState() == true) {
 					sensor.setAlertState(AlertState.ALERT);
 					updateSensorAlertState(sensor);
 				}
-			} else if (messages.getAlertState() == AlertState.DOWN) {
-				getSensor(messages.getIdSensor());
+			} else if (alerts.getAlertState() == AlertState.DOWN) {
+				getSensor(alerts.getIdSensor());
 				if (sensor.getSensorState() == true) {
 					sensor.setAlertState(AlertState.DOWN);
 					updateSensorAlertState(sensor);
@@ -85,18 +94,20 @@ public class MonitoringAlert {
 		formater = new SimpleDateFormat("h:mm a");
 
 		getAllSensor();
-		getAllMessages(curDate);
+		// getAllMessages(curDate); remplacer par la list TODO
 
 		for (Sensor sensors : listSensor) {
 			if (sensors.getSensorState() == true
 					&& (formater.format(sensors.getStartActivity()).compareTo(formater.format(beforeDate)) >= 0)
 					&& (formater.format(sensors.getStartActivity()).compareTo(formater.format(afterDate)) <= 0)) {
 				numberOfMessages = 0;
-				for (Message messages : listMessage) {
-					if ((messages.getIdSensor() == sensors.getIdSensor())
-							&& (formater.format(messages.getAlertDate()).compareTo(formater.format(afterDate)) <= 0)) {
-						numberOfMessages++;
-					}
+				for (Alert alerts : listAlert) {
+					// if ((alerts.getIdSensor() == sensors.getIdSensor())
+					// &&
+					// (formater.format(alerts.getAlertDate()).compareTo(formater.format(afterDate))
+					// <= 0)) {
+					// numberOfMessages++;
+					// }
 				}
 				if (numberOfMessages == 0) {
 					sensors.setAlertState(AlertState.DOWN);
@@ -107,17 +118,18 @@ public class MonitoringAlert {
 	}
 
 	// Fonctionne
+	// TODO faire un thread qui boucle toute les 30min
 	public void verifySensorActivity(Date currentDate) {
 		for (int i = 0; i < listSensorDown.size(); i++)
 			listSensorDown.remove(i);
 
 		getAllSensor();
-		getAllMessages(currentDate);
+		// getAllMessages(currentDate); remplacer par la liste TODO
 		for (Sensor sensors : listSensor) {
 			numberOfIteration = 0;
 			if (sensors.getSensorState() == true) {
-				for (Message messages : listMessage) {
-					if (sensors.getIdSensor() == messages.getIdSensor()) {
+				for (Alert alerts : listAlert) {
+					if (sensors.getIdSensor() == alerts.getIdSensor()) {
 						numberOfIteration++;
 					}
 				}
@@ -134,53 +146,38 @@ public class MonitoringAlert {
 		}
 	}
 
-	// Fonctionne
+	/**
+	 * Update the sensor Alert State on Data base
+	 * 
+	 * @param sensor to be updated
+	 */
 	public void updateSensorAlertState(Sensor sensor) {
-		requestType = "UPDATE";
 		objectMapper = new ObjectMapper();
 		try {
 			jsonString = objectMapper.writeValueAsString(sensor);
-			// new ClientSocket(requestType, jsonString, table);
-			// jsonString = ClientSocket.getJson();
-			if (!jsonString.equals("UPDATED")) {
-				logger.log(Level.INFO, "Impossible to update sensor");
-			} else {
+			connectionGived = DataSource.getConnectionFromJDBC(pool);
+			DAO<Sensor> sensorDao = new SensorDAO(connectionGived);
+			setResult(((SensorDAO) sensorDao).update(jsonString));
+			if (result == true)
 				logger.log(Level.INFO, "Update Succeded");
-			}
 		} catch (Exception e1) {
 			logger.log(Level.INFO, "Impossible to parse in JSON sensor datas" + e1.getClass().getCanonicalName());
 		}
 	}
 
-	// Fonctionne
-	public void getAllMessages(Date curDate) {
-		requestType = "READ ALL";
-		message = new Message();
-		message.setAlertDate(curDate);
-		objectMapper = new ObjectMapper();
-		try {
-			jsonString = objectMapper.writeValueAsString(message);
-			// new ClientSocket(requestType, jsonString, table);
-			// jsonString = ClientSocket.getJson();
-			Message[] messages = objectMapper.readValue(jsonString, Message[].class);
-			listMessage = Arrays.asList(messages);
-			logger.log(Level.INFO, "Find Messages datas succed");
-		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Messages datas " + e1.getClass().getCanonicalName());
-		}
-	}
-
-	// Fonctionne
+	/**
+	 * Get informations about a specific sensor with the idSensor
+	 * 
+	 * @param idSensor to be find
+	 */
 	public void getSensor(int idSensor) {
-		requestType = "READ";
 		sensor = new Sensor();
 		objectMapper = new ObjectMapper();
 		sensor.setIdSensor(idSensor);
 		try {
 			jsonString = objectMapper.writeValueAsString(sensor);
-			// new ClientSocket(requestType, jsonString, table);
-			// jsonString = ClientSocket.getJson();
-			logger.log(Level.INFO, jsonString);
+			DAO<Sensor> sensorDao = new SensorDAO(connectionGived);
+			jsonString = ((SensorDAO) sensorDao).read(jsonString);
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
 			logger.log(Level.INFO, "Find Sensor data succed");
 		} catch (Exception e1) {
@@ -188,7 +185,9 @@ public class MonitoringAlert {
 		}
 	}
 
-	// Fonctionne
+	/**
+	 * Get all sensor from the table Sensor and add on listSensor
+	 */
 	public void getAllSensor() {
 		requestType = "READ ALL";
 		try {
@@ -203,5 +202,13 @@ public class MonitoringAlert {
 			logger.log(Level.INFO, "Impossible to get datas " + e.getClass().getCanonicalName());
 		}
 
+	}
+
+	public boolean isResult() {
+		return result;
+	}
+
+	public void setResult(boolean result) {
+		this.result = result;
 	}
 }
