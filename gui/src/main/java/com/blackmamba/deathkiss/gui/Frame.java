@@ -4,12 +4,15 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import com.blackmamba.deathkiss.entity.Alert;
 import com.blackmamba.deathkiss.entity.Employee;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,6 +35,7 @@ public class Frame extends JFrame {
 	private TabResident tabResident;
 	private TabHistorical tabHistorical;
 	private TabProfile tabProfile;
+	private TabMapSensor tabMapSensor;
 	private int idEmployee;
 	private String requestType;
 	private String table;
@@ -89,12 +93,13 @@ public class Frame extends JFrame {
 		tabResident = new TabResident(Color.GRAY, this.idEmployee, "Onglet Résidents");
 		tabHistorical = new TabHistorical(Color.GRAY, this.idEmployee, "Onglet Historiques");
 		tabProfile = new TabProfile(Color.GRAY, this.idEmployee, "Onglet Profil");
+		tabMapSensor = new TabMapSensor(Color.GRAY, this.idEmployee, "Onglet Map");
 
 		/**
 		 * Add of the title of tabs
 		 */
 		tab = new JTabbedPane();
-		String tabOfTab[] = { "Employés", "Parties Communes", "Capteurs", "Résidents", "Historiques", "Profil" };
+		String tabOfTab[] = { "Employés", "Parties Communes", "Capteurs", "Résidents", "Historiques", "Profil", "Map" };
 
 		/**
 		 * Add of tabs on the window
@@ -105,6 +110,7 @@ public class Frame extends JFrame {
 		tab.add("Onglet " + tabOfTab[3], tabResident);
 		tab.add("Onglet " + tabOfTab[4], tabHistorical);
 		tab.add("Onglet " + tabOfTab[5], tabProfile);
+		tab.add("Onglet " + tabOfTab[6], tabMapSensor);
 
 		///////////////////////// ALERT/////////////////////////////////////////////////
 		setThreadAlert(new Thread(new Runnable() {

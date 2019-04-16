@@ -718,7 +718,7 @@ public class TabSensor extends JPanel {
 						listM.addElement(sensor.getIdSensor() + "# " + sensor.getTypeSensor() + " ,"
 								+ sensor.getSensorState() + " ," + sensor.getIdCommonArea());
 						logger.log(Level.INFO, "Find Sensor succeded");
-						JOptionPane.showMessageDialog(null, "Linsertion à été effectuer", "Infos",
+						JOptionPane.showMessageDialog(null, "L'insertion à été effectuer", "Infos",
 								JOptionPane.INFORMATION_MESSAGE);
 					}
 				} catch (Exception e1) {
@@ -1010,8 +1010,8 @@ public class TabSensor extends JPanel {
 	}
 
 	public void ActualizationListSensor(List<Alert> list) {
-		// TODO
-		//RaymondKeita
+		//TODO
+		//Keita Raymond
 	}
 
 	public Thread getThreadSensor() {
