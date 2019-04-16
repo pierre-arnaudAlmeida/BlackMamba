@@ -9,12 +9,11 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.ResourceBundle;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.connectionpool.DataSource;
 import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
 import com.blackmamba.deathkiss.dao.DAO;
@@ -33,6 +32,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class MonitoringAlert {
 
 	private String requestType;
+	private String jsonString;
 	private Message message;
 	private Sensor sensor;
 	private Date currentDate;
@@ -42,21 +42,23 @@ public class MonitoringAlert {
 	private Calendar calBefore;
 	private Calendar calAfter;
 	private ObjectMapper objectMapper;
-	private String jsonString;
 	private int numberOfMessages;
 	private int numberOfIteration;
 	private SimpleDateFormat formater;
 	private JDBCConnectionPool pool;
+	private Thread threadVerifySensorActivity;
 	private Connection connectionGived;
 	private boolean result;
 	private List<Alert> listAlert = new ArrayList<Alert>();
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private List<Sensor> listSensorDown = new ArrayList<Sensor>();
 	private static final Logger logger = LogManager.getLogger(MonitoringAlert.class);
+	private final Properties prop = new Properties();
+	private ResourceBundle rs = ResourceBundle.getBundle("alert");
 
 	public MonitoringAlert(JDBCConnectionPool pool) {
 		this.pool = pool;
-		ResourceBundle rs = ResourceBundle.getBundle("alert");
+
 	}
 
 	// Fonctionne
@@ -64,7 +66,6 @@ public class MonitoringAlert {
 	// c'est ca q(uon choisi l'&actrion a faire
 	public void alertTreatment() {
 		currentDate = new Date();
-		// getAllMessages(currentDate); remplacer par la list TODO
 		for (Alert alerts : listAlert) {
 			if (alerts.getAlertState() == AlertState.ALERT) {
 				getSensor(alerts.getIdSensor());
@@ -87,27 +88,23 @@ public class MonitoringAlert {
 		curDate = new Date();
 		calBefore = Calendar.getInstance();
 		calAfter = Calendar.getInstance();
-		calBefore.add(Calendar.MINUTE, 29);
-		calAfter.add(Calendar.MINUTE, 31);
+		calBefore.add(Calendar.MINUTE, Integer.parseInt(rs.getString("minute_before")));
+		calAfter.add(Calendar.MINUTE, Integer.parseInt(rs.getString("minute_after")));
 		beforeDate = calBefore.getTime();
 		afterDate = calAfter.getTime();
 		formater = new SimpleDateFormat("h:mm a");
 
 		getAllSensor();
-		// getAllMessages(curDate); remplacer par la list TODO
-
 		for (Sensor sensors : listSensor) {
 			if (sensors.getSensorState() == true
 					&& (formater.format(sensors.getStartActivity()).compareTo(formater.format(beforeDate)) >= 0)
 					&& (formater.format(sensors.getStartActivity()).compareTo(formater.format(afterDate)) <= 0)) {
 				numberOfMessages = 0;
 				for (Alert alerts : listAlert) {
-					// if ((alerts.getIdSensor() == sensors.getIdSensor())
-					// &&
-					// (formater.format(alerts.getAlertDate()).compareTo(formater.format(afterDate))
-					// <= 0)) {
-					// numberOfMessages++;
-					// }
+					if ((alerts.getIdSensor() == sensors.getIdSensor())
+							&& (formater.format(alerts.getAlertDate()).compareTo(formater.format(afterDate)) <= 0)) {
+						numberOfMessages++;
+					}
 				}
 				if (numberOfMessages == 0) {
 					sensors.setAlertState(AlertState.DOWN);
@@ -117,33 +114,53 @@ public class MonitoringAlert {
 		}
 	}
 
-	// Fonctionne
-	// TODO faire un thread qui boucle toute les 30min
+	/**
+	 * Create a thread and loop every 30 minutes to verify if the sensor is active
+	 * and send messages
+	 */
 	public void verifySensorActivity(Date currentDate) {
-		for (int i = 0; i < listSensorDown.size(); i++)
-			listSensorDown.remove(i);
+		setThreadVerifySensorActivity(new Thread(new Runnable() {
+			/**
+			 * For every sensor on Data base they verify if the sensor is active and if the
+			 * sensor is active they verify if an alert/message send by sensor contain all
+			 * the sensor active if an sensor does'nt have send an alert/message to server
+			 * they will be considerate to breakdown and we update is state on data base
+			 */
+			@Override
+			public void run() {
+				while (true) {
+					for (int i = 0; i < listSensorDown.size(); i++)
+						listSensorDown.remove(i);
 
-		getAllSensor();
-		// getAllMessages(currentDate); remplacer par la liste TODO
-		for (Sensor sensors : listSensor) {
-			numberOfIteration = 0;
-			if (sensors.getSensorState() == true) {
-				for (Alert alerts : listAlert) {
-					if (sensors.getIdSensor() == alerts.getIdSensor()) {
-						numberOfIteration++;
+					getAllSensor();
+					for (Sensor sensors : listSensor) {
+						numberOfIteration = 0;
+						if (sensors.getSensorState() == true) {
+							for (Alert alerts : listAlert) {
+								if (sensors.getIdSensor() == alerts.getIdSensor()) {
+									numberOfIteration++;
+								}
+							}
+							if (numberOfIteration < 1) {
+								listSensorDown.add(sensors);
+							}
+						}
+					}
+					if (!listSensorDown.isEmpty()) {
+						for (Sensor sensors : listSensorDown) {
+							sensors.setAlertState(AlertState.DOWN);
+							updateSensorAlertState(sensors);
+						}
+					}
+					try {
+						Thread.sleep(Integer.parseInt(rs.getString("time_verifySensorActivity")));
+					} catch (InterruptedException e) {
+						logger.log(Level.INFO, "Impossible to sleep the thread" + e.getClass().getCanonicalName());
 					}
 				}
-				if (numberOfIteration < 1) {
-					listSensorDown.add(sensors);
-				}
 			}
-		}
-		if (!listSensorDown.isEmpty()) {
-			for (Sensor sensors : listSensorDown) {
-				sensors.setAlertState(AlertState.DOWN);
-				updateSensorAlertState(sensors);
-			}
-		}
+		}));
+		threadVerifySensorActivity.start();
 	}
 
 	/**
@@ -210,5 +227,13 @@ public class MonitoringAlert {
 
 	public void setResult(boolean result) {
 		this.result = result;
+	}
+
+	public Thread getThreadVerifySensorActivity() {
+		return threadVerifySensorActivity;
+	}
+
+	public void setThreadVerifySensorActivity(Thread threadVerifySensorActivity) {
+		this.threadVerifySensorActivity = threadVerifySensorActivity;
 	}
 }

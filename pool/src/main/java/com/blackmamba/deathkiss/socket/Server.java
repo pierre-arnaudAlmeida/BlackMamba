@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.ResourceBundle;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,11 +25,11 @@ public class Server {
 	 * Initialization of parameters
 	 */
 	private int port;
+	private int numberConnection;
 	private String host;
 	private ServerSocket server = null;
 	private boolean isRunning = true;
 	private JDBCConnectionPool pool;
-	private int numberConnection;
 	private Connection connectionGived;
 	private Socket client;
 	private final Properties prop = new Properties();
@@ -139,6 +138,16 @@ public class Server {
 			}
 		});
 		th.start();
+	}
+
+	/**
+	 * Launch the execution of the different method to be execute during the
+	 * activity of the server
+	 */
+	public void treatment() {
+		// TODO
+		MonitoringAlert monitoringAlert = new MonitoringAlert(pool);
+		monitoringAlert.getAllSensor();
 	}
 
 	/**

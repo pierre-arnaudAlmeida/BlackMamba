@@ -1,5 +1,7 @@
 package com.blackmamba.deathkiss.entity;
 
+import java.util.Date;
+
 /**
  * 
  * @author Pierre-Arnaud
@@ -10,6 +12,7 @@ public class Alert {
 	private int idAlert;
 	private int idSensor;
 	private AlertState alertState;
+	private Date alertDate;
 
 	public Alert() {
 	}
@@ -36,5 +39,13 @@ public class Alert {
 
 	public void setAlertState(AlertState alertState) {
 		this.alertState = alertState;
+	}
+
+	public Date getAlertDate() {
+		return alertDate;
+	}
+
+	public void setAlertDate(Date alertDate) {
+		this.alertDate = alertDate;
 	}
 }

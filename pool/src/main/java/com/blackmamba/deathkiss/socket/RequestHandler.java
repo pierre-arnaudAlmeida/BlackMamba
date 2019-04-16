@@ -80,8 +80,8 @@ public class RequestHandler implements Runnable {
 						jsonNode = objectMapper.readTree(response);
 						switch (jsonNode.get("request").asText()) {
 						case "GET ALERT":
-							//TODO
-							//renvoyer les alertes au format json
+							// TODO
+							// renvoyer les alertes au format json
 							break;
 						case "FIND ALL":
 							response = "OK FOR REQUEST FIND ALL";
@@ -629,7 +629,6 @@ public class RequestHandler implements Runnable {
 					}
 				}
 			} catch (IOException e) {
-				logger.log(Level.INFO, "Impossible to execute the request " + e.getClass().getCanonicalName());
 			}
 		}
 		if (sock.isClosed())
