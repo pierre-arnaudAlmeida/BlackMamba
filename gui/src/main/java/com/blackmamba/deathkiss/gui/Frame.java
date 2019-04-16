@@ -1,16 +1,16 @@
 package com.blackmamba.deathkiss.gui;
 
 import java.awt.Color;
-import java.util.Date;
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
+import com.blackmamba.deathkiss.entity.Alert;
 import com.blackmamba.deathkiss.entity.Employee;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -32,7 +32,6 @@ public class Frame extends JFrame {
 	private TabResident tabResident;
 	private TabHistorical tabHistorical;
 	private TabProfile tabProfile;
-	private MonitoringAlert monitoringAlert;
 	private int idEmployee;
 	private String requestType;
 	private String table;
@@ -41,7 +40,7 @@ public class Frame extends JFrame {
 	private ObjectMapper objectMapper;
 	private Thread threadFrame;
 	private Thread threadAlert;
-	private Thread threadActivity;
+	private List<Alert> listAlert = new ArrayList<Alert>();
 	private static final Logger logger = LogManager.getLogger(Frame.class);
 
 	public Frame(int idEmployee) {
@@ -110,38 +109,27 @@ public class Frame extends JFrame {
 		///////////////////////// ALERT/////////////////////////////////////////////////
 		setThreadAlert(new Thread(new Runnable() {
 			/**
-			 * Loop and update every second the alerts
+			 * Loop and update every second, if the listAlert is'nt empty they actualize the
+			 * listSensor with the different states contained in the listAlert
 			 */
 			@Override
 			public void run() {
-				monitoringAlert = new MonitoringAlert();
-				// monitoringAlert.alertTreatment();
-				monitoringAlert.verifySensorMessageBeforeActivity();
-//				while (true) {
-//				}
-			}
-		}));
-		setThreadActivity(new Thread(new Runnable() {
-			/**
-			 * Loop and verify if the capteur have send a message to system
-			 */
-			@Override
-			public void run() {
-				monitoringAlert = new MonitoringAlert();
 				while (true) {
-					Date currentDate = new Date();
+					getAlert();
+					if (!listAlert.isEmpty())
+						tabSensor.ActualizationListSensor(listAlert);
 					try {
-						Thread.sleep(3600000);
+						Thread.sleep(1000);
 					} catch (InterruptedException e) {
-						logger.log(Level.INFO, "Impossible to sleep the thread " + e.getClass().getCanonicalName());
+						logger.log(Level.INFO,
+								"Impossible to sleep the thread Alert" + e.getClass().getCanonicalName());
 					}
-					monitoringAlert.verifySensorActivity(currentDate);
 				}
 			}
 		}));
+
 		threadAlert.start();
 		threadFrame.start();
-		threadActivity.start();
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
 		 * Different parameters of the window
@@ -167,6 +155,25 @@ public class Frame extends JFrame {
 			logger.log(Level.INFO, "Find Employee data succed");
 		} catch (Exception e1) {
 			logger.log(Level.INFO, "Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
+		}
+	}
+
+	/**
+	 * Get all Alert stocked on server and add on listAlert
+	 */
+	public void getAlert() {
+		requestType = "ALERT";
+		table = "Alert";
+		objectMapper = new ObjectMapper();
+		try {
+			jsonString = "ALERT";
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			Alert[] alerts = objectMapper.readValue(jsonString, Alert[].class);
+			listAlert = Arrays.asList(alerts);
+			logger.log(Level.INFO, "Find Messages datas succed");
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON Messages datas " + e1.getClass().getCanonicalName());
 		}
 	}
 
@@ -211,13 +218,5 @@ public class Frame extends JFrame {
 
 	public void setThreadAlert(Thread threadAlert) {
 		this.threadAlert = threadAlert;
-	}
-
-	public Thread getThreadActivity() {
-		return threadActivity;
-	}
-
-	public void setThreadActivity(Thread threadActivity) {
-		this.threadActivity = threadActivity;
 	}
 }

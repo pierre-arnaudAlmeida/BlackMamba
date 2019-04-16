@@ -15,6 +15,7 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -25,10 +26,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.blackmamba.deathkiss.entity.Alert;
 import com.blackmamba.deathkiss.entity.CommonArea;
+import com.blackmamba.deathkiss.entity.Message;
 import com.blackmamba.deathkiss.entity.Sensor;
 import com.blackmamba.deathkiss.entity.SensorType;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -79,6 +84,7 @@ public class TabSensor extends JPanel {
 	private JComboBox<String> textInputTypeSensor;
 	private DefaultListModel<String> listM;
 	private JList<String> list;
+	private List<Message> listMessage = new ArrayList<Message>();
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private List<Sensor> listSearchSensor = new ArrayList<Sensor>();
 	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
@@ -1001,6 +1007,11 @@ public class TabSensor extends JPanel {
 				}
 			}
 		}
+	}
+
+	public void ActualizationListSensor(List<Alert> list) {
+		// TODO
+		//RaymondKeita
 	}
 
 	public Thread getThreadSensor() {
