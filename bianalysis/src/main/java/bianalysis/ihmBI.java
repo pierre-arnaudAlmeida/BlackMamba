@@ -6,12 +6,14 @@ import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import bianalysis.Sensor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.swing.JList;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -39,7 +42,8 @@ public class ihmBI extends JFrame {
 	
 	String[] periode = {"Année", "Mois","Jour"};
 	String[] area = {"RC", "Etage 1","Etage 2"};
-	
+	String[] sensorType = {	"SMOKE", "MOVE","TEMPERATURE", "WINDOW" ,"DOOR", "ELEVATOR","LIGHT","FIRE","BADGE","ROUTER" };
+	private JList<String> list;		
 	private Font policeLabel;
 	private JLabel labelNumber;
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
@@ -53,6 +57,10 @@ public class ihmBI extends JFrame {
 	private JTextField tfStock;
 	private JTextField tfRecherche;
 	private JTextField tfTemperature;
+	private JTextField searchBar;
+	private DefaultListModel<String> listM;
+	private JScrollPane sc;
+	
 	private JButton btnRecherche;
 	private JButton btnDeconnexion;
 	private JButton btnTemperature;
@@ -83,7 +91,7 @@ public class ihmBI extends JFrame {
 	 * Create the frame.
 	 */
 	public ihmBI() {
-		request();
+		requestSensor();
 		initComponents();
 		createEvents();
 		
@@ -127,17 +135,21 @@ public class ihmBI extends JFrame {
 		// Combobox
 		
 		JComboBox cbPeriode = new JComboBox(periode);
-		cbPeriode.setBounds(404, 30, 100, 35);
+		cbPeriode.setBounds(384, 30, 100, 35);
 		contentPane.add(cbPeriode);
 		
 		JComboBox cbArea = new JComboBox(area);
-		cbArea.setBounds(516, 30, 100, 35);
+		cbArea.setBounds(496, 30, 100, 35);
 		contentPane.add(cbArea);
+		
+		JComboBox cbCapteur = new JComboBox(sensorType);
+		cbCapteur.setBounds(608, 30, 100, 35);
+		contentPane.add(cbCapteur);
 		
 		// Bouton
 		
 		btnRecherche = new JButton("Recherche");
-		btnRecherche.setBounds(643, 33, 139, 28);
+		btnRecherche.setBounds(715, 33, 139, 28);
 		contentPane.add(btnRecherche);
 		
 		
@@ -164,6 +176,7 @@ public class ihmBI extends JFrame {
 		
 		tfAlertes = new JTextField();
 		tfAlertes.setBounds(583, 194, 112, 28);
+		tfAlertes.setText(returnNumber().toString());
 		contentPane.add(tfAlertes);
 		tfAlertes.setColumns(10);
 		
@@ -176,7 +189,7 @@ public class ihmBI extends JFrame {
 		
 
 		tfRecherche = new JTextField();
-		tfRecherche.setBounds(68, 33, 327, 28);
+		tfRecherche.setBounds(45, 33, 327, 28);
 		contentPane.add(tfRecherche);
 		tfRecherche.setColumns(10);
 		
@@ -188,10 +201,22 @@ public class ihmBI extends JFrame {
 
 
 		// List 
+		listM = new DefaultListModel<String>();
+		list = new JList<String>(listM);
+//		JList list = new JList();
+//		list.setBounds(45, 109, 327, 488);
+		sc = new JScrollPane(list);
+		sc.setBounds(30, 120, 300, 300);
 		
-		JList list = new JList();
-		list.setBounds(68, 105, 327, 488);
-		contentPane.add(list);
+		listM.addElement("Tout les capteurs");
+		for (Sensor sensors : listSensor) {
+			listM.addElement(sensors.getIdSensor() + "# " + sensors.getTypeSensor() + " ,"
+					+ sensors.getSensorState() + " ," + sensors.getIdCommonArea());
+		}
+		contentPane.add(sc);
+		//contentPane.add(list);
+		
+
 		
 
 			
@@ -209,7 +234,7 @@ public class ihmBI extends JFrame {
 
 }
 	
-private void request() {
+private void requestSensor() {
 	
 	requestType = "READ ALL";
 	table = "Sensor";
@@ -226,6 +251,7 @@ private void request() {
 		logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
 	}
 	
+
 	
 }
 
@@ -233,16 +259,18 @@ public String returnNumber() {
 	int nb = 0;
 	if (!listSensor.isEmpty()) {
 		for (Sensor count : listSensor) {
+
+			
 			if (count.getTypeSensor() == SensorType.TEMPERATURE) {
 				nb++;
 			}
 		}
 
 	}
+
 	return String.valueOf(nb);
 
 }
-
 }
 
 
