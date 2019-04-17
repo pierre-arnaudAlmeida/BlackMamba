@@ -5,13 +5,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.dao.CommonAreaDAO;
 import com.blackmamba.deathkiss.dao.DAO;
 import com.blackmamba.deathkiss.dao.EmployeeDAO;
@@ -50,8 +46,6 @@ public class RequestHandler implements Runnable {
 	private Connection connection;
 	private MonitoringAlert monitoringAlert;
 
-	private List<Message> listMessage = new ArrayList<Message>();
-
 	public RequestHandler(Socket pSock, Connection connection, MonitoringAlert monitoringAlert) {
 		this.sock = pSock;
 		this.connection = connection;
@@ -88,17 +82,36 @@ public class RequestHandler implements Runnable {
 						jsonNode = objectMapper.readTree(response);
 						switch (jsonNode.get("request").asText()) {
 						case "GET ALERT":
-							// TODO
-							// renvoyer les alertes au format json
-							// Donc renvoyer la list des Alertes
-							ObjectMapper obj = new ObjectMapper();
-							jsonString = obj.writeValueAsString(monitoringAlert.getListAlert());
-							logger.log(Level.INFO, jsonString);// TODO verifier que ca renvoi des valeurs quand on a une
-																// list avec et sans trucs
-							monitoringAlert.setListAlert(null);// mettre a vide quand on a envoyer les alertes au client
+							response = "OK FOR REQUEST GET ALERT";
+							writer.write(response);
+							writer.flush();
+							logger.log(Level.INFO, "Request Type accepted by server");
+							response = read();
+							if (!response.equals("")) {
+								objectMapper = new ObjectMapper();
+								jsonString = objectMapper.writeValueAsString(monitoringAlert.getListAlert());
+								monitoringAlert.cleanListMessage(monitoringAlert.getListAlert());
+								writer.write(jsonString);
+								writer.flush();
+								logger.log(Level.INFO, "Response send to client");
+							} else {
+								logger.log(Level.INFO, "Request not recognized");
+							}
 							break;
 						case "ALERT":
-							// TODO ajouter une alerte a la listMessages
+							response = "OK FOR REQUEST ALERT";
+							writer.write(response);
+							writer.flush();
+							logger.log(Level.INFO, "Request Type accepted by server");
+							response = read();
+							if (!response.equals("")) {
+								objectMapper = new ObjectMapper();
+								Message messages = objectMapper.readValue(jsonString, Message.class);
+								monitoringAlert.addListMessage(messages, monitoringAlert.getListMessage());
+								logger.log(Level.INFO, "Message reveived to client");
+							} else {
+								logger.log(Level.INFO, "Request not recognized");
+							}
 							break;
 						case "FIND ALL":
 							response = "OK FOR REQUEST FIND ALL";

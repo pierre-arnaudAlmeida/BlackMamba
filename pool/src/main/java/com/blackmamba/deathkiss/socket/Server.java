@@ -9,15 +9,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.ResourceBundle;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.connectionpool.DataSource;
 import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
-import com.blackmamba.deathkiss.entity.AlertState;
-import com.blackmamba.deathkiss.entity.Sensor;
 
 /**
  * 

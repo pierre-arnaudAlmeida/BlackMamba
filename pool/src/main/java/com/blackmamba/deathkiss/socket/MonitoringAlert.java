@@ -162,7 +162,7 @@ public class MonitoringAlert {
 						if (listSensorDown.size() == listSensor.size()) {
 							// TODO remplir la list d'alerte a envoyer au client avec des valeurs spéciale
 							// pour détecter rapidement la grosse panne
-							
+
 						} else {
 							for (Sensor sensors : listSensorDown) {
 								sensors.setAlertState(AlertState.DOWN);
@@ -266,6 +266,14 @@ public class MonitoringAlert {
 		}
 	}
 
+	public void cleanListMessage(List<Message> list) {
+		list.removeAll(list);
+	}
+
+	public void addListMessage(Message message, List<Message> list) {
+		list.add(message);
+	}
+
 	public boolean isResult() {
 		return result;
 	}
@@ -288,5 +296,13 @@ public class MonitoringAlert {
 
 	public void setListAlert(List<Message> listAlert) {
 		this.listAlert = listAlert;
+	}
+
+	public List<Message> getListMessage() {
+		return listMessage;
+	}
+
+	public void setListMessage(List<Message> listMessage) {
+		this.listMessage = listMessage;
 	}
 }

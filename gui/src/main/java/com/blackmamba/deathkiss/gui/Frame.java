@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
@@ -62,8 +61,8 @@ public class Frame extends JFrame {
 				while (true) {
 					verificationUser(idEmployee);
 					if (employee.getLastnameEmployee().equals("")) {
-						JOptionPane.showMessageDialog(null, "Votre compte a été supprimer vous allez etre déconnecter",
-								"Erreur", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Vous allez etre déconnecter", "Erreur",
+								JOptionPane.ERROR_MESSAGE);
 						System.exit(ABORT);
 					}
 					try {
