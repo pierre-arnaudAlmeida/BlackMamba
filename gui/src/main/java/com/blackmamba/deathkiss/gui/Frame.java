@@ -67,7 +67,7 @@ public class Frame extends JFrame {
 						System.exit(ABORT);
 					}
 					try {
-						Thread.sleep(Integer.parseInt(rs.getString("time_threadFrame")));
+						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
 						logger.log(Level.INFO, "Impossible to sleep the thread" + e.getClass().getCanonicalName());
 					}

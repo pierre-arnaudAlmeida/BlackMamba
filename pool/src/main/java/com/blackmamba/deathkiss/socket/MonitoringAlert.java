@@ -37,6 +37,7 @@ public class MonitoringAlert {
 	private String jsonString;
 	private Message message;
 	private Sensor sensor;
+	private SensorHistorical sensorHistorical;
 	private Date currentDate;
 	private Date curDate;
 	private Date beforeDate;
@@ -71,6 +72,9 @@ public class MonitoringAlert {
 	// envoyer des infos comme la temperature l taux de dioxyde carbone et ensuite
 	// c'est ca q(uon choisi l'&actrion a faire
 	public void alertTreatment() {
+		Message x = new Message();
+		listAlert.add(x);
+		listAlert.add(x);
 		currentDate = new Date();
 		for (Message messages : listMessage) {
 			if (messages.getAlertState() == AlertState.ALERT) {
@@ -158,6 +162,7 @@ public class MonitoringAlert {
 						if (listSensorDown.size() == listSensor.size()) {
 							// TODO remplir la list d'alerte a envoyer au client avec des valeurs spéciale
 							// pour détecter rapidement la grosse panne
+							
 						} else {
 							for (Sensor sensors : listSensorDown) {
 								sensors.setAlertState(AlertState.DOWN);
@@ -235,16 +240,29 @@ public class MonitoringAlert {
 
 	}
 
+	/**
+	 * Add on table Sensor Historical the sensor and his state and date
+	 * 
+	 * @param sensor
+	 */
 	public void addHistorical(Sensor sensor) {
+		curDate = new Date();
+		sensorHistorical = new SensorHistorical();
+		sensorHistorical.setIdSensor(sensor.getIdSensor());
+		sensorHistorical.setAlertState(sensor.getAlertState());
+		sensorHistorical.setSensorState(sensor.getSensorState());
+		sensorHistorical.setDate(curDate);
+		objectMapper = new ObjectMapper();
 		try {
-			jsonString = objectMapper.writeValueAsString(sensor);
+			jsonString = objectMapper.writeValueAsString(sensorHistorical);
 			connectionGived = DataSource.getConnectionFromJDBC(pool);
 			DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(connectionGived);
 			setResult(((SensorHistoricalDAO) sensorHistoricalDao).create(jsonString));
 			DataSource.returnConnection(pool, connectionGived);
-			logger.log(Level.INFO, "Insertion SensorHistorical datas succed");
+			if (result == true)
+				logger.log(Level.INFO, "Insertion SensorHistorical datas succed");
 		} catch (SQLException | JsonProcessingException e) {
-			logger.log(Level.INFO, "Impossible to get datas " + e.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to insert datas " + e.getClass().getCanonicalName());
 		}
 	}
 

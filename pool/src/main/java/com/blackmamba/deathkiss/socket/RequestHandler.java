@@ -5,9 +5,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import com.blackmamba.deathkiss.dao.CommonAreaDAO;
 import com.blackmamba.deathkiss.dao.DAO;
 import com.blackmamba.deathkiss.dao.EmployeeDAO;
@@ -44,10 +48,14 @@ public class RequestHandler implements Runnable {
 	private JsonNode jsonNode;
 	private boolean result;
 	private Connection connection;
+	private MonitoringAlert monitoringAlert;
 
-	public RequestHandler(Socket pSock, Connection connection) {
+	private List<Message> listMessage = new ArrayList<Message>();
+
+	public RequestHandler(Socket pSock, Connection connection, MonitoringAlert monitoringAlert) {
 		this.sock = pSock;
 		this.connection = connection;
+		this.monitoringAlert = monitoringAlert;
 	}
 
 	/**
@@ -83,7 +91,6 @@ public class RequestHandler implements Runnable {
 							// TODO
 							// renvoyer les alertes au format json
 							// Donc renvoyer la list des Alertes
-							MonitoringAlert monitoringAlert = new MonitoringAlert();
 							ObjectMapper obj = new ObjectMapper();
 							jsonString = obj.writeValueAsString(monitoringAlert.getListAlert());
 							logger.log(Level.INFO, jsonString);// TODO verifier que ca renvoi des valeurs quand on a une

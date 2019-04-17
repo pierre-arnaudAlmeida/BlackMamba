@@ -9,11 +9,15 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.ResourceBundle;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import com.blackmamba.deathkiss.connectionpool.DataSource;
 import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
+import com.blackmamba.deathkiss.entity.AlertState;
+import com.blackmamba.deathkiss.entity.Sensor;
 
 /**
  * 
@@ -63,6 +67,7 @@ public class Server {
 		try {
 			server = new ServerSocket(port, 100, InetAddress.getByName(host));
 			pool = new JDBCConnectionPool(false);
+			monitoringAlert = new MonitoringAlert(pool);
 
 		} catch (UnknownHostException e) {
 			logger.log(Level.INFO, "IP Host dont find " + e.getClass().getCanonicalName());
@@ -85,7 +90,7 @@ public class Server {
 						client = server.accept();
 						connectionGived = DataSource.getConnectionFromJDBC(pool);
 						logger.log(Level.INFO, "Client Connection recieved");
-						Thread t = new Thread(new RequestHandler(client, connectionGived));
+						Thread t = new Thread(new RequestHandler(client, connectionGived, monitoringAlert));
 						t.start();
 						DataSource.returnConnection(pool, connectionGived);
 
@@ -122,7 +127,7 @@ public class Server {
 						}
 						connectionGived = DataSource.getConnectionFromJDBC(pool);
 						logger.log(Level.INFO, "Client Connection recieved");
-						Thread t = new Thread(new RequestHandler(client, connectionGived));
+						Thread t = new Thread(new RequestHandler(client, connectionGived, monitoringAlert));
 						t.start();
 						DataSource.returnConnection(pool, connectionGived);
 
@@ -147,8 +152,7 @@ public class Server {
 	 */
 	public void treatment() {
 		// TODO
-		monitoringAlert = new MonitoringAlert(pool);
-		monitoringAlert.getAllSensor();
+		monitoringAlert.alertTreatment();
 	}
 
 	/**

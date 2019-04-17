@@ -247,7 +247,7 @@ public class TabEmployes extends JPanel {
 					/**
 					 * If the research is empty they display all the Employees
 					 */
-					requestType = "READ ALL";
+					requestType = "GET ALERT";//TODO a remplacer par READ ALL
 					table = "Employee";
 					objectMapper = new ObjectMapper();
 					try {
