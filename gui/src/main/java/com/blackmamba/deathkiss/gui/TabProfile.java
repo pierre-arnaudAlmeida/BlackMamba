@@ -8,6 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.text.Normalizer;
+import java.util.Properties;
+import java.util.ResourceBundle;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -59,6 +62,8 @@ public class TabProfile extends JPanel {
 	private ObjectMapper readMapper;
 	private Thread threadProfile;
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
+	private final Properties prop = new Properties();
+	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
 	public TabProfile(Color color, int idemployee, String title) {
 		this.idemployee = idemployee;
@@ -72,7 +77,7 @@ public class TabProfile extends JPanel {
 				while (true) {
 					updateEmployee();
 					try {
-						Thread.sleep(30000);
+						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
 						logger.log(Level.INFO, "Impossible to sleep the thread" + e.getClass().getCanonicalName());
 					}

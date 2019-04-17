@@ -73,7 +73,6 @@ public class TabResident extends JPanel {
 	private DefaultListModel<String> listM;
 	private List<Resident> listResident = new ArrayList<Resident>();
 	private List<Resident> listSearchResident = new ArrayList<Resident>();
-
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
 
 	public TabResident() {}

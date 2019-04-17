@@ -5,15 +5,17 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
+import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import com.blackmamba.deathkiss.entity.SensorHistorical;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -25,7 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 
 	private ResultSet result = null;
-	private static final Logger logger = LogManager.getLogger(EmployeeDAO.class);
+	private static final Logger logger = LogManager.getLogger(SensorHistoricalDAO.class);
 
 	public SensorHistoricalDAO(Connection con) {
 		super(con);
@@ -40,21 +42,24 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		String request;
 		String sensorState;
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Format formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try {
 			Statement st = con.createStatement();
 			SensorHistorical sensorHistorical = objectMapper.readValue(jsonString, SensorHistorical.class);
+
 			if (sensorHistorical.getSensorState() == true)
 				sensorState = "ON";
 			else
 				sensorState = "OFF";
-			// TODO ajouter l'alerte
-			request = "insert into historique (date_historique, etat_avant, etat_apres, id_capteur) values ('"
-					+ format.format(sensorHistorical.getDate()).toString() + "','" + sensorState + "')";
+			request = "insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('"
+					+ formater.format(sensorHistorical.getDate()) + "','" + sensorState + "','"
+					+ sensorHistorical.getAlertState().toString() + "', " + sensorHistorical.getIdSensor() + ")";
+
 			st.execute(request);
 			logger.log(Level.INFO, "SensorHistorical succesfully inserted in BDD");
 			return true;
 		} catch (IOException | SQLException e) {
+			e.printStackTrace();
 			logger.log(Level.INFO,
 					"Impossible to insert sensorHistorical datas in BDD" + e.getClass().getCanonicalName());
 			return false;

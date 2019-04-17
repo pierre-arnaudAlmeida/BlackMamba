@@ -15,6 +15,8 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -26,12 +28,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.blackmamba.deathkiss.entity.Alert;
 import com.blackmamba.deathkiss.entity.CommonArea;
 import com.blackmamba.deathkiss.entity.Message;
 import com.blackmamba.deathkiss.entity.Sensor;
@@ -89,6 +88,8 @@ public class TabSensor extends JPanel {
 	private List<Sensor> listSearchSensor = new ArrayList<Sensor>();
 	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
 	private static final Logger logger = LogManager.getLogger(TabSensor.class);
+	private final Properties prop = new Properties();
+	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
 	public TabSensor() {
 	}
@@ -107,7 +108,7 @@ public class TabSensor extends JPanel {
 					updateListAreas();
 					updateSensorSelected();
 					try {
-						Thread.sleep(30000);
+						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
 						logger.log(Level.INFO, "Impossible to sleep the thread" + e.getClass().getCanonicalName());
 					}
@@ -718,7 +719,7 @@ public class TabSensor extends JPanel {
 						listM.addElement(sensor.getIdSensor() + "# " + sensor.getTypeSensor() + " ,"
 								+ sensor.getSensorState() + " ," + sensor.getIdCommonArea());
 						logger.log(Level.INFO, "Find Sensor succeded");
-						JOptionPane.showMessageDialog(null, "Linsertion à été effectuer", "Infos",
+						JOptionPane.showMessageDialog(null, "L'insertion à été effectuer", "Infos",
 								JOptionPane.INFORMATION_MESSAGE);
 					}
 				} catch (Exception e1) {
@@ -1009,9 +1010,9 @@ public class TabSensor extends JPanel {
 		}
 	}
 
-	public void ActualizationListSensor(List<Alert> list) {
+	public void ActualizationListSensor(List<Message> list) {
 		// TODO
-		//RaymondKeita
+		// Keita Raymond
 	}
 
 	public Thread getThreadSensor() {

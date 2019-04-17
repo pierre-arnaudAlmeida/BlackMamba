@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.ResourceBundle;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,13 +25,14 @@ public class Server {
 	 * Initialization of parameters
 	 */
 	private int port;
+	private int numberConnection;
 	private String host;
 	private ServerSocket server = null;
 	private boolean isRunning = true;
 	private JDBCConnectionPool pool;
-	private int numberConnection;
 	private Connection connectionGived;
 	private Socket client;
+	private MonitoringAlert monitoringAlert;
 	private final Properties prop = new Properties();
 	private static final Logger logger = LogManager.getLogger(Server.class);
 
@@ -63,6 +63,7 @@ public class Server {
 		try {
 			server = new ServerSocket(port, 100, InetAddress.getByName(host));
 			pool = new JDBCConnectionPool(false);
+			monitoringAlert = new MonitoringAlert(pool);
 
 		} catch (UnknownHostException e) {
 			logger.log(Level.INFO, "IP Host dont find " + e.getClass().getCanonicalName());
@@ -85,7 +86,7 @@ public class Server {
 						client = server.accept();
 						connectionGived = DataSource.getConnectionFromJDBC(pool);
 						logger.log(Level.INFO, "Client Connection recieved");
-						Thread t = new Thread(new RequestHandler(client, connectionGived));
+						Thread t = new Thread(new RequestHandler(client, connectionGived, monitoringAlert));
 						t.start();
 						DataSource.returnConnection(pool, connectionGived);
 
@@ -122,7 +123,7 @@ public class Server {
 						}
 						connectionGived = DataSource.getConnectionFromJDBC(pool);
 						logger.log(Level.INFO, "Client Connection recieved");
-						Thread t = new Thread(new RequestHandler(client, connectionGived));
+						Thread t = new Thread(new RequestHandler(client, connectionGived, monitoringAlert));
 						t.start();
 						DataSource.returnConnection(pool, connectionGived);
 
@@ -142,6 +143,15 @@ public class Server {
 	}
 
 	/**
+	 * Launch the execution of the different method to be execute during the
+	 * activity of the server
+	 */
+	public void treatment() {
+		// TODO
+		monitoringAlert.alertTreatment();
+	}
+
+	/**
 	 * Set false the Socket runner to Close the socket
 	 */
 	public void close() {
@@ -157,5 +167,13 @@ public class Server {
 
 	public Properties getProp() {
 		return prop;
+	}
+
+	public MonitoringAlert getMonitoringAlert() {
+		return monitoringAlert;
+	}
+
+	public void setMonitoringAlert(MonitoringAlert monitoringAlert) {
+		this.monitoringAlert = monitoringAlert;
 	}
 }

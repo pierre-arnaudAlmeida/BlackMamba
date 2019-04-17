@@ -83,7 +83,6 @@ public class MainServerGUI extends JFrame {
 
 					ts.open();
 					nbServer++;
-
 					logger.log(Level.INFO, "Server Initialized");
 
 					/**
@@ -107,7 +106,7 @@ public class MainServerGUI extends JFrame {
 
 					timer1 = new Timer(delais, tache_timer);
 					timer1.start();
-
+					//ts.treatment();// TODO
 				} else {
 					logger.log(Level.INFO, "Server already launch");
 				}

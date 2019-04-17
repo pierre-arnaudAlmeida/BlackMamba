@@ -4,14 +4,16 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
+import java.util.ResourceBundle;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.blackmamba.deathkiss.entity.Alert;
 import com.blackmamba.deathkiss.entity.Employee;
+import com.blackmamba.deathkiss.entity.Message;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -32,6 +34,7 @@ public class Frame extends JFrame {
 	private TabResident tabResident;
 	private TabHistorical tabHistorical;
 	private TabProfile tabProfile;
+	private TabMapSensor tabMapSensor;
 	private int idEmployee;
 	private String requestType;
 	private String table;
@@ -40,8 +43,10 @@ public class Frame extends JFrame {
 	private ObjectMapper objectMapper;
 	private Thread threadFrame;
 	private Thread threadAlert;
-	private List<Alert> listAlert = new ArrayList<Alert>();
+	private List<Message> listAlert = new ArrayList<Message>();
 	private static final Logger logger = LogManager.getLogger(Frame.class);
+	private final Properties prop = new Properties();
+	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
 	public Frame(int idEmployee) {
 		this.idEmployee = idEmployee;
@@ -56,12 +61,12 @@ public class Frame extends JFrame {
 				while (true) {
 					verificationUser(idEmployee);
 					if (employee.getLastnameEmployee().equals("")) {
-						JOptionPane.showMessageDialog(null, "Votre compte a été supprimer vous allez etre déconnecter",
-								"Erreur", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Vous allez etre déconnecter", "Erreur",
+								JOptionPane.ERROR_MESSAGE);
 						System.exit(ABORT);
 					}
 					try {
-						Thread.sleep(30000);
+						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
 						logger.log(Level.INFO, "Impossible to sleep the thread" + e.getClass().getCanonicalName());
 					}
@@ -89,12 +94,13 @@ public class Frame extends JFrame {
 		tabResident = new TabResident(Color.GRAY, this.idEmployee, "Onglet Résidents");
 		tabHistorical = new TabHistorical(Color.GRAY, this.idEmployee, "Onglet Historiques");
 		tabProfile = new TabProfile(Color.GRAY, this.idEmployee, "Onglet Profil");
+		tabMapSensor = new TabMapSensor(Color.GRAY, this.idEmployee, "Onglet Map");
 
 		/**
 		 * Add of the title of tabs
 		 */
 		tab = new JTabbedPane();
-		String tabOfTab[] = { "Employés", "Parties Communes", "Capteurs", "Résidents", "Historiques", "Profil" };
+		String tabOfTab[] = { "Employés", "Parties Communes", "Capteurs", "Résidents", "Historiques", "Profil", "Map" };
 
 		/**
 		 * Add of tabs on the window
@@ -105,6 +111,7 @@ public class Frame extends JFrame {
 		tab.add("Onglet " + tabOfTab[3], tabResident);
 		tab.add("Onglet " + tabOfTab[4], tabHistorical);
 		tab.add("Onglet " + tabOfTab[5], tabProfile);
+		tab.add("Onglet " + tabOfTab[6], tabMapSensor);
 
 		///////////////////////// ALERT/////////////////////////////////////////////////
 		setThreadAlert(new Thread(new Runnable() {
@@ -119,7 +126,7 @@ public class Frame extends JFrame {
 					if (!listAlert.isEmpty())
 						tabSensor.ActualizationListSensor(listAlert);
 					try {
-						Thread.sleep(1000);
+						Thread.sleep(Integer.parseInt(rs.getString("time_threadAlert")));
 					} catch (InterruptedException e) {
 						logger.log(Level.INFO,
 								"Impossible to sleep the thread Alert" + e.getClass().getCanonicalName());
@@ -162,15 +169,15 @@ public class Frame extends JFrame {
 	 * Get all Alert stocked on server and add on listAlert
 	 */
 	public void getAlert() {
-		requestType = "ALERT";
+		requestType = "GET ALERT";
 		table = "Alert";
 		objectMapper = new ObjectMapper();
 		try {
-			jsonString = "ALERT";
+			jsonString = "GET ALERT";
 			new ClientSocket(requestType, jsonString, table);
 			jsonString = ClientSocket.getJson();
-			Alert[] alerts = objectMapper.readValue(jsonString, Alert[].class);
-			listAlert = Arrays.asList(alerts);
+			Message[] messages = objectMapper.readValue(jsonString, Message[].class);
+			listAlert = Arrays.asList(messages);
 			logger.log(Level.INFO, "Find Messages datas succed");
 		} catch (Exception e1) {
 			logger.log(Level.INFO, "Impossible to parse in JSON Messages datas " + e1.getClass().getCanonicalName());

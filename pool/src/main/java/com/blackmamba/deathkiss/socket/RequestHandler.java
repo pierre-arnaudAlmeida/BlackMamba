@@ -44,10 +44,12 @@ public class RequestHandler implements Runnable {
 	private JsonNode jsonNode;
 	private boolean result;
 	private Connection connection;
+	private MonitoringAlert monitoringAlert;
 
-	public RequestHandler(Socket pSock, Connection connection) {
+	public RequestHandler(Socket pSock, Connection connection, MonitoringAlert monitoringAlert) {
 		this.sock = pSock;
 		this.connection = connection;
+		this.monitoringAlert = monitoringAlert;
 	}
 
 	/**
@@ -79,6 +81,38 @@ public class RequestHandler implements Runnable {
 					if (!response.equals("")) {
 						jsonNode = objectMapper.readTree(response);
 						switch (jsonNode.get("request").asText()) {
+						case "GET ALERT":
+							response = "OK FOR REQUEST GET ALERT";
+							writer.write(response);
+							writer.flush();
+							logger.log(Level.INFO, "Request Type accepted by server");
+							response = read();
+							if (!response.equals("")) {
+								objectMapper = new ObjectMapper();
+								jsonString = objectMapper.writeValueAsString(monitoringAlert.getListAlert());
+								monitoringAlert.cleanListMessage(monitoringAlert.getListAlert());
+								writer.write(jsonString);
+								writer.flush();
+								logger.log(Level.INFO, "Response send to client");
+							} else {
+								logger.log(Level.INFO, "Request not recognized");
+							}
+							break;
+						case "ALERT":
+							response = "OK FOR REQUEST ALERT";
+							writer.write(response);
+							writer.flush();
+							logger.log(Level.INFO, "Request Type accepted by server");
+							response = read();
+							if (!response.equals("")) {
+								objectMapper = new ObjectMapper();
+								Message messages = objectMapper.readValue(jsonString, Message.class);
+								monitoringAlert.addListMessage(messages, monitoringAlert.getListMessage());
+								logger.log(Level.INFO, "Message reveived to client");
+							} else {
+								logger.log(Level.INFO, "Request not recognized");
+							}
+							break;
 						case "FIND ALL":
 							response = "OK FOR REQUEST FIND ALL";
 							writer.write(response);
@@ -625,7 +659,6 @@ public class RequestHandler implements Runnable {
 					}
 				}
 			} catch (IOException e) {
-				logger.log(Level.INFO, "Impossible to execute the request " + e.getClass().getCanonicalName());
 			}
 		}
 		if (sock.isClosed())

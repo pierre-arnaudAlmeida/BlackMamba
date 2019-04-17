@@ -4,6 +4,7 @@ D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\dao\CommonAreaDAO.
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\connectionpool\JDBCConnectionPool.java
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\dao\SensorDAO.java
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\entity\CommonArea.java
+D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\socket\MonitoringAlert.java
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\dao\AbstractDAOFactory.java
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\entity\Sensor.java
 D:\Java\deathkiss\pool\src\main\java\com\blackmamba\deathkiss\dao\DAOFactory.java

@@ -13,6 +13,9 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
+import java.util.ResourceBundle;
+
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -81,6 +84,8 @@ public class TabCommonArea extends JPanel {
 	private List<CommonArea> listSearchCommonArea = new ArrayList<CommonArea>();
 	private List<Sensor> listSensorUsed = new ArrayList<Sensor>();
 	private static final Logger logger = LogManager.getLogger(TabCommonArea.class);
+	private final Properties prop = new Properties();
+	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
 	public TabCommonArea() {
 	}
@@ -99,7 +104,7 @@ public class TabCommonArea extends JPanel {
 					updateCommonAreaSelected();
 					updateListCommonArea();
 					try {
-						Thread.sleep(30000);
+						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
 						logger.log(Level.INFO, "Impossible to sleep the thread " + e.getClass().getCanonicalName());
 					}

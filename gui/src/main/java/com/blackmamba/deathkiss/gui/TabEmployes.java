@@ -14,6 +14,9 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
+import java.util.ResourceBundle;
+
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -80,6 +83,8 @@ public class TabEmployes extends JPanel {
 	private List<Employee> listEmployee = new ArrayList<Employee>();
 	private List<Employee> listSearchEmployee = new ArrayList<Employee>();
 	private static final Logger logger = LogManager.getLogger(TabEmployes.class);
+	private final Properties prop = new Properties();
+	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
 	public TabEmployes() {
 	}
@@ -98,7 +103,7 @@ public class TabEmployes extends JPanel {
 					updateEmployeeSelected();
 					updateListEmployee();
 					try {
-						Thread.sleep(30000);
+						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
 						logger.log(Level.INFO, "Impossible to sleep the thread" + e.getClass().getCanonicalName());
 					}
@@ -242,7 +247,7 @@ public class TabEmployes extends JPanel {
 					/**
 					 * If the research is empty they display all the Employees
 					 */
-					requestType = "READ ALL";
+					requestType = "READ ALL";// TODO a remplacer par READ ALL
 					table = "Employee";
 					objectMapper = new ObjectMapper();
 					try {

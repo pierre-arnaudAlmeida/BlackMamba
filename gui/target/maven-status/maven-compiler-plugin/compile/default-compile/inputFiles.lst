@@ -6,10 +6,12 @@ D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\SensorHistor
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\Resident.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\Sensor.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\TabCommonArea.java
+D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\TabMapSensor.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\TabResident.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\TabProfile.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\Sensitivity.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\Message.java
+D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\SurfacePolygon.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\CommonArea.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\Connexion.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\AlertState.java
@@ -18,3 +20,4 @@ D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\TabListSensor.j
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\ClientSocket.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\MainGUI.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\Employee.java
+D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\MapSensor.java
