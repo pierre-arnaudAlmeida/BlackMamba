@@ -38,7 +38,6 @@ public class MonitoringAlert {
 	private Message message;
 	private Sensor sensor;
 	private SensorHistorical sensorHistorical;
-	private Date currentDate;
 	private Date curDate;
 	private Date beforeDate;
 	private Date afterDate;
@@ -75,7 +74,6 @@ public class MonitoringAlert {
 		Message x = new Message();
 		listAlert.add(x);
 		listAlert.add(x);
-		currentDate = new Date();
 		for (Message messages : listMessage) {
 			if (messages.getAlertState() == AlertState.ALERT) {
 				getSensor(messages.getIdSensor());
@@ -95,7 +93,7 @@ public class MonitoringAlert {
 		}
 	}
 
-	// Fonctionne
+	// Fonctionne TODO
 	public void verifySensorMessageBeforeActivity() {
 		curDate = new Date();
 		calBefore = Calendar.getInstance();
@@ -141,8 +139,7 @@ public class MonitoringAlert {
 			@Override
 			public void run() {
 				while (true) {
-					for (int i = 0; i < listSensorDown.size(); i++)
-						listSensorDown.remove(i);
+					cleanListSensor(listSensorDown);
 
 					getAllSensor();
 					for (Sensor sensors : listSensor) {
@@ -160,11 +157,29 @@ public class MonitoringAlert {
 					}
 					if (!listSensorDown.isEmpty()) {
 						if (listSensorDown.size() == listSensor.size()) {
+							curDate = new Date();
+							message = new Message();
+							message.setIdMessage(0);
+							message.setIdSensor(0);
+							message.setAlertState(AlertState.OVER);
+							message.setAlertDate(currentDate);
+							listAlert.add(message);
+						} else {
 							// TODO remplir la list d'alerte a envoyer au client avec des valeurs spéciale
 							// pour détecter rapidement la grosse panne
-
-						} else {
+							// faire un tri comptage sur le tableau de listSensor
+							// et sur celui de listSensorDown
+							// si on a un certain pourcentage de capteurs down on peut dire que c'est le
+							// zbeul dans la maison de retraite
 							for (Sensor sensors : listSensorDown) {
+								curDate = new Date();
+								message = new Message();
+								message.setIdMessage(0);
+								message.setIdSensor(sensors.getIdSensor());
+								message.setAlertState(AlertState.DOWN);
+								message.setAlertDate(currentDate);
+
+								listAlert.add(message);
 								sensors.setAlertState(AlertState.DOWN);
 								updateSensorAlertState(sensors);
 								addHistorical(sensors);
@@ -267,6 +282,10 @@ public class MonitoringAlert {
 	}
 
 	public void cleanListMessage(List<Message> list) {
+		list.removeAll(list);
+	}
+
+	public void cleanListSensor(List<Sensor> list) {
 		list.removeAll(list);
 	}
 

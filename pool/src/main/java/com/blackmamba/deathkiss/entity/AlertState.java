@@ -6,7 +6,5 @@ package com.blackmamba.deathkiss.entity;
  *
  */
 public enum AlertState {
-	NORMAL,
-	ALERT,
-	DOWN
+	NORMAL, ALERT, DOWN, OVER
 }
