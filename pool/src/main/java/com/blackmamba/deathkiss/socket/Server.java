@@ -7,7 +7,6 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Properties;
 import java.util.ResourceBundle;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -33,7 +32,6 @@ public class Server {
 	private Connection connectionGived;
 	private Socket client;
 	private MonitoringAlert monitoringAlert;
-	private final Properties prop = new Properties();
 	private static final Logger logger = LogManager.getLogger(Server.class);
 
 	/**
@@ -163,10 +161,6 @@ public class Server {
 	 */
 	public void load() {
 		isRunning = true;
-	}
-
-	public Properties getProp() {
-		return prop;
 	}
 
 	public MonitoringAlert getMonitoringAlert() {

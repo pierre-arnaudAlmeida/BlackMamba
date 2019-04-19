@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Properties;
 import java.util.ResourceBundle;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -56,7 +55,6 @@ public class MonitoringAlert {
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private List<Sensor> listSensorDown = new ArrayList<Sensor>();
 	private static final Logger logger = LogManager.getLogger(MonitoringAlert.class);
-	private final Properties prop = new Properties();
 	private ResourceBundle rs = ResourceBundle.getBundle("alert");
 
 	public MonitoringAlert(JDBCConnectionPool pool) {
@@ -106,10 +104,13 @@ public class MonitoringAlert {
 
 		getAllSensor();
 		for (Sensor sensors : listSensor) {
-			if (sensors.getSensorState() == true && (formater.format(sensors.getStartActivity()).compareTo(formater.format(beforeDate)) >= 0) && (formater.format(sensors.getStartActivity()).compareTo(formater.format(afterDate)) <= 0)) {
+			if (sensors.getSensorState() == true
+					&& (formater.format(sensors.getStartActivity()).compareTo(formater.format(beforeDate)) >= 0)
+					&& (formater.format(sensors.getStartActivity()).compareTo(formater.format(afterDate)) <= 0)) {
 				numberOfMessages = 0;
 				for (Message alerts : listMessage) {
-					if ((alerts.getIdSensor() == sensors.getIdSensor()) && (formater.format(alerts.getAlertDate()).compareTo(formater.format(afterDate)) <= 0)) {
+					if ((alerts.getIdSensor() == sensors.getIdSensor())
+							&& (formater.format(alerts.getAlertDate()).compareTo(formater.format(afterDate)) <= 0)) {
 						numberOfMessages++;
 					}
 				}
