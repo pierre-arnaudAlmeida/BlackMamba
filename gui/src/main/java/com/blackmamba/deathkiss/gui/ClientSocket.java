@@ -90,7 +90,7 @@ public class ClientSocket {
 				case "FIND ALL":
 					response = "{ \"request\" : \"FIND ALL\", \"table\" : \"" + this.table + "\" }";
 					break;
-				case "GET ALERT"://TODO a supprimer apres test
+				case "GET ALERT":
 					response = "{ \"request\" : \"GET ALERT\", \"table\" : \"" + this.table + "\" }";
 					break;
 				default:
