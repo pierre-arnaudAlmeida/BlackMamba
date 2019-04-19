@@ -12,9 +12,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 import java.util.ResourceBundle;
-
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -64,7 +62,6 @@ public class TabListSensor extends JPanel {
 	private DefaultListModel<String> tableModel;
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private static final Logger logger = LogManager.getLogger(TabListSensor.class);
-	private final Properties prop = new Properties();
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
 	public TabListSensor() {

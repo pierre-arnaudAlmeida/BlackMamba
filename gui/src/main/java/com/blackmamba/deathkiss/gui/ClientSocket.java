@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.Properties;
 import java.util.ResourceBundle;
 
 import org.apache.logging.log4j.Level;
@@ -34,7 +33,6 @@ public class ClientSocket {
 	private String host;
 	private static String jsonString;
 	private static Employee emp = new Employee();
-	private final Properties prop = new Properties();
 	private static final Logger logger = LogManager.getLogger(ClientSocket.class);
 
 	public ClientSocket() {
@@ -188,10 +186,6 @@ public class ClientSocket {
 	 */
 	public static void setJsonString(String jsonString) {
 		ClientSocket.jsonString = jsonString;
-	}
-
-	public Properties getProp() {
-		return prop;
 	}
 
 	public static Employee getEmp() {

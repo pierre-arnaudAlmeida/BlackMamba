@@ -15,9 +15,7 @@ import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 import java.util.ResourceBundle;
-
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -88,7 +86,6 @@ public class TabSensor extends JPanel {
 	private List<Sensor> listSearchSensor = new ArrayList<Sensor>();
 	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
 	private static final Logger logger = LogManager.getLogger(TabSensor.class);
-	private final Properties prop = new Properties();
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
 	public TabSensor() {
@@ -959,6 +956,7 @@ public class TabSensor extends JPanel {
 			logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
 		}
 		listM.removeAllElements();
+		listM.addElement("Tout les capteurs");
 		for (Sensor sensors : listSensor) {
 			listM.addElement(sensors.getIdSensor() + "# " + sensors.getTypeSensor() + " ," + sensors.getSensorState()
 					+ " ," + sensors.getIdCommonArea());

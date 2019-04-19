@@ -45,7 +45,6 @@ public class Frame extends JFrame {
 	private Thread threadAlert;
 	private List<Message> listAlert = new ArrayList<Message>();
 	private static final Logger logger = LogManager.getLogger(Frame.class);
-	private final Properties prop = new Properties();
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
 	public Frame(int idEmployee) {
@@ -135,7 +134,7 @@ public class Frame extends JFrame {
 			}
 		}));
 
-		threadAlert.start();
+		//threadAlert.start();
 		threadFrame.start();
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**

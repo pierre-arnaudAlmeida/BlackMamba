@@ -40,7 +40,6 @@ public class MainServerGUI extends JFrame {
 	private JButton launchFake;
 	private JButton stop;
 	private Timer timer1;
-	private final Properties prop = new Properties();
 	private static final Logger logger = LogManager.getLogger(MainServerGUI.class);
 
 	/**
@@ -106,7 +105,7 @@ public class MainServerGUI extends JFrame {
 
 					timer1 = new Timer(delais, tache_timer);
 					timer1.start();
-					//ts.treatment();// TODO
+					// ts.treatment();// TODO
 				} else {
 					logger.log(Level.INFO, "Server already launch");
 				}
@@ -199,9 +198,5 @@ public class MainServerGUI extends JFrame {
 	public static void main(String[] args) {
 		MainServerGUI frame = new MainServerGUI();
 		frame.setVisible(true);
-	}
-
-	public Properties getProp() {
-		return prop;
 	}
 }

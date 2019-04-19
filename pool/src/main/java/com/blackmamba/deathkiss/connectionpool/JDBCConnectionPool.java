@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Properties;
 import java.util.ResourceBundle;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -29,7 +28,6 @@ public class JDBCConnectionPool {
 	private int maxConnection;
 	private int numberConnection;
 	private boolean busy;
-	private final Properties prop = new Properties();
 	private static final Logger logger = LogManager.getLogger(JDBCConnectionPool.class);
 	private List<Connection> availableConnections;
 	private List<Connection> availableConnectionsArrayList;
@@ -185,9 +183,5 @@ public class JDBCConnectionPool {
 	 */
 	public void setMaxConnection(int maxConnection) {
 		this.maxConnection = maxConnection;
-	}
-
-	public Properties getProp() {
-		return prop;
 	}
 }
