@@ -150,36 +150,6 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		this.setBackground(color);
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public void updateListSensor() {
 		sensor = new Sensor();
 		sensor.setIdCommonArea(0);
@@ -236,6 +206,39 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	public void setThreadMapSensor(Thread threadMapSensor) {
 		this.threadMapSensor = threadMapSensor;
 	}
+	
+	
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
 
 //	  public void paint(Graphics g) {
 //		    int xpoints[] = {25, 145, 25, 145, 25};

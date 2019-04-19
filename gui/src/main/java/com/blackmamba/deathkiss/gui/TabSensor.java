@@ -1013,6 +1013,35 @@ public class TabSensor extends JPanel {
 	public void ActualizationListSensor(List<Message> list) {
 		// TODO
 		// Keita Raymond
+		// Utiliser alertState et idSensor
+		
+		requestType = "READ ALL";
+		sensor = new Sensor();
+		table = "Sensor";
+		objectMapper = new ObjectMapper();
+//
+//		try {
+//			jsonString = "READ ALL";
+//			new ClientSocket(requestType, jsonString, table);
+//			jsonString = ClientSocket.getJson();
+//			Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
+//			listSensor = Arrays.asList(sensors);
+//			logger.log(Level.INFO, "Find Sensor data succed");
+//		} catch (Exception e1) {
+//			logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
+//		}
+
+		listM.removeAllElements();
+		for (Message messages : listMessage) {
+			if (!messages.getAlertState().equals(sensor.getAlertState())) {
+
+				listM.addElement(messages.getIdSensor() + "# " + messages.getAlertState() );
+			}
+		}
+		if (listM.isEmpty() && (!listSensor.isEmpty())) {
+			updateListSensor();
+		}
+
 	}
 
 	public Thread getThreadSensor() {
