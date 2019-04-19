@@ -29,7 +29,6 @@ public class JDBCConnectionPool {
 	private int maxConnection;
 	private int numberConnection;
 	private boolean busy;
-	private final Properties prop = new Properties();
 	private static final Logger logger = LogManager.getLogger(JDBCConnectionPool.class);
 	private List<Connection> availableConnections;
 	private List<Connection> availableConnectionsArrayList;
@@ -185,9 +184,5 @@ public class JDBCConnectionPool {
 	 */
 	public void setMaxConnection(int maxConnection) {
 		this.maxConnection = maxConnection;
-	}
-
-	public Properties getProp() {
-		return prop;
 	}
 }

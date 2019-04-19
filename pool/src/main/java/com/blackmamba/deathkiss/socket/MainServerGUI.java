@@ -40,7 +40,7 @@ public class MainServerGUI extends JFrame {
 	private JButton launchFake;
 	private JButton stop;
 	private Timer timer1;
-	private final Properties prop = new Properties();
+	//private final Properties prop = new Properties();
 	private static final Logger logger = LogManager.getLogger(MainServerGUI.class);
 
 	/**
@@ -199,9 +199,5 @@ public class MainServerGUI extends JFrame {
 	public static void main(String[] args) {
 		MainServerGUI frame = new MainServerGUI();
 		frame.setVisible(true);
-	}
-
-	public Properties getProp() {
-		return prop;
 	}
 }
