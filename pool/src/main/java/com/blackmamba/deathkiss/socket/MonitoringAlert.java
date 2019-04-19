@@ -56,7 +56,7 @@ public class MonitoringAlert {
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private List<Sensor> listSensorDown = new ArrayList<Sensor>();
 	private static final Logger logger = LogManager.getLogger(MonitoringAlert.class);
-	//private final Properties prop = new Properties();
+	private final Properties prop = new Properties();
 	private ResourceBundle rs = ResourceBundle.getBundle("alert");
 
 	public MonitoringAlert(JDBCConnectionPool pool) {
@@ -93,10 +93,7 @@ public class MonitoringAlert {
 		}
 	}
 
-	/**
-	 * Check every 30 minutes if the sensor have send a message to the system, and
-	 * if they did'nt send it's because he is breakdown
-	 */
+	// Fonctionne TODO
 	public void verifySensorMessageBeforeActivity() {
 		curDate = new Date();
 		calBefore = Calendar.getInstance();

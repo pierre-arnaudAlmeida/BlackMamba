@@ -33,7 +33,7 @@ public class Server {
 	private Connection connectionGived;
 	private Socket client;
 	private MonitoringAlert monitoringAlert;
-	// private final Properties prop = new Properties();
+	private final Properties prop = new Properties();
 	private static final Logger logger = LogManager.getLogger(Server.class);
 
 	/**
@@ -42,7 +42,8 @@ public class Server {
 	public Server() {
 		ResourceBundle rs = ResourceBundle.getBundle("config");
 		try {
-			server = new ServerSocket(Integer.parseInt(rs.getString("server.default.port")), 100, InetAddress.getByName(rs.getString("server.default.host")));
+			server = new ServerSocket(Integer.parseInt(rs.getString("server.default.port")), 100,
+					InetAddress.getByName(rs.getString("server.default.host")));
 		} catch (UnknownHostException e) {
 			logger.log(Level.INFO, "IP Host dont find " + e.getClass().getCanonicalName());
 		} catch (IOException e) {
@@ -162,6 +163,10 @@ public class Server {
 	 */
 	public void load() {
 		isRunning = true;
+	}
+
+	public Properties getProp() {
+		return prop;
 	}
 
 	public MonitoringAlert getMonitoringAlert() {
