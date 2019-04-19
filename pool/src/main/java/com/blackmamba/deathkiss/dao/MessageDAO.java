@@ -10,9 +10,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import com.blackmamba.deathkiss.entity.AlertState;
 import com.blackmamba.deathkiss.entity.Message;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -46,8 +48,9 @@ public class MessageDAO extends DAO<Message> {
 			Statement st = con.createStatement();
 			Message message = objectMapper.readValue(jsonString, Message.class);
 			java.sql.Date sqlDate = new java.sql.Date(message.getAlertDate().getTime());
-			request = "insert into message (type_alerte,id_capteur,date_alerte) values ('" + message.getAlertState()
-					+ "','" + message.getIdSensor() + "','" + sqlDate + ")";
+			request = "insert into message (type_alerte,id_capteur,date_alerte,seuil) values ('"
+					+ message.getAlertState() + "','" + message.getIdSensor() + "','" + sqlDate + "', '"
+					+ message.getThreshold() + "')";
 			st.execute(request);
 			logger.log(Level.INFO, "Message succesfully inserted in BDD ");
 			return true;
@@ -82,8 +85,9 @@ public class MessageDAO extends DAO<Message> {
 			Statement st = con.createStatement();
 			Message message = objectMapper.readValue(jsonString, Message.class);
 			java.sql.Date sqlDate = new java.sql.Date(message.getAlertDate().getTime());
-			request = "UPDATE message SET type_alerte = '" + message.getAlertState() + "', id_capteur = '"
-					+ message.getIdSensor() + "', date_alerte = '" + sqlDate;
+			request = "UPDATE message SET type_alert = '" + message.getAlertState() + "', id_capteur = '"
+					+ message.getIdSensor() + "', date_alerte = '" + sqlDate + "', seuil='" + message.getThreshold()
+					+ "'";
 			st.execute(request);
 			logger.log(Level.INFO, "Message succesfully update in BDD");
 			return true;
@@ -111,6 +115,8 @@ public class MessageDAO extends DAO<Message> {
 				message.setAlertState(AlertState.ALERT);
 			} else if (result.getObject(2).toString().equals("DOWN")) {
 				message.setAlertState(AlertState.DOWN);
+			} else if (result.getObject(2).toString().equals("OVER")) {
+				message.setAlertState(AlertState.OVER);
 			} else
 				message.setAlertState(null);
 			message.setIdSensor(Integer.parseInt(result.getObject(3).toString()));
@@ -118,6 +124,7 @@ public class MessageDAO extends DAO<Message> {
 			dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 			alertDate = dateFormat.parse(result.getObject(4).toString());
 			message.setAlertDate(alertDate);
+			message.setThreshold(result.getObject(5).toString());
 
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(message);
@@ -139,8 +146,9 @@ public class MessageDAO extends DAO<Message> {
 		try {
 
 			Statement st = con.createStatement();
-			Message message = objectMapper.readValue(jsonString, Message.class);
-			request = "SELECT * FROM message"; // where date_alerte >=" + message.getAlertDate() + ";";
+			// Message message = objectMapper.readValue(jsonString, Message.class);
+			request = "SELECT * FROM message"; // where date_alerte >=" + message.getAlertDate() + ";"; TODO mettre la
+												// date dans le read all
 			result = st.executeQuery(request);
 			while (result.next()) {
 				message2 = new Message();
@@ -151,13 +159,16 @@ public class MessageDAO extends DAO<Message> {
 					message2.setAlertState(AlertState.ALERT);
 				} else if (result.getObject(2).toString().equals("DOWN")) {
 					message2.setAlertState(AlertState.DOWN);
-				}
+				} else if (result.getObject(2).toString().equals("OVER")) {
+					message2.setAlertState(AlertState.OVER);
+				} else
+					message2.setAlertState(null);
 				message2.setIdSensor(Integer.parseInt(result.getObject(3).toString()));
 
 				dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 				alertDate = dateFormat.parse(result.getObject(4).toString());
 				message2.setAlertDate(alertDate);
-
+				message2.setThreshold(result.getObject(5).toString());
 				listMessage.add(message2);
 			}
 			jsonString = objectMapper.writeValueAsString(listMessage);

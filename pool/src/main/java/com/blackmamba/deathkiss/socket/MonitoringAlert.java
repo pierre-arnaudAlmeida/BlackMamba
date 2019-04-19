@@ -69,29 +69,17 @@ public class MonitoringAlert {
 	// envoyer des infos comme la temperature l taux de dioxyde carbone et ensuite
 	// c'est ca q(uon choisi l'&actrion a faire
 	public void alertTreatment() {
-		Message x = new Message();
-		listAlert.add(x);
-		listAlert.add(x);
 		for (Message messages : listMessage) {
-			if (messages.getAlertState() == AlertState.ALERT) {
-				getSensor(messages.getIdSensor());
-				if (sensor.getSensorState() == true) {
-					sensor.setAlertState(AlertState.ALERT);
-					updateSensorAlertState(sensor);
-				}
-			} else if (messages.getAlertState() == AlertState.DOWN) {
-				getSensor(messages.getIdSensor());
-				if (sensor.getSensorState() == true) {
-					sensor.setAlertState(AlertState.DOWN);
-					updateSensorAlertState(sensor);
-					// TODO quand il est en alerte on l'ajoute dans la listAlerte
-					// et on supprime tout les messages de la listMessage avec l'idSensor
-				}
-			}
+
+			// TODO quand il est en alerte on l'ajoute dans la listAlerte
+			// et on supprime tout les messages de la listMessage avec l'idSensor
 		}
 	}
 
-	// Fonctionne TODO
+	/**
+	 * Check every 30 minutes if the sensor have send a message to the system, and
+	 * if they did'nt send it's because he is breakdown
+	 */
 	public void verifySensorMessageBeforeActivity() {
 		curDate = new Date();
 		calBefore = Calendar.getInstance();
@@ -115,8 +103,18 @@ public class MonitoringAlert {
 					}
 				}
 				if (numberOfMessages == 0) {
+					message = new Message();
+					message.setAlertDate(curDate);
+					message.setAlertState(AlertState.DOWN);
+					message.setThreshold("down");
+					message.setIdMessage(0);
+					message.setIdSensor(sensors.getIdSensor());
+					listAlert.add(message);
 					sensors.setAlertState(AlertState.DOWN);
 					updateSensorAlertState(sensors);
+					addHistorical(sensors);
+					// TODO ajouter au message d'alerte dans la base
+
 				}
 			}
 		}
@@ -155,13 +153,20 @@ public class MonitoringAlert {
 					}
 					if (!listSensorDown.isEmpty()) {
 						if (listSensorDown.size() == listSensor.size()) {
-							curDate = new Date();
 							message = new Message();
 							message.setIdMessage(0);
 							message.setIdSensor(0);
 							message.setAlertState(AlertState.OVER);
+							message.setThreshold("over");
 							message.setAlertDate(currentDate);
 							listAlert.add(message);
+
+							sensor = new Sensor();
+							sensor.setAlertState(AlertState.OVER);
+							sensor.setIdSensor(0);
+							sensor.setSensorState(true);
+							addHistorical(sensor);
+							// TODO ajouter a l'historique de la base message
 						} else {
 							// TODO remplir la list d'alerte a envoyer au client avec des valeurs spéciale
 							// pour détecter rapidement la grosse panne
@@ -170,17 +175,18 @@ public class MonitoringAlert {
 							// si on a un certain pourcentage de capteurs down on peut dire que c'est le
 							// zbeul dans la maison de retraite
 							for (Sensor sensors : listSensorDown) {
-								curDate = new Date();
 								message = new Message();
 								message.setIdMessage(0);
 								message.setIdSensor(sensors.getIdSensor());
 								message.setAlertState(AlertState.DOWN);
+								message.setThreshold("down");
 								message.setAlertDate(currentDate);
 
 								listAlert.add(message);
 								sensors.setAlertState(AlertState.DOWN);
 								updateSensorAlertState(sensors);
 								addHistorical(sensors);
+								// TODO ajouter dans la base message
 							}
 						}
 					}

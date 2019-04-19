@@ -10,15 +10,17 @@ import java.util.Date;
 public class Message {
 
 	private int idMessage = 0;
+	private String threshold = null;
 	private AlertState alertState = null;
 	private int idSensor = 0;
 	private Date alertDate = null;
 
-	public Message(int idMessage, AlertState alertState, int idSensor, Date alertDate) {
+	public Message(int idMessage, String threshold, int idSensor, Date alertDate, AlertState alertState) {
 		this.idMessage = idMessage;
-		this.alertState = alertState;
+		this.threshold = threshold;
 		this.idSensor = idSensor;
 		this.alertDate = alertDate;
+		this.alertState = alertState;
 
 	}
 
@@ -31,14 +33,6 @@ public class Message {
 
 	public void setIdMessage(int idMessage) {
 		this.idMessage = idMessage;
-	}
-
-	public AlertState getAlertState() {
-		return alertState;
-	}
-
-	public void setAlertState(AlertState alertState) {
-		this.alertState = alertState;
 	}
 
 	public int getIdSensor() {
@@ -55,5 +49,21 @@ public class Message {
 
 	public void setAlertDate(Date alertDate) {
 		this.alertDate = alertDate;
+	}
+
+	public String getThreshold() {
+		return threshold;
+	}
+
+	public void setThreshold(String threshold) {
+		this.threshold = threshold;
+	}
+
+	public AlertState getAlertState() {
+		return alertState;
+	}
+
+	public void setAlertState(AlertState alertState) {
+		this.alertState = alertState;
 	}
 }
