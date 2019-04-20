@@ -18,10 +18,11 @@ public class Sensor {
 	private Sensitivity maxSensitivity = null;
 	private Time startActivity = null;
 	private Time endActivity = null;
-	private String parameter = null;
+	private int thresholdMin = 0;
+	private int thresholdMax = 0;
 
 	public Sensor(int idSensor, SensorType typeSensor, boolean sensorState, int idCommonArea, AlertState alertState,
-			Sensitivity maxSensitivity, Time startActivity, Time endActivity, String parameter) {
+			Sensitivity maxSensitivity, Time startActivity, Time endActivity, int thresholdMin, int thresholdMax) {
 		super();
 		this.idSensor = idSensor;
 		this.typeSensor = typeSensor;
@@ -31,7 +32,8 @@ public class Sensor {
 		this.maxSensitivity = maxSensitivity;
 		this.startActivity = startActivity;
 		this.endActivity = endActivity;
-		this.parameter = parameter;
+		this.thresholdMin = thresholdMin;
+		this.thresholdMax = thresholdMax;
 	}
 
 	public Sensor() {
@@ -101,12 +103,32 @@ public class Sensor {
 		this.endActivity = endActivity;
 	}
 
-	public String getParameter() {
-		return parameter;
+	/**
+	 * @return the thresholdMin
+	 */
+	public int getThresholdMin() {
+		return thresholdMin;
 	}
 
-	public void setParameter(String parameter) {
-		this.parameter = parameter;
+	/**
+	 * @param thresholdMin the thresholdMin to set
+	 */
+	public void setThresholdMin(int thresholdMin) {
+		this.thresholdMin = thresholdMin;
+	}
+
+	/**
+	 * @return the thresholdMax
+	 */
+	public int getThresholdMax() {
+		return thresholdMax;
+	}
+
+	/**
+	 * @param thresholdMax the thresholdMax to set
+	 */
+	public void setThresholdMax(int thresholdMax) {
+		this.thresholdMax = thresholdMax;
 	}
 
 }

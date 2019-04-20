@@ -10,14 +10,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import com.blackmamba.deathkiss.connectionpool.DataSource;
 import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
 import com.blackmamba.deathkiss.dao.DAO;
 import com.blackmamba.deathkiss.dao.SensorDAO;
 import com.blackmamba.deathkiss.dao.SensorHistoricalDAO;
+import com.blackmamba.deathkiss.entity.Alert;
 import com.blackmamba.deathkiss.entity.AlertState;
 import com.blackmamba.deathkiss.entity.Message;
 import com.blackmamba.deathkiss.entity.Sensor;
@@ -34,7 +37,7 @@ public class MonitoringAlert {
 
 	private String requestType;
 	private String jsonString;
-	private Message message;
+	private Alert alert;
 	private Sensor sensor;
 	private SensorHistorical sensorHistorical;
 	private Date curDate;
@@ -50,7 +53,7 @@ public class MonitoringAlert {
 	private Thread threadVerifySensorActivity;
 	private Connection connectionGived;
 	private boolean result;
-	private List<Message> listAlert = new ArrayList<Message>();
+	private List<Alert> listAlert = new ArrayList<Alert>();
 	private List<Message> listMessage = new ArrayList<Message>();
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private List<Sensor> listSensorDown = new ArrayList<Sensor>();
@@ -69,10 +72,20 @@ public class MonitoringAlert {
 	// envoyer des infos comme la temperature l taux de dioxyde carbone et ensuite
 	// c'est ca q(uon choisi l'&actrion a faire
 	public void alertTreatment() {
-		for (Message messages : listMessage) {
-
-			// TODO quand il est en alerte on l'ajoute dans la listAlerte
-			// et on supprime tout les messages de la listMessage avec l'idSensor
+		int nbAlert;
+		getAllSensor();
+		for (Sensor sensors : listSensor) {
+			nbAlert = 0;
+			for (Message messages : listMessage) {
+				if (sensors.getIdSensor() == messages.getIdSensor()) {
+					if ((sensors.getThresholdMin() >= messages.getThreshold())
+							|| sensors.getThresholdMax() <= messages.getThreshold()) {
+						nbAlert++;
+					}
+				}
+				// TODO quand il est en alerte on l'ajoute dans la listAlerte
+				// et on supprime tout les messages de la listMessage avec l'idSensor
+			}
 		}
 	}
 
@@ -103,13 +116,12 @@ public class MonitoringAlert {
 					}
 				}
 				if (numberOfMessages == 0) {
-					message = new Message();
-					message.setAlertDate(curDate);
-					message.setAlertState(AlertState.DOWN);
-					message.setThreshold("down");
-					message.setIdMessage(0);
-					message.setIdSensor(sensors.getIdSensor());
-					listAlert.add(message);
+					alert = new Alert();
+					alert.setAlertDate(curDate);
+					alert.setAlertState(AlertState.DOWN);
+					alert.setIdAlert(0);
+					alert.setIdSensor(sensors.getIdSensor());
+					listAlert.add(alert);
 					sensors.setAlertState(AlertState.DOWN);
 					updateSensorAlertState(sensors);
 					addHistorical(sensors);
@@ -153,13 +165,12 @@ public class MonitoringAlert {
 					}
 					if (!listSensorDown.isEmpty()) {
 						if (listSensorDown.size() == listSensor.size()) {
-							message = new Message();
-							message.setIdMessage(0);
-							message.setIdSensor(0);
-							message.setAlertState(AlertState.OVER);
-							message.setThreshold("over");
-							message.setAlertDate(currentDate);
-							listAlert.add(message);
+							alert = new Alert();
+							alert.setAlertDate(currentDate);
+							alert.setAlertState(AlertState.OVER);
+							alert.setIdAlert(0);
+							alert.setIdSensor(0);
+							listAlert.add(alert);
 
 							sensor = new Sensor();
 							sensor.setAlertState(AlertState.OVER);
@@ -175,14 +186,12 @@ public class MonitoringAlert {
 							// si on a un certain pourcentage de capteurs down on peut dire que c'est le
 							// zbeul dans la maison de retraite
 							for (Sensor sensors : listSensorDown) {
-								message = new Message();
-								message.setIdMessage(0);
-								message.setIdSensor(sensors.getIdSensor());
-								message.setAlertState(AlertState.DOWN);
-								message.setThreshold("down");
-								message.setAlertDate(currentDate);
-
-								listAlert.add(message);
+								alert = new Alert();
+								alert.setAlertDate(currentDate);
+								alert.setAlertState(AlertState.DOWN);
+								alert.setIdAlert(0);
+								alert.setIdSensor(sensors.getIdSensor());
+								listAlert.add(alert);
 								sensors.setAlertState(AlertState.DOWN);
 								updateSensorAlertState(sensors);
 								addHistorical(sensors);
@@ -289,6 +298,10 @@ public class MonitoringAlert {
 		list.removeAll(list);
 	}
 
+	public void cleanListAlert(List<Alert> list) {
+		list.removeAll(list);
+	}
+
 	public void cleanListSensor(List<Sensor> list) {
 		list.removeAll(list);
 	}
@@ -313,11 +326,11 @@ public class MonitoringAlert {
 		this.threadVerifySensorActivity = threadVerifySensorActivity;
 	}
 
-	public List<Message> getListAlert() {
+	public List<Alert> getListAlert() {
 		return listAlert;
 	}
 
-	public void setListAlert(List<Message> listAlert) {
+	public void setListAlert(List<Alert> listAlert) {
 		this.listAlert = listAlert;
 	}
 

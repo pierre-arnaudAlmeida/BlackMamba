@@ -10,12 +10,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.blackmamba.deathkiss.entity.AlertState;
 import com.blackmamba.deathkiss.entity.Message;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -48,9 +45,8 @@ public class MessageDAO extends DAO<Message> {
 			Statement st = con.createStatement();
 			Message message = objectMapper.readValue(jsonString, Message.class);
 			java.sql.Date sqlDate = new java.sql.Date(message.getAlertDate().getTime());
-			request = "insert into message (type_alerte,id_capteur,date_alerte,seuil) values ('"
-					+ message.getAlertState() + "','" + message.getIdSensor() + "','" + sqlDate + "', '"
-					+ message.getThreshold() + "')";
+			request = "insert into message (id_capteur,date_alerte,seuil) values ('" + message.getIdSensor() + "','"
+					+ sqlDate + "', '" + message.getThreshold() + "')";
 			st.execute(request);
 			logger.log(Level.INFO, "Message succesfully inserted in BDD ");
 			return true;
@@ -85,9 +81,8 @@ public class MessageDAO extends DAO<Message> {
 			Statement st = con.createStatement();
 			Message message = objectMapper.readValue(jsonString, Message.class);
 			java.sql.Date sqlDate = new java.sql.Date(message.getAlertDate().getTime());
-			request = "UPDATE message SET type_alert = '" + message.getAlertState() + "', id_capteur = '"
-					+ message.getIdSensor() + "', date_alerte = '" + sqlDate + "', seuil='" + message.getThreshold()
-					+ "'";
+			request = "UPDATE message SET id_capteur = '" + message.getIdSensor() + "', date_alerte = '" + sqlDate
+					+ "', seuil='" + message.getThreshold() + "'";
 			st.execute(request);
 			logger.log(Level.INFO, "Message succesfully update in BDD");
 			return true;
@@ -109,22 +104,12 @@ public class MessageDAO extends DAO<Message> {
 			result.next();
 
 			message.setIdMessage(Integer.parseInt(result.getObject(1).toString()));
-			if (result.getObject(2).toString().equals("NORMAL")) {
-				message.setAlertState(AlertState.NORMAL);
-			} else if (result.getObject(2).toString().equals("ALERT")) {
-				message.setAlertState(AlertState.ALERT);
-			} else if (result.getObject(2).toString().equals("DOWN")) {
-				message.setAlertState(AlertState.DOWN);
-			} else if (result.getObject(2).toString().equals("OVER")) {
-				message.setAlertState(AlertState.OVER);
-			} else
-				message.setAlertState(null);
-			message.setIdSensor(Integer.parseInt(result.getObject(3).toString()));
+			message.setIdSensor(Integer.parseInt(result.getObject(2).toString()));
 
 			dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-			alertDate = dateFormat.parse(result.getObject(4).toString());
+			alertDate = dateFormat.parse(result.getObject(3).toString());
 			message.setAlertDate(alertDate);
-			message.setThreshold(result.getObject(5).toString());
+			message.setThreshold(Integer.parseInt(result.getObject(4).toString()));
 
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(message);
@@ -153,22 +138,12 @@ public class MessageDAO extends DAO<Message> {
 			while (result.next()) {
 				message2 = new Message();
 				message2.setIdMessage(Integer.parseInt(result.getObject(1).toString()));
-				if (result.getObject(2).toString().equals("NORMAL")) {
-					message2.setAlertState(AlertState.NORMAL);
-				} else if (result.getObject(2).toString().equals("ALERT")) {
-					message2.setAlertState(AlertState.ALERT);
-				} else if (result.getObject(2).toString().equals("DOWN")) {
-					message2.setAlertState(AlertState.DOWN);
-				} else if (result.getObject(2).toString().equals("OVER")) {
-					message2.setAlertState(AlertState.OVER);
-				} else
-					message2.setAlertState(null);
-				message2.setIdSensor(Integer.parseInt(result.getObject(3).toString()));
+				message2.setIdSensor(Integer.parseInt(result.getObject(2).toString()));
 
 				dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-				alertDate = dateFormat.parse(result.getObject(4).toString());
+				alertDate = dateFormat.parse(result.getObject(3).toString());
 				message2.setAlertDate(alertDate);
-				message2.setThreshold(result.getObject(5).toString());
+				message2.setThreshold(Integer.parseInt(result.getObject(4).toString()));
 				listMessage.add(message2);
 			}
 			jsonString = objectMapper.writeValueAsString(listMessage);

@@ -90,7 +90,7 @@ public class RequestHandler implements Runnable {
 							if (!response.equals("")) {
 								objectMapper = new ObjectMapper();
 								jsonString = objectMapper.writeValueAsString(monitoringAlert.getListAlert());
-								monitoringAlert.cleanListMessage(monitoringAlert.getListAlert());
+								monitoringAlert.cleanListAlert(monitoringAlert.getListAlert());
 								writer.write(jsonString);
 								writer.flush();
 								logger.log(Level.INFO, "Response send to client");
@@ -108,6 +108,8 @@ public class RequestHandler implements Runnable {
 								objectMapper = new ObjectMapper();
 								Message messages = objectMapper.readValue(jsonString, Message.class);
 								monitoringAlert.addListMessage(messages, monitoringAlert.getListMessage());
+								DAO<Message> messageDao = new MessageDAO(connection);
+								setResult(((MessageDAO) messageDao).create(jsonString));
 								logger.log(Level.INFO, "Message reveived to client");
 							} else {
 								logger.log(Level.INFO, "Request not recognized");

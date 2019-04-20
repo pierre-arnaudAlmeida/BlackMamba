@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 import java.util.ResourceBundle;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -12,8 +11,8 @@ import javax.swing.JTabbedPane;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.blackmamba.deathkiss.entity.Alert;
 import com.blackmamba.deathkiss.entity.Employee;
-import com.blackmamba.deathkiss.entity.Message;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -43,7 +42,7 @@ public class Frame extends JFrame {
 	private ObjectMapper objectMapper;
 	private Thread threadFrame;
 	private Thread threadAlert;
-	private List<Message> listAlert = new ArrayList<Message>();
+	private List<Alert> listAlert = new ArrayList<Alert>();
 	private static final Logger logger = LogManager.getLogger(Frame.class);
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
@@ -134,7 +133,7 @@ public class Frame extends JFrame {
 			}
 		}));
 
-		//threadAlert.start();
+		// threadAlert.start();
 		threadFrame.start();
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
@@ -175,8 +174,8 @@ public class Frame extends JFrame {
 			jsonString = "GET ALERT";
 			new ClientSocket(requestType, jsonString, table);
 			jsonString = ClientSocket.getJson();
-			Message[] messages = objectMapper.readValue(jsonString, Message[].class);
-			listAlert = Arrays.asList(messages);
+			Alert[] alerts = objectMapper.readValue(jsonString, Alert[].class);
+			listAlert = Arrays.asList(alerts);
 			logger.log(Level.INFO, "Find Messages datas succed");
 		} catch (Exception e1) {
 			logger.log(Level.INFO, "Impossible to parse in JSON Messages datas " + e1.getClass().getCanonicalName());
