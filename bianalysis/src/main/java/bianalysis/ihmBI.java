@@ -21,6 +21,8 @@ import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 import java.awt.event.ContainerAdapter;
 import java.awt.event.ContainerEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,6 +33,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import com.toedter.calendar.JDateChooser;
 
 /**
  * 
@@ -64,11 +67,15 @@ public class ihmBI extends JFrame {
 	private JButton btnRecherche;
 	private JButton btnDeconnexion;
 	private JButton btnTemperature;
+	private JButton btnDate; 
 	private static final Logger logger = LogManager.getLogger(TabSensor.class);
 	private JLabel lblResultat;
 	private JLabel lbl;
 	private JTextField tfNombreCapteurTemp;
-	
+	private JDateChooser dateChooser;
+	private JDateChooser dateChooser_1;
+	private JTextField tfDate;
+	private JTextField tfDate1;
 	
 
 	/**
@@ -214,6 +221,36 @@ public class ihmBI extends JFrame {
 					+ sensors.getSensorState() + " ," + sensors.getIdCommonArea());
 		}
 		contentPane.add(sc);
+		
+	    dateChooser = new JDateChooser();
+		dateChooser.setBounds(542, 346, 106, 28);
+		contentPane.add(dateChooser);
+		
+		dateChooser_1 = new JDateChooser();
+		dateChooser_1.setBounds(542, 386, 106, 28);
+		contentPane.add(dateChooser_1);
+		
+		JLabel lblNewLabel = new JLabel("Data Range from");
+		lblNewLabel.setBounds(337, 358, 124, 16);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblTo = new JLabel("to");
+		lblTo.setBounds(377, 386, 53, 16);
+		contentPane.add(lblTo);
+		
+		tfDate = new JTextField();
+		tfDate.setBounds(429, 346, 112, 28);
+		contentPane.add(tfDate);
+		tfDate.setColumns(10);
+		
+		btnDate = new JButton("GetDate");
+		btnDate.setBounds(698, 346, 89, 28);
+		contentPane.add(btnDate);
+		
+		tfDate1 = new JTextField();
+		tfDate1.setBounds(429, 386, 112, 28);
+		contentPane.add(tfDate1);
+		tfDate1.setColumns(10);
 		//contentPane.add(list);
 		
 
@@ -231,6 +268,16 @@ public class ihmBI extends JFrame {
 		}
 	});
 	
+		btnDate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+				DateFormat df1 = new SimpleDateFormat("dd-MM-yyyy");
+				
+				tfDate.setText(df.format(dateChooser.getDate()));
+				tfDate1.setText(df.format(dateChooser_1.getDate()));
+			}
+		});
 
 }
 	
