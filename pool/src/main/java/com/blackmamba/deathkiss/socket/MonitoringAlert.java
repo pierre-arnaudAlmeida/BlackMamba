@@ -43,11 +43,15 @@ public class MonitoringAlert {
 	private Date curDate;
 	private Date beforeDate;
 	private Date afterDate;
+	private Date firstAlertDate;
+	private Date lastAlertDate;
 	private Calendar calBefore;
 	private Calendar calAfter;
 	private ObjectMapper objectMapper;
 	private int numberOfMessages;
 	private int numberOfIteration;
+	private int nbAlert;
+	private long difference;
 	private SimpleDateFormat formater;
 	private JDBCConnectionPool pool;
 	private Thread threadVerifySensorActivity;
@@ -72,7 +76,6 @@ public class MonitoringAlert {
 	// envoyer des infos comme la temperature l taux de dioxyde carbone et ensuite
 	// c'est ca q(uon choisi l'&actrion a faire
 	public void alertTreatment() {
-		int nbAlert;
 		getAllSensor();
 		for (Sensor sensors : listSensor) {
 			nbAlert = 0;
@@ -80,11 +83,32 @@ public class MonitoringAlert {
 				if (sensors.getIdSensor() == messages.getIdSensor()) {
 					if ((sensors.getThresholdMin() >= messages.getThreshold())
 							|| sensors.getThresholdMax() <= messages.getThreshold()) {
+						if (nbAlert == 0) {
+							firstAlertDate = messages.getAlertDate();
+						}
+						lastAlertDate = messages.getAlertDate();
 						nbAlert++;
+					} else {
+						listMessage.remove(messages);
 					}
+					// trois date la premiere quand on recoit le premier message donc nbAlert=1
+					// ensuite a chaque message reçu étant une alerte alors on sauvegarde la date
+					// et a la fin de tout les messages on verifie avec une nouvelle date la date de
+					// fin de la liste
+					// si la différence entre les deux dates est inferieurs a 25 sec (25s000)
+
+					// si le message ne dépasse pas le seuil on peut le supprimer comme ca on a
+					// juste les alertes et si on le declare comme alerte on supprime tout les
+					// messages avec l'idSensor de du capteur
 				}
 				// TODO quand il est en alerte on l'ajoute dans la listAlerte
 				// et on supprime tout les messages de la listMessage avec l'idSensor
+				// ou tout les messages avec une date inferieurs a 2min
+			}
+			difference = firstAlertDate.getTime() - lastAlertDate.getTime();
+			if (nbAlert >= Integer.parseInt(rs.getString("nbOfAlertMessage"))
+					&& difference <= Integer.parseInt(rs.getString("timeBetweenAlert"))) {
+				// TODO le considerer comme une alerte
 			}
 		}
 	}
