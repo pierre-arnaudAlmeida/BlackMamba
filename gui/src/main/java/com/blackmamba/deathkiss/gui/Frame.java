@@ -133,7 +133,7 @@ public class Frame extends JFrame {
 			}
 		}));
 
-		// threadAlert.start();
+		threadAlert.start();
 		threadFrame.start();
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**

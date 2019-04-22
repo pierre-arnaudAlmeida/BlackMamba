@@ -205,8 +205,22 @@ public class SensorDAO extends DAO<Sensor> {
 
 			sensor.setStartActivity(Time.valueOf(result.getObject(7).toString()));
 			sensor.setEndActivity(Time.valueOf(result.getObject(8).toString()));
-			// sensor.setParameter(result.getObject(9).toString());TODO recuperer le
-			// seuilMinet seuilMax
+
+			String substring = result.getObject(9).toString();
+			int positionMin = substring.indexOf("seuilMin");
+			int positionMax = substring.indexOf("seuilMax");
+			if (positionMin > -1 && positionMax > -1) {
+				String thresholdMin = substring.substring(positionMin + 8, positionMax).trim();
+				sensor.setThresholdMin(Integer.parseInt(thresholdMin));
+				String thresholdMax = substring.substring(positionMax + 8).trim();
+				sensor.setThresholdMax(Integer.parseInt(thresholdMax));
+			} else if (positionMin > -1 && positionMax == -1) {
+				String thresholdMin = substring.substring(positionMin + 8).trim();
+				sensor.setThresholdMin(Integer.parseInt(thresholdMin));
+			} else if (positionMin == -1 && positionMax > -1) {
+				String thresholdMax = substring.substring(positionMax + 8).trim();
+				sensor.setThresholdMax(Integer.parseInt(thresholdMax));
+			}
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(sensor);
 			logger.log(Level.INFO, "Sensor succesfully find in BDD");
@@ -286,8 +300,23 @@ public class SensorDAO extends DAO<Sensor> {
 
 				sensor.setStartActivity(Time.valueOf(result.getObject(7).toString()));
 				sensor.setEndActivity(Time.valueOf(result.getObject(8).toString()));
-				// sensor.setParameter(result.getObject(9).toString());TODO recuperer le
-				// seuilMinet seuilMax
+
+				String substring = result.getObject(9).toString();
+				int positionMin = substring.indexOf("seuilMin");
+				int positionMax = substring.indexOf("seuilMax");
+				if (positionMin > -1 && positionMax > -1) {
+					String thresholdMin = substring.substring(positionMin + 8, positionMax).trim();
+					sensor.setThresholdMin(Integer.parseInt(thresholdMin));
+					String thresholdMax = substring.substring(positionMax + 8).trim();
+					sensor.setThresholdMax(Integer.parseInt(thresholdMax));
+				} else if (positionMin > -1 && positionMax == -1) {
+					String thresholdMin = substring.substring(positionMin + 8).trim();
+					sensor.setThresholdMin(Integer.parseInt(thresholdMin));
+				} else if (positionMin == -1 && positionMax > -1) {
+					String thresholdMax = substring.substring(positionMax + 8).trim();
+					sensor.setThresholdMax(Integer.parseInt(thresholdMax));
+				}
+
 				listSensor.add(sensor);
 			}
 			ObjectMapper obj = new ObjectMapper();
@@ -375,8 +404,23 @@ public class SensorDAO extends DAO<Sensor> {
 
 				sensor.setStartActivity(Time.valueOf(result.getObject(7).toString()));
 				sensor.setEndActivity(Time.valueOf(result.getObject(8).toString()));
-				// sensor.setParameter(result.getObject(9).toString());TODO recuperer le
-				// seuilMinet seuilMax
+
+				String substring = result.getObject(9).toString();
+				int positionMin = substring.indexOf("seuilMin");
+				int positionMax = substring.indexOf("seuilMax");
+				if (positionMin > -1 && positionMax > -1) {
+					String thresholdMin = substring.substring(positionMin + 8, positionMax).trim();
+					sensor.setThresholdMin(Integer.parseInt(thresholdMin));
+					String thresholdMax = substring.substring(positionMax + 8).trim();
+					sensor.setThresholdMax(Integer.parseInt(thresholdMax));
+				} else if (positionMin > -1 && positionMax == -1) {
+					String thresholdMin = substring.substring(positionMin + 8).trim();
+					sensor.setThresholdMin(Integer.parseInt(thresholdMin));
+				} else if (positionMin == -1 && positionMax > -1) {
+					String thresholdMax = substring.substring(positionMax + 8).trim();
+					sensor.setThresholdMax(Integer.parseInt(thresholdMax));
+				}
+
 				listSensor.add(sensor);
 			}
 			ObjectMapper obj = new ObjectMapper();

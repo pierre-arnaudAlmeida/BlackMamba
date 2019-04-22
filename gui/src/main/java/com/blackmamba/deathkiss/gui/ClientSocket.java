@@ -6,12 +6,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ResourceBundle;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.blackmamba.deathkiss.entity.Employee;
 
 /**
  * 
@@ -32,7 +29,6 @@ public class ClientSocket {
 	private String table;
 	private String host;
 	private static String jsonString;
-	private static Employee emp = new Employee();
 	private static final Logger logger = LogManager.getLogger(ClientSocket.class);
 
 	public ClientSocket() {
@@ -186,13 +182,5 @@ public class ClientSocket {
 	 */
 	public static void setJsonString(String jsonString) {
 		ClientSocket.jsonString = jsonString;
-	}
-
-	public static Employee getEmp() {
-		return emp;
-	}
-
-	public static void setEmp(Employee emp) {
-		ClientSocket.emp = emp;
 	}
 }
