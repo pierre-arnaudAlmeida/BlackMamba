@@ -23,6 +23,7 @@ import com.blackmamba.deathkiss.entity.AlertState;
 import com.blackmamba.deathkiss.entity.Message;
 import com.blackmamba.deathkiss.entity.Sensor;
 import com.blackmamba.deathkiss.entity.SensorHistorical;
+import com.blackmamba.deathkiss.entity.SensorType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -60,7 +61,8 @@ public class MonitoringAlert {
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private List<Sensor> listSensorDown = new ArrayList<Sensor>();
 	private static final Logger logger = LogManager.getLogger(MonitoringAlert.class);
-	private ResourceBundle rs = ResourceBundle.getBundle("alert");
+	private ResourceBundle rsAlert = ResourceBundle.getBundle("alert");
+	private ResourceBundle rsSensorDefaultParameters = ResourceBundle.getBundle("sensor_default_parameters");
 
 	public MonitoringAlert(JDBCConnectionPool pool) {
 		this.pool = pool;
@@ -69,34 +71,107 @@ public class MonitoringAlert {
 	public MonitoringAlert() {
 	}
 
-	// TODO commentaire
 	// TODO IA pour les alertes
+	/**
+	 * Verify if the messages send by the different sensor can be considarate to an
+	 * alert verify if the threshold have been reached and if they did'nt have an
+	 * threshold they use the default threshold of the sensor type then if they
+	 * considerate the messages to an alert they add an alert on alertList to be
+	 * send at Client
+	 */
 	public void alertTreatment() {
 		getAllSensor();
 		for (Sensor sensors : listSensor) {
 			nbAlert = 0;
 			for (Message messages : listMessage) {
 				if (sensors.getIdSensor() == messages.getIdSensor() && sensors.getSensorState() == true) {
-					if ((sensors.getThresholdMin() >= messages.getThreshold())
-							|| sensors.getThresholdMax() <= messages.getThreshold()) {
-						if (nbAlert == 0) {
-							firstAlertDate = messages.getAlertDate();
+					if (!(sensors.getThresholdMin() == 0 && sensors.getThresholdMax() == 0)) {
+						if ((sensors.getThresholdMin() >= messages.getThreshold())
+								|| sensors.getThresholdMax() <= messages.getThreshold()) {
+							if (nbAlert == 0) {
+								firstAlertDate = messages.getAlertDate();
+							}
+							lastAlertDate = messages.getAlertDate();
+							nbAlert++;
+							logger.log(Level.INFO, "Sensor : " + sensors.getIdSensor() + " on commonArea : "
+									+ sensors.getIdCommonArea() + "threshold reached, threshold minimum : "
+									+ sensors.getThresholdMin() + " sensor threshold : " + messages.getThreshold()
+									+ "threshold maximum : " + sensors.getThresholdMax());
+						} else {
+							listMessage.remove(messages);
 						}
-						lastAlertDate = messages.getAlertDate();
-						nbAlert++;
-						logger.log(Level.INFO,
-								"Sensor : " + sensors.getIdSensor() + " on commonArea : " + sensors.getIdCommonArea()
-										+ "threshold reached, threshold minimum : " + sensors.getThresholdMin()
-										+ " sensor threshold : " + messages.getThreshold() + "threshold maximum : "
-										+ sensors.getThresholdMax());
 					} else {
-						listMessage.remove(messages);
+						if (sensors.getTypeSensor().equals(SensorType.SMOKE)) {
+							sensors.setThresholdMin(
+									Integer.parseInt(rsSensorDefaultParameters.getString("smokeThresholdMin")));
+							sensors.setThresholdMax(
+									Integer.parseInt(rsSensorDefaultParameters.getString("smokeThresholdMax")));
+						} else if (sensors.getTypeSensor().equals(SensorType.MOVE)) {
+							sensors.setThresholdMin(
+									Integer.parseInt(rsSensorDefaultParameters.getString("moveThresholdMin")));
+							sensors.setThresholdMax(
+									Integer.parseInt(rsSensorDefaultParameters.getString("moveThresholdMax")));
+						} else if (sensors.getTypeSensor().equals(SensorType.TEMPERATURE)) {
+							sensors.setThresholdMin(
+									Integer.parseInt(rsSensorDefaultParameters.getString("temperatureThresholdMin")));
+							sensors.setThresholdMax(
+									Integer.parseInt(rsSensorDefaultParameters.getString("temperatureThresholdMax")));
+						} else if (sensors.getTypeSensor().equals(SensorType.WINDOW)) {
+							sensors.setThresholdMin(
+									Integer.parseInt(rsSensorDefaultParameters.getString("windowThresholdMin")));
+							sensors.setThresholdMax(
+									Integer.parseInt(rsSensorDefaultParameters.getString("windowThresholdMax")));
+						} else if (sensors.getTypeSensor().equals(SensorType.DOOR)) {
+							sensors.setThresholdMin(
+									Integer.parseInt(rsSensorDefaultParameters.getString("doorThresholdMin")));
+							sensors.setThresholdMax(
+									Integer.parseInt(rsSensorDefaultParameters.getString("doorThresholdMax")));
+						} else if (sensors.getTypeSensor().equals(SensorType.ELEVATOR)) {
+							sensors.setThresholdMin(
+									Integer.parseInt(rsSensorDefaultParameters.getString("elevatorThresholdMin")));
+							sensors.setThresholdMax(
+									Integer.parseInt(rsSensorDefaultParameters.getString("elevatorThresholdMax")));
+						} else if (sensors.getTypeSensor().equals(SensorType.LIGHT)) {
+							sensors.setThresholdMin(
+									Integer.parseInt(rsSensorDefaultParameters.getString("lightThresholdMin")));
+							sensors.setThresholdMax(
+									Integer.parseInt(rsSensorDefaultParameters.getString("lightThresholdMax")));
+						} else if (sensors.getTypeSensor().equals(SensorType.FIRE)) {
+							sensors.setThresholdMin(
+									Integer.parseInt(rsSensorDefaultParameters.getString("fireThresholdMin")));
+							sensors.setThresholdMax(
+									Integer.parseInt(rsSensorDefaultParameters.getString("fireThresholdMax")));
+						} else if (sensors.getTypeSensor().equals(SensorType.BADGE)) {
+							sensors.setThresholdMin(
+									Integer.parseInt(rsSensorDefaultParameters.getString("badgeThresholdMin")));
+							sensors.setThresholdMax(
+									Integer.parseInt(rsSensorDefaultParameters.getString("badgeThresholdMax")));
+						} else if (sensors.getTypeSensor().equals(SensorType.ROUTER)) {
+							sensors.setThresholdMin(
+									Integer.parseInt(rsSensorDefaultParameters.getString("routerThresholdMin")));
+							sensors.setThresholdMax(
+									Integer.parseInt(rsSensorDefaultParameters.getString("routerThresholdMax")));
+						}
+						if ((sensors.getThresholdMin() >= messages.getThreshold())
+								|| sensors.getThresholdMax() <= messages.getThreshold()) {
+							if (nbAlert == 0) {
+								firstAlertDate = messages.getAlertDate();
+							}
+							lastAlertDate = messages.getAlertDate();
+							nbAlert++;
+							logger.log(Level.INFO, "Sensor : " + sensors.getIdSensor() + " on commonArea : "
+									+ sensors.getIdCommonArea() + "threshold reached, threshold minimum : "
+									+ sensors.getThresholdMin() + " sensor threshold : " + messages.getThreshold()
+									+ "threshold maximum : " + sensors.getThresholdMax());
+						} else {
+							listMessage.remove(messages);
+						}
 					}
 				}
 			}
 			difference = firstAlertDate.getTime() - lastAlertDate.getTime();
-			if (nbAlert >= Integer.parseInt(rs.getString("nbOfAlertMessage"))
-					&& difference <= Integer.parseInt(rs.getString("timeBetweenAlert"))) {
+			if (nbAlert >= Integer.parseInt(rsAlert.getString("nbOfAlertMessage"))
+					&& difference <= Integer.parseInt(rsAlert.getString("timeBetweenAlert"))) {
 				alert = new Alert();
 				alert.setAlertDate(lastAlertDate);
 				alert.setAlertState(AlertState.ALERT);
@@ -120,7 +195,7 @@ public class MonitoringAlert {
 		}
 		for (Message messages : listMessage) {
 			difference = System.currentTimeMillis() - messages.getAlertDate().getTime();
-			if (difference > Integer.parseInt(rs.getString("timeBetweenAlert"))) {
+			if (difference > Integer.parseInt(rsAlert.getString("timeBetweenAlert"))) {
 				listMessage.remove(messages);
 			}
 		}
@@ -134,8 +209,8 @@ public class MonitoringAlert {
 		curDate = new Date();
 		calBefore = Calendar.getInstance();
 		calAfter = Calendar.getInstance();
-		calBefore.add(Calendar.MINUTE, Integer.parseInt(rs.getString("minute_before")));
-		calAfter.add(Calendar.MINUTE, Integer.parseInt(rs.getString("minute_after")));
+		calBefore.add(Calendar.MINUTE, Integer.parseInt(rsAlert.getString("minute_before")));
+		calAfter.add(Calendar.MINUTE, Integer.parseInt(rsAlert.getString("minute_after")));
 		beforeDate = calBefore.getTime();
 		afterDate = calAfter.getTime();
 		formater = new SimpleDateFormat("h:mm a");
@@ -239,7 +314,7 @@ public class MonitoringAlert {
 						}
 					}
 					try {
-						Thread.sleep(Integer.parseInt(rs.getString("time_verifySensorActivity")));
+						Thread.sleep(Integer.parseInt(rsAlert.getString("time_verifySensorActivity")));
 					} catch (InterruptedException e) {
 						logger.log(Level.INFO, "Impossible to sleep the thread" + e.getClass().getCanonicalName());
 					}
