@@ -53,7 +53,6 @@ public class MonitoringAlert {
 	private long difference;
 	private SimpleDateFormat formater;
 	private JDBCConnectionPool pool;
-	private Thread threadVerifySensorActivity;
 	private Connection connectionGived;
 	private boolean result;
 	private List<Alert> listAlert = new ArrayList<Alert>();
@@ -250,78 +249,70 @@ public class MonitoringAlert {
 	 * and send messages
 	 */
 	public void verifySensorActivity(Date currentDate) {
-		setThreadVerifySensorActivity(new Thread(new Runnable() {
-			/**
-			 * For every sensor on Data base they verify if the sensor is active and if the
-			 * sensor is active they verify if an alert/message send by sensor contain all
-			 * the sensor active if an sensor does'nt have send an alert/message to server
-			 * they will be considerate to breakdown and we update is state on data base
-			 */
-			@Override
-			public void run() {
-				while (true) {
-					cleanListSensor(listSensorDown);
+		/**
+		 * For every sensor on Data base they verify if the sensor is active and if the
+		 * sensor is active they verify if an alert/message send by sensor contain all
+		 * the sensor active if an sensor does'nt have send an alert/message to server
+		 * they will be considerate to breakdown and we update is state on data base
+		 */
+		cleanListSensor(listSensorDown);
 
-					getAllSensor();
-					for (Sensor sensors : listSensor) {
-						numberOfIteration = 0;
-						if (sensors.getSensorState() == true) {
-							for (Message messages : listMessage) {
-								if (sensors.getIdSensor() == messages.getIdSensor()) {
-									numberOfIteration++;
-								}
-							}
-							if (numberOfIteration < 1) {
-								listSensorDown.add(sensors);
-							}
-						}
-					}
-					if (!listSensorDown.isEmpty()) {
-						if (listSensorDown.size() == listSensor.size()) {
-							alert = new Alert();
-							alert.setAlertDate(currentDate);
-							alert.setAlertState(AlertState.OVER);
-							alert.setIdAlert(0);
-							alert.setIdSensor(0);
-							listAlert.add(alert);
-							logger.log(Level.INFO, "No response from all sensors !!");
-							sensor = new Sensor();
-							sensor.setAlertState(AlertState.OVER);
-							sensor.setIdSensor(0);
-							sensor.setSensorState(true);
-							addHistorical(sensor);
-						} else {
-							// TODO remplir la list d'alerte a envoyer au client avec des valeurs spéciale
-							// pour détecter rapidement la grosse panne
-							// faire un tri comptage sur le tableau de listSensor
-							// et sur celui de listSensorDown
-							// si on a un certain pourcentage de capteurs down on peut dire que c'est le
-							// zbeul dans la maison de retraite
-							for (Sensor sensors : listSensorDown) {
-								alert = new Alert();
-								alert.setAlertDate(currentDate);
-								alert.setAlertState(AlertState.DOWN);
-								alert.setIdAlert(0);
-								alert.setIdSensor(sensors.getIdSensor());
-								listAlert.add(alert);
-								logger.log(Level.INFO, "No response from sensor !!");
-								logger.log(Level.INFO, "Sensor : " + sensors.getIdSensor() + " DOWN on commonArea : "
-										+ sensors.getIdCommonArea());
-								sensors.setAlertState(AlertState.DOWN);
-								updateSensorAlertState(sensors);
-								addHistorical(sensors);
-							}
-						}
-					}
-					try {
-						Thread.sleep(Integer.parseInt(rsAlert.getString("time_verifySensorActivity")));
-					} catch (InterruptedException e) {
-						logger.log(Level.INFO, "Impossible to sleep the thread" + e.getClass().getCanonicalName());
+		getAllSensor();
+		for (Sensor sensors : listSensor) {
+			numberOfIteration = 0;
+			if (sensors.getSensorState() == true) {
+				for (Message messages : listMessage) {
+					if (sensors.getIdSensor() == messages.getIdSensor()) {
+						numberOfIteration++;
 					}
 				}
+				if (numberOfIteration < 1) {
+					listSensorDown.add(sensors);
+				}
 			}
-		}));
-		threadVerifySensorActivity.start();
+		}
+		if (!listSensorDown.isEmpty()) {
+			if (listSensorDown.size() == listSensor.size()) {
+				alert = new Alert();
+				alert.setAlertDate(currentDate);
+				alert.setAlertState(AlertState.OVER);
+				alert.setIdAlert(0);
+				alert.setIdSensor(0);
+				listAlert.add(alert);
+				logger.log(Level.INFO, "No response from all sensors !!");
+				sensor = new Sensor();
+				sensor.setAlertState(AlertState.OVER);
+				sensor.setIdSensor(0);
+				sensor.setSensorState(true);
+				addHistorical(sensor);
+			} else {
+				// TODO remplir la list d'alerte a envoyer au client avec des valeurs spéciale
+				// pour détecter rapidement la grosse panne
+				// faire un tri comptage sur le tableau de listSensor
+				// et sur celui de listSensorDown
+				// si on a un certain pourcentage de capteurs down on peut dire que c'est le
+				// zbeul dans la maison de retraite
+				for (Sensor sensors : listSensorDown) {
+					alert = new Alert();
+					alert.setAlertDate(currentDate);
+					alert.setAlertState(AlertState.DOWN);
+					alert.setIdAlert(0);
+					alert.setIdSensor(sensors.getIdSensor());
+					listAlert.add(alert);
+					logger.log(Level.INFO, "No response from sensor !!");
+					logger.log(Level.INFO,
+							"Sensor : " + sensors.getIdSensor() + " DOWN on commonArea : " + sensors.getIdCommonArea());
+					sensors.setAlertState(AlertState.DOWN);
+					updateSensorAlertState(sensors);
+					addHistorical(sensors);
+				}
+			}
+		}
+		try {
+			Thread.sleep(Integer.parseInt(rsAlert.getString("time_verifySensorActivity")));
+		} catch (InterruptedException e) {
+			logger.log(Level.INFO, "Impossible to sleep the thread" + e.getClass().getCanonicalName());
+		}
 	}
 
 	/**
@@ -430,14 +421,6 @@ public class MonitoringAlert {
 
 	public void setResult(boolean result) {
 		this.result = result;
-	}
-
-	public Thread getThreadVerifySensorActivity() {
-		return threadVerifySensorActivity;
-	}
-
-	public void setThreadVerifySensorActivity(Thread threadVerifySensorActivity) {
-		this.threadVerifySensorActivity = threadVerifySensorActivity;
 	}
 
 	public List<Alert> getListAlert() {

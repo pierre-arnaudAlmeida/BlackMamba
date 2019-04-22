@@ -11,11 +11,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
+import com.blackmamba.deathkiss.entity.AlertState;
 import com.blackmamba.deathkiss.entity.SensorHistorical;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -94,9 +93,7 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 	 */
 	@Override
 	public boolean update(String jsonString) {
-		// TODO Auto-generated method stub
-		// peu d'utilité car c'est un historique pas interessant de l'update, mais
-		// methode à faire
+		// TODO peu d'utilité car c'est un historique pas interessant de l'update, mais methode à faire
 		return false;
 	}
 
@@ -123,7 +120,16 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 				sensorHistorical.setSensorState(true);
 			else
 				sensorHistorical.setSensorState(false);
-			// TODO recuperer l'alerte
+
+			if (result.getObject(4).toString().equals("NORMAL")) {
+				sensorHistorical.setAlertState(AlertState.NORMAL);
+			} else if (result.getObject(4).toString().equals("ALERT")) {
+				sensorHistorical.setAlertState(AlertState.ALERT);
+			} else if (result.getObject(4).toString().equals("DOWN")) {
+				sensorHistorical.setAlertState(AlertState.DOWN);
+			} else if (result.getObject(4).toString().equals("OVER")) {
+				sensorHistorical.setAlertState(AlertState.OVER);
+			}
 			sensorHistorical.setIdSensor(Integer.parseInt(result.getObject(5).toString()));
 
 			ObjectMapper obj = new ObjectMapper();
@@ -162,7 +168,17 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 					sensorHistorical.setSensorState(true);
 				else
 					sensorHistorical.setSensorState(false);
-				// TODO ajouter l'alerte
+
+				if (result.getObject(4).toString().equals("NORMAL")) {
+					sensorHistorical.setAlertState(AlertState.NORMAL);
+				} else if (result.getObject(4).toString().equals("ALERT")) {
+					sensorHistorical.setAlertState(AlertState.ALERT);
+				} else if (result.getObject(4).toString().equals("DOWN")) {
+					sensorHistorical.setAlertState(AlertState.DOWN);
+				} else if (result.getObject(4).toString().equals("OVER")) {
+					sensorHistorical.setAlertState(AlertState.OVER);
+				}
+
 				sensorHistorical.setIdSensor(Integer.parseInt(result.getObject(5).toString()));
 				listSensorHistorical.add(sensorHistorical);
 			}
@@ -180,7 +196,7 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 
 	/**
 	 * Convert the JSON string in Object and create a request to read (select) all
-	 * values in table 'hisotrique' by the id of commonArea or the type of sensor or
+	 * values in table 'historique' by the id of commonArea or the type of sensor or
 	 * the state of sensor
 	 */
 	public String findBySensor(String jsonString) {

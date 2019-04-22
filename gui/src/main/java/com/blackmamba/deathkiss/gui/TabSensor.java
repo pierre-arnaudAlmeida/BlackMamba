@@ -1009,8 +1009,7 @@ public class TabSensor extends JPanel {
 	}
 
 	public void ActualizationListSensor(List<Alert> list) {
-		// TODO
-		// Keita Raymond
+		// TODO Keita Raymond
 	}
 
 	public Thread getThreadSensor() {

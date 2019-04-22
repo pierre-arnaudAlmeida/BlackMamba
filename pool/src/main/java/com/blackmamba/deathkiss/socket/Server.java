@@ -33,15 +33,16 @@ public class Server {
 	private Socket client;
 	private MonitoringAlert monitoringAlert;
 	private static final Logger logger = LogManager.getLogger(Server.class);
+	private ResourceBundle rsAlert = ResourceBundle.getBundle("alert");
+	private ResourceBundle rsConfig = ResourceBundle.getBundle("config");
 
 	/**
 	 * Constructor without parameters
 	 */
 	public Server() {
-		ResourceBundle rs = ResourceBundle.getBundle("config");
 		try {
-			server = new ServerSocket(Integer.parseInt(rs.getString("server.default.port")), 100,
-					InetAddress.getByName(rs.getString("server.default.host")));
+			server = new ServerSocket(Integer.parseInt(rsConfig.getString("server.default.port")), 100,
+					InetAddress.getByName(rsConfig.getString("server.default.host")));
 		} catch (UnknownHostException e) {
 			logger.log(Level.INFO, "IP Host dont find " + e.getClass().getCanonicalName());
 		} catch (IOException e) {
@@ -77,15 +78,16 @@ public class Server {
 	 * connection don't was on maximum
 	 */
 	public void open() {
-		Thread th = new Thread(new Runnable() {
+		Thread threadServer = new Thread(new Runnable() {
 			public void run() {
 				while (isRunning == true) {
 					try {
 						client = server.accept();
 						connectionGived = DataSource.getConnectionFromJDBC(pool);
 						logger.log(Level.INFO, "Client Connection recieved");
-						Thread t = new Thread(new RequestHandler(client, connectionGived, monitoringAlert));
-						t.start();
+						Thread threadRequestHandler = new Thread(
+								new RequestHandler(client, connectionGived, monitoringAlert));
+						threadRequestHandler.start();
 						DataSource.returnConnection(pool, connectionGived);
 
 					} catch (IOException | SQLException e) {
@@ -100,7 +102,7 @@ public class Server {
 				}
 			}
 		});
-		th.start();
+		threadServer.start();
 	}
 
 	/**
@@ -110,7 +112,7 @@ public class Server {
 	 */
 	public void openFake() {
 		numberConnection = 0;
-		Thread th = new Thread(new Runnable() {
+		Thread threadFakeServer = new Thread(new Runnable() {
 			public void run() {
 				while (isRunning == true) {
 					try {
@@ -121,8 +123,9 @@ public class Server {
 						}
 						connectionGived = DataSource.getConnectionFromJDBC(pool);
 						logger.log(Level.INFO, "Client Connection recieved");
-						Thread t = new Thread(new RequestHandler(client, connectionGived, monitoringAlert));
-						t.start();
+						Thread threadRequestHandler = new Thread(
+								new RequestHandler(client, connectionGived, monitoringAlert));
+						threadRequestHandler.start();
 						DataSource.returnConnection(pool, connectionGived);
 
 					} catch (IOException | SQLException e) {
@@ -137,7 +140,7 @@ public class Server {
 				}
 			}
 		});
-		th.start();
+		threadFakeServer.start();
 	}
 
 	/**
@@ -145,8 +148,50 @@ public class Server {
 	 * activity of the server
 	 */
 	public void treatment() {
-		// TODO
-		monitoringAlert.alertTreatment();
+		Thread threadAlertTreatment = new Thread(new Runnable() {
+			public void run() {
+				while (true) {
+					monitoringAlert.alertTreatment();
+					try {
+						Thread.sleep(Integer.parseInt(rsAlert.getString("time_alertTreatment")));
+					} catch (InterruptedException e) {
+						logger.log(Level.INFO,
+								"Impossible to sleep the threadAlertTreatment " + e.getClass().getCanonicalName());
+					}
+				}
+			}
+		});
+
+		Thread threadVerifySensorMessageBeforeActivity = new Thread(new Runnable() {
+			public void run() {
+				while (true) {
+					monitoringAlert.verifySensorMessageBeforeActivity();
+					try {
+						Thread.sleep(Integer.parseInt(rsAlert.getString("time_verifySensorActivity")));
+					} catch (InterruptedException e) {
+						logger.log(Level.INFO, "Impossible to sleep the threadVerifySensorMessageBeforeActivity "
+								+ e.getClass().getCanonicalName());
+					}
+				}
+			}
+		});
+
+		Thread threadVerifySensorActivity = new Thread(new Runnable() {
+			public void run() {
+				while (true) {
+					monitoringAlert.alertTreatment();
+					try {
+						Thread.sleep(Integer.parseInt(rsAlert.getString("time_verifySensorActivity")));
+					} catch (InterruptedException e) {
+						logger.log(Level.INFO, "Impossible to sleep the threadVerifySensorActivity "
+								+ e.getClass().getCanonicalName());
+					}
+				}
+			}
+		});
+		threadAlertTreatment.start();
+		threadVerifySensorMessageBeforeActivity.start();
+		threadVerifySensorActivity.start();
 	}
 
 	/**

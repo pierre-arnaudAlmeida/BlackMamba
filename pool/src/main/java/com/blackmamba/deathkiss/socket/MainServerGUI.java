@@ -104,7 +104,7 @@ public class MainServerGUI extends JFrame {
 
 					timer1 = new Timer(delais, tache_timer);
 					timer1.start();
-					// ts.treatment();// TODO
+					ts.treatment();
 				} else {
 					logger.log(Level.INFO, "Server already launch");
 				}
