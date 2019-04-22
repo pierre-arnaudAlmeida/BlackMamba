@@ -10,11 +10,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.connectionpool.DataSource;
 import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
 import com.blackmamba.deathkiss.dao.DAO;
@@ -66,21 +64,19 @@ public class MonitoringAlert {
 
 	public MonitoringAlert(JDBCConnectionPool pool) {
 		this.pool = pool;
-
 	}
 
 	public MonitoringAlert() {
 	}
 
-	// Fonctionne
-	// envoyer des infos comme la temperature l taux de dioxyde carbone et ensuite
-	// c'est ca q(uon choisi l'&actrion a faire
+	// TODO commentaire
+	// TODO IA pour les alertes
 	public void alertTreatment() {
 		getAllSensor();
 		for (Sensor sensors : listSensor) {
 			nbAlert = 0;
 			for (Message messages : listMessage) {
-				if (sensors.getIdSensor() == messages.getIdSensor()) {
+				if (sensors.getIdSensor() == messages.getIdSensor() && sensors.getSensorState() == true) {
 					if ((sensors.getThresholdMin() >= messages.getThreshold())
 							|| sensors.getThresholdMax() <= messages.getThreshold()) {
 						if (nbAlert == 0) {
@@ -88,27 +84,44 @@ public class MonitoringAlert {
 						}
 						lastAlertDate = messages.getAlertDate();
 						nbAlert++;
+						logger.log(Level.INFO,
+								"Sensor : " + sensors.getIdSensor() + " on commonArea : " + sensors.getIdCommonArea()
+										+ "threshold reached, threshold minimum : " + sensors.getThresholdMin()
+										+ " sensor threshold : " + messages.getThreshold() + "threshold maximum : "
+										+ sensors.getThresholdMax());
 					} else {
 						listMessage.remove(messages);
 					}
-					// trois date la premiere quand on recoit le premier message donc nbAlert=1
-					// ensuite a chaque message reçu étant une alerte alors on sauvegarde la date
-					// et a la fin de tout les messages on verifie avec une nouvelle date la date de
-					// fin de la liste
-					// si la différence entre les deux dates est inferieurs a 25 sec (25s000)
-
-					// si le message ne dépasse pas le seuil on peut le supprimer comme ca on a
-					// juste les alertes et si on le declare comme alerte on supprime tout les
-					// messages avec l'idSensor de du capteur
 				}
-				// TODO quand il est en alerte on l'ajoute dans la listAlerte
-				// et on supprime tout les messages de la listMessage avec l'idSensor
-				// ou tout les messages avec une date inferieurs a 2min
 			}
 			difference = firstAlertDate.getTime() - lastAlertDate.getTime();
 			if (nbAlert >= Integer.parseInt(rs.getString("nbOfAlertMessage"))
 					&& difference <= Integer.parseInt(rs.getString("timeBetweenAlert"))) {
-				// TODO le considerer comme une alerte
+				alert = new Alert();
+				alert.setAlertDate(lastAlertDate);
+				alert.setAlertState(AlertState.ALERT);
+				alert.setIdAlert(0);
+				alert.setIdSensor(sensors.getIdSensor());
+				listAlert.add(alert);
+
+				for (Message messages : listMessage) {
+					if (messages.getIdSensor() == alert.getIdSensor()) {
+						listMessage.remove(messages);
+					}
+				}
+
+				logger.log(Level.INFO, "ALERT DETECTED!!");
+				logger.log(Level.INFO,
+						"Sensor : " + sensors.getIdSensor() + " on ALERT on commonArea : " + sensors.getIdCommonArea());
+				sensors.setAlertState(AlertState.ALERT);
+				updateSensorAlertState(sensors);
+				addHistorical(sensors);
+			}
+		}
+		for (Message messages : listMessage) {
+			difference = System.currentTimeMillis() - messages.getAlertDate().getTime();
+			if (difference > Integer.parseInt(rs.getString("timeBetweenAlert"))) {
+				listMessage.remove(messages);
 			}
 		}
 	}
@@ -129,7 +142,7 @@ public class MonitoringAlert {
 
 		getAllSensor();
 		for (Sensor sensors : listSensor) {
-			if (sensors.getSensorState() == true
+			if (sensors.getIdCommonArea() != 0 && sensors.getSensorState() == true
 					&& (formater.format(sensors.getStartActivity()).compareTo(formater.format(beforeDate)) >= 0)
 					&& (formater.format(sensors.getStartActivity()).compareTo(formater.format(afterDate)) <= 0)) {
 				numberOfMessages = 0;
@@ -146,11 +159,12 @@ public class MonitoringAlert {
 					alert.setIdAlert(0);
 					alert.setIdSensor(sensors.getIdSensor());
 					listAlert.add(alert);
+					logger.log(Level.INFO, "No response from sensor before activity !!");
+					logger.log(Level.INFO,
+							"Sensor : " + sensors.getIdSensor() + " DOWN on commonArea : " + sensors.getIdCommonArea());
 					sensors.setAlertState(AlertState.DOWN);
 					updateSensorAlertState(sensors);
 					addHistorical(sensors);
-					// TODO ajouter au message d'alerte dans la base
-
 				}
 			}
 		}
@@ -195,13 +209,12 @@ public class MonitoringAlert {
 							alert.setIdAlert(0);
 							alert.setIdSensor(0);
 							listAlert.add(alert);
-
+							logger.log(Level.INFO, "No response from all sensors !!");
 							sensor = new Sensor();
 							sensor.setAlertState(AlertState.OVER);
 							sensor.setIdSensor(0);
 							sensor.setSensorState(true);
 							addHistorical(sensor);
-							// TODO ajouter a l'historique de la base message
 						} else {
 							// TODO remplir la list d'alerte a envoyer au client avec des valeurs spéciale
 							// pour détecter rapidement la grosse panne
@@ -216,10 +229,12 @@ public class MonitoringAlert {
 								alert.setIdAlert(0);
 								alert.setIdSensor(sensors.getIdSensor());
 								listAlert.add(alert);
+								logger.log(Level.INFO, "No response from sensor !!");
+								logger.log(Level.INFO, "Sensor : " + sensors.getIdSensor() + " DOWN on commonArea : "
+										+ sensors.getIdCommonArea());
 								sensors.setAlertState(AlertState.DOWN);
 								updateSensorAlertState(sensors);
 								addHistorical(sensors);
-								// TODO ajouter dans la base message
 							}
 						}
 					}
