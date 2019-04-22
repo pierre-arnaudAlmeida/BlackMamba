@@ -18,7 +18,7 @@ public class MainMockGUI {
 					logger.log(Level.INFO, "Application Mock runned");
 				} catch (Exception e) {
 					logger.log(Level.INFO,
-							"Impossible to create the window 'frame' " + e.getClass().getCanonicalName());
+							"Impossible to create the window 'mockFrame' " + e.getClass().getCanonicalName());
 				}
 			}
 		});

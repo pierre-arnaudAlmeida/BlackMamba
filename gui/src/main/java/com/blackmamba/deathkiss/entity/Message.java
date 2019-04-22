@@ -14,7 +14,7 @@ public class Message {
 	private int idSensor = 0;
 	private Date alertDate = null;
 
-	public Message(int idMessage, int threshold, int idSensor, Date alertDate, AlertState alertState) {
+	public Message(int idMessage, int threshold, int idSensor, Date alertDate) {
 		this.idMessage = idMessage;
 		this.threshold = threshold;
 		this.idSensor = idSensor;

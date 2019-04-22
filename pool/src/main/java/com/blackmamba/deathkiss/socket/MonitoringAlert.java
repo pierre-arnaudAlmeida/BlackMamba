@@ -21,6 +21,7 @@ import com.blackmamba.deathkiss.dao.SensorHistoricalDAO;
 import com.blackmamba.deathkiss.entity.Alert;
 import com.blackmamba.deathkiss.entity.AlertState;
 import com.blackmamba.deathkiss.entity.Message;
+import com.blackmamba.deathkiss.entity.Sensitivity;
 import com.blackmamba.deathkiss.entity.Sensor;
 import com.blackmamba.deathkiss.entity.SensorHistorical;
 import com.blackmamba.deathkiss.entity.SensorType;
@@ -51,6 +52,7 @@ public class MonitoringAlert {
 	private int numberOfIteration;
 	private int nbAlert;
 	private long difference;
+	private int sensitivity;
 	private SimpleDateFormat formater;
 	private JDBCConnectionPool pool;
 	private Connection connectionGived;
@@ -169,8 +171,15 @@ public class MonitoringAlert {
 				}
 			}
 			difference = firstAlertDate.getTime() - lastAlertDate.getTime();
-			if (nbAlert >= Integer.parseInt(rsAlert.getString("nbOfAlertMessage"))
-					&& difference <= Integer.parseInt(rsAlert.getString("timeBetweenAlert"))) {
+			if (sensors.getSensitivity().equals(Sensitivity.LOW)) {
+				sensitivity = Integer.parseInt(rsAlert.getString("nbOfAlertMessageLow"));
+			} else if (sensors.getSensitivity().equals(Sensitivity.MEDIUM)) {
+				sensitivity = Integer.parseInt(rsAlert.getString("nbOfAlertMessageMedium"));
+			} else if (sensors.getSensitivity().equals(Sensitivity.HIGH)) {
+				sensitivity = Integer.parseInt(rsAlert.getString("nbOfAlertMessageHigh"));
+			}
+			// TODO manque l'heure a laquelle ca c'est déclancher
+			if (nbAlert >= sensitivity && difference <= Integer.parseInt(rsAlert.getString("timeBetweenAlert"))) {
 				alert = new Alert();
 				alert.setAlertDate(lastAlertDate);
 				alert.setAlertState(AlertState.ALERT);
