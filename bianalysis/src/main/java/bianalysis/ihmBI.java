@@ -1,5 +1,13 @@
 package bianalysis;
 
+import static java.awt.BorderLayout.CENTER;
+import static org.jfree.chart.ChartFactory.createBarChart;
+import static org.jfree.chart.ChartFactory.createPieChart;
+import static org.jfree.chart.plot.PlotOrientation.VERTICAL;
+import org.jfree.chart.*; 
+import org.jfree.chart.plot.*; 
+import org.jfree.data.*;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -8,10 +16,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JDialog;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
 
 import bianalysis.Sensor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,6 +31,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.swing.JList;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
+
 import java.awt.event.ContainerAdapter;
 import java.awt.event.ContainerEvent;
 import java.text.DateFormat;
@@ -68,6 +82,7 @@ public class ihmBI extends JFrame {
 	private JButton btnDeconnexion;
 	private JButton btnTemperature;
 	private JButton btnDate; 
+	private JButton btnGraphique;
 	private static final Logger logger = LogManager.getLogger(TabSensor.class);
 	private JLabel lblResultat;
 	private JLabel lbl;
@@ -76,6 +91,8 @@ public class ihmBI extends JFrame {
 	private JDateChooser dateChooser_1;
 	private JTextField tfDate;
 	private JTextField tfDate1;
+	private JDialog ratioHommeFemmeJdialog;
+	private ChartPanel cPanel;
 	
 
 	/**
@@ -254,7 +271,26 @@ public class ihmBI extends JFrame {
 		//contentPane.add(list);
 		
 
+		//
+		ratioHommeFemmeJdialog = new JDialog();
 		
+		DefaultPieDataset pieDataset = new DefaultPieDataset(); 
+	    pieDataset.setValue("Valeur1", new Integer(27)); 
+	    pieDataset.setValue("Valeur2", new Integer(10)); 
+	    pieDataset.setValue("Valeur3", new Integer(50)); 
+	    pieDataset.setValue("Valeur4", new Integer(5)); 
+
+	    JFreeChart pieChart = ChartFactory.createPieChart("Test camembert", 
+	      pieDataset, true, true, true); 
+	    ChartPanel cPanel = new ChartPanel(pieChart); 
+	    contentPane.add(cPanel); 
+	    
+	    
+	    
+	    JButton btnGraphique = new JButton("VisualisationGraphique");
+	    btnGraphique.setBounds(730, 194, 186, 28);
+	    contentPane.add(btnGraphique);
+
 
 			
 	}
@@ -278,6 +314,18 @@ public class ihmBI extends JFrame {
 				tfDate1.setText(df.format(dateChooser_1.getDate()));
 			}
 		});
+		
+	    btnGraphique.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		
+				ratioHommeFemmeJdialog.getContentPane().add(cPanel, CENTER);
+
+				ratioHommeFemmeJdialog.pack();
+				ratioHommeFemmeJdialog.setVisible(true);
+	    		
+	    		
+	    	}
+	    });
 
 }
 	
