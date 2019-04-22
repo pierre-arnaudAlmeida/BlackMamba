@@ -73,7 +73,7 @@ public class MonitoringAlert {
 
 	// TODO IA pour les alertes
 	/**
-	 * Verify if the messages send by the different sensor can be considarate to an
+	 * Verify if the messages send by the different sensor can be considerate to an
 	 * alert verify if the threshold have been reached and if they did'nt have an
 	 * threshold they use the default threshold of the sensor type then if they
 	 * considerate the messages to an alert they add an alert on alertList to be

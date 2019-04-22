@@ -9,5 +9,6 @@
 	<modules>
 		<module>gui</module>
 		<module>pool</module>
+		<module>mock</module>
 	</modules>
 </project>

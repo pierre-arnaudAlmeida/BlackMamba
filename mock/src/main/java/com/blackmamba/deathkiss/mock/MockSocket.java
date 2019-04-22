@@ -1,4 +1,4 @@
-package com.blackmamba.deathkiss.gui;
+package com.blackmamba.deathkiss.mock;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
  * @author Pierre-Arnaud
  *
  */
-public class ClientSocket {
+public class MockSocket {
 
 	/**
 	 * Different parameters used
@@ -29,12 +29,12 @@ public class ClientSocket {
 	private String table;
 	private String host;
 	private static String jsonString;
-	private static final Logger logger = LogManager.getLogger(ClientSocket.class);
+	private static final Logger logger = LogManager.getLogger(MockSocket.class);
 
-	public ClientSocket() {
+	public MockSocket() {
 	}
 
-	public ClientSocket(String requestType, String jsonString, String table) {
+	public MockSocket(String requestType, String jsonString, String table) {
 		this.requestType = requestType;
 		this.table = table;
 
@@ -42,7 +42,7 @@ public class ClientSocket {
 		this.host = rs.getString("server.host");
 		this.port = Integer.parseInt(rs.getString("server.port"));
 
-		ClientSocket.setJsonString(jsonString);
+		MockSocket.setJsonString(jsonString);
 		/**
 		 * Create a new socket and send to host
 		 */
@@ -63,29 +63,11 @@ public class ClientSocket {
 			 */
 			if (response.equals("OK FOR EXCHANGE")) {
 				switch (this.requestType) {
-				case "CONNECTION":
-					response = "{ \"request\" : \"CONNECTION\", \"table\" : \"" + this.table + "\" }";
-					break;
 				case "CREATE":
 					response = "{ \"request\" : \"CREATE\", \"table\" : \"" + this.table + "\" }";
 					break;
-				case "UPDATE":
-					response = "{ \"request\" : \"UPDATE\", \"table\" : \"" + this.table + "\" }";
-					break;
-				case "DELETE":
-					response = "{ \"request\" : \"DELETE\", \"table\" : \"" + this.table + "\" }";
-					break;
-				case "READ":
-					response = "{ \"request\" : \"READ\", \"table\" : \"" + this.table + "\" }";
-					break;
-				case "READ ALL":
-					response = "{ \"request\" : \"READ ALL\", \"table\" : \"" + this.table + "\" }";
-					break;
-				case "FIND ALL":
-					response = "{ \"request\" : \"FIND ALL\", \"table\" : \"" + this.table + "\" }";
-					break;
-				case "GET ALERT":
-					response = "{ \"request\" : \"GET ALERT\", \"table\" : \"" + this.table + "\" }";
+				case "ALERT":
+					response = "{ \"request\" : \"ALERT\", \"table\" : \"" + this.table + "\" }";
 					break;
 				default:
 					response = "";
@@ -110,7 +92,7 @@ public class ClientSocket {
 					 * Receive the data in JSON string after the execution by server
 					 */
 					if (!response.equals("ERROR")) {
-						ClientSocket.setJsonString(response);
+						MockSocket.setJsonString(response);
 						logger.log(Level.INFO, "Datas received on client");
 						response = "CLOSE";
 						writer.write(response);
@@ -181,6 +163,6 @@ public class ClientSocket {
 	 * @param jsonString
 	 */
 	public static void setJsonString(String jsonString) {
-		ClientSocket.jsonString = jsonString;
+		MockSocket.jsonString = jsonString;
 	}
 }

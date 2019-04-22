@@ -8,7 +8,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>com.blackmamba.deathkiss</groupId>
-	<artifactId>gui</artifactId>
+	<artifactId>mock</artifactId>
 
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -18,7 +18,6 @@
 		<junit-jupiter.version>5.2.0</junit-jupiter.version>
 		<junit-platform.version>1.2.0</junit-platform.version>
 	</properties>
-
 
 	<dependencies>
 		<dependency>
