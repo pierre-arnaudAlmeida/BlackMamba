@@ -73,7 +73,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.blackmamba.deathkiss.gui.MainGUI</mainClass>
+							<mainClass>com.blackmamba.deathkiss.mock.gui.MainMockGUI</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>

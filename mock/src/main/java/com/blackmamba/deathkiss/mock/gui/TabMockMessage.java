@@ -63,6 +63,7 @@ public class TabMockMessage extends JPanel {
 	private ObjectMapper objectMapper;
 	private JComboBox<String> textInputTypeSensor;
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
+	private List<Sensor> listSensorRestricted = new ArrayList<Sensor>();
 	private static final Logger logger = LogManager.getLogger(TabMockMessage.class);
 	private GenerateMessage generateMessage;
 
@@ -264,7 +265,6 @@ public class TabMockMessage extends JPanel {
 							if ((textInputIdSensor.getText().trim().matches("[0-9]+[0-9]*")
 									&& negativeRadio.isSelected() == true) || positiveRadio.isSelected() == true) {
 								message = new Message();
-								message.setThreshold(threshold);
 								if (positiveRadio.isSelected() == true) {
 									// TODO verifier si on peut pas faire un find ou find all pour recuperer les
 									// capteur avec le type capteur
@@ -282,10 +282,11 @@ public class TabMockMessage extends JPanel {
 										logger.log(Level.INFO, "Impossible to parse in JSON Sensor data "
 												+ e1.getClass().getCanonicalName());
 									}
+									listSensorRestricted.removeAll(listSensorRestricted);
 									for (Sensor sensors : listSensor) {
-										if (!sensors.getTypeSensor().toString()
-												.equals(textInputTypeSensor.getSelectedItem().toString())) {
-											listSensor.remove(sensors);
+										if (sensors.getTypeSensor().toString()
+												.equals(textInputTypeSensor.getSelectedItem().toString()) && sensors.getSensorState()==true) {
+											listSensorRestricted.add(sensors);
 										}
 									}
 								} else {
@@ -305,7 +306,8 @@ public class TabMockMessage extends JPanel {
 									}
 									if (sensor.getTypeSensor().toString()
 											.equals(textInputTypeSensor.getSelectedItem().toString())) {
-										listSensor.add(sensor);
+										message.setIdSensor(sensor.getIdSensor());
+										listSensorRestricted.add(sensor);
 									} else {
 										JOptionPane.showMessageDialog(null,
 												"Ce capteur, n'existe pas pour cet ID et ce type de capteur", "Infos",
@@ -314,7 +316,7 @@ public class TabMockMessage extends JPanel {
 								}
 								if (nbThread == 0) {
 									bool = true;
-									generateMessage = new GenerateMessage(message);
+									generateMessage = new GenerateMessage(message, listSensorRestricted);
 									generateMessage.setThreshold(threshold);
 									generateMessage.start();
 									nbThread++;
