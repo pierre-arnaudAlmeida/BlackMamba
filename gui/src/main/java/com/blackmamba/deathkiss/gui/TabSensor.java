@@ -574,6 +574,8 @@ public class TabSensor extends JPanel {
 					sensor.setTypeSensor(SensorType.FIRE);
 				else if (e.getItem().toString().equals("BADGE"))
 					sensor.setTypeSensor(SensorType.BADGE);
+				else if (e.getItem().toString().equals("ROUTER"))
+					sensor.setTypeSensor(SensorType.ROUTER);
 			}
 		});
 
