@@ -10,5 +10,6 @@
 		<module>gui</module>
 		<module>pool</module>
 		<module>mock</module>
+		<module>bianalysis</module>
 	</modules>
 </project>

@@ -2,6 +2,8 @@ package com.blackmamba.deathkiss.entity;
 
 import java.util.Date;
 
+import com.blackmamba.deathkiss.pool.entity.AlertState;
+
 /**
  * 
  * @author Pierre-Arnaud

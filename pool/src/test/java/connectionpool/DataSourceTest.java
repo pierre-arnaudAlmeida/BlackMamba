@@ -10,8 +10,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
-import com.blackmamba.deathkiss.connectionpool.DataSource;
-import com.blackmamba.deathkiss.connectionpool.JDBCConnectionPool;
+import com.blackmamba.deathkiss.pool.connectionpool.DataSource;
+import com.blackmamba.deathkiss.pool.connectionpool.JDBCConnectionPool;
 
 /**
  * 

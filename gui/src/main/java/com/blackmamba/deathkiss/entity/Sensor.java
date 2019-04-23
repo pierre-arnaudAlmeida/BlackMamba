@@ -3,6 +3,10 @@ package com.blackmamba.deathkiss.entity;
 import java.sql.Time;
 import java.util.Date;
 
+import com.blackmamba.deathkiss.pool.entity.AlertState;
+import com.blackmamba.deathkiss.pool.entity.Sensitivity;
+import com.blackmamba.deathkiss.pool.entity.SensorType;
+
 /**
  * 
  * @author Pierre-Arnaud
