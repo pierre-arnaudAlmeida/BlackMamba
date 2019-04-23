@@ -32,7 +32,7 @@ public class Frame extends JFrame {
 //	private TabResident tabResident;
 //	private TabHistorical tabHistorical;
 //	private TabProfile tabProfile;
-	private MonitoringAlert monitoringAlert;
+//	private MonitoringAlert monitoringAlert;
 	private int idEmployee;
 	private String requestType;
 	private String table;
@@ -106,23 +106,23 @@ public class Frame extends JFrame {
 //		tab.add("Onglet " + tabOfTab[5], tabProfile);
 
 		///////////////////////// ALERT/////////////////////////////////////////////////
-		// TODO
-		setThreadAlert(new Thread(new Runnable() {
-			/**
-			 * Loop and update every second the alerts
-			 */
-			@Override
-			public void run() {
-				monitoringAlert = new MonitoringAlert();
-				Date curentDate = new Date();
-				//System.out.println(curentDate);
-				monitoringAlert.getMessages(curentDate);
-				monitoringAlert.getAllSensor();
-//				while (true) {
-//				}
-			}
-		}));
-		threadAlert.start();
+//		// TODO
+//		setThreadAlert(new Thread(new Runnable() {
+//			/**
+//			 * Loop and update every second the alerts
+//			 */
+//			@Override
+//			public void run() {
+//				monitoringAlert = new MonitoringAlert();
+//				Date curentDate = new Date();
+//				//System.out.println(curentDate);
+//				monitoringAlert.getMessages(curentDate);
+//				monitoringAlert.getAllSensor();
+////				while (true) {
+////				}
+//			}
+//		}));
+//		threadAlert.start();
 		threadFrame.start();
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
