@@ -1,13 +1,14 @@
 package com.blackmamba.deathkiss.mock.gui;
 
 import java.awt.EventQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class MainMockGUI {
 
 	private static MockFrame mockFrame;
-	private static Logger logger = Logger.getLogger("logger");
+	private static Logger logger = LogManager.getLogger(MainMockGUI.class);
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

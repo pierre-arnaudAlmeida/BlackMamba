@@ -69,6 +69,12 @@ public class MockSocket {
 				case "ALERT":
 					response = "{ \"request\" : \"ALERT\", \"table\" : \"" + this.table + "\" }";
 					break;
+				case "READ":
+					response = "{ \"request\" : \"READ\", \"table\" : \"" + this.table + "\" }";
+					break;
+				case "READ ALL":
+					response = "{ \"request\" : \"READ ALL\", \"table\" : \"" + this.table + "\" }";
+					break;
 				default:
 					response = "";
 				}

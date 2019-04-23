@@ -7,6 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,7 +24,11 @@ import javax.swing.event.ChangeListener;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.blackmamba.deathkiss.mock.GenerateMessage;
+import com.blackmamba.deathkiss.mock.MockSocket;
 import com.blackmamba.deathkiss.mock.entity.Message;
+import com.blackmamba.deathkiss.mock.entity.Sensor;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TabMockMessage extends JPanel {
 
@@ -31,8 +38,12 @@ public class TabMockMessage extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private int nbThread;
 	private int threshold;
+	private int NbOfWindow;
 	private int nbMessageGenerate;
 	private boolean bool;
+	private String requestType;
+	private String table;
+	private String jsonString;
 	private Font policeLabel;
 	private JLabel labelIdSensor;
 	private JLabel labelThreshold;
@@ -48,8 +59,12 @@ public class TabMockMessage extends JPanel {
 	private JButton restaureButton;
 	private Thread threadGenerateMessage;
 	private Message message;
+	private Sensor sensor;
+	private ObjectMapper objectMapper;
 	private JComboBox<String> textInputTypeSensor;
+	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private static final Logger logger = LogManager.getLogger(TabMockMessage.class);
+	private GenerateMessage generateMessage;
 
 	public TabMockMessage() {
 
@@ -125,12 +140,21 @@ public class TabMockMessage extends JPanel {
 				if (textInputTypeSensor.getSelectedItem().equals("ELEVATOR")) {
 					labelThreshold.setText("Seuil : " + ((JSlider) event.getSource()).getValue() + "00kg");
 					threshold = ((JSlider) event.getSource()).getValue() * 100;
+					if (generateMessage != null) {
+						generateMessage.setThreshold(((JSlider) event.getSource()).getValue() * 100);
+					}
 				} else if (textInputTypeSensor.getSelectedItem().equals("SMOKE")) {
 					labelThreshold.setText("Seuil : " + ((JSlider) event.getSource()).getValue() + "0ppm");
 					threshold = ((JSlider) event.getSource()).getValue() * 10;
+					if (generateMessage != null) {
+						generateMessage.setThreshold(((JSlider) event.getSource()).getValue() * 10);
+					}
 				} else {
 					labelThreshold.setText("Seuil : " + ((JSlider) event.getSource()).getValue());
 					threshold = ((JSlider) event.getSource()).getValue();
+					if (generateMessage != null) {
+						generateMessage.setThreshold(((JSlider) event.getSource()).getValue());
+					}
 				}
 			}
 		});
@@ -162,7 +186,8 @@ public class TabMockMessage extends JPanel {
 		/**
 		 * Definition of ComboBox TypeSensor
 		 */
-		String[] types = { "SMOKE", "MOVE", "TEMPERATURE", "WINDOW", "DOOR", "ELEVATOR", "LIGHT", "FIRE", "BADGE", "ROUTER" };
+		String[] types = { "SMOKE", "MOVE", "TEMPERATURE", "WINDOW", "DOOR", "ELEVATOR", "LIGHT", "FIRE", "BADGE",
+				"ROUTER" };
 		textInputTypeSensor = new JComboBox<String>(types);
 		textInputTypeSensor.setBounds(400, 250, 250, 40);
 		textInputTypeSensor.setFont(policeLabel);
@@ -180,7 +205,9 @@ public class TabMockMessage extends JPanel {
 					sliderThreshold.setValue(10);
 					sliderThreshold.setMinorTickSpacing(5);
 					sliderThreshold.setMajorTickSpacing(10);
-				} else if (e.getItem().toString().equals("MOVE") || e.getItem().toString().equals("WINDOW") || e.getItem().toString().equals("DOOR") || e.getItem().toString().equals("LIGHT") || e.getItem().toString().equals("FIRE") || e.getItem().toString().equals("BADGE")
+				} else if (e.getItem().toString().equals("MOVE") || e.getItem().toString().equals("WINDOW")
+						|| e.getItem().toString().equals("DOOR") || e.getItem().toString().equals("LIGHT")
+						|| e.getItem().toString().equals("FIRE") || e.getItem().toString().equals("BADGE")
 						|| e.getItem().toString().equals("ROUTER")) {
 					sliderThreshold.setMaximum(1);
 					sliderThreshold.setMinimum(0);
@@ -201,24 +228,16 @@ public class TabMockMessage extends JPanel {
 			}
 		});
 		///////////////////////// BUTTON/////////////////////////////////////////////////
-		setThreadGenerateMessage(new Thread(new Runnable() {
+		Thread threadCountMessage = new Thread(new Runnable() {
+
 			@Override
 			public void run() {
-				bool = true;
-				while (bool) {
-					// TODO faire une generation de id capteur a partir de la liste pour chaque
-					// message
-					System.out.println(threshold);
-					nbMessageGenerate++;
+				while (true) {
+					nbMessageGenerate = generateMessage.getNbMessageGenerate();
 					labelMessageGenerate.setText("Nombre de messages généré : " + nbMessageGenerate);
-					try {
-						Thread.sleep(500);
-					} catch (InterruptedException e) {
-						logger.log(Level.INFO, "Impossible to sleep the threadGenerateMessage" + e.getClass().getCanonicalName());
-					}
 				}
 			}
-		}));
+		});
 
 		/**
 		 * Definition of Button AddSensor
@@ -230,34 +249,83 @@ public class TabMockMessage extends JPanel {
 			@Override
 			public synchronized void actionPerformed(ActionEvent e) {
 				if (textInputTypeSensor.getSelectedItem() == null) {
-					JOptionPane.showMessageDialog(null, "Vous n'avez pas choisi de type de capteur", "Infos", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Vous n'avez pas choisi de type de capteur", "Infos",
+							JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					if (positiveRadio.isSelected() == false && negativeRadio.isSelected() == false) {
-						JOptionPane.showMessageDialog(null, "Vous n'avez pas choisi la forme de génération aléatoire ou non ?", "Infos", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null,
+								"Vous n'avez pas choisi la forme de génération aléatoire ou non ?", "Infos",
+								JOptionPane.INFORMATION_MESSAGE);
 					} else {
 						if (textInputIdSensor.getText().trim().equals("") && negativeRadio.isSelected() == true) {
-							JOptionPane.showMessageDialog(null, "Vous n'avez pas renseigné l'id du capteur", "Infos", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Vous n'avez pas renseigné l'id du capteur", "Infos",
+									JOptionPane.INFORMATION_MESSAGE);
 						} else {
-							if ((textInputIdSensor.getText().trim().matches("[0-9]+[0-9]*") && negativeRadio.isSelected() == true) || positiveRadio.isSelected() == true) {
+							if ((textInputIdSensor.getText().trim().matches("[0-9]+[0-9]*")
+									&& negativeRadio.isSelected() == true) || positiveRadio.isSelected() == true) {
 								message = new Message();
 								message.setThreshold(threshold);
 								if (positiveRadio.isSelected() == true) {
-									// TODO faire une recherche des id de capteurs possible pour le type de capteur
-									// choisi
-									// a mettre dans une liste
+									// TODO verifier si on peut pas faire un find ou find all pour recuperer les
+									// capteur avec le type capteur
+									requestType = "READ ALL";
+									table = "Sensor";
+									objectMapper = new ObjectMapper();
+									try {
+										jsonString = "READ ALL";
+										new MockSocket(requestType, jsonString, table);
+										jsonString = MockSocket.getJson();
+										Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
+										listSensor = Arrays.asList(sensors);
+										logger.log(Level.INFO, "Find Sensor data succed");
+									} catch (Exception e1) {
+										logger.log(Level.INFO, "Impossible to parse in JSON Sensor data "
+												+ e1.getClass().getCanonicalName());
+									}
+									for (Sensor sensors : listSensor) {
+										if (!sensors.getTypeSensor().toString()
+												.equals(textInputTypeSensor.getSelectedItem().toString())) {
+											listSensor.remove(sensors);
+										}
+									}
 								} else {
-									// TODO convertir le string en int et verifier dans la base si ca correspond
-									// bien a un capteur avec les memes caractéristiques
-									// ensuite l'ajouter a la liste des choix
+									requestType = "READ";
+									sensor = new Sensor();
+									table = "Sensor";
+									sensor.setIdSensor(Integer.parseInt(textInputIdSensor.getText().trim()));
+									try {
+										jsonString = objectMapper.writeValueAsString(sensor);
+										new MockSocket(requestType, jsonString, table);
+										jsonString = MockSocket.getJson();
+										sensor = objectMapper.readValue(jsonString, Sensor.class);
+										logger.log(Level.INFO, "Find Sensor data succed");
+									} catch (Exception e1) {
+										logger.log(Level.INFO, "Impossible to parse in JSON Sensor datas "
+												+ e1.getClass().getCanonicalName());
+									}
+									if (sensor.getTypeSensor().toString()
+											.equals(textInputTypeSensor.getSelectedItem().toString())) {
+										listSensor.add(sensor);
+									} else {
+										JOptionPane.showMessageDialog(null,
+												"Ce capteur, n'existe pas pour cet ID et ce type de capteur", "Infos",
+												JOptionPane.INFORMATION_MESSAGE);
+									}
 								}
 								if (nbThread == 0) {
-									// threadGenerateMessage.start();
-
+									bool = true;
+									generateMessage = new GenerateMessage(message);
+									generateMessage.setThreshold(threshold);
+									generateMessage.start();
 									nbThread++;
-
+									NbOfWindow++;
+								}
+								if (NbOfWindow == 1) {
+									threadCountMessage.start();
 								}
 							} else {
-								JOptionPane.showMessageDialog(null, "Veuillez inserer un chiffre pour id capteur", "Infos", JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(null, "Veuillez inserer un chiffre pour id capteur",
+										"Infos", JOptionPane.INFORMATION_MESSAGE);
 							}
 						}
 					}
@@ -272,7 +340,6 @@ public class TabMockMessage extends JPanel {
 		restaureButton.setBounds(500, 350, 100, 40);
 		this.add(restaureButton);
 		restaureButton.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				textInputIdSensor.setText("");
@@ -292,7 +359,9 @@ public class TabMockMessage extends JPanel {
 		restaureButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				generateMessage.setBool(false);
 				bool = false;
+				nbThread = 0;
 				logger.log(Level.INFO, "Generation stopped");
 			}
 		});
