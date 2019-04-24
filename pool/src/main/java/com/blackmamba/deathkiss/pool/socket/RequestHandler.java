@@ -109,6 +109,9 @@ public class RequestHandler implements Runnable {
 								objectMapper = new ObjectMapper();
 								Message messages = objectMapper.readValue(jsonString, Message.class);
 								monitoringAlert.addListMessage(messages, monitoringAlert.getListMessage());
+								jsonString = "ADD";
+								writer.write(jsonString);
+								writer.flush();
 								DAO<Message> messageDao = new MessageDAO(connection);
 								setResult(((MessageDAO) messageDao).create(jsonString));
 								logger.log(Level.INFO, "Message reveived to client");

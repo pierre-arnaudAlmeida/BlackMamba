@@ -277,11 +277,15 @@ public class TabMockMessage extends JPanel {
 									request = "ONE";
 									for (Sensor sensors : listSensor) {
 										if (sensors.getTypeSensor().toString().equals(textInputTypeSensor.getSelectedItem().toString()) && sensors.getIdSensor() == Integer.parseInt(textInputIdSensor.getText().trim())) {
-											message.setIdSensor(sensors.getIdSensor());
+											if (sensors.getSensorState() == true) {
+												message.setIdSensor(sensors.getIdSensor());
+											} else {
+												JOptionPane.showMessageDialog(null, "Ce capteur est éteint", "Infos", JOptionPane.INFORMATION_MESSAGE);
+											}
 										}
 									}
 									if (message.getIdSensor() == 0) {
-										JOptionPane.showMessageDialog(null, "Ce capteur, n'existe pas pour cet ID et ce type de capteur", "Infos", JOptionPane.INFORMATION_MESSAGE);
+										JOptionPane.showMessageDialog(null, "Ce capteur n'existe pas pour cet ID et ce type de capteur", "Infos", JOptionPane.INFORMATION_MESSAGE);
 									}
 									launchGeneration();
 								}
@@ -298,7 +302,7 @@ public class TabMockMessage extends JPanel {
 							request = "TYPE";
 							listRestrictedSensor.removeAll(listRestrictedSensor);
 							for (Sensor sensors : listSensor) {
-								if (sensors.getTypeSensor().toString().equals(textInputTypeSensor.getSelectedItem().toString())) {
+								if (sensors.getTypeSensor().toString().equals(textInputTypeSensor.getSelectedItem().toString()) && sensors.getSensorState() == true) {
 									listRestrictedSensor.add(sensors);
 								}
 							}
@@ -393,5 +397,19 @@ public class TabMockMessage extends JPanel {
 	 */
 	public void setThreadGenerateMessage(Thread threadGenerateMessage) {
 		this.threadGenerateMessage = threadGenerateMessage;
+	}
+
+	/**
+	 * @return the bool
+	 */
+	public boolean getBool() {
+		return bool;
+	}
+
+	/**
+	 * @param bool the bool to set
+	 */
+	public void setBool(boolean bool) {
+		this.bool = bool;
 	}
 }
