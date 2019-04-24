@@ -5,12 +5,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.pool.entity.Resident;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -165,8 +167,32 @@ public class ResidentDAO extends DAO<Resident> {
 	 * values in table 'resident' by the name or lastName
 	 */
 	public String findByName(String jsonString) {
-		// TODO
-		return null;
+		ObjectMapper objectMapper = new ObjectMapper();
+		String request;
+		Resident resident;
+		List<Resident> listResident = new ArrayList<>();
+		try {
+			Statement st = con.createStatement();
+			Resident resid = objectMapper.readValue(jsonString, Resident.class);
+			request = "SELECT * FROM resident where ((nom_resident LIKE '%" + resid.getLastnameResident().toUpperCase() + "%') or (prenom_resident LIKE '%" + resid.getLastnameResident().toLowerCase() + "%') or (prenom_resident LIKE '%" + resid.getLastnameResident().toUpperCase()
+					+ "%') or (poste LIKE '%" + resid.getLastnameResident().toLowerCase() + "%') or (poste LIKE '%" + resid.getLastnameResident().toUpperCase() + "%'))";
+			result = st.executeQuery(request);
+			while (result.next()) {
+				resident = new Resident();
+				resident.setIdResident(Integer.parseInt(result.getObject(1).toString()));
+				resident.setLastnameResident(result.getObject(2).toString());
+				resident.setNameResident(result.getObject(3).toString());
+				listResident.add(resident);
+			}
+			ObjectMapper obj = new ObjectMapper();
+			jsonString = obj.writeValueAsString(listResident);
+			logger.log(Level.INFO, "Residents succesfully find in BDD");
+			return jsonString;
+		} catch (SQLException | IOException e) {
+			logger.log(Level.INFO, "Impossible to get residents datas from BDD " + e.getClass().getCanonicalName());
+		}
+		jsonString = "ERROR";
+		return jsonString;
 	}
 
 	/**
@@ -177,9 +203,18 @@ public class ResidentDAO extends DAO<Resident> {
 	 * @return
 	 */
 	public boolean badger(int idResident, int idSensor) {
-		// TODO Auto-generated method stub
-		// Quand on badge on ajoute une date
-		// Dans la table badger
-		return false;
+		String request;
+		Date currentDate = new Date();
+		Format formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
+			Statement st = con.createStatement();
+			request = "insert into badger (id_resident, id_capteur, date_badger) values ('" + idResident + "','" + idSensor + "','" + formater.format(currentDate) + "')";
+			st.execute(request);
+			logger.log(Level.INFO, "Resident succesfully inserted in BDD");
+			return true;
+		} catch (SQLException e) {
+			logger.log(Level.INFO, "Impossible to insert resident datas in BDD" + e.getClass().getCanonicalName());
+			return false;
+		}
 	}
 }

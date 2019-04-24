@@ -11,7 +11,6 @@ import java.util.List;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.pool.entity.AlertState;
 import com.blackmamba.deathkiss.pool.entity.Sensitivity;
 import com.blackmamba.deathkiss.pool.entity.Sensor;
@@ -49,11 +48,8 @@ public class SensorDAO extends DAO<Sensor> {
 			} else
 				state = "OFF";
 
-			request = "insert into capteur (type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,parametre) values ('"
-					+ sensor.getTypeSensor() + "','" + state + "','" + sensor.getIdCommonArea() + "','"
-					+ sensor.getAlertState() + "','" + sensor.getSensitivity() + "','" + sensor.getStartActivity()
-					+ "','" + sensor.getEndActivity() + "','" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:"
-					+ sensor.getThresholdMax() + "')";
+			request = "insert into capteur (type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,parametre) values ('" + sensor.getTypeSensor() + "','" + state + "','" + sensor.getIdCommonArea() + "','" + sensor.getAlertState() + "','" + sensor.getSensitivity() + "','"
+					+ sensor.getStartActivity() + "','" + sensor.getEndActivity() + "','" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "')";
 			st.execute(request);
 			logger.log(Level.INFO, "Sensor succesfully inserted in BDD");
 			return true;
@@ -97,33 +93,19 @@ public class SensorDAO extends DAO<Sensor> {
 			Sensor sensor = objectMapper.readValue(jsonString, Sensor.class);
 			if (sensor.getSensorState() == true) {
 				if (sensor.getIdCommonArea() == 0) {
-					request = "UPDATE capteur SET id_partie_commune = null, etat = 'ON', type_capteur = '"
-							+ sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='"
-							+ sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity() + "',heure_fin='"
-							+ sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin()
-							+ "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor();
+					request = "UPDATE capteur SET id_partie_commune = null, etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity() + "',heure_fin='"
+							+ sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor();
 				} else {
-					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea()
-							+ ", etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='"
-							+ sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='"
-							+ sensor.getStartActivity() + "',heure_fin='" + sensor.getEndActivity() + "',parametre='"
-							+ "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax()
-							+ "' where id_capteur = " + sensor.getIdSensor();
+					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea() + ", etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity()
+							+ "',heure_fin='" + sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor();
 				}
 			} else if (sensor.getSensorState() == false) {
 				if (sensor.getIdCommonArea() == 0) {
-					request = "UPDATE capteur SET id_partie_commune = null, etat = 'OFF', type_capteur = '"
-							+ sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='"
-							+ sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity() + "',heure_fin='"
-							+ sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin()
-							+ "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor();
+					request = "UPDATE capteur SET id_partie_commune = null, etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity() + "',heure_fin='"
+							+ sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor();
 				} else {
-					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea()
-							+ ", etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='"
-							+ sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='"
-							+ sensor.getStartActivity() + "',heure_fin='" + sensor.getEndActivity() + "',parametre='"
-							+ "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax()
-							+ "' where id_capteur = " + sensor.getIdSensor();
+					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea() + ", etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity()
+							+ "',heure_fin='" + sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor();
 				}
 			} else
 				return false;
@@ -432,13 +414,5 @@ public class SensorDAO extends DAO<Sensor> {
 		}
 		jsonString = "ERROR";
 		return jsonString;
-	}
-
-	public boolean report(int idEmployee, int idSensor) {
-		// TODO Auto-generated method stub
-		// Quand une fenetre popup s'ouvre pour prevenir d'un alerte, on utilise la
-		// methode report() en fonction de la
-		// ou les personnes qui ont reçu la notification
-		return false;
 	}
 }
