@@ -53,8 +53,6 @@ public class MockSocket {
 
 			writer.write("OPEN");
 			writer.flush();
-			logger.log(Level.INFO, "Command OPEN connection send to server");
-
 			response = read();
 
 			/**
@@ -80,10 +78,7 @@ public class MockSocket {
 				}
 				writer.write(response);
 				writer.flush();
-				logger.log(Level.INFO, "Request Type Send to server");
-
 				response = read();
-
 				/**
 				 * Send to server the jsonString coded in JSON
 				 */
@@ -91,7 +86,7 @@ public class MockSocket {
 					response = jsonString;
 					writer.write(response);
 					writer.flush();
-					logger.log(Level.INFO, "Request Send to server");
+					logger.log(Level.INFO, "Message Send to server");
 
 					response = read();
 					/**
@@ -99,20 +94,15 @@ public class MockSocket {
 					 */
 					if (!response.equals("ERROR")) {
 						MockSocket.setJsonString(response);
-						logger.log(Level.INFO, "Datas received on client");
 						response = "CLOSE";
 						writer.write(response);
 						writer.flush();
-						logger.log(Level.INFO, "Command CLOSE connection send to server");
 						writer.close();
-						logger.log(Level.INFO, "Connection Closed by client");
 					} else {
 						response = "CLOSE";
 						writer.write(response);
 						writer.flush();
-						logger.log(Level.INFO, "Command CLOSE connection send to server");
 						writer.close();
-						logger.log(Level.INFO, "Connection Closed by client");
 					}
 				} else {
 					/**
@@ -122,18 +112,14 @@ public class MockSocket {
 					response = "CLOSE";
 					writer.write(response);
 					writer.flush();
-					logger.log(Level.INFO, "Command CLOSE connection send to server");
 					writer.close();
-					logger.log(Level.INFO, "Connection Closed by client");
 				}
 			} else {
 				logger.log(Level.INFO, "ERROR, Impossible to Receive datas");
 				response = "CLOSE";
 				writer.write(response);
 				writer.flush();
-				logger.log(Level.INFO, "Command CLOSE connection send to server");
 				writer.close();
-				logger.log(Level.INFO, "Connection Closed by client");
 			}
 		} catch (UnknownHostException e) {
 			logger.log(Level.INFO, "IP Host dont find " + e.getClass().getCanonicalName());

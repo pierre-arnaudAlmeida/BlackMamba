@@ -40,6 +40,7 @@ public class GenerateMessage extends Thread {
 						message.setIdSensor(sensors.getIdSensor());
 						message.setThreshold((sensors.getThresholdMax() - sensors.getThresholdMin()) / 2);
 						message.setAlertDate(currentDate);
+						System.out.println(threshold);
 						sendMessage();
 					}
 				}
@@ -49,13 +50,11 @@ public class GenerateMessage extends Thread {
 						currentDate = new Date();
 						message.setThreshold(threshold);
 						message.setAlertDate(currentDate);
-					} else {
-						currentDate = new Date();
-						message.setIdSensor(sensors.getIdSensor());
-						message.setThreshold((sensors.getThresholdMax() - sensors.getThresholdMin()) / 2);
-						message.setAlertDate(currentDate);
+						System.out.println(message.getThreshold());
+						sendMessage();
 					}
-					sendMessage();
+					
+					
 				}
 			} else if (request.equals("TYPE")) {
 				for (Sensor sensors : listSensor) {
@@ -69,7 +68,7 @@ public class GenerateMessage extends Thread {
 			// TODO voir combien de temps prend cette methode a s'executer
 			nbMessageGenerate++;
 			try {
-				Thread.sleep(500);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				logger.log(Level.INFO, "Impossible to sleep the threadGenerateMessage" + e.getClass().getCanonicalName());
 			}
@@ -84,7 +83,6 @@ public class GenerateMessage extends Thread {
 		objectMapper = new ObjectMapper();
 		try {
 			jsonString = objectMapper.writeValueAsString(message);
-			System.out.println(jsonString);// TODO FUCK a supprimer
 			new MockSocket(requestType, jsonString, null);
 			logger.log(Level.INFO, "Message sent to server");
 		} catch (Exception e1) {

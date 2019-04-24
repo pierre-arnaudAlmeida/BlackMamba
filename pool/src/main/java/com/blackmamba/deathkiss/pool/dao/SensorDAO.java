@@ -287,15 +287,15 @@ public class SensorDAO extends DAO<Sensor> {
 				int positionMin = substring.indexOf("seuilMin");
 				int positionMax = substring.indexOf("seuilMax");
 				if (positionMin > -1 && positionMax > -1) {
-					String thresholdMin = substring.substring(positionMin + 8, positionMax).trim();
+					String thresholdMin = substring.substring(positionMin + 9, positionMax).trim();
 					sensor.setThresholdMin(Integer.parseInt(thresholdMin));
-					String thresholdMax = substring.substring(positionMax + 8).trim();
+					String thresholdMax = substring.substring(positionMax + 9).trim();
 					sensor.setThresholdMax(Integer.parseInt(thresholdMax));
 				} else if (positionMin > -1 && positionMax == -1) {
-					String thresholdMin = substring.substring(positionMin + 8).trim();
+					String thresholdMin = substring.substring(positionMin + 9).trim();
 					sensor.setThresholdMin(Integer.parseInt(thresholdMin));
 				} else if (positionMin == -1 && positionMax > -1) {
-					String thresholdMax = substring.substring(positionMax + 8).trim();
+					String thresholdMax = substring.substring(positionMax + 9).trim();
 					sensor.setThresholdMax(Integer.parseInt(thresholdMax));
 				}
 

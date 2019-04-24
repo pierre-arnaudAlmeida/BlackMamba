@@ -103,19 +103,17 @@ public class RequestHandler implements Runnable {
 							response = "OK FOR REQUEST ALERT";
 							writer.write(response);
 							writer.flush();
-							logger.log(Level.INFO, "Request Type accepted by server");
 							response = read();
 							if (!response.equals("")) {
 								objectMapper = new ObjectMapper();
-								Message messages = objectMapper.readValue(jsonString, Message.class);
-								logger.log(Level.INFO, jsonString);//TODO Fuck a supprimer
+								Message messages = objectMapper.readValue(response, Message.class);
 								monitoringAlert.addListMessage(messages, monitoringAlert.getListMessage());
+								logger.log(Level.INFO, "One message Received from sensor : " + messages.getIdSensor());
 								jsonString = "ADD";
 								writer.write(jsonString);
 								writer.flush();
 								DAO<Message> messageDao = new MessageDAO(connection);
-								setResult(((MessageDAO) messageDao).create(jsonString));
-								logger.log(Level.INFO, "Message reveived to client");
+								setResult(((MessageDAO) messageDao).create(response));
 							} else {
 								logger.log(Level.INFO, "Request not recognized");
 							}
