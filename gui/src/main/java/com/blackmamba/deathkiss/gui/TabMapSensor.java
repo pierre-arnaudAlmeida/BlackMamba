@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import org.apache.logging.log4j.Level;
 
 import com.blackmamba.deathkiss.entity.CommonArea;
-import com.blackmamba.deathkiss.entity.Message;
+import com.blackmamba.deathkiss.entity.Alert;
 import com.blackmamba.deathkiss.entity.Sensor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.BorderLayout;
@@ -55,9 +55,10 @@ public class TabMapSensor extends JPanel implements MouseListener {
 
 	private List<Polygon> surface = new ArrayList<Polygon>();
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
-	private List<Message> listMessage = new ArrayList<Message>();
+	private List<Alert> listAlert = new ArrayList<Alert>();
 
 	private Sensor sensor;
+	private TabSensor tabSensor;
 	private String requestType;
 	private String table;
 	private String jsonString;
@@ -152,11 +153,14 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		this.add(bar, BorderLayout.NORTH);
 		this.setBackground(color);
 
-///////////////////////// LIST SENSOR///////////////////////////////////////////
+		
+		///////////////////////// LIST SENSOR///////////////////////////////////////////
 		listM = new DefaultListModel<String>();
 		list = new JList<String>(listM);
-		updateListSensor();
+		
+		tabSensor.ActualizationListSensor(listAlert);
 
+		
 		sc = new JScrollPane(list);
 		sc.setBounds(30, 120, 300, ((int) getToolkit().getScreenSize().getHeight() - 300));
 		this.add(sc);
@@ -263,62 +267,21 @@ public class TabMapSensor extends JPanel implements MouseListener {
 
 	}
 
-	public void updateListSensor() {
-		sensor = new Sensor();
-		sensor.setIdCommonArea(0);
-		sensor.setSensorState(false);
-		sensor.setTypeSensor(null);
-	}
 
-	public void updateSensorSelected() {
-		if (index != -9999) {
-			String substring = listM.getElementAt(index).toString();
-			int position = substring.indexOf("#");
-			if (position > -1) {
-				String id = substring.substring(0, position);
-
-				/**
-				 * Find the Sensor by the id get on list
-				 */
-				requestType = "READ";
-				sensor = new Sensor();
-				table = "Sensor";
-				sensor.setIdSensor(Integer.parseInt(id));
-				try {
-					jsonString = objectMapper.writeValueAsString(sensor);
-					new ClientSocket(requestType, jsonString, table);
-					jsonString = ClientSocket.getJson();
-					sensor = objectMapper.readValue(jsonString, Sensor.class);
-				} catch (Exception e1) {
-					logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
-				}
-
-				textInputIdSensor.setText(Integer.toString(sensor.getIdSensor()));
-				String str = commonArea.getNameCommonArea() + " #" + sensor.getIdCommonArea();
-				for (int i = 0; i < textInputNameCommonArea.getItemCount(); i++) {
-					if (textInputNameCommonArea.getItemAt(i).toString().contains(str)) {
-						textInputNameCommonArea.setSelectedIndex(i);
-					}
-				}
-				textInputTypeSensor.setSelectedItem(sensor.getTypeSensor().toString());
-				if (sensor.getSensorState() == true) {
-					switchButton.setText("ON");
-					switchButton.setBackground(Color.GREEN);
-				} else {
-					switchButton.setText("OFF");
-					switchButton.setBackground(Color.RED);
-				}
-			}
-		}
-	}
-
+	/**
+	 * @return the threadMapSensor
+	 */
 	public Thread getThreadMapSensor() {
 		return threadMapSensor;
 	}
 
+	/**
+	 * @param threadMapSensor the threadMapSensor to set
+	 */
 	public void setThreadMapSensor(Thread threadMapSensor) {
 		this.threadMapSensor = threadMapSensor;
 	}
+	
 
 //	  public void paint(Graphics g) {
 //		    int xpoints[] = {25, 145, 25, 145, 25};

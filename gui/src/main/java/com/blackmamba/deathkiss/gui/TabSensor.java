@@ -973,7 +973,7 @@ public class TabSensor extends JPanel {
 			}
 		}
 		if (listM.isEmpty() && (!listSensor.isEmpty())) {
-			updateListSensor();
+			ActualizationListSensor(list);
 		}
 	}
 
