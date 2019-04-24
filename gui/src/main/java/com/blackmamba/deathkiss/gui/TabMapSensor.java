@@ -18,6 +18,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -149,7 +151,87 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);
 		this.setBackground(color);
+
+///////////////////////// LIST SENSOR///////////////////////////////////////////
+		listM = new DefaultListModel<String>();
+		list = new JList<String>(listM);
+		updateListSensor();
+
+		sc = new JScrollPane(list);
+		sc.setBounds(30, 120, 300, ((int) getToolkit().getScreenSize().getHeight() - 300));
+		this.add(sc);
+
+		/**
+		 * when we pressed a line in the list they will send a request to get all the
+		 * information about the Sensor selected to be displayed on the textField
+		 */
+		index = -9999;
+		MouseListener mouseListener = new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				index = list.locationToIndex(e.getPoint());
+				String substring = listM.getElementAt(index).toString();
+				int position = substring.indexOf("#");
+				if (position > -1) {
+					String id = substring.substring(0, position);
+
+					/**
+					 * Find the Sensor by the id get on list
+					 */
+					requestType = "READ";
+					sensor = new Sensor();
+					table = "Sensor";
+					sensor.setIdSensor(Integer.parseInt(id));
+					try {
+						jsonString = objectMapper.writeValueAsString(sensor);
+						;
+						new ClientSocket(requestType, jsonString, table);
+						jsonString = ClientSocket.getJson();
+						sensor = objectMapper.readValue(jsonString, Sensor.class);
+					} catch (Exception e1) {
+						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+					}
+					/**
+					 * Find the CommonAreaName by the idCommonArea get on list
+					 */
+					requestType = "READ";
+					commonArea = new CommonArea();
+					table = "CommonArea";
+					ObjectMapper readMapper = new ObjectMapper();
+					commonArea.setIdCommonArea(sensor.getIdCommonArea());
+					try {
+						jsonString = readMapper.writeValueAsString(commonArea);
+						;
+						new ClientSocket(requestType, jsonString, table);
+						jsonString = ClientSocket.getJson();
+						commonArea = readMapper.readValue(jsonString, CommonArea.class);
+					} catch (Exception e1) {
+						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+					}
+
+					textInputIdSensor.setText(Integer.toString(sensor.getIdSensor()));
+					String str = commonArea.getNameCommonArea() + " #" + sensor.getIdCommonArea();
+					for (int i = 0; i < textInputNameCommonArea.getItemCount(); i++) {
+						if (textInputNameCommonArea.getItemAt(i).toString().contains(str)) {
+							textInputNameCommonArea.setSelectedIndex(i);
+						}
+					}
+					textInputTypeSensor.setSelectedItem(sensor.getTypeSensor().toString());
+					if (sensor.getSensorState() == true) {
+						switchButton.setText("ON");
+						switchButton.setBackground(Color.GREEN);
+					} else {
+						switchButton.setText("OFF");
+						switchButton.setBackground(Color.RED);
+					}
+				}
+			}
+		};
+		list.addMouseListener(mouseListener);
+
 	}
+	
+	
+	
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {

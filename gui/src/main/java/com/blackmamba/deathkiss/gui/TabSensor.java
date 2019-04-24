@@ -74,6 +74,7 @@ public class TabSensor extends JPanel {
 	private Sensor sensor;
 	private Sensor sensor2;
 	private JScrollPane sc;
+	private Alert alert;
 	private CommonArea commonArea;
 	private ObjectMapper objectMapper;
 	private Thread threadSensor;
@@ -945,6 +946,35 @@ public class TabSensor extends JPanel {
 
 	public void ActualizationListSensor(List<Alert> list) {
 		// TODO Keita Raymond
+		
+		requestType = "READ ALL";
+		alert = new Alert();
+		table = "Alert";
+		objectMapper = new ObjectMapper();
+		updateSensorSelected();
+
+		try {
+			jsonString = "READ ALL";
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			Alert[] alerts = objectMapper.readValue(jsonString, Alert[].class);
+			listAlert = Arrays.asList(alerts);
+			logger.log(Level.INFO, "Find Alert Sensors data succed");
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
+		}
+
+		listM.removeAllElements();
+		listM.addElement("Les capteurs et leurs états");
+		for (Alert alerts : listAlert) {
+			if (!alerts.getAlertState().equals(sensor.getAlertState())) {
+
+				listM.addElement(alerts.getIdSensor() + "# " + alerts.getAlertState() );
+			}
+		}
+		if (listM.isEmpty() && (!listSensor.isEmpty())) {
+			updateListSensor();
+		}
 	}
 
 	/**
