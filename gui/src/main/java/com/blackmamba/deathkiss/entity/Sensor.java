@@ -1,9 +1,9 @@
 package com.blackmamba.deathkiss.entity;
 
 import java.sql.Time;
-import com.blackmamba.deathkiss.pool.entity.AlertState;
-import com.blackmamba.deathkiss.pool.entity.Sensitivity;
-import com.blackmamba.deathkiss.pool.entity.SensorType;
+import com.blackmamba.deathkiss.entity.AlertState;
+import com.blackmamba.deathkiss.entity.Sensitivity;
+import com.blackmamba.deathkiss.entity.SensorType;
 
 /**
  * 

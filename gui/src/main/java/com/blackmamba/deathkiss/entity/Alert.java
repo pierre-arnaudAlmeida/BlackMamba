@@ -2,7 +2,7 @@ package com.blackmamba.deathkiss.entity;
 
 import java.util.Date;
 
-import com.blackmamba.deathkiss.pool.entity.AlertState;
+import com.blackmamba.deathkiss.entity.AlertState;
 
 public class Alert {
 

@@ -29,10 +29,10 @@ import javax.swing.JTextField;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.blackmamba.deathkiss.pool.entity.Alert;
-import com.blackmamba.deathkiss.pool.entity.CommonArea;
-import com.blackmamba.deathkiss.pool.entity.Sensor;
-import com.blackmamba.deathkiss.pool.entity.SensorType;
+import com.blackmamba.deathkiss.entity.Alert;
+import com.blackmamba.deathkiss.entity.CommonArea;
+import com.blackmamba.deathkiss.entity.Sensor;
+import com.blackmamba.deathkiss.entity.SensorType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**

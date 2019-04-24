@@ -9,9 +9,9 @@ import java.util.List;
 import javax.swing.JPanel;
 import org.apache.logging.log4j.Level;
 
-import com.blackmamba.deathkiss.pool.entity.CommonArea;
-import com.blackmamba.deathkiss.pool.entity.Message;
-import com.blackmamba.deathkiss.pool.entity.Sensor;
+import com.blackmamba.deathkiss.entity.CommonArea;
+import com.blackmamba.deathkiss.entity.Message;
+import com.blackmamba.deathkiss.entity.Sensor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.BorderLayout;
 import java.awt.Dimension;

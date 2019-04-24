@@ -4,7 +4,6 @@ import java.awt.Color;
 
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

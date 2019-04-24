@@ -3,6 +3,7 @@ package com.blackmamba.deathkiss.pool.socket;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -155,6 +156,10 @@ public class MonitoringAlert {
 				sensitivity = Integer.parseInt(rsAlert.getString("nbOfAlertMessageHigh"));
 			}
 			// TODO manque l'heure a laquelle ca c'est déclancher
+			Time timeAlert = new java.sql.Time(lastAlertDate.getTime());
+			timeAlert.compareTo(sensors.getStartActivity());
+			timeAlert.compareTo(sensors.getEndActivity());
+
 			if (nbAlert >= sensitivity && difference <= Integer.parseInt(rsAlert.getString("timeBetweenAlert"))) {
 				alert = new Alert();
 				alert.setAlertDate(lastAlertDate);

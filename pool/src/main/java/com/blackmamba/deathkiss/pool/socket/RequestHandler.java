@@ -108,6 +108,7 @@ public class RequestHandler implements Runnable {
 							if (!response.equals("")) {
 								objectMapper = new ObjectMapper();
 								Message messages = objectMapper.readValue(jsonString, Message.class);
+								logger.log(Level.INFO, jsonString);//TODO Fuck a supprimer
 								monitoringAlert.addListMessage(messages, monitoringAlert.getListMessage());
 								jsonString = "ADD";
 								writer.write(jsonString);

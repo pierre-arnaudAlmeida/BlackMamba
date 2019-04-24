@@ -3,7 +3,7 @@ package com.blackmamba.deathkiss.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.blackmamba.deathkiss.pool.entity.Sensor;
+import com.blackmamba.deathkiss.entity.Sensor;
 
 /**
  * 
