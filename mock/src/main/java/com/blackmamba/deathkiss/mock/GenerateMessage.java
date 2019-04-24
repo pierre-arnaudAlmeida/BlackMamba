@@ -17,9 +17,11 @@ public class GenerateMessage extends Thread {
 	private int nbMessageGenerate;
 	private int threshold;
 	private Message message;
+	private Message message2;
 	private String request;
 	private String requestType;
 	private String jsonString;
+	private String sensorType;
 	private ObjectMapper objectMapper;
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private static final Logger logger = LogManager.getLogger(GenerateMessage.class);
@@ -32,59 +34,80 @@ public class GenerateMessage extends Thread {
 
 	public void run() {
 		bool = true;
-		while (bool) {
-			if (request.equals("ALL")) {
-				for (Sensor sensors : listSensor) {
-					if (sensors.getSensorState() == true) {
-						currentDate = new Date();
-						message.setIdSensor(sensors.getIdSensor());
-						message.setThreshold((sensors.getThresholdMax() - sensors.getThresholdMin()) / 2);
-						message.setAlertDate(currentDate);
-						System.out.println(threshold);
-						sendMessage();
-					}
-				}
-			} else if (request.equals("ONE")) {
-				for (Sensor sensors : listSensor) {
-					if (sensors.getIdSensor() == message.getIdSensor()) {
-						currentDate = new Date();
-						message.setThreshold(threshold);
-						message.setAlertDate(currentDate);
-						System.out.println(message.getThreshold());
-						sendMessage();
-					}
-					
-					
-				}
-			} else if (request.equals("TYPE")) {
-				for (Sensor sensors : listSensor) {
+		// while (bool) {TODO supprimer les commentaires
+		if (request.equals("ALL")) {
+			for (Sensor sensors : listSensor) {
+				if (sensors.getSensorState() == true) {
 					currentDate = new Date();
-					message.setIdSensor(sensors.getIdSensor());
-					message.setThreshold((sensors.getThresholdMax() - sensors.getThresholdMin()) / 2);
-					message.setAlertDate(currentDate);
-					sendMessage();
+					message2 = new Message();
+					message2.setIdSensor(sensors.getIdSensor());
+					message2.setThreshold((sensors.getThresholdMax() - sensors.getThresholdMin()) / 2);
+					message2.setAlertDate(currentDate);
+					sendMessage(message2);
+					nbMessageGenerate++;
 				}
 			}
-			// TODO voir combien de temps prend cette methode a s'executer
-			nbMessageGenerate++;
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				logger.log(Level.INFO, "Impossible to sleep the threadGenerateMessage" + e.getClass().getCanonicalName());
+		} else if (request.equals("ONE")) {
+			for (Sensor sensors : listSensor) {
+				message2 = new Message();
+				if (sensors.getIdSensor() == message.getIdSensor()) {
+					currentDate = new Date();
+					message2.setThreshold(threshold);
+					message2.setAlertDate(currentDate);
+					message2.setIdSensor(message.getIdSensor());
+					sendMessage(message2);
+					nbMessageGenerate++;
+				} else if (sensors.getSensorState() == true) {
+					currentDate = new Date();
+					message2.setThreshold((sensors.getThresholdMax() - sensors.getThresholdMin()) / 2);
+					message2.setAlertDate(currentDate);
+					message2.setIdSensor(sensors.getIdSensor());
+					sendMessage(message2);
+					nbMessageGenerate++;
+				}
+
+			}
+		} else if (request.equals("TYPE")) {
+			for (Sensor sensors : listSensor) {
+				if (sensors.getIdSensor() == message.getIdSensor()) {
+					sensorType = sensors.getTypeSensor().toString();
+				}
+				if (sensors.getSensorState() == true && sensorType.equals(sensors.getTypeSensor().toString())) {
+					message2 = new Message();
+					currentDate = new Date();
+					message2.setIdSensor(sensors.getIdSensor());
+					message2.setThreshold(threshold);
+					message2.setAlertDate(currentDate);
+					sendMessage(message2);
+					nbMessageGenerate++;
+				} else if (sensors.getSensorState() == true) {
+					message2 = new Message();
+					currentDate = new Date();
+					message2.setIdSensor(sensors.getIdSensor());
+					message2.setThreshold((sensors.getThresholdMax() - sensors.getThresholdMin()) / 2);
+					message2.setAlertDate(currentDate);
+					sendMessage(message2);
+					nbMessageGenerate++;
+				}
 			}
 		}
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			logger.log(Level.INFO, "Impossible to sleep the threadGenerateMessage" + e.getClass().getCanonicalName());
+		}
+		// }
 	}
 
 	/**
 	 * Send the message to server
 	 */
-	public void sendMessage() {
+	public void sendMessage(Message message) {
 		requestType = "ALERT";
 		objectMapper = new ObjectMapper();
 		try {
 			jsonString = objectMapper.writeValueAsString(message);
 			new MockSocket(requestType, jsonString, null);
-			logger.log(Level.INFO, "Message sent to server");
 		} catch (Exception e1) {
 			logger.log(Level.INFO, "Impossible to parse in JSON Message data " + e1.getClass().getCanonicalName());
 		}
