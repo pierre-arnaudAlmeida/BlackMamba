@@ -21,28 +21,45 @@ public class Resident {
 	public Resident() {
 	}
 
+	/**
+	 * @return the idResident
+	 */
 	public int getIdResident() {
 		return idResident;
 	}
 
+	/**
+	 * @param idResident the idResident to set
+	 */
 	public void setIdResident(int idResident) {
 		this.idResident = idResident;
 	}
 
+	/**
+	 * @return the lastnameResident
+	 */
 	public String getLastnameResident() {
 		return lastnameResident;
 	}
 
+	/**
+	 * @param lastnameResident the lastnameResident to set
+	 */
 	public void setLastnameResident(String lastnameResident) {
 		this.lastnameResident = lastnameResident;
 	}
 
+	/**
+	 * @return the nameResident
+	 */
 	public String getNameResident() {
 		return nameResident;
 	}
 
+	/**
+	 * @param nameResident the nameResident to set
+	 */
 	public void setNameResident(String nameResident) {
 		this.nameResident = nameResident;
 	}
-
 }

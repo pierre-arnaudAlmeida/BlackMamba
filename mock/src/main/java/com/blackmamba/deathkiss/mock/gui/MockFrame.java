@@ -51,13 +51,17 @@ public class MockFrame extends JFrame {
 		 * Different parameters of the window
 		 */
 		this.setTitle("Deathkiss Mock");
-		this.setSize(800, 600);
+		this.setSize(850, 600);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.getContentPane().add(tab);
 	}
 
+	/**
+	 * 
+	 * @return the width of the frame
+	 */
 	public int getWidthMockFrame() {
 		return this.getWidth();
 	}

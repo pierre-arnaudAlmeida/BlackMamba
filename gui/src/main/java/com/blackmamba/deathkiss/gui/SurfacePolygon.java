@@ -1,12 +1,9 @@
 package com.blackmamba.deathkiss.gui;
 
 import java.util.List;
-
 import com.blackmamba.deathkiss.pool.entity.CommonArea;
-
 import java.awt.Point;
 import java.awt.Polygon;
-import java.util.Arrays;
 
 /**
  * @author Raymond

@@ -25,7 +25,6 @@ import javax.swing.JTabbedPane;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.pool.entity.CommonArea;
 import com.blackmamba.deathkiss.pool.entity.Sensor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -70,7 +69,7 @@ public class TabListSensor extends JPanel {
 
 	public TabListSensor(CommonArea area, int idemployee, String title) {
 		this.idemployee = idemployee;
-		this.setArea(area);
+		this.area = area;
 
 		setThreadListSensor(new Thread(new Runnable() {
 			/**
@@ -130,10 +129,7 @@ public class TabListSensor extends JPanel {
 		updateListSensor();
 
 		sc = new JScrollPane(tableau);
-		sc.setBounds((int) getToolkit().getScreenSize().getWidth() * 3 / 10,
-				(int) getToolkit().getScreenSize().getHeight() * 2 / 10,
-				(int) getToolkit().getScreenSize().getWidth() * 1 / 2,
-				(int) getToolkit().getScreenSize().getHeight() * 1 / 2);
+		sc.setBounds((int) getToolkit().getScreenSize().getWidth() * 3 / 10, (int) getToolkit().getScreenSize().getHeight() * 2 / 10, (int) getToolkit().getScreenSize().getWidth() * 1 / 2, (int) getToolkit().getScreenSize().getHeight() * 1 / 2);
 		this.add(sc);
 
 		/**
@@ -154,8 +150,7 @@ public class TabListSensor extends JPanel {
 		 * Definition of Button CheckSensor
 		 */
 		checkSensor = new JButton("Afficher le capteur");
-		checkSensor.setBounds(((int) getToolkit().getScreenSize().getWidth() * 5 / 10),
-				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
+		checkSensor.setBounds(((int) getToolkit().getScreenSize().getWidth() * 5 / 10), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
 		this.add(checkSensor);
 		checkSensor.addActionListener(new ActionListener() {
 			/**
@@ -165,8 +160,7 @@ public class TabListSensor extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (index == 0) {
-					JOptionPane.showMessageDialog(null, "Veuillez selectionner un capteur", "Erreur",
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Veuillez selectionner un capteur", "Erreur", JOptionPane.ERROR_MESSAGE);
 				} else {
 					tab = new JTabbedPane();
 					tab = Frame.getTab();
@@ -184,8 +178,7 @@ public class TabListSensor extends JPanel {
 		 * Definition of Button newCommonArea
 		 */
 		newCommonArea = new JButton("Nouvelle Partie Commune");
-		newCommonArea.setBounds(((int) getToolkit().getScreenSize().getWidth() * 3 / 10),
-				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
+		newCommonArea.setBounds(((int) getToolkit().getScreenSize().getWidth() * 3 / 10), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
 		this.add(newCommonArea);
 		newCommonArea.addActionListener(new ActionListener() {
 			/**
@@ -239,8 +232,7 @@ public class TabListSensor extends JPanel {
 		tableModel.addElement("Identifiant, Capteur Type, Etat, Nom Partie Commune");
 
 		for (Sensor sensors : listSensor) {
-			tableModel.addElement(Integer.toString(sensors.getIdSensor()) + " " + sensors.getTypeSensor() + " "
-					+ sensors.getSensorState() + " " + area.getNameCommonArea());
+			tableModel.addElement(Integer.toString(sensors.getIdSensor()) + " " + sensors.getTypeSensor() + " " + sensors.getSensorState() + " " + area.getNameCommonArea());
 		}
 	}
 
@@ -262,19 +254,31 @@ public class TabListSensor extends JPanel {
 		this.listM = listM;
 	}
 
-	public CommonArea getArea() {
-		return area;
-	}
-
-	public void setArea(CommonArea area) {
-		this.area = area;
-	}
-
+	/**
+	 * @return the threadListSensor
+	 */
 	public Thread getThreadListSensor() {
 		return threadListSensor;
 	}
 
+	/**
+	 * @param threadListSensor the threadListSensor to set
+	 */
 	public void setThreadListSensor(Thread threadListSensor) {
 		this.threadListSensor = threadListSensor;
+	}
+
+	/**
+	 * @return the area
+	 */
+	public CommonArea getArea() {
+		return area;
+	}
+
+	/**
+	 * @param area the area to set
+	 */
+	public void setArea(CommonArea area) {
+		this.area = area;
 	}
 }

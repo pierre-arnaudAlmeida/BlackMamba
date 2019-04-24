@@ -29,7 +29,6 @@ import javax.swing.JTextField;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.pool.entity.Employee;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -200,15 +199,13 @@ public class TabEmployes extends JPanel {
 						listM.removeAllElements();
 						if (!employee2.getLastnameEmployee().equals("")) {
 							listM.addElement("Résultat pour l'employé avec l'id : " + searchReceived);
-							listM.addElement(employee2.getIdEmployee() + "# " + employee2.getLastnameEmployee() + " "
-									+ employee2.getNameEmployee() + " ," + employee2.getPoste());
+							listM.addElement(employee2.getIdEmployee() + "# " + employee2.getLastnameEmployee() + " " + employee2.getNameEmployee() + " ," + employee2.getPoste());
 						}
 					} else {
 						/**
 						 * If the research contains letter and numerics
 						 */
-						searchReceived = Normalizer.normalize(searchReceived, Normalizer.Form.NFD)
-								.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+						searchReceived = Normalizer.normalize(searchReceived, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 						employee2.setLastnameEmployee(searchReceived);
 						requestType = "FIND ALL";
 						table = "Employee";
@@ -217,8 +214,7 @@ public class TabEmployes extends JPanel {
 						if (listSearchEmployee.size() > 0)
 							listM.addElement("Résultat pour : " + searchReceived);
 						for (Employee employees : listSearchEmployee) {
-							listM.addElement(employees.getIdEmployee() + "# " + employees.getLastnameEmployee() + " "
-									+ employees.getNameEmployee() + " ," + employees.getPoste());
+							listM.addElement(employees.getIdEmployee() + "# " + employees.getLastnameEmployee() + " " + employees.getNameEmployee() + " ," + employees.getPoste());
 						}
 					}
 				} else {
@@ -231,8 +227,7 @@ public class TabEmployes extends JPanel {
 					listM.removeAllElements();
 					listM.addElement("Tout les employés ");
 					for (Employee employees : listEmployee) {
-						listM.addElement(employees.getIdEmployee() + "# " + employees.getLastnameEmployee() + " "
-								+ employees.getNameEmployee() + " ," + employees.getPoste());
+						listM.addElement(employees.getIdEmployee() + "# " + employees.getLastnameEmployee() + " " + employees.getNameEmployee() + " ," + employees.getPoste());
 					}
 				}
 				searchBar.setText("");
@@ -281,8 +276,7 @@ public class TabEmployes extends JPanel {
 		 */
 		policeLabel = new Font("Arial", Font.BOLD, (int) getToolkit().getScreenSize().getWidth() / 80);
 		labelLastnameEmployee = new JLabel("Nom : ");
-		labelLastnameEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
-				(int) getToolkit().getScreenSize().getHeight() * 2 / 10, 200, 30);
+		labelLastnameEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7, (int) getToolkit().getScreenSize().getHeight() * 2 / 10, 200, 30);
 		labelLastnameEmployee.setFont(policeLabel);
 		this.add(labelLastnameEmployee);
 
@@ -290,8 +284,7 @@ public class TabEmployes extends JPanel {
 		 * Definition of label NameEmployee
 		 */
 		labelNameEmployee = new JLabel("Prenom : ");
-		labelNameEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
-				(int) getToolkit().getScreenSize().getHeight() * 2 / 10, 200, 30);
+		labelNameEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7, (int) getToolkit().getScreenSize().getHeight() * 2 / 10, 200, 30);
 		labelNameEmployee.setFont(policeLabel);
 		this.add(labelNameEmployee);
 
@@ -299,8 +292,7 @@ public class TabEmployes extends JPanel {
 		 * Definition of label Password
 		 */
 		labelPassword = new JLabel("Mot de passe : ");
-		labelPassword.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
-				(int) getToolkit().getScreenSize().getHeight() * 4 / 10, 200, 30);
+		labelPassword.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7, (int) getToolkit().getScreenSize().getHeight() * 4 / 10, 200, 30);
 		labelPassword.setFont(policeLabel);
 		this.add(labelPassword);
 
@@ -308,8 +300,7 @@ public class TabEmployes extends JPanel {
 		 * Definition of label Function
 		 */
 		labelFunction = new JLabel("Poste : ");
-		labelFunction.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
-				(int) getToolkit().getScreenSize().getHeight() * 4 / 10, 100, 30);
+		labelFunction.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7, (int) getToolkit().getScreenSize().getHeight() * 4 / 10, 100, 30);
 		labelFunction.setFont(policeLabel);
 		this.add(labelFunction);
 
@@ -325,8 +316,7 @@ public class TabEmployes extends JPanel {
 		 * Definition of textArea LastnameEmployee
 		 */
 		textInputLastnameEmployee = new JTextField();
-		textInputLastnameEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
-				(int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
+		textInputLastnameEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7, (int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
 		textInputLastnameEmployee.setFont(policeLabel);
 		textInputLastnameEmployee.setText(employee.getLastnameEmployee());
 		this.add(textInputLastnameEmployee);
@@ -335,8 +325,7 @@ public class TabEmployes extends JPanel {
 		 * Definition of textArea NameEmployee
 		 */
 		textInputNameEmployee = new JTextField();
-		textInputNameEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
-				(int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
+		textInputNameEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7, (int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
 		textInputNameEmployee.setFont(policeLabel);
 		textInputNameEmployee.setText(employee.getNameEmployee());
 		this.add(textInputNameEmployee);
@@ -345,8 +334,7 @@ public class TabEmployes extends JPanel {
 		 * Definition of textArea Password
 		 */
 		textInputPasswordEmployee = new JPasswordField();
-		textInputPasswordEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
-				(int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);
+		textInputPasswordEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7, (int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);
 		textInputPasswordEmployee.setFont(policeLabel);
 		this.add(textInputPasswordEmployee);
 
@@ -354,8 +342,7 @@ public class TabEmployes extends JPanel {
 		 * Definition of textArea Function
 		 */
 		textInputFunctionEmployee = new JTextField();
-		textInputFunctionEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
-				(int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);
+		textInputFunctionEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7, (int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);
 		textInputFunctionEmployee.setFont(policeLabel);
 		textInputFunctionEmployee.setText(employee.getPoste());
 		this.add(textInputFunctionEmployee);
@@ -365,8 +352,7 @@ public class TabEmployes extends JPanel {
 		 * Button to displpay the password
 		 */
 		showButton = new JCheckBox("Montrer le mot de passe");
-		showButton.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
-				((int) getToolkit().getScreenSize().getHeight() * 9 / 20) + 50, 300, 40);
+		showButton.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7, ((int) getToolkit().getScreenSize().getHeight() * 9 / 20) + 50, 300, 40);
 		showButton.setBackground(color);
 		showButton.setFont(policeLabel);
 		this.add(showButton);
@@ -401,21 +387,16 @@ public class TabEmployes extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String newLastnameEmployee = textInputLastnameEmployee.getText().trim();
-				newLastnameEmployee = Normalizer.normalize(newLastnameEmployee, Normalizer.Form.NFD)
-						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+				newLastnameEmployee = Normalizer.normalize(newLastnameEmployee, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				String newNameEmployee = textInputNameEmployee.getText().trim();
-				newNameEmployee = Normalizer.normalize(newNameEmployee, Normalizer.Form.NFD)
-						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+				newNameEmployee = Normalizer.normalize(newNameEmployee, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				String newFunctionEmployee = textInputFunctionEmployee.getText().trim();
-				newFunctionEmployee = Normalizer.normalize(newFunctionEmployee, Normalizer.Form.NFD)
-						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+				newFunctionEmployee = Normalizer.normalize(newFunctionEmployee, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				char[] password = textInputPasswordEmployee.getPassword();
 				String newPasswordEmployee = new String(password).trim();
 
-				if (newLastnameEmployee.equals("") || newNameEmployee.equals("") || newFunctionEmployee.equals("")
-						|| newPasswordEmployee.equals("")) {
-					JOptionPane.showMessageDialog(null, "Champs vide ou contient uniquement des espaces", "Erreur",
-							JOptionPane.ERROR_MESSAGE);
+				if (newLastnameEmployee.equals("") || newNameEmployee.equals("") || newFunctionEmployee.equals("") || newPasswordEmployee.equals("")) {
+					JOptionPane.showMessageDialog(null, "Champs vide ou contient uniquement des espaces", "Erreur", JOptionPane.ERROR_MESSAGE);
 				} else {
 					/**
 					 * Get the information about the Employee and if the user want to insert a
@@ -426,11 +407,8 @@ public class TabEmployes extends JPanel {
 					requestType = "READ";
 					table = "Employee";
 					employee = getEmployee(employee, requestType, table);
-					if (newLastnameEmployee.equals(employee.getLastnameEmployee())
-							&& newNameEmployee.equals(employee.getNameEmployee())
-							&& newFunctionEmployee.equals(employee.getPoste())) {
-						JOptionPane.showMessageDialog(null, "Un employé possédant déja ces informations existe déja",
-								"Infos", JOptionPane.WARNING_MESSAGE);
+					if (newLastnameEmployee.equals(employee.getLastnameEmployee()) && newNameEmployee.equals(employee.getNameEmployee()) && newFunctionEmployee.equals(employee.getPoste())) {
+						JOptionPane.showMessageDialog(null, "Un employé possédant déja ces informations existe déja", "Infos", JOptionPane.WARNING_MESSAGE);
 					} else {
 						/**
 						 * Send the information to server to be inserted in data base
@@ -447,8 +425,7 @@ public class TabEmployes extends JPanel {
 							new ClientSocket(requestType, jsonString, table);
 							jsonString = ClientSocket.getJson();
 							if (!jsonString.equals("INSERTED")) {
-								JOptionPane.showMessageDialog(null, "L'insertion a échoué", "Erreur",
-										JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showMessageDialog(null, "L'insertion a échoué", "Erreur", JOptionPane.ERROR_MESSAGE);
 								logger.log(Level.INFO, "Impossible to insert employee");
 							} else {
 								/**
@@ -463,10 +440,8 @@ public class TabEmployes extends JPanel {
 								int x = listEmployee.size() - 1;
 
 								employee = listEmployee.get(x);
-								listM.addElement(employee.getIdEmployee() + "# " + employee.getLastnameEmployee() + " "
-										+ employee.getNameEmployee() + " ," + employee.getPoste());
-								JOptionPane.showMessageDialog(null, "L'insertion a été éffectué", "Infos",
-										JOptionPane.INFORMATION_MESSAGE);
+								listM.addElement(employee.getIdEmployee() + "# " + employee.getLastnameEmployee() + " " + employee.getNameEmployee() + " ," + employee.getPoste());
+								JOptionPane.showMessageDialog(null, "L'insertion a été éffectué", "Infos", JOptionPane.INFORMATION_MESSAGE);
 
 								textInputLastnameEmployee.setText("");
 								textInputNameEmployee.setText("");
@@ -474,8 +449,7 @@ public class TabEmployes extends JPanel {
 								textInputPasswordEmployee.setText("");
 							}
 						} catch (Exception e1) {
-							logger.log(Level.INFO,
-									"Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
+							logger.log(Level.INFO, "Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
 						}
 					}
 				}
@@ -486,8 +460,7 @@ public class TabEmployes extends JPanel {
 		 * Definition of Button Save
 		 */
 		save = new JButton("Sauvegarder");
-		save.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4) + 250,
-				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
+		save.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4) + 250, (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
 		this.add(save);
 		save.addActionListener(new ActionListener() {
 			/**
@@ -501,14 +474,11 @@ public class TabEmployes extends JPanel {
 				table = "Employee";
 
 				String newLastnameEmployee = textInputLastnameEmployee.getText().trim();
-				newLastnameEmployee = Normalizer.normalize(newLastnameEmployee, Normalizer.Form.NFD)
-						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+				newLastnameEmployee = Normalizer.normalize(newLastnameEmployee, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				String newNameEmployee = textInputNameEmployee.getText().trim();
-				newNameEmployee = Normalizer.normalize(newNameEmployee, Normalizer.Form.NFD)
-						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+				newNameEmployee = Normalizer.normalize(newNameEmployee, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				String newFunctionEmployee = textInputFunctionEmployee.getText().trim();
-				newFunctionEmployee = Normalizer.normalize(newFunctionEmployee, Normalizer.Form.NFD)
-						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+				newFunctionEmployee = Normalizer.normalize(newFunctionEmployee, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				char[] password = textInputPasswordEmployee.getPassword();
 				String newPasswordEmployee = new String(password);
 
@@ -523,8 +493,7 @@ public class TabEmployes extends JPanel {
 					 * be verify by system
 					 */
 					if (!(newPasswordEmployee.equals(""))) {
-						String verificationPassword = JOptionPane.showInputDialog(null,
-								"Inserez ancien votre mot de passe", "");
+						String verificationPassword = JOptionPane.showInputDialog(null, "Inserez ancien votre mot de passe", "");
 						String request = "CONNECTION";
 						employee2 = new Employee();
 
@@ -551,24 +520,19 @@ public class TabEmployes extends JPanel {
 								new ClientSocket(requestType, jsonString, table);
 								jsonString = ClientSocket.getJson();
 								if (!jsonString.equals("UPDATED")) {
-									JOptionPane.showMessageDialog(null, "La mise a jour a échoué", "Erreur",
-											JOptionPane.ERROR_MESSAGE);
+									JOptionPane.showMessageDialog(null, "La mise a jour a échoué", "Erreur", JOptionPane.ERROR_MESSAGE);
 									logger.log(Level.INFO, "Impossible to update employee");
 								} else {
 									logger.log(Level.INFO, "Update Succeded");
 									textInputPasswordEmployee.setText("");
-									listM.set(index, employee.getIdEmployee() + "# " + employee.getLastnameEmployee()
-											+ " " + employee.getNameEmployee() + " ," + employee.getPoste() + "");
-									JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos",
-											JOptionPane.INFORMATION_MESSAGE);
+									listM.set(index, employee.getIdEmployee() + "# " + employee.getLastnameEmployee() + " " + employee.getNameEmployee() + " ," + employee.getPoste() + "");
+									JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos", JOptionPane.INFORMATION_MESSAGE);
 								}
 							} catch (Exception e1) {
-								logger.log(Level.INFO, "Impossible to parse in JSON Employee datas"
-										+ e1.getClass().getCanonicalName());
+								logger.log(Level.INFO, "Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
 							}
 						} else {
-							JOptionPane.showMessageDialog(null, "Isouuuuuuu", "Erreur, Mauvais mot de passe",
-									JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Isouuuuuuu", "Erreur, Mauvais mot de passe", JOptionPane.ERROR_MESSAGE);
 						}
 					} else {
 						employee.setLastnameEmployee(newLastnameEmployee.toUpperCase());
@@ -580,20 +544,16 @@ public class TabEmployes extends JPanel {
 							new ClientSocket(requestType, jsonString, table);
 							jsonString = ClientSocket.getJson();
 							if (!jsonString.equals("UPDATED")) {
-								JOptionPane.showMessageDialog(null, "La mise a jour a échoué", "Erreur",
-										JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showMessageDialog(null, "La mise a jour a échoué", "Erreur", JOptionPane.ERROR_MESSAGE);
 								logger.log(Level.INFO, "Impossible to update employee");
 							} else {
 								logger.log(Level.INFO, "Update Succeded");
 								textInputPasswordEmployee.setText("");
-								listM.set(index, employee.getIdEmployee() + "# " + employee.getLastnameEmployee() + " "
-										+ employee.getNameEmployee() + " ," + employee.getPoste() + "");
-								JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos",
-										JOptionPane.INFORMATION_MESSAGE);
+								listM.set(index, employee.getIdEmployee() + "# " + employee.getLastnameEmployee() + " " + employee.getNameEmployee() + " ," + employee.getPoste() + "");
+								JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos", JOptionPane.INFORMATION_MESSAGE);
 							}
 						} catch (Exception e1) {
-							logger.log(Level.INFO,
-									"Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
+							logger.log(Level.INFO, "Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
 						}
 					}
 				}
@@ -604,8 +564,7 @@ public class TabEmployes extends JPanel {
 		 * Definition of Button Restaure
 		 */
 		restaure = new JButton("Annuler");
-		restaure.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4),
-				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
+		restaure.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
 		this.add(restaure);
 		restaure.addActionListener(new ActionListener() {
 			/**
@@ -625,8 +584,7 @@ public class TabEmployes extends JPanel {
 		 * Definition of Button Delete
 		 */
 		delete = new JButton("Supprimer");
-		delete.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4) - 250,
-				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
+		delete.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4) - 250, (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
 		this.add(delete);
 		delete.addActionListener(new ActionListener() {
 			/**
@@ -648,16 +606,13 @@ public class TabEmployes extends JPanel {
 								new ClientSocket(requestType, jsonString, table);
 								jsonString = ClientSocket.getJson();
 								if (!jsonString.equals("DELETED")) {
-									JOptionPane.showMessageDialog(null, "La suppression a échoué", "Erreur",
-											JOptionPane.ERROR_MESSAGE);
+									JOptionPane.showMessageDialog(null, "La suppression a échoué", "Erreur", JOptionPane.ERROR_MESSAGE);
 									logger.log(Level.INFO, "Impossible to delete this employee");
 								} else {
-									JOptionPane.showMessageDialog(null, "Suppression de l'Employé", "Info",
-											JOptionPane.INFORMATION_MESSAGE);
+									JOptionPane.showMessageDialog(null, "Suppression de l'Employé", "Info", JOptionPane.INFORMATION_MESSAGE);
 								}
 							} catch (Exception e1) {
-								logger.log(Level.INFO, "Impossible to parse in JSON Employee datas"
-										+ e1.getClass().getCanonicalName());
+								logger.log(Level.INFO, "Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
 							}
 							listM.removeElementAt(index);
 							index = (-9999);
@@ -672,17 +627,14 @@ public class TabEmployes extends JPanel {
 							textInputFunctionEmployee.setText("");
 							textInputPasswordEmployee.setText("");
 						} else {
-							JOptionPane.showMessageDialog(null, "Vous ne pouvez pas vous auto supprimer", "Erreur",
-									JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Vous ne pouvez pas vous auto supprimer", "Erreur", JOptionPane.ERROR_MESSAGE);
 						}
 					} else {
-						JOptionPane.showMessageDialog(null, "Veuillez selectionner un employé à supprimer", "Erreur",
-								JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Veuillez selectionner un employé à supprimer", "Erreur", JOptionPane.ERROR_MESSAGE);
 
 					}
 				} else {
-					JOptionPane.showMessageDialog(null, "Veuillez selectionner un employé à supprimer", "Erreur",
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Veuillez selectionner un employé à supprimer", "Erreur", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -719,8 +671,7 @@ public class TabEmployes extends JPanel {
 		listM.removeAllElements();
 		listM.addElement("Tout les employés ");
 		for (Employee employees : listEmployee) {
-			listM.addElement(employees.getIdEmployee() + "# " + employees.getLastnameEmployee() + " "
-					+ employees.getNameEmployee() + " ," + employees.getPoste());
+			listM.addElement(employees.getIdEmployee() + "# " + employees.getLastnameEmployee() + " " + employees.getNameEmployee() + " ," + employees.getPoste());
 		}
 		if (listM.isEmpty() && (!listEmployee.isEmpty())) {
 			updateListEmployee();
@@ -782,10 +733,16 @@ public class TabEmployes extends JPanel {
 		}
 	}
 
+	/**
+	 * @return the threadEmployee
+	 */
 	public Thread getThreadEmployee() {
 		return threadEmployee;
 	}
 
+	/**
+	 * @param threadEmployee the threadEmployee to set
+	 */
 	public void setThreadEmployee(Thread threadEmployee) {
 		this.threadEmployee = threadEmployee;
 	}

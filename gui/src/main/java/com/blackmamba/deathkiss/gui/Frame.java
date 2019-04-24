@@ -11,7 +11,6 @@ import javax.swing.JTabbedPane;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.pool.entity.Alert;
 import com.blackmamba.deathkiss.pool.entity.Employee;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -60,8 +59,7 @@ public class Frame extends JFrame {
 				while (true) {
 					verificationUser(idEmployee);
 					if (employee.getLastnameEmployee().equals("")) {
-						JOptionPane.showMessageDialog(null, "Vous allez etre déconnecter", "Erreur",
-								JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Vous allez etre déconnecter", "Erreur", JOptionPane.ERROR_MESSAGE);
 						System.exit(ABORT);
 					}
 					try {
@@ -127,8 +125,7 @@ public class Frame extends JFrame {
 					try {
 						Thread.sleep(Integer.parseInt(rs.getString("time_threadAlert")));
 					} catch (InterruptedException e) {
-						logger.log(Level.INFO,
-								"Impossible to sleep the thread Alert" + e.getClass().getCanonicalName());
+						logger.log(Level.INFO, "Impossible to sleep the thread Alert" + e.getClass().getCanonicalName());
 					}
 				}
 			}
@@ -210,18 +207,30 @@ public class Frame extends JFrame {
 		Frame.tab = tab;
 	}
 
+	/**
+	 * @return the threadFrame
+	 */
 	public Thread getThreadFrame() {
 		return threadFrame;
 	}
 
+	/**
+	 * @param threadFrame the threadFrame to set
+	 */
 	public void setThreadFrame(Thread threadFrame) {
 		this.threadFrame = threadFrame;
 	}
 
+	/**
+	 * @return the threadAlert
+	 */
 	public Thread getThreadAlert() {
 		return threadAlert;
 	}
 
+	/**
+	 * @param threadAlert the threadAlert to set
+	 */
 	public void setThreadAlert(Thread threadAlert) {
 		this.threadAlert = threadAlert;
 	}

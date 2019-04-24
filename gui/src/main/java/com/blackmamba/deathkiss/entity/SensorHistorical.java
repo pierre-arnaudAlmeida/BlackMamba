@@ -29,44 +29,73 @@ public class SensorHistorical {
 	public SensorHistorical() {
 	}
 
+	/**
+	 * @return the idHistorical
+	 */
 	public int getIdHistorical() {
 		return idHistorical;
 	}
 
+	/**
+	 * @param idHistorical the idHistorical to set
+	 */
 	public void setIdHistorical(int idHistorical) {
 		this.idHistorical = idHistorical;
 	}
 
+	/**
+	 * @return the date
+	 */
 	public Date getDate() {
 		return date;
 	}
 
+	/**
+	 * @param date the date to set
+	 */
 	public void setDate(Date date) {
 		this.date = date;
 	}
 
+	/**
+	 * @return the idSensor
+	 */
 	public int getIdSensor() {
 		return idSensor;
 	}
 
+	/**
+	 * @param idSensor the idSensor to set
+	 */
 	public void setIdSensor(int idSensor) {
 		this.idSensor = idSensor;
 	}
 
-	public AlertState getAlertState() {
-		return alertState;
-	}
-
-	public void setAlertState(AlertState alertState) {
-		this.alertState = alertState;
-	}
-
+	/**
+	 * @return the sensorState
+	 */
 	public boolean getSensorState() {
 		return sensorState;
 	}
 
+	/**
+	 * @param sensorState the sensorState to set
+	 */
 	public void setSensorState(boolean sensorState) {
 		this.sensorState = sensorState;
 	}
 
+	/**
+	 * @return the alertState
+	 */
+	public AlertState getAlertState() {
+		return alertState;
+	}
+
+	/**
+	 * @param alertState the alertState to set
+	 */
+	public void setAlertState(AlertState alertState) {
+		this.alertState = alertState;
+	}
 }

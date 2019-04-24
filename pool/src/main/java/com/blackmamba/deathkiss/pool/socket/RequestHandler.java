@@ -687,6 +687,10 @@ public class RequestHandler implements Runnable {
 		return result;
 	}
 
+	/**
+	 * 
+	 * @param result set the result
+	 */
 	public void setResult(boolean result) {
 		this.result = result;
 	}

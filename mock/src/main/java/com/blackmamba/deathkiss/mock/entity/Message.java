@@ -25,35 +25,59 @@ public class Message {
 	public Message() {
 	}
 
+	/**
+	 * @return the idMessage
+	 */
 	public int getIdMessage() {
 		return idMessage;
 	}
 
+	/**
+	 * @param idMessage the idMessage to set
+	 */
 	public void setIdMessage(int idMessage) {
 		this.idMessage = idMessage;
 	}
 
-	public int getIdSensor() {
-		return idSensor;
-	}
-
-	public void setIdSensor(int idSensor) {
-		this.idSensor = idSensor;
-	}
-
-	public Date getAlertDate() {
-		return alertDate;
-	}
-
-	public void setAlertDate(Date alertDate) {
-		this.alertDate = alertDate;
-	}
-
+	/**
+	 * @return the threshold
+	 */
 	public int getThreshold() {
 		return threshold;
 	}
 
+	/**
+	 * @param threshold the threshold to set
+	 */
 	public void setThreshold(int threshold) {
 		this.threshold = threshold;
+	}
+
+	/**
+	 * @return the idSensor
+	 */
+	public int getIdSensor() {
+		return idSensor;
+	}
+
+	/**
+	 * @param idSensor the idSensor to set
+	 */
+	public void setIdSensor(int idSensor) {
+		this.idSensor = idSensor;
+	}
+
+	/**
+	 * @return the alertDate
+	 */
+	public Date getAlertDate() {
+		return alertDate;
+	}
+
+	/**
+	 * @param alertDate the alertDate to set
+	 */
+	public void setAlertDate(Date alertDate) {
+		this.alertDate = alertDate;
 	}
 }

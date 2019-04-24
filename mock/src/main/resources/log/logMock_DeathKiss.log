@@ -8981,3 +8981,217 @@
 2019-04-24 00:10:44 [AWT-EventQueue-0] INFO  MockSocket:106 - Command CLOSE connection send to server
 2019-04-24 00:10:44 [AWT-EventQueue-0] INFO  MockSocket:108 - Connection Closed by client
 2019-04-24 00:10:44 [AWT-EventQueue-0] INFO  TabMockMessage:280 - Find Sensor data succed
+2019-04-24 09:29:54 [AWT-EventQueue-0] INFO  MockFrame:27 - ___  ___           _     ______           _   _     _    _         
+2019-04-24 09:29:54 [AWT-EventQueue-0] INFO  MockFrame:28 - |  \/  |          | |    |  _  \         | | | |   | |  (_)        
+2019-04-24 09:29:54 [AWT-EventQueue-0] INFO  MockFrame:29 - | .  . | ___   ___| | __ | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-24 09:29:54 [AWT-EventQueue-0] INFO  MockFrame:30 - | |\/| |/ _ \ / __| |/ / | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-24 09:29:54 [AWT-EventQueue-0] INFO  MockFrame:31 - | |  | | (_) | (__|   <  | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-24 09:29:54 [AWT-EventQueue-0] INFO  MockFrame:32 - \_|  |_/\___/ \___|_|\_\ |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-24 09:29:54 [AWT-EventQueue-0] INFO  MainMockGUI:19 - Application Mock runned
+2019-04-24 09:30:13 [AWT-EventQueue-0] INFO  MockFrame:27 - ___  ___           _     ______           _   _     _    _         
+2019-04-24 09:30:13 [AWT-EventQueue-0] INFO  MockFrame:28 - |  \/  |          | |    |  _  \         | | | |   | |  (_)        
+2019-04-24 09:30:13 [AWT-EventQueue-0] INFO  MockFrame:29 - | .  . | ___   ___| | __ | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-24 09:30:13 [AWT-EventQueue-0] INFO  MockFrame:30 - | |\/| |/ _ \ / __| |/ / | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-24 09:30:13 [AWT-EventQueue-0] INFO  MockFrame:31 - | |  | | (_) | (__|   <  | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-24 09:30:13 [AWT-EventQueue-0] INFO  MockFrame:32 - \_|  |_/\___/ \___|_|\_\ |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-24 09:30:13 [AWT-EventQueue-0] INFO  MainMockGUI:19 - Application Mock runned
+2019-04-24 09:30:34 [AWT-EventQueue-0] INFO  TabMockMessage:366 - Generation stopped
+2019-04-24 09:41:27 [AWT-EventQueue-0] INFO  MockFrame:27 - ___  ___           _     ______           _   _     _    _         
+2019-04-24 09:41:27 [AWT-EventQueue-0] INFO  MockFrame:28 - |  \/  |          | |    |  _  \         | | | |   | |  (_)        
+2019-04-24 09:41:27 [AWT-EventQueue-0] INFO  MockFrame:29 - | .  . | ___   ___| | __ | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-24 09:41:27 [AWT-EventQueue-0] INFO  MockFrame:30 - | |\/| |/ _ \ / __| |/ / | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-24 09:41:27 [AWT-EventQueue-0] INFO  MockFrame:31 - | |  | | (_) | (__|   <  | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-24 09:41:27 [AWT-EventQueue-0] INFO  MockFrame:32 - \_|  |_/\___/ \___|_|\_\ |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-24 09:41:27 [AWT-EventQueue-0] INFO  MainMockGUI:19 - Application Mock runned
+2019-04-24 09:41:36 [AWT-EventQueue-0] INFO  TabMockMessage:331 - Generation stopped
+2019-04-24 09:41:45 [AWT-EventQueue-0] INFO  TabMockMessage:331 - Generation stopped
+2019-04-24 09:41:52 [AWT-EventQueue-0] INFO  TabMockMessage:331 - Generation stopped
+2019-04-24 09:55:50 [AWT-EventQueue-0] INFO  MockFrame:27 - ___  ___           _     ______           _   _     _    _         
+2019-04-24 09:55:50 [AWT-EventQueue-0] INFO  MockFrame:28 - |  \/  |          | |    |  _  \         | | | |   | |  (_)        
+2019-04-24 09:55:50 [AWT-EventQueue-0] INFO  MockFrame:29 - | .  . | ___   ___| | __ | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-24 09:55:50 [AWT-EventQueue-0] INFO  MockFrame:30 - | |\/| |/ _ \ / __| |/ / | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-24 09:55:50 [AWT-EventQueue-0] INFO  MockFrame:31 - | |  | | (_) | (__|   <  | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-24 09:55:50 [AWT-EventQueue-0] INFO  MockFrame:32 - \_|  |_/\___/ \___|_|\_\ |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-24 09:55:50 [AWT-EventQueue-0] INFO  MainMockGUI:19 - Application Mock runned
+2019-04-24 09:56:07 [AWT-EventQueue-0] INFO  MockFrame:27 - ___  ___           _     ______           _   _     _    _         
+2019-04-24 09:56:07 [AWT-EventQueue-0] INFO  MockFrame:28 - |  \/  |          | |    |  _  \         | | | |   | |  (_)        
+2019-04-24 09:56:07 [AWT-EventQueue-0] INFO  MockFrame:29 - | .  . | ___   ___| | __ | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-24 09:56:07 [AWT-EventQueue-0] INFO  MockFrame:30 - | |\/| |/ _ \ / __| |/ / | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-24 09:56:07 [AWT-EventQueue-0] INFO  MockFrame:31 - | |  | | (_) | (__|   <  | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-24 09:56:07 [AWT-EventQueue-0] INFO  MockFrame:32 - \_|  |_/\___/ \___|_|\_\ |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-24 09:56:07 [AWT-EventQueue-0] INFO  MainMockGUI:19 - Application Mock runned
+2019-04-24 09:56:22 [AWT-EventQueue-0] INFO  MockFrame:27 - ___  ___           _     ______           _   _     _    _         
+2019-04-24 09:56:22 [AWT-EventQueue-0] INFO  MockFrame:28 - |  \/  |          | |    |  _  \         | | | |   | |  (_)        
+2019-04-24 09:56:22 [AWT-EventQueue-0] INFO  MockFrame:29 - | .  . | ___   ___| | __ | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-24 09:56:22 [AWT-EventQueue-0] INFO  MockFrame:30 - | |\/| |/ _ \ / __| |/ / | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-24 09:56:22 [AWT-EventQueue-0] INFO  MockFrame:31 - | |  | | (_) | (__|   <  | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-24 09:56:22 [AWT-EventQueue-0] INFO  MockFrame:32 - \_|  |_/\___/ \___|_|\_\ |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-24 09:56:22 [AWT-EventQueue-0] INFO  MainMockGUI:19 - Application Mock runned
+2019-04-24 09:56:54 [AWT-EventQueue-0] INFO  MockFrame:27 - ___  ___           _     ______           _   _     _    _         
+2019-04-24 09:56:54 [AWT-EventQueue-0] INFO  MockFrame:28 - |  \/  |          | |    |  _  \         | | | |   | |  (_)        
+2019-04-24 09:56:54 [AWT-EventQueue-0] INFO  MockFrame:29 - | .  . | ___   ___| | __ | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-24 09:56:54 [AWT-EventQueue-0] INFO  MockFrame:30 - | |\/| |/ _ \ / __| |/ / | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-24 09:56:54 [AWT-EventQueue-0] INFO  MockFrame:31 - | |  | | (_) | (__|   <  | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-24 09:56:54 [AWT-EventQueue-0] INFO  MockFrame:32 - \_|  |_/\___/ \___|_|\_\ |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-24 09:56:54 [AWT-EventQueue-0] INFO  MainMockGUI:19 - Application Mock runned
+2019-04-24 09:57:10 [AWT-EventQueue-0] INFO  MockFrame:27 - ___  ___           _     ______           _   _     _    _         
+2019-04-24 09:57:10 [AWT-EventQueue-0] INFO  MockFrame:28 - |  \/  |          | |    |  _  \         | | | |   | |  (_)        
+2019-04-24 09:57:10 [AWT-EventQueue-0] INFO  MockFrame:29 - | .  . | ___   ___| | __ | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-24 09:57:10 [AWT-EventQueue-0] INFO  MockFrame:30 - | |\/| |/ _ \ / __| |/ / | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-24 09:57:10 [AWT-EventQueue-0] INFO  MockFrame:31 - | |  | | (_) | (__|   <  | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-24 09:57:10 [AWT-EventQueue-0] INFO  MockFrame:32 - \_|  |_/\___/ \___|_|\_\ |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-24 09:57:10 [AWT-EventQueue-0] INFO  MainMockGUI:19 - Application Mock runned
+2019-04-24 09:57:20 [AWT-EventQueue-0] INFO  MockFrame:27 - ___  ___           _     ______           _   _     _    _         
+2019-04-24 09:57:20 [AWT-EventQueue-0] INFO  MockFrame:28 - |  \/  |          | |    |  _  \         | | | |   | |  (_)        
+2019-04-24 09:57:20 [AWT-EventQueue-0] INFO  MockFrame:29 - | .  . | ___   ___| | __ | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-24 09:57:20 [AWT-EventQueue-0] INFO  MockFrame:30 - | |\/| |/ _ \ / __| |/ / | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-24 09:57:20 [AWT-EventQueue-0] INFO  MockFrame:31 - | |  | | (_) | (__|   <  | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-24 09:57:20 [AWT-EventQueue-0] INFO  MockFrame:32 - \_|  |_/\___/ \___|_|\_\ |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-24 09:57:21 [AWT-EventQueue-0] INFO  MainMockGUI:19 - Application Mock runned
+2019-04-24 09:57:53 [AWT-EventQueue-0] INFO  MockFrame:27 - ___  ___           _     ______           _   _     _    _         
+2019-04-24 09:57:53 [AWT-EventQueue-0] INFO  MockFrame:28 - |  \/  |          | |    |  _  \         | | | |   | |  (_)        
+2019-04-24 09:57:53 [AWT-EventQueue-0] INFO  MockFrame:29 - | .  . | ___   ___| | __ | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-24 09:57:53 [AWT-EventQueue-0] INFO  MockFrame:30 - | |\/| |/ _ \ / __| |/ / | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-24 09:57:53 [AWT-EventQueue-0] INFO  MockFrame:31 - | |  | | (_) | (__|   <  | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-24 09:57:53 [AWT-EventQueue-0] INFO  MockFrame:32 - \_|  |_/\___/ \___|_|\_\ |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-24 09:57:53 [AWT-EventQueue-0] INFO  MainMockGUI:19 - Application Mock runned
+2019-04-24 10:33:09 [AWT-EventQueue-0] INFO  MockFrame:27 - ___  ___           _     ______           _   _     _    _         
+2019-04-24 10:33:09 [AWT-EventQueue-0] INFO  MockFrame:28 - |  \/  |          | |    |  _  \         | | | |   | |  (_)        
+2019-04-24 10:33:09 [AWT-EventQueue-0] INFO  MockFrame:29 - | .  . | ___   ___| | __ | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-24 10:33:09 [AWT-EventQueue-0] INFO  MockFrame:30 - | |\/| |/ _ \ / __| |/ / | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-24 10:33:09 [AWT-EventQueue-0] INFO  MockFrame:31 - | |  | | (_) | (__|   <  | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-24 10:33:09 [AWT-EventQueue-0] INFO  MockFrame:32 - \_|  |_/\___/ \___|_|\_\ |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-24 10:33:09 [AWT-EventQueue-0] INFO  MainMockGUI:19 - Application Mock runned
+2019-04-24 10:33:29 [AWT-EventQueue-0] INFO  MockFrame:27 - ___  ___           _     ______           _   _     _    _         
+2019-04-24 10:33:29 [AWT-EventQueue-0] INFO  MockFrame:28 - |  \/  |          | |    |  _  \         | | | |   | |  (_)        
+2019-04-24 10:33:29 [AWT-EventQueue-0] INFO  MockFrame:29 - | .  . | ___   ___| | __ | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-24 10:33:29 [AWT-EventQueue-0] INFO  MockFrame:30 - | |\/| |/ _ \ / __| |/ / | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-24 10:33:29 [AWT-EventQueue-0] INFO  MockFrame:31 - | |  | | (_) | (__|   <  | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-24 10:33:29 [AWT-EventQueue-0] INFO  MockFrame:32 - \_|  |_/\___/ \___|_|\_\ |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-24 10:33:29 [AWT-EventQueue-0] INFO  MainMockGUI:19 - Application Mock runned
+2019-04-24 10:33:34 [AWT-EventQueue-0] INFO  MockSocket:141 - Impossible create the socket java.net.ConnectException
+2019-04-24 10:33:34 [AWT-EventQueue-0] INFO  TabMockMessage:371 - Impossible to parse in JSON Sensor data com.fasterxml.jackson.core.JsonParseException
+2019-04-24 10:33:36 [AWT-EventQueue-0] INFO  TabMockMessage:348 - Generation stopped
+2019-04-24 10:33:47 [AWT-EventQueue-0] INFO  TabMockMessage:348 - Generation stopped
+2019-04-24 10:33:55 [AWT-EventQueue-0] INFO  TabMockMessage:348 - Generation stopped
+2019-04-24 10:35:02 [AWT-EventQueue-0] INFO  MockFrame:27 - ___  ___           _     ______           _   _     _    _         
+2019-04-24 10:35:02 [AWT-EventQueue-0] INFO  MockFrame:28 - |  \/  |          | |    |  _  \         | | | |   | |  (_)        
+2019-04-24 10:35:02 [AWT-EventQueue-0] INFO  MockFrame:29 - | .  . | ___   ___| | __ | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-24 10:35:02 [AWT-EventQueue-0] INFO  MockFrame:30 - | |\/| |/ _ \ / __| |/ / | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-24 10:35:02 [AWT-EventQueue-0] INFO  MockFrame:31 - | |  | | (_) | (__|   <  | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-24 10:35:02 [AWT-EventQueue-0] INFO  MockFrame:32 - \_|  |_/\___/ \___|_|\_\ |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-24 10:35:02 [AWT-EventQueue-0] INFO  MainMockGUI:19 - Application Mock runned
+2019-04-24 10:36:42 [AWT-EventQueue-0] INFO  MockFrame:27 - ___  ___           _     ______           _   _     _    _         
+2019-04-24 10:36:42 [AWT-EventQueue-0] INFO  MockFrame:28 - |  \/  |          | |    |  _  \         | | | |   | |  (_)        
+2019-04-24 10:36:42 [AWT-EventQueue-0] INFO  MockFrame:29 - | .  . | ___   ___| | __ | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-24 10:36:42 [AWT-EventQueue-0] INFO  MockFrame:30 - | |\/| |/ _ \ / __| |/ / | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-24 10:36:42 [AWT-EventQueue-0] INFO  MockFrame:31 - | |  | | (_) | (__|   <  | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-24 10:36:42 [AWT-EventQueue-0] INFO  MockFrame:32 - \_|  |_/\___/ \___|_|\_\ |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-24 10:36:42 [AWT-EventQueue-0] INFO  MockFrame:27 - ___  ___           _     ______           _   _     _    _         
+2019-04-24 10:36:42 [AWT-EventQueue-0] INFO  MockFrame:28 - |  \/  |          | |    |  _  \         | | | |   | |  (_)        
+2019-04-24 10:36:42 [AWT-EventQueue-0] INFO  MockFrame:29 - | .  . | ___   ___| | __ | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-24 10:36:42 [AWT-EventQueue-0] INFO  MockFrame:30 - | |\/| |/ _ \ / __| |/ / | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-24 10:36:42 [AWT-EventQueue-0] INFO  MockFrame:31 - | |  | | (_) | (__|   <  | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-24 10:36:42 [AWT-EventQueue-0] INFO  MockFrame:32 - \_|  |_/\___/ \___|_|\_\ |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-24 10:36:42 [AWT-EventQueue-0] INFO  MainMockGUI:19 - Application Mock runned
+2019-04-24 10:36:42 [AWT-EventQueue-0] INFO  MainMockGUI:19 - Application Mock runned
+2019-04-24 10:42:23 [AWT-EventQueue-0] INFO  MockFrame:27 - ___  ___           _     ______           _   _     _    _         
+2019-04-24 10:42:23 [AWT-EventQueue-0] INFO  MockFrame:28 - |  \/  |          | |    |  _  \         | | | |   | |  (_)        
+2019-04-24 10:42:23 [AWT-EventQueue-0] INFO  MockFrame:29 - | .  . | ___   ___| | __ | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-24 10:42:23 [AWT-EventQueue-0] INFO  MockFrame:30 - | |\/| |/ _ \ / __| |/ / | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-24 10:42:23 [AWT-EventQueue-0] INFO  MockFrame:31 - | |  | | (_) | (__|   <  | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-24 10:42:23 [AWT-EventQueue-0] INFO  MockFrame:32 - \_|  |_/\___/ \___|_|\_\ |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-24 10:42:24 [AWT-EventQueue-0] INFO  MainMockGUI:19 - Application Mock runned
+2019-04-24 10:42:29 [AWT-EventQueue-0] INFO  MockSocket:141 - Impossible create the socket java.net.ConnectException
+2019-04-24 10:42:29 [AWT-EventQueue-0] INFO  TabMockMessage:378 - Impossible to parse in JSON Sensor data com.fasterxml.jackson.core.JsonParseException
+2019-04-24 10:42:31 [AWT-EventQueue-0] INFO  MockSocket:141 - Impossible create the socket java.net.ConnectException
+2019-04-24 10:42:31 [AWT-EventQueue-0] INFO  TabMockMessage:378 - Impossible to parse in JSON Sensor data com.fasterxml.jackson.core.JsonParseException
+2019-04-24 10:42:31 [AWT-EventQueue-0] INFO  TabMockMessage:341 - Generation stopped
+2019-04-24 10:42:41 [AWT-EventQueue-0] INFO  MockSocket:141 - Impossible create the socket java.net.ConnectException
+2019-04-24 10:42:41 [AWT-EventQueue-0] INFO  TabMockMessage:378 - Impossible to parse in JSON Sensor data com.fasterxml.jackson.core.JsonParseException
+2019-04-24 10:42:47 [AWT-EventQueue-0] INFO  MockFrame:27 - ___  ___           _     ______           _   _     _    _         
+2019-04-24 10:42:47 [AWT-EventQueue-0] INFO  MockFrame:28 - |  \/  |          | |    |  _  \         | | | |   | |  (_)        
+2019-04-24 10:42:47 [AWT-EventQueue-0] INFO  MockFrame:29 - | .  . | ___   ___| | __ | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-24 10:42:47 [AWT-EventQueue-0] INFO  MockFrame:30 - | |\/| |/ _ \ / __| |/ / | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-24 10:42:47 [AWT-EventQueue-0] INFO  MockFrame:31 - | |  | | (_) | (__|   <  | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-24 10:42:47 [AWT-EventQueue-0] INFO  MockFrame:32 - \_|  |_/\___/ \___|_|\_\ |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-24 10:42:47 [AWT-EventQueue-0] INFO  MainMockGUI:19 - Application Mock runned
+2019-04-24 10:42:51 [AWT-EventQueue-0] INFO  MockSocket:141 - Impossible create the socket java.net.ConnectException
+2019-04-24 10:42:51 [AWT-EventQueue-0] INFO  TabMockMessage:378 - Impossible to parse in JSON Sensor data com.fasterxml.jackson.core.JsonParseException
+2019-04-24 10:42:54 [AWT-EventQueue-0] INFO  MockSocket:141 - Impossible create the socket java.net.ConnectException
+2019-04-24 10:42:54 [AWT-EventQueue-0] INFO  TabMockMessage:378 - Impossible to parse in JSON Sensor data com.fasterxml.jackson.core.JsonParseException
+2019-04-24 10:42:56 [AWT-EventQueue-0] INFO  TabMockMessage:341 - Generation stopped
+2019-04-24 10:42:58 [AWT-EventQueue-0] INFO  MockSocket:141 - Impossible create the socket java.net.ConnectException
+2019-04-24 10:42:58 [AWT-EventQueue-0] INFO  TabMockMessage:378 - Impossible to parse in JSON Sensor data com.fasterxml.jackson.core.JsonParseException
+2019-04-24 10:43:02 [AWT-EventQueue-0] INFO  TabMockMessage:341 - Generation stopped
+2019-04-24 10:43:04 [AWT-EventQueue-0] INFO  MockSocket:141 - Impossible create the socket java.net.ConnectException
+2019-04-24 10:43:04 [AWT-EventQueue-0] INFO  TabMockMessage:378 - Impossible to parse in JSON Sensor data com.fasterxml.jackson.core.JsonParseException
+2019-04-24 10:43:05 [AWT-EventQueue-0] INFO  MockSocket:141 - Impossible create the socket java.net.ConnectException
+2019-04-24 10:43:05 [AWT-EventQueue-0] INFO  TabMockMessage:378 - Impossible to parse in JSON Sensor data com.fasterxml.jackson.core.JsonParseException
+2019-04-24 10:43:07 [AWT-EventQueue-0] INFO  MockSocket:141 - Impossible create the socket java.net.ConnectException
+2019-04-24 10:43:07 [AWT-EventQueue-0] INFO  TabMockMessage:378 - Impossible to parse in JSON Sensor data com.fasterxml.jackson.core.JsonParseException
+2019-04-24 10:43:13 [AWT-EventQueue-0] INFO  TabMockMessage:341 - Generation stopped
+2019-04-24 10:50:20 [AWT-EventQueue-0] INFO  MockFrame:27 - ___  ___           _     ______           _   _     _    _         
+2019-04-24 10:50:20 [AWT-EventQueue-0] INFO  MockFrame:28 - |  \/  |          | |    |  _  \         | | | |   | |  (_)        
+2019-04-24 10:50:20 [AWT-EventQueue-0] INFO  MockFrame:29 - | .  . | ___   ___| | __ | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-24 10:50:20 [AWT-EventQueue-0] INFO  MockFrame:30 - | |\/| |/ _ \ / __| |/ / | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-24 10:50:20 [AWT-EventQueue-0] INFO  MockFrame:31 - | |  | | (_) | (__|   <  | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-24 10:50:20 [AWT-EventQueue-0] INFO  MockFrame:32 - \_|  |_/\___/ \___|_|\_\ |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-24 10:50:20 [AWT-EventQueue-0] INFO  MainMockGUI:19 - Application Mock runned
+2019-04-24 10:51:08 [AWT-EventQueue-0] INFO  MockFrame:27 - ___  ___           _     ______           _   _     _    _         
+2019-04-24 10:51:08 [AWT-EventQueue-0] INFO  MockFrame:28 - |  \/  |          | |    |  _  \         | | | |   | |  (_)        
+2019-04-24 10:51:08 [AWT-EventQueue-0] INFO  MockFrame:29 - | .  . | ___   ___| | __ | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-24 10:51:08 [AWT-EventQueue-0] INFO  MockFrame:30 - | |\/| |/ _ \ / __| |/ / | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-24 10:51:08 [AWT-EventQueue-0] INFO  MockFrame:31 - | |  | | (_) | (__|   <  | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-24 10:51:08 [AWT-EventQueue-0] INFO  MockFrame:32 - \_|  |_/\___/ \___|_|\_\ |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-24 10:51:08 [AWT-EventQueue-0] INFO  MainMockGUI:19 - Application Mock runned
+2019-04-24 10:51:12 [AWT-EventQueue-0] INFO  MockSocket:141 - Impossible create the socket java.net.ConnectException
+2019-04-24 10:51:12 [AWT-EventQueue-0] INFO  TabMockMessage:377 - Impossible to parse in JSON Sensor data com.fasterxml.jackson.core.JsonParseException
+2019-04-24 10:51:15 [AWT-EventQueue-0] INFO  MockSocket:141 - Impossible create the socket java.net.ConnectException
+2019-04-24 10:51:15 [AWT-EventQueue-0] INFO  TabMockMessage:377 - Impossible to parse in JSON Sensor data com.fasterxml.jackson.core.JsonParseException
+2019-04-24 10:51:17 [AWT-EventQueue-0] INFO  TabMockMessage:343 - Generation stopped
+2019-04-24 10:52:15 [AWT-EventQueue-0] INFO  MockFrame:27 - ___  ___           _     ______           _   _     _    _         
+2019-04-24 10:52:15 [AWT-EventQueue-0] INFO  MockFrame:28 - |  \/  |          | |    |  _  \         | | | |   | |  (_)        
+2019-04-24 10:52:15 [AWT-EventQueue-0] INFO  MockFrame:29 - | .  . | ___   ___| | __ | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-24 10:52:15 [AWT-EventQueue-0] INFO  MockFrame:30 - | |\/| |/ _ \ / __| |/ / | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-24 10:52:15 [AWT-EventQueue-0] INFO  MockFrame:31 - | |  | | (_) | (__|   <  | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-24 10:52:15 [AWT-EventQueue-0] INFO  MockFrame:32 - \_|  |_/\___/ \___|_|\_\ |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-24 10:52:15 [AWT-EventQueue-0] INFO  MainMockGUI:19 - Application Mock runned
+2019-04-24 10:52:20 [AWT-EventQueue-0] INFO  MockSocket:141 - Impossible create the socket java.net.ConnectException
+2019-04-24 10:52:20 [AWT-EventQueue-0] INFO  TabMockMessage:377 - Impossible to parse in JSON Sensor data com.fasterxml.jackson.core.JsonParseException
+2019-04-24 10:52:25 [AWT-EventQueue-0] INFO  MockSocket:141 - Impossible create the socket java.net.ConnectException
+2019-04-24 10:52:25 [AWT-EventQueue-0] INFO  TabMockMessage:377 - Impossible to parse in JSON Sensor data com.fasterxml.jackson.core.JsonParseException
+2019-04-24 10:52:26 [AWT-EventQueue-0] INFO  TabMockMessage:343 - Generation stopped
+2019-04-24 10:53:41 [AWT-EventQueue-0] INFO  MockFrame:27 - ___  ___           _     ______           _   _     _    _         
+2019-04-24 10:53:41 [AWT-EventQueue-0] INFO  MockFrame:28 - |  \/  |          | |    |  _  \         | | | |   | |  (_)        
+2019-04-24 10:53:41 [AWT-EventQueue-0] INFO  MockFrame:29 - | .  . | ___   ___| | __ | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-24 10:53:41 [AWT-EventQueue-0] INFO  MockFrame:30 - | |\/| |/ _ \ / __| |/ / | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-24 10:53:41 [AWT-EventQueue-0] INFO  MockFrame:31 - | |  | | (_) | (__|   <  | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-24 10:53:41 [AWT-EventQueue-0] INFO  MockFrame:32 - \_|  |_/\___/ \___|_|\_\ |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-24 10:53:41 [AWT-EventQueue-0] INFO  MainMockGUI:19 - Application Mock runned
+2019-04-24 10:53:47 [AWT-EventQueue-0] INFO  MockSocket:141 - Impossible create the socket java.net.ConnectException
+2019-04-24 10:53:47 [AWT-EventQueue-0] INFO  TabMockMessage:378 - Impossible to parse in JSON Sensor data com.fasterxml.jackson.core.JsonParseException
+2019-04-24 10:53:50 [AWT-EventQueue-0] INFO  MockSocket:141 - Impossible create the socket java.net.ConnectException
+2019-04-24 10:53:50 [AWT-EventQueue-0] INFO  TabMockMessage:378 - Impossible to parse in JSON Sensor data com.fasterxml.jackson.core.JsonParseException
+2019-04-24 10:53:51 [AWT-EventQueue-0] INFO  TabMockMessage:344 - Generation stopped
+2019-04-24 10:54:39 [AWT-EventQueue-0] INFO  MockFrame:27 - ___  ___           _     ______           _   _     _    _         
+2019-04-24 10:54:39 [AWT-EventQueue-0] INFO  MockFrame:28 - |  \/  |          | |    |  _  \         | | | |   | |  (_)        
+2019-04-24 10:54:39 [AWT-EventQueue-0] INFO  MockFrame:29 - | .  . | ___   ___| | __ | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-24 10:54:39 [AWT-EventQueue-0] INFO  MockFrame:30 - | |\/| |/ _ \ / __| |/ / | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-24 10:54:39 [AWT-EventQueue-0] INFO  MockFrame:31 - | |  | | (_) | (__|   <  | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-24 10:54:39 [AWT-EventQueue-0] INFO  MockFrame:32 - \_|  |_/\___/ \___|_|\_\ |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-24 10:54:39 [AWT-EventQueue-0] INFO  MainMockGUI:19 - Application Mock runned
+2019-04-24 10:54:44 [AWT-EventQueue-0] INFO  MockSocket:141 - Impossible create the socket java.net.ConnectException
+2019-04-24 10:54:44 [AWT-EventQueue-0] INFO  TabMockMessage:378 - Impossible to parse in JSON Sensor data com.fasterxml.jackson.core.JsonParseException
+2019-04-24 10:54:47 [AWT-EventQueue-0] INFO  MockSocket:141 - Impossible create the socket java.net.ConnectException
+2019-04-24 10:54:47 [AWT-EventQueue-0] INFO  TabMockMessage:378 - Impossible to parse in JSON Sensor data com.fasterxml.jackson.core.JsonParseException
+2019-04-24 10:54:49 [AWT-EventQueue-0] INFO  MockSocket:141 - Impossible create the socket java.net.ConnectException
+2019-04-24 10:54:49 [AWT-EventQueue-0] INFO  TabMockMessage:378 - Impossible to parse in JSON Sensor data com.fasterxml.jackson.core.JsonParseException
+2019-04-24 10:54:49 [AWT-EventQueue-0] INFO  TabMockMessage:344 - Generation stopped
+2019-04-24 10:54:56 [AWT-EventQueue-0] INFO  TabMockMessage:344 - Generation stopped
+2019-04-24 10:55:00 [AWT-EventQueue-0] INFO  MockSocket:141 - Impossible create the socket java.net.ConnectException
+2019-04-24 10:55:00 [AWT-EventQueue-0] INFO  TabMockMessage:378 - Impossible to parse in JSON Sensor data com.fasterxml.jackson.core.JsonParseException
+2019-04-24 10:55:13 [AWT-EventQueue-0] INFO  TabMockMessage:344 - Generation stopped
+2019-04-24 10:55:18 [AWT-EventQueue-0] INFO  MockSocket:141 - Impossible create the socket java.net.ConnectException
+2019-04-24 10:55:18 [AWT-EventQueue-0] INFO  TabMockMessage:378 - Impossible to parse in JSON Sensor data com.fasterxml.jackson.core.JsonParseException
+2019-04-24 10:55:26 [AWT-EventQueue-0] INFO  TabMockMessage:344 - Generation stopped

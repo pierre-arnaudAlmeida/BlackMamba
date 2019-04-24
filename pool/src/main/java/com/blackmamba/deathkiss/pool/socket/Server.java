@@ -42,8 +42,7 @@ public class Server {
 	 */
 	public Server() {
 		try {
-			server = new ServerSocket(Integer.parseInt(rsConfig.getString("server.default.port")), 100,
-					InetAddress.getByName(rsConfig.getString("server.default.host")));
+			server = new ServerSocket(Integer.parseInt(rsConfig.getString("server.default.port")), 100, InetAddress.getByName(rsConfig.getString("server.default.host")));
 		} catch (UnknownHostException e) {
 			logger.log(Level.INFO, "IP Host dont find " + e.getClass().getCanonicalName());
 		} catch (IOException e) {
@@ -86,8 +85,7 @@ public class Server {
 						client = server.accept();
 						connectionGived = DataSource.getConnectionFromJDBC(pool);
 						logger.log(Level.INFO, "Client Connection recieved");
-						Thread threadRequestHandler = new Thread(
-								new RequestHandler(client, connectionGived, monitoringAlert));
+						Thread threadRequestHandler = new Thread(new RequestHandler(client, connectionGived, monitoringAlert));
 						threadRequestHandler.start();
 						DataSource.returnConnection(pool, connectionGived);
 
@@ -124,8 +122,7 @@ public class Server {
 						}
 						connectionGived = DataSource.getConnectionFromJDBC(pool);
 						logger.log(Level.INFO, "Client Connection recieved");
-						Thread threadRequestHandler = new Thread(
-								new RequestHandler(client, connectionGived, monitoringAlert));
+						Thread threadRequestHandler = new Thread(new RequestHandler(client, connectionGived, monitoringAlert));
 						threadRequestHandler.start();
 						DataSource.returnConnection(pool, connectionGived);
 
@@ -156,8 +153,7 @@ public class Server {
 					try {
 						Thread.sleep(Integer.parseInt(rsAlert.getString("time_alertTreatment")));
 					} catch (InterruptedException e) {
-						logger.log(Level.INFO,
-								"Impossible to sleep the threadAlertTreatment " + e.getClass().getCanonicalName());
+						logger.log(Level.INFO, "Impossible to sleep the threadAlertTreatment " + e.getClass().getCanonicalName());
 					}
 				}
 			}
@@ -168,31 +164,15 @@ public class Server {
 				while (true) {
 					monitoringAlert.verifySensorMessageBeforeActivity();
 					try {
-						Thread.sleep(Integer.parseInt(rsAlert.getString("time_verifySensorActivity")));
+						Thread.sleep(Integer.parseInt(rsAlert.getString("time_verifyMessageBeforeActivity")));
 					} catch (InterruptedException e) {
-						logger.log(Level.INFO, "Impossible to sleep the threadVerifySensorMessageBeforeActivity "
-								+ e.getClass().getCanonicalName());
-					}
-				}
-			}
-		});
-
-		Thread threadVerifySensorActivity = new Thread(new Runnable() {
-			public void run() {
-				while (true) {
-					monitoringAlert.alertTreatment();
-					try {
-						Thread.sleep(Integer.parseInt(rsAlert.getString("time_verifySensorActivity")));
-					} catch (InterruptedException e) {
-						logger.log(Level.INFO, "Impossible to sleep the threadVerifySensorActivity "
-								+ e.getClass().getCanonicalName());
+						logger.log(Level.INFO, "Impossible to sleep the threadVerifySensorMessageBeforeActivity " + e.getClass().getCanonicalName());
 					}
 				}
 			}
 		});
 		threadAlertTreatment.start();
 		threadVerifySensorMessageBeforeActivity.start();
-		threadVerifySensorActivity.start();
 	}
 
 	/**
@@ -209,10 +189,16 @@ public class Server {
 		isRunning = true;
 	}
 
+	/**
+	 * @return the monitoringAlert
+	 */
 	public MonitoringAlert getMonitoringAlert() {
 		return monitoringAlert;
 	}
 
+	/**
+	 * @param monitoringAlert the monitoringAlert to set
+	 */
 	public void setMonitoringAlert(MonitoringAlert monitoringAlert) {
 		this.monitoringAlert = monitoringAlert;
 	}
