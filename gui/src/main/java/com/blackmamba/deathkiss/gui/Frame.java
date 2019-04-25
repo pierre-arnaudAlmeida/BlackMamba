@@ -46,13 +46,19 @@ public class Frame extends JFrame {
 	private static final Logger logger = LogManager.getLogger(Frame.class);
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
+	/**
+	 * Constructor
+	 * 
+	 * @param idEmployee
+	 */
 	public Frame(int idEmployee) {
 		this.idEmployee = idEmployee;
 
 		///////////////////////// Thread/////////////////////////////////////////////////
 		setThreadFrame(new Thread(new Runnable() {
 			/**
-			 * Loop and update every 30 sec the list of employees
+			 * Loop and update every 30 sec the list of employees If the employee is'nt in
+			 * Data base they will be disconnected
 			 */
 			@Override
 			public void run() {
@@ -131,8 +137,12 @@ public class Frame extends JFrame {
 			}
 		}));
 
+		/**
+		 * Launch the threads
+		 */
 		threadAlert.start();
 		threadFrame.start();
+
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
 		 * Different parameters of the window
@@ -144,6 +154,11 @@ public class Frame extends JFrame {
 		this.getContentPane().add(tab);
 	}
 
+	/**
+	 * Verify if the employee exist in the data base
+	 * 
+	 * @param id
+	 */
 	public void verificationUser(int id) {
 		requestType = "READ";
 		employee = new Employee();

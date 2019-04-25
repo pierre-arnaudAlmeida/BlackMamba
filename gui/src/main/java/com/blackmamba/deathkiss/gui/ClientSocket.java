@@ -20,20 +20,30 @@ public class ClientSocket {
 	/**
 	 * Different parameters used
 	 */
-	private Socket connexion = null;
-	private PrintWriter writer = null;
-	private BufferedInputStream reader = null;
 	private int port;
 	private String requestType;
 	private String response;
 	private String table;
 	private String host;
 	private static String jsonString;
+	private Socket connexion = null;
+	private PrintWriter writer = null;
+	private BufferedInputStream reader = null;
 	private static final Logger logger = LogManager.getLogger(ClientSocket.class);
 
+	/**
+	 * Constructor
+	 */
 	public ClientSocket() {
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param requestType
+	 * @param jsonString
+	 * @param table
+	 */
 	public ClientSocket(String requestType, String jsonString, String table) {
 		this.requestType = requestType;
 		this.table = table;

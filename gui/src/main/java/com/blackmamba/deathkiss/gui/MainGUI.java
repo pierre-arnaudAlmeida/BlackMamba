@@ -12,9 +12,17 @@ import org.apache.logging.log4j.Logger;
  */
 public class MainGUI {
 
+	/**
+	 * Different parameters used
+	 */
 	private static Connexion popupConnexion;
 	private static Logger logger = LogManager.getLogger(MainGUI.class);
 
+	/**
+	 * Method Main
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

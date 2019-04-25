@@ -89,12 +89,24 @@ public class TabSensor extends JPanel {
 	private static final Logger logger = LogManager.getLogger(TabSensor.class);
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
+	/**
+	 * Constructor
+	 */
 	public TabSensor() {
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param color
+	 * @param idemployee
+	 * @param title
+	 * @param idSensor
+	 */
 	public TabSensor(Color color, int idemployee, String title, int idSensor) {
 		this.idemployee = idemployee;
 
+		///////////////////////// Thread/////////////////////////////////////////////////
 		setThreadSensor(new Thread(new Runnable() {
 			/**
 			 * Loop and update every 30 sec the list of employees
@@ -351,6 +363,9 @@ public class TabSensor extends JPanel {
 		list = new JList<String>(listM);
 		updateListSensor();
 
+		/**
+		 * Add a scrollBar on list
+		 */
 		sc = new JScrollPane(list);
 		sc.setBounds(30, 120, 300, ((int) getToolkit().getScreenSize().getHeight() - 300));
 		this.add(sc);
@@ -469,6 +484,7 @@ public class TabSensor extends JPanel {
 		labelHeadList.setBounds(40, 90, 200, 30);
 		labelHeadList.setFont(policeBar);
 		this.add(labelHeadList);
+
 		//////////////////// TEXT AREA////////////////////////////////////////////////
 		/**
 		 * Definition of textArea IdSensor
@@ -590,6 +606,7 @@ public class TabSensor extends JPanel {
 				switchButton.setBackground(Color.RED);
 			}
 		}
+
 		///////////////////////// BUTTON/////////////////////////////////////////////////
 		/**
 		 * Definition of Button AddSensor
@@ -830,6 +847,10 @@ public class TabSensor extends JPanel {
 				}
 			}
 		});
+
+		/**
+		 * Launch thread
+		 */
 		threadSensor.start();
 
 		///////////////////////// FRAME/////////////////////////////////////////////////
@@ -870,15 +891,15 @@ public class TabSensor extends JPanel {
 		logger.log(Level.INFO, "Convertion of all Common Areas available in a list succed");
 	}
 
+	/**
+	 * Find all the Sensor in the data base and add on list to be displayed
+	 */
 	public void updateListSensor() {
 		sensor = new Sensor();
 		sensor.setIdCommonArea(0);
 		sensor.setSensorState(false);
 		sensor.setTypeSensor(null);
 
-		/**
-		 * Find all the Sensor in the data base and add on list to be displayed
-		 */
 		requestType = "READ ALL";
 		table = "Sensor";
 		objectMapper = new ObjectMapper();
@@ -902,6 +923,9 @@ public class TabSensor extends JPanel {
 		}
 	}
 
+	/**
+	 * Find the Sensor by the id get on list
+	 */
 	public void updateSensorSelected() {
 		if (index != -9999) {
 			String substring = listM.getElementAt(index).toString();
@@ -909,9 +933,6 @@ public class TabSensor extends JPanel {
 			if (position > -1) {
 				String id = substring.substring(0, position);
 
-				/**
-				 * Find the Sensor by the id get on list
-				 */
 				requestType = "READ";
 				sensor = new Sensor();
 				table = "Sensor";
@@ -946,7 +967,7 @@ public class TabSensor extends JPanel {
 
 	public void ActualizationListSensor(List<Alert> list) {
 		// TODO Keita Raymond
-		
+
 		requestType = "READ ALL";
 		alert = new Alert();
 		table = "Alert";
@@ -969,7 +990,7 @@ public class TabSensor extends JPanel {
 		for (Alert alerts : listAlert) {
 			if (!alerts.getAlertState().equals(sensor.getAlertState())) {
 
-				listM.addElement(alerts.getIdSensor() + "# " + alerts.getAlertState() );
+				listM.addElement(alerts.getIdSensor() + "# " + alerts.getAlertState());
 			}
 		}
 		if (listM.isEmpty() && (!listSensor.isEmpty())) {

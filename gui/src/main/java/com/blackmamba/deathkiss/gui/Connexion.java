@@ -27,6 +27,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class Connexion extends JFrame {
 
+	/**
+	 * Different parameters used
+	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel frameContainer;
 	private JPanel idEmployeePan;
@@ -48,6 +51,9 @@ public class Connexion extends JFrame {
 	private char[] passwordfield;
 	private static final Logger logger = LogManager.getLogger(Connexion.class);
 
+	/**
+	 * Constructor
+	 */
 	public Connexion() {
 
 		/**
@@ -128,8 +134,7 @@ public class Connexion extends JFrame {
 
 				if (!(idEmployee.matches("[0-9]+[0-9]*")) || password.equals("")) {
 
-					JOptionPane.showMessageDialog(null, "Vous n'avez pas renseigné tout les champs", "Attention",
-							JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Vous n'avez pas renseigné tout les champs", "Attention", JOptionPane.WARNING_MESSAGE);
 				} else if ((idEmployee.matches("[0-9]+[0-9]*")) && !(password.equals(""))) {
 					employee.setIdEmployee(Integer.parseInt(idEmployee));
 					employee.setPassword(password);
@@ -140,8 +145,7 @@ public class Connexion extends JFrame {
 						jsonString = ClientSocket.getJson();
 						employee = connectionMapper.readValue(jsonString, Employee.class);
 					} catch (IOException e1) {
-						logger.log(Level.INFO,
-								"Impossible to parse in JSON connection datas" + e1.getClass().getCanonicalName());
+						logger.log(Level.INFO, "Impossible to parse in JSON connection datas" + e1.getClass().getCanonicalName());
 					}
 					if (!employee.getPoste().equals("")) {
 						Frame frame = new Frame(employee.getIdEmployee());
@@ -151,13 +155,11 @@ public class Connexion extends JFrame {
 						logger.log(Level.INFO, "Connection succesfuly accepted, redirection to Window");
 					} else {
 						logger.log(Level.INFO, "Attempt of connection with wrong password employee or id employee");
-						JOptionPane.showMessageDialog(null, "L'identifiant ou le mot de passe est incorrect", "Erreur",
-								JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "L'identifiant ou le mot de passe est incorrect", "Erreur", JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
 					logger.log(Level.INFO, "Crash of application, Application closed");
-					JOptionPane.showMessageDialog(null, "Une Erreur est survenue, relancez l'application", "Attention",
-							JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Une Erreur est survenue, relancez l'application", "Attention", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		});

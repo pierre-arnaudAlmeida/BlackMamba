@@ -7,12 +7,24 @@ package com.blackmamba.deathkiss.entity;
  */
 public class Employee {
 
+	/**
+	 * Different parameters used
+	 */
 	private int idEmployee = 0;
 	private String lastnameEmployee = "";
 	private String nameEmployee = "";
 	private String password = "";
 	private String poste = "";
 
+	/**
+	 * Constructor
+	 * 
+	 * @param idEmployee
+	 * @param lastnameEmployee
+	 * @param nameEmployee
+	 * @param password
+	 * @param poste
+	 */
 	public Employee(int idEmployee, String lastnameEmployee, String nameEmployee, String password, String poste) {
 		super();
 		this.idEmployee = idEmployee;
@@ -22,6 +34,9 @@ public class Employee {
 		this.poste = poste;
 	}
 
+	/**
+	 * Constructor
+	 */
 	public Employee() {
 	}
 

@@ -83,9 +83,19 @@ public class TabEmployes extends JPanel {
 	private static final Logger logger = LogManager.getLogger(TabEmployes.class);
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
+	/**
+	 * Constructor
+	 */
 	public TabEmployes() {
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param color
+	 * @param idemployee
+	 * @param title
+	 */
 	public TabEmployes(Color color, int idemployee, String title) {
 		this.idemployee = idemployee;
 
@@ -239,6 +249,9 @@ public class TabEmployes extends JPanel {
 		list = new JList<String>(listM);
 		updateListEmployee();
 
+		/**
+		 * Add a scrollBar on list
+		 */
 		sc = new JScrollPane(list);
 		sc.setBounds(30, 120, 300, ((int) getToolkit().getScreenSize().getHeight() - 300));
 		this.add(sc);
@@ -638,6 +651,10 @@ public class TabEmployes extends JPanel {
 				}
 			}
 		});
+
+		/**
+		 * Launch thread
+		 */
 		threadEmployee.start();
 
 		///////////////////////// FRAME/////////////////////////////////////////////////
@@ -703,6 +720,14 @@ public class TabEmployes extends JPanel {
 		}
 	}
 
+	/**
+	 * Send a request to find an employee with the ID
+	 * 
+	 * @param employee
+	 * @param requestType
+	 * @param table
+	 * @return
+	 */
 	public Employee getEmployee(Employee employee, String requestType, String table) {
 		objectMapper = new ObjectMapper();
 		try {
@@ -718,6 +743,14 @@ public class TabEmployes extends JPanel {
 		}
 	}
 
+	/**
+	 * Send a request to have all employees
+	 * 
+	 * @param employee
+	 * @param requestType
+	 * @param table
+	 * @return
+	 */
 	public List<Employee> getAllEmployee(Employee employee, String requestType, String table) {
 		objectMapper = new ObjectMapper();
 		try {

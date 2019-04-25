@@ -32,11 +32,22 @@ public class TabHistorical extends JPanel {
 	private JButton disconnection;
 	private static final Logger logger = LogManager.getLogger(TabHistorical.class);
 
+	/**
+	 * Constructor
+	 */
 	public TabHistorical() {
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param color
+	 * @param idemployee
+	 * @param title
+	 */
 	public TabHistorical(Color color, int idemployee, String title) {
 		this.idemployee = idemployee;
+
 		/**
 		 * Definition of the structure of this tab
 		 */
@@ -69,6 +80,8 @@ public class TabHistorical extends JPanel {
 
 			}
 		});
+
+		// TODO Faire design TabHistorical
 
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**

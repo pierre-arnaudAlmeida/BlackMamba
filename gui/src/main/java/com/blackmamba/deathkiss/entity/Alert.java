@@ -1,16 +1,26 @@
 package com.blackmamba.deathkiss.entity;
 
 import java.util.Date;
-
 import com.blackmamba.deathkiss.entity.AlertState;
 
 public class Alert {
 
+	/**
+	 * Different parameters used
+	 */
 	private int idAlert = 0;
 	private AlertState alertState = null;
 	private int idSensor = 0;
 	private Date alertDate = null;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param idAlert
+	 * @param alertState
+	 * @param idSensor
+	 * @param alertDate
+	 */
 	public Alert(int idAlert, AlertState alertState, int idSensor, Date alertDate) {
 		this.idAlert = idAlert;
 		this.alertState = alertState;
@@ -18,6 +28,9 @@ public class Alert {
 		this.alertDate = alertDate;
 	}
 
+	/**
+	 * Constructor
+	 */
 	public Alert() {
 	}
 

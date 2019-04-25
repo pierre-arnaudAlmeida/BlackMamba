@@ -34,6 +34,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class TabResident extends JPanel {
 
+	/**
+	 * Different parameters used
+	 */
 	private static final long serialVersionUID = 1L;
 	private int idemployee;
 	private JPanel bar;
@@ -68,9 +71,19 @@ public class TabResident extends JPanel {
 	private List<Resident> listSearchResident = new ArrayList<Resident>();
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
 
+	/**
+	 * Constructor
+	 */
 	public TabResident() {
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param color
+	 * @param idemployee
+	 * @param title
+	 */
 	public TabResident(Color color, int idemployee, String title) {
 		this.idemployee = idemployee;
 
@@ -158,22 +171,19 @@ public class TabResident extends JPanel {
 							resident2 = objectMapper.readValue(jsonString, Resident.class);
 							logger.log(Level.INFO, "Find Resident data succed");
 						} catch (Exception e1) {
-							logger.log(Level.INFO,
-									"Impossible to parse in JSON Resident datas" + e1.getClass().getCanonicalName());
+							logger.log(Level.INFO, "Impossible to parse in JSON Resident datas" + e1.getClass().getCanonicalName());
 						}
 						listM.removeAllElements();
 						if (!resident2.getLastnameResident().equals("")) {
 							listM.addElement("Résultat pour un resident avec l'id : " + searchReceived);
-							listM.addElement(resident2.getIdResident() + "# " + resident2.getLastnameResident() + " "
-									+ resident2.getNameResident());
+							listM.addElement(resident2.getIdResident() + "# " + resident2.getLastnameResident() + " " + resident2.getNameResident());
 						}
 
 					} else {
 						/**
 						 * If the research is letter and numerics
 						 */
-						searchReceived = Normalizer.normalize(searchReceived, Normalizer.Form.NFD)
-								.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+						searchReceived = Normalizer.normalize(searchReceived, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 						resident2 = new Resident();
 						resident2.setLastnameResident(searchReceived);
 						requestType = "FIND ALL";
@@ -187,15 +197,13 @@ public class TabResident extends JPanel {
 							listSearchResident = Arrays.asList(residents);
 							logger.log(Level.INFO, "Find Resident data succed");
 						} catch (Exception e1) {
-							logger.log(Level.INFO,
-									"Impossible to parse in JSON Resident datas" + e1.getClass().getCanonicalName());
+							logger.log(Level.INFO, "Impossible to parse in JSON Resident datas" + e1.getClass().getCanonicalName());
 						}
 						listM.removeAllElements();
 						if (listSearchResident.size() > 0)
 							listM.addElement("Résultat pour un resident avec : " + searchReceived);
 						for (Resident residents : listSearchResident) {
-							listM.addElement(residents.getIdResident() + "# " + residents.getLastnameResident() + " "
-									+ residents.getNameResident());
+							listM.addElement(residents.getIdResident() + "# " + residents.getLastnameResident() + " " + residents.getNameResident());
 						}
 
 						resident2 = new Resident();
@@ -211,15 +219,13 @@ public class TabResident extends JPanel {
 							listSearchResident = Arrays.asList(residents);
 							logger.log(Level.INFO, "Find Resident data succed");
 						} catch (Exception e1) {
-							logger.log(Level.INFO,
-									"Impossible to parse in JSON Resident datas" + e1.getClass().getCanonicalName());
+							logger.log(Level.INFO, "Impossible to parse in JSON Resident datas" + e1.getClass().getCanonicalName());
 						}
 						listM.removeAllElements();
 						if (listSearchResident.size() > 0)
 							listM.addElement("Résultat pour un resident avec : " + searchReceived);
 						for (Resident residents : listSearchResident) {
-							listM.addElement(residents.getIdResident() + "# " + residents.getLastnameResident() + " "
-									+ residents.getNameResident());
+							listM.addElement(residents.getIdResident() + "# " + residents.getLastnameResident() + " " + residents.getNameResident());
 						}
 
 					}
@@ -245,8 +251,7 @@ public class TabResident extends JPanel {
 					if (listResident.size() > 0)
 						listM.addElement("Toutes les residents");
 					for (Resident residents : listResident) {
-						listM.addElement(residents.getIdResident() + "# " + residents.getLastnameResident() + " "
-								+ residents.getNameResident());
+						listM.addElement(residents.getIdResident() + "# " + residents.getLastnameResident() + " " + residents.getNameResident());
 					}
 				}
 				searchBar.setText("");
@@ -279,8 +284,7 @@ public class TabResident extends JPanel {
 
 		listM = new DefaultListModel<String>();
 		for (Resident residents : listResident) {
-			listM.addElement(residents.getIdResident() + "# " + residents.getLastnameResident() + " "
-					+ residents.getNameResident());
+			listM.addElement(residents.getIdResident() + "# " + residents.getLastnameResident() + " " + residents.getNameResident());
 		}
 
 		list = new JList<String>(listM);
@@ -294,7 +298,7 @@ public class TabResident extends JPanel {
 		 */
 		MouseListener mouseListener = new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				// TODO
+				// TODO clique souris
 			}
 		};
 		list.addMouseListener(mouseListener);
@@ -306,8 +310,7 @@ public class TabResident extends JPanel {
 		policeLabel = new Font("Arial", Font.BOLD, (int) getToolkit().getScreenSize().getWidth() / 80);
 
 		labelLastnameResident = new JLabel("Nom : ");
-		labelLastnameResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
-				(int) getToolkit().getScreenSize().getHeight() * 2 / 10, 200, 30);
+		labelLastnameResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7, (int) getToolkit().getScreenSize().getHeight() * 2 / 10, 200, 30);
 		labelLastnameResident.setFont(policeLabel);
 		this.add(labelLastnameResident);
 
@@ -315,8 +318,7 @@ public class TabResident extends JPanel {
 		 * Definition of label NameResident
 		 */
 		labelNameResident = new JLabel("Prenom : ");
-		labelNameResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
-				(int) getToolkit().getScreenSize().getHeight() * 2 / 10, 200, 30);
+		labelNameResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7, (int) getToolkit().getScreenSize().getHeight() * 2 / 10, 200, 30);
 		labelNameResident.setFont(policeLabel);
 		this.add(labelNameResident);
 
@@ -325,8 +327,7 @@ public class TabResident extends JPanel {
 		 */
 
 		labelIdResident = new JLabel("Id : ");
-		labelIdResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
-				(int) getToolkit().getScreenSize().getHeight() * 4 / 10, 100, 30);
+		labelIdResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7, (int) getToolkit().getScreenSize().getHeight() * 4 / 10, 100, 30);
 		labelIdResident.setFont(policeLabel);
 		this.add(labelIdResident);
 
@@ -336,8 +337,7 @@ public class TabResident extends JPanel {
 		 * Definition of textArea LastnameResident
 		 */
 		textInputLastnameResident = new JTextField();
-		textInputLastnameResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
-				(int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
+		textInputLastnameResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7, (int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
 		textInputLastnameResident.setFont(policeLabel);
 		textInputLastnameResident.setText(resident.getLastnameResident());
 		this.add(textInputLastnameResident);
@@ -346,8 +346,7 @@ public class TabResident extends JPanel {
 		 * Definition of textArea NameResident
 		 */
 		textInputNameResident = new JTextField();
-		textInputNameResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
-				(int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
+		textInputNameResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7, (int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
 		textInputNameResident.setFont(policeLabel);
 		textInputNameResident.setText(resident.getNameResident());
 		this.add(textInputNameResident);
@@ -356,8 +355,7 @@ public class TabResident extends JPanel {
 		 * Definition of textArea IdResident
 		 */
 		textInputIdResident = new JTextField();
-		textInputIdResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
-				(int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);
+		textInputIdResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7, (int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);
 		textInputIdResident.setFont(policeLabel);
 		textInputIdResident.setEditable(false);
 		if (resident.getIdResident() == 0)
@@ -383,15 +381,14 @@ public class TabResident extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 			}
-			// TODO
+			// TODO Add button
 		});
 
 		/**
 		 * Definition of Button Save
 		 */
 		save = new JButton("Sauvegarder");
-		save.setBounds(((int) getToolkit().getScreenSize().getWidth() * 5 / 7),
-				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
+		save.setBounds(((int) getToolkit().getScreenSize().getWidth() * 5 / 7), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
 		this.add(save);
 		save.addActionListener(new ActionListener() {
 			/**
@@ -400,7 +397,7 @@ public class TabResident extends JPanel {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO
+				// TODO Save button
 			}
 		});
 
@@ -408,8 +405,7 @@ public class TabResident extends JPanel {
 		 * Definition of Button Delete
 		 */
 		delete = new JButton("Supprimer");
-		delete.setBounds(((int) getToolkit().getScreenSize().getWidth() * 3 / 7),
-				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
+		delete.setBounds(((int) getToolkit().getScreenSize().getWidth() * 3 / 7), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
 		this.add(delete);
 		delete.addActionListener(new ActionListener() {
 			/**
@@ -418,7 +414,7 @@ public class TabResident extends JPanel {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO
+				// TODO delete button
 			}
 		});
 
@@ -428,8 +424,7 @@ public class TabResident extends JPanel {
 		restaure = new JButton("Annuler");
 		restaure.setBounds(((int)
 
-		getToolkit().getScreenSize().getWidth() * 4 / 7), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150,
-				40);
+		getToolkit().getScreenSize().getWidth() * 4 / 7), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
 		this.add(restaure);
 		restaure.addActionListener(new ActionListener() {
 			/**
@@ -438,7 +433,7 @@ public class TabResident extends JPanel {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO
+				// TODO restaure button
 			}
 		});
 

@@ -64,13 +64,24 @@ public class TabListSensor extends JPanel {
 	private static final Logger logger = LogManager.getLogger(TabListSensor.class);
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
+	/**
+	 * Constructor
+	 */
 	public TabListSensor() {
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param area
+	 * @param idemployee
+	 * @param title
+	 */
 	public TabListSensor(CommonArea area, int idemployee, String title) {
 		this.idemployee = idemployee;
 		this.area = area;
 
+		///////////////////////// Thread/////////////////////////////////////////////////
 		setThreadListSensor(new Thread(new Runnable() {
 			/**
 			 * Loop and update every 30 seconds the list of Sensors
@@ -87,6 +98,7 @@ public class TabListSensor extends JPanel {
 				}
 			}
 		}));
+
 		/**
 		 * Definition of the structure of this tab
 		 */
@@ -128,6 +140,9 @@ public class TabListSensor extends JPanel {
 		tableau = new JList<String>(tableModel);
 		updateListSensor();
 
+		/**
+		 * Add a scrollbar on list
+		 */
 		sc = new JScrollPane(tableau);
 		sc.setBounds((int) getToolkit().getScreenSize().getWidth() * 3 / 10, (int) getToolkit().getScreenSize().getHeight() * 2 / 10, (int) getToolkit().getScreenSize().getWidth() * 1 / 2, (int) getToolkit().getScreenSize().getHeight() * 1 / 2);
 		this.add(sc);
@@ -193,6 +208,10 @@ public class TabListSensor extends JPanel {
 				Frame.goToTab(1);
 			}
 		});
+
+		/**
+		 * Launch thread
+		 */
 		threadListSensor.start();
 
 		///////////////////////// FRAME/////////////////////////////////////////////////
@@ -205,11 +224,11 @@ public class TabListSensor extends JPanel {
 
 	}
 
+	/**
+	 * They find all the Sensors present in the CommonArea with the id sent by the
+	 * TabCommonArea And add all this sensor in a list do be displayed
+	 */
 	public void updateListSensor() {
-		/**
-		 * They find all the Sensors present in the CommonArea with the id sent by the
-		 * TabCommonArea And add all this sensor in a list do be displayed
-		 */
 		requestType = "FIND ALL";
 		commonArea = new CommonArea();
 		Sensor sensor = new Sensor();

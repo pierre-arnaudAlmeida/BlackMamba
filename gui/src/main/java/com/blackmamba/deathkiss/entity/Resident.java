@@ -7,10 +7,20 @@ package com.blackmamba.deathkiss.entity;
  */
 public class Resident {
 
+	/**
+	 * Different parameters used
+	 */
 	private int idResident = 0;
 	private String lastnameResident = "";
 	private String nameResident = "";
 
+	/**
+	 * Constructor
+	 * 
+	 * @param idResident
+	 * @param lastnameResident
+	 * @param nameResident
+	 */
 	public Resident(int idResident, String lastnameResident, String nameResident) {
 		super();
 		this.idResident = idResident;
@@ -18,6 +28,9 @@ public class Resident {
 		this.nameResident = nameResident;
 	}
 
+	/**
+	 * Constructor
+	 */
 	public Resident() {
 	}
 

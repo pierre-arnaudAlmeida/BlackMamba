@@ -68,11 +68,11 @@ public class TabCommonArea extends JPanel {
 	private JButton restaure;
 	private JButton listSensor;
 	private JButton validButton;
+	private JScrollPane sc;
+	private JTabbedPane tab;
 	private CommonArea commonArea;
 	private CommonArea commonArea2;
 	private Sensor sensor;
-	private JScrollPane sc;
-	private JTabbedPane tab;
 	private TabListSensor tabListSensor;
 	private ObjectMapper objectMapper;
 	private Thread threadCommonArea;
@@ -84,9 +84,19 @@ public class TabCommonArea extends JPanel {
 	private static final Logger logger = LogManager.getLogger(TabCommonArea.class);
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
+	/**
+	 * Constructor
+	 */
 	public TabCommonArea() {
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param color
+	 * @param idemployee
+	 * @param title
+	 */
 	public TabCommonArea(Color color, int idemployee, String title) {
 		this.idemployee = idemployee;
 
@@ -255,6 +265,9 @@ public class TabCommonArea extends JPanel {
 		list = new JList<String>(listM);
 		updateListCommonArea();
 
+		/**
+		 * Add a scrollBar on list
+		 */
 		sc = new JScrollPane(list);
 		sc.setBounds(30, 120, 300, ((int) getToolkit().getScreenSize().getHeight() - 300));
 		this.add(sc);
@@ -629,6 +642,10 @@ public class TabCommonArea extends JPanel {
 				}
 			}
 		});
+
+		/**
+		 * Launch thread
+		 */
 		threadCommonArea.start();
 
 		///////////////////////// FRAME/////////////////////////////////////////////////
@@ -640,15 +657,15 @@ public class TabCommonArea extends JPanel {
 		this.setBackground(color);
 	}
 
+	/**
+	 * Find all the CommonArea in the data base and add on list to be displayed
+	 */
 	public void updateListCommonArea() {
 		commonArea = new CommonArea();
 		commonArea.setIdCommonArea(0);
 		commonArea.setNameCommonArea("");
 		commonArea.setEtageCommonArea(99);
 
-		/**
-		 * Find all the CommonArea in the data base and add on list to be displayed
-		 */
 		requestType = "READ ALL";
 		table = "CommonArea";
 		listCommonArea = getAllCommonArea(null, requestType, table);
@@ -663,6 +680,9 @@ public class TabCommonArea extends JPanel {
 		}
 	}
 
+	/**
+	 * Find the CommonArea by the id get on list
+	 */
 	public void updateCommonAreaSelected() {
 		if (index != -9999) {
 			String substring = listM.getElementAt(index).toString();
@@ -671,9 +691,6 @@ public class TabCommonArea extends JPanel {
 			if (position > -1) {
 				String id = substring.substring(0, position);
 
-				/**
-				 * Find the CommonArea by the id get on list
-				 */
 				requestType = "READ";
 				table = "CommonArea";
 				commonArea = new CommonArea();

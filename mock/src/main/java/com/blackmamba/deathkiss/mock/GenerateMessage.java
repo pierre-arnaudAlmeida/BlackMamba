@@ -12,6 +12,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class GenerateMessage extends Thread {
 
+	/**
+	 * Different parameters used
+	 */
 	private boolean bool;
 	private Date currentDate;
 	private int nbMessageGenerate;
@@ -26,16 +29,30 @@ public class GenerateMessage extends Thread {
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private static final Logger logger = LogManager.getLogger(GenerateMessage.class);
 
+	/**
+	 * Constructor
+	 * 
+	 * @param message    from the tabMockMessage
+	 * @param listSensor from the tabMockMessage
+	 * @param request    from the tabMockMessage
+	 */
 	public GenerateMessage(Message message, List<Sensor> listSensor, String request) {
 		this.message = message;
 		this.listSensor = listSensor;
 		this.request = request;
 	}
 
+	/**
+	 * generate messages for every sensors in listSensor and affect some different
+	 * datas in function of the selection of user in the GUI
+	 */
 	public void run() {
 		bool = true;
-		// while (bool) {TODO supprimer les commentaires
+		// while (bool) { TODO supprimer les commentaires
 		if (request.equals("ALL")) {
+			/**
+			 * Generate an message with basic parameters for every sensor
+			 */
 			for (Sensor sensors : listSensor) {
 				if (sensors.getSensorState() == true) {
 					currentDate = new Date();
@@ -48,6 +65,11 @@ public class GenerateMessage extends Thread {
 				}
 			}
 		} else if (request.equals("ONE")) {
+			/**
+			 * Generate an message for every sensor with an id different of the idSensor
+			 * input by user in GUI with basic parameter and for the idSensor they input the
+			 * threshold value display on GUI
+			 */
 			for (Sensor sensors : listSensor) {
 				message2 = new Message();
 				if (sensors.getIdSensor() == message.getIdSensor()) {
@@ -68,6 +90,10 @@ public class GenerateMessage extends Thread {
 
 			}
 		} else if (request.equals("TYPE")) {
+			/**
+			 * Generate an message for every sensor and if the type of sensor if the same of
+			 * the sensorType selected by user in the GUI they affect the threshold input
+			 */
 			for (Sensor sensors : listSensor) {
 				if (sensors.getIdSensor() == message.getIdSensor()) {
 					sensorType = sensors.getTypeSensor().toString();

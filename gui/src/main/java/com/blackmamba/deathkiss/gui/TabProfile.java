@@ -62,9 +62,13 @@ public class TabProfile extends JPanel {
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
+	/*
+	 * Constructor
+	 */
 	public TabProfile(Color color, int idemployee, String title) {
 		this.idemployee = idemployee;
 
+		///////////////////////// Thread/////////////////////////////////////////////////
 		setThreadProfile(new Thread(new Runnable() {
 			/**
 			 * Loop and update every 30 sec the list of employees
@@ -331,6 +335,10 @@ public class TabProfile extends JPanel {
 				textInputPasswordEmployee.setText("");
 			}
 		});
+
+		/**
+		 * Launch thread
+		 */
 		threadProfile.start();
 
 		///////////////////////// FRAME/////////////////////////////////////////////////
@@ -344,7 +352,7 @@ public class TabProfile extends JPanel {
 
 	///////////////////////// GET DATAS//////////////////////////////////////////
 	/**
-	 * Recuperation of information about employee who sign in the application
+	 * Get information about employee who sign in the application
 	 */
 	public void updateEmployee() {
 		requestType = "READ";
