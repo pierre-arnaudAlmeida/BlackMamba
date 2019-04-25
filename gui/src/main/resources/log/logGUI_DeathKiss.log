@@ -40,3 +40,9 @@
 2019-04-25 10:43:33 [AWT-EventQueue-0] INFO  TabEmployes:761 - Find Employees datas succed
 2019-04-25 10:43:33 [AWT-EventQueue-0] INFO  TabEmployes:764 - Impossible to parse in JSON Employee datasjava.lang.NullPointerException
 2019-04-25 10:43:33 [AWT-EventQueue-0] INFO  MainGUI:38 - Impossible to create the window 'frame' java.lang.NullPointerException
+2019-04-25 14:10:26 [AWT-EventQueue-0] INFO  MainGUI:32 - Application Deathkiss runned
+2019-04-25 14:10:30 [AWT-EventQueue-0] INFO  Connexion:177 - Application closed, after disconnection
+2019-04-25 14:44:31 [AWT-EventQueue-0] INFO  MainGUI:32 - Application Deathkiss runned
+2019-04-25 14:44:32 [AWT-EventQueue-0] INFO  Connexion:177 - Application closed, after disconnection
+2019-04-25 15:51:08 [AWT-EventQueue-0] INFO  MainGUI:32 - Application Deathkiss runned
+2019-04-25 15:51:10 [AWT-EventQueue-0] INFO  Connexion:177 - Application closed, after disconnection

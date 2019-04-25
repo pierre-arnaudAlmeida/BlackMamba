@@ -11,6 +11,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -256,32 +257,10 @@ public class TabSensor extends JPanel {
 						 * Sensor
 						 */
 						sensor2 = new Sensor();
-						if (searchReceived.toUpperCase().equals("S") || searchReceived.toUpperCase().equals("SM") || searchReceived.toUpperCase().equals("SMO") || searchReceived.toUpperCase().equals("SMOK") || searchReceived.toUpperCase().equals("SMOKE")) {
-							sensor2.setTypeSensor(SensorType.SMOKE);
-						} else if (searchReceived.toUpperCase().equals("M") || searchReceived.toUpperCase().equals("MO") || searchReceived.toUpperCase().equals("MOV") || searchReceived.toUpperCase().equals("MOVE")) {
-							sensor2.setTypeSensor(SensorType.MOVE);
-						} else if (searchReceived.toUpperCase().equals("T") || searchReceived.toUpperCase().equals("TE") || searchReceived.toUpperCase().equals("TEM") || searchReceived.toUpperCase().equals("TEMP") || searchReceived.toUpperCase().equals("TEMPE")
-								|| searchReceived.toUpperCase().equals("TEMPER") || searchReceived.toUpperCase().equals("TEMPERA") || searchReceived.toUpperCase().equals("TEMPERAT") || searchReceived.toUpperCase().equals("TEMPERATU") || searchReceived.toUpperCase().equals("TEMPERATUR")
-								|| searchReceived.toUpperCase().equals("TEMPERATURE")) {
-							sensor2.setTypeSensor(SensorType.TEMPERATURE);
-						} else if (searchReceived.toUpperCase().equals("W") || searchReceived.toUpperCase().equals("WI") || searchReceived.toUpperCase().equals("WIN") || searchReceived.toUpperCase().equals("WIND") || searchReceived.toUpperCase().equals("WINDO")
-								|| searchReceived.toUpperCase().equals("WINDOW")) {
-							sensor2.setTypeSensor(SensorType.WINDOW);
-						} else if (searchReceived.toUpperCase().equals("D") || searchReceived.toUpperCase().equals("DO") || searchReceived.toUpperCase().equals("DOO") || searchReceived.toUpperCase().equals("DOOR")) {
-							sensor2.setTypeSensor(SensorType.DOOR);
-						} else if (searchReceived.toUpperCase().equals("E") || searchReceived.toUpperCase().equals("EL") || searchReceived.toUpperCase().equals("ELE") || searchReceived.toUpperCase().equals("ELEV") || searchReceived.toUpperCase().equals("ELEVA")
-								|| searchReceived.toUpperCase().equals("ELEVAT") || searchReceived.toUpperCase().equals("ELEVATO") || searchReceived.toUpperCase().equals("ELEVATOR")) {
-							sensor2.setTypeSensor(SensorType.ELEVATOR);
-						} else if (searchReceived.toUpperCase().equals("L") || searchReceived.toUpperCase().equals("LI") || searchReceived.toUpperCase().equals("LIG") || searchReceived.toUpperCase().equals("LIGH") || searchReceived.toUpperCase().equals("LIGHT")) {
-							sensor2.setTypeSensor(SensorType.LIGHT);
-						} else if (searchReceived.toUpperCase().equals("F") || searchReceived.toUpperCase().equals("FI") || searchReceived.toUpperCase().equals("FIR") || searchReceived.toUpperCase().equals("FIRE")) {
-							sensor2.setTypeSensor(SensorType.FIRE);
-						} else if (searchReceived.toUpperCase().equals("B") || searchReceived.toUpperCase().equals("BA") || searchReceived.toUpperCase().equals("BAD") || searchReceived.toUpperCase().equals("BADG") || searchReceived.toUpperCase().equals("BADGE")) {
-							sensor2.setTypeSensor(SensorType.BADGE);
-						} else if (searchReceived.toUpperCase().equals("R") || searchReceived.toUpperCase().equals("RO") || searchReceived.toUpperCase().equals("ROU") || searchReceived.toUpperCase().equals("ROUT") || searchReceived.toUpperCase().equals("ROUTE")
-								|| searchReceived.toUpperCase().equals("ROUTER")) {
-							sensor2.setTypeSensor(SensorType.ROUTER);
+						for (SensorType t : SensorType.values()) {
+							t.name().startsWith(searchReceived);
 						}
+						
 						requestType = "FIND ALL";
 						table = "Sensor";
 						objectMapper = new ObjectMapper();
@@ -392,11 +371,10 @@ public class TabSensor extends JPanel {
 					sensor.setIdSensor(Integer.parseInt(id));
 					try {
 						jsonString = objectMapper.writeValueAsString(sensor);
-						;
 						new ClientSocket(requestType, jsonString, table);
 						jsonString = ClientSocket.getJson();
 						sensor = objectMapper.readValue(jsonString, Sensor.class);
-					} catch (Exception e1) {
+					} catch (IOException e1) {
 						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 					}
 					/**
@@ -409,11 +387,10 @@ public class TabSensor extends JPanel {
 					commonArea.setIdCommonArea(sensor.getIdCommonArea());
 					try {
 						jsonString = readMapper.writeValueAsString(commonArea);
-						;
 						new ClientSocket(requestType, jsonString, table);
 						jsonString = ClientSocket.getJson();
 						commonArea = readMapper.readValue(jsonString, CommonArea.class);
-					} catch (Exception e1) {
+					} catch (IOException e1) {
 						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 					}
 
@@ -520,26 +497,8 @@ public class TabSensor extends JPanel {
 			 */
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				if (e.getItem().toString().equals("SMOKE"))
-					sensor.setTypeSensor(SensorType.SMOKE);
-				else if (e.getItem().toString().equals("MOVE"))
-					sensor.setTypeSensor(SensorType.MOVE);
-				else if (e.getItem().toString().equals("TEMPERATURE"))
-					sensor.setTypeSensor(SensorType.TEMPERATURE);
-				else if (e.getItem().toString().equals("WINDOW"))
-					sensor.setTypeSensor(SensorType.WINDOW);
-				else if (e.getItem().toString().equals("DOOR"))
-					sensor.setTypeSensor(SensorType.DOOR);
-				else if (e.getItem().toString().equals("ELEVATOR"))
-					sensor.setTypeSensor(SensorType.ELEVATOR);
-				else if (e.getItem().toString().equals("LIGHT"))
-					sensor.setTypeSensor(SensorType.LIGHT);
-				else if (e.getItem().toString().equals("FIRE"))
-					sensor.setTypeSensor(SensorType.FIRE);
-				else if (e.getItem().toString().equals("BADGE"))
-					sensor.setTypeSensor(SensorType.BADGE);
-				else if (e.getItem().toString().equals("ROUTER"))
-					sensor.setTypeSensor(SensorType.ROUTER);
+				SensorType element = SensorType.valueOf(e.getItem().toString());
+				sensor.setTypeSensor(element);
 			}
 		});
 
@@ -644,24 +603,8 @@ public class TabSensor extends JPanel {
 				 * Read the sensor type selected
 				 */
 				String newTypeSensor = textInputTypeSensor.getSelectedItem().toString();
-				if (newTypeSensor.equals("SMOKE"))
-					sensor.setTypeSensor(SensorType.SMOKE);
-				else if (newTypeSensor.equals("MOVE"))
-					sensor.setTypeSensor(SensorType.MOVE);
-				else if (newTypeSensor.equals("TEMPERATURE"))
-					sensor.setTypeSensor(SensorType.TEMPERATURE);
-				else if (newTypeSensor.equals("WINDOW"))
-					sensor.setTypeSensor(SensorType.WINDOW);
-				else if (newTypeSensor.equals("DOOR"))
-					sensor.setTypeSensor(SensorType.DOOR);
-				else if (newTypeSensor.equals("ELEVATOR"))
-					sensor.setTypeSensor(SensorType.ELEVATOR);
-				else if (newTypeSensor.equals("LIGHT"))
-					sensor.setTypeSensor(SensorType.LIGHT);
-				else if (newTypeSensor.equals("FIRE"))
-					sensor.setTypeSensor(SensorType.FIRE);
-				else if (newTypeSensor.equals("BADGE"))
-					sensor.setTypeSensor(SensorType.BADGE);
+				SensorType element = SensorType.valueOf(newTypeSensor);
+				sensor.setTypeSensor(element);
 
 				ObjectMapper insertMapper = new ObjectMapper();
 				try {
@@ -731,24 +674,8 @@ public class TabSensor extends JPanel {
 				 * Select the type of sensor
 				 */
 				String newTypeSensor = textInputTypeSensor.getSelectedItem().toString();
-				if (newTypeSensor.equals("SMOKE"))
-					sensor.setTypeSensor(SensorType.SMOKE);
-				else if (newTypeSensor.equals("MOVE"))
-					sensor.setTypeSensor(SensorType.MOVE);
-				else if (newTypeSensor.equals("TEMPERATURE"))
-					sensor.setTypeSensor(SensorType.TEMPERATURE);
-				else if (newTypeSensor.equals("WINDOW"))
-					sensor.setTypeSensor(SensorType.WINDOW);
-				else if (newTypeSensor.equals("DOOR"))
-					sensor.setTypeSensor(SensorType.DOOR);
-				else if (newTypeSensor.equals("ELEVATOR"))
-					sensor.setTypeSensor(SensorType.ELEVATOR);
-				else if (newTypeSensor.equals("LIGHT"))
-					sensor.setTypeSensor(SensorType.LIGHT);
-				else if (newTypeSensor.equals("FIRE"))
-					sensor.setTypeSensor(SensorType.FIRE);
-				else if (newTypeSensor.equals("BADGE"))
-					sensor.setTypeSensor(SensorType.BADGE);
+				SensorType element = SensorType.valueOf(newTypeSensor);
+				sensor.setTypeSensor(element);
 
 				if (sensor.getIdSensor() == 0) {
 					JOptionPane.showMessageDialog(null, "Veuillez selectionner un capteur à mettre a jour", "Erreur", JOptionPane.ERROR_MESSAGE);
