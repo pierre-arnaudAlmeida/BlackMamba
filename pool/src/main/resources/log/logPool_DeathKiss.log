@@ -3142,3 +3142,697 @@
 2019-04-25 19:09:03 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
 2019-04-25 19:09:04 [Thread-4] INFO  SensorDAO:314 - Sensors succesfully find in BDD
 2019-04-25 19:09:04 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:27:42 [main] INFO  MainServerGUI:64 - ______           _   _     _    _         
+2019-04-25 19:27:42 [main] INFO  MainServerGUI:65 - |  _  \         | | | |   | |  (_)        
+2019-04-25 19:27:42 [main] INFO  MainServerGUI:66 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-25 19:27:42 [main] INFO  MainServerGUI:67 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-25 19:27:42 [main] INFO  MainServerGUI:68 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-25 19:27:42 [main] INFO  MainServerGUI:69 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-25 19:27:42 [main] INFO  MainServerGUI:70 -                                           
+2019-04-25 19:27:43 [AWT-EventQueue-0] INFO  MainServerGUI:84 - Server Initialized
+2019-04-25 19:27:44 [Thread-5] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:27:45 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:27:45 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:27:45 [Thread-5] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:27:46 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:27:46 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:27:47 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:27:47 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:27:48 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:27:48 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:27:49 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:27:49 [Thread-6] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:27:49 [Thread-6] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:27:49 [Thread-6] INFO  RequestHandler:571 - Request received on server
+2019-04-25 19:27:49 [Thread-6] INFO  EmployeeDAO:218 - Employees succesfully find in BDD
+2019-04-25 19:27:49 [Thread-6] INFO  RequestHandler:576 - Response send to client
+2019-04-25 19:27:49 [Thread-6] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:27:49 [Thread-6] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:27:49 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:27:49 [Thread-7] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:27:49 [Thread-7] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:27:49 [Thread-7] INFO  RequestHandler:571 - Request received on server
+2019-04-25 19:27:49 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:27:49 [Thread-8] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:27:49 [Thread-8] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:27:49 [Thread-8] INFO  RequestHandler:607 - Request received on server
+2019-04-25 19:27:49 [Thread-7] INFO  EmployeeDAO:218 - Employees succesfully find in BDD
+2019-04-25 19:27:49 [Thread-7] INFO  RequestHandler:576 - Response send to client
+2019-04-25 19:27:49 [Thread-7] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:27:49 [Thread-7] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:27:49 [Thread-8] INFO  CommonAreaDAO:161 - CommonAreas succesfully find in BDD
+2019-04-25 19:27:49 [Thread-8] INFO  RequestHandler:612 - Response send to client
+2019-04-25 19:27:49 [Thread-8] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:27:49 [Thread-8] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:27:49 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:27:49 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:27:49 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:27:49 [Thread-9] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:27:49 [Thread-9] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:27:49 [Thread-9] INFO  RequestHandler:607 - Request received on server
+2019-04-25 19:27:49 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:27:49 [Thread-10] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:27:49 [Thread-10] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:27:49 [Thread-10] INFO  RequestHandler:595 - Request received on server
+2019-04-25 19:27:49 [Thread-9] INFO  CommonAreaDAO:161 - CommonAreas succesfully find in BDD
+2019-04-25 19:27:49 [Thread-9] INFO  RequestHandler:612 - Response send to client
+2019-04-25 19:27:49 [Thread-9] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:27:49 [Thread-9] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:27:49 [Thread-10] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:27:49 [Thread-10] INFO  RequestHandler:600 - Response send to client
+2019-04-25 19:27:49 [Thread-10] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:27:49 [Thread-10] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:27:49 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:27:49 [Thread-11] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:27:49 [Thread-11] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:27:49 [Thread-11] INFO  RequestHandler:607 - Request received on server
+2019-04-25 19:27:50 [Thread-11] INFO  CommonAreaDAO:161 - CommonAreas succesfully find in BDD
+2019-04-25 19:27:50 [Thread-11] INFO  RequestHandler:612 - Response send to client
+2019-04-25 19:27:50 [Thread-11] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:27:50 [Thread-11] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:27:50 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:27:50 [Thread-12] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:27:50 [Thread-12] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:27:50 [Thread-12] INFO  RequestHandler:595 - Request received on server
+2019-04-25 19:27:50 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:27:50 [Thread-13] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:27:50 [Thread-13] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:27:50 [Thread-13] INFO  RequestHandler:583 - Request received on server
+2019-04-25 19:27:50 [Thread-12] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:27:50 [Thread-12] INFO  RequestHandler:600 - Response send to client
+2019-04-25 19:27:50 [Thread-12] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:27:50 [Thread-12] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:27:50 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:27:50 [Thread-14] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:27:50 [Thread-14] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:27:50 [Thread-14] INFO  RequestHandler:607 - Request received on server
+2019-04-25 19:27:50 [Thread-13] INFO  ResidentDAO:161 - Residents succesfully find in BDD
+2019-04-25 19:27:50 [Thread-13] INFO  RequestHandler:588 - Response send to client
+2019-04-25 19:27:50 [Thread-13] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:27:50 [Thread-13] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:27:50 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:27:50 [Thread-15] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:27:50 [Thread-15] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:27:50 [Thread-15] INFO  RequestHandler:583 - Request received on server
+2019-04-25 19:27:50 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:27:50 [Thread-16] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:27:50 [Thread-16] INFO  RequestHandler:483 - Request Type accepted by server
+2019-04-25 19:27:50 [Thread-16] INFO  RequestHandler:489 - Request received on server
+2019-04-25 19:27:50 [Thread-14] INFO  CommonAreaDAO:161 - CommonAreas succesfully find in BDD
+2019-04-25 19:27:50 [Thread-14] INFO  RequestHandler:612 - Response send to client
+2019-04-25 19:27:50 [Thread-14] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:27:50 [Thread-14] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:27:50 [Thread-15] INFO  ResidentDAO:161 - Residents succesfully find in BDD
+2019-04-25 19:27:50 [Thread-15] INFO  RequestHandler:588 - Response send to client
+2019-04-25 19:27:50 [Thread-15] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:27:50 [Thread-15] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:27:50 [Thread-16] INFO  EmployeeDAO:184 - Employee succesfully find in BDD
+2019-04-25 19:27:50 [Thread-16] INFO  RequestHandler:494 - Response send to client
+2019-04-25 19:27:50 [Thread-16] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:27:50 [Thread-16] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:27:50 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:27:50 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:27:50 [Thread-17] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:27:50 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:27:50 [Thread-17] INFO  RequestHandler:483 - Request Type accepted by server
+2019-04-25 19:27:50 [Thread-17] INFO  RequestHandler:489 - Request received on server
+2019-04-25 19:27:50 [Thread-18] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:27:50 [Thread-18] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:27:50 [Thread-18] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:27:50 [Thread-19] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:27:50 [Thread-18] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:27:50 [Thread-18] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:27:50 [Thread-19] INFO  RequestHandler:483 - Request Type accepted by server
+2019-04-25 19:27:50 [Thread-19] INFO  RequestHandler:489 - Request received on server
+2019-04-25 19:27:50 [Thread-17] INFO  EmployeeDAO:184 - Employee succesfully find in BDD
+2019-04-25 19:27:50 [Thread-17] INFO  RequestHandler:494 - Response send to client
+2019-04-25 19:27:50 [Thread-17] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:27:50 [Thread-17] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:27:50 [Thread-19] INFO  EmployeeDAO:184 - Employee succesfully find in BDD
+2019-04-25 19:27:50 [Thread-19] INFO  RequestHandler:494 - Response send to client
+2019-04-25 19:27:50 [Thread-19] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:27:50 [Thread-19] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:27:51 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:27:51 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:27:51 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:27:51 [Thread-20] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:27:51 [Thread-20] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:27:51 [Thread-20] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:27:51 [Thread-20] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:27:51 [Thread-20] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:27:52 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:27:52 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:27:52 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:27:52 [Thread-21] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:27:52 [Thread-21] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:27:52 [Thread-21] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:27:52 [Thread-21] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:27:52 [Thread-21] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:27:53 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:27:53 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:27:53 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:27:53 [Thread-22] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:27:53 [Thread-22] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:27:53 [Thread-22] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:27:53 [Thread-22] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:27:53 [Thread-22] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:27:54 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:27:54 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:27:54 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:27:54 [Thread-23] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:27:54 [Thread-23] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:27:54 [Thread-23] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:27:54 [Thread-23] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:27:54 [Thread-23] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:27:55 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:27:55 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:27:55 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:27:55 [Thread-24] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:27:55 [Thread-24] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:27:55 [Thread-24] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:27:55 [Thread-24] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:27:55 [Thread-24] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:27:56 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:27:56 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:27:56 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:27:56 [Thread-25] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:27:56 [Thread-25] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:27:56 [Thread-25] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:27:56 [Thread-25] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:27:56 [Thread-25] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:27:57 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:27:57 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:27:58 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:27:58 [Thread-26] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:27:58 [Thread-26] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:27:58 [Thread-26] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:27:58 [Thread-26] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:27:58 [Thread-26] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:27:58 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:27:58 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:27:59 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:27:59 [Thread-27] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:27:59 [Thread-27] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:27:59 [Thread-27] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:27:59 [Thread-27] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:27:59 [Thread-27] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:27:59 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:27:59 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:28:00 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:28:00 [Thread-28] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:28:00 [Thread-28] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:28:00 [Thread-28] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:28:00 [Thread-28] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:28:00 [Thread-28] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:28:00 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:28:00 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:28:01 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:28:01 [Thread-29] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:28:01 [Thread-29] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:28:01 [Thread-29] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:28:01 [Thread-29] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:28:01 [Thread-29] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:28:01 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:28:01 [Thread-30] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:28:01 [Thread-30] INFO  RequestHandler:131 - Request Type accepted by server
+2019-04-25 19:28:01 [Thread-30] INFO  RequestHandler:137 - Request received on server
+2019-04-25 19:28:01 [Thread-30] INFO  SensorDAO:437 - Sensors succesfully find in BDD
+2019-04-25 19:28:01 [Thread-30] INFO  RequestHandler:142 - Response send to client
+2019-04-25 19:28:01 [Thread-30] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:28:01 [Thread-30] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:28:01 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:28:01 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:28:02 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:28:02 [Thread-31] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:28:02 [Thread-31] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:28:02 [Thread-31] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:28:02 [Thread-31] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:28:02 [Thread-31] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:28:02 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:28:02 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:28:03 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:28:03 [Thread-32] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:28:03 [Thread-32] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:28:03 [Thread-32] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:28:03 [Thread-32] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:28:03 [Thread-32] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:28:04 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:28:04 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:28:04 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:28:04 [Thread-33] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:28:04 [Thread-33] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:28:04 [Thread-33] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:28:04 [Thread-33] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:28:04 [Thread-33] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:28:05 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:28:05 [Thread-34] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:28:05 [Thread-34] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:28:05 [Thread-34] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:28:05 [Thread-34] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:28:05 [Thread-34] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:28:05 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:28:05 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:28:06 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:28:06 [Thread-35] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:28:06 [Thread-35] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:28:06 [Thread-35] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:28:06 [Thread-35] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:28:06 [Thread-35] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:28:06 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:28:06 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:28:07 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:28:07 [Thread-36] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:28:07 [Thread-36] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:28:07 [Thread-36] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:28:07 [Thread-36] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:28:07 [Thread-36] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:28:07 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:28:07 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:29:20 [main] INFO  MainServerGUI:64 - ______           _   _     _    _         
+2019-04-25 19:29:20 [main] INFO  MainServerGUI:65 - |  _  \         | | | |   | |  (_)        
+2019-04-25 19:29:20 [main] INFO  MainServerGUI:66 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-25 19:29:20 [main] INFO  MainServerGUI:67 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-25 19:29:20 [main] INFO  MainServerGUI:68 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-25 19:29:20 [main] INFO  MainServerGUI:69 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-25 19:29:20 [main] INFO  MainServerGUI:70 -                                           
+2019-04-25 19:29:21 [AWT-EventQueue-0] INFO  MainServerGUI:84 - Server Initialized
+2019-04-25 19:29:22 [Thread-5] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:29:22 [Thread-5] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:29:22 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:29:22 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:29:23 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:29:23 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:29:25 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:29:25 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:29:26 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:29:26 [Thread-6] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:29:26 [Thread-6] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:29:26 [Thread-6] INFO  RequestHandler:571 - Request received on server
+2019-04-25 19:29:26 [Thread-6] INFO  EmployeeDAO:218 - Employees succesfully find in BDD
+2019-04-25 19:29:26 [Thread-6] INFO  RequestHandler:576 - Response send to client
+2019-04-25 19:29:26 [Thread-6] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:29:26 [Thread-6] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:29:26 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:29:26 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:29:26 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:29:26 [Thread-7] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:29:26 [Thread-7] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:29:26 [Thread-7] INFO  RequestHandler:571 - Request received on server
+2019-04-25 19:29:26 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:29:26 [Thread-8] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:29:26 [Thread-8] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:29:26 [Thread-8] INFO  RequestHandler:607 - Request received on server
+2019-04-25 19:29:26 [Thread-7] INFO  EmployeeDAO:218 - Employees succesfully find in BDD
+2019-04-25 19:29:26 [Thread-7] INFO  RequestHandler:576 - Response send to client
+2019-04-25 19:29:26 [Thread-7] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:29:26 [Thread-7] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:29:26 [Thread-8] INFO  CommonAreaDAO:161 - CommonAreas succesfully find in BDD
+2019-04-25 19:29:26 [Thread-8] INFO  RequestHandler:612 - Response send to client
+2019-04-25 19:29:26 [Thread-8] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:29:26 [Thread-8] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:29:26 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:29:26 [Thread-9] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:29:26 [Thread-9] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:29:26 [Thread-9] INFO  RequestHandler:607 - Request received on server
+2019-04-25 19:29:26 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:29:26 [Thread-10] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:29:26 [Thread-10] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:29:26 [Thread-10] INFO  RequestHandler:595 - Request received on server
+2019-04-25 19:29:26 [Thread-9] INFO  CommonAreaDAO:161 - CommonAreas succesfully find in BDD
+2019-04-25 19:29:26 [Thread-9] INFO  RequestHandler:612 - Response send to client
+2019-04-25 19:29:26 [Thread-9] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:29:26 [Thread-9] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:29:26 [Thread-10] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:29:26 [Thread-10] INFO  RequestHandler:600 - Response send to client
+2019-04-25 19:29:26 [Thread-10] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:29:26 [Thread-10] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:29:26 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:29:26 [Thread-11] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:29:26 [Thread-11] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:29:26 [Thread-11] INFO  RequestHandler:607 - Request received on server
+2019-04-25 19:29:26 [Thread-11] INFO  CommonAreaDAO:161 - CommonAreas succesfully find in BDD
+2019-04-25 19:29:26 [Thread-11] INFO  RequestHandler:612 - Response send to client
+2019-04-25 19:29:26 [Thread-11] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:29:26 [Thread-11] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:29:26 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:29:26 [Thread-12] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:29:26 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:29:26 [Thread-12] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:29:26 [Thread-12] INFO  RequestHandler:595 - Request received on server
+2019-04-25 19:29:26 [Thread-13] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:29:26 [Thread-13] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:29:26 [Thread-13] INFO  RequestHandler:583 - Request received on server
+2019-04-25 19:29:27 [Thread-12] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:29:27 [Thread-12] INFO  RequestHandler:600 - Response send to client
+2019-04-25 19:29:27 [Thread-12] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:29:27 [Thread-12] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:29:27 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:29:27 [Thread-14] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:29:27 [Thread-14] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:29:27 [Thread-14] INFO  RequestHandler:607 - Request received on server
+2019-04-25 19:29:27 [Thread-13] INFO  ResidentDAO:161 - Residents succesfully find in BDD
+2019-04-25 19:29:27 [Thread-13] INFO  RequestHandler:588 - Response send to client
+2019-04-25 19:29:27 [Thread-13] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:29:27 [Thread-13] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:29:27 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:29:27 [Thread-15] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:29:27 [Thread-15] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:29:27 [Thread-15] INFO  RequestHandler:583 - Request received on server
+2019-04-25 19:29:27 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:29:27 [Thread-16] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:29:27 [Thread-16] INFO  RequestHandler:483 - Request Type accepted by server
+2019-04-25 19:29:27 [Thread-16] INFO  RequestHandler:489 - Request received on server
+2019-04-25 19:29:27 [Thread-14] INFO  CommonAreaDAO:161 - CommonAreas succesfully find in BDD
+2019-04-25 19:29:27 [Thread-14] INFO  RequestHandler:612 - Response send to client
+2019-04-25 19:29:27 [Thread-14] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:29:27 [Thread-14] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:29:27 [Thread-15] INFO  ResidentDAO:161 - Residents succesfully find in BDD
+2019-04-25 19:29:27 [Thread-15] INFO  RequestHandler:588 - Response send to client
+2019-04-25 19:29:27 [Thread-15] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:29:27 [Thread-15] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:29:27 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:29:27 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:29:27 [Thread-16] INFO  EmployeeDAO:184 - Employee succesfully find in BDD
+2019-04-25 19:29:27 [Thread-16] INFO  RequestHandler:494 - Response send to client
+2019-04-25 19:29:27 [Thread-16] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:29:27 [Thread-16] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:29:27 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:29:27 [Thread-17] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:29:27 [Thread-17] INFO  RequestHandler:483 - Request Type accepted by server
+2019-04-25 19:29:27 [Thread-17] INFO  RequestHandler:489 - Request received on server
+2019-04-25 19:29:27 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:29:27 [Thread-18] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:29:27 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:29:27 [Thread-18] INFO  RequestHandler:483 - Request Type accepted by server
+2019-04-25 19:29:27 [Thread-19] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:29:27 [Thread-18] INFO  RequestHandler:489 - Request received on server
+2019-04-25 19:29:27 [Thread-19] INFO  RequestHandler:483 - Request Type accepted by server
+2019-04-25 19:29:27 [Thread-18] INFO  EmployeeDAO:187 - Impossible to get employee datas from BDD com.fasterxml.jackson.core.JsonParseException
+2019-04-25 19:29:27 [Thread-19] INFO  RequestHandler:489 - Request received on server
+2019-04-25 19:29:27 [Thread-18] INFO  RequestHandler:494 - Response send to client
+2019-04-25 19:29:27 [Thread-18] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:29:27 [Thread-18] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:29:27 [Thread-17] INFO  EmployeeDAO:184 - Employee succesfully find in BDD
+2019-04-25 19:29:27 [Thread-17] INFO  RequestHandler:494 - Response send to client
+2019-04-25 19:29:27 [Thread-17] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:29:27 [Thread-17] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:29:27 [Thread-19] INFO  EmployeeDAO:184 - Employee succesfully find in BDD
+2019-04-25 19:29:27 [Thread-19] INFO  RequestHandler:494 - Response send to client
+2019-04-25 19:29:27 [Thread-19] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:29:27 [Thread-19] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:29:28 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:29:28 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:29:28 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:29:28 [Thread-20] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:29:28 [Thread-20] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:29:28 [Thread-20] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:29:28 [Thread-20] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:29:28 [Thread-20] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:29:29 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:29:29 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:29:29 [Thread-21] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:29:29 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:29:29 [Thread-21] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:29:29 [Thread-21] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:29:29 [Thread-21] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:29:29 [Thread-21] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:29:30 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:29:30 [Thread-22] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:29:30 [Thread-22] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:29:30 [Thread-22] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:29:30 [Thread-22] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:29:30 [Thread-22] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:29:30 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:29:30 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:29:31 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:29:31 [Thread-23] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:29:31 [Thread-23] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:29:31 [Thread-23] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:29:31 [Thread-23] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:29:31 [Thread-23] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:29:31 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:29:31 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:29:31 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:29:31 [Thread-24] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:29:31 [Thread-24] INFO  RequestHandler:131 - Request Type accepted by server
+2019-04-25 19:29:31 [Thread-24] INFO  RequestHandler:137 - Request received on server
+2019-04-25 19:29:32 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:29:32 [Thread-25] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:29:32 [Thread-25] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:29:32 [Thread-25] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:29:32 [Thread-25] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:29:32 [Thread-25] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:29:32 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:29:32 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:29:33 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:29:33 [Thread-26] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:29:33 [Thread-26] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:29:33 [Thread-26] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:29:33 [Thread-26] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:29:33 [Thread-26] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:29:33 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:29:33 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:29:34 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:29:34 [Thread-27] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:29:34 [Thread-27] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:29:34 [Thread-27] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:29:34 [Thread-27] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:29:34 [Thread-27] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:29:34 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:29:35 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:29:35 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:29:35 [Thread-28] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:29:35 [Thread-28] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:29:35 [Thread-28] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:29:35 [Thread-28] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:29:35 [Thread-28] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:29:36 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:29:36 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:31:11 [main] INFO  MainServerGUI:64 - ______           _   _     _    _         
+2019-04-25 19:31:11 [main] INFO  MainServerGUI:65 - |  _  \         | | | |   | |  (_)        
+2019-04-25 19:31:11 [main] INFO  MainServerGUI:66 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-25 19:31:11 [main] INFO  MainServerGUI:67 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-25 19:31:11 [main] INFO  MainServerGUI:68 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-25 19:31:11 [main] INFO  MainServerGUI:69 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-25 19:31:11 [main] INFO  MainServerGUI:70 -                                           
+2019-04-25 19:31:12 [AWT-EventQueue-0] INFO  MainServerGUI:84 - Server Initialized
+2019-04-25 19:31:13 [Thread-5] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:31:14 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:31:14 [Thread-5] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:31:14 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:31:15 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:31:15 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:31:16 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:31:16 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:31:16 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:31:16 [Thread-6] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:31:16 [Thread-6] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:31:16 [Thread-6] INFO  RequestHandler:571 - Request received on server
+2019-04-25 19:31:16 [Thread-6] INFO  EmployeeDAO:218 - Employees succesfully find in BDD
+2019-04-25 19:31:16 [Thread-6] INFO  RequestHandler:576 - Response send to client
+2019-04-25 19:31:16 [Thread-6] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:31:16 [Thread-6] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:31:16 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:31:16 [Thread-7] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:31:16 [Thread-7] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:31:16 [Thread-7] INFO  RequestHandler:571 - Request received on server
+2019-04-25 19:31:16 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:31:16 [Thread-8] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:31:16 [Thread-8] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:31:16 [Thread-8] INFO  RequestHandler:607 - Request received on server
+2019-04-25 19:31:16 [Thread-7] INFO  EmployeeDAO:218 - Employees succesfully find in BDD
+2019-04-25 19:31:16 [Thread-7] INFO  RequestHandler:576 - Response send to client
+2019-04-25 19:31:16 [Thread-7] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:31:16 [Thread-7] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:31:16 [Thread-8] INFO  CommonAreaDAO:161 - CommonAreas succesfully find in BDD
+2019-04-25 19:31:16 [Thread-8] INFO  RequestHandler:612 - Response send to client
+2019-04-25 19:31:16 [Thread-8] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:31:16 [Thread-8] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:31:17 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:31:17 [Thread-9] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:31:17 [Thread-9] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:31:17 [Thread-9] INFO  RequestHandler:607 - Request received on server
+2019-04-25 19:31:17 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:31:17 [Thread-10] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:31:17 [Thread-10] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:31:17 [Thread-10] INFO  RequestHandler:595 - Request received on server
+2019-04-25 19:31:17 [Thread-9] INFO  CommonAreaDAO:161 - CommonAreas succesfully find in BDD
+2019-04-25 19:31:17 [Thread-9] INFO  RequestHandler:612 - Response send to client
+2019-04-25 19:31:17 [Thread-9] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:31:17 [Thread-9] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:31:17 [Thread-10] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:31:17 [Thread-10] INFO  RequestHandler:600 - Response send to client
+2019-04-25 19:31:17 [Thread-10] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:31:17 [Thread-10] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:31:17 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:31:17 [Thread-11] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:31:17 [Thread-11] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:31:17 [Thread-11] INFO  RequestHandler:607 - Request received on server
+2019-04-25 19:31:17 [Thread-11] INFO  CommonAreaDAO:161 - CommonAreas succesfully find in BDD
+2019-04-25 19:31:17 [Thread-11] INFO  RequestHandler:612 - Response send to client
+2019-04-25 19:31:17 [Thread-11] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:31:17 [Thread-11] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:31:17 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:31:17 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:31:17 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:31:17 [Thread-12] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:31:17 [Thread-12] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:31:17 [Thread-12] INFO  RequestHandler:595 - Request received on server
+2019-04-25 19:31:17 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:31:17 [Thread-13] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:31:17 [Thread-13] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:31:17 [Thread-13] INFO  RequestHandler:583 - Request received on server
+2019-04-25 19:31:17 [Thread-12] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:31:17 [Thread-12] INFO  RequestHandler:600 - Response send to client
+2019-04-25 19:31:17 [Thread-12] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:31:17 [Thread-12] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:31:17 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:31:17 [Thread-14] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:31:17 [Thread-14] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:31:17 [Thread-14] INFO  RequestHandler:607 - Request received on server
+2019-04-25 19:31:17 [Thread-13] INFO  ResidentDAO:161 - Residents succesfully find in BDD
+2019-04-25 19:31:17 [Thread-13] INFO  RequestHandler:588 - Response send to client
+2019-04-25 19:31:17 [Thread-13] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:31:17 [Thread-13] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:31:17 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:31:17 [Thread-15] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:31:17 [Thread-15] INFO  RequestHandler:565 - Request Type accepted by server
+2019-04-25 19:31:17 [Thread-15] INFO  RequestHandler:583 - Request received on server
+2019-04-25 19:31:17 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:31:17 [Thread-16] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:31:17 [Thread-16] INFO  RequestHandler:483 - Request Type accepted by server
+2019-04-25 19:31:17 [Thread-16] INFO  RequestHandler:489 - Request received on server
+2019-04-25 19:31:17 [Thread-14] INFO  CommonAreaDAO:161 - CommonAreas succesfully find in BDD
+2019-04-25 19:31:17 [Thread-14] INFO  RequestHandler:612 - Response send to client
+2019-04-25 19:31:17 [Thread-14] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:31:17 [Thread-14] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:31:17 [Thread-15] INFO  ResidentDAO:161 - Residents succesfully find in BDD
+2019-04-25 19:31:17 [Thread-15] INFO  RequestHandler:588 - Response send to client
+2019-04-25 19:31:17 [Thread-15] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:31:17 [Thread-15] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:31:17 [Thread-16] INFO  EmployeeDAO:184 - Employee succesfully find in BDD
+2019-04-25 19:31:17 [Thread-16] INFO  RequestHandler:494 - Response send to client
+2019-04-25 19:31:17 [Thread-16] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:31:17 [Thread-16] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:31:17 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:31:17 [Thread-17] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:31:17 [Thread-17] INFO  RequestHandler:483 - Request Type accepted by server
+2019-04-25 19:31:17 [Thread-17] INFO  RequestHandler:489 - Request received on server
+2019-04-25 19:31:18 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:31:18 [Thread-18] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:31:18 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:31:18 [Thread-18] INFO  RequestHandler:483 - Request Type accepted by server
+2019-04-25 19:31:18 [Thread-18] INFO  RequestHandler:489 - Request received on server
+2019-04-25 19:31:18 [Thread-19] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:31:18 [Thread-19] INFO  RequestHandler:483 - Request Type accepted by server
+2019-04-25 19:31:18 [Thread-18] INFO  EmployeeDAO:187 - Impossible to get employee datas from BDD com.fasterxml.jackson.core.JsonParseException
+2019-04-25 19:31:18 [Thread-19] INFO  RequestHandler:489 - Request received on server
+2019-04-25 19:31:18 [Thread-18] INFO  RequestHandler:494 - Response send to client
+2019-04-25 19:31:18 [Thread-18] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:31:18 [Thread-18] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:31:18 [Thread-17] INFO  EmployeeDAO:184 - Employee succesfully find in BDD
+2019-04-25 19:31:18 [Thread-17] INFO  RequestHandler:494 - Response send to client
+2019-04-25 19:31:18 [Thread-17] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:31:18 [Thread-17] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:31:18 [Thread-19] INFO  EmployeeDAO:184 - Employee succesfully find in BDD
+2019-04-25 19:31:18 [Thread-19] INFO  RequestHandler:494 - Response send to client
+2019-04-25 19:31:18 [Thread-19] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:31:18 [Thread-19] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:31:18 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:31:18 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:31:19 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:31:19 [Thread-20] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:31:19 [Thread-20] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:31:19 [Thread-20] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:31:19 [Thread-20] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:31:19 [Thread-20] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:31:19 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:31:19 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:31:20 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:31:20 [Thread-21] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:31:20 [Thread-21] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:31:20 [Thread-21] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:31:20 [Thread-21] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:31:20 [Thread-21] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:31:20 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:31:20 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:31:21 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:31:21 [Thread-22] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:31:21 [Thread-22] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:31:21 [Thread-22] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:31:21 [Thread-22] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:31:21 [Thread-22] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:31:21 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:31:21 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:31:21 [Thread-23] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:31:21 [Thread-23] INFO  RequestHandler:131 - Request Type accepted by server
+2019-04-25 19:31:21 [Thread-23] INFO  RequestHandler:137 - Request received on server
+2019-04-25 19:31:21 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:31:22 [Thread-23] INFO  SensorDAO:437 - Sensors succesfully find in BDD
+2019-04-25 19:31:22 [Thread-23] INFO  RequestHandler:142 - Response send to client
+2019-04-25 19:31:22 [Thread-23] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:31:22 [Thread-23] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:31:22 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:31:22 [Thread-24] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:31:22 [Thread-24] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:31:22 [Thread-24] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:31:22 [Thread-24] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:31:22 [Thread-24] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:31:22 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:31:22 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:31:23 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:31:23 [Thread-25] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:31:23 [Thread-25] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:31:23 [Thread-25] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:31:23 [Thread-25] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:31:23 [Thread-25] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:31:24 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:31:24 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:31:24 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:31:24 [Thread-26] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:31:24 [Thread-26] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:31:24 [Thread-26] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:31:24 [Thread-26] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:31:24 [Thread-26] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:31:25 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:31:25 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:31:25 [Thread-27] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:31:25 [Thread-27] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:31:25 [Thread-27] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:31:25 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:31:25 [Thread-27] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:31:25 [Thread-27] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:31:26 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:31:26 [Thread-28] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:31:26 [Thread-28] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:31:26 [Thread-28] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:31:26 [Thread-28] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:31:26 [Thread-28] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:31:26 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:31:26 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 19:31:27 [Thread-3] INFO  Server:87 - Client Connection recieved
+2019-04-25 19:31:27 [Thread-29] INFO  RequestHandler:67 - Launch of treatement of client connection
+2019-04-25 19:31:27 [Thread-29] INFO  RequestHandler:95 - Request Type accepted by server
+2019-04-25 19:31:27 [Thread-29] INFO  RequestHandler:103 - Response send to client
+2019-04-25 19:31:27 [Thread-29] INFO  RequestHandler:647 - Socket Closed by Server
+2019-04-25 19:31:27 [Thread-29] INFO  RequestHandler:676 - Connection Closed
+2019-04-25 19:31:27 [Thread-4] INFO  SensorDAO:331 - Sensors succesfully find in BDD
+2019-04-25 19:31:27 [Thread-4] INFO  MonitoringAlert:364 - Find Sensor datas succed
+2019-04-25 20:17:29 [main] INFO  DataSourceTest:142 - All connection are closed 
+2019-04-25 20:17:30 [main] INFO  DataSourceTest:228 - Connection 1 done
+2019-04-25 20:17:30 [main] INFO  DataSourceTest:228 - Connection 2 done
+2019-04-25 20:17:31 [main] INFO  DataSourceTest:228 - Connection 3 done
+2019-04-25 20:17:31 [main] INFO  DataSourceTest:231 - Limit reached, no available connection java.sql.SQLException
+2019-04-25 20:17:32 [main] INFO  DataSourceTest:198 - Connection 1 done
+2019-04-25 20:17:33 [main] INFO  DataSourceTest:201 - Connection 2 done
+2019-04-25 20:17:34 [main] INFO  DataSourceTest:204 - Connection 3 done
+2019-04-25 20:17:34 [main] INFO  DataSourceTest:209 - Limit reached, no available connection java.sql.SQLException
+2019-04-25 20:17:35 [main] INFO  DataSourceTest:125 - Return Connection succed 
+2019-04-25 20:17:36 [main] INFO  DataSourceTest:158 - Number of Connection is 1
+2019-04-25 20:17:38 [main] INFO  DataSourceTest:164 - Number of Connection increased to 0
+2019-04-25 20:17:39 [main] INFO  DataSourceTest:90 - Update in SGBD succed 
+2019-04-25 20:17:40 [main] INFO  DataSourceTest:72 - Data recovery in SGBD succed 
+2019-04-25 20:17:40 [main] INFO  DataSourceTest:35 - Connection succed 
+2019-04-25 20:17:42 [main] INFO  DataSourceTest:53 - Insertion in SGBD succed 
+2019-04-25 20:17:43 [main] INFO  DataSourceTest:108 - Delete in SGBD succed 
+2019-04-25 20:17:44 [main] INFO  DataSourceTest:181 - Connection 1 and connection 2 are different

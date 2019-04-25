@@ -3195,3 +3195,1761 @@
 2019-04-25 18:49:02 [AWT-EventQueue-0] INFO  Frame:88 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
 2019-04-25 18:49:02 [AWT-EventQueue-0] INFO  Frame:89 -                                           
 2019-04-25 19:07:24 [AWT-EventQueue-0] INFO  Frame:83 - ______           _   _     _    _         
+2019-04-25 19:12:01 [AWT-EventQueue-0] INFO  Frame:83 - ______           _   _     _    _         
+2019-04-25 19:12:01 [AWT-EventQueue-0] INFO  Frame:84 - |  _  \         | | | |   | |  (_)        
+2019-04-25 19:12:01 [AWT-EventQueue-0] INFO  Frame:85 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-25 19:12:01 [AWT-EventQueue-0] INFO  Frame:86 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-25 19:12:01 [AWT-EventQueue-0] INFO  Frame:87 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-25 19:12:01 [AWT-EventQueue-0] INFO  Frame:88 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-25 19:12:01 [AWT-EventQueue-0] INFO  Frame:89 -                                           
+2019-04-25 19:12:01 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:12:01 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:12:01 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  TabEmployes:760 - Find Employees datas succed
+2019-04-25 19:12:02 [Thread-3] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:12:02 [Thread-3] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:12:02 [Thread-3] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:12:02 [Thread-3] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:12:02 [Thread-3] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:12:02 [Thread-3] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:12:02 [Thread-3] INFO  TabEmployes:760 - Find Employees datas succed
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  TabCommonArea:744 - Find CommonArea data succed
+2019-04-25 19:12:02 [Thread-4] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:12:02 [Thread-4] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:12:02 [Thread-4] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:12:02 [Thread-4] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:12:02 [Thread-4] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:12:02 [Thread-4] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:12:02 [Thread-4] INFO  TabCommonArea:744 - Find CommonArea data succed
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  TabSensor:839 - Find Sensor data succed
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  TabSensor:807 - Recuperation of all Common Areas available succed
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  TabSensor:818 - Convertion of all Common Areas available in a list succed
+2019-04-25 19:12:02 [Thread-5] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:12:02 [Thread-5] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:12:02 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:12:02 [Thread-5] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:12:03 [Thread-5] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:12:03 [Thread-5] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:12:03 [Thread-5] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:12:03 [Thread-5] INFO  TabSensor:839 - Find Sensor data succed
+2019-04-25 19:12:03 [Thread-5] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:12:03 [Thread-5] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:12:03 [Thread-5] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:12:03 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:12:03 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:12:03 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:12:03 [AWT-EventQueue-0] INFO  TabProfile:286 - Find Resident data succed
+2019-04-25 19:12:03 [Thread-6] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:12:03 [Thread-6] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:12:03 [Thread-6] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:12:03 [Thread-5] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:12:03 [Thread-5] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:12:03 [Thread-5] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:12:03 [Thread-5] INFO  TabSensor:807 - Recuperation of all Common Areas available succed
+2019-04-25 19:12:03 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:12:03 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:12:03 [Thread-5] INFO  TabSensor:818 - Convertion of all Common Areas available in a list succed
+2019-04-25 19:12:03 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:12:03 [Thread-6] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:12:03 [Thread-6] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:12:03 [Thread-6] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:12:03 [Thread-6] INFO  TabProfile:722 - Find Residents datas succed
+2019-04-25 19:12:03 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:12:03 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:12:03 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:12:03 [AWT-EventQueue-0] INFO  TabProfile:368 - Find Employee data succed
+2019-04-25 19:12:03 [Thread-7] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:12:03 [Thread-7] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:12:03 [Thread-7] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:12:03 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:12:03 [Thread-2] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:12:03 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:12:03 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:12:03 [Thread-2] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:12:03 [Thread-2] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:12:03 [Thread-7] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:12:03 [Thread-7] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:12:03 [Thread-7] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:12:03 [Thread-7] INFO  TabProfile:368 - Find Employee data succed
+2019-04-25 19:12:03 [AWT-EventQueue-0] INFO  MainGUI:34 - Application Deathkiss runned
+2019-04-25 19:12:03 [Thread-2] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:12:03 [Thread-2] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:12:03 [Thread-2] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:12:03 [Thread-2] INFO  Frame:173 - Find Employee data succed
+2019-04-25 19:14:42 [AWT-EventQueue-0] INFO  Frame:83 - ______           _   _     _    _         
+2019-04-25 19:14:42 [AWT-EventQueue-0] INFO  Frame:84 - |  _  \         | | | |   | |  (_)        
+2019-04-25 19:14:42 [AWT-EventQueue-0] INFO  Frame:85 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-25 19:14:42 [AWT-EventQueue-0] INFO  Frame:86 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-25 19:14:42 [AWT-EventQueue-0] INFO  Frame:87 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-25 19:14:42 [AWT-EventQueue-0] INFO  Frame:88 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-25 19:14:42 [AWT-EventQueue-0] INFO  Frame:89 -                                           
+2019-04-25 19:14:42 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:42 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:42 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  TabEmployes:760 - Find Employees datas succed
+2019-04-25 19:14:43 [Thread-3] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:43 [Thread-3] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:43 [Thread-3] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:43 [Thread-3] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:43 [Thread-3] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:43 [Thread-3] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:43 [Thread-3] INFO  TabEmployes:760 - Find Employees datas succed
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  TabCommonArea:744 - Find CommonArea data succed
+2019-04-25 19:14:43 [Thread-4] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:43 [Thread-4] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:43 [Thread-4] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:43 [Thread-4] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:43 [Thread-4] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:43 [Thread-4] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:43 [Thread-4] INFO  TabCommonArea:744 - Find CommonArea data succed
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  TabSensor:839 - Find Sensor data succed
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  TabSensor:807 - Recuperation of all Common Areas available succed
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  TabSensor:818 - Convertion of all Common Areas available in a list succed
+2019-04-25 19:14:43 [Thread-5] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:43 [Thread-5] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:43 [Thread-5] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:43 [Thread-5] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:43 [Thread-5] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:43 [Thread-5] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:43 [Thread-5] INFO  TabSensor:839 - Find Sensor data succed
+2019-04-25 19:14:43 [Thread-5] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:43 [Thread-5] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:43 [Thread-5] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:43 [AWT-EventQueue-0] INFO  TabProfile:286 - Find Resident data succed
+2019-04-25 19:14:43 [Thread-6] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:43 [Thread-6] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:43 [Thread-6] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:44 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:44 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:44 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:44 [Thread-5] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:44 [Thread-5] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:44 [Thread-5] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:44 [Thread-5] INFO  TabSensor:807 - Recuperation of all Common Areas available succed
+2019-04-25 19:14:44 [Thread-5] INFO  TabSensor:818 - Convertion of all Common Areas available in a list succed
+2019-04-25 19:14:44 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:44 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:44 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:44 [AWT-EventQueue-0] INFO  TabProfile:368 - Find Employee data succed
+2019-04-25 19:14:44 [Thread-7] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:44 [Thread-7] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:44 [Thread-7] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:44 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:44 [Thread-2] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:44 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:44 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:44 [Thread-2] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:44 [Thread-6] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:44 [Thread-2] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:44 [Thread-6] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:44 [Thread-6] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:44 [Thread-6] INFO  TabProfile:722 - Find Residents datas succed
+2019-04-25 19:14:44 [Thread-8] INFO  ClientSocket:135 - Command CLOSE connection send to server
+2019-04-25 19:14:44 [Thread-8] INFO  ClientSocket:137 - Connection Closed by client
+2019-04-25 19:14:44 [Thread-8] INFO  Frame:194 - Impossible to parse in JSON Messages datas com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException
+2019-04-25 19:14:44 [Thread-7] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:44 [Thread-7] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:44 [Thread-7] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:44 [Thread-7] INFO  TabProfile:368 - Find Employee data succed
+2019-04-25 19:14:44 [Thread-2] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:44 [Thread-2] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:44 [Thread-2] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:44 [Thread-2] INFO  Frame:173 - Find Employee data succed
+2019-04-25 19:14:44 [AWT-EventQueue-0] INFO  MainGUI:34 - Application Deathkiss runned
+2019-04-25 19:14:45 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:45 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:45 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:45 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:45 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:45 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:45 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:14:46 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:46 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:46 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:46 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:46 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:46 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:46 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:14:47 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:47 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:47 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:47 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:47 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:47 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:47 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:14:48 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:48 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:48 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:48 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:48 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:48 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:48 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:14:49 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:49 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:49 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:49 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:49 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:49 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:49 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:14:50 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:50 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:50 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:50 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:50 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:50 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:50 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:50 [AWT-EventQueue-0] INFO  TabSensor:273 - Find Sensor data succed
+2019-04-25 19:14:50 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:50 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:50 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:50 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:50 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:50 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:14:51 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:51 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:51 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:51 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:51 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:51 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:51 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:14:52 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:52 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:52 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:52 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:52 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:52 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:52 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:14:53 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:53 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:53 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:53 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:53 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:53 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:53 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:14:53 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:53 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:53 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:53 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:53 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:53 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:53 [AWT-EventQueue-0] INFO  TabSensor:273 - Find Sensor data succed
+2019-04-25 19:14:54 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:54 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:54 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:54 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:54 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:54 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:54 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:14:55 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:55 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:55 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:55 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:55 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:55 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:55 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:14:56 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:56 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:56 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:56 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:56 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:56 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:56 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:14:57 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:57 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:57 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:57 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:57 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:57 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:57 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:14:58 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:58 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:58 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:58 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:58 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:58 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:58 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:14:59 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:14:59 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:14:59 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:14:59 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:14:59 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:14:59 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:14:59 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:00 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:00 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:00 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:00 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:00 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:00 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:00 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:19 [AWT-EventQueue-0] INFO  Frame:83 - ______           _   _     _    _         
+2019-04-25 19:15:19 [AWT-EventQueue-0] INFO  Frame:84 - |  _  \         | | | |   | |  (_)        
+2019-04-25 19:15:19 [AWT-EventQueue-0] INFO  Frame:85 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-25 19:15:19 [AWT-EventQueue-0] INFO  Frame:86 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-25 19:15:19 [AWT-EventQueue-0] INFO  Frame:87 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-25 19:15:19 [AWT-EventQueue-0] INFO  Frame:88 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-25 19:15:19 [AWT-EventQueue-0] INFO  Frame:89 -                                           
+2019-04-25 19:15:19 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:19 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:19 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:19 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:19 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:19 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  TabEmployes:760 - Find Employees datas succed
+2019-04-25 19:15:20 [Thread-3] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:20 [Thread-3] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:20 [Thread-3] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:20 [Thread-3] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:20 [Thread-3] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:20 [Thread-3] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:20 [Thread-3] INFO  TabEmployes:760 - Find Employees datas succed
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  TabCommonArea:744 - Find CommonArea data succed
+2019-04-25 19:15:20 [Thread-4] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:20 [Thread-4] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:20 [Thread-4] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:20 [Thread-4] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:20 [Thread-4] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:20 [Thread-4] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:20 [Thread-4] INFO  TabCommonArea:744 - Find CommonArea data succed
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  TabSensor:839 - Find Sensor data succed
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  TabSensor:807 - Recuperation of all Common Areas available succed
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  TabSensor:818 - Convertion of all Common Areas available in a list succed
+2019-04-25 19:15:20 [Thread-5] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:20 [Thread-5] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:20 [Thread-5] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:20 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:20 [Thread-5] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:20 [Thread-5] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:20 [Thread-5] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:20 [Thread-5] INFO  TabSensor:839 - Find Sensor data succed
+2019-04-25 19:15:20 [Thread-5] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:20 [Thread-5] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:20 [Thread-5] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:21 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:21 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:21 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:21 [AWT-EventQueue-0] INFO  TabProfile:286 - Find Resident data succed
+2019-04-25 19:15:21 [Thread-6] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:21 [Thread-6] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:21 [Thread-6] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:21 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:21 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:21 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:21 [Thread-5] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:21 [Thread-5] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:21 [Thread-5] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:21 [Thread-5] INFO  TabSensor:807 - Recuperation of all Common Areas available succed
+2019-04-25 19:15:21 [Thread-5] INFO  TabSensor:818 - Convertion of all Common Areas available in a list succed
+2019-04-25 19:15:21 [Thread-6] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:21 [Thread-6] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:21 [Thread-6] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:21 [Thread-6] INFO  TabProfile:722 - Find Residents datas succed
+2019-04-25 19:15:21 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:21 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:21 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:21 [AWT-EventQueue-0] INFO  TabProfile:368 - Find Employee data succed
+2019-04-25 19:15:21 [Thread-7] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:21 [Thread-7] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:21 [Thread-7] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:21 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:21 [Thread-2] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:21 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:21 [Thread-2] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:21 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:21 [Thread-2] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:21 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:21 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:21 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:21 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:21 [Thread-7] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:21 [Thread-7] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:21 [Thread-7] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:21 [Thread-7] INFO  TabProfile:368 - Find Employee data succed
+2019-04-25 19:15:21 [Thread-2] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:21 [Thread-2] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:21 [Thread-2] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:21 [Thread-2] INFO  Frame:173 - Find Employee data succed
+2019-04-25 19:15:21 [AWT-EventQueue-0] INFO  MainGUI:34 - Application Deathkiss runned
+2019-04-25 19:15:22 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:22 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:22 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:22 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:22 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:22 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:22 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:23 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:23 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:23 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:23 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:23 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:23 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:23 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:24 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:24 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:24 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:24 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:24 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:24 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:24 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:25 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:25 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:25 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:25 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:25 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:25 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:25 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:26 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:26 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:26 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:26 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:26 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:26 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:26 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:27 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:27 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:27 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:27 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:27 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:27 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:27 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:28 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:28 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:28 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:28 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:28 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:28 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:28 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:29 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:29 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:29 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:29 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:29 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:29 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:29 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:30 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:30 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:30 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:30 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:30 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:30 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:30 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:31 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:31 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:31 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:31 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:31 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:31 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:31 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:32 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:32 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:32 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:32 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:32 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:32 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:32 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:33 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:33 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:33 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:33 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:33 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:33 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:33 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:33 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:33 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:33 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:33 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:33 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:33 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:33 [AWT-EventQueue-0] INFO  TabSensor:273 - Find Sensor data succed
+2019-04-25 19:15:34 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:34 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:34 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:34 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:34 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:34 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:34 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:35 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:35 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:35 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:35 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:35 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:35 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:35 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:36 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:36 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:36 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:36 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:36 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:36 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:36 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:37 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:37 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:37 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:37 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:37 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:37 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:37 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:38 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:39 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:39 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:39 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:39 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:39 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:39 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:40 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:40 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:40 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:40 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:40 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:40 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:40 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:41 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:41 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:41 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:41 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:41 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:41 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:41 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:42 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:42 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:42 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:42 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:42 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:42 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:42 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:42 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:42 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:42 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:43 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:43 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:43 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:43 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:43 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:43 [AWT-EventQueue-0] INFO  TabSensor:273 - Find Sensor data succed
+2019-04-25 19:15:43 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:43 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:43 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:43 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:43 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:44 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:44 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:44 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:44 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:44 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:44 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:44 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:45 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:45 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:45 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:45 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:45 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:45 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:45 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:15:46 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:15:46 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:15:46 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:15:46 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:15:46 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:15:46 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:15:46 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:05 [AWT-EventQueue-0] INFO  Frame:83 - ______           _   _     _    _         
+2019-04-25 19:17:05 [AWT-EventQueue-0] INFO  Frame:84 - |  _  \         | | | |   | |  (_)        
+2019-04-25 19:17:05 [AWT-EventQueue-0] INFO  Frame:85 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-25 19:17:05 [AWT-EventQueue-0] INFO  Frame:86 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-25 19:17:05 [AWT-EventQueue-0] INFO  Frame:87 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-25 19:17:05 [AWT-EventQueue-0] INFO  Frame:88 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-25 19:17:05 [AWT-EventQueue-0] INFO  Frame:89 -                                           
+2019-04-25 19:17:05 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:05 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:05 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:05 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:05 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:05 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  TabEmployes:760 - Find Employees datas succed
+2019-04-25 19:17:06 [Thread-3] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:06 [Thread-3] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:06 [Thread-3] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:06 [Thread-3] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:06 [Thread-3] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:06 [Thread-3] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:06 [Thread-3] INFO  TabEmployes:760 - Find Employees datas succed
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  TabCommonArea:744 - Find CommonArea data succed
+2019-04-25 19:17:06 [Thread-4] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:06 [Thread-4] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:06 [Thread-4] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:06 [Thread-4] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:06 [Thread-4] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:06 [Thread-4] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:06 [Thread-4] INFO  TabCommonArea:744 - Find CommonArea data succed
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  TabSensor:841 - Find Sensor data succed
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  TabSensor:809 - Recuperation of all Common Areas available succed
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  TabSensor:820 - Convertion of all Common Areas available in a list succed
+2019-04-25 19:17:06 [Thread-5] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:06 [Thread-5] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:06 [Thread-5] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:06 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:06 [Thread-5] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:06 [Thread-5] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:06 [Thread-5] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:06 [Thread-5] INFO  TabSensor:841 - Find Sensor data succed
+2019-04-25 19:17:06 [Thread-5] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:06 [Thread-5] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:06 [Thread-5] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:07 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:07 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:07 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:07 [AWT-EventQueue-0] INFO  TabProfile:286 - Find Resident data succed
+2019-04-25 19:17:07 [Thread-6] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:07 [Thread-6] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:07 [Thread-6] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:07 [Thread-5] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:07 [Thread-5] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:07 [Thread-5] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:07 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:07 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:07 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:07 [Thread-5] INFO  TabSensor:809 - Recuperation of all Common Areas available succed
+2019-04-25 19:17:07 [Thread-5] INFO  TabSensor:820 - Convertion of all Common Areas available in a list succed
+2019-04-25 19:17:07 [Thread-6] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:07 [Thread-6] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:07 [Thread-6] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:07 [Thread-6] INFO  TabProfile:722 - Find Residents datas succed
+2019-04-25 19:17:07 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:07 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:07 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:07 [AWT-EventQueue-0] INFO  TabProfile:368 - Find Employee data succed
+2019-04-25 19:17:07 [Thread-7] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:07 [Thread-7] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:07 [Thread-7] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:07 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:07 [Thread-2] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:07 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:07 [Thread-2] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:07 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:07 [Thread-2] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:07 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:07 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:07 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:07 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:07 [Thread-7] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:07 [Thread-7] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:07 [Thread-7] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:07 [Thread-7] INFO  TabProfile:368 - Find Employee data succed
+2019-04-25 19:17:07 [Thread-2] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:07 [Thread-2] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:07 [Thread-2] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:07 [Thread-2] INFO  Frame:173 - Find Employee data succed
+2019-04-25 19:17:07 [AWT-EventQueue-0] INFO  MainGUI:34 - Application Deathkiss runned
+2019-04-25 19:17:08 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:08 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:08 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:08 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:08 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:08 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:08 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:09 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:09 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:09 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:09 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:09 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:09 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:09 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:10 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:10 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:10 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:10 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:10 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:10 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:10 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:11 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:11 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:11 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:11 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:11 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:11 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:11 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:11 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:11 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:11 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:12 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:12 [AWT-EventQueue-0] INFO  TabSensor:277 - Impossible to parse in JSON Sensor datasjava.lang.StringIndexOutOfBoundsException
+2019-04-25 19:17:12 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:12 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:12 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:12 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:12 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:12 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:13 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:13 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:13 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:13 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:13 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:13 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:13 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:14 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:14 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:14 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:14 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:14 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:14 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:14 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:15 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:15 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:15 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:15 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:15 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:15 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:15 [AWT-EventQueue-0] INFO  TabSensor:275 - Find Sensor data succed
+2019-04-25 19:17:15 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:15 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:15 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:15 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:15 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:15 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:15 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:16 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:16 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:16 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:16 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:16 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:16 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:16 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:16 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:16 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:16 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:17 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:17 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:17 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:17 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:17 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:17 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:17 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:18 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:18 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:18 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:18 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:18 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:18 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:18 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:19 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:19 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:19 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:19 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:19 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:19 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:19 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:20 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:20 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:20 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:20 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:20 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:20 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:20 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:21 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:21 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:21 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:21 [AWT-EventQueue-0] INFO  TabSensor:277 - Impossible to parse in JSON Sensor datasjava.lang.StringIndexOutOfBoundsException
+2019-04-25 19:17:21 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:21 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:21 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:21 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:22 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:22 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:22 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:22 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:22 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:22 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:22 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:23 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:23 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:23 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:23 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:23 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:23 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:23 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:24 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:24 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:24 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:24 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:24 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:24 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:24 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:25 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:25 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:25 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:25 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:25 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:25 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:25 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:26 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:26 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:26 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:26 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:26 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:26 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:26 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:26 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:26 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:26 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:27 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:27 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:27 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:27 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:27 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:27 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:27 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:28 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:28 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:28 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:28 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:28 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:28 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:28 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:29 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:29 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:29 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:29 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:29 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:29 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:29 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:30 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:30 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:30 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:30 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:30 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:30 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:30 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:31 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:31 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:31 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:31 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:31 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:31 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:31 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:32 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:32 [AWT-EventQueue-0] INFO  TabSensor:277 - Impossible to parse in JSON Sensor datasjava.lang.StringIndexOutOfBoundsException
+2019-04-25 19:17:32 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:32 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:32 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:32 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:32 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:32 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:33 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:33 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:33 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:33 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:33 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:33 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:33 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:34 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:35 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:35 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:35 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:35 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:35 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:35 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:36 [Thread-3] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:36 [Thread-3] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:36 [Thread-3] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:36 [Thread-3] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:36 [Thread-3] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:36 [Thread-3] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:36 [Thread-3] INFO  TabEmployes:760 - Find Employees datas succed
+2019-04-25 19:17:36 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:36 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:36 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:36 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:36 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:36 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:36 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:36 [Thread-4] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:36 [Thread-4] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:36 [Thread-4] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:36 [Thread-4] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:36 [Thread-4] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:36 [Thread-4] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:36 [Thread-4] INFO  TabCommonArea:744 - Find CommonArea data succed
+2019-04-25 19:17:37 [Thread-5] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:37 [Thread-5] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:37 [Thread-5] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:37 [Thread-6] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:37 [Thread-6] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:37 [Thread-6] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:37 [Thread-5] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:37 [Thread-5] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:37 [Thread-5] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:37 [Thread-5] INFO  TabSensor:841 - Find Sensor data succed
+2019-04-25 19:17:37 [Thread-5] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:37 [Thread-5] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:37 [Thread-5] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:37 [Thread-7] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:37 [Thread-7] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:37 [Thread-7] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:37 [Thread-2] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:37 [Thread-2] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:37 [Thread-2] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:37 [Thread-6] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:37 [Thread-6] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:37 [Thread-6] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:37 [Thread-6] INFO  TabProfile:722 - Find Residents datas succed
+2019-04-25 19:17:37 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:37 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:37 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:37 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:37 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:37 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:37 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:37 [Thread-2] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:37 [Thread-2] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:37 [Thread-2] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:37 [Thread-2] INFO  Frame:173 - Find Employee data succed
+2019-04-25 19:17:37 [Thread-5] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:37 [Thread-5] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:37 [Thread-5] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:37 [Thread-5] INFO  TabSensor:809 - Recuperation of all Common Areas available succed
+2019-04-25 19:17:37 [Thread-5] INFO  TabSensor:820 - Convertion of all Common Areas available in a list succed
+2019-04-25 19:17:37 [Thread-7] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:37 [Thread-7] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:37 [Thread-7] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:37 [Thread-7] INFO  TabProfile:368 - Find Employee data succed
+2019-04-25 19:17:38 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:38 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:38 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:38 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:38 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:38 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:38 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:39 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:39 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:39 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:39 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:39 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:39 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:39 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:40 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:40 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:40 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:40 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:40 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:40 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:40 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:41 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:41 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:41 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:41 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:41 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:41 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:41 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:42 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:42 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:42 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:42 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:42 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:42 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:42 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:43 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:43 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:43 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:43 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:43 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:43 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:43 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:44 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:44 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:44 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:44 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:44 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:44 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:44 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:45 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:45 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:45 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:45 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:45 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:45 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:45 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:46 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:46 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:46 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:46 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:46 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:46 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:46 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:47 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:47 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:47 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:47 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:47 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:47 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:47 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:48 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:48 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:48 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:48 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:48 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:48 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:48 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:49 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:49 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:49 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:49 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:49 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:49 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:49 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:17:50 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:17:50 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:17:50 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:17:50 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:17:50 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:17:50 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:17:50 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:18:51 [AWT-EventQueue-0] INFO  Frame:83 - ______           _   _     _    _         
+2019-04-25 19:18:51 [AWT-EventQueue-0] INFO  Frame:84 - |  _  \         | | | |   | |  (_)        
+2019-04-25 19:18:51 [AWT-EventQueue-0] INFO  Frame:85 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-25 19:18:51 [AWT-EventQueue-0] INFO  Frame:86 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-25 19:18:51 [AWT-EventQueue-0] INFO  Frame:87 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-25 19:18:51 [AWT-EventQueue-0] INFO  Frame:88 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-25 19:18:51 [AWT-EventQueue-0] INFO  Frame:89 -                                           
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  TabEmployes:760 - Find Employees datas succed
+2019-04-25 19:18:52 [Thread-3] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:52 [Thread-3] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:52 [Thread-3] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:52 [Thread-3] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:52 [Thread-3] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:52 [Thread-3] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:52 [Thread-3] INFO  TabEmployes:760 - Find Employees datas succed
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  TabCommonArea:744 - Find CommonArea data succed
+2019-04-25 19:18:52 [Thread-4] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:52 [Thread-4] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:52 [Thread-4] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:52 [Thread-4] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:52 [Thread-4] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:52 [Thread-4] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:52 [Thread-4] INFO  TabCommonArea:744 - Find CommonArea data succed
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  TabSensor:874 - Find Sensor data succed
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  TabSensor:842 - Recuperation of all Common Areas available succed
+2019-04-25 19:18:52 [AWT-EventQueue-0] INFO  TabSensor:853 - Convertion of all Common Areas available in a list succed
+2019-04-25 19:18:52 [Thread-5] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:52 [Thread-5] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:52 [Thread-5] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:53 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:53 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:53 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:53 [Thread-5] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:53 [Thread-5] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:53 [Thread-5] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:53 [Thread-5] INFO  TabSensor:874 - Find Sensor data succed
+2019-04-25 19:18:53 [Thread-5] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:53 [Thread-5] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:53 [Thread-5] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:53 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:53 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:53 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:53 [AWT-EventQueue-0] INFO  TabProfile:286 - Find Resident data succed
+2019-04-25 19:18:53 [Thread-6] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:53 [Thread-6] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:53 [Thread-6] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:53 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:53 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:53 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:53 [Thread-6] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:53 [Thread-5] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:53 [Thread-5] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:53 [Thread-6] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:53 [Thread-6] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:53 [Thread-5] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:53 [Thread-6] INFO  TabProfile:725 - Impossible to parse in JSON Residents datascom.fasterxml.jackson.databind.exc.UnrecognizedPropertyException
+2019-04-25 19:18:53 [Thread-5] INFO  TabSensor:842 - Recuperation of all Common Areas available succed
+2019-04-25 19:18:53 [Thread-5] INFO  TabSensor:853 - Convertion of all Common Areas available in a list succed
+2019-04-25 19:18:53 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:53 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:53 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:53 [AWT-EventQueue-0] INFO  TabProfile:368 - Find Employee data succed
+2019-04-25 19:18:53 [Thread-7] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:53 [Thread-7] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:53 [Thread-7] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:53 [Thread-2] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:53 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:53 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:53 [Thread-2] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:53 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:53 [Thread-2] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:53 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:53 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:53 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:53 [Thread-2] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:53 [Thread-2] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:53 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:18:53 [Thread-2] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:53 [Thread-2] INFO  Frame:175 - Impossible to parse in JSON Employee datascom.fasterxml.jackson.databind.exc.MismatchedInputException
+2019-04-25 19:18:53 [Thread-7] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:53 [Thread-7] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:53 [Thread-7] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:53 [Thread-7] INFO  TabProfile:368 - Find Employee data succed
+2019-04-25 19:18:53 [AWT-EventQueue-0] INFO  MainGUI:34 - Application Deathkiss runned
+2019-04-25 19:18:54 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:54 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:54 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:54 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:54 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:54 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:54 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:18:58 [AWT-EventQueue-0] INFO  Frame:83 - ______           _   _     _    _         
+2019-04-25 19:18:58 [AWT-EventQueue-0] INFO  Frame:84 - |  _  \         | | | |   | |  (_)        
+2019-04-25 19:18:58 [AWT-EventQueue-0] INFO  Frame:85 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-25 19:18:58 [AWT-EventQueue-0] INFO  Frame:86 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-25 19:18:58 [AWT-EventQueue-0] INFO  Frame:87 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-25 19:18:58 [AWT-EventQueue-0] INFO  Frame:88 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-25 19:18:58 [AWT-EventQueue-0] INFO  Frame:89 -                                           
+2019-04-25 19:18:58 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:58 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:58 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:58 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:58 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:58 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:58 [AWT-EventQueue-0] INFO  TabEmployes:760 - Find Employees datas succed
+2019-04-25 19:18:58 [Thread-3] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:58 [Thread-3] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:58 [Thread-3] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:58 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:58 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:58 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:58 [Thread-3] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:58 [Thread-3] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:58 [Thread-3] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:58 [Thread-3] INFO  TabEmployes:760 - Find Employees datas succed
+2019-04-25 19:18:58 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:58 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:58 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:58 [AWT-EventQueue-0] INFO  TabCommonArea:744 - Find CommonArea data succed
+2019-04-25 19:18:58 [Thread-4] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:58 [Thread-4] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:58 [Thread-4] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:58 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:58 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:58 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:58 [Thread-4] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:58 [Thread-4] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:58 [Thread-4] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:58 [Thread-4] INFO  TabCommonArea:744 - Find CommonArea data succed
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  TabSensor:874 - Find Sensor data succed
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  TabSensor:842 - Recuperation of all Common Areas available succed
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  TabSensor:853 - Convertion of all Common Areas available in a list succed
+2019-04-25 19:18:59 [Thread-5] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:59 [Thread-5] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:59 [Thread-5] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:59 [Thread-5] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:59 [Thread-5] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:59 [Thread-5] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:59 [Thread-5] INFO  TabSensor:874 - Find Sensor data succed
+2019-04-25 19:18:59 [Thread-5] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:59 [Thread-5] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:59 [Thread-5] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  TabProfile:286 - Find Resident data succed
+2019-04-25 19:18:59 [Thread-6] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:59 [Thread-6] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:59 [Thread-6] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:59 [Thread-5] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:59 [Thread-5] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:59 [Thread-5] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:59 [Thread-5] INFO  TabSensor:842 - Recuperation of all Common Areas available succed
+2019-04-25 19:18:59 [Thread-5] INFO  TabSensor:853 - Convertion of all Common Areas available in a list succed
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  TabProfile:368 - Find Employee data succed
+2019-04-25 19:18:59 [Thread-7] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:59 [Thread-7] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:59 [Thread-7] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:59 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:59 [Thread-2] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:18:59 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:59 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:59 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:59 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:59 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:59 [Thread-2] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:18:59 [Thread-2] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:18:59 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:18:59 [Thread-6] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:59 [Thread-6] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:59 [Thread-6] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:59 [Thread-6] INFO  TabProfile:722 - Find Residents datas succed
+2019-04-25 19:18:59 [Thread-2] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:59 [Thread-2] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:59 [Thread-2] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:59 [Thread-2] INFO  Frame:173 - Find Employee data succed
+2019-04-25 19:18:59 [Thread-7] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:18:59 [Thread-7] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:18:59 [Thread-7] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:18:59 [AWT-EventQueue-0] INFO  MainGUI:34 - Application Deathkiss runned
+2019-04-25 19:18:59 [Thread-7] INFO  TabProfile:368 - Find Employee data succed
+2019-04-25 19:19:00 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:19:00 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:19:00 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:19:00 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:19:00 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:19:00 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:19:00 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:19:01 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:19:01 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:19:01 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:19:01 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:19:01 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:19:01 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:19:01 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:19:02 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:19:02 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:19:02 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:19:02 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:19:02 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:19:02 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:19:02 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:19:03 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:19:03 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:19:03 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:19:03 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:19:03 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:19:03 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:19:03 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:19:04 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:19:04 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:19:04 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:19:04 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:19:04 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:19:04 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:19:04 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:19:04 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:19:04 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:19:04 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:19:05 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:19:05 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:19:05 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:19:05 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:19:05 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:19:05 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:19:05 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:19:06 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:19:06 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:19:06 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:19:06 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:19:06 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:19:06 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:19:06 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:19:07 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:19:07 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:19:07 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:19:07 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:19:07 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:19:07 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:19:07 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:19:08 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:19:08 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:19:08 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:19:08 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:19:08 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:19:08 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:19:08 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:19:09 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:19:09 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:19:09 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:19:09 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:19:09 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:19:09 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:19:09 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:19:10 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:19:10 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:19:10 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:19:10 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:19:10 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:19:10 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:19:10 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:19:11 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:19:11 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:19:11 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:19:11 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:19:11 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:19:11 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:19:11 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:19:11 [AWT-EventQueue-0] INFO  TabSensor:282 - Impossible to parse in JSON Sensor datasjava.lang.StringIndexOutOfBoundsException
+2019-04-25 19:20:03 [AWT-EventQueue-0] INFO  Frame:83 - ______           _   _     _    _         
+2019-04-25 19:20:03 [AWT-EventQueue-0] INFO  Frame:84 - |  _  \         | | | |   | |  (_)        
+2019-04-25 19:20:03 [AWT-EventQueue-0] INFO  Frame:85 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-25 19:20:03 [AWT-EventQueue-0] INFO  Frame:86 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-25 19:20:03 [AWT-EventQueue-0] INFO  Frame:87 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-25 19:20:03 [AWT-EventQueue-0] INFO  Frame:88 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-25 19:20:03 [AWT-EventQueue-0] INFO  Frame:89 -                                           
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  TabEmployes:760 - Find Employees datas succed
+2019-04-25 19:20:04 [Thread-3] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:20:04 [Thread-3] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:20:04 [Thread-3] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:20:04 [Thread-3] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:20:04 [Thread-3] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:20:04 [Thread-3] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:20:04 [Thread-3] INFO  TabEmployes:760 - Find Employees datas succed
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  TabCommonArea:744 - Find CommonArea data succed
+2019-04-25 19:20:04 [Thread-4] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:20:04 [Thread-4] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:20:04 [Thread-4] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:20:04 [Thread-4] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:20:04 [Thread-4] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:20:04 [Thread-4] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:20:04 [Thread-4] INFO  TabCommonArea:744 - Find CommonArea data succed
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  TabSensor:876 - Find Sensor data succed
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  TabSensor:844 - Recuperation of all Common Areas available succed
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  TabSensor:855 - Convertion of all Common Areas available in a list succed
+2019-04-25 19:20:04 [Thread-5] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:20:04 [Thread-5] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:20:04 [Thread-5] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:20:04 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:20:05 [Thread-5] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:20:05 [Thread-5] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:20:05 [Thread-5] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:20:05 [Thread-5] INFO  TabSensor:876 - Find Sensor data succed
+2019-04-25 19:20:05 [Thread-5] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:20:05 [Thread-5] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:20:05 [Thread-5] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:20:05 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:20:05 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:20:05 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:20:05 [AWT-EventQueue-0] INFO  TabProfile:286 - Find Resident data succed
+2019-04-25 19:20:05 [Thread-6] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:20:05 [Thread-6] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:20:05 [Thread-6] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:20:05 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:20:05 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:20:05 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:20:05 [Thread-5] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:20:05 [Thread-5] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:20:05 [Thread-5] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:20:05 [Thread-5] INFO  TabSensor:844 - Recuperation of all Common Areas available succed
+2019-04-25 19:20:05 [Thread-5] INFO  TabSensor:855 - Convertion of all Common Areas available in a list succed
+2019-04-25 19:20:05 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:20:05 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:20:05 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:20:05 [AWT-EventQueue-0] INFO  TabProfile:368 - Find Employee data succed
+2019-04-25 19:20:05 [Thread-7] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:20:05 [Thread-7] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:20:05 [Thread-7] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:20:05 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:20:05 [Thread-2] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:20:05 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:20:05 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:20:05 [Thread-2] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:20:05 [Thread-8] INFO  ClientSocket:135 - Command CLOSE connection send to server
+2019-04-25 19:20:05 [Thread-2] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:20:05 [Thread-8] INFO  ClientSocket:137 - Connection Closed by client
+2019-04-25 19:20:05 [Thread-8] INFO  Frame:194 - Impossible to parse in JSON Messages datas com.fasterxml.jackson.databind.exc.MismatchedInputException
+2019-04-25 19:20:05 [Thread-7] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:20:05 [Thread-7] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:20:05 [Thread-7] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:20:05 [Thread-7] INFO  TabProfile:368 - Find Employee data succed
+2019-04-25 19:20:05 [Thread-2] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:20:05 [Thread-2] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:20:05 [Thread-2] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:20:05 [Thread-2] INFO  Frame:173 - Find Employee data succed
+2019-04-25 19:20:05 [AWT-EventQueue-0] INFO  MainGUI:34 - Application Deathkiss runned
+2019-04-25 19:20:05 [Thread-6] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:20:05 [Thread-6] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:20:05 [Thread-6] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:20:05 [Thread-6] INFO  TabProfile:722 - Find Residents datas succed
+2019-04-25 19:20:06 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:20:06 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:20:06 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:20:06 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:20:06 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:20:06 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:20:06 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:20:07 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:20:07 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:20:07 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:20:07 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:20:07 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:20:07 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:20:07 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:20:08 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:20:08 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:20:08 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:20:08 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:20:08 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:20:08 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:20:08 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:20:09 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:20:09 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:20:09 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:20:09 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:20:09 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:20:09 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:20:09 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:20:10 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:20:10 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:20:10 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:20:10 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:20:10 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:20:10 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:20:10 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:20:10 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:20:10 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:20:10 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:20:11 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:20:11 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:20:11 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:20:11 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:20:11 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:20:11 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:20:11 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:20:12 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:20:12 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:20:12 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:20:12 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:20:12 [AWT-EventQueue-0] INFO  TabSensor:284 - Impossible to parse in JSON Sensor datasjava.lang.StringIndexOutOfBoundsException
+2019-04-25 19:20:12 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:20:12 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:20:12 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:20:13 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:20:13 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:20:13 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:20:13 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:20:13 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:20:13 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:20:13 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:20:14 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:20:14 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:20:14 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:20:14 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:20:14 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:20:14 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:20:14 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:22:10 [AWT-EventQueue-0] INFO  Frame:83 - ______           _   _     _    _         
+2019-04-25 19:22:10 [AWT-EventQueue-0] INFO  Frame:84 - |  _  \         | | | |   | |  (_)        
+2019-04-25 19:22:10 [AWT-EventQueue-0] INFO  Frame:85 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-25 19:22:10 [AWT-EventQueue-0] INFO  Frame:86 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-25 19:22:10 [AWT-EventQueue-0] INFO  Frame:87 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-25 19:22:10 [AWT-EventQueue-0] INFO  Frame:88 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-25 19:22:10 [AWT-EventQueue-0] INFO  Frame:89 -                                           
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  TabEmployes:760 - Find Employees datas succed
+2019-04-25 19:22:11 [Thread-3] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:22:11 [Thread-3] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:22:11 [Thread-3] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:22:11 [Thread-3] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:22:11 [Thread-3] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:22:11 [Thread-3] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:22:11 [Thread-3] INFO  TabEmployes:760 - Find Employees datas succed
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  TabCommonArea:744 - Find CommonArea data succed
+2019-04-25 19:22:11 [Thread-4] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:22:11 [Thread-4] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:22:11 [Thread-4] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:22:11 [Thread-4] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:22:11 [Thread-4] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:22:11 [Thread-4] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:22:11 [Thread-4] INFO  TabCommonArea:744 - Find CommonArea data succed
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  TabSensor:877 - Find Sensor data succed
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  TabSensor:845 - Recuperation of all Common Areas available succed
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  TabSensor:856 - Convertion of all Common Areas available in a list succed
+2019-04-25 19:22:11 [Thread-5] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:22:11 [Thread-5] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:22:11 [Thread-5] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:22:11 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:22:12 [Thread-5] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:22:12 [Thread-5] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:22:12 [Thread-5] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:22:12 [Thread-5] INFO  TabSensor:877 - Find Sensor data succed
+2019-04-25 19:22:12 [Thread-5] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:22:12 [Thread-5] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:22:12 [Thread-5] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:22:12 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:22:12 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:22:12 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:22:12 [AWT-EventQueue-0] INFO  TabProfile:286 - Find Resident data succed
+2019-04-25 19:22:12 [Thread-6] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:22:12 [Thread-6] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:22:12 [Thread-6] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:22:12 [Thread-5] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:22:12 [Thread-5] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:22:12 [Thread-5] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:22:12 [Thread-5] INFO  TabSensor:845 - Recuperation of all Common Areas available succed
+2019-04-25 19:22:12 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:22:12 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:22:12 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:22:12 [Thread-5] INFO  TabSensor:856 - Convertion of all Common Areas available in a list succed
+2019-04-25 19:22:12 [Thread-6] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:22:12 [Thread-6] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:22:12 [Thread-6] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:22:12 [Thread-6] INFO  TabProfile:722 - Find Residents datas succed
+2019-04-25 19:22:12 [AWT-EventQueue-0] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:22:12 [AWT-EventQueue-0] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:22:12 [AWT-EventQueue-0] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:22:12 [AWT-EventQueue-0] INFO  TabProfile:368 - Find Employee data succed
+2019-04-25 19:22:12 [Thread-7] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:22:12 [Thread-7] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:22:12 [Thread-7] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:22:12 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:22:12 [Thread-2] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:22:12 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:22:12 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:22:12 [Thread-2] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:22:12 [Thread-8] INFO  ClientSocket:135 - Command CLOSE connection send to server
+2019-04-25 19:22:12 [Thread-2] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:22:12 [Thread-8] INFO  ClientSocket:137 - Connection Closed by client
+2019-04-25 19:22:12 [Thread-8] INFO  Frame:194 - Impossible to parse in JSON Messages datas com.fasterxml.jackson.databind.exc.MismatchedInputException
+2019-04-25 19:22:12 [Thread-7] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:22:12 [Thread-7] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:22:12 [Thread-7] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:22:12 [Thread-7] INFO  TabProfile:368 - Find Employee data succed
+2019-04-25 19:22:12 [Thread-2] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:22:12 [Thread-2] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:22:12 [Thread-2] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:22:12 [Thread-2] INFO  Frame:173 - Find Employee data succed
+2019-04-25 19:22:12 [AWT-EventQueue-0] INFO  MainGUI:34 - Application Deathkiss runned
+2019-04-25 19:22:13 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:22:13 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:22:13 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:22:13 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:22:13 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:22:13 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:22:13 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:22:14 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:22:14 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:22:14 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:22:14 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:22:14 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:22:14 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:22:14 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:22:15 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:22:15 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:22:15 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:22:15 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:22:15 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:22:15 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:22:15 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:22:15 [AWT-EventQueue-0] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:22:15 [AWT-EventQueue-0] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:22:15 [AWT-EventQueue-0] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:22:16 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:22:16 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:22:16 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:22:16 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:22:16 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:22:16 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:22:16 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:22:17 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:22:17 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:22:17 [AWT-EventQueue-0] INFO  TabSensor:285 - Impossible to parse in JSON Sensor datasjava.lang.StringIndexOutOfBoundsException
+2019-04-25 19:22:17 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:22:17 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:22:17 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:22:17 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:22:17 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:22:18 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:22:18 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:22:18 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:22:18 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:22:18 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:22:18 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:22:18 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:22:19 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:22:19 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:22:19 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:22:19 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:22:19 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:22:19 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:22:19 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:22:20 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:22:20 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:22:20 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:22:20 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:22:20 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:22:20 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:22:20 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:22:21 [Thread-8] INFO  ClientSocket:66 - Command OPEN connection send to server
+2019-04-25 19:22:21 [Thread-8] INFO  ClientSocket:105 - Request Type Send to server
+2019-04-25 19:22:21 [Thread-8] INFO  ClientSocket:116 - Request Send to server
+2019-04-25 19:22:21 [Thread-8] INFO  ClientSocket:124 - Datas received on client
+2019-04-25 19:22:21 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
+2019-04-25 19:22:21 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
+2019-04-25 19:22:21 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-25 19:29:06 [AWT-EventQueue-0] INFO  Frame:83 - ______           _   _     _    _         

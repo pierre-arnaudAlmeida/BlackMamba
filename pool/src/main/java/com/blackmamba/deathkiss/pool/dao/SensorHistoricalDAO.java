@@ -58,14 +58,17 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 				sensorState = "ON";
 			else
 				sensorState = "OFF";
-			request = "insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('" + formater.format(sensorHistorical.getDate()) + "','" + sensorState + "','" + sensorHistorical.getAlertState().toString() + "', " + sensorHistorical.getIdSensor() + ")";
+			request = "insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('"
+					+ formater.format(sensorHistorical.getDate()) + "','" + sensorState + "','"
+					+ sensorHistorical.getAlertState().toString() + "', " + sensorHistorical.getIdSensor() + ")";
 
 			st.execute(request);
 			logger.log(Level.INFO, "SensorHistorical succesfully inserted in BDD");
 			return true;
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();
-			logger.log(Level.INFO, "Impossible to insert sensorHistorical datas in BDD" + e.getClass().getCanonicalName());
+			logger.log(Level.INFO,
+					"Impossible to insert sensorHistorical datas in BDD" + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -86,7 +89,8 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 			logger.log(Level.INFO, "SensorHistorical succesfully deleted in BDD");
 			return true;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to delete sensorHistorical datas  in BDD" + e.getClass().getCanonicalName());
+			logger.log(Level.INFO,
+					"Impossible to delete sensorHistorical datas  in BDD" + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -108,7 +112,9 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 				sensorState = "ON";
 			else
 				sensorState = "OFF";
-			request = "UPDATE message SET id_capteur = '" + sensorHistorical.getIdSensor() + "', date_historique = '" + formater.format(sensorHistorical.getDate()) + "', etat_capteur='" + sensorState + "', type_alerte='" + sensorHistorical.getAlertState().toString() + "'";
+			request = "UPDATE message SET id_capteur = '" + sensorHistorical.getIdSensor() + "', date_historique = '"
+					+ formater.format(sensorHistorical.getDate()) + "', etat_capteur='" + sensorState
+					+ "', type_alerte='" + sensorHistorical.getAlertState().toString() + "'";
 			st.execute(request);
 			logger.log(Level.INFO, "Message succesfully update in BDD");
 			return true;
@@ -142,15 +148,9 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 			else
 				sensorHistorical.setSensorState(false);
 
-			if (result.getObject(4).toString().equals("NORMAL")) {
-				sensorHistorical.setAlertState(AlertState.NORMAL);
-			} else if (result.getObject(4).toString().equals("ALERT")) {
-				sensorHistorical.setAlertState(AlertState.ALERT);
-			} else if (result.getObject(4).toString().equals("DOWN")) {
-				sensorHistorical.setAlertState(AlertState.DOWN);
-			} else if (result.getObject(4).toString().equals("OVER")) {
-				sensorHistorical.setAlertState(AlertState.OVER);
-			}
+			AlertState alertStateElement = AlertState.valueOf(result.getObject(4).toString());
+			sensorHistorical.setAlertState(alertStateElement);
+
 			sensorHistorical.setIdSensor(Integer.parseInt(result.getObject(5).toString()));
 
 			ObjectMapper obj = new ObjectMapper();
@@ -158,7 +158,8 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 			logger.log(Level.INFO, "SensorHistorical succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException | ParseException e) {
-			logger.log(Level.INFO, "Impossible to get sensorHistorical datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.INFO,
+					"Impossible to get sensorHistorical datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;
@@ -189,15 +190,8 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 				else
 					sensorHistorical.setSensorState(false);
 
-				if (result.getObject(4).toString().equals("NORMAL")) {
-					sensorHistorical.setAlertState(AlertState.NORMAL);
-				} else if (result.getObject(4).toString().equals("ALERT")) {
-					sensorHistorical.setAlertState(AlertState.ALERT);
-				} else if (result.getObject(4).toString().equals("DOWN")) {
-					sensorHistorical.setAlertState(AlertState.DOWN);
-				} else if (result.getObject(4).toString().equals("OVER")) {
-					sensorHistorical.setAlertState(AlertState.OVER);
-				}
+				AlertState alertStateElement = AlertState.valueOf(result.getObject(4).toString());
+				sensorHistorical.setAlertState(alertStateElement);
 
 				sensorHistorical.setIdSensor(Integer.parseInt(result.getObject(5).toString()));
 				listSensorHistorical.add(sensorHistorical);
@@ -207,7 +201,8 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 			logger.log(Level.INFO, "SensorHistorical succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException | ParseException e) {
-			logger.log(Level.INFO, "Impossible to get sensorHistorical datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.INFO,
+					"Impossible to get sensorHistorical datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;
@@ -239,15 +234,9 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 			else
 				sensorHistorical.setSensorState(false);
 
-			if (result.getObject(4).toString().equals("NORMAL")) {
-				sensorHistorical.setAlertState(AlertState.NORMAL);
-			} else if (result.getObject(4).toString().equals("ALERT")) {
-				sensorHistorical.setAlertState(AlertState.ALERT);
-			} else if (result.getObject(4).toString().equals("DOWN")) {
-				sensorHistorical.setAlertState(AlertState.DOWN);
-			} else if (result.getObject(4).toString().equals("OVER")) {
-				sensorHistorical.setAlertState(AlertState.OVER);
-			}
+			AlertState alertStateElement = AlertState.valueOf(result.getObject(4).toString());
+			sensorHistorical.setAlertState(alertStateElement);
+
 			sensorHistorical.setIdSensor(Integer.parseInt(result.getObject(5).toString()));
 
 			ObjectMapper obj = new ObjectMapper();

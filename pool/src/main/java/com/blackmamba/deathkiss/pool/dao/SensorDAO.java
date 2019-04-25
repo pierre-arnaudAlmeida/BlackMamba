@@ -56,8 +56,11 @@ public class SensorDAO extends DAO<Sensor> {
 			} else
 				state = "OFF";
 
-			request = "insert into capteur (type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,parametre) values ('" + sensor.getTypeSensor() + "','" + state + "','" + sensor.getIdCommonArea() + "','" + sensor.getAlertState() + "','" + sensor.getSensitivity() + "','"
-					+ sensor.getStartActivity() + "','" + sensor.getEndActivity() + "','" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "')";
+			request = "insert into capteur (type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,parametre) values ('"
+					+ sensor.getTypeSensor() + "','" + state + "','" + sensor.getIdCommonArea() + "','"
+					+ sensor.getAlertState() + "','" + sensor.getSensitivity() + "','" + sensor.getStartActivity()
+					+ "','" + sensor.getEndActivity() + "','" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:"
+					+ sensor.getThresholdMax() + "')";
 			st.execute(request);
 			logger.log(Level.INFO, "Sensor succesfully inserted in BDD");
 			return true;
@@ -101,19 +104,33 @@ public class SensorDAO extends DAO<Sensor> {
 			Sensor sensor = objectMapper.readValue(jsonString, Sensor.class);
 			if (sensor.getSensorState() == true) {
 				if (sensor.getIdCommonArea() == 0) {
-					request = "UPDATE capteur SET id_partie_commune = null, etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity() + "',heure_fin='"
-							+ sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor();
+					request = "UPDATE capteur SET id_partie_commune = null, etat = 'ON', type_capteur = '"
+							+ sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='"
+							+ sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity() + "',heure_fin='"
+							+ sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin()
+							+ "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor();
 				} else {
-					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea() + ", etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity()
-							+ "',heure_fin='" + sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor();
+					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea()
+							+ ", etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='"
+							+ sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='"
+							+ sensor.getStartActivity() + "',heure_fin='" + sensor.getEndActivity() + "',parametre='"
+							+ "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax()
+							+ "' where id_capteur = " + sensor.getIdSensor();
 				}
 			} else if (sensor.getSensorState() == false) {
 				if (sensor.getIdCommonArea() == 0) {
-					request = "UPDATE capteur SET id_partie_commune = null, etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity() + "',heure_fin='"
-							+ sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor();
+					request = "UPDATE capteur SET id_partie_commune = null, etat = 'OFF', type_capteur = '"
+							+ sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='"
+							+ sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity() + "',heure_fin='"
+							+ sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin()
+							+ "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor();
 				} else {
-					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea() + ", etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity()
-							+ "',heure_fin='" + sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor();
+					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea()
+							+ ", etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='"
+							+ sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='"
+							+ sensor.getStartActivity() + "',heure_fin='" + sensor.getEndActivity() + "',parametre='"
+							+ "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax()
+							+ "' where id_capteur = " + sensor.getIdSensor();
 				}
 			} else
 				return false;
@@ -142,26 +159,8 @@ public class SensorDAO extends DAO<Sensor> {
 			result.next();
 
 			sensor.setIdSensor(Integer.parseInt(result.getObject(1).toString()));
-			if (result.getObject(2).toString().equals("SMOKE"))
-				sensor.setTypeSensor(SensorType.SMOKE);
-			else if (result.getObject(2).toString().equals("MOVE"))
-				sensor.setTypeSensor(SensorType.MOVE);
-			else if (result.getObject(2).toString().equals("TEMPERATURE"))
-				sensor.setTypeSensor(SensorType.TEMPERATURE);
-			else if (result.getObject(2).toString().equals("WINDOW"))
-				sensor.setTypeSensor(SensorType.WINDOW);
-			else if (result.getObject(2).toString().equals("DOOR"))
-				sensor.setTypeSensor(SensorType.DOOR);
-			else if (result.getObject(2).toString().equals("ELEVATOR"))
-				sensor.setTypeSensor(SensorType.ELEVATOR);
-			else if (result.getObject(2).toString().equals("LIGHT"))
-				sensor.setTypeSensor(SensorType.LIGHT);
-			else if (result.getObject(2).toString().equals("FIRE"))
-				sensor.setTypeSensor(SensorType.FIRE);
-			else if (result.getObject(2).toString().equals("BADGE"))
-				sensor.setTypeSensor(SensorType.BADGE);
-			else if (result.getObject(2).toString().equals("ROUTER"))
-				sensor.setTypeSensor(SensorType.ROUTER);
+			SensorType element = SensorType.valueOf(result.getObject(2).toString());
+			sensor.setTypeSensor(element);
 
 			if (result.getObject(3).toString().equals("ON")) {
 				sensor.setSensorState(true);
@@ -177,21 +176,11 @@ public class SensorDAO extends DAO<Sensor> {
 				sensor.setIdCommonArea(0);
 			}
 
-			if (result.getObject(5).toString().equals("NORMAL")) {
-				sensor.setAlertState(AlertState.NORMAL);
-			} else if (result.getObject(5).toString().equals("ALERT")) {
-				sensor.setAlertState(AlertState.ALERT);
-			} else if (result.getObject(5).toString().equals("DOWN")) {
-				sensor.setAlertState(AlertState.DOWN);
-			}
+			AlertState alertStateElement = AlertState.valueOf(result.getObject(5).toString());
+			sensor.setAlertState(alertStateElement);
 
-			if (result.getObject(6).toString().equals("LOW")) {
-				sensor.setSensitivity(Sensitivity.LOW);
-			} else if (result.getObject(6).toString().equals("MEDIUM")) {
-				sensor.setSensitivity(Sensitivity.MEDIUM);
-			} else if (result.getObject(6).toString().equals("HIGH")) {
-				sensor.setSensitivity(Sensitivity.HIGH);
-			}
+			Sensitivity sensitivityElement = Sensitivity.valueOf(result.getObject(6).toString());
+			sensor.setSensitivity(sensitivityElement);
 
 			sensor.setStartActivity(Time.valueOf(result.getObject(7).toString()));
 			sensor.setEndActivity(Time.valueOf(result.getObject(8).toString()));
@@ -239,26 +228,8 @@ public class SensorDAO extends DAO<Sensor> {
 			while (result.next()) {
 				sensor = new Sensor();
 				sensor.setIdSensor(Integer.parseInt(result.getObject(1).toString()));
-				if (result.getObject(2).toString().equals("SMOKE"))
-					sensor.setTypeSensor(SensorType.SMOKE);
-				else if (result.getObject(2).toString().equals("MOVE"))
-					sensor.setTypeSensor(SensorType.MOVE);
-				else if (result.getObject(2).toString().equals("TEMPERATURE"))
-					sensor.setTypeSensor(SensorType.TEMPERATURE);
-				else if (result.getObject(2).toString().equals("WINDOW"))
-					sensor.setTypeSensor(SensorType.WINDOW);
-				else if (result.getObject(2).toString().equals("DOOR"))
-					sensor.setTypeSensor(SensorType.DOOR);
-				else if (result.getObject(2).toString().equals("ELEVATOR"))
-					sensor.setTypeSensor(SensorType.ELEVATOR);
-				else if (result.getObject(2).toString().equals("LIGHT"))
-					sensor.setTypeSensor(SensorType.LIGHT);
-				else if (result.getObject(2).toString().equals("FIRE"))
-					sensor.setTypeSensor(SensorType.FIRE);
-				else if (result.getObject(2).toString().equals("BADGE"))
-					sensor.setTypeSensor(SensorType.BADGE);
-				else if (result.getObject(2).toString().equals("ROUTER"))
-					sensor.setTypeSensor(SensorType.ROUTER);
+				SensorType element = SensorType.valueOf(result.getObject(2).toString());
+				sensor.setTypeSensor(element);
 
 				if (result.getObject(3).toString().equals("ON")) {
 					sensor.setSensorState(true);
@@ -272,21 +243,11 @@ public class SensorDAO extends DAO<Sensor> {
 				} catch (Exception e) {
 					sensor.setIdCommonArea(0);
 				}
-				if (result.getObject(5).toString().equals("NORMAL")) {
-					sensor.setAlertState(AlertState.NORMAL);
-				} else if (result.getObject(5).toString().equals("ALERT")) {
-					sensor.setAlertState(AlertState.ALERT);
-				} else if (result.getObject(5).toString().equals("DOWN")) {
-					sensor.setAlertState(AlertState.DOWN);
-				}
+				AlertState alertStateElement = AlertState.valueOf(result.getObject(5).toString());
+				sensor.setAlertState(alertStateElement);
 
-				if (result.getObject(6).toString().equals("LOW")) {
-					sensor.setSensitivity(Sensitivity.LOW);
-				} else if (result.getObject(6).toString().equals("MEDIUM")) {
-					sensor.setSensitivity(Sensitivity.MEDIUM);
-				} else if (result.getObject(6).toString().equals("HIGH")) {
-					sensor.setSensitivity(Sensitivity.HIGH);
-				}
+				Sensitivity sensitivityElement = Sensitivity.valueOf(result.getObject(6).toString());
+				sensor.setSensitivity(sensitivityElement);
 
 				sensor.setStartActivity(Time.valueOf(result.getObject(7).toString()));
 				sensor.setEndActivity(Time.valueOf(result.getObject(8).toString()));
@@ -329,7 +290,7 @@ public class SensorDAO extends DAO<Sensor> {
 		String request;
 		List<Sensor> listSensor = new ArrayList<>();
 		try {
-
+			System.out.println(jsonString);
 			Statement st = con.createStatement();
 			Sensor sensor = objectMapper.readValue(jsonString, Sensor.class);
 			if (sensor.getIdCommonArea() != 0) {
@@ -337,32 +298,13 @@ public class SensorDAO extends DAO<Sensor> {
 			} else {
 				request = "SELECT * FROM capteur where type_capteur = '" + sensor.getTypeSensor() + "'";
 			}
+			System.out.println(request);
 			result = st.executeQuery(request);
 			while (result.next()) {
 				sensor = new Sensor();
 				sensor.setIdSensor(Integer.parseInt(result.getObject(1).toString()));
-				if (result.getObject(2).toString().equals("SMOKE")) {
-					sensor.setTypeSensor(SensorType.SMOKE);
-				} else if (result.getObject(2).toString().equals("MOVE")) {
-					sensor.setTypeSensor(SensorType.MOVE);
-				} else if (result.getObject(2).toString().equals("TEMPERATURE")) {
-					sensor.setTypeSensor(SensorType.TEMPERATURE);
-				} else if (result.getObject(2).toString().equals("WINDOW")) {
-					sensor.setTypeSensor(SensorType.WINDOW);
-				} else if (result.getObject(2).toString().equals("DOOR")) {
-					sensor.setTypeSensor(SensorType.DOOR);
-				} else if (result.getObject(2).toString().equals("ELEVATOR")) {
-					sensor.setTypeSensor(SensorType.ELEVATOR);
-				} else if (result.getObject(2).toString().equals("LIGHT")) {
-					sensor.setTypeSensor(SensorType.LIGHT);
-				} else if (result.getObject(2).toString().equals("FIRE")) {
-					sensor.setTypeSensor(SensorType.FIRE);
-				} else if (result.getObject(2).toString().equals("BADGE")) {
-					sensor.setTypeSensor(SensorType.BADGE);
-				} else if (result.getObject(2).toString().equals("ROUTER")) {
-					sensor.setTypeSensor(SensorType.ROUTER);
-				} else
-					sensor.setTypeSensor(null);
+				SensorType element = SensorType.valueOf(result.getObject(2).toString());
+				sensor.setTypeSensor(element);
 
 				if (result.getObject(3).toString().equals("ON")) {
 					sensor.setSensorState(true);
@@ -376,21 +318,11 @@ public class SensorDAO extends DAO<Sensor> {
 				} catch (Exception e) {
 					sensor.setIdCommonArea(0);
 				}
-				if (result.getObject(5).toString().equals("NORMAL")) {
-					sensor.setAlertState(AlertState.NORMAL);
-				} else if (result.getObject(5).toString().equals("ALERT")) {
-					sensor.setAlertState(AlertState.ALERT);
-				} else if (result.getObject(5).toString().equals("DOWN")) {
-					sensor.setAlertState(AlertState.DOWN);
-				}
+				AlertState alertStateElement = AlertState.valueOf(result.getObject(5).toString());
+				sensor.setAlertState(alertStateElement);
 
-				if (result.getObject(6).toString().equals("LOW")) {
-					sensor.setSensitivity(Sensitivity.LOW);
-				} else if (result.getObject(6).toString().equals("MEDIUM")) {
-					sensor.setSensitivity(Sensitivity.MEDIUM);
-				} else if (result.getObject(6).toString().equals("HIGH")) {
-					sensor.setSensitivity(Sensitivity.HIGH);
-				}
+				Sensitivity sensitivityElement = Sensitivity.valueOf(result.getObject(6).toString());
+				sensor.setSensitivity(sensitivityElement);
 
 				sensor.setStartActivity(Time.valueOf(result.getObject(7).toString()));
 				sensor.setEndActivity(Time.valueOf(result.getObject(8).toString()));
@@ -399,15 +331,15 @@ public class SensorDAO extends DAO<Sensor> {
 				int positionMin = substring.indexOf("seuilMin");
 				int positionMax = substring.indexOf("seuilMax");
 				if (positionMin > -1 && positionMax > -1) {
-					String thresholdMin = substring.substring(positionMin + 8, positionMax).trim();
+					String thresholdMin = substring.substring(positionMin + 9, positionMax).trim();
 					sensor.setThresholdMin(Integer.parseInt(thresholdMin));
-					String thresholdMax = substring.substring(positionMax + 8).trim();
+					String thresholdMax = substring.substring(positionMax + 9).trim();
 					sensor.setThresholdMax(Integer.parseInt(thresholdMax));
 				} else if (positionMin > -1 && positionMax == -1) {
-					String thresholdMin = substring.substring(positionMin + 8).trim();
+					String thresholdMin = substring.substring(positionMin + 9).trim();
 					sensor.setThresholdMin(Integer.parseInt(thresholdMin));
 				} else if (positionMin == -1 && positionMax > -1) {
-					String thresholdMax = substring.substring(positionMax + 8).trim();
+					String thresholdMax = substring.substring(positionMax + 9).trim();
 					sensor.setThresholdMax(Integer.parseInt(thresholdMax));
 				}
 
@@ -415,6 +347,7 @@ public class SensorDAO extends DAO<Sensor> {
 			}
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(listSensor);
+			System.out.println(jsonString);
 			logger.log(Level.INFO, "Sensors succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException e) {
