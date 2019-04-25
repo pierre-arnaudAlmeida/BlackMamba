@@ -48,7 +48,7 @@ public class GenerateMessage extends Thread {
 	 */
 	public void run() {
 		bool = true;
-		// while (bool) { TODO supprimer les commentaires
+		// while (bool) { TODO PA supprimer les commentaires
 		if (request.equals("ALL")) {
 			/**
 			 * Generate an message with basic parameters for every sensor

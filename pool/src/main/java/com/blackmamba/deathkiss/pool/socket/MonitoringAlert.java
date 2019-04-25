@@ -82,7 +82,7 @@ public class MonitoringAlert {
 	public MonitoringAlert() {
 	}
 
-	// TODO IA pour les alertes
+	// TODO PA IA pour les alertes
 	/**
 	 * Verify if the messages send by the different sensor can be considerate to an
 	 * alert verify if the threshold have been reached and if they did'nt have an
@@ -167,7 +167,7 @@ public class MonitoringAlert {
 				} else if (sensors.getSensitivity().equals(Sensitivity.HIGH)) {
 					sensitivity = Integer.parseInt(rsAlert.getString("nbOfAlertMessageHigh"));
 				}
-				// TODO manque l'heure a laquelle ca c'est déclancher
+				// TODO PA manque l'heure a laquelle ca c'est déclancher
 				Time timeAlert = new java.sql.Time(lastAlertDate.getTime());
 				timeAlert.compareTo(sensors.getStartActivity());
 				timeAlert.compareTo(sensors.getEndActivity());
@@ -285,7 +285,7 @@ public class MonitoringAlert {
 					sensor.setSensorState(true);
 					addHistorical(sensor);
 				} else {
-					// TODO remplir la list d'alerte a envoyer au client avec des valeurs spéciale
+					// TODO PA remplir la list d'alerte a envoyer au client avec des valeurs spéciale
 					// pour détecter rapidement la grosse panne
 					// faire un tri comptage sur le tableau de listSensor
 					// et sur celui de listSensorDown

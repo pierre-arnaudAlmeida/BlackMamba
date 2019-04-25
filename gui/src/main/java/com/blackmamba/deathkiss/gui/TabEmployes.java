@@ -393,7 +393,7 @@ public class TabEmployes extends JPanel {
 		addEmployee.addActionListener(new ActionListener() {
 			/**
 			 * When we pressed the button addEmployee we supress the space and we get out
-			 * the special caraters and verify if the textField are empty or not If one of
+			 * the special caracters and verify if the textField are empty or not If one of
 			 * them is empty they send a message to user else they send the request to
 			 * server
 			 */
@@ -693,7 +693,6 @@ public class TabEmployes extends JPanel {
 		if (listM.isEmpty() && (!listEmployee.isEmpty())) {
 			updateListEmployee();
 		}
-
 	}
 
 	/**
@@ -735,10 +734,10 @@ public class TabEmployes extends JPanel {
 			new ClientSocket(requestType, jsonString, table);
 			jsonString = ClientSocket.getJson();
 			employee = objectMapper.readValue(jsonString, Employee.class);
-			logger.log(Level.INFO, "Find Employees datas succed");
+			logger.log(Level.INFO, "Find Employee datas succed");
 			return employee;
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Employees datas" + e1.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
 			return null;
 		}
 	}
@@ -761,7 +760,7 @@ public class TabEmployes extends JPanel {
 			logger.log(Level.INFO, "Find Employees datas succed");
 			return Arrays.asList(employees);
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to parse in JSON Employees datas" + e1.getClass().getCanonicalName());
 			return null;
 		}
 	}

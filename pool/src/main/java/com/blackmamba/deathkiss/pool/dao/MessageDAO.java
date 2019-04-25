@@ -151,7 +151,7 @@ public class MessageDAO extends DAO<Message> {
 			Statement st = con.createStatement();
 			// Message message = objectMapper.readValue(jsonString, Message.class);
 			request = "SELECT * FROM message"; // where date_alerte >=" + message.getAlertDate() + ";";
-												// TODO mettre la date dans le read all
+												// TODO PA mettre la date dans le read all
 			result = st.executeQuery(request);
 			while (result.next()) {
 				message2 = new Message();
