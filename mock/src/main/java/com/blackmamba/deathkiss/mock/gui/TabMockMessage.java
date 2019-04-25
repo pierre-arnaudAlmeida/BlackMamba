@@ -10,6 +10,7 @@ import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,13 +22,16 @@ import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import com.blackmamba.deathkiss.mock.GenerateMessage;
 import com.blackmamba.deathkiss.mock.MockSocket;
 import com.blackmamba.deathkiss.mock.entity.Message;
 import com.blackmamba.deathkiss.mock.entity.Sensor;
+import com.blackmamba.deathkiss.mock.entity.SensorType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TabMockMessage extends JPanel {
@@ -207,7 +211,9 @@ public class TabMockMessage extends JPanel {
 		/**
 		 * Definition of ComboBox TypeSensor
 		 */
-		String[] types = { "SMOKE", "MOVE", "TEMPERATURE", "WINDOW", "DOOR", "ELEVATOR", "LIGHT", "FIRE", "BADGE", "ROUTER" };
+		// TODO PA peut etre les mettres dans un fichier properties
+		String[] types = { "SMOKE", "MOVE", "TEMPERATURE", "WINDOW", "DOOR", "ELEVATOR", "LIGHT", "FIRE", "BADGE",
+				"ROUTER" };
 		textInputTypeSensor = new JComboBox<String>(types);
 		textInputTypeSensor.setBounds(400, 250, 250, 40);
 		textInputTypeSensor.setFont(policeLabel);
@@ -219,29 +225,33 @@ public class TabMockMessage extends JPanel {
 			 */
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				if (e.getItem().toString().equals("SMOKE")) {
+				SensorType element = SensorType.valueOf(e.getItem().toString());
+				switch (element) {
+				case SMOKE:
 					sliderThreshold.setMaximum(50);
 					sliderThreshold.setMinimum(0);
 					sliderThreshold.setValue(10);
 					sliderThreshold.setMinorTickSpacing(5);
 					sliderThreshold.setMajorTickSpacing(10);
-				} else if (e.getItem().toString().equals("MOVE") || e.getItem().toString().equals("WINDOW") || e.getItem().toString().equals("DOOR") || e.getItem().toString().equals("LIGHT") || e.getItem().toString().equals("FIRE") || e.getItem().toString().equals("BADGE")
-						|| e.getItem().toString().equals("ROUTER")) {
-					sliderThreshold.setMaximum(1);
-					sliderThreshold.setMinimum(0);
-					sliderThreshold.setValue(0);
-				} else if (e.getItem().toString().equals("TEMPERATURE")) {
+					break;
+				case TEMPERATURE:
 					sliderThreshold.setMaximum(50);
 					sliderThreshold.setMinimum(-20);
 					sliderThreshold.setValue(20);
 					sliderThreshold.setMinorTickSpacing(5);
 					sliderThreshold.setMajorTickSpacing(10);
-				} else if (e.getItem().toString().equals("ELEVATOR")) {
+					break;
+				case ELEVATOR:
 					sliderThreshold.setMaximum(8);
 					sliderThreshold.setMinimum(0);
 					sliderThreshold.setValue(4);
 					sliderThreshold.setMinorTickSpacing(1);
 					sliderThreshold.setMajorTickSpacing(2);
+					break;
+				default:
+					sliderThreshold.setMaximum(1);
+					sliderThreshold.setMinimum(0);
+					sliderThreshold.setValue(0);
 				}
 			}
 		});
@@ -266,8 +276,10 @@ public class TabMockMessage extends JPanel {
 		generateButton.addActionListener(new ActionListener() {
 			@Override
 			public synchronized void actionPerformed(ActionEvent e) {
-				if (allCaseRadio.isSelected() == false && oneCaseRadio.isSelected() == false && typeSensorCaseRadio.isSelected() == false) {
-					JOptionPane.showMessageDialog(null, "Vous n'avez pas choisi la forme de génération", "Infos", JOptionPane.INFORMATION_MESSAGE);
+				if (allCaseRadio.isSelected() == false && oneCaseRadio.isSelected() == false
+						&& typeSensorCaseRadio.isSelected() == false) {
+					JOptionPane.showMessageDialog(null, "Vous n'avez pas choisi la forme de génération", "Infos",
+							JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					if (allCaseRadio.isSelected() == true) {
 						getAllSensor();
@@ -276,36 +288,46 @@ public class TabMockMessage extends JPanel {
 						launchGeneration();
 					} else if (oneCaseRadio.isSelected() == true) {
 						if (textInputIdSensor.getText().trim().equals("")) {
-							JOptionPane.showMessageDialog(null, "Vous n'avez pas renseigné l'id du capteur", "Infos", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Vous n'avez pas renseigné l'id du capteur", "Infos",
+									JOptionPane.INFORMATION_MESSAGE);
 						} else {
 							if (textInputIdSensor.getText().trim().matches("[0-9]+[0-9]*")) {
 								if (textInputTypeSensor.getSelectedItem() == null) {
-									JOptionPane.showMessageDialog(null, "Vous n'avez pas choisi de type de capteur", "Infos", JOptionPane.INFORMATION_MESSAGE);
+									JOptionPane.showMessageDialog(null, "Vous n'avez pas choisi de type de capteur",
+											"Infos", JOptionPane.INFORMATION_MESSAGE);
 								} else {
 									getAllSensor();
 									message = new Message();
 									request = "ONE";
 									for (Sensor sensors : listSensor) {
-										if (sensors.getTypeSensor().toString().equals(textInputTypeSensor.getSelectedItem().toString()) && sensors.getIdSensor() == Integer.parseInt(textInputIdSensor.getText().trim())) {
+										if (sensors.getTypeSensor().toString()
+												.equals(textInputTypeSensor.getSelectedItem().toString())
+												&& sensors.getIdSensor() == Integer
+														.parseInt(textInputIdSensor.getText().trim())) {
 											if (sensors.getSensorState() == true) {
 												message.setIdSensor(sensors.getIdSensor());
 											} else {
-												JOptionPane.showMessageDialog(null, "Ce capteur est éteint", "Infos", JOptionPane.INFORMATION_MESSAGE);
+												JOptionPane.showMessageDialog(null, "Ce capteur est éteint", "Infos",
+														JOptionPane.INFORMATION_MESSAGE);
 											}
 										}
 									}
 									if (message.getIdSensor() == 0) {
-										JOptionPane.showMessageDialog(null, "Ce capteur n'existe pas pour cet ID et ce type de capteur", "Infos", JOptionPane.INFORMATION_MESSAGE);
+										JOptionPane.showMessageDialog(null,
+												"Ce capteur n'existe pas pour cet ID et ce type de capteur", "Infos",
+												JOptionPane.INFORMATION_MESSAGE);
 									}
 									launchGeneration();
 								}
 							} else {
-								JOptionPane.showMessageDialog(null, "Veuillez inserer un chiffre pour id capteur", "Infos", JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(null, "Veuillez inserer un chiffre pour id capteur",
+										"Infos", JOptionPane.INFORMATION_MESSAGE);
 							}
 						}
 					} else if (typeSensorCaseRadio.isSelected() == true) {
 						if (textInputTypeSensor.getSelectedItem() == null) {
-							JOptionPane.showMessageDialog(null, "Vous n'avez pas choisi de type de capteur", "Infos", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Vous n'avez pas choisi de type de capteur", "Infos",
+									JOptionPane.INFORMATION_MESSAGE);
 						} else {
 							getAllSensor();
 							boolean boo = true;
@@ -313,7 +335,9 @@ public class TabMockMessage extends JPanel {
 							request = "TYPE";
 							listRestrictedSensor.removeAll(listRestrictedSensor);
 							for (Sensor sensors : listSensor) {
-								if (sensors.getTypeSensor().toString().equals(textInputTypeSensor.getSelectedItem().toString()) && sensors.getSensorState() == true) {
+								if (sensors.getTypeSensor().toString()
+										.equals(textInputTypeSensor.getSelectedItem().toString())
+										&& sensors.getSensorState() == true) {
 									listRestrictedSensor.add(sensors);
 									if (boo) {
 										message.setIdSensor(sensors.getIdSensor());
@@ -322,7 +346,9 @@ public class TabMockMessage extends JPanel {
 								}
 							}
 							for (Sensor sensors : listSensor) {
-								if (!(sensors.getTypeSensor().toString().equals(textInputTypeSensor.getSelectedItem().toString()) && sensors.getSensorState() == true)) {
+								if (!(sensors.getTypeSensor().toString()
+										.equals(textInputTypeSensor.getSelectedItem().toString())
+										&& sensors.getSensorState() == true)) {
 									listRestrictedSensor.add(sensors);
 								}
 							}
