@@ -2,7 +2,6 @@ package com.blackmamba.deathkiss.pool.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.blackmamba.deathkiss.pool.entity.Sensor;
 
 /**
@@ -12,11 +11,21 @@ import com.blackmamba.deathkiss.pool.entity.Sensor;
  */
 public class CommonArea {
 
+	/**
+	 * Different parameters used
+	 */
 	private int idCommonArea = 0;
 	private String nameCommonArea = "";
 	private int etageCommonArea = 0;
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 
+	/**
+	 * Constructor
+	 * 
+	 * @param idCommonArea
+	 * @param nameCommonArea
+	 * @param etageCommonArea
+	 */
 	public CommonArea(int idCommonArea, String nameCommonArea, int etageCommonArea) {
 		super();
 		this.idCommonArea = idCommonArea;
@@ -24,6 +33,9 @@ public class CommonArea {
 		this.etageCommonArea = etageCommonArea;
 	}
 
+	/**
+	 * Constructor
+	 */
 	public CommonArea() {
 	}
 
@@ -96,5 +108,4 @@ public class CommonArea {
 	public void removeSensor(Sensor sensor) {
 		this.listSensor.remove(sensor);
 	}
-
 }

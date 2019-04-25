@@ -11,12 +11,24 @@ import com.blackmamba.deathkiss.pool.entity.AlertState;
  */
 public class SensorHistorical {
 
+	/**
+	 * Different parameters used
+	 */
 	private int idHistorical = 0;
 	private Date date = null;
 	private int idSensor = 0;
 	private boolean sensorState = false;
 	private AlertState alertState = null;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param idHistorical
+	 * @param date
+	 * @param idSensor
+	 * @param sensorState
+	 * @param alertState
+	 */
 	public SensorHistorical(int idHistorical, Date date, int idSensor, boolean sensorState, AlertState alertState) {
 		super();
 		this.idHistorical = idHistorical;
@@ -26,6 +38,9 @@ public class SensorHistorical {
 		this.alertState = alertState;
 	}
 
+	/**
+	 * Constructor
+	 */
 	public SensorHistorical() {
 	}
 

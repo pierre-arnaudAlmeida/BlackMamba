@@ -2,7 +2,6 @@ package com.blackmamba.deathkiss.pool.connectionpool;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-
 import com.blackmamba.deathkiss.pool.connectionpool.JDBCConnectionPool;
 
 /**

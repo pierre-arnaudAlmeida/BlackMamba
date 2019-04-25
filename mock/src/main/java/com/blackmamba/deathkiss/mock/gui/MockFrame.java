@@ -1,7 +1,6 @@
 package com.blackmamba.deathkiss.mock.gui;
 
 import java.awt.Color;
-
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import org.apache.logging.log4j.Level;
@@ -18,6 +17,9 @@ public class MockFrame extends JFrame {
 	private TabMockMessage tabMockMessage;
 	private static final Logger logger = LogManager.getLogger(MockFrame.class);
 
+	/**
+	 * Constructor
+	 */
 	public MockFrame() {
 
 		/**
@@ -45,6 +47,7 @@ public class MockFrame extends JFrame {
 		 * Add of tabs on the window
 		 */
 		tab.add("Onglet " + tabOfTab[0], tabMockMessage);
+
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
 		 * Different parameters of the window

@@ -1,7 +1,6 @@
 package com.blackmamba.deathkiss.pool.dao;
 
 import java.sql.Connection;
-
 import com.blackmamba.deathkiss.pool.entity.CommonArea;
 import com.blackmamba.deathkiss.pool.entity.Employee;
 import com.blackmamba.deathkiss.pool.entity.Resident;
@@ -15,6 +14,9 @@ import com.blackmamba.deathkiss.pool.entity.SensorHistorical;
  */
 public class DAOFactory extends AbstractDAOFactory {
 
+	/**
+	 * Initialization of parameters
+	 */
 	protected final Connection con = null;
 
 	/**
@@ -56,5 +58,4 @@ public class DAOFactory extends AbstractDAOFactory {
 	public DAO<SensorHistorical> getSensorHistoricalDAO() {
 		return new SensorHistoricalDAO(con);
 	}
-
 }

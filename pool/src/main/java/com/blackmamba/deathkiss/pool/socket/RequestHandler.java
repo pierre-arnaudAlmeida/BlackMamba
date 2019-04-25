@@ -8,7 +8,6 @@ import java.sql.Connection;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.pool.dao.CommonAreaDAO;
 import com.blackmamba.deathkiss.pool.dao.DAO;
 import com.blackmamba.deathkiss.pool.dao.EmployeeDAO;
@@ -47,6 +46,13 @@ public class RequestHandler implements Runnable {
 	private Connection connection;
 	private MonitoringAlert monitoringAlert;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param pSock
+	 * @param connection
+	 * @param monitoringAlert
+	 */
 	public RequestHandler(Socket pSock, Connection connection, MonitoringAlert monitoringAlert) {
 		this.sock = pSock;
 		this.connection = connection;

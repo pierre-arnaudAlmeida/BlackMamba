@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
  *
  */
 public class MainServer {
+
 	/**
 	 * Initialization of different parameters
 	 */
@@ -35,12 +36,16 @@ public class MainServer {
 	 * @throws SQLException
 	 */
 	public static void main(String[] args) throws SQLException {
+
 		ResourceBundle rs = ResourceBundle.getBundle("config");
 		host = rs.getString("server.host");
 		port = Integer.parseInt(rs.getString("server.port"));
 		ts = new Server(host, port);
 		ts.open();
 
+		/**
+		 * LOGO
+		 */
 		logger.log(Level.INFO, "______           _   _     _    _         ");
 		logger.log(Level.INFO, "|  _  \\         | | | |   | |  (_)        ");
 		logger.log(Level.INFO, "| | | |___  __ _| |_| |__ | | ___ ___ ___ ");

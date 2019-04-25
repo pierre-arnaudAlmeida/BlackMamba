@@ -10,7 +10,6 @@ import java.util.List;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.pool.entity.Employee;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -21,9 +20,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class EmployeeDAO extends DAO<Employee> {
 
+	/**
+	 * Initialization of parameters
+	 */
 	private ResultSet result = null;
 	private static final Logger logger = LogManager.getLogger(EmployeeDAO.class);
 
+	/**
+	 * Constructor
+	 * 
+	 * @param con
+	 */
 	public EmployeeDAO(Connection con) {
 		super(con);
 	}
