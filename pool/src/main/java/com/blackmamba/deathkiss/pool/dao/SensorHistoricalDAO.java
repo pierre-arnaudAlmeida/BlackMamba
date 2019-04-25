@@ -25,9 +25,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 
+	/**
+	 * Initialization of parameters
+	 */
 	private ResultSet result = null;
 	private static final Logger logger = LogManager.getLogger(SensorHistoricalDAO.class);
 
+	/**
+	 * Constructor
+	 * 
+	 * @param con
+	 */
 	public SensorHistoricalDAO(Connection con) {
 		super(con);
 	}

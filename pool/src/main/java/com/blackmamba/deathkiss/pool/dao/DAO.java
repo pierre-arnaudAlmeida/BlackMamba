@@ -10,8 +10,16 @@ import java.sql.Connection;
  */
 public abstract class DAO<T> {
 
+	/**
+	 * Initialization of parameters
+	 */
 	protected Connection con = null;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param connection
+	 */
 	public DAO(Connection connection) {
 		this.con = connection;
 	}

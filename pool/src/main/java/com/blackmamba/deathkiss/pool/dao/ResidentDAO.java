@@ -23,6 +23,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class ResidentDAO extends DAO<Resident> {
 
+	/**
+	 * Initialization of parameters
+	 */
 	private ResultSet result = null;
 	private static final Logger logger = LogManager.getLogger(ResidentDAO.class);
 

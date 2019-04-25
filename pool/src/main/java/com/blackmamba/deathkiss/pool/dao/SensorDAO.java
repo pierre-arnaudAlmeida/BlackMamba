@@ -24,9 +24,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class SensorDAO extends DAO<Sensor> {
 
+	/**
+	 * Initialization of parameters
+	 */
 	private ResultSet result = null;
 	private static final Logger logger = LogManager.getLogger(SensorDAO.class);
 
+	/**
+	 * Constructor
+	 * 
+	 * @param con
+	 */
 	public SensorDAO(Connection con) {
 		super(con);
 	}

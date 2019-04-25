@@ -7,9 +7,17 @@ import org.apache.logging.log4j.Logger;
 
 public class MainMockGUI {
 
+	/**
+	 * Different parameters used
+	 */
 	private static MockFrame mockFrame;
 	private static Logger logger = LogManager.getLogger(MainMockGUI.class);
 
+	/**
+	 * Method Main
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

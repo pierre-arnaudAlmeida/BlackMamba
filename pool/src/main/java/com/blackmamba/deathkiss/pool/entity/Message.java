@@ -9,11 +9,22 @@ import java.util.Date;
  */
 public class Message {
 
+	/**
+	 * Different parameters used
+	 */
 	private int idMessage = 0;
 	private int threshold = 0;
 	private int idSensor = 0;
 	private Date alertDate = null;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param idMessage
+	 * @param threshold
+	 * @param idSensor
+	 * @param alertDate
+	 */
 	public Message(int idMessage, int threshold, int idSensor, Date alertDate) {
 		this.idMessage = idMessage;
 		this.threshold = threshold;
@@ -22,6 +33,9 @@ public class Message {
 
 	}
 
+	/**
+	 * Contrcutor
+	 */
 	public Message() {
 	}
 

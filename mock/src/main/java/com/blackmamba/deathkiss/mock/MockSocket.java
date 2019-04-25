@@ -31,9 +31,19 @@ public class MockSocket {
 	private static String jsonString;
 	private static final Logger logger = LogManager.getLogger(MockSocket.class);
 
+	/**
+	 * Constructor
+	 */
 	public MockSocket() {
 	}
 
+	/**
+	 * Constructor
+	 * 
+	 * @param requestType
+	 * @param jsonString
+	 * @param table
+	 */
 	public MockSocket(String requestType, String jsonString, String table) {
 		this.requestType = requestType;
 		this.table = table;

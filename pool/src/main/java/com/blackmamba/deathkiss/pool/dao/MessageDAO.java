@@ -13,7 +13,6 @@ import java.util.List;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.pool.entity.Message;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -24,11 +23,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class MessageDAO extends DAO<Message> {
 
+	/**
+	 * Initialization of parameters
+	 */
 	private ResultSet result = null;
 	private SimpleDateFormat dateFormat;
 	private Date alertDate;
 	private static final Logger logger = LogManager.getLogger(MessageDAO.class);
 
+	/**
+	 * Constructor
+	 * 
+	 * @param con
+	 */
 	public MessageDAO(Connection con) {
 		super(con);
 	}
@@ -46,8 +53,7 @@ public class MessageDAO extends DAO<Message> {
 			Statement st = con.createStatement();
 			Message message = objectMapper.readValue(jsonString, Message.class);
 			java.sql.Date sqlDate = new java.sql.Date(message.getAlertDate().getTime());
-			request = "insert into message (id_capteur,date_alerte,seuil) values ('" + message.getIdSensor() + "','"
-					+ sqlDate + "', '" + message.getThreshold() + "')";
+			request = "insert into message (id_capteur,date_alerte,seuil) values ('" + message.getIdSensor() + "','" + sqlDate + "', '" + message.getThreshold() + "')";
 			st.execute(request);
 			logger.log(Level.INFO, "Message succesfully inserted in BDD ");
 			return true;
@@ -57,6 +63,9 @@ public class MessageDAO extends DAO<Message> {
 		}
 	}
 
+	/**
+	 * Delete an message on Data Base when the date is inferior at the date set
+	 */
 	@Override
 	public boolean delete(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -74,6 +83,9 @@ public class MessageDAO extends DAO<Message> {
 		}
 	}
 
+	/**
+	 * Update an message with the values get from GUI
+	 */
 	@Override
 	public boolean update(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -82,8 +94,7 @@ public class MessageDAO extends DAO<Message> {
 			Statement st = con.createStatement();
 			Message message = objectMapper.readValue(jsonString, Message.class);
 			java.sql.Date sqlDate = new java.sql.Date(message.getAlertDate().getTime());
-			request = "UPDATE message SET id_capteur = '" + message.getIdSensor() + "', date_alerte = '" + sqlDate
-					+ "', seuil='" + message.getThreshold() + "'";
+			request = "UPDATE message SET id_capteur = '" + message.getIdSensor() + "', date_alerte = '" + sqlDate + "', seuil='" + message.getThreshold() + "'";
 			st.execute(request);
 			logger.log(Level.INFO, "Message succesfully update in BDD");
 			return true;
@@ -93,6 +104,9 @@ public class MessageDAO extends DAO<Message> {
 		}
 	}
 
+	/**
+	 * Get a specific message with his ID
+	 */
 	@Override
 	public String read(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -123,6 +137,9 @@ public class MessageDAO extends DAO<Message> {
 		return jsonString;
 	}
 
+	/**
+	 * Get all messages
+	 */
 	@Override
 	public String readAll(String jsonString) {
 		String request;
@@ -133,8 +150,8 @@ public class MessageDAO extends DAO<Message> {
 
 			Statement st = con.createStatement();
 			// Message message = objectMapper.readValue(jsonString, Message.class);
-			request = "SELECT * FROM message"; // where date_alerte >=" + message.getAlertDate() + ";"; TODO mettre la
-												// date dans le read all
+			request = "SELECT * FROM message"; // where date_alerte >=" + message.getAlertDate() + ";";
+												// TODO mettre la date dans le read all
 			result = st.executeQuery(request);
 			while (result.next()) {
 				message2 = new Message();
@@ -156,5 +173,4 @@ public class MessageDAO extends DAO<Message> {
 		jsonString = "ERROR";
 		return jsonString;
 	}
-
 }

@@ -12,6 +12,9 @@ import com.blackmamba.deathkiss.pool.entity.SensorType;
  */
 public class Sensor {
 
+	/**
+	 * Different parameters used
+	 */
 	private int idSensor = 0;
 	private SensorType typeSensor = null;
 	private boolean sensorState = false;
@@ -23,6 +26,20 @@ public class Sensor {
 	private int thresholdMin = 0;
 	private int thresholdMax = 0;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param idSensor
+	 * @param typeSensor
+	 * @param sensorState
+	 * @param idCommonArea
+	 * @param alertState
+	 * @param maxSensitivity
+	 * @param startActivity
+	 * @param endActivity
+	 * @param thresholdMin
+	 * @param thresholdMax
+	 */
 	public Sensor(int idSensor, SensorType typeSensor, boolean sensorState, int idCommonArea, AlertState alertState, Sensitivity maxSensitivity, Time startActivity, Time endActivity, int thresholdMin, int thresholdMax) {
 		super();
 		this.idSensor = idSensor;
@@ -37,6 +54,9 @@ public class Sensor {
 		this.thresholdMax = thresholdMax;
 	}
 
+	/**
+	 * Constructor
+	 */
 	public Sensor() {
 	}
 
