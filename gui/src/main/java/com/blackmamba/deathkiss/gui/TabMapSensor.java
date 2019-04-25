@@ -22,6 +22,7 @@ import java.awt.event.MouseAdapter;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -52,8 +53,10 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	private JScrollPane sc;
 	private JTextField searchBar;
 	private JTextField textInputIdSensor;
+	private JLabel imageNursingHome;
+	private ImageIcon nursingHome;
 
-	private List<Polygon> surface = new ArrayList<Polygon>();
+	private List<SurfacePolygon> surfacePolygon = new ArrayList<SurfacePolygon>();
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private List<Alert> listAlert = new ArrayList<Alert>();
 
@@ -62,7 +65,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	private String requestType;
 	private String table;
 	private String jsonString;
-	private static final Logger logger = LogManager.getLogger(TabSensor.class);
+	private static final Logger logger = LogManager.getLogger(TabMapSensor.class);
 	private static final long serialVersionUID = 7348020021300445245L;
 
 	private CommonArea commonArea;
@@ -236,6 +239,28 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	
 	
 	
+	private void ViewImage() {
+		/**
+		 * Displays the plan of nursing home
+		 */
+		imageNursingHome = new JLabel();
+		//TODO
+		nursingHome = new ImageIcon("resources/NursingHome.png");
+		
+		/**
+		 * 100 * 100 is the position of image
+		 * 10 * 10 is the size of image
+		 */
+		this.imageNursingHome.setBounds(100,100,10,10);
+		this.imageNursingHome.setIcon(nursingHome);
+		this.add(imageNursingHome);
+
+	}
+	
+	
+	
+	
+	
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
@@ -280,6 +305,56 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	 */
 	public void setThreadMapSensor(Thread threadMapSensor) {
 		this.threadMapSensor = threadMapSensor;
+	}
+
+	/**
+	 * @return the surfacePolygon
+	 */
+	public List<SurfacePolygon> getSurfacePolygon() {
+		return surfacePolygon;
+	}
+
+	/**
+	 * @param surfacePolygon the surfacePolygon to set
+	 */
+	public void setSurfacePolygon(List<SurfacePolygon> surfacePolygon) {
+		this.surfacePolygon = surfacePolygon;
+	}
+
+	/**
+	 * @return the listSensor
+	 */
+	public List<Sensor> getListSensor() {
+		return listSensor;
+	}
+
+	/**
+	 * @param listSensor the listSensor to set
+	 */
+	public void setListSensor(List<Sensor> listSensor) {
+		this.listSensor = listSensor;
+	}
+
+	/**
+	 * @return the listAlert
+	 */
+	public List<Alert> getListAlert() {
+		return listAlert;
+	}
+
+	/**
+	 * @param listAlert the listAlert to set
+	 */
+	public void setListAlert(List<Alert> listAlert) {
+		this.listAlert = listAlert;
+	}
+	
+	public void addSensor(Sensor sensor) {
+		this.listSensor.add(sensor);
+	}
+
+	public void removeSensor(Sensor sensor) {
+		this.listSensor.remove(sensor);
 	}
 	
 
