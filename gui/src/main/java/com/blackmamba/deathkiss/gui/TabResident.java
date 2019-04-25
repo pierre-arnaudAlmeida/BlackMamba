@@ -93,7 +93,6 @@ public class TabResident extends JPanel {
 		this.idemployee = idemployee;
 
 		///////////////////////// Thread/////////////////////////////////////////////////
-		// TODO PA test threadResident
 		setThreadResident(new Thread(new Runnable() {
 			/**
 			 * Loop and update every 30 sec the list of resident
@@ -175,7 +174,6 @@ public class TabResident extends JPanel {
 		validButton.setText("Valider");
 		search.add(validButton);
 		validButton.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				resident = new Resident();
@@ -196,19 +194,22 @@ public class TabResident extends JPanel {
 							resident2 = objectMapper.readValue(jsonString, Resident.class);
 							logger.log(Level.INFO, "Find Resident data succed");
 						} catch (Exception e1) {
-							logger.log(Level.INFO, "Impossible to parse in JSON Resident datas" + e1.getClass().getCanonicalName());
+							logger.log(Level.INFO,
+									"Impossible to parse in JSON Resident datas" + e1.getClass().getCanonicalName());
 						}
 						listM.removeAllElements();
 						if (!resident2.getLastnameResident().equals("")) {
 							listM.addElement("Résultat pour un resident avec l'id : " + searchReceived);
-							listM.addElement(resident2.getIdResident() + "# " + resident2.getLastnameResident() + " " + resident2.getNameResident());
+							listM.addElement(resident2.getIdResident() + "# " + resident2.getLastnameResident() + " "
+									+ resident2.getNameResident());
 						}
 
 					} else {
 						/**
 						 * If the research is letter and numerics
 						 */
-						searchReceived = Normalizer.normalize(searchReceived, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+						searchReceived = Normalizer.normalize(searchReceived, Normalizer.Form.NFD)
+								.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 						resident2 = new Resident();
 						resident2.setLastnameResident(searchReceived);
 						requestType = "FIND ALL";
@@ -222,37 +223,16 @@ public class TabResident extends JPanel {
 							listSearchResident = Arrays.asList(residents);
 							logger.log(Level.INFO, "Find Resident data succed");
 						} catch (Exception e1) {
-							logger.log(Level.INFO, "Impossible to parse in JSON Resident datas" + e1.getClass().getCanonicalName());
+							logger.log(Level.INFO,
+									"Impossible to parse in JSON Resident datas" + e1.getClass().getCanonicalName());
 						}
 						listM.removeAllElements();
 						if (listSearchResident.size() > 0)
 							listM.addElement("Résultat pour un resident avec : " + searchReceived);
 						for (Resident residents : listSearchResident) {
-							listM.addElement(residents.getIdResident() + "# " + residents.getLastnameResident() + " " + residents.getNameResident());
+							listM.addElement(residents.getIdResident() + "# " + residents.getLastnameResident() + " "
+									+ residents.getNameResident());
 						}
-
-						resident2 = new Resident();
-						resident2.setNameResident(searchReceived);
-						requestType = "FIND ALL";
-						table = "Resident";
-						objectMapper = new ObjectMapper();
-						try {
-							jsonString = objectMapper.writeValueAsString(resident2);
-							new ClientSocket(requestType, jsonString, table);
-							jsonString = ClientSocket.getJson();
-							Resident[] residents = objectMapper.readValue(jsonString, Resident[].class);
-							listSearchResident = Arrays.asList(residents);
-							logger.log(Level.INFO, "Find Resident data succed");
-						} catch (Exception e1) {
-							logger.log(Level.INFO, "Impossible to parse in JSON Resident datas" + e1.getClass().getCanonicalName());
-						}
-						listM.removeAllElements();
-						if (listSearchResident.size() > 0)
-							listM.addElement("Résultat pour un resident avec : " + searchReceived);
-						for (Resident residents : listSearchResident) {
-							listM.addElement(residents.getIdResident() + "# " + residents.getLastnameResident() + " " + residents.getNameResident());
-						}
-
 					}
 
 				} else {
@@ -276,7 +256,8 @@ public class TabResident extends JPanel {
 					if (listResident.size() > 0)
 						listM.addElement("Toutes les residents");
 					for (Resident residents : listResident) {
-						listM.addElement(residents.getIdResident() + "# " + residents.getLastnameResident() + " " + residents.getNameResident());
+						listM.addElement(residents.getIdResident() + "# " + residents.getLastnameResident() + " "
+								+ residents.getNameResident());
 					}
 				}
 				searchBar.setText("");
@@ -309,7 +290,8 @@ public class TabResident extends JPanel {
 
 		listM = new DefaultListModel<String>();
 		for (Resident residents : listResident) {
-			listM.addElement(residents.getIdResident() + "# " + residents.getLastnameResident() + " " + residents.getNameResident());
+			listM.addElement(residents.getIdResident() + "# " + residents.getLastnameResident() + " "
+					+ residents.getNameResident());
 		}
 
 		list = new JList<String>(listM);
@@ -324,7 +306,6 @@ public class TabResident extends JPanel {
 		index = -9999;
 		MouseListener mouseListener = new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				// TODO PA test clique souris
 				index = list.locationToIndex(e.getPoint());
 				String substring = listM.getElementAt(index).toString();
 				int position = substring.indexOf("#");
@@ -336,6 +317,7 @@ public class TabResident extends JPanel {
 					table = "Resident";
 					resident.setIdResident(Integer.parseInt(id));
 					resident = getResident(resident, requestType, table);
+					textInputIdResident.setText(Integer.toString(resident.getIdResident()));
 					textInputLastnameResident.setText(resident.getLastnameResident());
 					textInputNameResident.setText(resident.getNameResident());
 				}
@@ -350,7 +332,8 @@ public class TabResident extends JPanel {
 		policeLabel = new Font("Arial", Font.BOLD, (int) getToolkit().getScreenSize().getWidth() / 80);
 
 		labelLastnameResident = new JLabel("Nom : ");
-		labelLastnameResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7, (int) getToolkit().getScreenSize().getHeight() * 2 / 10, 200, 30);
+		labelLastnameResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 2 / 10, 200, 30);
 		labelLastnameResident.setFont(policeLabel);
 		this.add(labelLastnameResident);
 
@@ -358,7 +341,8 @@ public class TabResident extends JPanel {
 		 * Definition of label NameResident
 		 */
 		labelNameResident = new JLabel("Prenom : ");
-		labelNameResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7, (int) getToolkit().getScreenSize().getHeight() * 2 / 10, 200, 30);
+		labelNameResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 2 / 10, 200, 30);
 		labelNameResident.setFont(policeLabel);
 		this.add(labelNameResident);
 
@@ -367,7 +351,8 @@ public class TabResident extends JPanel {
 		 */
 
 		labelIdResident = new JLabel("Id : ");
-		labelIdResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7, (int) getToolkit().getScreenSize().getHeight() * 4 / 10, 100, 30);
+		labelIdResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 4 / 10, 100, 30);
 		labelIdResident.setFont(policeLabel);
 		this.add(labelIdResident);
 
@@ -377,7 +362,8 @@ public class TabResident extends JPanel {
 		 * Definition of textArea LastnameResident
 		 */
 		textInputLastnameResident = new JTextField();
-		textInputLastnameResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7, (int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
+		textInputLastnameResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
 		textInputLastnameResident.setFont(policeLabel);
 		textInputLastnameResident.setText(resident.getLastnameResident());
 		this.add(textInputLastnameResident);
@@ -386,7 +372,8 @@ public class TabResident extends JPanel {
 		 * Definition of textArea NameResident
 		 */
 		textInputNameResident = new JTextField();
-		textInputNameResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7, (int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
+		textInputNameResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
 		textInputNameResident.setFont(policeLabel);
 		textInputNameResident.setText(resident.getNameResident());
 		this.add(textInputNameResident);
@@ -395,7 +382,8 @@ public class TabResident extends JPanel {
 		 * Definition of textArea IdResident
 		 */
 		textInputIdResident = new JTextField();
-		textInputIdResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7, (int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);
+		textInputIdResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);
 		textInputIdResident.setFont(policeLabel);
 		textInputIdResident.setEditable(false);
 		if (resident.getIdResident() == 0)
@@ -420,14 +408,16 @@ public class TabResident extends JPanel {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO PA test Add button
 				String newLastnameResident = textInputLastnameResident.getText().trim();
-				newLastnameResident = Normalizer.normalize(newLastnameResident, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+				newLastnameResident = Normalizer.normalize(newLastnameResident, Normalizer.Form.NFD)
+						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				String newNameResident = textInputNameResident.getText().trim();
-				newNameResident = Normalizer.normalize(newNameResident, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+				newNameResident = Normalizer.normalize(newNameResident, Normalizer.Form.NFD)
+						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 
 				if (newLastnameResident.equals("") || newNameResident.equals("")) {
-					JOptionPane.showMessageDialog(null, "Champs vide ou contient uniquement des espaces", "Erreur", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Champs vide ou contient uniquement des espaces", "Erreur",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
 					/**
 					 * Get the information about the Resident and if the user want to insert a
@@ -438,8 +428,10 @@ public class TabResident extends JPanel {
 					requestType = "READ";
 					table = "Resident";
 					resident = getResident(resident, requestType, table);
-					if (newLastnameResident.equals(resident.getLastnameResident()) && newNameResident.equals(resident.getNameResident())) {
-						JOptionPane.showMessageDialog(null, "Un résident possédant déja ces informations existe déja", "Infos", JOptionPane.WARNING_MESSAGE);
+					if (newLastnameResident.equals(resident.getLastnameResident())
+							&& newNameResident.equals(resident.getNameResident())) {
+						JOptionPane.showMessageDialog(null, "Un résident possédant déja ces informations existe déja",
+								"Infos", JOptionPane.WARNING_MESSAGE);
 					} else {
 						/**
 						 * Send the information to server to be inserted in data base
@@ -454,7 +446,8 @@ public class TabResident extends JPanel {
 							new ClientSocket(requestType, jsonString, table);
 							jsonString = ClientSocket.getJson();
 							if (!jsonString.equals("INSERTED")) {
-								JOptionPane.showMessageDialog(null, "L'insertion a échoué", "Erreur", JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showMessageDialog(null, "L'insertion a échoué", "Erreur",
+										JOptionPane.ERROR_MESSAGE);
 								logger.log(Level.INFO, "Impossible to insert resident");
 							} else {
 								/**
@@ -469,14 +462,17 @@ public class TabResident extends JPanel {
 								int x = listResident.size() - 1;
 
 								resident = listResident.get(x);
-								listM.addElement(resident.getIdResident() + "# " + resident.getLastnameResident() + " " + resident.getNameResident());
-								JOptionPane.showMessageDialog(null, "L'insertion a été éffectué", "Infos", JOptionPane.INFORMATION_MESSAGE);
+								listM.addElement(resident.getIdResident() + "# " + resident.getLastnameResident() + " "
+										+ resident.getNameResident());
+								JOptionPane.showMessageDialog(null, "L'insertion a été éffectué", "Infos",
+										JOptionPane.INFORMATION_MESSAGE);
 
 								textInputLastnameResident.setText("");
 								textInputNameResident.setText("");
 							}
 						} catch (Exception e1) {
-							logger.log(Level.INFO, "Impossible to parse in JSON Resident datas" + e1.getClass().getCanonicalName());
+							logger.log(Level.INFO,
+									"Impossible to parse in JSON Resident datas" + e1.getClass().getCanonicalName());
 						}
 					}
 				}
@@ -487,7 +483,8 @@ public class TabResident extends JPanel {
 		 * Definition of Button Save
 		 */
 		save = new JButton("Sauvegarder");
-		save.setBounds(((int) getToolkit().getScreenSize().getWidth() * 5 / 7), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
+		save.setBounds(((int) getToolkit().getScreenSize().getWidth() * 5 / 7),
+				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
 		this.add(save);
 		save.addActionListener(new ActionListener() {
 			/**
@@ -496,14 +493,15 @@ public class TabResident extends JPanel {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO PA test Save button
 				requestType = "UPDATE";
 				table = "Resident";
 
 				String newLastnameResident = textInputLastnameResident.getText().trim();
-				newLastnameResident = Normalizer.normalize(newLastnameResident, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+				newLastnameResident = Normalizer.normalize(newLastnameResident, Normalizer.Form.NFD)
+						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				String newNameResident = textInputNameResident.getText().trim();
-				newNameResident = Normalizer.normalize(newNameResident, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+				newNameResident = Normalizer.normalize(newNameResident, Normalizer.Form.NFD)
+						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 
 				/**
 				 * if text area are empty they open an popup
@@ -518,15 +516,19 @@ public class TabResident extends JPanel {
 						new ClientSocket(requestType, jsonString, table);
 						jsonString = ClientSocket.getJson();
 						if (!jsonString.equals("UPDATED")) {
-							JOptionPane.showMessageDialog(null, "La mise a jour a échoué", "Erreur", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "La mise a jour a échoué", "Erreur",
+									JOptionPane.ERROR_MESSAGE);
 							logger.log(Level.INFO, "Impossible to update resident");
 						} else {
 							logger.log(Level.INFO, "Update Succeded");
-							listM.set(index, resident.getIdResident() + "# " + resident.getLastnameResident() + " " + resident.getNameResident());
-							JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos", JOptionPane.INFORMATION_MESSAGE);
+							listM.set(index, resident.getIdResident() + "# " + resident.getLastnameResident() + " "
+									+ resident.getNameResident());
+							JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos",
+									JOptionPane.INFORMATION_MESSAGE);
 						}
 					} catch (Exception e1) {
-						logger.log(Level.INFO, "Impossible to parse in JSON Resident datas" + e1.getClass().getCanonicalName());
+						logger.log(Level.INFO,
+								"Impossible to parse in JSON Resident datas" + e1.getClass().getCanonicalName());
 					}
 				}
 			}
@@ -536,7 +538,8 @@ public class TabResident extends JPanel {
 		 * Definition of Button Delete
 		 */
 		delete = new JButton("Supprimer");
-		delete.setBounds(((int) getToolkit().getScreenSize().getWidth() * 3 / 7), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
+		delete.setBounds(((int) getToolkit().getScreenSize().getWidth() * 3 / 7),
+				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
 		this.add(delete);
 		delete.addActionListener(new ActionListener() {
 			/**
@@ -545,7 +548,6 @@ public class TabResident extends JPanel {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO PA test delete button
 				System.out.println(index);
 				if (index != -9999) {
 					String substring = listM.getElementAt(index).toString();
@@ -559,13 +561,16 @@ public class TabResident extends JPanel {
 								new ClientSocket(requestType, jsonString, table);
 								jsonString = ClientSocket.getJson();
 								if (!jsonString.equals("DELETED")) {
-									JOptionPane.showMessageDialog(null, "La suppression a échoué", "Erreur", JOptionPane.ERROR_MESSAGE);
+									JOptionPane.showMessageDialog(null, "La suppression a échoué", "Erreur",
+											JOptionPane.ERROR_MESSAGE);
 									logger.log(Level.INFO, "Impossible to delete this resident");
 								} else {
-									JOptionPane.showMessageDialog(null, "Suppression de Résident", "Info", JOptionPane.INFORMATION_MESSAGE);
+									JOptionPane.showMessageDialog(null, "Suppression de Résident", "Info",
+											JOptionPane.INFORMATION_MESSAGE);
 								}
 							} catch (Exception e1) {
-								logger.log(Level.INFO, "Impossible to parse in JSON Resident datas" + e1.getClass().getCanonicalName());
+								logger.log(Level.INFO, "Impossible to parse in JSON Resident datas"
+										+ e1.getClass().getCanonicalName());
 							}
 							listM.removeElementAt(index);
 							index = (-9999);
@@ -576,14 +581,17 @@ public class TabResident extends JPanel {
 							textInputLastnameResident.setText("");
 							textInputNameResident.setText("");
 						} else {
-							JOptionPane.showMessageDialog(null, "Vous ne pouvez pas vous auto supprimer", "Erreur", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Vous ne pouvez pas vous auto supprimer", "Erreur",
+									JOptionPane.ERROR_MESSAGE);
 						}
 					} else {
-						JOptionPane.showMessageDialog(null, "Veuillez selectionner un résident à supprimer", "Erreur", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Veuillez selectionner un résident à supprimer", "Erreur",
+								JOptionPane.ERROR_MESSAGE);
 
 					}
 				} else {
-					JOptionPane.showMessageDialog(null, "Veuillez selectionner un résident à supprimer", "Erreur", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Veuillez selectionner un résident à supprimer", "Erreur",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -594,7 +602,8 @@ public class TabResident extends JPanel {
 		restaure = new JButton("Annuler");
 		restaure.setBounds(((int)
 
-		getToolkit().getScreenSize().getWidth() * 4 / 7), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
+		getToolkit().getScreenSize().getWidth() * 4 / 7), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150,
+				40);
 		this.add(restaure);
 		restaure.addActionListener(new ActionListener() {
 			/**
@@ -603,7 +612,6 @@ public class TabResident extends JPanel {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO PA test restaure button
 				textInputLastnameResident.setText(resident.getLastnameResident());
 				textInputNameResident.setText(resident.getNameResident());
 			}
@@ -632,7 +640,6 @@ public class TabResident extends JPanel {
 	 * @return
 	 */
 	public Resident getResident(Resident resident, String requestType, String table) {
-		// TODO PA test getResident
 		objectMapper = new ObjectMapper();
 		try {
 			jsonString = objectMapper.writeValueAsString(resident);
@@ -652,7 +659,6 @@ public class TabResident extends JPanel {
 	 * have the last informations
 	 */
 	public void updateResidentSelected() {
-		// TODO PA test updateResidentSelected
 		if (index != -9999) {
 			String substring = listM.getElementAt(index).toString();
 			int position = substring.indexOf("#");
@@ -674,7 +680,6 @@ public class TabResident extends JPanel {
 	 * Method to update the set the listResident with the data received from Server
 	 */
 	public void updateListResident() {
-		// TODO PA test update LIStResident
 		/**
 		 * Declare the Object Resident
 		 */
@@ -691,7 +696,8 @@ public class TabResident extends JPanel {
 		listM.removeAllElements();
 		listM.addElement("Tous les résidents ");
 		for (Resident residents : listResident) {
-			listM.addElement(residents.getIdResident() + "# " + residents.getLastnameResident() + " " + residents.getNameResident());
+			listM.addElement(residents.getIdResident() + "# " + residents.getLastnameResident() + " "
+					+ residents.getNameResident());
 		}
 		if (listM.isEmpty() && (!listResident.isEmpty())) {
 			updateListResident();
@@ -707,7 +713,6 @@ public class TabResident extends JPanel {
 	 * @return
 	 */
 	public List<Resident> getAllResident(Resident resident, String requestType, String table) {
-		// TODO PA test getAllResident
 		objectMapper = new ObjectMapper();
 		try {
 			jsonString = objectMapper.writeValueAsString(resident);

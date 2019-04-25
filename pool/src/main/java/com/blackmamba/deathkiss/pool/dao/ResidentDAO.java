@@ -44,7 +44,8 @@ public class ResidentDAO extends DAO<Resident> {
 		try {
 			Statement st = con.createStatement();
 			Resident resident = objectMapper.readValue(jsonString, Resident.class);
-			request = "insert into resident (nom_resident, prenom_resident) values ('" + resident.getLastnameResident() + "','" + resident.getNameResident() + "')";
+			request = "insert into resident (nom_resident, prenom_resident) values ('" + resident.getLastnameResident()
+					+ "','" + resident.getNameResident() + "')";
 			st.execute(request);
 			logger.log(Level.INFO, "Resident succesfully inserted in BDD");
 			return true;
@@ -91,7 +92,8 @@ public class ResidentDAO extends DAO<Resident> {
 			} else if (!(resident.getLastnameResident().equals("")) && resident.getNameResident().equals("")) {
 				request = "UPDATE resident SET nom_resident = '" + resident.getLastnameResident() + "'";
 			} else if (!(resident.getLastnameResident().equals("")) && !(resident.getNameResident().equals(""))) {
-				request = "UPDATE resident SET nom_resident = '" + resident.getLastnameResident() + "', prenom_resident = '" + resident.getNameResident() + "'";
+				request = "UPDATE resident SET nom_resident = '" + resident.getLastnameResident()
+						+ "', prenom_resident = '" + resident.getNameResident() + "'";
 			} else
 				return false;
 			st.execute(request);
@@ -177,8 +179,9 @@ public class ResidentDAO extends DAO<Resident> {
 		try {
 			Statement st = con.createStatement();
 			Resident resid = objectMapper.readValue(jsonString, Resident.class);
-			request = "SELECT * FROM resident where ((nom_resident LIKE '%" + resid.getLastnameResident().toUpperCase() + "%') or (prenom_resident LIKE '%" + resid.getLastnameResident().toLowerCase() + "%') or (prenom_resident LIKE '%" + resid.getLastnameResident().toUpperCase()
-					+ "%') or (poste LIKE '%" + resid.getLastnameResident().toLowerCase() + "%') or (poste LIKE '%" + resid.getLastnameResident().toUpperCase() + "%'))";
+			request = "SELECT * FROM resident where ((nom_resident LIKE '%" + resid.getLastnameResident().toUpperCase()
+					+ "%') or (prenom_resident LIKE '%" + resid.getLastnameResident().toLowerCase()
+					+ "%') or (prenom_resident LIKE '%" + resid.getLastnameResident().toUpperCase() + "%'))";
 			result = st.executeQuery(request);
 			while (result.next()) {
 				resident = new Resident();
@@ -211,7 +214,8 @@ public class ResidentDAO extends DAO<Resident> {
 		Format formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try {
 			Statement st = con.createStatement();
-			request = "insert into badger (id_resident, id_capteur, date_badger) values ('" + idResident + "','" + idSensor + "','" + formater.format(currentDate) + "')";
+			request = "insert into badger (id_resident, id_capteur, date_badger) values ('" + idResident + "','"
+					+ idSensor + "','" + formater.format(currentDate) + "')";
 			st.execute(request);
 			logger.log(Level.INFO, "Resident succesfully inserted in BDD");
 			return true;

@@ -161,7 +161,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		listM = new DefaultListModel<String>();
 		list = new JList<String>(listM);
 		
-		tabSensor.ActualizationListSensor(listAlert);
+		//tabSensor.ActualizationListSensor(listAlert);TODO RK
 
 		
 		sc = new JScrollPane(list);
