@@ -172,6 +172,7 @@ public class Server {
 			}
 		});
 		threadAlertTreatment.start();
+		//TODO PA peut etre le mettre dans le allertTreatment
 		threadVerifySensorMessageBeforeActivity.start();
 	}
 

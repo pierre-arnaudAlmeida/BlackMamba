@@ -72,7 +72,7 @@ public class MainServerGUI extends JFrame {
 		/**
 		 * Button who invoke the normal method who give one connection to one socket
 		 */
-		launch = new JButton("Lancer le serveur");
+		launch = new JButton("Launch server");
 		launch.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -115,7 +115,7 @@ public class MainServerGUI extends JFrame {
 		 * Button to invoke the method who create a socket accept who block all the
 		 * connection but accept the socket
 		 */
-		launchFake = new JButton("Lancer le serveur Brider");
+		launchFake = new JButton("Launch cheated server");
 		launchFake.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -156,7 +156,7 @@ public class MainServerGUI extends JFrame {
 		/**
 		 * Create a button to stop the server
 		 */
-		stop = new JButton("Arreter le server");
+		stop = new JButton("Shutdown server");
 		stop.addActionListener(new ActionListener() {
 			/**
 			 * Stop the server, stop the timer and set the number to server launch to 0
