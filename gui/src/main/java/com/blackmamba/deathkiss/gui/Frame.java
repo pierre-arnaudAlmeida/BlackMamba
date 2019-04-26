@@ -65,7 +65,7 @@ public class Frame extends JFrame {
 				while (true) {
 					verificationUser(idEmployee);
 					if (employee.getLastnameEmployee().equals("")) {
-						JOptionPane.showMessageDialog(null, "Vous allez etre déconnecter", "Erreur", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "You will be disconnect", "Error", JOptionPane.ERROR_MESSAGE);
 						System.exit(ABORT);
 					}
 					try {
@@ -91,30 +91,30 @@ public class Frame extends JFrame {
 		/**
 		 * Creation of different tabs
 		 */
-		tabEmployes = new TabEmployes(Color.GRAY, this.idEmployee, "Onglet Employés");
-		tabCommonArea = new TabCommonArea(Color.GRAY, this.idEmployee, "Onglet Parties Communes");
-		tabSensor = new TabSensor(Color.GRAY, this.idEmployee, "Onglet Capteurs", 0);
-		tabResident = new TabResident(Color.GRAY, this.idEmployee, "Onglet Résidents");
-		tabHistorical = new TabHistorical(Color.GRAY, this.idEmployee, "Onglet Historiques");
-		tabProfile = new TabProfile(Color.GRAY, this.idEmployee, "Onglet Profil");
-		tabMapSensor = new TabMapSensor(Color.GRAY, this.idEmployee, "Onglet Map");
+		tabEmployes = new TabEmployes(Color.GRAY, this.idEmployee, "Tab Employees");
+		tabCommonArea = new TabCommonArea(Color.GRAY, this.idEmployee, "Tab Common Areas");
+		tabSensor = new TabSensor(Color.GRAY, this.idEmployee, "Tab Sensors", 0);
+		tabResident = new TabResident(Color.GRAY, this.idEmployee, "Tab Residents");
+		tabHistorical = new TabHistorical(Color.GRAY, this.idEmployee, "Tab Historical");
+		tabProfile = new TabProfile(Color.GRAY, this.idEmployee, "Tab Profile");
+		tabMapSensor = new TabMapSensor(Color.GRAY, this.idEmployee, "Tab Map");
 
 		/**
 		 * Add of the title of tabs
 		 */
 		tab = new JTabbedPane();
-		String tabOfTab[] = { "Employés", "Parties Communes", "Capteurs", "Résidents", "Historiques", "Profil", "Map" };
+		String tabOfTab[] = { "Employees", "Common Areas", "Sensors", "Residents", "Historical", "Profile", "Map" };
 
 		/**
 		 * Add of tabs on the window
 		 */
-		tab.add("Onglet " + tabOfTab[0], tabEmployes);
-		tab.add("Onglet " + tabOfTab[1], tabCommonArea);
-		tab.add("Onglet " + tabOfTab[2], tabSensor);
-		tab.add("Onglet " + tabOfTab[3], tabResident);
-		tab.add("Onglet " + tabOfTab[4], tabHistorical);
-		tab.add("Onglet " + tabOfTab[5], tabProfile);
-		tab.add("Onglet " + tabOfTab[6], tabMapSensor);
+		tab.add("Tab " + tabOfTab[0], tabEmployes);
+		tab.add("Tab " + tabOfTab[1], tabCommonArea);
+		tab.add("Tab " + tabOfTab[2], tabSensor);
+		tab.add("Tab " + tabOfTab[3], tabResident);
+		tab.add("Tab " + tabOfTab[4], tabHistorical);
+		tab.add("Tab " + tabOfTab[5], tabProfile);
+		tab.add("Tab " + tabOfTab[6], tabMapSensor);
 
 		///////////////////////// ALERT/////////////////////////////////////////////////
 		setThreadAlert(new Thread(new Runnable() {
@@ -172,7 +172,7 @@ public class Frame extends JFrame {
 			employee = objectMapper.readValue(jsonString, Employee.class);
 			logger.log(Level.INFO, "Find Employee data succed");
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to parse in JSON Employee datas " + e1.getClass().getCanonicalName());
 		}
 	}
 

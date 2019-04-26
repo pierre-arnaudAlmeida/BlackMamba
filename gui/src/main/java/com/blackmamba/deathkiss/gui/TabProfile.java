@@ -99,7 +99,7 @@ public class TabProfile extends JPanel {
 		/**
 		 * Definition of label Identifiant on header bar
 		 */
-		labelIdEmployee = new JLabel("Identifiant :   " + this.idemployee + "    ");
+		labelIdEmployee = new JLabel("Login :   " + this.idemployee + "    ");
 		policeBar = new Font("Arial", Font.BOLD, 16);
 		labelIdEmployee.setForeground(Color.WHITE);
 		labelIdEmployee.setFont(policeBar);
@@ -108,7 +108,7 @@ public class TabProfile extends JPanel {
 		/**
 		 * Definition of the button and the different action after pressed the button
 		 */
-		disconnection = new JButton("Se Déconnecter");
+		disconnection = new JButton("Disconnect");
 		bar.add(disconnection, BorderLayout.EAST);
 		disconnection.addActionListener(new ActionListener() {
 			@Override
@@ -124,7 +124,7 @@ public class TabProfile extends JPanel {
 		 * Definition of label LastnameEmployee
 		 */
 		policeLabel = new Font("Arial", Font.BOLD, (int) getToolkit().getScreenSize().getWidth() / 80);
-		labelLastnameEmployee = new JLabel("Nom : ");
+		labelLastnameEmployee = new JLabel("Last Name : ");
 		labelLastnameEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4, (int) getToolkit().getScreenSize().getHeight() * 2 / 10, 200, 30);
 		labelLastnameEmployee.setFont(policeLabel);
 		this.add(labelLastnameEmployee);
@@ -132,7 +132,7 @@ public class TabProfile extends JPanel {
 		/**
 		 * Definition of label NameEmployee
 		 */
-		labelNameEmployee = new JLabel("Prenom : ");
+		labelNameEmployee = new JLabel("Name : ");
 		labelNameEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 4, (int) getToolkit().getScreenSize().getHeight() * 2 / 10, 200, 30);
 		labelNameEmployee.setFont(policeLabel);
 		this.add(labelNameEmployee);
@@ -140,7 +140,7 @@ public class TabProfile extends JPanel {
 		/**
 		 * Definition of label Password
 		 */
-		labelPassword = new JLabel("Mot de passe : ");
+		labelPassword = new JLabel("Password : ");
 		labelPassword.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4, (int) getToolkit().getScreenSize().getHeight() * 4 / 10, 200, 30);
 		labelPassword.setFont(policeLabel);
 		this.add(labelPassword);
@@ -148,7 +148,7 @@ public class TabProfile extends JPanel {
 		/**
 		 * Definition of label Function
 		 */
-		labelFunction = new JLabel("Poste : ");
+		labelFunction = new JLabel("Function : ");
 		labelFunction.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 4, (int) getToolkit().getScreenSize().getHeight() * 4 / 10, 100, 30);
 		labelFunction.setFont(policeLabel);
 		this.add(labelFunction);
@@ -189,7 +189,7 @@ public class TabProfile extends JPanel {
 		/**
 		 * Button to displpay the password
 		 */
-		showButton = new JCheckBox("Montrer le mot de passe");
+		showButton = new JCheckBox("Show password");
 		showButton.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4, ((int) getToolkit().getScreenSize().getHeight() * 9 / 20) + 50, 300, 40);
 		showButton.setBackground(color);
 		showButton.setFont(policeLabel);
@@ -215,7 +215,7 @@ public class TabProfile extends JPanel {
 		/**
 		 * Definition of Button Save
 		 */
-		save = new JButton("Sauvegarder");
+		save = new JButton("Save");
 		save.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4) + 250, (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
 		this.add(save);
 		save.addActionListener(new ActionListener() {
@@ -243,14 +243,14 @@ public class TabProfile extends JPanel {
 				 * if text area are empty they open an popup
 				 */
 				if (newLastnameEmployee.equals("") || newNameEmployee.equals("") || newFunctionEmployee.equals("")) {
-					JOptionPane.showMessageDialog(null, "Champs vide", "Erreur", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Empty fields", "Error", JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					/**
 					 * if they want to update the password they will input the current password to
 					 * be verify by system
 					 */
 					if (!(newPasswordEmployee.equals(""))) {
-						String verificationPassword = JOptionPane.showInputDialog(null, "Inserez ancien votre mot de passe", "");
+						String verificationPassword = JOptionPane.showInputDialog(null, "Insert your old password", "");
 						String request = "CONNECTION";
 						employee2 = new Employee();
 
@@ -279,17 +279,17 @@ public class TabProfile extends JPanel {
 								new ClientSocket(requestType, jsonString, table);
 								jsonString = ClientSocket.getJson();
 								if (!jsonString.equals("UPDATED")) {
-									JOptionPane.showMessageDialog(null, "La mise a jour a échoué", "Erreur", JOptionPane.ERROR_MESSAGE);
+									JOptionPane.showMessageDialog(null, "Update failed", "Error", JOptionPane.ERROR_MESSAGE);
 									logger.log(Level.INFO, "Impossible to update employee");
 								} else {
-									logger.log(Level.INFO, "Update Succeded");
-									JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos", JOptionPane.INFORMATION_MESSAGE);
+									logger.log(Level.INFO, "Update Succeeded");
+									JOptionPane.showMessageDialog(null, "Datas updated", "Information", JOptionPane.INFORMATION_MESSAGE);
 								}
 							} catch (Exception e1) {
 								logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 							}
 						} else {
-							JOptionPane.showMessageDialog(null, "Prend nous pour des amateurs encore une fois et on te bloque", "Erreur, Mauvais mot de passe", JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog(null, "One more time and you will be kicked", "Error, Wrong password", JOptionPane.INFORMATION_MESSAGE);
 						}
 					} else {
 						employee.setIdEmployee(idemployee);
@@ -302,11 +302,11 @@ public class TabProfile extends JPanel {
 							new ClientSocket(requestType, jsonString, table);
 							jsonString = ClientSocket.getJson();
 							if (!jsonString.equals("UPDATED")) {
-								JOptionPane.showMessageDialog(null, "La mise a jour a échoué", "Erreur", JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showMessageDialog(null, "Update failed", "Error", JOptionPane.ERROR_MESSAGE);
 								logger.log(Level.INFO, "Impossible to update employee");
 							} else {
-								logger.log(Level.INFO, "Update Succeded");
-								JOptionPane.showMessageDialog(null, "Données Mises à jours", "Infos", JOptionPane.INFORMATION_MESSAGE);
+								logger.log(Level.INFO, "Update Succeeded");
+								JOptionPane.showMessageDialog(null, "Datas updated", "Information", JOptionPane.INFORMATION_MESSAGE);
 							}
 						} catch (Exception e1) {
 							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
@@ -317,14 +317,14 @@ public class TabProfile extends JPanel {
 		});
 
 		/**
-		 * Definition of Button Restaure
+		 * Definition of Button Restore
 		 */
-		restaure = new JButton("Annuler");
+		restaure = new JButton("Restore");
 		restaure.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
 		this.add(restaure);
 		restaure.addActionListener(new ActionListener() {
 			/**
-			 * when we pressed the button restaure we initialize the textArea with the last
+			 * when we pressed the button restore we initialize the textArea with the last
 			 * informations of the employee
 			 */
 			@Override
@@ -367,7 +367,7 @@ public class TabProfile extends JPanel {
 			employee = readMapper.readValue(jsonString, Employee.class);
 			logger.log(Level.INFO, "Find Employee data succed");
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to parse in JSON Employee datas " + e1.getClass().getCanonicalName());
 		}
 		textInputLastnameEmployee.setText(employee.getLastnameEmployee());
 		textInputNameEmployee.setText(employee.getNameEmployee());

@@ -112,7 +112,7 @@ public class TabListSensor extends JPanel {
 		/**
 		 * Definition of label Identifiant on header bar
 		 */
-		labelIdEmployee = new JLabel("Identifiant :   " + this.idemployee + "    ");
+		labelIdEmployee = new JLabel("Login :   " + this.idemployee + "    ");
 		police = new Font("Arial", Font.BOLD, 16);
 		labelIdEmployee.setForeground(Color.WHITE);
 		labelIdEmployee.setFont(police);
@@ -121,7 +121,7 @@ public class TabListSensor extends JPanel {
 		/**
 		 * Definition of the button and the different action after pressed the button
 		 */
-		disconnection = new JButton("Se Déconnecter");
+		disconnection = new JButton("Disconnect");
 		bar.add(disconnection, BorderLayout.EAST);
 		disconnection.addActionListener(new ActionListener() {
 			@Override
@@ -164,7 +164,7 @@ public class TabListSensor extends JPanel {
 		/**
 		 * Definition of Button CheckSensor
 		 */
-		checkSensor = new JButton("Afficher le capteur");
+		checkSensor = new JButton("Display Sensor");
 		checkSensor.setBounds(((int) getToolkit().getScreenSize().getWidth() * 5 / 10), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
 		this.add(checkSensor);
 		checkSensor.addActionListener(new ActionListener() {
@@ -175,15 +175,15 @@ public class TabListSensor extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (index == 0) {
-					JOptionPane.showMessageDialog(null, "Veuillez selectionner un capteur", "Erreur", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Please select an sensor", "Information", JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					tab = new JTabbedPane();
 					tab = Frame.getTab();
 
 					tab.remove(2);
-					tabSensor = new TabSensor(Color.GRAY, idemployee, "Onglet Capteurs", index);
+					tabSensor = new TabSensor(Color.GRAY, idemployee, "Tab Sensors", index);
 					tab.add(tabSensor, 2);
-					tab.setTitleAt(2, "Onglet Capteurs");
+					tab.setTitleAt(2, "Tab Sensors");
 					Frame.goToTab(2);
 				}
 			}
@@ -192,7 +192,7 @@ public class TabListSensor extends JPanel {
 		/**
 		 * Definition of Button newCommonArea
 		 */
-		newCommonArea = new JButton("Nouvelle Partie Commune");
+		newCommonArea = new JButton("New common area");
 		newCommonArea.setBounds(((int) getToolkit().getScreenSize().getWidth() * 3 / 10), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
 		this.add(newCommonArea);
 		newCommonArea.addActionListener(new ActionListener() {
@@ -242,14 +242,13 @@ public class TabListSensor extends JPanel {
 			Sensor[] listSensors = readMapper.readValue(jsonString, Sensor[].class);
 			listSensor = Arrays.asList(listSensors);
 			commonArea.setListSensor(listSensor);
-			logger.log(Level.INFO, "Find all Sensors datas succed");
+			logger.log(Level.INFO, "Find all Sensors datas succeeded");
 		} catch (Exception e1) {
 			logger.log(Level.INFO, "Impossible to parse in JSON Sensor datas" + e1.getClass().getCanonicalName());
 		}
 
 		tableModel.removeAllElements();
-		tableModel.addElement("Identifiant, Capteur Type, Etat, Nom Partie Commune");
-
+		tableModel.addElement("ID, Sensor type, State, Name common area");
 		for (Sensor sensors : listSensor) {
 			tableModel.addElement(Integer.toString(sensors.getIdSensor()) + " " + sensors.getTypeSensor() + " " + sensors.getSensorState() + " " + area.getNameCommonArea());
 		}

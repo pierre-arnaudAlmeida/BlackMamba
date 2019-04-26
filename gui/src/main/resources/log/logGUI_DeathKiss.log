@@ -6493,3 +6493,25 @@
 2019-04-25 20:20:26 [Thread-8] INFO  ClientSocket:128 - Command CLOSE connection send to server
 2019-04-25 20:20:26 [Thread-8] INFO  ClientSocket:130 - Connection Closed by client
 2019-04-25 20:20:26 [Thread-8] INFO  Frame:192 - Find Messages datas succed
+2019-04-26 11:16:24 [AWT-EventQueue-0] INFO  Frame:83 - ______           _   _     _    _         
+2019-04-26 11:16:24 [AWT-EventQueue-0] INFO  Frame:84 - |  _  \         | | | |   | |  (_)        
+2019-04-26 11:16:24 [AWT-EventQueue-0] INFO  Frame:85 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-26 11:16:24 [AWT-EventQueue-0] INFO  Frame:86 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-26 11:16:24 [AWT-EventQueue-0] INFO  Frame:87 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-26 11:16:24 [AWT-EventQueue-0] INFO  Frame:88 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-26 11:16:24 [AWT-EventQueue-0] INFO  Frame:89 -                                           
+2019-04-26 11:16:25 [AWT-EventQueue-0] INFO  ClientSocket:159 - Impossible create the socket java.net.ConnectException
+2019-04-26 11:16:26 [AWT-EventQueue-0] INFO  TabEmployes:760 - Find Employees datas succed
+2019-04-26 11:16:26 [AWT-EventQueue-0] INFO  TabEmployes:763 - Impossible to parse in JSON Employees datasjava.lang.NullPointerException
+2019-04-26 11:16:26 [AWT-EventQueue-0] INFO  MainGUI:36 - Impossible to create the window 'frame' java.lang.NullPointerException
+2019-04-26 11:21:35 [AWT-EventQueue-0] INFO  Frame:83 - ______           _   _     _    _         
+2019-04-26 11:21:35 [AWT-EventQueue-0] INFO  Frame:84 - |  _  \         | | | |   | |  (_)        
+2019-04-26 11:21:35 [AWT-EventQueue-0] INFO  Frame:85 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-04-26 11:21:35 [AWT-EventQueue-0] INFO  Frame:86 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-04-26 11:21:35 [AWT-EventQueue-0] INFO  Frame:87 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-04-26 11:21:35 [AWT-EventQueue-0] INFO  Frame:88 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-04-26 11:21:35 [AWT-EventQueue-0] INFO  Frame:89 -                                           
+2019-04-26 11:21:36 [AWT-EventQueue-0] INFO  ClientSocket:159 - Impossible create the socket java.net.ConnectException
+2019-04-26 11:21:36 [AWT-EventQueue-0] INFO  TabEmployes:760 - Find Employees datas succed
+2019-04-26 11:21:36 [AWT-EventQueue-0] INFO  TabEmployes:763 - Impossible to parse in JSON Employees datasjava.lang.NullPointerException
+2019-04-26 11:21:36 [AWT-EventQueue-0] INFO  MainGUI:36 - Impossible to create the window 'frame' java.lang.NullPointerException

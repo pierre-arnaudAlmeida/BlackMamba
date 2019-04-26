@@ -78,14 +78,14 @@ public class Connexion extends JFrame {
 		/**
 		 * Definition of labelIdEmployee
 		 */
-		labelIdEmployee = new JLabel("Identifiant");
+		labelIdEmployee = new JLabel("Login");
 		labelIdEmployee.setPreferredSize(new Dimension(100, 30));
 		idEmployeePan.add(labelIdEmployee);
 
 		/**
 		 * Definition of labelPassord
 		 */
-		labelPassword = new JLabel("Mot de Passe");
+		labelPassword = new JLabel("Password");
 		labelPassword.setPreferredSize(new Dimension(100, 30));
 		passwordEmployeePan.add(labelPassword);
 
@@ -115,7 +115,7 @@ public class Connexion extends JFrame {
 		 * Actions when we pressed the button Connection Send parameter to create an
 		 * socket to connect the employee
 		 */
-		connectionButton = new JButton("Se Connecter");
+		connectionButton = new JButton("Connect");
 		buttonPan.add(connectionButton);
 		connectionButton.addActionListener(new ActionListener() {
 			/**
@@ -135,7 +135,7 @@ public class Connexion extends JFrame {
 
 				if (!(idEmployee.matches("[0-9]+[0-9]*")) || password.equals("")) {
 
-					JOptionPane.showMessageDialog(null, "Vous n'avez pas renseigné tout les champs", "Attention", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "You did not fill in all the fields", "Warning", JOptionPane.WARNING_MESSAGE);
 				} else if ((idEmployee.matches("[0-9]+[0-9]*")) && !(password.equals(""))) {
 					employee.setIdEmployee(Integer.parseInt(idEmployee));
 					employee.setPassword(password);
@@ -146,7 +146,7 @@ public class Connexion extends JFrame {
 						jsonString = ClientSocket.getJson();
 						employee = connectionMapper.readValue(jsonString, Employee.class);
 					} catch (IOException e) {
-						logger.log(Level.INFO, "Impossible to parse in JSON connection datas" + e.getClass().getCanonicalName());
+						logger.log(Level.INFO, "Impossible to parse in JSON connection datas " + e.getClass().getCanonicalName());
 					}
 					if (!employee.getPoste().equals("")) {
 						frame = new Frame(employee.getIdEmployee());
@@ -156,11 +156,11 @@ public class Connexion extends JFrame {
 						logger.log(Level.INFO, "Connection succesfuly accepted, redirection to Window");
 					} else {
 						logger.log(Level.INFO, "Attempt of connection with wrong password employee or id employee");
-						JOptionPane.showMessageDialog(null, "L'identifiant ou le mot de passe est incorrect", "Erreur", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Wrong Login or password", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
 					logger.log(Level.INFO, "Crash of application, Application closed");
-					JOptionPane.showMessageDialog(null, "Une Erreur est survenue, relancez l'application", "Attention", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, "An error as occured, restart the application", "Warning", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		});
@@ -170,7 +170,7 @@ public class Connexion extends JFrame {
 		 * 
 		 * Close the window if we press the button Quitter
 		 */
-		leaveButton = new JButton("Quitter");
+		leaveButton = new JButton("Leave");
 		buttonPan.add(leaveButton);
 		leaveButton.addActionListener(new ActionListener() {
 			@Override
@@ -183,12 +183,12 @@ public class Connexion extends JFrame {
 		/**
 		 * Definition of showButton
 		 */
-		final JCheckBox showButton = new JCheckBox("Montrer le mot de passe");
+		final JCheckBox showButton = new JCheckBox("Show password");
 		showButton.setBounds(147, 150, 171, 23);
 		showButton.addActionListener(new ActionListener() {
 			/**
 			 * Display the content of TextField password employee When we check the CheckBox
-			 * "Montrer le mot de passe"
+			 * "Show password"
 			 */
 			public void actionPerformed(ActionEvent e) {
 				if (showButton.isSelected()) {
