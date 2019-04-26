@@ -64,7 +64,7 @@ public class ihmBI extends JFrame {
 	private JList<String> list;		
 	private Font policeLabel;
 	private JLabel labelNumber;
-	private List<Sensor> listSensor = new ArrayList<Sensor>();
+	private static List<Sensor> listSensor = new ArrayList<Sensor>();
 	private ObjectMapper objectMapper;
 	private String requestType;
 	private String table;
@@ -114,7 +114,8 @@ public class ihmBI extends JFrame {
 	 * Create the frame.
 	 */
 	public ihmBI() {
-		requestSensor();
+		requestAllSensor();
+//		requestSensor();
 		initComponents();
 		createEvents();
 		
@@ -172,6 +173,10 @@ public class ihmBI extends JFrame {
 		btnDeconnexion = new JButton("Deconnexion");
 		btnDeconnexion.setBounds(860, 0, 124, 28);
 		contentPane.add(btnDeconnexion);
+		
+		btnDate = new JButton("GetDate");
+		btnDate.setBounds(752, 72, 89, 28);
+		contentPane.add(btnDate);
 
 		// Textfield 
 		nbPanne = new JTextField();
@@ -193,9 +198,11 @@ public class ihmBI extends JFrame {
 		tfAlertes.setColumns(10);
 		
 
+		Object[] monObj = returns();
 		
 		tfStock = new JTextField();
 		tfStock.setBounds(495, 271, 112, 28);
+		tfStock.setText(monObj[2].toString());
 		contentPane.add(tfStock);
 		tfStock.setColumns(10);
 		
@@ -242,9 +249,7 @@ public class ihmBI extends JFrame {
 		contentPane.add(tfDate);
 		tfDate.setColumns(10);
 		
-		btnDate = new JButton("GetDate");
-		btnDate.setBounds(752, 72, 89, 28);
-		contentPane.add(btnDate);
+
 		
 		tfDate1 = new JTextField();
 		tfDate1.setBounds(396, 50, 89, 28);
@@ -257,7 +262,7 @@ public class ihmBI extends JFrame {
 		ratioHommeFemmeJdialog = new JDialog();
 		
 		DefaultPieDataset pieDataset = new DefaultPieDataset(); 
-	    pieDataset.setValue("Valeur1", new Integer(27)); 
+	    pieDataset.setValue("Valeur1", (Number) monObj[1]); 
 	    pieDataset.setValue("Valeur2", new Integer(10)); 
 	    pieDataset.setValue("Valeur3", new Integer(50)); 
 	    pieDataset.setValue("Valeur4", new Integer(5)); 
@@ -319,11 +324,12 @@ public class ihmBI extends JFrame {
 
 }
 	
-private void requestSensor() {
+private void requestAllSensor() {
 	
 	requestType = "READ ALL";
 	table = "Sensor";
 	objectMapper = new ObjectMapper();
+
 	try {
 		jsonString = "READ ALL";
 		new ClientSocket(requestType, jsonString, table);
@@ -331,7 +337,9 @@ private void requestSensor() {
 		Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
 		listSensor = Arrays.asList(sensors);
 		logger.log(Level.INFO, "Find Sensor data succed");
+		
 
+					
 	} catch (Exception e1) {
 		logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
 	}
@@ -339,6 +347,28 @@ private void requestSensor() {
 
 	
 }
+
+
+//private void requestSensor() {
+//	
+//	requestType = "READ ALL";
+//	table = "Sensor";
+//	objectMapper = new ObjectMapper();
+//	try {
+//		jsonString = "READ ALL";
+//		new ClientSocket(requestType, jsonString, table);
+//		jsonString = ClientSocket.getJson();
+//		Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
+//		listSensor = Arrays.asList(sensors);
+//		logger.log(Level.INFO, "Find Sensor data succed");
+//		
+//		
+//
+//	} catch (Exception e1) {
+//		logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
+//	}
+//	
+//}
 
 public String returnNumber() {
 	int nb = 0;
@@ -355,6 +385,28 @@ public String returnNumber() {
 
 	return String.valueOf(nb);
 
+}
+
+public static Object [] returns() {
+
+	int nob=0;
+	int nunu=0;
+	int resultat=0;
+	
+	for (Sensor sensor : listSensor) {
+		
+		if ( sensor.getIdSensor() == 0) 
+		nob++;
+		
+		else 
+		nunu++;
+			
+		
+	}
+	
+	resultat = nunu - nob;
+	return new Object[] { nunu, nob, resultat};
+	
 }
 }
 
