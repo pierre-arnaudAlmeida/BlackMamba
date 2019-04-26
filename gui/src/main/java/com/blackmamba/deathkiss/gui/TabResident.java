@@ -509,7 +509,7 @@ public class TabResident extends JPanel {
 		/**
 		 * Definition of Button Delete
 		 */
-		delete = new JButton("Supprimer");
+		delete = new JButton("Delete");
 		delete.setBounds(((int) getToolkit().getScreenSize().getWidth() * 3 / 7), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
 		this.add(delete);
 		delete.addActionListener(new ActionListener() {

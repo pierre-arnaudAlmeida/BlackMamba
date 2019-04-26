@@ -79,7 +79,6 @@ public class RequestHandler implements Runnable {
 					response = "OK FOR EXCHANGE";
 					writer.write(response);
 					writer.flush();
-
 					/**
 					 * wait the requestType and the table from client and choose witch case they
 					 * will execute with the requestType and the table

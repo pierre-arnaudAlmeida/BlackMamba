@@ -627,17 +627,17 @@ public class TabCommonArea extends JPanel {
 					tab = new JTabbedPane();
 					tab = Frame.getTab();
 					try {
-						if (tab.isEnabledAt(6)) {
+						if (tab.isEnabledAt(7)) {
 						} else {
-							tab.remove(6);
+							tab.remove(7);
 							tabListSensor = new TabListSensor(commonArea, idemployee, "Tab Sensor List");
 							tab.add("Tab Sensor List", tabListSensor);
-							Frame.goToTab(6);
+							Frame.goToTab(7);
 						}
 					} catch (IndexOutOfBoundsException e1) {
 						tabListSensor = new TabListSensor(commonArea, idemployee, "Tab Sensor List");
 						tab.add("Tab Sensor List", tabListSensor);
-						Frame.goToTab(6);
+						Frame.goToTab(7);
 					}
 				}
 			}

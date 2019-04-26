@@ -204,7 +204,7 @@ public class TabListSensor extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				tab = new JTabbedPane();
 				tab = Frame.getTab();
-				tab.remove(6);
+				tab.remove(7);
 				Frame.goToTab(1);
 			}
 		});

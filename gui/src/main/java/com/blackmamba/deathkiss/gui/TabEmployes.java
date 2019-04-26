@@ -321,7 +321,7 @@ public class TabEmployes extends JPanel {
 		 * Definition of label HeadList
 		 */
 		labelHeadList = new JLabel("ID /Last Name /Name /Function");
-		labelHeadList.setBounds(40, 90, 200, 30);
+		labelHeadList.setBounds(40, 90, 300, 30);
 		labelHeadList.setFont(policeBar);
 		this.add(labelHeadList);
 		//////////////////// TEXT AREA////////////////////////////////////////////////

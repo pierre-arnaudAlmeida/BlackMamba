@@ -2,9 +2,9 @@ package com.blackmamba.deathkiss.pool.dao;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.logging.log4j.Level;
@@ -46,13 +46,14 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			CommonArea area = objectMapper.readValue(jsonString, CommonArea.class);
-			request = "insert into partie_commune (nom_partie_commune, etage_partie_commune) values ('" + area.getNameCommonArea() + "','" + area.getEtageCommonArea() + "')";
-			PreparedStatement st = con.prepareStatement(request);
+			request = "insert into partie_commune (nom_partie_commune, etage_partie_commune) values ('"
+					+ area.getNameCommonArea() + "','" + area.getEtageCommonArea() + "');";
+			Statement st = con.createStatement();
 			st.execute(request);
 			logger.log(Level.INFO, "CommonArea succesfully inserted in BDD");
 			return true;
 		} catch (IOException | SQLException e) {
-			logger.log(Level.INFO, "Impossible to insert commonArea datas in BDD" + e.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to insert commonArea datas in BDD " + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -66,13 +67,13 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			CommonArea area = objectMapper.readValue(jsonString, CommonArea.class);
-			request = "DELETE FROM partie_commune where id_partie_commune = " + area.getIdCommonArea();
-			PreparedStatement st = con.prepareStatement(request);
+			request = "DELETE FROM partie_commune where id_partie_commune = " + area.getIdCommonArea() + ";";
+			Statement st = con.createStatement();
 			st.execute(request);
 			logger.log(Level.INFO, "CommonArea succesfully deleted in BDD");
 			return true;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to delete commonArea datas in BDD" + e.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to delete commonArea datas in BDD " + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -87,19 +88,23 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 		try {
 			CommonArea area = objectMapper.readValue(jsonString, CommonArea.class);
 			if (area.getNameCommonArea().equals("") && area.getEtageCommonArea() < 99) {
-				request = "UPDATE partie_commune SET etage_partie_commune = '" + area.getEtageCommonArea() + "' where id_partie_commune = '" + area.getIdCommonArea() + "'";
+				request = "UPDATE partie_commune SET etage_partie_commune = '" + area.getEtageCommonArea()
+						+ "' where id_partie_commune = '" + area.getIdCommonArea() + "';";
 			} else if (!(area.getNameCommonArea().equals("")) && area.getEtageCommonArea() >= 99) {
-				request = "UPDATE partie_commune SET nom_partie_commune = '" + area.getNameCommonArea() + "' where id_partie_commune = '" + area.getIdCommonArea() + "'";
+				request = "UPDATE partie_commune SET nom_partie_commune = '" + area.getNameCommonArea()
+						+ "' where id_partie_commune = '" + area.getIdCommonArea() + "';";
 			} else if (!(area.getNameCommonArea().equals("")) && area.getEtageCommonArea() < 99) {
-				request = "UPDATE partie_commune SET etage_partie_commune = '" + area.getEtageCommonArea() + "', nom_partie_commune = '" + area.getNameCommonArea() + "' where id_partie_commune = '" + area.getIdCommonArea() + "'";
+				request = "UPDATE partie_commune SET etage_partie_commune = '" + area.getEtageCommonArea()
+						+ "', nom_partie_commune = '" + area.getNameCommonArea() + "' where id_partie_commune = '"
+						+ area.getIdCommonArea() + "';";
 			} else
 				return false;
-			PreparedStatement st = con.prepareStatement(request);
+			Statement st = con.createStatement();
 			st.execute(request);
 			logger.log(Level.INFO, "CommonArea succesfully update in BDD");
 			return true;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to update commonArea datas in BDD" + e.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to update commonArea datas in BDD " + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -114,7 +119,7 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 		try {
 			CommonArea area = objectMapper.readValue(jsonString, CommonArea.class);
 			request = "SELECT * FROM partie_commune where id_partie_commune='" + area.getIdCommonArea() + "';";
-			PreparedStatement st = con.prepareStatement(request);
+			Statement st = con.createStatement();
 			result = st.executeQuery(request);
 			result.next();
 			convertDatas(result);
@@ -137,8 +142,8 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 	public String readAll(String jsonString) {
 		List<CommonArea> listCommonArea = new ArrayList<>();
 		try {
-			request = "SELECT * FROM partie_commune";
-			PreparedStatement st = con.prepareStatement(request);
+			request = "SELECT * FROM partie_commune;";
+			Statement st = con.createStatement();
 			result = st.executeQuery(request);
 			while (result.next()) {
 				convertDatas(result);
@@ -165,10 +170,12 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 		try {
 			CommonArea area = objectMapper.readValue(jsonString, CommonArea.class);
 			if (!(area.getNameCommonArea().equals("")))
-				request = "SELECT * FROM partie_commune where nom_partie_commune LIKE '%" + area.getNameCommonArea().toUpperCase() + "%'";
+				request = "SELECT * FROM partie_commune where nom_partie_commune LIKE '%"
+						+ area.getNameCommonArea().toUpperCase() + "%';";
 			else
-				request = "SELECT * FROM partie_commune where etage_partie_commune = '" + area.getEtageCommonArea() + "'";
-			PreparedStatement st = con.prepareStatement(request);
+				request = "SELECT * FROM partie_commune where etage_partie_commune = '" + area.getEtageCommonArea()
+						+ "';";
+			Statement st = con.createStatement();
 			result = st.executeQuery(request);
 			while (result.next()) {
 				convertDatas(result);

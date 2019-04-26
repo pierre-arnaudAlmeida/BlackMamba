@@ -2,9 +2,9 @@ package com.blackmamba.deathkiss.pool.dao;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,8 +52,9 @@ public class MessageDAO extends DAO<Message> {
 		try {
 			Message mess = objectMapper.readValue(jsonString, Message.class);
 			java.sql.Date sqlDate = new java.sql.Date(mess.getAlertDate().getTime());
-			request = "insert into message (id_capteur,date_alerte,seuil) values ('" + mess.getIdSensor() + "','" + sqlDate + "', '" + mess.getThreshold() + "')";
-			PreparedStatement st = con.prepareStatement(request);
+			request = "insert into message (id_capteur,date_alerte,seuil) values ('" + mess.getIdSensor() + "','"
+					+ sqlDate + "', '" + mess.getThreshold() + "');";
+			Statement st = con.createStatement();
 			st.execute(request);
 			logger.log(Level.INFO, "Message succesfully inserted in BDD ");
 			return true;
@@ -72,7 +73,7 @@ public class MessageDAO extends DAO<Message> {
 		try {
 			Message mess = objectMapper.readValue(jsonString, Message.class);
 			request = "DELETE FROM message where date_alerte < " + mess.getAlertDate() + ";";
-			PreparedStatement st = con.prepareStatement(request);
+			Statement st = con.createStatement();
 			st.execute(request);
 			logger.log(Level.INFO, "Messages succesfully deleted in BDD ");
 			return true;
@@ -91,8 +92,9 @@ public class MessageDAO extends DAO<Message> {
 		try {
 			Message mess = objectMapper.readValue(jsonString, Message.class);
 			java.sql.Date sqlDate = new java.sql.Date(mess.getAlertDate().getTime());
-			request = "UPDATE message SET id_capteur = '" + mess.getIdSensor() + "', date_alerte = '" + sqlDate + "', seuil='" + mess.getThreshold() + "'";
-			PreparedStatement st = con.prepareStatement(request);
+			request = "UPDATE message SET id_capteur = '" + mess.getIdSensor() + "', date_alerte = '" + sqlDate
+					+ "', seuil='" + mess.getThreshold() + "';";
+			Statement st = con.createStatement();
 			st.execute(request);
 			logger.log(Level.INFO, "Message succesfully update in BDD");
 			return true;
@@ -111,7 +113,7 @@ public class MessageDAO extends DAO<Message> {
 		try {
 			Message mess = objectMapper.readValue(jsonString, Message.class);
 			request = "SELECT * FROM message where id_message='" + mess.getIdMessage() + "';";
-			PreparedStatement st = con.prepareStatement(request);
+			Statement st = con.createStatement();
 			result = st.executeQuery(request);
 			result.next();
 			convertDatas(result);
@@ -135,9 +137,9 @@ public class MessageDAO extends DAO<Message> {
 		List<Message> listMessage = new ArrayList<>();
 		try {
 			// Message message = objectMapper.readValue(jsonString, Message.class);
-			request = "SELECT * FROM message"; // where date_alerte >=" + message.getAlertDate() + ";";
+			request = "SELECT * FROM message;"; // where date_alerte >=" + message.getAlertDate() + ";";
 												// TODO PA mettre la date dans le read all
-			PreparedStatement st = con.prepareStatement(request);
+			Statement st = con.createStatement();
 			result = st.executeQuery(request);
 			while (result.next()) {
 				convertDatas(result);

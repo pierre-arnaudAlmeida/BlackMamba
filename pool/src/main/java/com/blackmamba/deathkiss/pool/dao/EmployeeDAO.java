@@ -2,9 +2,9 @@ package com.blackmamba.deathkiss.pool.dao;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.logging.log4j.Level;
@@ -46,13 +46,15 @@ public class EmployeeDAO extends DAO<Employee> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			Employee emp = objectMapper.readValue(jsonString, Employee.class);
-			request = "insert into employee (nom_employee, prenom_employee, mot_de_passe, poste) values ('" + emp.getLastnameEmployee() + "','" + emp.getNameEmployee() + "','" + emp.getPassword() + "','" + emp.getPoste() + "')";
-			PreparedStatement st = con.prepareStatement(request);
+			request = "insert into employee (nom_employee, prenom_employee, mot_de_passe, poste) values ('"
+					+ emp.getLastnameEmployee() + "','" + emp.getNameEmployee() + "','" + emp.getPassword() + "','"
+					+ emp.getPoste() + "');";
+			Statement st = con.createStatement();
 			st.execute(request);
 			logger.log(Level.INFO, "Employee succesfully inserted in BDD");
 			return true;
 		} catch (IOException | SQLException e) {
-			logger.log(Level.INFO, "Impossible to insert employee datas in BDD" + e.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to insert employee datas in BDD " + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -67,12 +69,12 @@ public class EmployeeDAO extends DAO<Employee> {
 		try {
 			Employee emp = objectMapper.readValue(jsonString, Employee.class);
 			request = "DELETE FROM employee where id_employee = " + emp.getIdEmployee() + ";";
-			PreparedStatement st = con.prepareStatement(request);
+			Statement st = con.createStatement();
 			st.execute(request);
 			logger.log(Level.INFO, "Employee succesfully deleted in BDD");
 			return true;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to delete employee datas  in BDD" + e.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to delete employee datas  in BDD " + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -87,16 +89,20 @@ public class EmployeeDAO extends DAO<Employee> {
 		try {
 			Employee emp = objectMapper.readValue(jsonString, Employee.class);
 			if (employee.getPassword().equals("")) {
-				request = "UPDATE employee SET prenom_employee = '" + emp.getNameEmployee() + "', nom_employee = '" + emp.getLastnameEmployee() + "',poste = '" + emp.getPoste() + "' where id_employee = " + emp.getIdEmployee();
+				request = "UPDATE employee SET prenom_employee = '" + emp.getNameEmployee() + "', nom_employee = '"
+						+ emp.getLastnameEmployee() + "',poste = '" + emp.getPoste() + "' where id_employee = "
+						+ emp.getIdEmployee() + ";";
 			} else {
-				request = "UPDATE employee SET mot_de_passe = '" + emp.getPassword() + "', nom_employee = '" + emp.getLastnameEmployee() + "', prenom_employee = '" + emp.getNameEmployee() + "' where id_employee = " + emp.getIdEmployee();
+				request = "UPDATE employee SET mot_de_passe = '" + emp.getPassword() + "', nom_employee = '"
+						+ emp.getLastnameEmployee() + "', prenom_employee = '" + emp.getNameEmployee()
+						+ "' where id_employee = " + emp.getIdEmployee() + ";";
 			}
-			PreparedStatement st = con.prepareStatement(request);
+			Statement st = con.createStatement();
 			st.execute(request);
 			logger.log(Level.INFO, "Employee succesfully update in BDD");
 			return true;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to update employee datas in BDD" + e.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to update employee datas in BDD " + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -109,8 +115,9 @@ public class EmployeeDAO extends DAO<Employee> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			Employee emp = objectMapper.readValue(jsonString, Employee.class);
-			request = "SELECT * FROM Employee where id_employee='" + emp.getIdEmployee() + "' and mot_de_passe='" + emp.getPassword() + "';";
-			PreparedStatement st = con.prepareStatement(request);
+			request = "SELECT * FROM Employee where id_employee='" + emp.getIdEmployee() + "' and mot_de_passe='"
+					+ emp.getPassword() + "';";
+			Statement st = con.createStatement();
 			result = st.executeQuery(request);
 			result.next();
 			convertDatas(result);
@@ -136,7 +143,7 @@ public class EmployeeDAO extends DAO<Employee> {
 		try {
 			Employee emp = objectMapper.readValue(jsonString, Employee.class);
 			request = "SELECT * FROM Employee where id_employee='" + emp.getIdEmployee() + "';";
-			PreparedStatement st = con.prepareStatement(request);
+			Statement st = con.createStatement();
 			result = st.executeQuery(request);
 			result.next();
 			convertDatas(result);
@@ -161,7 +168,7 @@ public class EmployeeDAO extends DAO<Employee> {
 		List<Employee> listEmployee = new ArrayList<>();
 		try {
 			request = "SELECT * FROM Employee";
-			PreparedStatement st = con.prepareStatement(request);
+			Statement st = con.createStatement();
 			result = st.executeQuery(request);
 			while (result.next()) {
 				convertDatas(result);
@@ -187,9 +194,12 @@ public class EmployeeDAO extends DAO<Employee> {
 		List<Employee> listEmployee = new ArrayList<>();
 		try {
 			Employee emp = objectMapper.readValue(jsonString, Employee.class);
-			request = "SELECT * FROM employee where ((nom_employee LIKE '%" + emp.getLastnameEmployee().toUpperCase() + "%') or (prenom_employee LIKE '%" + emp.getLastnameEmployee().toLowerCase() + "%') or (prenom_employee LIKE '%" + emp.getLastnameEmployee().toUpperCase() + "%') or (poste LIKE '%"
-					+ emp.getLastnameEmployee().toLowerCase() + "%') or (poste LIKE '%" + emp.getLastnameEmployee().toUpperCase() + "%'))";
-			PreparedStatement st = con.prepareStatement(request);
+			request = "SELECT * FROM employee where ((nom_employee LIKE '%" + emp.getLastnameEmployee().toUpperCase()
+					+ "%') or (prenom_employee LIKE '%" + emp.getLastnameEmployee().toLowerCase()
+					+ "%') or (prenom_employee LIKE '%" + emp.getLastnameEmployee().toUpperCase()
+					+ "%') or (poste LIKE '%" + emp.getLastnameEmployee().toLowerCase() + "%') or (poste LIKE '%"
+					+ emp.getLastnameEmployee().toUpperCase() + "%'));";
+			Statement st = con.createStatement();
 			result = st.executeQuery(request);
 			while (result.next()) {
 				convertDatas(result);

@@ -2,9 +2,9 @@ package com.blackmamba.deathkiss.pool.dao;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,8 +56,8 @@ public class SensorDAO extends DAO<Sensor> {
 			} else
 				state = "OFF";
 			request = "insert into capteur (type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,parametre) values ('" + sensor.getTypeSensor() + "','" + state + "','" + sensor.getIdCommonArea() + "','" + sensor.getAlertState() + "','" + sensor.getSensitivity() + "','"
-					+ sensor.getStartActivity() + "','" + sensor.getEndActivity() + "','" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "')";
-			PreparedStatement st = con.prepareStatement(request);
+					+ sensor.getStartActivity() + "','" + sensor.getEndActivity() + "','" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "');";
+			Statement st = con.createStatement();
 			st.execute(request);
 			logger.log(Level.INFO, "Sensor succesfully inserted in BDD");
 			return true;
@@ -77,7 +77,7 @@ public class SensorDAO extends DAO<Sensor> {
 		try {
 			Sensor sensor = objectMapper.readValue(jsonString, Sensor.class);
 			request = "DELETE FROM capteur where id_capteur = " + sensor.getIdSensor() + ";";
-			PreparedStatement st = con.prepareStatement(request);
+			Statement st = con.createStatement();
 			st.execute(request);
 			logger.log(Level.INFO, "Sensor succesfully deleted in BDD");
 			return true;
@@ -99,22 +99,22 @@ public class SensorDAO extends DAO<Sensor> {
 			if (sensor.getSensorState()) {
 				if (sensor.getIdCommonArea() == 0) {
 					request = "UPDATE capteur SET id_partie_commune = null, etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity() + "',heure_fin='"
-							+ sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor();
+							+ sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor()+";";
 				} else {
 					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea() + ", etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity()
-							+ "',heure_fin='" + sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor();
+							+ "',heure_fin='" + sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor()+";";
 				}
 			} else if (!sensor.getSensorState()) {
 				if (sensor.getIdCommonArea() == 0) {
 					request = "UPDATE capteur SET id_partie_commune = null, etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity() + "',heure_fin='"
-							+ sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor();
+							+ sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor()+";";
 				} else {
 					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea() + ", etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity()
-							+ "',heure_fin='" + sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor();
+							+ "',heure_fin='" + sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor()+";";
 				}
 			} else
 				return false;
-			PreparedStatement st = con.prepareStatement(request);
+			Statement st = con.createStatement();
 			st.execute(request);
 			logger.log(Level.INFO, "Sensor succesfully update in BDD");
 			return true;
@@ -134,7 +134,7 @@ public class SensorDAO extends DAO<Sensor> {
 		try {
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
 			request = "SELECT * FROM capteur where id_capteur='" + sensor.getIdSensor() + "';";
-			PreparedStatement st = con.prepareStatement(request);
+			Statement st = con.createStatement();
 			result = st.executeQuery(request);
 			result.next();
 			convertDatas(result);
@@ -158,8 +158,8 @@ public class SensorDAO extends DAO<Sensor> {
 	public String readAll(String jsonString) {
 		List<Sensor> listSensor = new ArrayList<>();
 		try {
-			request = "SELECT * FROM capteur";
-			PreparedStatement st = con.prepareStatement(request);
+			request = "SELECT * FROM capteur;";
+			Statement st = con.createStatement();
 			result = st.executeQuery(request);
 			while (result.next()) {
 				convertDatas(result);
@@ -187,11 +187,11 @@ public class SensorDAO extends DAO<Sensor> {
 			System.out.println(jsonString);
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
 			if (sensor.getIdCommonArea() != 0) {
-				request = "SELECT * FROM capteur where id_partie_commune = '" + sensor.getIdCommonArea() + "'";
+				request = "SELECT * FROM capteur where id_partie_commune = '" + sensor.getIdCommonArea() + "';";
 			} else {
-				request = "SELECT * FROM capteur where type_capteur = '" + sensor.getTypeSensor() + "'";
+				request = "SELECT * FROM capteur where type_capteur = '" + sensor.getTypeSensor() + "';";
 			}
-			PreparedStatement st = con.prepareStatement(request);
+			Statement st = con.createStatement();
 			result = st.executeQuery(request);
 			while (result.next()) {
 				convertDatas(result);
