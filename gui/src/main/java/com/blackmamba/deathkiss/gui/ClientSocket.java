@@ -30,6 +30,7 @@ public class ClientSocket {
 	private PrintWriter writer = null;
 	private BufferedInputStream reader = null;
 	private static final Logger logger = LogManager.getLogger(ClientSocket.class);
+	private ResourceBundle rs = ResourceBundle.getBundle("config");
 
 	/**
 	 * Constructor
@@ -45,13 +46,11 @@ public class ClientSocket {
 	 * @param table
 	 */
 	public ClientSocket(String requestType, String jsonString, String table) {
+		//TODO PA tester sans les flush
 		this.requestType = requestType;
 		this.table = table;
-
-		ResourceBundle rs = ResourceBundle.getBundle("config");
 		this.host = rs.getString("server.host");
 		this.port = Integer.parseInt(rs.getString("server.port"));
-
 		ClientSocket.setJsonString(jsonString);
 		/**
 		 * Create a new socket and send to host
@@ -64,7 +63,6 @@ public class ClientSocket {
 			writer.write("OPEN");
 			writer.flush();
 			logger.log(Level.INFO, "Command OPEN connection send to server");
-
 			response = read();
 
 			/**
@@ -103,7 +101,6 @@ public class ClientSocket {
 				writer.write(response);
 				writer.flush();
 				logger.log(Level.INFO, "Request Type Send to server");
-
 				response = read();
 
 				/**
@@ -114,7 +111,6 @@ public class ClientSocket {
 					writer.write(response);
 					writer.flush();
 					logger.log(Level.INFO, "Request Send to server");
-
 					response = read();
 					/**
 					 * Receive the data in JSON string after the execution by server

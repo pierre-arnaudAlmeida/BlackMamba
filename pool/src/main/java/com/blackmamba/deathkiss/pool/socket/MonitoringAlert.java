@@ -100,7 +100,7 @@ public class MonitoringAlert {
 				nbAlert = 0;
 
 				for (Message messages : listMessageInTreatment) {
-					if (sensors.getIdSensor() == messages.getIdSensor() && sensors.getSensorState() == true) {
+					if (sensors.getIdSensor() == messages.getIdSensor() && sensors.getSensorState()) {
 						if (!(sensors.getThresholdMin() == 0 && sensors.getThresholdMax() == 0)) {
 							if ((sensors.getThresholdMin() >= messages.getThreshold())
 									|| sensors.getThresholdMax() <= messages.getThreshold()) {
@@ -205,7 +205,7 @@ public class MonitoringAlert {
 		listMessageInTreatment = listMessage;
 		if (listMessageInTreatment.size() != 0) {
 			for (Sensor sensors : listSensor) {
-				if (sensors.getIdCommonArea() != 0 && sensors.getSensorState() == true
+				if (sensors.getIdCommonArea() != 0 && sensors.getSensorState()
 						&& (formater.format(sensors.getStartActivity()).compareTo(formater.format(beforeDate)) >= 0)
 						&& (formater.format(sensors.getStartActivity()).compareTo(formater.format(afterDate)) <= 0)) {
 					numberOfMessages = 0;
@@ -249,7 +249,7 @@ public class MonitoringAlert {
 		if (listMessageInTreatment.size() != 0) {
 			for (Sensor sensors : listSensor) {
 				numberOfIteration = 0;
-				if (sensors.getSensorState() == true) {
+				if (sensors.getSensorState()) {
 					for (Message messages : listMessage) {
 						if (sensors.getIdSensor() == messages.getIdSensor()) {
 							numberOfIteration++;
@@ -313,7 +313,7 @@ public class MonitoringAlert {
 			connectionGived = DataSource.getConnectionFromJDBC(pool);
 			DAO<Sensor> sensorDao = new SensorDAO(connectionGived);
 			setResult(((SensorDAO) sensorDao).update(jsonString));
-			if (result == true)
+			if (result)
 				logger.log(Level.INFO, "Update Succeded");
 		} catch (Exception e1) {
 			logger.log(Level.INFO, "Impossible to parse in JSON sensor datas" + e1.getClass().getCanonicalName());
@@ -379,7 +379,7 @@ public class MonitoringAlert {
 			DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(connectionGived);
 			setResult(((SensorHistoricalDAO) sensorHistoricalDao).create(jsonString));
 			DataSource.returnConnection(pool, connectionGived);
-			if (result == true)
+			if (result)
 				logger.log(Level.INFO, "Insertion SensorHistorical datas succed");
 		} catch (SQLException | JsonProcessingException e) {
 			logger.log(Level.INFO, "Impossible to insert datas " + e.getClass().getCanonicalName());

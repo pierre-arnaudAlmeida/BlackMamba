@@ -2,9 +2,9 @@ package com.blackmamba.deathkiss.pool.dao;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,6 +29,9 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 	 * Initialization of parameters
 	 */
 	private ResultSet result = null;
+	private String request;
+	private String sensorState;
+	private SensorHistorical sensorHistorical;
 	private static final Logger logger = LogManager.getLogger(SensorHistoricalDAO.class);
 
 	/**
@@ -47,28 +50,21 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 	@Override
 	public boolean create(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
-		String request;
-		String sensorState;
 		Format formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try {
-			Statement st = con.createStatement();
-			SensorHistorical sensorHistorical = objectMapper.readValue(jsonString, SensorHistorical.class);
-
-			if (sensorHistorical.getSensorState() == true)
+			SensorHistorical sensorH = objectMapper.readValue(jsonString, SensorHistorical.class);
+			if (sensorH.getSensorState())
 				sensorState = "ON";
 			else
 				sensorState = "OFF";
-			request = "insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('"
-					+ formater.format(sensorHistorical.getDate()) + "','" + sensorState + "','"
-					+ sensorHistorical.getAlertState().toString() + "', " + sensorHistorical.getIdSensor() + ")";
-
+			request = "insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('" + formater.format(sensorH.getDate()) + "','" + sensorState + "','" + sensorH.getAlertState().toString() + "', " + sensorH.getIdSensor() + ")";
+			PreparedStatement st = con.prepareStatement(request);
 			st.execute(request);
 			logger.log(Level.INFO, "SensorHistorical succesfully inserted in BDD");
 			return true;
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();
-			logger.log(Level.INFO,
-					"Impossible to insert sensorHistorical datas in BDD" + e.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to insert sensorHistorical datas in BDD" + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -80,17 +76,15 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 	@Override
 	public boolean delete(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
-		String request;
 		try {
-			Statement st = con.createStatement();
-			SensorHistorical sensorHistorical = objectMapper.readValue(jsonString, SensorHistorical.class);
-			request = "DELETE FROM historique where id_historique = " + sensorHistorical.getIdHistorical() + ";";
+			SensorHistorical sensorH = objectMapper.readValue(jsonString, SensorHistorical.class);
+			request = "DELETE FROM historique where id_historique = " + sensorH.getIdHistorical();
+			PreparedStatement st = con.prepareStatement(request);
 			st.execute(request);
 			logger.log(Level.INFO, "SensorHistorical succesfully deleted in BDD");
 			return true;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO,
-					"Impossible to delete sensorHistorical datas  in BDD" + e.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to delete sensorHistorical datas  in BDD" + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -102,19 +96,15 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 	@Override
 	public boolean update(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
-		String request;
-		String sensorState;
 		Format formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try {
-			Statement st = con.createStatement();
-			SensorHistorical sensorHistorical = objectMapper.readValue(jsonString, SensorHistorical.class);
-			if (sensorHistorical.getSensorState() == true)
+			SensorHistorical sensorH = objectMapper.readValue(jsonString, SensorHistorical.class);
+			if (sensorH.getSensorState())
 				sensorState = "ON";
 			else
 				sensorState = "OFF";
-			request = "UPDATE message SET id_capteur = '" + sensorHistorical.getIdSensor() + "', date_historique = '"
-					+ formater.format(sensorHistorical.getDate()) + "', etat_capteur='" + sensorState
-					+ "', type_alerte='" + sensorHistorical.getAlertState().toString() + "'";
+			request = "UPDATE message SET id_capteur = '" + sensorH.getIdSensor() + "', date_historique = '" + formater.format(sensorH.getDate()) + "', etat_capteur='" + sensorState + "', type_alerte='" + sensorH.getAlertState().toString() + "'";
+			PreparedStatement st = con.prepareStatement(request);
 			st.execute(request);
 			logger.log(Level.INFO, "Message succesfully update in BDD");
 			return true;
@@ -131,35 +121,19 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 	@Override
 	public String read(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
-		String request;
 		try {
-			Statement st = con.createStatement();
-			SensorHistorical sensorHistorical = objectMapper.readValue(jsonString, SensorHistorical.class);
-			request = "SELECT * FROM historique where id_historique='" + sensorHistorical.getIdHistorical() + "';";
+			SensorHistorical sensorH = objectMapper.readValue(jsonString, SensorHistorical.class);
+			request = "SELECT * FROM historique where id_historique='" + sensorH.getIdHistorical() + "'";
+			PreparedStatement st = con.prepareStatement(request);
 			result = st.executeQuery(request);
 			result.next();
-
-			sensorHistorical.setIdHistorical(Integer.parseInt(result.getObject(1).toString()));
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			Date date = formatter.parse(result.getObject(2).toString());
-			sensorHistorical.setDate(date);
-			if (result.getObject(3).toString().equals("ON"))
-				sensorHistorical.setSensorState(true);
-			else
-				sensorHistorical.setSensorState(false);
-
-			AlertState alertStateElement = AlertState.valueOf(result.getObject(4).toString());
-			sensorHistorical.setAlertState(alertStateElement);
-
-			sensorHistorical.setIdSensor(Integer.parseInt(result.getObject(5).toString()));
-
+			convertDatas(result);
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(sensorHistorical);
 			logger.log(Level.INFO, "SensorHistorical succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException | ParseException e) {
-			logger.log(Level.INFO,
-					"Impossible to get sensorHistorical datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to get sensorHistorical datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;
@@ -171,29 +145,13 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 	 */
 	@Override
 	public String readAll(String jsonString) {
-		String request;
-		SensorHistorical sensorHistorical;
 		List<SensorHistorical> listSensorHistorical = new ArrayList<>();
 		try {
-
-			Statement st = con.createStatement();
 			request = "SELECT * FROM historique";
+			PreparedStatement st = con.prepareStatement(request);
 			result = st.executeQuery(request);
 			while (result.next()) {
-				sensorHistorical = new SensorHistorical();
-				sensorHistorical.setIdHistorical(Integer.parseInt(result.getObject(1).toString()));
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				Date date = formatter.parse(result.getObject(2).toString());
-				sensorHistorical.setDate(date);
-				if (result.getObject(3).toString().equals("ON"))
-					sensorHistorical.setSensorState(true);
-				else
-					sensorHistorical.setSensorState(false);
-
-				AlertState alertStateElement = AlertState.valueOf(result.getObject(4).toString());
-				sensorHistorical.setAlertState(alertStateElement);
-
-				sensorHistorical.setIdSensor(Integer.parseInt(result.getObject(5).toString()));
+				convertDatas(result);
 				listSensorHistorical.add(sensorHistorical);
 			}
 			ObjectMapper obj = new ObjectMapper();
@@ -201,8 +159,7 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 			logger.log(Level.INFO, "SensorHistorical succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException | ParseException e) {
-			logger.log(Level.INFO,
-					"Impossible to get sensorHistorical datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to get sensorHistorical datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;
@@ -215,29 +172,13 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 	 */
 	public String findBySensor(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
-		String request;
-		SensorHistorical sensorHistorical;
 		try {
-			Statement st = con.createStatement();
 			SensorHistorical sensorH = objectMapper.readValue(jsonString, SensorHistorical.class);
-			request = "SELECT * FROM historique where id_capteur='" + sensorH.getIdSensor() + "';";
+			request = "SELECT * FROM historique where id_capteur='" + sensorH.getIdSensor() + "'";
+			PreparedStatement st = con.prepareStatement(request);
 			result = st.executeQuery(request);
 			result.next();
-
-			sensorHistorical = new SensorHistorical();
-			sensorHistorical.setIdHistorical(Integer.parseInt(result.getObject(1).toString()));
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			Date date = formatter.parse(result.getObject(2).toString());
-			sensorHistorical.setDate(date);
-			if (result.getObject(3).toString().equals("ON"))
-				sensorHistorical.setSensorState(true);
-			else
-				sensorHistorical.setSensorState(false);
-
-			AlertState alertStateElement = AlertState.valueOf(result.getObject(4).toString());
-			sensorHistorical.setAlertState(alertStateElement);
-
-			sensorHistorical.setIdSensor(Integer.parseInt(result.getObject(5).toString()));
+			convertDatas(result);
 
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(sensorHistorical);
@@ -248,5 +189,20 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 		}
 		jsonString = "ERROR";
 		return jsonString;
+	}
+
+	public void convertDatas(ResultSet result) throws NumberFormatException, SQLException, ParseException {
+		sensorHistorical = new SensorHistorical();
+		sensorHistorical.setIdHistorical(Integer.parseInt(result.getObject(1).toString()));
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = formatter.parse(result.getObject(2).toString());
+		sensorHistorical.setDate(date);
+		if (result.getObject(3).toString().equals("ON"))
+			sensorHistorical.setSensorState(true);
+		else
+			sensorHistorical.setSensorState(false);
+		AlertState alertStateElement = AlertState.valueOf(result.getObject(4).toString());
+		sensorHistorical.setAlertState(alertStateElement);
+		sensorHistorical.setIdSensor(Integer.parseInt(result.getObject(5).toString()));
 	}
 }

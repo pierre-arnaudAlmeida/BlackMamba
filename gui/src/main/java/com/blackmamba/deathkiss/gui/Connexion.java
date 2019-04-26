@@ -48,6 +48,7 @@ public class Connexion extends JFrame {
 	private String table;
 	private String jsonString;
 	private Employee employee;
+	private Frame frame;
 	private char[] passwordfield;
 	private static final Logger logger = LogManager.getLogger(Connexion.class);
 
@@ -123,7 +124,7 @@ public class Connexion extends JFrame {
 			 * the user
 			 */
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent event) {
 				requestType = "CONNECTION";
 				employee = new Employee();
 				table = "Employee";
@@ -144,11 +145,11 @@ public class Connexion extends JFrame {
 						new ClientSocket(requestType, jsonString, table);
 						jsonString = ClientSocket.getJson();
 						employee = connectionMapper.readValue(jsonString, Employee.class);
-					} catch (IOException e1) {
-						logger.log(Level.INFO, "Impossible to parse in JSON connection datas" + e1.getClass().getCanonicalName());
+					} catch (IOException e) {
+						logger.log(Level.INFO, "Impossible to parse in JSON connection datas" + e.getClass().getCanonicalName());
 					}
 					if (!employee.getPoste().equals("")) {
-						Frame frame = new Frame(employee.getIdEmployee());
+						frame = new Frame(employee.getIdEmployee());
 						setVisible(false);
 						dispose();
 						frame.setVisible(true);

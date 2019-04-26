@@ -154,6 +154,7 @@ public class TabMockMessage extends JPanel {
 		sliderThreshold.setMajorTickSpacing(10);
 
 		sliderThreshold.addChangeListener(new ChangeListener() {
+			//TODO PA reduire et ya d'autre chose avec les ENUM
 			public void stateChanged(ChangeEvent event) {
 				if (textInputTypeSensor.getSelectedItem().equals("ELEVATOR")) {
 					labelThreshold.setText("Seuil : " + ((JSlider) event.getSource()).getValue() + "00kg");
@@ -276,17 +277,17 @@ public class TabMockMessage extends JPanel {
 		generateButton.addActionListener(new ActionListener() {
 			@Override
 			public synchronized void actionPerformed(ActionEvent e) {
-				if (allCaseRadio.isSelected() == false && oneCaseRadio.isSelected() == false
-						&& typeSensorCaseRadio.isSelected() == false) {
+				if (!allCaseRadio.isSelected() && !oneCaseRadio.isSelected()
+						&& !typeSensorCaseRadio.isSelected()) {
 					JOptionPane.showMessageDialog(null, "Vous n'avez pas choisi la forme de génération", "Infos",
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {
-					if (allCaseRadio.isSelected() == true) {
+					if (allCaseRadio.isSelected()) {
 						getAllSensor();
 						message = new Message();
 						request = "ALL";
 						launchGeneration();
-					} else if (oneCaseRadio.isSelected() == true) {
+					} else if (oneCaseRadio.isSelected()) {
 						if (textInputIdSensor.getText().trim().equals("")) {
 							JOptionPane.showMessageDialog(null, "Vous n'avez pas renseigné l'id du capteur", "Infos",
 									JOptionPane.INFORMATION_MESSAGE);
@@ -304,7 +305,7 @@ public class TabMockMessage extends JPanel {
 												.equals(textInputTypeSensor.getSelectedItem().toString())
 												&& sensors.getIdSensor() == Integer
 														.parseInt(textInputIdSensor.getText().trim())) {
-											if (sensors.getSensorState() == true) {
+											if (sensors.getSensorState()) {
 												message.setIdSensor(sensors.getIdSensor());
 											} else {
 												JOptionPane.showMessageDialog(null, "Ce capteur est éteint", "Infos",
@@ -324,7 +325,7 @@ public class TabMockMessage extends JPanel {
 										"Infos", JOptionPane.INFORMATION_MESSAGE);
 							}
 						}
-					} else if (typeSensorCaseRadio.isSelected() == true) {
+					} else if (typeSensorCaseRadio.isSelected()) {
 						if (textInputTypeSensor.getSelectedItem() == null) {
 							JOptionPane.showMessageDialog(null, "Vous n'avez pas choisi de type de capteur", "Infos",
 									JOptionPane.INFORMATION_MESSAGE);
@@ -337,7 +338,7 @@ public class TabMockMessage extends JPanel {
 							for (Sensor sensors : listSensor) {
 								if (sensors.getTypeSensor().toString()
 										.equals(textInputTypeSensor.getSelectedItem().toString())
-										&& sensors.getSensorState() == true) {
+										&& sensors.getSensorState()) {
 									listRestrictedSensor.add(sensors);
 									if (boo) {
 										message.setIdSensor(sensors.getIdSensor());
@@ -348,7 +349,7 @@ public class TabMockMessage extends JPanel {
 							for (Sensor sensors : listSensor) {
 								if (!(sensors.getTypeSensor().toString()
 										.equals(textInputTypeSensor.getSelectedItem().toString())
-										&& sensors.getSensorState() == true)) {
+										&& sensors.getSensorState())) {
 									listRestrictedSensor.add(sensors);
 								}
 							}

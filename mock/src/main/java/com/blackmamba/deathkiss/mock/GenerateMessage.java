@@ -54,7 +54,7 @@ public class GenerateMessage extends Thread {
 			 * Generate an message with basic parameters for every sensor
 			 */
 			for (Sensor sensors : listSensor) {
-				if (sensors.getSensorState() == true) {
+				if (sensors.getSensorState()) {
 					currentDate = new Date();
 					message2 = new Message();
 					message2.setIdSensor(sensors.getIdSensor());
@@ -79,7 +79,7 @@ public class GenerateMessage extends Thread {
 					message2.setIdSensor(message.getIdSensor());
 					sendMessage(message2);
 					nbMessageGenerate++;
-				} else if (sensors.getSensorState() == true) {
+				} else if (sensors.getSensorState()) {
 					currentDate = new Date();
 					message2.setThreshold((sensors.getThresholdMax() - sensors.getThresholdMin()) / 2);
 					message2.setAlertDate(currentDate);
@@ -97,8 +97,8 @@ public class GenerateMessage extends Thread {
 			for (Sensor sensors : listSensor) {
 				if (sensors.getIdSensor() == message.getIdSensor()) {
 					sensorType = sensors.getTypeSensor().toString();
-				}
-				if (sensors.getSensorState() == true && sensorType.equals(sensors.getTypeSensor().toString())) {
+				}//TODO PA refaire les ENUM
+				if (sensors.getSensorState() && sensorType.equals(sensors.getTypeSensor().toString())) {
 					message2 = new Message();
 					currentDate = new Date();
 					message2.setIdSensor(sensors.getIdSensor());
@@ -106,7 +106,7 @@ public class GenerateMessage extends Thread {
 					message2.setAlertDate(currentDate);
 					sendMessage(message2);
 					nbMessageGenerate++;
-				} else if (sensors.getSensorState() == true) {
+				} else if (sensors.getSensorState()) {
 					message2 = new Message();
 					currentDate = new Date();
 					message2.setIdSensor(sensors.getIdSensor());

@@ -2,9 +2,9 @@ package com.blackmamba.deathkiss.pool.dao;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,6 +26,8 @@ public class ResidentDAO extends DAO<Resident> {
 	/**
 	 * Initialization of parameters
 	 */
+	private String request;
+	private Resident resident;
 	private ResultSet result = null;
 	private static final Logger logger = LogManager.getLogger(ResidentDAO.class);
 
@@ -40,12 +42,10 @@ public class ResidentDAO extends DAO<Resident> {
 	@Override
 	public boolean create(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
-		String request;
 		try {
-			Statement st = con.createStatement();
-			Resident resident = objectMapper.readValue(jsonString, Resident.class);
-			request = "insert into resident (nom_resident, prenom_resident) values ('" + resident.getLastnameResident()
-					+ "','" + resident.getNameResident() + "')";
+			Resident resid = objectMapper.readValue(jsonString, Resident.class);
+			request = "insert into resident (nom_resident, prenom_resident) values ('" + resid.getLastnameResident() + "','" + resid.getNameResident() + "')";
+			PreparedStatement st = con.prepareStatement(request);
 			st.execute(request);
 			logger.log(Level.INFO, "Resident succesfully inserted in BDD");
 			return true;
@@ -62,11 +62,10 @@ public class ResidentDAO extends DAO<Resident> {
 	@Override
 	public boolean delete(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
-		String request;
 		try {
-			Statement st = con.createStatement();
-			Resident resident = objectMapper.readValue(jsonString, Resident.class);
-			request = "DELETE FROM resident where id_resident = " + resident.getIdResident() + ";";
+			Resident resid = objectMapper.readValue(jsonString, Resident.class);
+			request = "DELETE FROM resident where id_resident = " + resid.getIdResident() + ";";
+			PreparedStatement st = con.prepareStatement(request);
 			st.execute(request);
 			logger.log(Level.INFO, "Resident succesfully deleted in BDD");
 			return true;
@@ -83,19 +82,17 @@ public class ResidentDAO extends DAO<Resident> {
 	@Override
 	public boolean update(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
-		String request;
 		try {
-			Statement st = con.createStatement();
-			Resident resident = objectMapper.readValue(jsonString, Resident.class);
-			if (resident.getLastnameResident().equals("") && !(resident.getNameResident().equals(""))) {
-				request = "UPDATE resident SET prenom_resident = '" + resident.getNameResident() + "'";
-			} else if (!(resident.getLastnameResident().equals("")) && resident.getNameResident().equals("")) {
-				request = "UPDATE resident SET nom_resident = '" + resident.getLastnameResident() + "'";
-			} else if (!(resident.getLastnameResident().equals("")) && !(resident.getNameResident().equals(""))) {
-				request = "UPDATE resident SET nom_resident = '" + resident.getLastnameResident()
-						+ "', prenom_resident = '" + resident.getNameResident() + "'";
+			Resident resid = objectMapper.readValue(jsonString, Resident.class);
+			if (resid.getLastnameResident().equals("") && !(resid.getNameResident().equals(""))) {
+				request = "UPDATE resident SET prenom_resident = '" + resid.getNameResident() + "'";
+			} else if (!(resid.getLastnameResident().equals("")) && resid.getNameResident().equals("")) {
+				request = "UPDATE resident SET nom_resident = '" + resid.getLastnameResident() + "'";
+			} else if (!(resid.getLastnameResident().equals("")) && !(resid.getNameResident().equals(""))) {
+				request = "UPDATE resident SET nom_resident = '" + resid.getLastnameResident() + "', prenom_resident = '" + resid.getNameResident() + "'";
 			} else
 				return false;
+			PreparedStatement st = con.prepareStatement(request);
 			st.execute(request);
 			logger.log(Level.INFO, "Resident succesfully update in BDD");
 			return true;
@@ -112,17 +109,13 @@ public class ResidentDAO extends DAO<Resident> {
 	@Override
 	public String read(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
-		String request;
 		try {
-			Statement st = con.createStatement();
-			Resident resident = objectMapper.readValue(jsonString, Resident.class);
-			request = "SELECT * FROM resident where id_resident='" + resident.getIdResident() + "';";
+			Resident resid = objectMapper.readValue(jsonString, Resident.class);
+			request = "SELECT * FROM resident where id_resident='" + resid.getIdResident() + "';";
+			PreparedStatement st = con.prepareStatement(request);
 			result = st.executeQuery(request);
 			result.next();
-
-			resident.setIdResident(Integer.parseInt(result.getObject(1).toString()));
-			resident.setLastnameResident(result.getObject(2).toString());
-			resident.setNameResident(result.getObject(3).toString());
+			convertDatas(result);
 
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(resident);
@@ -141,19 +134,13 @@ public class ResidentDAO extends DAO<Resident> {
 	 */
 	@Override
 	public String readAll(String jsonString) {
-		String request;
-		Resident resident;
 		List<Resident> listResident = new ArrayList<>();
 		try {
-
-			Statement st = con.createStatement();
 			request = "SELECT * FROM resident";
+			PreparedStatement st = con.prepareStatement(request);
 			result = st.executeQuery(request);
 			while (result.next()) {
-				resident = new Resident();
-				resident.setIdResident(Integer.parseInt(result.getObject(1).toString()));
-				resident.setLastnameResident(result.getObject(2).toString());
-				resident.setNameResident(result.getObject(3).toString());
+				convertDatas(result);
 				listResident.add(resident);
 			}
 			ObjectMapper obj = new ObjectMapper();
@@ -173,21 +160,14 @@ public class ResidentDAO extends DAO<Resident> {
 	 */
 	public String findByName(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
-		String request;
-		Resident resident;
 		List<Resident> listResident = new ArrayList<>();
 		try {
-			Statement st = con.createStatement();
 			Resident resid = objectMapper.readValue(jsonString, Resident.class);
-			request = "SELECT * FROM resident where ((nom_resident LIKE '%" + resid.getLastnameResident().toUpperCase()
-					+ "%') or (prenom_resident LIKE '%" + resid.getLastnameResident().toLowerCase()
-					+ "%') or (prenom_resident LIKE '%" + resid.getLastnameResident().toUpperCase() + "%'))";
+			request = "SELECT * FROM resident where ((nom_resident LIKE '%" + resid.getLastnameResident().toUpperCase() + "%') or (prenom_resident LIKE '%" + resid.getLastnameResident().toLowerCase() + "%') or (prenom_resident LIKE '%" + resid.getLastnameResident().toUpperCase() + "%'))";
+			PreparedStatement st = con.prepareStatement(request);
 			result = st.executeQuery(request);
 			while (result.next()) {
-				resident = new Resident();
-				resident.setIdResident(Integer.parseInt(result.getObject(1).toString()));
-				resident.setLastnameResident(result.getObject(2).toString());
-				resident.setNameResident(result.getObject(3).toString());
+				convertDatas(result);
 				listResident.add(resident);
 			}
 			ObjectMapper obj = new ObjectMapper();
@@ -209,13 +189,11 @@ public class ResidentDAO extends DAO<Resident> {
 	 * @return
 	 */
 	public boolean badger(int idResident, int idSensor) {
-		String request;
 		Date currentDate = new Date();
 		Format formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try {
-			Statement st = con.createStatement();
-			request = "insert into badger (id_resident, id_capteur, date_badger) values ('" + idResident + "','"
-					+ idSensor + "','" + formater.format(currentDate) + "')";
+			request = "insert into badger (id_resident, id_capteur, date_badger) values ('" + idResident + "','" + idSensor + "','" + formater.format(currentDate) + "')";
+			PreparedStatement st = con.prepareStatement(request);
 			st.execute(request);
 			logger.log(Level.INFO, "Resident succesfully inserted in BDD");
 			return true;
@@ -223,5 +201,12 @@ public class ResidentDAO extends DAO<Resident> {
 			logger.log(Level.INFO, "Impossible to insert resident datas in BDD" + e.getClass().getCanonicalName());
 			return false;
 		}
+	}
+
+	public void convertDatas(ResultSet result) throws NumberFormatException, SQLException {
+		resident = new Resident();
+		resident.setIdResident(Integer.parseInt(result.getObject(1).toString()));
+		resident.setLastnameResident(result.getObject(2).toString());
+		resident.setNameResident(result.getObject(3).toString());
 	}
 }

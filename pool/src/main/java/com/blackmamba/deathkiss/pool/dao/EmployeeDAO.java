@@ -2,9 +2,9 @@ package com.blackmamba.deathkiss.pool.dao;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.logging.log4j.Level;
@@ -23,7 +23,9 @@ public class EmployeeDAO extends DAO<Employee> {
 	/**
 	 * Initialization of parameters
 	 */
+	private Employee employee;
 	private ResultSet result = null;
+	private String request;
 	private static final Logger logger = LogManager.getLogger(EmployeeDAO.class);
 
 	/**
@@ -42,13 +44,10 @@ public class EmployeeDAO extends DAO<Employee> {
 	@Override
 	public boolean create(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
-		String request;
 		try {
-			Statement st = con.createStatement();
-			Employee employee = objectMapper.readValue(jsonString, Employee.class);
-			request = "insert into employee (nom_employee, prenom_employee, mot_de_passe, poste) values ('"
-					+ employee.getLastnameEmployee() + "','" + employee.getNameEmployee() + "','"
-					+ employee.getPassword() + "','" + employee.getPoste() + "')";
+			Employee emp = objectMapper.readValue(jsonString, Employee.class);
+			request = "insert into employee (nom_employee, prenom_employee, mot_de_passe, poste) values ('" + emp.getLastnameEmployee() + "','" + emp.getNameEmployee() + "','" + emp.getPassword() + "','" + emp.getPoste() + "')";
+			PreparedStatement st = con.prepareStatement(request);
 			st.execute(request);
 			logger.log(Level.INFO, "Employee succesfully inserted in BDD");
 			return true;
@@ -65,11 +64,10 @@ public class EmployeeDAO extends DAO<Employee> {
 	@Override
 	public boolean delete(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
-		String request;
 		try {
-			Statement st = con.createStatement();
-			Employee employee = objectMapper.readValue(jsonString, Employee.class);
-			request = "DELETE FROM employee where id_employee = " + employee.getIdEmployee() + ";";
+			Employee emp = objectMapper.readValue(jsonString, Employee.class);
+			request = "DELETE FROM employee where id_employee = " + emp.getIdEmployee() + ";";
+			PreparedStatement st = con.prepareStatement(request);
 			st.execute(request);
 			logger.log(Level.INFO, "Employee succesfully deleted in BDD");
 			return true;
@@ -86,19 +84,14 @@ public class EmployeeDAO extends DAO<Employee> {
 	@Override
 	public boolean update(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
-		String request;
 		try {
-			Statement st = con.createStatement();
-			Employee employee = objectMapper.readValue(jsonString, Employee.class);
+			Employee emp = objectMapper.readValue(jsonString, Employee.class);
 			if (employee.getPassword().equals("")) {
-				request = "UPDATE employee SET prenom_employee = '" + employee.getNameEmployee() + "', nom_employee = '"
-						+ employee.getLastnameEmployee() + "',poste = '" + employee.getPoste()
-						+ "' where id_employee = " + employee.getIdEmployee();
+				request = "UPDATE employee SET prenom_employee = '" + emp.getNameEmployee() + "', nom_employee = '" + emp.getLastnameEmployee() + "',poste = '" + emp.getPoste() + "' where id_employee = " + emp.getIdEmployee();
 			} else {
-				request = "UPDATE employee SET mot_de_passe = '" + employee.getPassword() + "', nom_employee = '"
-						+ employee.getLastnameEmployee() + "', prenom_employee = '" + employee.getNameEmployee()
-						+ "' where id_employee = " + employee.getIdEmployee();
+				request = "UPDATE employee SET mot_de_passe = '" + emp.getPassword() + "', nom_employee = '" + emp.getLastnameEmployee() + "', prenom_employee = '" + emp.getNameEmployee() + "' where id_employee = " + emp.getIdEmployee();
 			}
+			PreparedStatement st = con.prepareStatement(request);
 			st.execute(request);
 			logger.log(Level.INFO, "Employee succesfully update in BDD");
 			return true;
@@ -114,20 +107,14 @@ public class EmployeeDAO extends DAO<Employee> {
 	 */
 	public String connection(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
-		String request;
 		try {
-			Statement st = con.createStatement();
-			Employee employee = objectMapper.readValue(jsonString, Employee.class);
-			request = "SELECT * FROM Employee where id_employee='" + employee.getIdEmployee() + "' and mot_de_passe='"
-					+ employee.getPassword() + "';";
+			Employee emp = objectMapper.readValue(jsonString, Employee.class);
+			request = "SELECT * FROM Employee where id_employee='" + emp.getIdEmployee() + "' and mot_de_passe='" + emp.getPassword() + "';";
+			PreparedStatement st = con.prepareStatement(request);
 			result = st.executeQuery(request);
 			result.next();
+			convertDatas(result);
 
-			employee.setIdEmployee(Integer.parseInt(result.getObject(1).toString()));
-			employee.setLastnameEmployee(result.getObject(2).toString());
-			employee.setNameEmployee(result.getObject(3).toString());
-			employee.setPassword(result.getObject(4).toString());
-			employee.setPoste(result.getObject(5).toString());
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(employee);
 			logger.log(Level.INFO, "Employee succesfully recognized in BDD");
@@ -146,19 +133,14 @@ public class EmployeeDAO extends DAO<Employee> {
 	@Override
 	public String read(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
-		String request;
 		try {
-			Statement st = con.createStatement();
-			Employee employee = objectMapper.readValue(jsonString, Employee.class);
-			request = "SELECT * FROM Employee where id_employee='" + employee.getIdEmployee() + "';";
+			Employee emp = objectMapper.readValue(jsonString, Employee.class);
+			request = "SELECT * FROM Employee where id_employee='" + emp.getIdEmployee() + "';";
+			PreparedStatement st = con.prepareStatement(request);
 			result = st.executeQuery(request);
 			result.next();
+			convertDatas(result);
 
-			employee.setIdEmployee(Integer.parseInt(result.getObject(1).toString()));
-			employee.setLastnameEmployee(result.getObject(2).toString());
-			employee.setNameEmployee(result.getObject(3).toString());
-			employee.setPassword(result.getObject(4).toString());
-			employee.setPoste(result.getObject(5).toString());
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(employee);
 			logger.log(Level.INFO, "Employee succesfully find in BDD");
@@ -176,21 +158,13 @@ public class EmployeeDAO extends DAO<Employee> {
 	 */
 	@Override
 	public String readAll(String jsonString) {
-		String request;
-		Employee employee;
 		List<Employee> listEmployee = new ArrayList<>();
 		try {
-
-			Statement st = con.createStatement();
 			request = "SELECT * FROM Employee";
+			PreparedStatement st = con.prepareStatement(request);
 			result = st.executeQuery(request);
 			while (result.next()) {
-				employee = new Employee();
-				employee.setIdEmployee(Integer.parseInt(result.getObject(1).toString()));
-				employee.setLastnameEmployee(result.getObject(2).toString());
-				employee.setNameEmployee(result.getObject(3).toString());
-				employee.setPassword(result.getObject(4).toString());
-				employee.setPoste(result.getObject(5).toString());
+				convertDatas(result);
 				listEmployee.add(employee);
 			}
 			ObjectMapper obj = new ObjectMapper();
@@ -210,26 +184,15 @@ public class EmployeeDAO extends DAO<Employee> {
 	 */
 	public String findByName(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
-		String request;
-		Employee employee;
 		List<Employee> listEmployee = new ArrayList<>();
 		try {
-
-			Statement st = con.createStatement();
 			Employee emp = objectMapper.readValue(jsonString, Employee.class);
-			request = "SELECT * FROM employee where ((nom_employee LIKE '%" + emp.getLastnameEmployee().toUpperCase()
-					+ "%') or (prenom_employee LIKE '%" + emp.getLastnameEmployee().toLowerCase()
-					+ "%') or (prenom_employee LIKE '%" + emp.getLastnameEmployee().toUpperCase()
-					+ "%') or (poste LIKE '%" + emp.getLastnameEmployee().toLowerCase() + "%') or (poste LIKE '%"
-					+ emp.getLastnameEmployee().toUpperCase() + "%'))";
+			request = "SELECT * FROM employee where ((nom_employee LIKE '%" + emp.getLastnameEmployee().toUpperCase() + "%') or (prenom_employee LIKE '%" + emp.getLastnameEmployee().toLowerCase() + "%') or (prenom_employee LIKE '%" + emp.getLastnameEmployee().toUpperCase() + "%') or (poste LIKE '%"
+					+ emp.getLastnameEmployee().toLowerCase() + "%') or (poste LIKE '%" + emp.getLastnameEmployee().toUpperCase() + "%'))";
+			PreparedStatement st = con.prepareStatement(request);
 			result = st.executeQuery(request);
 			while (result.next()) {
-				employee = new Employee();
-				employee.setIdEmployee(Integer.parseInt(result.getObject(1).toString()));
-				employee.setLastnameEmployee(result.getObject(2).toString());
-				employee.setNameEmployee(result.getObject(3).toString());
-				employee.setPassword(result.getObject(4).toString());
-				employee.setPoste(result.getObject(5).toString());
+				convertDatas(result);
 				listEmployee.add(employee);
 			}
 			ObjectMapper obj = new ObjectMapper();
@@ -241,5 +204,14 @@ public class EmployeeDAO extends DAO<Employee> {
 		}
 		jsonString = "ERROR";
 		return jsonString;
+	}
+
+	public void convertDatas(ResultSet result) throws NumberFormatException, SQLException {
+		employee = new Employee();
+		employee.setIdEmployee(Integer.parseInt(result.getObject(1).toString()));
+		employee.setLastnameEmployee(result.getObject(2).toString());
+		employee.setNameEmployee(result.getObject(3).toString());
+		employee.setPassword(result.getObject(4).toString());
+		employee.setPoste(result.getObject(5).toString());
 	}
 }

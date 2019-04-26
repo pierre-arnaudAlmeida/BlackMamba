@@ -627,7 +627,7 @@ public class TabCommonArea extends JPanel {
 					tab = new JTabbedPane();
 					tab = Frame.getTab();
 					try {
-						if (tab.isEnabledAt(6) == false) {
+						if (tab.isEnabledAt(6)) {
 						} else {
 							tab.remove(6);
 							tabListSensor = new TabListSensor(commonArea, idemployee, "Onglet Liste des Capteurs");

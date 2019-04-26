@@ -2,9 +2,9 @@ package com.blackmamba.deathkiss.pool.dao;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,6 +29,8 @@ public class MessageDAO extends DAO<Message> {
 	private ResultSet result = null;
 	private SimpleDateFormat dateFormat;
 	private Date alertDate;
+	private String request;
+	private Message message;
 	private static final Logger logger = LogManager.getLogger(MessageDAO.class);
 
 	/**
@@ -47,13 +49,11 @@ public class MessageDAO extends DAO<Message> {
 	@Override
 	public boolean create(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
-		String request;
-
 		try {
-			Statement st = con.createStatement();
-			Message message = objectMapper.readValue(jsonString, Message.class);
-			java.sql.Date sqlDate = new java.sql.Date(message.getAlertDate().getTime());
-			request = "insert into message (id_capteur,date_alerte,seuil) values ('" + message.getIdSensor() + "','" + sqlDate + "', '" + message.getThreshold() + "')";
+			Message mess = objectMapper.readValue(jsonString, Message.class);
+			java.sql.Date sqlDate = new java.sql.Date(mess.getAlertDate().getTime());
+			request = "insert into message (id_capteur,date_alerte,seuil) values ('" + mess.getIdSensor() + "','" + sqlDate + "', '" + mess.getThreshold() + "')";
+			PreparedStatement st = con.prepareStatement(request);
 			st.execute(request);
 			logger.log(Level.INFO, "Message succesfully inserted in BDD ");
 			return true;
@@ -69,11 +69,10 @@ public class MessageDAO extends DAO<Message> {
 	@Override
 	public boolean delete(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
-		String request;
 		try {
-			Statement st = con.createStatement();
-			Message message = objectMapper.readValue(jsonString, Message.class);
-			request = "DELETE FROM message where date_alerte < " + message.getAlertDate() + ";";
+			Message mess = objectMapper.readValue(jsonString, Message.class);
+			request = "DELETE FROM message where date_alerte < " + mess.getAlertDate() + ";";
+			PreparedStatement st = con.prepareStatement(request);
 			st.execute(request);
 			logger.log(Level.INFO, "Messages succesfully deleted in BDD ");
 			return true;
@@ -89,12 +88,11 @@ public class MessageDAO extends DAO<Message> {
 	@Override
 	public boolean update(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
-		String request;
 		try {
-			Statement st = con.createStatement();
-			Message message = objectMapper.readValue(jsonString, Message.class);
-			java.sql.Date sqlDate = new java.sql.Date(message.getAlertDate().getTime());
-			request = "UPDATE message SET id_capteur = '" + message.getIdSensor() + "', date_alerte = '" + sqlDate + "', seuil='" + message.getThreshold() + "'";
+			Message mess = objectMapper.readValue(jsonString, Message.class);
+			java.sql.Date sqlDate = new java.sql.Date(mess.getAlertDate().getTime());
+			request = "UPDATE message SET id_capteur = '" + mess.getIdSensor() + "', date_alerte = '" + sqlDate + "', seuil='" + mess.getThreshold() + "'";
+			PreparedStatement st = con.prepareStatement(request);
 			st.execute(request);
 			logger.log(Level.INFO, "Message succesfully update in BDD");
 			return true;
@@ -110,22 +108,13 @@ public class MessageDAO extends DAO<Message> {
 	@Override
 	public String read(String jsonString) {
 		ObjectMapper objectMapper = new ObjectMapper();
-		String request;
 		try {
-			Statement st = con.createStatement();
-			Message message = objectMapper.readValue(jsonString, Message.class);
-			request = "SELECT * FROM message where id_message='" + message.getIdMessage() + "';";
+			Message mess = objectMapper.readValue(jsonString, Message.class);
+			request = "SELECT * FROM message where id_message='" + mess.getIdMessage() + "';";
+			PreparedStatement st = con.prepareStatement(request);
 			result = st.executeQuery(request);
 			result.next();
-
-			message.setIdMessage(Integer.parseInt(result.getObject(1).toString()));
-			message.setIdSensor(Integer.parseInt(result.getObject(2).toString()));
-
-			dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-			alertDate = dateFormat.parse(result.getObject(3).toString());
-			message.setAlertDate(alertDate);
-			message.setThreshold(Integer.parseInt(result.getObject(4).toString()));
-
+			convertDatas(result);
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(message);
 			logger.log(Level.INFO, "Message succesfully find in BDD");
@@ -142,27 +131,17 @@ public class MessageDAO extends DAO<Message> {
 	 */
 	@Override
 	public String readAll(String jsonString) {
-		String request;
-		Message message2;
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<Message> listMessage = new ArrayList<>();
 		try {
-
-			Statement st = con.createStatement();
 			// Message message = objectMapper.readValue(jsonString, Message.class);
 			request = "SELECT * FROM message"; // where date_alerte >=" + message.getAlertDate() + ";";
 												// TODO PA mettre la date dans le read all
+			PreparedStatement st = con.prepareStatement(request);
 			result = st.executeQuery(request);
 			while (result.next()) {
-				message2 = new Message();
-				message2.setIdMessage(Integer.parseInt(result.getObject(1).toString()));
-				message2.setIdSensor(Integer.parseInt(result.getObject(2).toString()));
-
-				dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-				alertDate = dateFormat.parse(result.getObject(3).toString());
-				message2.setAlertDate(alertDate);
-				message2.setThreshold(Integer.parseInt(result.getObject(4).toString()));
-				listMessage.add(message2);
+				convertDatas(result);
+				listMessage.add(message);
 			}
 			jsonString = objectMapper.writeValueAsString(listMessage);
 			logger.log(Level.INFO, "Message succesfully find in BDD");
@@ -172,5 +151,16 @@ public class MessageDAO extends DAO<Message> {
 		}
 		jsonString = "ERROR";
 		return jsonString;
+	}
+
+	public void convertDatas(ResultSet result) throws NumberFormatException, SQLException, ParseException {
+		message = new Message();
+		message.setIdMessage(Integer.parseInt(result.getObject(1).toString()));
+		message.setIdSensor(Integer.parseInt(result.getObject(2).toString()));
+
+		dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		alertDate = dateFormat.parse(result.getObject(3).toString());
+		message.setAlertDate(alertDate);
+		message.setThreshold(Integer.parseInt(result.getObject(4).toString()));
 	}
 }

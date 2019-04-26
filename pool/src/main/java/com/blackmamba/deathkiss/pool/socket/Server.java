@@ -80,7 +80,7 @@ public class Server {
 	public void open() {
 		Thread threadServer = new Thread(new Runnable() {
 			public void run() {
-				while (isRunning == true) {
+				while (isRunning) {
 					try {
 						client = server.accept();
 						connectionGived = DataSource.getConnectionFromJDBC(pool);
@@ -113,7 +113,7 @@ public class Server {
 		numberConnection = 0;
 		Thread threadFakeServer = new Thread(new Runnable() {
 			public void run() {
-				while (isRunning == true) {
+				while (isRunning) {
 					try {
 						client = server.accept();
 						while (numberConnection < DataSource.getMaxConnectionFromJDBC(pool)) {

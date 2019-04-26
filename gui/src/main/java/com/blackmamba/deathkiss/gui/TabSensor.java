@@ -273,11 +273,8 @@ public class TabSensor extends JPanel {
 						objectMapper = new ObjectMapper();
 						try {
 							jsonString = objectMapper.writeValueAsString(sensor2);
-							System.out.println(jsonString);
 							new ClientSocket(requestType, jsonString, table);
-							System.out.println("cccccccccccccccccccccccccc");
 							jsonString = ClientSocket.getJson();
-							System.out.println(jsonString);
 							Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
 							listSearchSensor = Arrays.asList(sensors);
 							logger.log(Level.INFO, "Find Sensor data succed");
@@ -415,8 +412,8 @@ public class TabSensor extends JPanel {
 							textInputNameCommonArea.setSelectedIndex(i);
 						}
 					}
-					textInputTypeSensor.setSelectedItem(sensor.getTypeSensor().toString());
-					if (sensor.getSensorState() == true) {
+					textInputTypeSensor.setSelectedItem(sensor.getTypeSensor().name());
+					if (sensor.getSensorState()) {
 						switchButton.setText("ON");
 						switchButton.setBackground(Color.GREEN);
 					} else {
@@ -506,6 +503,7 @@ public class TabSensor extends JPanel {
 		/**
 		 * Definition of textArea TypeSensor
 		 */
+		//TODO PA changer le format de la list
 		String[] types = { "SMOKE", "MOVE", "TEMPERATURE", "WINDOW", "DOOR", "ELEVATOR", "LIGHT", "FIRE", "BADGE",
 				"ROUTER" };
 		textInputTypeSensor = new JComboBox<String>(types);
@@ -579,8 +577,8 @@ public class TabSensor extends JPanel {
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 			}
-			textInputTypeSensor.setSelectedItem(sensor.getTypeSensor().toString());
-			if (sensor.getSensorState() == true) {
+			textInputTypeSensor.setSelectedItem(sensor.getTypeSensor().name());
+			if (sensor.getSensorState()) {
 				switchButton.setText("ON");
 				switchButton.setBackground(Color.GREEN);
 			} else {
@@ -752,8 +750,8 @@ public class TabSensor extends JPanel {
 					textInputIdSensor.setText(Integer.toString(sensor.getIdSensor()));
 				}
 				textInputNameCommonArea.setSelectedItem(commonArea.getNameCommonArea());
-				textInputTypeSensor.setSelectedItem(sensor.getTypeSensor().toString());
-				if (sensor.getSensorState() == true) {
+				textInputTypeSensor.setSelectedItem(sensor.getTypeSensor().name());
+				if (sensor.getSensorState()) {
 					switchButton.setText("ON");
 					switchButton.setBackground(Color.GREEN);
 				} else {
@@ -919,7 +917,7 @@ public class TabSensor extends JPanel {
 						textInputNameCommonArea.setSelectedIndex(i);
 					}
 				}
-				textInputTypeSensor.setSelectedItem(sensor.getTypeSensor().toString());
+				textInputTypeSensor.setSelectedItem(sensor.getTypeSensor().name());
 				if (sensor.getSensorState() == true) {
 					switchButton.setText("ON");
 					switchButton.setBackground(Color.GREEN);
@@ -955,7 +953,6 @@ public class TabSensor extends JPanel {
 		listM.addElement("Les capteurs et leurs états");
 		for (Alert alerts : listAlert) {
 			if (!alerts.getAlertState().equals(sensor.getAlertState())) {
-
 				listM.addElement(alerts.getIdSensor() + "# " + alerts.getAlertState());
 			}
 		}
