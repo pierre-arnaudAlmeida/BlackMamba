@@ -1,160 +1,233 @@
 # SmartHome Services (SHS)
-Notre projet consiste à sécuriser la condition de vie des résidents et pour
-améliorer la réactivité des employés face aux différents problèmes. 
+Notre projet consiste a� securiser la condition de vie des residents et pour
+ameliorer la reactivite des employes face aux differents problemes. 
 
-L'IHM développé va permettre : 
-							- Enrengistrer les utilisateurs dans la base de donnée
-							- Séléctionner des utilisateurs dans la base de donnée 
-							- Mettre à jour la base de donnée 
-							- Supprimer des utilisateurs de la base de donnée
+L'IHM developpe va permettre : 
+							- Enrengistrer les utilisateurs dans la base de donnee
+							- Selectionner des utilisateurs dans la base de donnee 
+							- Mettre a� jour la base de donnee 
+							- Supprimer des utilisateurs de la base de donnee
 
 
 
-## Bien débuter
+## Bien debuter
 
 Ces instructions vont vous permettre d'effectuer des tests sur l'IHM.
 Veuillez voir les notes ci-dessous pour constater comment fonctionne le projet sur une machine virtuelle.
 
-### Prérequis
+### Prerequis
 
 ```
 -Eclipse 
--Fichier jar devra être installé dans la VM 
--Un raccourci sera présent sur le bureau de la VM
+-Fichier jar IHM devra etre installe dans la VM 
+-Fichier jar Serveur
+-Fichier jar Mock
+-Fichier jar BiAnalysis
+-Un raccourci sera present sur le bureau de la VM
 -Utilisateur test : Identifiant: 1  / Mot de passe : plc 
--Postgree installé
-
+-Postgree installe
+-
 
 ### Installation
 
-## Procédure JAR
+## Procedure JAR
 
-# Génération jar sous Eclipse 
+# Generation jar sous Eclipse 
+
+Generation jar du dossier 
+```
+Ouvrir Eclipse, selectionner le projet en l'occurrence BlackMamba pour notre groupe puis selectionner le module maven gui .
 
 ```
-Ouvrir Eclipse, séléctionner le projet en l’occurrence BlackMamba pour notre groupe.
+Ouvrir le fichier � pom.xml�.
 
 ```
-Ouvrir le fichier « pom.xml ».
+Ensuite dans le fichier « pom.xml » nous pouvons modifier le groupId, qui correspond au nom du projet, pour notre groupe cela sera « BlackMamba »
 
 ```
-Ensuite dans le fichier « pom.xml » nous pouvons modifier le groupId, qui correspond au
-nom du projet, pour notre groupe cela sera « BlackMamba ».
-
+ <groupId>com.blackmamba</groupId> 
 ```
 
+
+Nous choisissons le nom du de l artefact, nous utiliserons 
 ```
-Nous choisissons le nom du de l’artefact, nous utiliserons « BlackMamba ». Donc notre
-fichier JAR aura pour nom actuellement : « BlackMamba-version.jar ».
+<artifactId>deathkiss</artifactId>.
+
+```
+Donc notre fichier JAR aura pour nom actuellement : « blackmamba-version.jar ».
 
 ```
 Il nous faut donner une version a notre fichier JAR, notre premier fichier JAR sera donc en
-version « 0.0.1 », l’utilisation du mot SNAPSHOT est la pour signifier le développement de la
+version « 0.0.1 », l utilisation du mot SNAPSHOT est la pour signifier le developpement de la
 version en cours.
 
 ```
-le fichier JAR sera crée dans le dossier « target » du projet.
-Le lieu d’enregistrement peut être modifier.
-
+le fichier jar sera cree dans le dossier « target » du projet.
+Le lieu d enrengistrement peut etre modifier.
 ```
-Se placer, dans le dossier maven de l'IHM 
-Pour générer le fichier JAR de l'IHM, il faut faire un clic droit sur le fichier « pom.xml » du dossier IHM, ensuite « Run
+
+
+Generation Gui.jar
+
+Se placer, dans le module  maven gui present dans le dossier BlackMamba
+Pour generer le fichier JAR de l'IHM, il faut faire 
+```
+un clic droit sur le fichier « pom.xml » du dossier IHM, ensuite « Run
 As » et enfin cliquer sur « Maven Install »
  
 ```
-Le fichier jar "ihm-0.0.1-SNAPSHOT-jar-with-dependencies.jar" est généré
+Le fichier jar "gui-0.0.1-SNAPSHOT-jar-with-dependencies.jar" est genere
 ```
 
-# Executer le jar 
 
+Generation Pool.jar
+Se placer, dans le module  maven pool present dans le dossier BlackMamba
+Pour generer le fichier JAR de l'IHM, il faut faire un clic droit sur le fichier « pom.xml » du dossier IHM, ensuite « Run
+As » et enfin cliquer sur « Maven Install »
+ 
+```
+Le fichier jar "gui-0.0.1-SNAPSHOT-jar-with-dependencies.jar" est genere
+```
+
+Generation Mock.jar 
+
+Se placer, dans le module  maven gui present dans le dossier BlackMamba
+Pour generer le fichier JAR du mock, il faut faire 
+```
+un clic droit sur le fichier « pom.xml » du dossier  mock, ensuite « Run
+As » et enfin cliquer sur « Maven Install »
+ 
+```
+Le fichier jar "mock-0.0.1-SNAPSHOT-jar-with-dependencies.jar" est genere
+```
+
+Generation BiAnalysis.jar 
+
+Se placer, dans le module  maven gui present dans le dossier BlackMamba puis module "BiAnalysis
+Pour generer le fichier JAR de BiAnalysis, il faut faire 
+```
+un clic droit sur le fichier « pom.xml » du dossier IHM, ensuite « Run
+As » et enfin cliquer sur « Maven Install »
+ 
+```
+Le fichier jar "BiAnalysis-0.0.1-SNAPSHOT-jar-with-dependencies.jar" est genere
+```
+
+# Executer les fichiers jar 
+
+Executer le jar du serveur 
+
+```
+Se placer dans le dossier BlackMamba, puis le dossier pool, et pour finir le dossier Target 
+Il faut lancer ihm du serveur et cliquer sur lancer le serveur.
+Double clique gauche sur "pool-0.0.1-SNAPSHOT-jar-with-dependencies.jar"
+il s'agit du fichier jar generer dans le dossier target du IHM.
+```
+Le serveur est en marche
+
+```
+Executer le jar  gui 
+```
 ```
 Se placer dans le dossier BlackMamba, puis le dossier IHM, et pour finir le dossier Target 
 
 ```
-Double clique gauche sur "ihm-0.0.1-SNAPSHOT-jar-with-dependencies.jar"
-, il s'agit du fichier jar généré dans le dossier target du IHM.
+Double clique gauche sur "gui-0.0.1-SNAPSHOT-jar-with-dependencies.jar"
+, il s'agit du fichier jar generer dans le dossier target du IHM.
 ```
 ```
 l'IHM se lance
 
-```
 
-## Exécuter des tests
+
+## Executer des tests
+pre requis : 
+- Serveur en marche 
+- Gui en marche 
+- BiAnalysis en marche 
+
+
+# Simulation Mock 
+
+Lancer le Mock.jar, qui va  permettre de permettront de reproduire le comportement d'objet r�els de maniere controlee. 
+Cela va permettre de tester le comportement des objets r�agissant sur l'IHM. 
 
 #Test 1 Test Connexion identifiant test
 
-```
 Utiliser l'identifiant test 
 
 ```
-Connexion réussie : accès à l'onglet insertion client 
+Connexion reussie: acces a l'onglet insertion client 
 ```
-accès à la base de donnée 
+acces a� la base de donnee 
 ```
-Test avec un idenfiant non enrengistré, par exemple : Identifiant: 2 / mot de passe : popo
+Test avec un idenfiant non enrengistre, par exemple : Identifiant: 2 / mot de passe : popo
 ```
 Erreur identifiant ou Mot de passe sont incorrect
 ```
-IHM n'a pas pu se connecter sur la base de donnée 
-```
+IHM n'a pas pu se connecter sur la base de donnee 
 
-#Test 2 Lire sur la base de donnée depuis l'IHM
+
+#Test 2 Lire sur la base de donnee depuis l'IHM
 
 ```
-Une fois identifié 
+Une fois identifie 
 
 ```
 Cliquer sur liste des profils
 
 ```
-une fenêtre s'ouvre, nous obtenons les personnes enrengistrées sur la base de donnée :
+une fenetre s'ouvre, nous obtenons les personnes presentes sur la base de donnee :
 
-Id employé 1  || Votre nom Almeida || Prénom arnaud 
+Id employa� 1  || Votre nom Almeida || prenom arnaud 
 
-
-```
-Pour verifier l'exactitude des données sur le lien de la base de donnée
 
 ```
-Verifier sur la base de donnée que les personnes présentes sur l'ihm sont les mêmes personnes sur la base de donnée de Postgree
-
-Id employé 1  || Votre nom Almeida || Prénom arnaud || mot_de_passe : plc
-```
-#Test 3 Ecrire sur la base de donnée depuis l'IHM 
+Pour verifier l'exactitude des donnees sur le lien de la base de donnee
 
 ```
-Une fois identifié 
+Verifier sur la base de donnee que les personnes presentes sur l'ihm sont les ma�mes personnes sur la base de donnee de Postgree
+
+Id employa� 1  || Votre nom Almeida || prenom arnaud || mot_de_passe : plc
+```
+#Test 3 Ecrire sur la base de donnee depuis l'IHM 
+
+```
+Une fois identifie 
 
 ```
 Inscrire une personne  
 
 ```
-une fenêtre s'ouvre, nous obtenons les personnes enrengistré sur la base de donnée, ajouter Prenom :  et Nom :  et Mot de passe : 
+une fenetre s'ouvre, nous obtenons les personnes enrengistre sur la base de donnee, ajouter Prenom :  et Nom :  et Mot de passe : 
 
 ```
 Cliquer sur "inscrire" 
 ```
-Verifier sur la base de donnée que l'ecriture sur l'ihm s'est réaliser sur la base de donnée de Postgree
+Verifier sur la base de donnee que l'ecriture sur l'ihm s'est realise sur la base de donnee de Postgree
 Voici le lien : 
 
-#Test 4 Effectuer une  Mise à jour 
+#Test 4 Effectuer une  Mise a� jour 
 
 ```
-Une fois identifié 
+Une fois identifie 
 
 ```
-une fenêtre s'ouvre, nous obtenons les personnes enrengistré sur la base de donnée, modifier le Prenom :  et/ ou Nom : 
+une fenetre s'ouvre, nous obtenons les personnes enrengistre sur la base de donnee, modifier le Prenom :  et/ ou Nom : 
 
 ```
-Verifier sur la base de donnée que la mise à jour sur l'ihm s'est réaliser sur la base de donnée de Postgree
+Verifier sur la base de donnee que la mise a� jour sur l'ihm s'est realise sur la base de donnee de Postgree
 Voici le lien : 
 
 ```
 
 
-## Accéder à notre documentation
 
-Pour connaître les différentes commandes de notre projet, vous pouvez vous rendre sur https://drive.google.com/drive/folders/1p7Tpvd-S86IvIGy6OW-FZrqK7S58jRtA?usp=sharing
+
+
+## Acceder a� notre documentation
+
+Pour connaitre les differentes commandes de notre projet, vous pouvez vous rendre sur https://drive.google.com/drive/folders/1Whu-TJRyjkN2xbLY668l2u1LvBM6SHde
 
 
 ## Historique de version

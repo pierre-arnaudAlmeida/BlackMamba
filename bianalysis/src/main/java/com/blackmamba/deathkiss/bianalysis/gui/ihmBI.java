@@ -85,9 +85,7 @@ public class ihmBI extends JFrame {
 	private JButton btnDate; 
 	private JButton btnGraphique;
 	private static final Logger logger = LogManager.getLogger(TabSensor.class);
-	private JLabel lblResultat;
 	private JLabel lbl;
-	private JTextField tfNombreCapteurTemp;
 	private JDateChooser dateChooser;
 	private JDateChooser dateChooser_1;
 	private JTextField tfDate;
@@ -136,71 +134,60 @@ public class ihmBI extends JFrame {
 		// Label
 		
 		JLabel lblTempratureMoyenne = new JLabel("Température moyenne");
-		lblTempratureMoyenne.setBounds(402, 111, 139, 16);
+		lblTempratureMoyenne.setBounds(54, 544, 139, 16);
 		contentPane.add(lblTempratureMoyenne);
 		
 		JLabel lblNombreDePannes = new JLabel("Nombre de pannes");
-		lblNombreDePannes.setBounds(402, 154, 139, 16);
+		lblNombreDePannes.setBounds(632, 507, 139, 16);
 		contentPane.add(lblNombreDePannes);
 		
 		JLabel lblNombreDalertes = new JLabel("Nombre d'alertes");
-		lblNombreDalertes.setBounds(402, 194, 147, 22);
+		lblNombreDalertes.setBounds(657, 274, 147, 22);
 		contentPane.add(lblNombreDalertes);
 		
 		
 		JLabel lblStock = new JLabel("Nombre de capteurs en stock");
-		lblStock.setBounds(402, 246, 176, 16);
+		lblStock.setBounds(340, 277, 147, 16);
 		contentPane.add(lblStock);
 		
-		lblResultat = new JLabel("Nombre de capteurs Température");
-		lblResultat.setBounds(404, 301, 186, 16);
-		lblResultat.setFont(policeLabel);
-		contentPane.add(lblResultat);
-		
-		// Combobox
-		
-		JComboBox cbPeriode = new JComboBox(periode);
-		cbPeriode.setBounds(384, 30, 100, 35);
-		contentPane.add(cbPeriode);
-		
 		JComboBox cbArea = new JComboBox(area);
-		cbArea.setBounds(496, 30, 100, 35);
+		cbArea.setBounds(632, 52, 100, 35);
 		contentPane.add(cbArea);
 		
 		JComboBox cbCapteur = new JComboBox(sensorType);
-		cbCapteur.setBounds(608, 30, 100, 35);
+		cbCapteur.setBounds(632, 6, 100, 35);
 		contentPane.add(cbCapteur);
 		
 		// Bouton
 		
 		btnRecherche = new JButton("Recherche");
-		btnRecherche.setBounds(715, 33, 139, 28);
+		btnRecherche.setBounds(742, 33, 112, 28);
 		contentPane.add(btnRecherche);
 		
 		
 		btnTemperature = new JButton("Calculer");
-		btnTemperature.setBounds(730, 105, 124, 28);
+		btnTemperature.setBounds(382, 538, 124, 28);
 		contentPane.add(btnTemperature);
 		
 		btnDeconnexion = new JButton("Deconnexion");
-		btnDeconnexion.setBounds(854, 6, 124, 28);
+		btnDeconnexion.setBounds(860, 0, 124, 28);
 		contentPane.add(btnDeconnexion);
 
 		// Textfield 
 		nbPanne = new JTextField();
-		nbPanne.setBounds(583, 148, 112, 28);
+		nbPanne.setBounds(813, 501, 112, 28);
 		contentPane.add(nbPanne);
 		nbPanne.setColumns(10);
 		
 
 		
 		tfTemperature = new JTextField();
-		tfTemperature.setBounds(583, 105, 112, 28);
+		tfTemperature.setBounds(235, 538, 112, 28);
 		contentPane.add(tfTemperature);
 		tfTemperature.setColumns(10);
 		
 		tfAlertes = new JTextField();
-		tfAlertes.setBounds(583, 194, 112, 28);
+		tfAlertes.setBounds(800, 271, 112, 28);
 		tfAlertes.setText(returnNumber().toString());
 		contentPane.add(tfAlertes);
 		tfAlertes.setColumns(10);
@@ -208,21 +195,15 @@ public class ihmBI extends JFrame {
 
 		
 		tfStock = new JTextField();
-		tfStock.setBounds(583, 240, 112, 28);
+		tfStock.setBounds(495, 271, 112, 28);
 		contentPane.add(tfStock);
 		tfStock.setColumns(10);
 		
 
 		tfRecherche = new JTextField();
-		tfRecherche.setBounds(45, 33, 327, 28);
+		tfRecherche.setBounds(10, 33, 289, 28);
 		contentPane.add(tfRecherche);
 		tfRecherche.setColumns(10);
-		
-		tfNombreCapteurTemp = new JTextField();
-		tfNombreCapteurTemp.setBounds(583, 295, 112, 28);
-		tfNombreCapteurTemp.setText(returnNumber().toString());
-		contentPane.add(tfNombreCapteurTemp);
-		tfNombreCapteurTemp.setColumns(10);
 
 
 		// List 
@@ -241,32 +222,32 @@ public class ihmBI extends JFrame {
 		contentPane.add(sc);
 		
 	    dateChooser = new JDateChooser();
-		dateChooser.setBounds(542, 346, 106, 28);
+		dateChooser.setBounds(495, 6, 112, 28);
 		contentPane.add(dateChooser);
 		
 		dateChooser_1 = new JDateChooser();
-		dateChooser_1.setBounds(542, 386, 106, 28);
+		dateChooser_1.setBounds(495, 50, 112, 28);
 		contentPane.add(dateChooser_1);
 		
 		JLabel lblNewLabel = new JLabel("Data Range from");
-		lblNewLabel.setBounds(337, 358, 124, 16);
+		lblNewLabel.setBounds(316, 18, 97, 16);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblTo = new JLabel("to");
-		lblTo.setBounds(377, 386, 53, 16);
+		lblTo.setBounds(309, 49, 28, 16);
 		contentPane.add(lblTo);
 		
 		tfDate = new JTextField();
-		tfDate.setBounds(429, 346, 112, 28);
+		tfDate.setBounds(396, 6, 89, 28);
 		contentPane.add(tfDate);
 		tfDate.setColumns(10);
 		
 		btnDate = new JButton("GetDate");
-		btnDate.setBounds(698, 346, 89, 28);
+		btnDate.setBounds(752, 72, 89, 28);
 		contentPane.add(btnDate);
 		
 		tfDate1 = new JTextField();
-		tfDate1.setBounds(429, 386, 112, 28);
+		tfDate1.setBounds(396, 50, 89, 28);
 		contentPane.add(tfDate1);
 		tfDate1.setColumns(10);
 		//contentPane.add(list);
@@ -289,8 +270,26 @@ public class ihmBI extends JFrame {
 	    
 	    
 	    JButton btnGraphique = new JButton("VisualisationGraphique");
-	    btnGraphique.setBounds(730, 194, 186, 28);
+	    btnGraphique.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		
+				ratioHommeFemmeJdialog.getContentPane().add(cPanel, CENTER);
+
+				ratioHommeFemmeJdialog.pack();
+				ratioHommeFemmeJdialog.setVisible(true);
+	    		
+	    		
+	    	}
+	    });
+	    btnGraphique.setBounds(386, 319, 186, 28);
 	    contentPane.add(btnGraphique);
+	    
+	    
+	    ChartPanel myChart = new ChartPanel(pieChart);
+	    myChart.setBounds(366, 89, 223, 182);
+	    contentPane.add(myChart);
+	    myChart.setMouseWheelEnabled(true);
+	    
 
 
 			
@@ -316,17 +315,7 @@ public class ihmBI extends JFrame {
 			}
 		});
 		
-	    btnGraphique.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
-	    		
-				ratioHommeFemmeJdialog.getContentPane().add(cPanel, CENTER);
 
-				ratioHommeFemmeJdialog.pack();
-				ratioHommeFemmeJdialog.setVisible(true);
-	    		
-	    		
-	    	}
-	    });
 
 }
 	
@@ -368,5 +357,4 @@ public String returnNumber() {
 
 }
 }
-
 
