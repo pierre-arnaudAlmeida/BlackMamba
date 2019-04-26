@@ -35,7 +35,7 @@ public class MockFrame extends JFrame {
 		/**
 		 * Creation of different tabs
 		 */
-		tabMockMessage = new TabMockMessage(Color.GRAY, "Onglet Message");
+		tabMockMessage = new TabMockMessage(Color.GRAY, "Tab Message");
 
 		/**
 		 * Add of the title of tabs
@@ -46,7 +46,7 @@ public class MockFrame extends JFrame {
 		/**
 		 * Add of tabs on the window
 		 */
-		tab.add("Onglet " + tabOfTab[0], tabMockMessage);
+		tab.add("Tab " + tabOfTab[0], tabMockMessage);
 
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
