@@ -95,9 +95,9 @@ public class TabMapSensor extends JPanel implements MouseListener {
 
 		///////////////////////// BAR/////////////////////////////////////////////////
 		/**
-		 * Definition of label Identifiant on header bar
+		 * Definition of label Login on header bar
 		 */
-		labelIdEmployee = new JLabel("Identifiant :   " + this.idEmployee + "    ");
+		labelIdEmployee = new JLabel("Login :   " + this.idEmployee + "    ");
 		police = new Font("Arial", Font.BOLD, 16);
 		labelIdEmployee.setForeground(Color.WHITE);
 		labelIdEmployee.setFont(police);
@@ -106,7 +106,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		/**
 		 * Definition of the button and the different action after pressed the button
 		 */
-		disconnection = new JButton("Se Déconnecter");
+		disconnection = new JButton("Disconnect");
 		bar.add(disconnection, BorderLayout.EAST);
 		disconnection.addActionListener(new ActionListener() {
 			@Override
@@ -129,7 +129,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		 * Definition of the label search and add on panel search
 		 */
 		labelSearch = new JLabel();
-		labelSearch.setText("Recherche : ");
+		labelSearch.setText("Research : ");
 		labelSearch.setFont(policeBar);
 		labelSearch.setForeground(Color.WHITE);
 		search.add(labelSearch);
@@ -145,7 +145,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		 * Definition of the ValidButton
 		 */
 		validButton = new JButton();
-		validButton.setText("Valider");
+		validButton.setText("Search");
 		search.add(validButton);
 
 		///////////////////////// FRAME/////////////////////////////////////////////////
@@ -235,6 +235,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		};
 		list.addMouseListener(mouseListener);
 
+		ViewImage();
 	}
 	
 	
@@ -245,13 +246,13 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		 */
 		imageNursingHome = new JLabel();
 		//TODO
-		nursingHome = new ImageIcon("resources/NursingHome.png");
+		nursingHome = new ImageIcon("resources/NursingHome.jpg");
 		
 		/**
 		 * 100 * 100 is the position of image
 		 * 10 * 10 is the size of image
 		 */
-		this.imageNursingHome.setBounds(100,100,10,10);
+		this.imageNursingHome.setBounds(200,100,50,50);
 		this.imageNursingHome.setIcon(nursingHome);
 		this.add(imageNursingHome);
 
