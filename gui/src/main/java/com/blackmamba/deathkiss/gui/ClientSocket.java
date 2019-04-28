@@ -46,7 +46,6 @@ public class ClientSocket {
 	 * @param table
 	 */
 	public ClientSocket(String requestType, String jsonString, String table) {
-		//TODO PA tester sans les flush
 		this.requestType = requestType;
 		this.table = table;
 		this.host = rs.getString("server.host");

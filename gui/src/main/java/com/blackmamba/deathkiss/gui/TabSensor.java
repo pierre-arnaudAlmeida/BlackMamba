@@ -503,9 +503,9 @@ public class TabSensor extends JPanel {
 		/**
 		 * Definition of textArea TypeSensor
 		 */
-		// TODO PA changer le format de la list
-		String[] types = { "SMOKE", "MOVE", "TEMPERATURE", "WINDOW", "DOOR", "ELEVATOR", "LIGHT", "FIRE", "BADGE",
-				"ROUTER" };
+		String[] types = { SensorType.SMOKE.name(), SensorType.MOVE.name(), SensorType.TEMPERATURE.name(),
+				SensorType.WINDOW.name(), SensorType.DOOR.name(), SensorType.ELEVATOR.name(), SensorType.LIGHT.name(),
+				SensorType.FIRE.name(), SensorType.BADGE.name(), SensorType.ROUTER.name() };
 		textInputTypeSensor = new JComboBox<String>(types);
 		textInputTypeSensor.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
 				(int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);

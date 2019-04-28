@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.blackmamba.deathkiss.mock.entity.Message;
 import com.blackmamba.deathkiss.mock.entity.Sensor;
+import com.blackmamba.deathkiss.mock.entity.SensorType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class GenerateMessage extends Thread {
@@ -24,7 +25,7 @@ public class GenerateMessage extends Thread {
 	private String request;
 	private String requestType;
 	private String jsonString;
-	private String sensorType;
+	private SensorType sensorType;
 	private ObjectMapper objectMapper;
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private static final Logger logger = LogManager.getLogger(GenerateMessage.class);
@@ -96,9 +97,9 @@ public class GenerateMessage extends Thread {
 			 */
 			for (Sensor sensors : listSensor) {
 				if (sensors.getIdSensor() == message.getIdSensor()) {
-					sensorType = sensors.getTypeSensor().toString();
-				}//TODO PA refaire les ENUM
-				if (sensors.getSensorState() && sensorType.equals(sensors.getTypeSensor().toString())) {
+					sensorType = sensors.getTypeSensor();
+				}
+				if (sensors.getSensorState() && sensorType.equals(sensors.getTypeSensor())) {
 					message2 = new Message();
 					currentDate = new Date();
 					message2.setIdSensor(sensors.getIdSensor());
@@ -120,7 +121,7 @@ public class GenerateMessage extends Thread {
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
-			logger.log(Level.INFO, "Impossible to sleep the threadGenerateMessage" + e.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to sleep the threadGenerateMessage " + e.getClass().getCanonicalName());
 		}
 		// }
 	}

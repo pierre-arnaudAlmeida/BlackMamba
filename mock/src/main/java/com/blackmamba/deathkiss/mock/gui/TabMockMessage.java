@@ -212,9 +212,9 @@ public class TabMockMessage extends JPanel {
 		/**
 		 * Definition of ComboBox TypeSensor
 		 */
-		// TODO PA peut etre les mettres dans un fichier properties
-		String[] types = { "SMOKE", "MOVE", "TEMPERATURE", "WINDOW", "DOOR", "ELEVATOR", "LIGHT", "FIRE", "BADGE",
-				"ROUTER" };
+		String[] types = { SensorType.SMOKE.name(), SensorType.MOVE.name(), SensorType.TEMPERATURE.name(),
+				SensorType.WINDOW.name(), SensorType.DOOR.name(), SensorType.ELEVATOR.name(), SensorType.LIGHT.name(),
+				SensorType.FIRE.name(), SensorType.BADGE.name(), SensorType.ROUTER.name() };
 		textInputTypeSensor = new JComboBox<String>(types);
 		textInputTypeSensor.setBounds(400, 250, 250, 40);
 		textInputTypeSensor.setFont(policeLabel);
