@@ -42,7 +42,8 @@ public class Server {
 	 */
 	public Server() {
 		try {
-			server = new ServerSocket(Integer.parseInt(rsConfig.getString("server.default.port")), 100, InetAddress.getByName(rsConfig.getString("server.default.host")));
+			server = new ServerSocket(Integer.parseInt(rsConfig.getString("server.default.port")), 100,
+					InetAddress.getByName(rsConfig.getString("server.default.host")));
 		} catch (UnknownHostException e) {
 			logger.log(Level.INFO, "IP Host dont find " + e.getClass().getCanonicalName());
 		} catch (IOException e) {
@@ -85,7 +86,8 @@ public class Server {
 						client = server.accept();
 						connectionGived = DataSource.getConnectionFromJDBC(pool);
 						logger.log(Level.INFO, "Client Connection recieved");
-						Thread threadRequestHandler = new Thread(new RequestHandler(client, connectionGived, monitoringAlert));
+						Thread threadRequestHandler = new Thread(
+								new RequestHandler(client, connectionGived, monitoringAlert));
 						threadRequestHandler.start();
 						DataSource.returnConnection(pool, connectionGived);
 
@@ -122,7 +124,8 @@ public class Server {
 						}
 						connectionGived = DataSource.getConnectionFromJDBC(pool);
 						logger.log(Level.INFO, "Client Connection recieved");
-						Thread threadRequestHandler = new Thread(new RequestHandler(client, connectionGived, monitoringAlert));
+						Thread threadRequestHandler = new Thread(
+								new RequestHandler(client, connectionGived, monitoringAlert));
 						threadRequestHandler.start();
 						DataSource.returnConnection(pool, connectionGived);
 
@@ -151,31 +154,18 @@ public class Server {
 				while (true) {
 					monitoringAlert.alertTreatment();
 					try {
-						Thread.sleep(Integer.parseInt(rsAlert.getString("time_alertTreatment")));
+						//TODO PA a remetttre
+						Thread.sleep(5000);//rsAlert.getString("time_alertTreatment")));
 					} catch (InterruptedException e) {
-						logger.log(Level.INFO, "Impossible to sleep the threadAlertTreatment " + e.getClass().getCanonicalName());
-					}
-				}
-			}
-		});
-
-		Thread threadVerifySensorMessageBeforeActivity = new Thread(new Runnable() {
-			public void run() {
-				while (true) {
-					monitoringAlert.verifySensorMessageBeforeActivity();
-					try {
-						Thread.sleep(Integer.parseInt(rsAlert.getString("time_verifyMessageBeforeActivity")));
-					} catch (InterruptedException e) {
-						logger.log(Level.INFO, "Impossible to sleep the threadVerifySensorMessageBeforeActivity " + e.getClass().getCanonicalName());
+						logger.log(Level.INFO,
+								"Impossible to sleep the threadAlertTreatment " + e.getClass().getCanonicalName());
 					}
 				}
 			}
 		});
 		threadAlertTreatment.start();
-		//TODO PA peut etre le mettre dans le allertTreatment
-		threadVerifySensorMessageBeforeActivity.start();
 	}
-
+	
 	/**
 	 * Set false the Socket runner to Close the socket
 	 */

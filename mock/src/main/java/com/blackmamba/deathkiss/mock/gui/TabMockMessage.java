@@ -151,21 +151,24 @@ public class TabMockMessage extends JPanel {
 		sliderThreshold.setMajorTickSpacing(10);
 
 		sliderThreshold.addChangeListener(new ChangeListener() {
-			// TODO PA reduire et ya d'autre chose avec les ENUM
 			public void stateChanged(ChangeEvent event) {
-				if (textInputTypeSensor.getSelectedItem().equals("ELEVATOR")) {
+				SensorType element = SensorType.valueOf(textInputTypeSensor.getSelectedItem().toString());
+				switch (element) {
+				case ELEVATOR:
 					labelThreshold.setText("Threshold : " + ((JSlider) event.getSource()).getValue() + "00kg");
 					threshold = ((JSlider) event.getSource()).getValue() * 100;
 					if (generateMessage != null) {
 						generateMessage.setThreshold(((JSlider) event.getSource()).getValue() * 100);
 					}
-				} else if (textInputTypeSensor.getSelectedItem().equals("SMOKE")) {
+					break;
+				case SMOKE:
 					labelThreshold.setText("Threshold : " + ((JSlider) event.getSource()).getValue() + "0ppm");
 					threshold = ((JSlider) event.getSource()).getValue() * 10;
 					if (generateMessage != null) {
 						generateMessage.setThreshold(((JSlider) event.getSource()).getValue() * 10);
 					}
-				} else {
+					break;
+				default:
 					labelThreshold.setText("Threshold : " + ((JSlider) event.getSource()).getValue());
 					threshold = ((JSlider) event.getSource()).getValue();
 					if (generateMessage != null) {
@@ -210,7 +213,8 @@ public class TabMockMessage extends JPanel {
 		 * Definition of ComboBox TypeSensor
 		 */
 		// TODO PA peut etre les mettres dans un fichier properties
-		String[] types = { "SMOKE", "MOVE", "TEMPERATURE", "WINDOW", "DOOR", "ELEVATOR", "LIGHT", "FIRE", "BADGE", "ROUTER" };
+		String[] types = { "SMOKE", "MOVE", "TEMPERATURE", "WINDOW", "DOOR", "ELEVATOR", "LIGHT", "FIRE", "BADGE",
+				"ROUTER" };
 		textInputTypeSensor = new JComboBox<String>(types);
 		textInputTypeSensor.setBounds(400, 250, 250, 40);
 		textInputTypeSensor.setFont(policeLabel);
@@ -274,7 +278,8 @@ public class TabMockMessage extends JPanel {
 			@Override
 			public synchronized void actionPerformed(ActionEvent e) {
 				if (!allCaseRadio.isSelected() && !oneCaseRadio.isSelected() && !typeSensorCaseRadio.isSelected()) {
-					JOptionPane.showMessageDialog(null, "Please select the form to generate", "Information", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Please select the form to generate", "Information",
+							JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					if (allCaseRadio.isSelected()) {
 						getAllSensor();
@@ -283,36 +288,46 @@ public class TabMockMessage extends JPanel {
 						launchGeneration();
 					} else if (oneCaseRadio.isSelected()) {
 						if (textInputIdSensor.getText().trim().equals("")) {
-							JOptionPane.showMessageDialog(null, "ID sensor empty", "Information", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null, "ID sensor empty", "Information",
+									JOptionPane.INFORMATION_MESSAGE);
 						} else {
 							if (textInputIdSensor.getText().trim().matches("[0-9]+[0-9]*")) {
 								if (textInputTypeSensor.getSelectedItem() == null) {
-									JOptionPane.showMessageDialog(null, "Please select the sensor type", "Information", JOptionPane.INFORMATION_MESSAGE);
+									JOptionPane.showMessageDialog(null, "Please select the sensor type", "Information",
+											JOptionPane.INFORMATION_MESSAGE);
 								} else {
 									getAllSensor();
 									message = new Message();
 									request = "ONE";
 									for (Sensor sensors : listSensor) {
-										if (sensors.getTypeSensor().name().equals(textInputTypeSensor.getSelectedItem().toString()) && sensors.getIdSensor() == Integer.parseInt(textInputIdSensor.getText().trim())) {
+										if (sensors.getTypeSensor().name()
+												.equals(textInputTypeSensor.getSelectedItem().toString())
+												&& sensors.getIdSensor() == Integer
+														.parseInt(textInputIdSensor.getText().trim())) {
 											if (sensors.getSensorState()) {
 												message.setIdSensor(sensors.getIdSensor());
 											} else {
-												JOptionPane.showMessageDialog(null, "This sensor is OFF", "Information", JOptionPane.INFORMATION_MESSAGE);
+												JOptionPane.showMessageDialog(null, "This sensor is OFF", "Information",
+														JOptionPane.INFORMATION_MESSAGE);
 											}
 										}
 									}
 									if (message.getIdSensor() == 0) {
-										JOptionPane.showMessageDialog(null, "This sensor does'nt exist with this information", "Information", JOptionPane.INFORMATION_MESSAGE);
+										JOptionPane.showMessageDialog(null,
+												"This sensor does'nt exist with this information", "Information",
+												JOptionPane.INFORMATION_MESSAGE);
 									}
 									launchGeneration();
 								}
 							} else {
-								JOptionPane.showMessageDialog(null, "Please insert an ID sensor", "Information", JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(null, "Please insert an ID sensor", "Information",
+										JOptionPane.INFORMATION_MESSAGE);
 							}
 						}
 					} else if (typeSensorCaseRadio.isSelected()) {
 						if (textInputTypeSensor.getSelectedItem() == null) {
-							JOptionPane.showMessageDialog(null, "Please select the sensor type", "Information", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null, "Please select the sensor type", "Information",
+									JOptionPane.INFORMATION_MESSAGE);
 						} else {
 							getAllSensor();
 							boolean boo = true;
@@ -320,7 +335,8 @@ public class TabMockMessage extends JPanel {
 							request = "TYPE";
 							listRestrictedSensor.removeAll(listRestrictedSensor);
 							for (Sensor sensors : listSensor) {
-								if (sensors.getTypeSensor().name().equals(textInputTypeSensor.getSelectedItem().toString()) && sensors.getSensorState()) {
+								if (sensors.getTypeSensor().name().equals(
+										textInputTypeSensor.getSelectedItem().toString()) && sensors.getSensorState()) {
 									listRestrictedSensor.add(sensors);
 									if (boo) {
 										message.setIdSensor(sensors.getIdSensor());
@@ -329,7 +345,9 @@ public class TabMockMessage extends JPanel {
 								}
 							}
 							for (Sensor sensors : listSensor) {
-								if (!(sensors.getTypeSensor().name().equals(textInputTypeSensor.getSelectedItem().toString()) && sensors.getSensorState())) {
+								if (!(sensors.getTypeSensor().name()
+										.equals(textInputTypeSensor.getSelectedItem().toString())
+										&& sensors.getSensorState())) {
 									listRestrictedSensor.add(sensors);
 								}
 							}

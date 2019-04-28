@@ -117,8 +117,6 @@ public class RequestHandler implements Runnable {
 								jsonString = "ADD";
 								writer.write(jsonString);
 								writer.flush();
-								DAO<Message> messageDao = new MessageDAO(connection);
-								setResult(((MessageDAO) messageDao).create(response));
 							} else {
 								logger.log(Level.INFO, "Request not recognized");
 							}
