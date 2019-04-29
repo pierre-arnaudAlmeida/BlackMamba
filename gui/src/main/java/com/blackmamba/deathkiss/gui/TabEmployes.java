@@ -313,7 +313,7 @@ public class TabEmployes extends JPanel {
 		 * Definition of label Function
 		 */
 		labelFunction = new JLabel("Function : ");
-		labelFunction.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7, (int) getToolkit().getScreenSize().getHeight() * 4 / 10, 100, 30);
+		labelFunction.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7, (int) getToolkit().getScreenSize().getHeight() * 4 / 10, 150, 30);
 		labelFunction.setFont(policeLabel);
 		this.add(labelFunction);
 
@@ -324,6 +324,7 @@ public class TabEmployes extends JPanel {
 		labelHeadList.setBounds(40, 90, 300, 30);
 		labelHeadList.setFont(policeBar);
 		this.add(labelHeadList);
+		
 		//////////////////// TEXT AREA////////////////////////////////////////////////
 		/**
 		 * Definition of textArea LastnameEmployee
@@ -664,6 +665,7 @@ public class TabEmployes extends JPanel {
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);
 		this.setBackground(color);
+		
 	}
 
 	/**

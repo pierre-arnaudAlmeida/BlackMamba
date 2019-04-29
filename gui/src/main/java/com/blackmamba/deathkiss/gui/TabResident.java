@@ -49,6 +49,7 @@ public class TabResident extends JPanel {
 	private JLabel labelNameResident;
 	private JLabel labelIdResident;
 	private JLabel labelSearch;
+	private JLabel labelHeadList;
 	private JTextField searchBar;
 	private JTextField textInputLastnameResident;
 	private JTextField textInputNameResident;
@@ -268,31 +269,12 @@ public class TabResident extends JPanel {
 		/**
 		 * Find all the Resident in the data base and add on list to be displayed
 		 */
-		requestType = "READ ALL";
-		table = "Resident";
-		objectMapper = new ObjectMapper();
-		try {
-			jsonString = "READ ALL";
-			new ClientSocket(requestType, jsonString, table);
-			jsonString = ClientSocket.getJson();
-			Resident[] residents = objectMapper.readValue(jsonString, Resident[].class);
-			listResident = Arrays.asList(residents);
-			logger.log(Level.INFO, "Find Resident data succed");
-		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Resident datas " + e1.getClass().getCanonicalName());
-		}
-
 		listM = new DefaultListModel<String>();
-		listM.addElement("All residents");
-		for (Resident residents : listResident) {
-			listM.addElement(residents.getIdResident() + "# " + residents.getLastnameResident() + " " + residents.getNameResident());
-		}
-
 		list = new JList<String>(listM);
 		sc = new JScrollPane(list);
 		sc.setBounds(30, 120, 300, ((int) getToolkit().getScreenSize().getHeight() - 300));
 		this.add(sc);
-
+		updateListResident();
 		/**
 		 * when we pressed a line in the list they will send a request to get all the
 		 * information about the Resident to be displayed on the textField
@@ -347,6 +329,13 @@ public class TabResident extends JPanel {
 		labelIdResident.setFont(policeLabel);
 		this.add(labelIdResident);
 
+		/**
+		 * Definition of label HeadList
+		 */
+		labelHeadList = new JLabel("ID /Last Name /Name");
+		labelHeadList.setBounds(40, 90, 300, 30);
+		labelHeadList.setFont(policeBar);
+		this.add(labelHeadList);
 		//////////////////// TEXT AREA////////////////////////////////////////////////
 
 		/**

@@ -337,7 +337,6 @@ public class TabSensor extends JPanel {
 			sensor.setIdSensor(idSensor);
 			try {
 				jsonString = readMapper.writeValueAsString(sensor);
-				;
 				new ClientSocket(requestType, jsonString, table);
 				jsonString = ClientSocket.getJson();
 				sensor = readMapper.readValue(jsonString, Sensor.class);
@@ -345,7 +344,6 @@ public class TabSensor extends JPanel {
 			} catch (Exception e1) {
 				logger.log(Level.INFO, "Impossible to parse in JSON Sensor datas " + e1.getClass().getCanonicalName());
 			}
-
 		}
 
 		///////////////////////// LIST SENSOR///////////////////////////////////////////
@@ -447,7 +445,7 @@ public class TabSensor extends JPanel {
 		 */
 		labelNameCommonArea = new JLabel("Common Area name : ");
 		labelNameCommonArea.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
-				(int) getToolkit().getScreenSize().getHeight() * 2 / 10, 250, 30);
+				(int) getToolkit().getScreenSize().getHeight() * 2 / 10, 300, 30);
 		labelNameCommonArea.setFont(policeLabel);
 		this.add(labelNameCommonArea);
 
@@ -554,7 +552,6 @@ public class TabSensor extends JPanel {
 			sensor.setIdSensor(idSensor);
 			try {
 				jsonString = objectMapper.writeValueAsString(sensor);
-				;
 				new ClientSocket(requestType, jsonString, table);
 				jsonString = ClientSocket.getJson();
 				sensor = objectMapper.readValue(jsonString, Sensor.class);

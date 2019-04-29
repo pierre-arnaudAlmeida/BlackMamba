@@ -115,7 +115,6 @@ public class TabProfile extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				logger.log(Level.INFO, "Application closed, after disconnection");
 				System.exit(ABORT);
-
 			}
 		});
 
@@ -149,7 +148,7 @@ public class TabProfile extends JPanel {
 		 * Definition of label Function
 		 */
 		labelFunction = new JLabel("Function : ");
-		labelFunction.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 4, (int) getToolkit().getScreenSize().getHeight() * 4 / 10, 100, 30);
+		labelFunction.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 4, (int) getToolkit().getScreenSize().getHeight() * 4 / 10, 150, 30);
 		labelFunction.setFont(policeLabel);
 		this.add(labelFunction);
 

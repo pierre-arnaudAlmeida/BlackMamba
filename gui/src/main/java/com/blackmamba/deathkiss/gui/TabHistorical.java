@@ -28,6 +28,8 @@ public class TabHistorical extends JPanel {
 	private int idemployee;
 	private JPanel bar;
 	private JLabel labelIdEmployee;
+	private JButton checkSensor;
+	private JButton checkCommonArea;
 	private Font police;
 	private JButton disconnection;
 	private static final Logger logger = LogManager.getLogger(TabHistorical.class);
@@ -77,11 +79,35 @@ public class TabHistorical extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				logger.log(Level.INFO, "Application closed, after disconnection");
 				System.exit(ABORT);
-
 			}
 		});
 
-		// TODO PA Faire design TabHistorical
+		///////////////////////// BUTTON/////////////////////////////////////////////////
+		/**
+		 * Definition of Button CheckSensor
+		 */
+		checkSensor = new JButton("Display Sensor");
+		checkSensor.setBounds(((int) getToolkit().getScreenSize().getWidth() * 5 / 10), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
+		this.add(checkSensor);
+		checkSensor.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO PA
+			}
+		});
+
+		/**
+		 * Definition of Button newCommonArea
+		 */
+		checkCommonArea = new JButton("Display Common area");
+		checkCommonArea.setBounds(((int) getToolkit().getScreenSize().getWidth() * 3 / 10), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
+		this.add(checkCommonArea);
+		checkCommonArea.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO PA
+			}
+		});
 
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**

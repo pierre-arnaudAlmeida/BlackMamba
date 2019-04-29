@@ -131,7 +131,6 @@ public class TabListSensor extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				logger.log(Level.INFO, "Application closed, after disconnection");
 				System.exit(ABORT);
-
 			}
 		});
 
