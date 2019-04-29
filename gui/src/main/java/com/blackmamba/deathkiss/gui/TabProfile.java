@@ -65,6 +65,16 @@ public class TabProfile extends JPanel {
 	/*
 	 * Constructor
 	 */
+	public TabProfile() {
+	}
+
+	/**
+	 * Constructor
+	 * 
+	 * @param color
+	 * @param idemployee
+	 * @param title
+	 */
 	public TabProfile(Color color, int idemployee, String title) {
 		this.idemployee = idemployee;
 
@@ -97,7 +107,7 @@ public class TabProfile extends JPanel {
 
 		///////////////////////// BAR/////////////////////////////////////////////////
 		/**
-		 * Definition of label Identifiant on header bar
+		 * Definition of label LOGIN on header bar
 		 */
 		labelIdEmployee = new JLabel("Login :   " + this.idemployee + "    ");
 		policeBar = new Font("Arial", Font.BOLD, 16);
@@ -186,7 +196,7 @@ public class TabProfile extends JPanel {
 		this.add(textInputFunctionEmployee);
 
 		/**
-		 * Button to displpay the password
+		 * Button to display the password
 		 */
 		showButton = new JCheckBox("Show password");
 		showButton.setBounds((int) getToolkit().getScreenSize().getWidth() * 1 / 4, ((int) getToolkit().getScreenSize().getHeight() * 9 / 20) + 50, 300, 40);
@@ -196,7 +206,7 @@ public class TabProfile extends JPanel {
 		showButton.addActionListener(new ActionListener() {
 			/**
 			 * Display the content of TextField password employee When we check the CheckBox
-			 * "Montrer le mot de passe"
+			 * "Show password"
 			 */
 			public void actionPerformed(ActionEvent e) {
 				if (showButton.isSelected()) {
@@ -239,7 +249,7 @@ public class TabProfile extends JPanel {
 				String newPasswordEmployee = new String(password);
 
 				/**
-				 * if text area are empty they open an popup
+				 * if text area are empty they open an pop-up
 				 */
 				if (newLastnameEmployee.equals("") || newNameEmployee.equals("") || newFunctionEmployee.equals("")) {
 					JOptionPane.showMessageDialog(null, "Empty fields", "Error", JOptionPane.INFORMATION_MESSAGE);

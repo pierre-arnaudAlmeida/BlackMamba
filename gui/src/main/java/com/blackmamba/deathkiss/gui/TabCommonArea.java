@@ -130,7 +130,7 @@ public class TabCommonArea extends JPanel {
 
 		///////////////////////// BAR/////////////////////////////////////////////////
 		/**
-		 * Definition of label Identifiant on header bar
+		 * Definition of label LOGIN on header bar
 		 */
 		labelIdEmployee = new JLabel("Login :   " + this.idemployee + "    ");
 		policeBar = new Font("Arial", Font.BOLD, 16);
@@ -151,7 +151,6 @@ public class TabCommonArea extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				logger.log(Level.INFO, "Application closed, after disconnection");
 				System.exit(ABORT);
-
 			}
 		});
 
@@ -285,7 +284,6 @@ public class TabCommonArea extends JPanel {
 				System.out.println(position);
 				if (position > -1) {
 					String id = substring.substring(0, position);
-
 					/**
 					 * Find the CommonArea by the id get on list
 					 */
@@ -335,6 +333,7 @@ public class TabCommonArea extends JPanel {
 		labelHeadList.setBounds(40, 90, 200, 30);
 		labelHeadList.setFont(policeBar);
 		this.add(labelHeadList);
+		
 		//////////////////// TEXT AREA////////////////////////////////////////////////
 		/**
 		 * Definition of textArea IdCommonArea
@@ -392,7 +391,6 @@ public class TabCommonArea extends JPanel {
 				String newNameCommonArea = textInputNameCommonArea.getText().trim();
 				newNameCommonArea = Normalizer.normalize(newNameCommonArea, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				String newStageCommonArea = textInputStageCommonArea.getText().trim();
-
 				if (newNameCommonArea.equals("") || newStageCommonArea.equals("")) {
 					JOptionPane.showMessageDialog(null, "Missing values", "Error", JOptionPane.INFORMATION_MESSAGE);
 					logger.log(Level.INFO, "Attempt of insertion without characters");
@@ -418,7 +416,6 @@ public class TabCommonArea extends JPanel {
 							requestType = "READ ALL";
 							table = "CommonArea";
 							listCommonArea = getAllCommonArea(null, requestType, table);
-
 							int x = listCommonArea.size() - 1;
 							commonArea = listCommonArea.get(x);
 							listM.addElement(commonArea.getIdCommonArea() + "# " + commonArea.getNameCommonArea() + " ," + commonArea.getEtageCommonArea());
@@ -452,7 +449,6 @@ public class TabCommonArea extends JPanel {
 				String newNameCommonArea = textInputNameCommonArea.getText().trim();
 				newNameCommonArea = Normalizer.normalize(newNameCommonArea, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				String newStageCommonArea = textInputStageCommonArea.getText().trim();
-
 				if (newNameCommonArea.equals("") || newStageCommonArea.equals("")) {
 					JOptionPane.showMessageDialog(null, "Fields Empty", "Error", JOptionPane.INFORMATION_MESSAGE);
 					/**
@@ -520,7 +516,7 @@ public class TabCommonArea extends JPanel {
 							listSensorUsed = Arrays.asList(sensors);
 							logger.log(Level.INFO, "Find Sensor data succeeded");
 						} catch (Exception e1) {
-							logger.log(Level.INFO, "Impossible to parse in JSON Sensor data" + e1.getClass().getCanonicalName());
+							logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
 						}
 						if (!listSensorUsed.isEmpty()) {
 							for (Sensor sens : listSensorUsed) {
@@ -558,7 +554,7 @@ public class TabCommonArea extends JPanel {
 								logger.log(Level.INFO, "Deletion of CommonArea succeeded");
 							}
 						} catch (Exception e1) {
-							logger.log(Level.INFO, "Impossible to parse in JSON CommonArea" + e1.getClass().getCanonicalName());
+							logger.log(Level.INFO, "Impossible to parse in JSON CommonArea " + e1.getClass().getCanonicalName());
 						}
 						listM.removeElementAt(index);
 						index = -9999;
@@ -584,7 +580,6 @@ public class TabCommonArea extends JPanel {
 		 */
 		restaure = new JButton("Restore");
 		restaure.setBounds(((int)
-
 		getToolkit().getScreenSize().getWidth() * 4 / 7), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
 		this.add(restaure);
 		restaure.addActionListener(new ActionListener() {

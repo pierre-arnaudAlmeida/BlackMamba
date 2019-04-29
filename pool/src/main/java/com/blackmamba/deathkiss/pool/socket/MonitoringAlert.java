@@ -3,6 +3,7 @@ package com.blackmamba.deathkiss.pool.socket;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -85,6 +86,9 @@ public class MonitoringAlert {
 		this.pool = pool;
 	}
 
+	/**
+	 * Constructor
+	 */
 	public MonitoringAlert() {
 	}
 
@@ -97,11 +101,11 @@ public class MonitoringAlert {
 	 * send at Client
 	 */
 	public void alertTreatment() {
-		getAllSensor();
-		curDate = new Date();
-		// verifySensorMessageBeforeActivity();
-		// verifySensorActivity(curDate);
 		if (listMessage.size() != 0) {
+			getAllSensor();
+			curDate = new Date();
+			// verifySensorMessageBeforeActivity();
+			// verifySensorActivity(curDate);
 			for (Sensor sensors : listSensor) {
 				for (Message messages : listMessage) {
 					if (sensors.getSensorState() && sensors.getIdSensor() == messages.getIdSensor()) {
@@ -128,36 +132,39 @@ public class MonitoringAlert {
 						}
 					}
 				}
-			}
+				Time timeAlert = new java.sql.Time(lastAlertDate.getTime());
+				if (timeAlert.compareTo(sensors.getStartActivity()) >= 0 && timeAlert.compareTo(sensors.getEndActivity()) <= 0) {
+					if (nbAlert >= sensitivity && difference <= Integer.parseInt(rsAlert.getString("timeBetweenAlert"))) {
+						alert = new Alert();
+						alert.setAlertDate(lastAlertDate);
+						alert.setAlertState(AlertState.ALERT);
+						alert.setIdAlert(0);
+						alert.setIdSensor(sensors.getIdSensor());
+						listAlert.add(alert);
+						logger.log(Level.INFO, "ALERT DETECTED!!");
+						logger.log(Level.INFO, "Sensor : " + sensors.getIdSensor() + " on ALERT on commonArea : " + sensors.getIdCommonArea());
+						sensors.setAlertState(AlertState.ALERT);
+						updateSensorAlertState(sensors);
+						addHistorical(sensors);
+					}
+				} else {
+					sensitivity = Integer.parseInt(rsAlert.getString("lowNbOfAlertMessage"));
+					if (nbAlert == sensitivity) {
+						alert = new Alert();
+						alert.setAlertDate(lastAlertDate);
+						alert.setAlertState(AlertState.ALERT);
+						alert.setIdAlert(0);
+						alert.setIdSensor(sensors.getIdSensor());
+						listAlert.add(alert);
+						logger.log(Level.INFO, "ALERT DETECTED!!");
+						logger.log(Level.INFO, "Sensor : " + sensors.getIdSensor() + " on ALERT on commonArea : " + sensors.getIdCommonArea());
+						sensors.setAlertState(AlertState.ALERT);
+						updateSensorAlertState(sensors);
+						addHistorical(sensors);
+					}
+				}
 
-			// TODO PA a remettre apres test
-//				// TODO PA manque l'heure a laquelle ca c'est déclancher
-			// mettre un if et en tant que condition on met les compare to
-//				Time timeAlert = new java.sql.Time(lastAlertDate.getTime());
-//				timeAlert.compareTo(sensors.getStartActivity());
-//				timeAlert.compareTo(sensors.getEndActivity());
-//
-//				if (nbAlert >= sensitivity && difference <= Integer.parseInt(rsAlert.getString("timeBetweenAlert"))) {
-//					alert = new Alert();
-//					alert.setAlertDate(lastAlertDate);
-//					alert.setAlertState(AlertState.ALERT);
-//					alert.setIdAlert(0);
-//					alert.setIdSensor(sensors.getIdSensor());
-//					listAlert.add(alert);
-//
-//					for (Message messages : listMessageInTreatment) {
-//						if (messages.getIdSensor() == alert.getIdSensor()) {
-//							listMessageInTreatment.remove(messages);
-//						}
-//					}
-//
-//					logger.log(Level.INFO, "ALERT DETECTED!!");
-//					logger.log(Level.INFO, "Sensor : " + sensors.getIdSensor() + " on ALERT on commonArea : "
-//							+ sensors.getIdCommonArea());
-//					sensors.setAlertState(AlertState.ALERT);
-//					updateSensorAlertState(sensors);
-//					addHistorical(sensors);
-//				}
+			}
 			listMessageInTreatment.removeAll(listMessageInTreatment);
 		}
 	}

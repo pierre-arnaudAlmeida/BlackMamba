@@ -122,7 +122,7 @@ public class TabResident extends JPanel {
 		bar.setBorder(BorderFactory.createMatteBorder(20, 100, 20, 100, bar.getBackground()));
 
 		/**
-		 * Definition of label Identifiant on header bar
+		 * Definition of label LOGIN on header bar
 		 */
 		labelIdEmployee = new JLabel("Login :   " + this.idemployee + "    ");
 		policeBar = new Font("Arial", Font.BOLD, 16);
@@ -469,7 +469,7 @@ public class TabResident extends JPanel {
 				newNameResident = Normalizer.normalize(newNameResident, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 
 				/**
-				 * if text area are empty they open an popup
+				 * if text area are empty they open an pop-up
 				 */
 				if (newLastnameResident.equals("") || newNameResident.equals("")) {
 					JOptionPane.showMessageDialog(null, "Empty field", "Error", JOptionPane.ERROR_MESSAGE);

@@ -129,7 +129,7 @@ public class TabEmployes extends JPanel {
 
 		///////////////////////// BAR/////////////////////////////////////////////////
 		/**
-		 * Definition of label Identifiant on header bar
+		 * Definition of label LOGIN on header bar
 		 */
 		labelIdEmployee = new JLabel("Login :   " + this.idemployee + "    ");
 		policeBar = new Font("Arial", Font.BOLD, 16);
@@ -268,7 +268,6 @@ public class TabEmployes extends JPanel {
 				int position = substring.indexOf("#");
 				if (position > -1) {
 					String id = substring.substring(0, position);
-
 					requestType = "READ";
 					employee = new Employee();
 					table = "Employee";
@@ -363,18 +362,17 @@ public class TabEmployes extends JPanel {
 
 		///////////////////////// BUTTON/////////////////////////////////////////////////
 		/**
-		 * Button to displpay the password
+		 * Button to display the password
 		 */
 		showButton = new JCheckBox("Show password");
 		showButton.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7, ((int) getToolkit().getScreenSize().getHeight() * 9 / 20) + 50, 300, 40);
 		showButton.setBackground(color);
 		showButton.setFont(policeLabel);
 		this.add(showButton);
-
 		showButton.addActionListener(new ActionListener() {
 			/**
 			 * Display the content of TextField password employee When we check the CheckBox
-			 * "Montrer le mot de passe"
+			 * "Show password"
 			 */
 			public void actionPerformed(ActionEvent e) {
 				if (showButton.isSelected()) {
@@ -495,9 +493,8 @@ public class TabEmployes extends JPanel {
 				newFunctionEmployee = Normalizer.normalize(newFunctionEmployee, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				char[] password = textInputPasswordEmployee.getPassword();
 				String newPasswordEmployee = new String(password);
-
 				/**
-				 * if text area are empty they open an popup
+				 * if text area are empty they open an pop-up
 				 */
 				if (newLastnameEmployee.equals("") || newNameEmployee.equals("") || newFunctionEmployee.equals("")) {
 					JOptionPane.showMessageDialog(null, "Empty fields", "Error", JOptionPane.INFORMATION_MESSAGE);

@@ -110,7 +110,7 @@ public class TabListSensor extends JPanel {
 
 		///////////////////////// BAR/////////////////////////////////////////////////
 		/**
-		 * Definition of label Identifiant on header bar
+		 * Definition of label LOGIN on header bar
 		 */
 		labelIdEmployee = new JLabel("Login :   " + this.idemployee + "    ");
 		police = new Font("Arial", Font.BOLD, 16);
@@ -140,7 +140,7 @@ public class TabListSensor extends JPanel {
 		updateListSensor();
 
 		/**
-		 * Add a scrollbar on list
+		 * Add a scrollBar on list
 		 */
 		sc = new JScrollPane(tableau);
 		sc.setBounds((int) getToolkit().getScreenSize().getWidth() * 3 / 10, (int) getToolkit().getScreenSize().getHeight() * 2 / 10, (int) getToolkit().getScreenSize().getWidth() * 1 / 2, (int) getToolkit().getScreenSize().getHeight() * 1 / 2);

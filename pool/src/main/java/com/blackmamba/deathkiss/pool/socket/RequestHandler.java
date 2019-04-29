@@ -343,6 +343,7 @@ public class RequestHandler implements Runnable {
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
 								}
+								//TODO PA quand on update un capteur on doit supprimer l'etat d'alerte dans la listAlert
 								break;
 							case "CommonArea":
 								if (!response.equals("")) {
@@ -431,6 +432,7 @@ public class RequestHandler implements Runnable {
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
 								}
+								//TODO PA quand on supprime un capteur on doit supprimer l'etat d'alerte dans la listAlert
 								break;
 							case "CommonArea":
 								if (!response.equals("")) {
@@ -676,6 +678,7 @@ public class RequestHandler implements Runnable {
 	/**
 	 * Read the different response
 	 */
+	//TODO PA gerer le flux de données
 	private String read() throws IOException {
 		String response = "";
 		int stream;
