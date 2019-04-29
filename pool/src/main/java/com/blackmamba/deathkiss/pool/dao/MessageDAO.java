@@ -52,8 +52,7 @@ public class MessageDAO extends DAO<Message> {
 		try {
 			Message mess = objectMapper.readValue(jsonString, Message.class);
 			java.sql.Date sqlDate = new java.sql.Date(mess.getAlertDate().getTime());
-			request = "insert into message (id_capteur,date_alerte,seuil) values ('" + mess.getIdSensor() + "','"
-					+ sqlDate + "', '" + mess.getThreshold() + "');";
+			request = "insert into message (id_capteur,date_alerte,seuil) values ('" + mess.getIdSensor() + "','" + sqlDate + "', '" + mess.getThreshold() + "');";
 			Statement st = con.createStatement();
 			st.execute(request);
 			logger.log(Level.INFO, "Message succesfully inserted in BDD ");
@@ -92,8 +91,7 @@ public class MessageDAO extends DAO<Message> {
 		try {
 			Message mess = objectMapper.readValue(jsonString, Message.class);
 			java.sql.Date sqlDate = new java.sql.Date(mess.getAlertDate().getTime());
-			request = "UPDATE message SET id_capteur = '" + mess.getIdSensor() + "', date_alerte = '" + sqlDate
-					+ "', seuil='" + mess.getThreshold() + "';";
+			request = "UPDATE message SET id_capteur = '" + mess.getIdSensor() + "', date_alerte = '" + sqlDate + "', seuil='" + mess.getThreshold() + "';";
 			Statement st = con.createStatement();
 			st.execute(request);
 			logger.log(Level.INFO, "Message succesfully update in BDD");
@@ -136,9 +134,7 @@ public class MessageDAO extends DAO<Message> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<Message> listMessage = new ArrayList<>();
 		try {
-			// Message message = objectMapper.readValue(jsonString, Message.class);
-			request = "SELECT * FROM message;"; // where date_alerte >=" + message.getAlertDate() + ";";
-												// TODO PA mettre la date dans le read all
+			request = "SELECT * FROM message;";
 			Statement st = con.createStatement();
 			result = st.executeQuery(request);
 			while (result.next()) {
