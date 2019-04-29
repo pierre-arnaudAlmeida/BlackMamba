@@ -49,81 +49,82 @@ public class GenerateMessage extends Thread {
 	 */
 	public void run() {
 		bool = true;
-		// while (bool) { TODO PA supprimer les commentaires
-		if (request.equals("ALL")) {
-			/**
-			 * Generate an message with basic parameters for every sensor
-			 */
-			for (Sensor sensors : listSensor) {
-				if (sensors.getSensorState()) {
-					currentDate = new Date();
+		while (bool) { // TODO PA supprimer les commentaires
+			if (request.equals("ALL")) {
+				/**
+				 * Generate an message with basic parameters for every sensor
+				 */
+				for (Sensor sensors : listSensor) {
+					if (sensors.getSensorState()) {
+						currentDate = new Date();
+						message2 = new Message();
+						message2.setIdSensor(sensors.getIdSensor());
+						message2.setThreshold((sensors.getThresholdMax() - sensors.getThresholdMin()) / 2);
+						message2.setAlertDate(currentDate);
+						sendMessage(message2);
+						nbMessageGenerate++;
+					}
+				}
+			} else if (request.equals("ONE")) {
+				/**
+				 * Generate an message for every sensor with an id different of the idSensor
+				 * input by user in GUI with basic parameter and for the idSensor they input the
+				 * threshold value display on GUI
+				 */
+				for (Sensor sensors : listSensor) {
 					message2 = new Message();
-					message2.setIdSensor(sensors.getIdSensor());
-					message2.setThreshold((sensors.getThresholdMax() - sensors.getThresholdMin()) / 2);
-					message2.setAlertDate(currentDate);
-					sendMessage(message2);
-					nbMessageGenerate++;
-				}
-			}
-		} else if (request.equals("ONE")) {
-			/**
-			 * Generate an message for every sensor with an id different of the idSensor
-			 * input by user in GUI with basic parameter and for the idSensor they input the
-			 * threshold value display on GUI
-			 */
-			for (Sensor sensors : listSensor) {
-				message2 = new Message();
-				if (sensors.getIdSensor() == message.getIdSensor()) {
-					currentDate = new Date();
-					message2.setThreshold(threshold);
-					message2.setAlertDate(currentDate);
-					message2.setIdSensor(message.getIdSensor());
-					sendMessage(message2);
-					nbMessageGenerate++;
-				} else if (sensors.getSensorState()) {
-					currentDate = new Date();
-					message2.setThreshold((sensors.getThresholdMax() - sensors.getThresholdMin()) / 2);
-					message2.setAlertDate(currentDate);
-					message2.setIdSensor(sensors.getIdSensor());
-					sendMessage(message2);
-					nbMessageGenerate++;
-				}
+					if (sensors.getIdSensor() == message.getIdSensor()) {
+						currentDate = new Date();
+						message2.setThreshold(threshold);
+						message2.setAlertDate(currentDate);
+						message2.setIdSensor(message.getIdSensor());
+						sendMessage(message2);
+						nbMessageGenerate++;
+					} else if (sensors.getSensorState()) {
+						currentDate = new Date();
+						message2.setThreshold((sensors.getThresholdMax() - sensors.getThresholdMin()) / 2);
+						message2.setAlertDate(currentDate);
+						message2.setIdSensor(sensors.getIdSensor());
+						sendMessage(message2);
+						nbMessageGenerate++;
+					}
 
+				}
+			} else if (request.equals("TYPE")) {
+				/**
+				 * Generate an message for every sensor and if the type of sensor if the same of
+				 * the sensorType selected by user in the GUI they affect the threshold input
+				 */
+				for (Sensor sensors : listSensor) {
+					if (sensors.getIdSensor() == message.getIdSensor()) {
+						sensorType = sensors.getTypeSensor();
+					}
+					if (sensors.getSensorState() && sensorType.equals(sensors.getTypeSensor())) {
+						message2 = new Message();
+						currentDate = new Date();
+						message2.setIdSensor(sensors.getIdSensor());
+						message2.setThreshold(threshold);
+						message2.setAlertDate(currentDate);
+						sendMessage(message2);
+						nbMessageGenerate++;
+					} else if (sensors.getSensorState()) {
+						message2 = new Message();
+						currentDate = new Date();
+						message2.setIdSensor(sensors.getIdSensor());
+						message2.setThreshold((sensors.getThresholdMax() - sensors.getThresholdMin()) / 2);
+						message2.setAlertDate(currentDate);
+						sendMessage(message2);
+						nbMessageGenerate++;
+					}
+				}
 			}
-		} else if (request.equals("TYPE")) {
-			/**
-			 * Generate an message for every sensor and if the type of sensor if the same of
-			 * the sensorType selected by user in the GUI they affect the threshold input
-			 */
-			for (Sensor sensors : listSensor) {
-				if (sensors.getIdSensor() == message.getIdSensor()) {
-					sensorType = sensors.getTypeSensor();
-				}
-				if (sensors.getSensorState() && sensorType.equals(sensors.getTypeSensor())) {
-					message2 = new Message();
-					currentDate = new Date();
-					message2.setIdSensor(sensors.getIdSensor());
-					message2.setThreshold(threshold);
-					message2.setAlertDate(currentDate);
-					sendMessage(message2);
-					nbMessageGenerate++;
-				} else if (sensors.getSensorState()) {
-					message2 = new Message();
-					currentDate = new Date();
-					message2.setIdSensor(sensors.getIdSensor());
-					message2.setThreshold((sensors.getThresholdMax() - sensors.getThresholdMin()) / 2);
-					message2.setAlertDate(currentDate);
-					sendMessage(message2);
-					nbMessageGenerate++;
-				}
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				logger.log(Level.INFO,
+						"Impossible to sleep the threadGenerateMessage " + e.getClass().getCanonicalName());
 			}
 		}
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			logger.log(Level.INFO, "Impossible to sleep the threadGenerateMessage " + e.getClass().getCanonicalName());
-		}
-		// }
 	}
 
 	/**
