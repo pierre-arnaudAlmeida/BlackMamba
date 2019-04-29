@@ -26,6 +26,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 
 import com.blackmamba.deathkiss.bianalysis.entity.Sensor;
+import com.blackmamba.deathkiss.bianalysis.entity.SensorHistorical;
 import com.blackmamba.deathkiss.bianalysis.entity.SensorType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -49,6 +50,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
+import javax.swing.ListModel;
 
 /**
  * 
@@ -61,10 +63,12 @@ public class ihmBI extends JFrame {
 	String[] periode = {"Année", "Mois","Jour"};
 	String[] area = {"RC", "Etage 1","Etage 2"};
 	String[] sensorType = {	"SMOKE", "MOVE","TEMPERATURE", "WINDOW" ,"DOOR", "ELEVATOR","LIGHT","FIRE","BADGE","ROUTER" };
-	private JList<String> list;		
+	private JList<String> list;
+	private JList<String> list1;
 	private Font policeLabel;
 	private JLabel labelNumber;
 	private static List<Sensor> listSensor = new ArrayList<Sensor>();
+	private static List<SensorHistorical> listSensorHistorical = new ArrayList<SensorHistorical>();
 	private ObjectMapper objectMapper;
 	private String requestType;
 	private String table;
@@ -77,7 +81,9 @@ public class ihmBI extends JFrame {
 	private JTextField tfTemperature;
 	private JTextField searchBar;
 	private DefaultListModel<String> listM;
+	private DefaultListModel<String> ListModel;
 	private JScrollPane sc;
+	private JScrollPane sc1;
 	
 	private JButton btnRecherche;
 	private JButton btnDeconnexion;
@@ -115,7 +121,7 @@ public class ihmBI extends JFrame {
 	 */
 	public ihmBI() {
 		requestAllSensor();
-//		requestSensor();
+		requestSensorHistorical();
 		initComponents();
 		createEvents();
 		
@@ -143,7 +149,7 @@ public class ihmBI extends JFrame {
 		contentPane.add(lblNombreDePannes);
 		
 		JLabel lblNombreDalertes = new JLabel("Nombre d'alertes");
-		lblNombreDalertes.setBounds(657, 274, 147, 22);
+		lblNombreDalertes.setBounds(719, 426, 147, 22);
 		contentPane.add(lblNombreDalertes);
 		
 		
@@ -192,7 +198,7 @@ public class ihmBI extends JFrame {
 		tfTemperature.setColumns(10);
 		
 		tfAlertes = new JTextField();
-		tfAlertes.setBounds(800, 271, 112, 28);
+		tfAlertes.setBounds(862, 423, 112, 28);
 		tfAlertes.setText(returnNumber().toString());
 		contentPane.add(tfAlertes);
 		tfAlertes.setColumns(10);
@@ -227,6 +233,20 @@ public class ihmBI extends JFrame {
 					+ sensors.getSensorState() + " ," + sensors.getIdCommonArea());
 		}
 		contentPane.add(sc);
+		
+		ListModel = new DefaultListModel<String>();
+		list1 = new JList<String>(ListModel);
+		sc1 = new JScrollPane(list1);
+	    sc1.setBounds(627, 111, 298, 298);
+	    
+		ListModel.addElement("Toute les alertes");
+		for (SensorHistorical sensorHistorical : listSensorHistorical) {
+			ListModel.addElement(sensorHistorical.getAlertState() + "# " + sensorHistorical.getIdHistorical() + " ,"
+					+ sensorHistorical.getIdSensor() + " ," + sensorHistorical.getDate());
+		}
+	    
+	    contentPane.add(sc1);
+	    
 		
 	    dateChooser = new JDateChooser();
 		dateChooser.setBounds(495, 6, 112, 28);
@@ -296,6 +316,8 @@ public class ihmBI extends JFrame {
 	    myChart.setMouseWheelEnabled(true);
 	    
 
+	    
+	    
 
 			
 	}
@@ -349,36 +371,33 @@ private void requestAllSensor() {
 }
 
 
-//private void requestSensor() {
-//	
-//	requestType = "READ ALL";
-//	table = "Sensor";
-//	objectMapper = new ObjectMapper();
-//	try {
-//		jsonString = "READ ALL";
-//		new ClientSocket(requestType, jsonString, table);
-//		jsonString = ClientSocket.getJson();
-//		Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
-//		listSensor = Arrays.asList(sensors);
-//		logger.log(Level.INFO, "Find Sensor data succed");
-//		
-//		
-//
-//	} catch (Exception e1) {
-//		logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
-//	}
-//	
-//}
+private void requestSensorHistorical() {
+	
+	requestType = "READ ALL";
+	table = "SensorHistorical";
+	objectMapper = new ObjectMapper();
+	try {
+		jsonString = "READ ALL";
+		new ClientSocket(requestType, jsonString, table);
+		jsonString = ClientSocket.getJson();
+		SensorHistorical[] sensorHistorical = objectMapper.readValue(jsonString, SensorHistorical[].class);
+		listSensorHistorical = Arrays.asList(sensorHistorical);
+		logger.log(Level.INFO, "Find SensorHistorical data succed");
+		
+		
+
+	} catch (Exception e1) {
+		logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
+	}
+	
+}
 
 public String returnNumber() {
 	int nb = 0;
-	if (!listSensor.isEmpty()) {
-		for (Sensor count : listSensor) {
+	if (!listSensorHistorical.isEmpty()) {
+		for (SensorHistorical sensorHistorical: listSensorHistorical) {
+			nb++;
 
-			
-			if (count.getTypeSensor() == SensorType.TEMPERATURE) {
-				nb++;
-			}
 		}
 
 	}
@@ -391,9 +410,10 @@ public static Object [] returns() {
 
 	int nob=0;
 	int nunu=0;
-	int resultat=0;
+	int total=0;
 	
 	for (Sensor sensor : listSensor) {
+		total++;
 		
 		if ( sensor.getIdSensor() == 0) 
 		nob++;
@@ -404,8 +424,8 @@ public static Object [] returns() {
 		
 	}
 	
-	resultat = nunu - nob;
-	return new Object[] { nunu, nob, resultat};
+
+	return new Object[] { nunu, nob, total};
 	
 }
 }
