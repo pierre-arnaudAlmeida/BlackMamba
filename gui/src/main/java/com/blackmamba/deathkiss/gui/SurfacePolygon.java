@@ -12,30 +12,24 @@ public class SurfacePolygon extends Polygon {
 
 	private CommonArea idCommonArea;
 	private float surface;
-	/*
-	 * Point coordinates table
-	 */
+	// Point coordinates table
 	private int tab;
 	private int[] xPoints;
 	private int[] yPoints;
 
 	private static final long serialVersionUID = -1793953027487918460L;
-	
+
 	public SurfacePolygon(List<Point> listPoint) {
 		for (Point point : listPoint) {
 			this.addPoint(point.x, point.y);
 		}
-		
+
 	}
 
-	//TODO Constructor or Method
 	public SurfacePolygon(int tab, int[] xPoints, int[] yPoints) {
 		super(yPoints, xPoints, tab);
 	}
 
-	
-	
-	
 	public CommonArea getIdCommonArea() {
 		return idCommonArea;
 	}
@@ -75,6 +69,5 @@ public class SurfacePolygon extends Polygon {
 	public void setyPoints(int[] yPoints) {
 		this.yPoints = yPoints;
 	}
-
 
 }

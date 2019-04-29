@@ -156,14 +156,17 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		this.add(bar, BorderLayout.NORTH);
 		this.setBackground(color);
 
-		
 		///////////////////////// LIST SENSOR///////////////////////////////////////////
 		listM = new DefaultListModel<String>();
 		list = new JList<String>(listM);
-		
-		//tabSensor.ActualizationListSensor(listAlert);TODO RK
 
-		
+		/**
+		 *  TODO RK
+		 *  Update sensors 
+		 *  Every time an alert is declared, the list is updated
+		 */
+		//tabSensor.ActualizationListSensor(listAlert)
+
 		sc = new JScrollPane(list);
 		sc.setBounds(30, 120, 300, ((int) getToolkit().getScreenSize().getHeight() - 300));
 		this.add(sc);
@@ -222,77 +225,58 @@ public class TabMapSensor extends JPanel implements MouseListener {
 							textInputNameCommonArea.setSelectedIndex(i);
 						}
 					}
-					textInputTypeSensor.setSelectedItem(sensor.getTypeSensor().toString());
-					if (sensor.getSensorState() == true) {
-						switchButton.setText("ON");
-						switchButton.setBackground(Color.GREEN);
-					} else {
-						switchButton.setText("OFF");
-						switchButton.setBackground(Color.RED);
-					}
+
 				}
 			}
 		};
 		list.addMouseListener(mouseListener);
 
-		ViewImage();
-	}
-	
-	
-	
-	private void ViewImage() {
-		/**
-		 * Displays the plan of nursing home
-		 */
+		// Displays the plan of nursing home
 		imageNursingHome = new JLabel();
-		//TODO
-		nursingHome = new ImageIcon("resources/NursingHome.jpg");
-		
-		/**
-		 * 100 * 100 is the position of image
-		 * 10 * 10 is the size of image
-		 */
-		this.imageNursingHome.setBounds(200,100,50,50);
-		this.imageNursingHome.setIcon(nursingHome);
-		this.add(imageNursingHome);
-
+		nursingHome = new ImageIcon("gui\\src\\main\\resources\\NursingHome.jpg");
+		// 200 * 100 is the position of image
+		// 50 * 50 is the size of image
+		imageNursingHome.setBounds(200, 100, 50, 50);
+		imageNursingHome.setIcon(nursingHome);
+		bar.add(imageNursingHome);
+		bar.setVisible(true);
 	}
-	
-	
-	
-	
-	
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
+		/**
+		 * TODO RK Lorsqu'on clique sur une partie commune, cela créera un popup d'une
+		 * liste de capteur
+		 */
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+		/**
+		 * TODO RK Lorsqu'on rentre dans une partie commune, cela modiifera sa couleur
+		 */
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+		/**
+		 * TODO RK
+		 */
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+		/**
+		 * TODO RK
+		 */
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+		/**
+		 * TODO RK
+		 */
 	}
-
 
 	/**
 	 * @return the threadMapSensor
@@ -349,7 +333,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	public void setListAlert(List<Alert> listAlert) {
 		this.listAlert = listAlert;
 	}
-	
+
 	public void addSensor(Sensor sensor) {
 		this.listSensor.add(sensor);
 	}
@@ -357,7 +341,6 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	public void removeSensor(Sensor sensor) {
 		this.listSensor.remove(sensor);
 	}
-	
 
 //	  public void paint(Graphics g) {
 //		    int xpoints[] = {25, 145, 25, 145, 25};
