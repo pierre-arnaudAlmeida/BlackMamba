@@ -34,13 +34,85 @@ Veuillez voir les notes ci-dessous pour constater comment fonctionne le projet s
 
 # Generation jar sous Eclipse 
 
-Generation jar du dossier 
+```
+
+# I - MOCK 
+## Generation jar 
+
+Se placer, dans le module  maven gui present dans le dossier BlackMamb
+
+Pour generer le fichier JAR du mock, il faut faire
+
+```
+
+un clic droit sur le fichier « pom.xml » du dossier  mock, ensuite « Ru
+
+As » et enfin cliquer sur « Maven Install �
+
+```
+
+Le fichier jar "mock-0.0.1-SNAPSHOT-jar-with-dependencies.jar" est generer
+
+## Lancement du mock
+
+Lancer le Mock.jar, qui va  permettre de permettront de reproduire le comportement d'objet r�els de maniere controlee. 
+Cela va permettre de tester le comportement des objets r�agissant sur l'IHM. 
+
+
+
+# II - SERVEUR
+## 1) Generer le jar Pool
+
+Se placer, dans le module  maven pool present dans le dossier BlackMamba
+Pour generer le pool.jar , il faut faire : 
+
+```
+un clic droit sur le fichier « pom.xml » du dossier pool, ensuite 
+« Run As » et enfin cliquer sur « Maven Install »
+
+```
+Executer le jar du serveur 
+
+`
+Se placer dans le dossier BlackMamba, puis le dossier pool, et pour finir le dossier Target 
+Il faut lancer ihm du serveur et cliquer sur lancer le serveur
+
+```.
+Double clique gauche sur "pool-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+
+```"
+il s'agit du fichier jar generer dans le dossier target du IHM.
+`
+Le serveur est en marchee
+
+```
+Executer le jar  gui 
+```
+```
+Se placer dans le dossier BlackMamba, puis le dossier IHM, et pour finir le dossier Target 
+
+
+Double clique gauche sur "gui-0.0.1-SNAPSHOT-jar-with-dependencies.jar"
+, il s'agit du fichier jar generer dans le dossier target du IHM.
+
+```
+l'IHM se lance
+
+```
+## 2) Lancer le serveur
+
+cliquer sur launch 
+
+
+
+
+# III-IHM 
+## 1) Generation du jar Deathkiss gui 
 ```
 Ouvrir Eclipse, selectionner le projet en l'occurrence BlackMamba pour notre groupe puis selectionner le module maven gui .
 
 ```
 Ouvrir le fichier � pom.xml�.
-
 ```
 Ensuite dans le fichier « pom.xml » nous pouvons modifier le groupId, qui correspond au nom du projet, pour notre groupe cela sera « BlackMamba »
 
@@ -50,109 +122,39 @@ Ensuite dans le fichier « pom.xml » nous pouvons modifier le groupId, qui corr
 
 
 Nous choisissons le nom du de l artefact, nous utiliserons 
-```
-<artifactId>deathkiss</artifactId>.
 
 ```
-Donc notre fichier JAR aura pour nom actuellement : « blackmamba-version.jar ».
+<artifactId>deathkis_gui</artifactId>.
+
+```
+Donc notre fichier JAR aura pour nom actuellement :
+
+```
+ � deathkiss_gui-version.jar �.
 
 ```
 Il nous faut donner une version a notre fichier JAR, notre premier fichier JAR sera donc en
 version « 0.0.1 », l utilisation du mot SNAPSHOT est la pour signifier le developpement de la
 version en cours.
 
+
+le fichier jar sera cree dans le dossier
+ 
 ```
-le fichier jar sera cree dans le dossier « target » du projet.
+« target » du projet.
 Le lieu d enrengistrement peut etre modifier.
-```
 
-
-Generation Gui.jar
-
-Se placer, dans le module  maven gui present dans le dossier BlackMamba
-Pour generer le fichier JAR de l'IHM, il faut faire 
-```
-un clic droit sur le fichier « pom.xml » du dossier IHM, ensuite « Run
-As » et enfin cliquer sur « Maven Install »
- 
-```
-Le fichier jar "gui-0.0.1-SNAPSHOT-jar-with-dependencies.jar" est genere
-```
-
-
-Generation Pool.jar
-Se placer, dans le module  maven pool present dans le dossier BlackMamba
-Pour generer le fichier JAR de l'IHM, il faut faire un clic droit sur le fichier « pom.xml » du dossier IHM, ensuite « Run
-As » et enfin cliquer sur « Maven Install »
- 
-```
-Le fichier jar "gui-0.0.1-SNAPSHOT-jar-with-dependencies.jar" est genere
-```
-
-Generation Mock.jar 
-
-Se placer, dans le module  maven gui present dans le dossier BlackMamba
-Pour generer le fichier JAR du mock, il faut faire 
-```
-un clic droit sur le fichier « pom.xml » du dossier  mock, ensuite « Run
-As » et enfin cliquer sur « Maven Install »
- 
-```
-Le fichier jar "mock-0.0.1-SNAPSHOT-jar-with-dependencies.jar" est genere
-```
-
-Generation BiAnalysis.jar 
-
-Se placer, dans le module  maven gui present dans le dossier BlackMamba puis module "BiAnalysis
-Pour generer le fichier JAR de BiAnalysis, il faut faire 
-```
-un clic droit sur le fichier « pom.xml » du dossier IHM, ensuite « Run
-As » et enfin cliquer sur « Maven Install »
- 
-```
-Le fichier jar "BiAnalysis-0.0.1-SNAPSHOT-jar-with-dependencies.jar" est genere
-```
-
-# Executer les fichiers jar 
-
-Executer le jar du serveur 
+``` 
 
 ```
-Se placer dans le dossier BlackMamba, puis le dossier pool, et pour finir le dossier Target 
-Il faut lancer ihm du serveur et cliquer sur lancer le serveur.
-Double clique gauche sur "pool-0.0.1-SNAPSHOT-jar-with-dependencies.jar"
-il s'agit du fichier jar generer dans le dossier target du IHM.
-```
-Le serveur est en marche
 
-```
-Executer le jar  gui 
-```
-```
-Se placer dans le dossier BlackMamba, puis le dossier IHM, et pour finir le dossier Target 
-
-```
-Double clique gauche sur "gui-0.0.1-SNAPSHOT-jar-with-dependencies.jar"
-, il s'agit du fichier jar generer dans le dossier target du IHM.
-```
-```
-l'IHM se lance
-
-
-
-## Executer des tests
+## 2) Executer des tests
 pre requis : 
 - Serveur en marche 
 - Gui en marche 
 - BiAnalysis en marche 
 
-
-# Simulation Mock 
-
-Lancer le Mock.jar, qui va  permettre de permettront de reproduire le comportement d'objet r�els de maniere controlee. 
-Cela va permettre de tester le comportement des objets r�agissant sur l'IHM. 
-
-#Test 1 Test Connexion identifiant test
+###Test 1 Test Connexion identifiant test
 
 Utiliser l'identifiant test 
 
@@ -168,7 +170,7 @@ Erreur identifiant ou Mot de passe sont incorrect
 IHM n'a pas pu se connecter sur la base de donnee 
 
 
-#Test 2 Lire sur la base de donnee depuis l'IHM
+###Test 2 Lire sur la base de donnee depuis l'IHM
 
 ```
 Une fois identifie 
@@ -190,7 +192,7 @@ Verifier sur la base de donnee que les personnes presentes sur l'ihm sont les ma
 
 Id employa� 1  || Votre nom Almeida || prenom arnaud || mot_de_passe : plc
 ```
-#Test 3 Ecrire sur la base de donnee depuis l'IHM 
+###Test 3 Ecrire sur la base de donnee depuis l'IHM 
 
 ```
 Une fois identifie 
@@ -207,7 +209,7 @@ Cliquer sur "inscrire"
 Verifier sur la base de donnee que l'ecriture sur l'ihm s'est realise sur la base de donnee de Postgree
 Voici le lien : 
 
-#Test 4 Effectuer une  Mise a� jour 
+###Test 4 Effectuer une  Mise a� jour 
 
 ```
 Une fois identifie 
@@ -223,18 +225,36 @@ Voici le lien :
 
 
 
+ 
+```
+Le fichier jar "gui-0.0.1-SNAPSHOT-jar-with-dependencies.jar" est genere
+```
+
+`
+
+Generation BiAnalysis.jar 
+
+Se placer, dans le module  maven gui present dans le dossier BlackMamba puis module "BiAnalysis
+Pour generer le fichier JAR de BiAnalysis, il faut faire 
+```
+un clic droit sur le fichier « pom.xml » du dossier IHM, ensuite « Run
+As » et enfin cliquer sur « Maven Install »
+ 
+```
+Le fichier jar "BiAnalysis-0.0.1-SNAPSHOT-jar-with-dependencies.jar" est genere
+```
 
 
-## Acceder a� notre documentation
+# Acceder a� notre documentationn
 
 Pour connaitre les differentes commandes de notre projet, vous pouvez vous rendre sur https://drive.google.com/drive/folders/1Whu-TJRyjkN2xbLY668l2u1LvBM6SHde
 
 
-## Historique de version
+# Historique de versionn
 
 Pour retrouver un historique de nos versions, regardez directement les [tags du repository] https://github.com/pierre-arnaudAlmeida/BlackMamba.git
 
-## Auteurs
+# Auteurs
 
 * **BlackMamba** - *Travail d'equipe* - 
 
