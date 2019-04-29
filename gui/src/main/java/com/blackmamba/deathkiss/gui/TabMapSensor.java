@@ -6,6 +6,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
+
 import javax.swing.JPanel;
 import org.apache.logging.log4j.Level;
 
@@ -76,6 +78,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	private JComboBox<String> textInputNameCommonArea;
 	private JComboBox<String> textInputTypeSensor;
 	private DefaultListModel<String> listM;
+	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
 	public TabMapSensor() {
 
@@ -84,6 +87,25 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	public TabMapSensor(Color color, int idEmployee, String title) {
 		this.idEmployee = idEmployee;
 
+		setThreadMapSensor(new Thread(new Runnable() {
+			/**
+			 * Loop and update every 30 seconds the list of commonAreas
+			 */
+			@Override
+			public void run() {
+				while (true) {
+					tabSensor.updateListSensor();
+					tabSensor.updateSensorSelected();
+					try {
+						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
+					} catch (InterruptedException e) {
+						logger.log(Level.INFO, "Impossible to sleep the thread " + e.getClass().getCanonicalName());
+					}
+				}
+			}
+		}));
+		
+		
 		/**
 		 * Definition of the structure of this tab
 		 */
@@ -161,11 +183,9 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		list = new JList<String>(listM);
 
 		/**
-		 *  TODO RK
-		 *  Update sensors 
-		 *  Every time an alert is declared, the list is updated
+		 * TODO RK Update sensors Every time an alert is declared, the list is updated
 		 */
-		//tabSensor.ActualizationListSensor(listAlert)
+		// tabSensor.ActualizationListSensor(listAlert)
 
 		sc = new JScrollPane(list);
 		sc.setBounds(30, 120, 300, ((int) getToolkit().getScreenSize().getHeight() - 300));
@@ -231,6 +251,9 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		};
 		list.addMouseListener(mouseListener);
 
+		
+		///////////////////////// IMAGE/////////////////////////////////////////////////
+
 		// Displays the plan of nursing home
 		imageNursingHome = new JLabel();
 		nursingHome = new ImageIcon("gui\\src\\main\\resources\\NursingHome.jpg");
@@ -240,6 +263,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		imageNursingHome.setIcon(nursingHome);
 		bar.add(imageNursingHome);
 		bar.setVisible(true);
+
 	}
 
 	@Override
