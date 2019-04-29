@@ -392,6 +392,34 @@ private void requestSensorHistorical() {
 	
 }
 
+private void requestSensorHistoricalFIND() {
+	
+	requestType = "READ ALL";
+	table = "SensorHistorical";
+	objectMapper = new ObjectMapper();
+	try {
+		jsonString = "SELECT * FROM SensorHistorical WHERE idHistorical >= date_chooser AND date_chooser1";
+		new ClientSocket(requestType, jsonString, table);
+		jsonString = ClientSocket.getJson();
+		SensorHistorical[] sensorHistorical = objectMapper.readValue(jsonString, SensorHistorical[].class);
+		listSensorHistorical = Arrays.asList(sensorHistorical);
+		logger.log(Level.INFO, "Find SensorHistorical data succed");
+		
+		
+
+	} catch (Exception e1) {
+		logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
+	}
+	
+}
+
+
+
+
+
+
+
+
 public String returnNumber() {
 	int nb = 0;
 	if (!listSensorHistorical.isEmpty()) {
