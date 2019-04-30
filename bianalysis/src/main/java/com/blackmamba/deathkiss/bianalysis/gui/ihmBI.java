@@ -10,7 +10,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -82,8 +81,7 @@ public class ihmBI extends JFrame {
 	private JButton btnGraphique;
 	private static final Logger logger = LogManager.getLogger(TabSensor.class);
 	private JLabel lbl;
-
-	private JDateChooser  dateChooser;
+	private JDateChooser dateChooser;
 	private JDateChooser dateChooser_1;
 	private JTextField tfDate;
 	private JTextField tfDate1;
@@ -319,17 +317,6 @@ public class ihmBI extends JFrame {
 
 				tfDate.setText(df.format(dateChooser.getDate()));
 				tfDate1.setText(df.format(dateChooser_1.getDate()));
-				
-///////////////////////////////////////////////////////				
-				ListModel.removeAllElements();
-				for (SensorHistorical sensorHistorical1 : listSensorHistorical) {
-					
-					if (sensorHistorical1.getDate().after(dateChooser.getDate())  && sensorHistorical1.getDate().before((dateChooser_1.getDate()))) {
-					ListModel.addElement(sensorHistorical1.getAlertState() + "# " + sensorHistorical1.getIdHistorical() + " ,"
-							+ sensorHistorical1.getIdSensor() + " ," + sensorHistorical1.getDate());
-				
-				}
-				}
 			}
 		});
 
@@ -409,8 +396,6 @@ public class ihmBI extends JFrame {
 		return String.valueOf(nb);
 
 	}
-	
-	
 
 //TODO SL donne des noms explicite pour les objets pcq nob et nunu est pas comprehensible a la rigueur x et y c'est plus explicite que ca
 	public static Object[] returns() {
