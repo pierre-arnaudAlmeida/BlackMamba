@@ -1,7 +1,8 @@
 package com.blackmamba.deathkiss.gui;
 
-import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -26,9 +27,9 @@ public class ClientSocket {
 	private String table;
 	private String host;
 	private static String jsonString;
-	private Socket connexion = null;
+	private Socket sock = null;
 	private PrintWriter writer = null;
-	private BufferedInputStream reader = null;
+	private BufferedReader reader = null;
 	private static final Logger logger = LogManager.getLogger(ClientSocket.class);
 	private ResourceBundle rs = ResourceBundle.getBundle("config");
 
@@ -55,14 +56,13 @@ public class ClientSocket {
 		 * Create a new socket and send to host
 		 */
 		try {
-			connexion = new Socket(host, port);
-			writer = new PrintWriter(connexion.getOutputStream(), true);
-			reader = new BufferedInputStream(connexion.getInputStream());
+			sock = new Socket(host, port);
+			writer = new PrintWriter(sock.getOutputStream(), true);
+			reader = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 
-			writer.write("OPEN");
-			writer.flush();
+			writer.println("OPEN");
 			logger.log(Level.INFO, "Command OPEN connection send to server");
-			response = read();
+			response = reader.readLine();
 
 			/**
 			 * Send to server the type of request and the table where we do the request
@@ -97,20 +97,18 @@ public class ClientSocket {
 				default:
 					response = "";
 				}
-				writer.write(response);
-				writer.flush();
+				writer.println(response);
 				logger.log(Level.INFO, "Request Type Send to server");
-				response = read();
+				response = reader.readLine();
 
 				/**
 				 * Send to server the jsonString coded in JSON
 				 */
 				if (!response.equals("ERROR")) {
 					response = jsonString;
-					writer.write(response);
-					writer.flush();
+					writer.println(response);
 					logger.log(Level.INFO, "Request Send to server");
-					response = read();
+					response = reader.readLine();
 					/**
 					 * Receive the data in JSON string after the execution by server
 					 */
@@ -118,15 +116,13 @@ public class ClientSocket {
 						ClientSocket.setJsonString(response);
 						logger.log(Level.INFO, "Datas received on client");
 						response = "CLOSE";
-						writer.write(response);
-						writer.flush();
+						writer.println(response);
 						logger.log(Level.INFO, "Command CLOSE connection send to server");
 						writer.close();
 						logger.log(Level.INFO, "Connection Closed by client");
 					} else {
 						response = "CLOSE";
-						writer.write(response);
-						writer.flush();
+						writer.println(response);
 						logger.log(Level.INFO, "Command CLOSE connection send to server");
 						writer.close();
 						logger.log(Level.INFO, "Connection Closed by client");
@@ -137,8 +133,7 @@ public class ClientSocket {
 					 * socket
 					 */
 					response = "CLOSE";
-					writer.write(response);
-					writer.flush();
+					writer.println(response);
 					logger.log(Level.INFO, "Command CLOSE connection send to server");
 					writer.close();
 					logger.log(Level.INFO, "Connection Closed by client");
@@ -146,8 +141,7 @@ public class ClientSocket {
 			} else {
 				logger.log(Level.INFO, "ERROR, Impossible to Receive datas");
 				response = "CLOSE";
-				writer.write(response);
-				writer.flush();
+				writer.println(response);
 				logger.log(Level.INFO, "Command CLOSE connection send to server");
 				writer.close();
 				logger.log(Level.INFO, "Connection Closed by client");
@@ -157,18 +151,6 @@ public class ClientSocket {
 		} catch (IOException e) {
 			logger.log(Level.INFO, "Impossible create the socket " + e.getClass().getCanonicalName());
 		}
-	}
-
-	/**
-	 * Read the different response
-	 */
-	private String read() throws IOException {
-		String response = "";
-		int stream;
-		byte[] b = new byte[8192];
-		stream = reader.read(b);
-		response = new String(b, 0, stream);
-		return response;
 	}
 
 	/**

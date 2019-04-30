@@ -1,7 +1,8 @@
 package com.blackmamba.deathkiss.mock;
 
-import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -20,9 +21,9 @@ public class MockSocket {
 	/**
 	 * Different parameters used
 	 */
-	private Socket connexion = null;
+	private Socket sock = null;
 	private PrintWriter writer = null;
-	private BufferedInputStream reader = null;
+	private BufferedReader reader = null;
 	private int port;
 	private String requestType;
 	private String response;
@@ -57,14 +58,12 @@ public class MockSocket {
 		 * Create a new socket and send to host
 		 */
 		try {
-			connexion = new Socket(host, port);
-			writer = new PrintWriter(connexion.getOutputStream(), true);
-			reader = new BufferedInputStream(connexion.getInputStream());
+			sock = new Socket(host, port);
+			writer = new PrintWriter(sock.getOutputStream(), true);
+			reader = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 
-			writer.write("OPEN");
-			writer.flush();
-			response = read();
-
+			writer.println("OPEN");
+			response = reader.readLine();
 			/**
 			 * Send to server the type of request and the table where we do the request
 			 * coded in JSON
@@ -86,32 +85,28 @@ public class MockSocket {
 				default:
 					response = "";
 				}
-				writer.write(response);
-				writer.flush();
-				response = read();
+				writer.println(response);
+				response = reader.readLine();
 				/**
 				 * Send to server the jsonString coded in JSON
 				 */
 				if (!response.equals("ERROR")) {
 					response = jsonString;
-					writer.write(response);
-					writer.flush();
+					writer.println(response);
 					logger.log(Level.INFO, "Message Send to server");
 
-					response = read();
+					response = reader.readLine();
 					/**
 					 * Receive the data in JSON string after the execution by server
 					 */
 					if (!response.equals("ERROR")) {
 						MockSocket.setJsonString(response);
 						response = "CLOSE";
-						writer.write(response);
-						writer.flush();
+						writer.println(response);
 						writer.close();
 					} else {
 						response = "CLOSE";
-						writer.write(response);
-						writer.flush();
+						writer.println(response);
 						writer.close();
 					}
 				} else {
@@ -120,15 +115,13 @@ public class MockSocket {
 					 * socket
 					 */
 					response = "CLOSE";
-					writer.write(response);
-					writer.flush();
+					writer.println(response);
 					writer.close();
 				}
 			} else {
 				logger.log(Level.INFO, "ERROR, Impossible to Receive datas");
 				response = "CLOSE";
-				writer.write(response);
-				writer.flush();
+				writer.println(response);
 				writer.close();
 			}
 		} catch (UnknownHostException e) {
@@ -136,18 +129,6 @@ public class MockSocket {
 		} catch (IOException e) {
 			logger.log(Level.INFO, "Impossible create the socket " + e.getClass().getCanonicalName());
 		}
-	}
-
-	/**
-	 * Read the different response
-	 */
-	private String read() throws IOException {
-		String response = "";
-		int stream;
-		byte[] b = new byte[8192];
-		stream = reader.read(b);
-		response = new String(b, 0, stream);
-		return response;
 	}
 
 	/**

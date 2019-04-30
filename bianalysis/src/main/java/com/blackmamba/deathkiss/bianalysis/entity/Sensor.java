@@ -1,7 +1,9 @@
 package com.blackmamba.deathkiss.bianalysis.entity;
 
 import java.sql.Time;
-import java.util.Date;
+import com.blackmamba.deathkiss.bianalysis.entity.AlertState;
+import com.blackmamba.deathkiss.bianalysis.entity.Sensitivity;
+import com.blackmamba.deathkiss.bianalysis.entity.SensorType;
 
 /**
  * 
@@ -10,6 +12,9 @@ import java.util.Date;
  */
 public class Sensor {
 
+	/**
+	 * Different parameters used
+	 */
 	private int idSensor = 0;
 	private SensorType typeSensor = null;
 	private boolean sensorState = false;
@@ -21,6 +26,20 @@ public class Sensor {
 	private int thresholdMin = 0;
 	private int thresholdMax = 0;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param idSensor
+	 * @param typeSensor
+	 * @param sensorState
+	 * @param idCommonArea
+	 * @param alertState
+	 * @param maxSensitivity
+	 * @param startActivity
+	 * @param endActivity
+	 * @param thresholdMin
+	 * @param thresholdMax
+	 */
 	public Sensor(int idSensor, SensorType typeSensor, boolean sensorState, int idCommonArea, AlertState alertState,
 			Sensitivity maxSensitivity, Time startActivity, Time endActivity, int thresholdMin, int thresholdMax) {
 		super();
@@ -36,71 +55,10 @@ public class Sensor {
 		this.thresholdMax = thresholdMax;
 	}
 
+	/**
+	 * Constructor
+	 */
 	public Sensor() {
-	}
-
-	public int getIdSensor() {
-		return idSensor;
-	}
-
-	public void setIdSensor(int idSensor) {
-		this.idSensor = idSensor;
-	}
-
-	public SensorType getTypeSensor() {
-		return typeSensor;
-	}
-
-	public void setTypeSensor(SensorType typeSensor) {
-		this.typeSensor = typeSensor;
-	}
-
-	public boolean getSensorState() {
-		return sensorState;
-	}
-
-	public void setSensorState(boolean sensorState) {
-		this.sensorState = sensorState;
-	}
-
-	public int getIdCommonArea() {
-		return idCommonArea;
-	}
-
-	public void setIdCommonArea(int idCommonArea) {
-		this.idCommonArea = idCommonArea;
-	}
-
-	public AlertState getAlertState() {
-		return alertState;
-	}
-
-	public void setAlertState(AlertState alertState) {
-		this.alertState = alertState;
-	}
-
-	public Sensitivity getSensitivity() {
-		return maxSensitivity;
-	}
-
-	public void setSensitivity(Sensitivity sensitivity) {
-		this.maxSensitivity = sensitivity;
-	}
-
-	public Date getStartActivity() {
-		return startActivity;
-	}
-
-	public void setStartActivity(Time startActivity) {
-		this.startActivity = startActivity;
-	}
-
-	public Date getEndActivity() {
-		return endActivity;
-	}
-
-	public void setEndActivity(Time endActivity) {
-		this.endActivity = endActivity;
 	}
 
 	/**
@@ -131,4 +89,115 @@ public class Sensor {
 		this.thresholdMax = thresholdMax;
 	}
 
+	/**
+	 * @return the idSensor
+	 */
+	public int getIdSensor() {
+		return idSensor;
+	}
+
+	/**
+	 * @param idSensor the idSensor to set
+	 */
+	public void setIdSensor(int idSensor) {
+		this.idSensor = idSensor;
+	}
+
+	/**
+	 * @return the typeSensor
+	 */
+	public SensorType getTypeSensor() {
+		return typeSensor;
+	}
+
+	/**
+	 * @param typeSensor the typeSensor to set
+	 */
+	public void setTypeSensor(SensorType typeSensor) {
+		this.typeSensor = typeSensor;
+	}
+
+	/**
+	 * @return the sensorState
+	 */
+	public boolean getSensorState() {
+		return sensorState;
+	}
+
+	/**
+	 * @param sensorState the sensorState to set
+	 */
+	public void setSensorState(boolean sensorState) {
+		this.sensorState = sensorState;
+	}
+
+	/**
+	 * @return the idCommonArea
+	 */
+	public int getIdCommonArea() {
+		return idCommonArea;
+	}
+
+	/**
+	 * @param idCommonArea the idCommonArea to set
+	 */
+	public void setIdCommonArea(int idCommonArea) {
+		this.idCommonArea = idCommonArea;
+	}
+
+	/**
+	 * @return the alertState
+	 */
+	public AlertState getAlertState() {
+		return alertState;
+	}
+
+	/**
+	 * @param alertState the alertState to set
+	 */
+	public void setAlertState(AlertState alertState) {
+		this.alertState = alertState;
+	}
+
+	/**
+	 * @return the maxSensitivity
+	 */
+	public Sensitivity getSensitivity() {
+		return maxSensitivity;
+	}
+
+	/**
+	 * @param maxSensitivity the maxSensitivity to set
+	 */
+	public void setSensitivity(Sensitivity maxSensitivity) {
+		this.maxSensitivity = maxSensitivity;
+	}
+
+	/**
+	 * @return the startActivity
+	 */
+	public Time getStartActivity() {
+		return startActivity;
+	}
+
+	/**
+	 * @param startActivity the startActivity to set
+	 */
+	public void setStartActivity(Time startActivity) {
+		this.startActivity = startActivity;
+	}
+
+	/**
+	 * @return the endActivity
+	 */
+	public Time getEndActivity() {
+		return endActivity;
+	}
+
+	/**
+	 * @param endActivity the endActivity to set
+	 */
+	public void setEndActivity(Time endActivity) {
+		this.endActivity = endActivity;
+	}
 }

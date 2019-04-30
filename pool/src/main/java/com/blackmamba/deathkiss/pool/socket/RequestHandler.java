@@ -1,7 +1,8 @@
 package com.blackmamba.deathkiss.pool.socket;
 
-import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.Connection;
@@ -36,7 +37,7 @@ public class RequestHandler implements Runnable {
 	 */
 	private Socket sock;
 	private PrintWriter writer = null;
-	private BufferedInputStream reader = null;
+	private BufferedReader reader = null;
 	private String response;
 	private String jsonString;
 	private static final Logger logger = LogManager.getLogger(RequestHandler.class);
@@ -68,37 +69,35 @@ public class RequestHandler implements Runnable {
 		while (!sock.isClosed()) {
 			try {
 				writer = new PrintWriter(sock.getOutputStream(), true);
-				reader = new BufferedInputStream(sock.getInputStream());
+				reader = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+
 				objectMapper = new ObjectMapper();
 
 				/**
 				 * wait the request from client
 				 */
-				response = read();
+				response = reader.readLine();
 				if (response.equals("OPEN")) {
 					response = "OK FOR EXCHANGE";
-					writer.write(response);
-					writer.flush();
+					writer.println(response);
 					/**
 					 * wait the requestType and the table from client and choose witch case they
 					 * will execute with the requestType and the table
 					 */
-					response = read();
+					response = reader.readLine();
 					if (!response.equals("")) {
 						jsonNode = objectMapper.readTree(response);
 						switch (jsonNode.get("request").asText()) {
 						case "GET ALERT":
 							response = "OK FOR REQUEST GET ALERT";
-							writer.write(response);
-							writer.flush();
+							writer.println(response);
 							logger.log(Level.INFO, "Request Type accepted by server");
-							response = read();
+							response = reader.readLine();
 							if (!response.equals("")) {
 								objectMapper = new ObjectMapper();
 								jsonString = objectMapper.writeValueAsString(monitoringAlert.getListAlert());
 								monitoringAlert.cleanListAlert(monitoringAlert.getListAlert());
-								writer.write(jsonString);
-								writer.flush();
+								writer.println(jsonString);
 								logger.log(Level.INFO, "Response send to client");
 							} else {
 								logger.log(Level.INFO, "Request not recognized");
@@ -106,36 +105,32 @@ public class RequestHandler implements Runnable {
 							break;
 						case "ALERT":
 							response = "OK FOR REQUEST ALERT";
-							writer.write(response);
-							writer.flush();
-							response = read();
+							writer.println(response);
+							response = reader.readLine();
 							if (!response.equals("")) {
 								objectMapper = new ObjectMapper();
 								Message messages = objectMapper.readValue(response, Message.class);
 								monitoringAlert.addListMessage(messages, monitoringAlert.getListMessage());
 								logger.log(Level.INFO, "One message Received from sensor : " + messages.getIdSensor());
 								jsonString = "ADD";
-								writer.write(jsonString);
-								writer.flush();
+								writer.println(jsonString);
 							} else {
 								logger.log(Level.INFO, "Request not recognized");
 							}
 							break;
 						case "FIND ALL":
 							response = "OK FOR REQUEST FIND ALL";
-							writer.write(response);
-							writer.flush();
+							writer.println(response);
 							logger.log(Level.INFO, "Request Type accepted by server");
 
-							response = read();
+							response = reader.readLine();
 							switch (jsonNode.get("table").asText()) {
 							case "Sensor":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
 									DAO<Sensor> sensorDao = new SensorDAO(connection);
 									jsonString = ((SensorDAO) sensorDao).findAll(response);
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -146,8 +141,7 @@ public class RequestHandler implements Runnable {
 									logger.log(Level.INFO, "Request received on server");
 									DAO<Employee> employeeDao = new EmployeeDAO(connection);
 									jsonString = ((EmployeeDAO) employeeDao).findByName(response);
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -158,8 +152,7 @@ public class RequestHandler implements Runnable {
 									logger.log(Level.INFO, "Request received on server");
 									DAO<Resident> residentDao = new ResidentDAO(connection);
 									jsonString = ((ResidentDAO) residentDao).findByName(response);
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -170,8 +163,7 @@ public class RequestHandler implements Runnable {
 									logger.log(Level.INFO, "Request received on server");
 									DAO<CommonArea> commonAreaDao = new CommonAreaDAO(connection);
 									jsonString = ((CommonAreaDAO) commonAreaDao).findByName(response);
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -182,8 +174,7 @@ public class RequestHandler implements Runnable {
 									logger.log(Level.INFO, "Request received on server");
 									DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(connection);
 									jsonString = ((SensorHistoricalDAO) sensorHistoricalDao).findBySensor(response);
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -193,17 +184,15 @@ public class RequestHandler implements Runnable {
 							break;
 						case "CONNECTION":
 							response = "OK FOR REQUEST CONNECTION";
-							writer.write(response);
-							writer.flush();
+							writer.println(response);
 							logger.log(Level.INFO, "Request Type accepted by server");
 
-							response = read();
+							response = reader.readLine();
 							if (!response.equals("")) {
 								logger.log(Level.INFO, "Request received on server");
 								DAO<Employee> employeeDao = new EmployeeDAO(connection);
 								jsonString = ((EmployeeDAO) employeeDao).connection(response);
-								writer.write(jsonString);
-								writer.flush();
+								writer.println(jsonString);
 								logger.log(Level.INFO, "Response send to client");
 							} else {
 								logger.log(Level.INFO, "Request not recognized");
@@ -211,11 +200,10 @@ public class RequestHandler implements Runnable {
 							break;
 						case "CREATE":
 							response = "OK FOR REQUEST CREATE";
-							writer.write(response);
-							writer.flush();
+							writer.println(response);
 							logger.log(Level.INFO, "Request Type accepted by server");
 
-							response = read();
+							response = reader.readLine();
 							switch (jsonNode.get("table").asText()) {
 							case "Employee":
 								if (!response.equals("")) {
@@ -223,8 +211,7 @@ public class RequestHandler implements Runnable {
 									DAO<Employee> employeeDao = new EmployeeDAO(connection);
 									setResult(((EmployeeDAO) employeeDao).create(response));
 									jsonString = "INSERTED";
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -236,8 +223,7 @@ public class RequestHandler implements Runnable {
 									DAO<Resident> residentDao = new ResidentDAO(connection);
 									setResult(((ResidentDAO) residentDao).create(response));
 									jsonString = "INSERTED";
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -249,8 +235,7 @@ public class RequestHandler implements Runnable {
 									DAO<Sensor> sensorDao = new SensorDAO(connection);
 									setResult(((SensorDAO) sensorDao).create(response));
 									jsonString = "INSERTED";
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -262,8 +247,7 @@ public class RequestHandler implements Runnable {
 									DAO<CommonArea> commonAreaDao = new CommonAreaDAO(connection);
 									setResult(((CommonAreaDAO) commonAreaDao).create(response));
 									jsonString = "INSERTED";
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -275,8 +259,7 @@ public class RequestHandler implements Runnable {
 									DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(connection);
 									setResult(((SensorHistoricalDAO) sensorHistoricalDao).create(response));
 									jsonString = "INSERTED";
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -288,8 +271,7 @@ public class RequestHandler implements Runnable {
 									DAO<Message> messageDao = new MessageDAO(connection);
 									setResult(((MessageDAO) messageDao).create(response));
 									jsonString = "INSERTED";
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -299,11 +281,10 @@ public class RequestHandler implements Runnable {
 							break;
 						case "UPDATE":
 							response = "OK FOR REQUEST UPDATE";
-							writer.write(response);
-							writer.flush();
+							writer.println(response);
 							logger.log(Level.INFO, "Request Type accepted by server");
 
-							response = read();
+							response = reader.readLine();
 							switch (jsonNode.get("table").asText()) {
 							case "Employee":
 								if (!response.equals("")) {
@@ -311,8 +292,7 @@ public class RequestHandler implements Runnable {
 									DAO<Employee> employeeDao = new EmployeeDAO(connection);
 									setResult(((EmployeeDAO) employeeDao).update(response));
 									jsonString = "UPDATED";
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -324,8 +304,7 @@ public class RequestHandler implements Runnable {
 									DAO<Resident> residentDao = new ResidentDAO(connection);
 									setResult(((ResidentDAO) residentDao).update(response));
 									jsonString = "UPDATED";
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -337,13 +316,13 @@ public class RequestHandler implements Runnable {
 									DAO<Sensor> sensorDao = new SensorDAO(connection);
 									setResult(((SensorDAO) sensorDao).update(response));
 									jsonString = "UPDATED";
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
 								}
-								//TODO PA quand on update un capteur on doit supprimer l'etat d'alerte dans la listAlert
+								// TODO PA quand on update un capteur on doit supprimer l'etat d'alerte dans la
+								// listAlert
 								break;
 							case "CommonArea":
 								if (!response.equals("")) {
@@ -351,8 +330,7 @@ public class RequestHandler implements Runnable {
 									DAO<CommonArea> commonAreaDao = new CommonAreaDAO(connection);
 									setResult(((CommonAreaDAO) commonAreaDao).update(response));
 									jsonString = "UPDATED";
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -364,8 +342,7 @@ public class RequestHandler implements Runnable {
 									DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(connection);
 									setResult(((SensorHistoricalDAO) sensorHistoricalDao).update(response));
 									jsonString = "UPDATED";
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -377,8 +354,7 @@ public class RequestHandler implements Runnable {
 									DAO<Message> messageDao = new MessageDAO(connection);
 									setResult(((MessageDAO) messageDao).update(response));
 									jsonString = "UPDATED";
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -388,11 +364,10 @@ public class RequestHandler implements Runnable {
 							break;
 						case "DELETE":
 							response = "OK FOR REQUEST DELETE";
-							writer.write(response);
-							writer.flush();
+							writer.println(response);
 							logger.log(Level.INFO, "Request Type accepted by server");
 
-							response = read();
+							response = reader.readLine();
 							switch (jsonNode.get("table").asText()) {
 							case "Employee":
 								if (!response.equals("")) {
@@ -400,8 +375,7 @@ public class RequestHandler implements Runnable {
 									DAO<Employee> employeeDao = new EmployeeDAO(connection);
 									setResult(((EmployeeDAO) employeeDao).delete(response));
 									jsonString = "DELETED";
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -413,8 +387,7 @@ public class RequestHandler implements Runnable {
 									DAO<Resident> residentDao = new ResidentDAO(connection);
 									setResult(((ResidentDAO) residentDao).delete(response));
 									jsonString = "DELETED";
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -426,13 +399,13 @@ public class RequestHandler implements Runnable {
 									DAO<Sensor> sensorDao = new SensorDAO(connection);
 									setResult(((SensorDAO) sensorDao).delete(response));
 									jsonString = "DELETED";
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
 								}
-								//TODO PA quand on supprime un capteur on doit supprimer l'etat d'alerte dans la listAlert
+								// TODO PA quand on supprime un capteur on doit supprimer l'etat d'alerte dans
+								// la listAlert
 								break;
 							case "CommonArea":
 								if (!response.equals("")) {
@@ -440,8 +413,7 @@ public class RequestHandler implements Runnable {
 									DAO<CommonArea> commonAreaDao = new CommonAreaDAO(connection);
 									setResult(((CommonAreaDAO) commonAreaDao).delete(response));
 									jsonString = "DELETED";
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -453,8 +425,7 @@ public class RequestHandler implements Runnable {
 									DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(connection);
 									setResult(((SensorHistoricalDAO) sensorHistoricalDao).delete(response));
 									jsonString = "DELETED";
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -466,8 +437,7 @@ public class RequestHandler implements Runnable {
 									DAO<Message> messageDao = new MessageDAO(connection);
 									setResult(((MessageDAO) messageDao).delete(response));
 									jsonString = "DELETED";
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -477,19 +447,17 @@ public class RequestHandler implements Runnable {
 							break;
 						case "READ":
 							response = "OK FOR REQUEST READ";
-							writer.write(response);
-							writer.flush();
+							writer.println(response);
 							logger.log(Level.INFO, "Request Type accepted by server");
 
-							response = read();
+							response = reader.readLine();
 							switch (jsonNode.get("table").asText()) {
 							case "Employee":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
 									DAO<Employee> employeeDao = new EmployeeDAO(connection);
 									jsonString = ((EmployeeDAO) employeeDao).read(response);
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -500,8 +468,7 @@ public class RequestHandler implements Runnable {
 									logger.log(Level.INFO, "Request received on server");
 									DAO<Resident> residentDao = new ResidentDAO(connection);
 									jsonString = ((ResidentDAO) residentDao).read(response);
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -512,8 +479,7 @@ public class RequestHandler implements Runnable {
 									logger.log(Level.INFO, "Request received on server");
 									DAO<Sensor> sensorDao = new SensorDAO(connection);
 									jsonString = ((SensorDAO) sensorDao).read(response);
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -524,8 +490,7 @@ public class RequestHandler implements Runnable {
 									logger.log(Level.INFO, "Request received on server");
 									DAO<CommonArea> commonAreaDao = new CommonAreaDAO(connection);
 									jsonString = ((CommonAreaDAO) commonAreaDao).read(response);
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -536,8 +501,7 @@ public class RequestHandler implements Runnable {
 									logger.log(Level.INFO, "Request received on server");
 									DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(connection);
 									jsonString = ((SensorHistoricalDAO) sensorHistoricalDao).read(response);
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -548,8 +512,7 @@ public class RequestHandler implements Runnable {
 									logger.log(Level.INFO, "Request received on server");
 									DAO<Message> messageDao = new MessageDAO(connection);
 									jsonString = ((MessageDAO) messageDao).read(response);
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -559,19 +522,17 @@ public class RequestHandler implements Runnable {
 							break;
 						case "READ ALL":
 							response = "OK FOR REQUEST READ ALL";
-							writer.write(response);
-							writer.flush();
+							writer.println(response);
 							logger.log(Level.INFO, "Request Type accepted by server");
 
-							response = read();
+							response = reader.readLine();
 							switch (jsonNode.get("table").asText()) {
 							case "Employee":
 								if (!response.equals("")) {
 									logger.log(Level.INFO, "Request received on server");
 									DAO<Employee> employeeDao = new EmployeeDAO(connection);
 									jsonString = ((EmployeeDAO) employeeDao).readAll(response);
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -582,8 +543,7 @@ public class RequestHandler implements Runnable {
 									logger.log(Level.INFO, "Request received on server");
 									DAO<Resident> residentDao = new ResidentDAO(connection);
 									jsonString = ((ResidentDAO) residentDao).readAll(response);
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -594,8 +554,7 @@ public class RequestHandler implements Runnable {
 									logger.log(Level.INFO, "Request received on server");
 									DAO<Sensor> sensorDao = new SensorDAO(connection);
 									jsonString = ((SensorDAO) sensorDao).readAll(response);
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -606,8 +565,7 @@ public class RequestHandler implements Runnable {
 									logger.log(Level.INFO, "Request received on server");
 									DAO<CommonArea> commonAreaDao = new CommonAreaDAO(connection);
 									jsonString = ((CommonAreaDAO) commonAreaDao).readAll(response);
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -618,8 +576,7 @@ public class RequestHandler implements Runnable {
 									logger.log(Level.INFO, "Request received on server");
 									DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(connection);
 									jsonString = ((SensorHistoricalDAO) sensorHistoricalDao).readAll(response);
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -630,8 +587,7 @@ public class RequestHandler implements Runnable {
 									logger.log(Level.INFO, "Request received on server");
 									DAO<Message> messageDao = new MessageDAO(connection);
 									jsonString = ((MessageDAO) messageDao).readAll(response);
-									writer.write(jsonString);
-									writer.flush();
+									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
@@ -640,18 +596,17 @@ public class RequestHandler implements Runnable {
 							}
 							break;
 						}
-						response = read();
+						response = reader.readLine();
 						if (response.equals("CLOSE")) {
 							sock.close();
 							logger.log(Level.INFO, "Socket Closed by Server");
 						}
 					} else {
 						response = "ERROR";
-						writer.write(response);
-						writer.flush();
+						writer.println(response);
 						logger.log(Level.INFO, "Resquest not recognized");
 
-						response = read();
+						response = reader.readLine();
 						if (response.equals("CLOSE")) {
 							sock.close();
 							logger.log(Level.INFO, "Socket Closed by Server");
@@ -659,10 +614,9 @@ public class RequestHandler implements Runnable {
 					}
 				} else {
 					response = "ERROR";
-					writer.write(response);
-					writer.flush();
+					writer.println(response);
 
-					response = read();
+					response = reader.readLine();
 					if (response.equals("CLOSE")) {
 						sock.close();
 						logger.log(Level.INFO, "Socket Closed by Server");
@@ -673,19 +627,6 @@ public class RequestHandler implements Runnable {
 		}
 		if (sock.isClosed())
 			logger.log(Level.INFO, "Connection Closed");
-	}
-
-	/**
-	 * Read the different response
-	 */
-	//TODO PA gerer le flux de données
-	private String read() throws IOException {
-		String response = "";
-		int stream;
-		byte[] b = new byte[524288];
-		stream = reader.read(b);
-		response = new String(b, 0, stream);
-		return response;
 	}
 
 	/**
