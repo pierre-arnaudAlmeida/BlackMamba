@@ -89,17 +89,19 @@ public class TabMapSensor extends JPanel implements MouseListener {
 
 		setThreadMapSensor(new Thread(new Runnable() {
 			/**
-			 * Loop and update every 30 seconds the list of commonAreas
+			 * Loop and update every 30 seconds the list of Sensor with their alert state
 			 */
 			@Override
 			public void run() {
 				while (true) {
-					tabSensor.updateListSensor();
+					//tabSensor.actualizationListSensor();
 					tabSensor.updateSensorSelected();
 					try {
 						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
-						logger.log(Level.INFO, "Impossible to sleep the thread " + e.getClass().getCanonicalName());
+						logger.log(Level.INFO, "Impossible to sleep the thread " + 
+
+e.getClass().getCanonicalName());
 					}
 				}
 			}
@@ -185,7 +187,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		/**
 		 * TODO RK Update sensors Every time an alert is declared, the list is updated
 		 */
-		// tabSensor.ActualizationListSensor(listAlert)
+		//tabSensor.actualizationListSensor();
 
 		sc = new JScrollPane(list);
 		sc.setBounds(30, 120, 300, ((int) getToolkit().getScreenSize().getHeight() - 300));
@@ -218,7 +220,9 @@ public class TabMapSensor extends JPanel implements MouseListener {
 						jsonString = ClientSocket.getJson();
 						sensor = objectMapper.readValue(jsonString, Sensor.class);
 					} catch (Exception e1) {
-						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+						logger.log(Level.INFO, "Impossible to parse in JSON " + 
+
+e1.getClass().getCanonicalName());
 					}
 					/**
 					 * Find the CommonAreaName by the idCommonArea get on list
@@ -233,13 +237,19 @@ public class TabMapSensor extends JPanel implements MouseListener {
 						;
 						new ClientSocket(requestType, jsonString, table);
 						jsonString = ClientSocket.getJson();
-						commonArea = readMapper.readValue(jsonString, CommonArea.class);
+						commonArea = readMapper.readValue(jsonString, 
+
+CommonArea.class);
 					} catch (Exception e1) {
-						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+						logger.log(Level.INFO, "Impossible to parse in JSON " + 
+
+e1.getClass().getCanonicalName());
 					}
 
 					textInputIdSensor.setText(Integer.toString(sensor.getIdSensor()));
-					String str = commonArea.getNameCommonArea() + " #" + sensor.getIdCommonArea();
+					String str = commonArea.getNameCommonArea() + " #" + 
+
+sensor.getIdCommonArea();
 					for (int i = 0; i < textInputNameCommonArea.getItemCount(); i++) {
 						if (textInputNameCommonArea.getItemAt(i).toString().contains(str)) {
 							textInputNameCommonArea.setSelectedIndex(i);
