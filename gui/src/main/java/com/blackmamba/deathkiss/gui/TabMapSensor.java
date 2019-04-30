@@ -89,12 +89,12 @@ public class TabMapSensor extends JPanel implements MouseListener {
 
 		setThreadMapSensor(new Thread(new Runnable() {
 			/**
-			 * Loop and update every 30 seconds the list of Sensor with their alert state
+			 * Loop and update every 30 seconds the list of commonAreas
 			 */
 			@Override
 			public void run() {
 				while (true) {
-					//tabSensor.actualizationListSensor();
+					tabSensor.updateListSensor();
 					tabSensor.updateSensorSelected();
 					try {
 						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
@@ -185,7 +185,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		/**
 		 * TODO RK Update sensors Every time an alert is declared, the list is updated
 		 */
-		//tabSensor.actualizationListSensor();
+		// tabSensor.ActualizationListSensor(listAlert)
 
 		sc = new JScrollPane(list);
 		sc.setBounds(30, 120, 300, ((int) getToolkit().getScreenSize().getHeight() - 300));
