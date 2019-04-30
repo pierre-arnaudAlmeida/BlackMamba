@@ -65,13 +65,15 @@ public class Frame extends JFrame {
 				while (true) {
 					verificationUser(idEmployee);
 					if (employee.getLastnameEmployee().equals("")) {
-						JOptionPane.showMessageDialog(null, "You will be disconnect", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "You will be disconnect", "Error",
+								JOptionPane.ERROR_MESSAGE);
 						System.exit(ABORT);
 					}
 					try {
 						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
-						logger.log(Level.INFO, "Impossible to sleep the thread Frame " + e.getClass().getCanonicalName());
+						logger.log(Level.INFO,
+								"Impossible to sleep the thread Frame " + e.getClass().getCanonicalName());
 					}
 				}
 			}
@@ -91,14 +93,13 @@ public class Frame extends JFrame {
 		/**
 		 * Creation of different tabs
 		 */
-		//TODO
-		//tabEmployes = new TabEmployes(Color.GRAY, this.idEmployee, "Tab Employees");
-		//tabCommonArea = new TabCommonArea(Color.GRAY, this.idEmployee, "Tab Common Areas");
-		//tabSensor = new TabSensor(Color.GRAY, this.idEmployee, "Tab Sensors", 0);
-		//tabResident = new TabResident(Color.GRAY, this.idEmployee, "Tab Residents");
+		tabEmployes = new TabEmployes(Color.GRAY, this.idEmployee, "Tab Employees");
+		tabCommonArea = new TabCommonArea(Color.GRAY, this.idEmployee, "Tab Common Areas");
+		tabSensor = new TabSensor(Color.GRAY, this.idEmployee, "Tab Sensors", 0);
+		tabResident = new TabResident(Color.GRAY, this.idEmployee, "Tab Residents");
 		tabHistorical = new TabHistorical(Color.GRAY, this.idEmployee, "Tab Historical");
-		//tabProfile = new TabProfile(Color.GRAY, this.idEmployee, "Tab Profile");
-		//tabMapSensor = new TabMapSensor(Color.GRAY, this.idEmployee, "Tab Map");
+		tabProfile = new TabProfile(Color.GRAY, this.idEmployee, "Tab Profile");
+		tabMapSensor = new TabMapSensor(Color.GRAY, this.idEmployee, "Tab Map");
 
 		/**
 		 * Add of the title of tabs
@@ -109,14 +110,13 @@ public class Frame extends JFrame {
 		/**
 		 * Add of tabs on the window
 		 */
-		//TODO
-		//tab.add("Tab " + tabOfTab[0], tabEmployes);
-		//tab.add("Tab " + tabOfTab[1], tabCommonArea);
-		//tab.add("Tab " + tabOfTab[2], tabSensor);
-		//tab.add("Tab " + tabOfTab[3], tabResident);
+		tab.add("Tab " + tabOfTab[0], tabEmployes);
+		tab.add("Tab " + tabOfTab[1], tabCommonArea);
+		tab.add("Tab " + tabOfTab[2], tabSensor);
+		tab.add("Tab " + tabOfTab[3], tabResident);
 		tab.add("Tab " + tabOfTab[4], tabHistorical);
-		//tab.add("Tab " + tabOfTab[5], tabProfile);
-		//tab.add("Tab " + tabOfTab[6], tabMapSensor);
+		tab.add("Tab " + tabOfTab[5], tabProfile);
+		tab.add("Tab " + tabOfTab[6], tabMapSensor);
 
 		///////////////////////// ALERT/////////////////////////////////////////////////
 		setThreadAlert(new Thread(new Runnable() {
@@ -129,13 +129,14 @@ public class Frame extends JFrame {
 				while (true) {
 					getAlert();
 					if (!listAlert.isEmpty())
-						//TODO RK
-						//tabSensor.ActualizationListSensor(listAlert);
-					try {
-						Thread.sleep(Integer.parseInt(rs.getString("time_threadAlert")));
-					} catch (InterruptedException e) {
-						logger.log(Level.INFO, "Impossible to sleep the thread Alert" + e.getClass().getCanonicalName());
-					}
+						// TODO RK
+						// tabSensor.ActualizationListSensor(listAlert);
+						try {
+							Thread.sleep(Integer.parseInt(rs.getString("time_threadAlert")));
+						} catch (InterruptedException e) {
+							logger.log(Level.INFO,
+									"Impossible to sleep the thread Alert" + e.getClass().getCanonicalName());
+						}
 				}
 			}
 		}));
@@ -143,9 +144,8 @@ public class Frame extends JFrame {
 		/**
 		 * Launch the threads
 		 */
-		//TODO
-		//threadAlert.start();
-		//threadFrame.start();
+		threadAlert.start();
+		threadFrame.start();
 
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**

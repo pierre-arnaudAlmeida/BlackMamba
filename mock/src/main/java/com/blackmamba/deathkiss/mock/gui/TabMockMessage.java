@@ -123,7 +123,7 @@ public class TabMockMessage extends JPanel {
 		 * Definition of label MessageGenerate
 		 */
 		labelMessageGenerate = new JLabel();
-		labelMessageGenerate.setBounds(250, 450, 350, 30);
+		labelMessageGenerate.setBounds(250, 450, 400, 30);
 		labelMessageGenerate.setFont(policeLabel);
 		labelMessageGenerate.setText("Number of sensor generated : " + nbMessageGenerate);
 		this.add(labelMessageGenerate);

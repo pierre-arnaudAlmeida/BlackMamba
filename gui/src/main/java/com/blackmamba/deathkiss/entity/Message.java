@@ -15,6 +15,7 @@ public class Message {
 	private int idMessage = 0;
 	private int threshold = 0;
 	private int idSensor = 0;
+	private String UUIDMessage = "";
 	private Date alertDate = null;
 
 	/**
@@ -93,5 +94,19 @@ public class Message {
 	 */
 	public void setAlertDate(Date alertDate) {
 		this.alertDate = alertDate;
+	}
+
+	/**
+	 * @return the uUIDMessage
+	 */
+	public String getUUIDMessage() {
+		return UUIDMessage;
+	}
+
+	/**
+	 * @param uUIDMessage the uUIDMessage to set
+	 */
+	public void setUUIDMessage(String uUIDMessage) {
+		UUIDMessage = uUIDMessage;
 	}
 }

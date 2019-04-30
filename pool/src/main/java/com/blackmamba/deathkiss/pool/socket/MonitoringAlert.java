@@ -69,6 +69,7 @@ public class MonitoringAlert {
 	private List<Message> listMessage = new ArrayList<Message>();
 	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
 	private List<Message> listMessageInTreatment = new ArrayList<Message>();
+	private List<Message> listMessageTreated = new ArrayList<Message>();
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private List<Sensor> listSensorDown = new ArrayList<Sensor>();
 	private static final Logger logger = LogManager.getLogger(MonitoringAlert.class);
@@ -110,9 +111,12 @@ public class MonitoringAlert {
 						listMessageInTreatment.add(messages);
 					}
 				}
+				listMessage.removeAll(listMessageInTreatment);
 				nbAlert = 0;
 				if (!(sensors.getThresholdMin() == 0 && sensors.getThresholdMax() == 0)) {
 					detectAlert(sensors);
+					listMessageInTreatment.removeAll(listMessageTreated);
+					listMessageTreated.removeAll(listMessageTreated);
 				} else {
 					for (SensorType type : SensorType.values()) {
 						if (type.equals(sensors.getTypeSensor())) {
@@ -123,6 +127,8 @@ public class MonitoringAlert {
 						}
 					}
 					detectAlert(sensors);
+					listMessageInTreatment.removeAll(listMessageTreated);
+					listMessageTreated.removeAll(listMessageTreated);
 				}
 				if (nbAlert != 0) {
 					difference = firstAlertDate.getTime() - lastAlertDate.getTime();
@@ -143,12 +149,19 @@ public class MonitoringAlert {
 					alert.setIdAlert(0);
 					alert.setIdSensor(sensors.getIdSensor());
 					listAlert.add(alert);
+					logger.log(Level.INFO, "*********************************************************************");
 					logger.log(Level.INFO, "ALERT DETECTED!!");
 					logger.log(Level.INFO, "Sensor : " + sensors.getIdSensor() + " on ALERT on commonArea : "
 							+ sensors.getIdCommonArea());
+					logger.log(Level.INFO, "*********************************************************************");
 					sensors.setAlertState(AlertState.ALERT);
 					updateSensorAlertState(sensors);
 					addHistorical(sensors);
+					for (Message messages : listMessageInTreatment) {
+						if (messages.getIdSensor() == sensors.getIdSensor()) {
+							listMessageTreated.add(messages);
+						}
+					}
 				}
 //				} else {
 //					sensitivity = Integer.parseInt(rsAlert.getString("lowNbOfAlertMessage"));
@@ -168,11 +181,7 @@ public class MonitoringAlert {
 //				}
 //TODO PA quand c'est une alerte il faut l'inserer dans la base messages avec les infos
 			}
-			// TODO PA virer seulement les messages normal et garder juste la derniere
-			// alerte
-			// donc on vire les message alert de listIntreatment et
-			// donc sur la listMessage on supprimera la liste in treatment
-			listMessageInTreatment.removeAll(listMessageInTreatment);
+			listMessageInTreatment.removeAll(listMessageTreated);
 		}
 	}
 
@@ -430,11 +439,16 @@ public class MonitoringAlert {
 								"Sensor : " + sensors.getIdSensor() + " threshold reached : " + messages.getThreshold()
 										+ ", Min : " + sensors.getThresholdMin() + " Max : "
 										+ sensors.getThresholdMax());
+					} else {
+						listMessageTreated.add(messages);
 					}
 				} else {
 					if (sensors.getThresholdMax() == messages.getThreshold()) {
 						logger.log(Level.INFO, "Sensor : " + sensors.getIdSensor() + " threshold reached : "
 								+ messages.getThreshold() + ", Max : " + sensors.getThresholdMax());
+						nbAlert++;
+					} else {
+						listMessageTreated.add(messages);
 					}
 				}
 			}

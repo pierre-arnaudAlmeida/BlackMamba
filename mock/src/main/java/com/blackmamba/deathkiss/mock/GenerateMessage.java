@@ -3,6 +3,7 @@ package com.blackmamba.deathkiss.mock;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -49,7 +50,7 @@ public class GenerateMessage extends Thread {
 	 */
 	public void run() {
 		bool = true;
-		while (bool) { // TODO PA supprimer les commentaires
+		while (bool) {
 			if (request.equals("ALL")) {
 				/**
 				 * Generate an message with basic parameters for every sensor
@@ -58,6 +59,7 @@ public class GenerateMessage extends Thread {
 					if (sensors.getSensorState()) {
 						currentDate = new Date();
 						message2 = new Message();
+						message2.setUUIDMessage(UUID.randomUUID().toString());
 						message2.setIdSensor(sensors.getIdSensor());
 						message2.setThreshold((sensors.getThresholdMax() - sensors.getThresholdMin()) / 2);
 						message2.setAlertDate(currentDate);
@@ -75,6 +77,7 @@ public class GenerateMessage extends Thread {
 					message2 = new Message();
 					if (sensors.getIdSensor() == message.getIdSensor()) {
 						currentDate = new Date();
+						message2.setUUIDMessage(UUID.randomUUID().toString());
 						message2.setThreshold(threshold);
 						message2.setAlertDate(currentDate);
 						message2.setIdSensor(message.getIdSensor());
@@ -82,6 +85,7 @@ public class GenerateMessage extends Thread {
 						nbMessageGenerate++;
 					} else if (sensors.getSensorState()) {
 						currentDate = new Date();
+						message2.setUUIDMessage(UUID.randomUUID().toString());
 						message2.setThreshold((sensors.getThresholdMax() - sensors.getThresholdMin()) / 2);
 						message2.setAlertDate(currentDate);
 						message2.setIdSensor(sensors.getIdSensor());
@@ -102,6 +106,7 @@ public class GenerateMessage extends Thread {
 					if (sensors.getSensorState() && sensorType.equals(sensors.getTypeSensor())) {
 						message2 = new Message();
 						currentDate = new Date();
+						message2.setUUIDMessage(UUID.randomUUID().toString());
 						message2.setIdSensor(sensors.getIdSensor());
 						message2.setThreshold(threshold);
 						message2.setAlertDate(currentDate);
@@ -110,6 +115,7 @@ public class GenerateMessage extends Thread {
 					} else if (sensors.getSensorState()) {
 						message2 = new Message();
 						currentDate = new Date();
+						message2.setUUIDMessage(UUID.randomUUID().toString());
 						message2.setIdSensor(sensors.getIdSensor());
 						message2.setThreshold((sensors.getThresholdMax() - sensors.getThresholdMin()) / 2);
 						message2.setAlertDate(currentDate);

@@ -106,7 +106,7 @@ public class Frame extends JFrame {
 //		tab.add("Onglet " + tabOfTab[5], tabProfile);
 
 		///////////////////////// ALERT/////////////////////////////////////////////////
-//		// TODO
+//		// TODO SL
 //		setThreadAlert(new Thread(new Runnable() {
 //			/**
 //			 * Loop and update every second the alerts
