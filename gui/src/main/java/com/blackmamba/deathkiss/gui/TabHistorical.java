@@ -6,13 +6,26 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ResourceBundle;
+
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.blackmamba.deathkiss.entity.SensorHistorical;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * 
@@ -26,13 +39,24 @@ public class TabHistorical extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private int idemployee;
+	private int index;
+	private String requestType;
+	private String table;
+	private String jsonString;
 	private JPanel bar;
 	private JLabel labelIdEmployee;
 	private JButton checkSensor;
 	private JButton checkCommonArea;
 	private Font police;
+	private JScrollPane sc;
+	private SensorHistorical sensorHistorical;
+	private JList<String> tableau;
+	private DefaultListModel<String> tableModel;
 	private JButton disconnection;
+	private Thread threadListSensorHistorical;
+	private List<SensorHistorical> listSensorHistorical = new ArrayList<SensorHistorical>();
 	private static final Logger logger = LogManager.getLogger(TabHistorical.class);
+	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
 	/**
 	 * Constructor
@@ -50,6 +74,24 @@ public class TabHistorical extends JPanel {
 	public TabHistorical(Color color, int idemployee, String title) {
 		this.idemployee = idemployee;
 
+		///////////////////////// Thread/////////////////////////////////////////////////
+		setThreadListSensorHistorical(new Thread(new Runnable() {
+			/**
+			 * Loop and update every 30 seconds the list of Sensors
+			 */
+			@Override
+			public void run() {
+				while (true) {
+					updateListSensorHistorical();
+					try {
+						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
+					} catch (InterruptedException e) {
+						logger.log(Level.INFO, "Impossible to sleep the thread Historical " + e.getClass().getCanonicalName());
+					}
+				}
+			}
+		}));
+
 		/**
 		 * Definition of the structure of this tab
 		 */
@@ -61,7 +103,7 @@ public class TabHistorical extends JPanel {
 
 		///////////////////////// BAR/////////////////////////////////////////////////
 		/**
-		 * Definition of label Identifiant on header bar
+		 * Definition of label LOGIN on header bar
 		 */
 		labelIdEmployee = new JLabel("Login :   " + this.idemployee + "    ");
 		police = new Font("Arial", Font.BOLD, 16);
@@ -81,6 +123,29 @@ public class TabHistorical extends JPanel {
 				System.exit(ABORT);
 			}
 		});
+
+		///////////////////////// TABLE/////////////////////////////////////////////////
+		tableModel = new DefaultListModel<String>();
+		tableau = new JList<String>(tableModel);
+		/**
+		 * Add a scrollBar on list
+		 */
+		sc = new JScrollPane(tableau);
+		sc.setBounds((int) getToolkit().getScreenSize().getWidth() * 3 / 10, (int) getToolkit().getScreenSize().getHeight() * 2 / 10, (int) getToolkit().getScreenSize().getWidth() * 1 / 2, (int) getToolkit().getScreenSize().getHeight() * 1 / 2);
+		this.add(sc);
+
+		/**
+		 * Get the id of the sensor selected by the user to be used after
+		 */
+		MouseListener mouseListener = new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				index = tableau.locationToIndex(e.getPoint());
+				String substring = tableModel.getElementAt(index).toString();
+				int position = substring.indexOf(" ");
+				index = Integer.parseInt(substring.substring(0, position));
+			}
+		};
+		tableau.addMouseListener(mouseListener);
 
 		///////////////////////// BUTTON/////////////////////////////////////////////////
 		/**
@@ -109,6 +174,8 @@ public class TabHistorical extends JPanel {
 			}
 		});
 
+		// TODO PA bouton supprimer ligne d'historique
+
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
 		 * Different parameters of the window
@@ -116,5 +183,44 @@ public class TabHistorical extends JPanel {
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);
 		this.setBackground(color);
+	}
+
+	/**
+	 * They find all the Sensors present in the CommonArea with the id sent by the
+	 * TabCommonArea And add all this sensor in a list do be displayed
+	 */
+	public void updateListSensorHistorical() {
+		requestType = "READ ALL";
+		table = "SensorHistorical";
+		ObjectMapper readMapper = new ObjectMapper();
+		try {
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			SensorHistorical[] listSensorHistoricals = readMapper.readValue(jsonString, SensorHistorical[].class);
+			listSensorHistorical = Arrays.asList(listSensorHistoricals);
+			logger.log(Level.INFO, "Find all SensorHistorical datas succeeded");
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON SensorHistorical datas" + e1.getClass().getCanonicalName());
+		}
+
+		tableModel.removeAllElements();
+		tableModel.addElement("ID Historical, Date, ID Sensor, State, Alert State");
+		for (SensorHistorical sensorHistoricals : listSensorHistorical) {
+			tableModel.addElement(Integer.toString(sensorHistoricals.getIdHistorical()) + " " + sensorHistoricals.getDate() + " " + sensorHistoricals.getIdSensor() + " " + sensorHistoricals.getSensorState() + " " + sensorHistoricals.getAlertState());
+		}
+	}
+
+	/**
+	 * @return the threadListSensorHistorical
+	 */
+	public Thread getThreadListSensorHistorical() {
+		return threadListSensorHistorical;
+	}
+
+	/**
+	 * @param threadListSensorHistorical the threadListSensorHistorical to set
+	 */
+	public void setThreadListSensorHistorical(Thread threadListSensorHistorical) {
+		this.threadListSensorHistorical = threadListSensorHistorical;
 	}
 }

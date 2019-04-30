@@ -106,7 +106,7 @@ public class TabResident extends JPanel {
 					try {
 						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
-						logger.log(Level.INFO, "Impossible to sleep the thread" + e.getClass().getCanonicalName());
+						logger.log(Level.INFO, "Impossible to sleep the thread Resident " + e.getClass().getCanonicalName());
 					}
 				}
 			}
