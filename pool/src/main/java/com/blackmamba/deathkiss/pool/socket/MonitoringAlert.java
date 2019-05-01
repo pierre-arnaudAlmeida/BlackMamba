@@ -3,7 +3,6 @@ package com.blackmamba.deathkiss.pool.socket;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +17,7 @@ import com.blackmamba.deathkiss.pool.connectionpool.DataSource;
 import com.blackmamba.deathkiss.pool.connectionpool.JDBCConnectionPool;
 import com.blackmamba.deathkiss.pool.dao.CommonAreaDAO;
 import com.blackmamba.deathkiss.pool.dao.DAO;
+import com.blackmamba.deathkiss.pool.dao.MessageDAO;
 import com.blackmamba.deathkiss.pool.dao.SensorDAO;
 import com.blackmamba.deathkiss.pool.dao.SensorHistoricalDAO;
 import com.blackmamba.deathkiss.pool.entity.Alert;
@@ -46,6 +46,7 @@ public class MonitoringAlert {
 	private Alert alert;
 	private Sensor sensor;
 	private SensorHistorical sensorHistorical;
+	private Message message;
 	private Date curDate;
 	private Date beforeDate;
 	private Date afterDate;
@@ -56,6 +57,7 @@ public class MonitoringAlert {
 	private ObjectMapper objectMapper;
 	private int numberOfMessages;
 	private int numberOfIteration;
+	private int lastThreshold;
 	private int nbAlert;
 	private long difference;
 	private int sensitivity;
@@ -160,7 +162,7 @@ public class MonitoringAlert {
 					sensors.setAlertState(AlertState.ALERT);
 					updateSensorAlertState(sensors);
 					addHistorical(sensors);
-					// TODO PA ajouter a base message
+					addMessage(lastThreshold, sensors);
 					for (Message messages : listMessageInTreatment) {
 						if (messages.getIdSensor() == sensors.getIdSensor()) {
 							listMessageTreated.add(messages);
@@ -431,6 +433,41 @@ public class MonitoringAlert {
 		}
 	}
 
+	public void addMessage(int threshold, Sensor sens) {
+		objectMapper = new ObjectMapper();
+		curDate = new Date();
+		message = new Message();
+		message.setAlertDate(curDate);
+		message.setIdSensor(sens.getIdSensor());
+		message.setThreshold(threshold);
+		try {
+			jsonString = objectMapper.writeValueAsString(message);
+			connectionGived = DataSource.getConnectionFromJDBC(pool);
+			DAO<Message> messageDao = new MessageDAO(connectionGived);
+			setResult(((MessageDAO) messageDao).create(jsonString));
+			DataSource.returnConnection(pool, connectionGived);
+			if (result)
+				logger.log(Level.INFO, "Insertion Message datas succed");
+		} catch (JsonProcessingException | SQLException e) {
+			logger.log(Level.INFO, "Impossible to insert datas " + e.getClass().getCanonicalName());
+		}
+
+	}
+
+	public void deleteAlert(String str) {
+		objectMapper = new ObjectMapper();
+		try {
+			sensor = objectMapper.readValue(str, Sensor.class);
+			for (Alert alerts : listAlert) {
+				if (alerts.getIdSensor() == sensor.getIdSensor()) {
+					listAlert.remove(alerts);
+				}
+			}
+		} catch (IOException e) {
+			logger.log(Level.INFO, "Impossible to delete on Alert list " + e.getClass().getCanonicalName());
+		}
+	}
+
 	public void detectAlert(Sensor sensors) {
 		for (Message messages : listMessageInTreatment) {
 			if (sensors.getTypeSensor().equals(SensorType.SMOKE) || sensors.getTypeSensor().equals(SensorType.ELEVATOR)
@@ -445,14 +482,20 @@ public class MonitoringAlert {
 					logger.log(Level.INFO,
 							"Sensor : " + sensors.getIdSensor() + " threshold reached : " + messages.getThreshold()
 									+ ", Min : " + sensors.getThresholdMin() + " Max : " + sensors.getThresholdMax());
+					lastThreshold = messages.getThreshold();
 				} else {
 					listMessageTreated.add(messages);
 				}
 			} else {
 				if (sensors.getThresholdMax() == messages.getThreshold()) {
+					if (nbAlert == 0) {
+						firstAlertDate = messages.getAlertDate();
+					}
+					lastAlertDate = messages.getAlertDate();
+					nbAlert++;
 					logger.log(Level.INFO, "Sensor : " + sensors.getIdSensor() + " threshold reached : "
 							+ messages.getThreshold() + ", Max : " + sensors.getThresholdMax());
-					nbAlert++;
+					lastThreshold = messages.getThreshold();
 				} else {
 					listMessageTreated.add(messages);
 				}

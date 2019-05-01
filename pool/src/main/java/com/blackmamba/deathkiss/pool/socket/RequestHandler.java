@@ -321,10 +321,7 @@ public class RequestHandler implements Runnable {
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
 								}
-								// TODO PA quand on update un capteur on doit supprimer l'etat d'alerte dans la
-								// listAlert
-								// Une methode dans monitoringAlert qui boucle sur list alert et qui prend en
-								// parametre le sensor et la listAlert
+								monitoringAlert.deleteAlert(jsonString);
 								break;
 							case "CommonArea":
 								if (!response.equals("")) {
@@ -406,8 +403,7 @@ public class RequestHandler implements Runnable {
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
 								}
-								// TODO PA quand on supprime un capteur on doit supprimer l'etat d'alerte dans
-								// la listAlert
+								monitoringAlert.deleteAlert(jsonString);
 								break;
 							case "CommonArea":
 								if (!response.equals("")) {

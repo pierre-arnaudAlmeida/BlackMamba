@@ -86,7 +86,8 @@ public class TabHistorical extends JPanel {
 					try {
 						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
-						logger.log(Level.INFO, "Impossible to sleep the thread Historical " + e.getClass().getCanonicalName());
+						logger.log(Level.INFO,
+								"Impossible to sleep the thread Historical " + e.getClass().getCanonicalName());
 					}
 				}
 			}
@@ -131,7 +132,10 @@ public class TabHistorical extends JPanel {
 		 * Add a scrollBar on list
 		 */
 		sc = new JScrollPane(tableau);
-		sc.setBounds((int) getToolkit().getScreenSize().getWidth() * 3 / 10, (int) getToolkit().getScreenSize().getHeight() * 2 / 10, (int) getToolkit().getScreenSize().getWidth() * 1 / 2, (int) getToolkit().getScreenSize().getHeight() * 1 / 2);
+		sc.setBounds((int) getToolkit().getScreenSize().getWidth() * 3 / 10,
+				(int) getToolkit().getScreenSize().getHeight() * 2 / 10,
+				(int) getToolkit().getScreenSize().getWidth() * 1 / 2,
+				(int) getToolkit().getScreenSize().getHeight() * 1 / 2);
 		this.add(sc);
 
 		/**
@@ -152,7 +156,8 @@ public class TabHistorical extends JPanel {
 		 * Definition of Button CheckSensor
 		 */
 		checkSensor = new JButton("Display Sensor");
-		checkSensor.setBounds(((int) getToolkit().getScreenSize().getWidth() * 5 / 10), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
+		checkSensor.setBounds(((int) getToolkit().getScreenSize().getWidth() * 5 / 10),
+				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
 		this.add(checkSensor);
 		checkSensor.addActionListener(new ActionListener() {
 			@Override
@@ -165,7 +170,8 @@ public class TabHistorical extends JPanel {
 		 * Definition of Button newCommonArea
 		 */
 		checkCommonArea = new JButton("Display Common area");
-		checkCommonArea.setBounds(((int) getToolkit().getScreenSize().getWidth() * 3 / 10), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
+		checkCommonArea.setBounds(((int) getToolkit().getScreenSize().getWidth() * 3 / 10),
+				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
 		this.add(checkCommonArea);
 		checkCommonArea.addActionListener(new ActionListener() {
 			@Override
@@ -176,6 +182,10 @@ public class TabHistorical extends JPanel {
 
 		// TODO PA bouton supprimer ligne d'historique
 
+		/**
+		 * Launch the thread
+		 */
+		threadListSensorHistorical.start();
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
 		 * Different parameters of the window
@@ -200,13 +210,16 @@ public class TabHistorical extends JPanel {
 			listSensorHistorical = Arrays.asList(listSensorHistoricals);
 			logger.log(Level.INFO, "Find all SensorHistorical datas succeeded");
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON SensorHistorical datas" + e1.getClass().getCanonicalName());
+			logger.log(Level.INFO,
+					"Impossible to parse in JSON SensorHistorical datas" + e1.getClass().getCanonicalName());
 		}
 
 		tableModel.removeAllElements();
 		tableModel.addElement("ID Historical, Date, ID Sensor, State, Alert State");
 		for (SensorHistorical sensorHistoricals : listSensorHistorical) {
-			tableModel.addElement(Integer.toString(sensorHistoricals.getIdHistorical()) + " " + sensorHistoricals.getDate() + " " + sensorHistoricals.getIdSensor() + " " + sensorHistoricals.getSensorState() + " " + sensorHistoricals.getAlertState());
+			tableModel.addElement(Integer.toString(sensorHistoricals.getIdHistorical()) + " "
+					+ sensorHistoricals.getDate() + " " + sensorHistoricals.getIdSensor() + " "
+					+ sensorHistoricals.getSensorState() + " " + sensorHistoricals.getAlertState());
 		}
 	}
 
