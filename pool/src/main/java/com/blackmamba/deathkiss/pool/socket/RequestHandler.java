@@ -96,7 +96,6 @@ public class RequestHandler implements Runnable {
 							if (!response.equals("")) {
 								objectMapper = new ObjectMapper();
 								jsonString = objectMapper.writeValueAsString(monitoringAlert.getListAlert());
-								monitoringAlert.cleanListAlert(monitoringAlert.getListAlert());
 								writer.println(jsonString);
 								logger.log(Level.INFO, "Response send to client");
 							} else {
@@ -318,11 +317,14 @@ public class RequestHandler implements Runnable {
 									jsonString = "UPDATED";
 									writer.println(jsonString);
 									logger.log(Level.INFO, "Response send to client");
+									monitoringAlert.addHistorical(jsonString);
 								} else {
 									logger.log(Level.INFO, "Request not recognized");
 								}
 								// TODO PA quand on update un capteur on doit supprimer l'etat d'alerte dans la
 								// listAlert
+								// Une methode dans monitoringAlert qui boucle sur list alert et qui prend en
+								// parametre le sensor et la listAlert
 								break;
 							case "CommonArea":
 								if (!response.equals("")) {

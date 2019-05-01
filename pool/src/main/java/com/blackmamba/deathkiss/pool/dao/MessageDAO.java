@@ -52,7 +52,8 @@ public class MessageDAO extends DAO<Message> {
 		try {
 			Message mess = objectMapper.readValue(jsonString, Message.class);
 			java.sql.Date sqlDate = new java.sql.Date(mess.getAlertDate().getTime());
-			request = "insert into message (id_capteur,date_alerte,seuil) values ('" + mess.getIdSensor() + "','" + sqlDate + "', '" + mess.getThreshold() + "');";
+			request = "insert into message (id_capteur,date_alerte,seuil) values ('" + mess.getIdSensor() + "','"
+					+ sqlDate + "', '" + mess.getThreshold() + "');";
 			Statement st = con.createStatement();
 			st.execute(request);
 			logger.log(Level.INFO, "Message succesfully inserted in BDD ");
@@ -91,7 +92,8 @@ public class MessageDAO extends DAO<Message> {
 		try {
 			Message mess = objectMapper.readValue(jsonString, Message.class);
 			java.sql.Date sqlDate = new java.sql.Date(mess.getAlertDate().getTime());
-			request = "UPDATE message SET id_capteur = '" + mess.getIdSensor() + "', date_alerte = '" + sqlDate + "', seuil='" + mess.getThreshold() + "';";
+			request = "UPDATE message SET id_capteur = '" + mess.getIdSensor() + "', date_alerte = '" + sqlDate
+					+ "', seuil='" + mess.getThreshold() + "';";
 			Statement st = con.createStatement();
 			st.execute(request);
 			logger.log(Level.INFO, "Message succesfully update in BDD");
@@ -151,6 +153,9 @@ public class MessageDAO extends DAO<Message> {
 		return jsonString;
 	}
 
+	/*
+	 * Transform the result of the request in one Message object
+	 */
 	public void convertDatas(ResultSet result) throws NumberFormatException, SQLException, ParseException {
 		message = new Message();
 		message.setIdMessage(Integer.parseInt(result.getObject(1).toString()));

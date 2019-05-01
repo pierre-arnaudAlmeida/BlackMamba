@@ -157,16 +157,16 @@ public class MonitoringAlert {
 					logger.log(Level.INFO, "Sensor : " + sensors.getIdSensor() + " on ALERT on commonArea : "
 							+ sensors.getIdCommonArea());
 					logger.log(Level.INFO, "*********************************************************************");
-					// sensors.setAlertState(AlertState.ALERT);
-					// updateSensorAlertState(sensors);
-					// addHistorical(sensors);
+					sensors.setAlertState(AlertState.ALERT);
+					updateSensorAlertState(sensors);
+					addHistorical(sensors);
+					// TODO PA ajouter a base message
 					for (Message messages : listMessageInTreatment) {
 						if (messages.getIdSensor() == sensors.getIdSensor()) {
 							listMessageTreated.add(messages);
 						}
 					}
 				}
-//TODO PA quand c'est une alerte il faut l'inserer dans la base messages avec les infos
 			}
 			listMessageInTreatment.removeAll(listMessageTreated);
 		}
@@ -405,6 +405,28 @@ public class MonitoringAlert {
 			if (result)
 				logger.log(Level.INFO, "Insertion SensorHistorical datas succed");
 		} catch (SQLException | JsonProcessingException e) {
+			logger.log(Level.INFO, "Impossible to insert datas " + e.getClass().getCanonicalName());
+		}
+	}
+
+	public void addHistorical(String str) {
+		objectMapper = new ObjectMapper();
+		try {
+			sensor = objectMapper.readValue(str, Sensor.class);
+			curDate = new Date();
+			sensorHistorical = new SensorHistorical();
+			sensorHistorical.setIdSensor(sensor.getIdSensor());
+			sensorHistorical.setAlertState(sensor.getAlertState());
+			sensorHistorical.setSensorState(sensor.getSensorState());
+			sensorHistorical.setDate(curDate);
+			jsonString = objectMapper.writeValueAsString(sensorHistorical);
+			connectionGived = DataSource.getConnectionFromJDBC(pool);
+			DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(connectionGived);
+			setResult(((SensorHistoricalDAO) sensorHistoricalDao).create(jsonString));
+			DataSource.returnConnection(pool, connectionGived);
+			if (result)
+				logger.log(Level.INFO, "Insertion SensorHistorical datas succed");
+		} catch (IOException | SQLException e) {
 			logger.log(Level.INFO, "Impossible to insert datas " + e.getClass().getCanonicalName());
 		}
 	}
