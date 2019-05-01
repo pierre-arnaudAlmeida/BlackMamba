@@ -317,7 +317,32 @@ public class ihmBI extends JFrame {
 
 				tfDate.setText(df.format(dateChooser.getDate()));
 				tfDate1.setText(df.format(dateChooser_1.getDate()));
-			}
+				
+				
+///////////////////////////////////////////////////////				
+				ListModel.removeAllElements();
+				for (SensorHistorical sensorHistorical1 : listSensorHistorical) {
+					
+					
+					
+					if (tfDate.getText()!=null && tfDate1.getText()!=null) {
+						
+						if (sensorHistorical1.getDate().after(dateChooser.getDate())
+							&& sensorHistorical1.getDate().before((dateChooser_1.getDate()))) {
+						ListModel.addElement(
+								sensorHistorical1.getAlertState() + "# " + sensorHistorical1.getIdHistorical() + " ,"
+										+ sensorHistorical1.getIdSensor() + " ," + sensorHistorical1.getDate());
+
+						}
+					} else if (tfDate.getText()==null && tfDate1.getText()==null) {
+						for (SensorHistorical sensorHistorical : listSensorHistorical) {
+							ListModel.addElement(sensorHistorical.getAlertState() + "# " + sensorHistorical.getIdHistorical() + " ,"
+									 + " ," + sensorHistorical.getDate());
+						}
+						}
+					}
+				}
+			
 		});
 
 	}
