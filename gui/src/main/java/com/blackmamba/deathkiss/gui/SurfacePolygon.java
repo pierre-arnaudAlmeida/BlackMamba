@@ -1,7 +1,12 @@
 package com.blackmamba.deathkiss.gui;
 
 import java.util.List;
+
+import javax.swing.JFrame;
+
 import com.blackmamba.deathkiss.entity.CommonArea;
+
+import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Polygon;
 
@@ -16,6 +21,7 @@ public class SurfacePolygon extends Polygon {
 	private int tab;
 	private int[] xPoints;
 	private int[] yPoints;
+	private Graphics e;
 
 	private static final long serialVersionUID = -1793953027487918460L;
 
@@ -24,6 +30,25 @@ public class SurfacePolygon extends Polygon {
 			this.addPoint(point.x, point.y);
 		}
 
+	}
+	
+	public void paint(Graphics g) {
+	    int xpoints[] = {25, 145, 25, 145, 25};
+	    int ypoints[] = {25, 25, 145, 145, 25};
+	    int npoints = 5;
+	    
+	    
+	    g.drawPolygon(xpoints, ypoints, npoints);
+	    e.drawPolygon(xPoints, yPoints, tab);
+	  }
+	
+	public static void main(String[] args) {
+	    JFrame frame = new JFrame();
+	    frame.getContentPane().add(new TabMapSensor());
+
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    frame.setSize(1000,500);
+	    frame.setVisible(true);
 	}
 
 	public SurfacePolygon(int tab, int[] xPoints, int[] yPoints) {

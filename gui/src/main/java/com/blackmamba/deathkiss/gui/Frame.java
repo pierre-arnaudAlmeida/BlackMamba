@@ -130,7 +130,7 @@ public class Frame extends JFrame {
 					getAlert();
 					if (!listAlert.isEmpty())
 						// TODO RK
-						// tabSensor.ActualizationListSensor(listAlert);
+						// tabSensor.actualizationListSensor(listAlert);
 						try {
 							Thread.sleep(Integer.parseInt(rs.getString("time_threadAlert")));
 						} catch (InterruptedException e) {

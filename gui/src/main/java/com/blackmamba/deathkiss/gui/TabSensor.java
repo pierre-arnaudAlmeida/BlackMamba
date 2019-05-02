@@ -868,23 +868,23 @@ public class TabSensor extends JPanel {
 	 * Find all the Sensor with the alert state changed in the data base and add on
 	 * list to be displayed
 	 */
-	public void actualizationListSensor() {
-		// TODO Keita Raymond
-		updateListAlert();
-		updateListSensor();
-
-		// listM.removeAllElements();
-		listM.addElement("Sensors and their states");
-		for (Alert alerts : listAlert) {
-			for (Sensor sensors : listSensor) {
-				if (alerts.getIdSensor() == sensors.getIdSensor() && (!alerts.getAlertState().equals(sensors.getAlertState()))) {
-					listM.addElement(sensors.getIdSensor() + "# " + sensors.getTypeSensor() + sensors.getSensorState() + sensors.getIdCommonArea() + sensors.getAlertState().equals((alerts.getAlertState())));
-				}
-			}
-		}
-		if (listM.isEmpty() && (listSensor.isEmpty())) {
-			actualizationListSensor();
-		}
+	public void actualizationListSensor(List<Alert> list) {
+//		// TODO Keita Raymond
+//		Sensor sensors = new Sensor();
+//		updateListAlert();
+//		updateListSensor();
+//
+//		// listM.removeAllElements();
+//		listM.addElement("Sensors and their states");
+//		for (Alert alerts : listAlert) {
+//			if (alerts.getIdSensor() == sensors.getIdSensor() && (!alerts.getAlertState().equals(sensors.getAlertState()))) {
+//				//listM.insertElementAt(listM.getElementAt(4), 4);
+//				listM.addElement(sensors.getIdSensor() + "# " + sensors.getTypeSensor() + sensors.getSensorState() + sensors.getIdCommonArea() + alerts.getAlertState());
+//			}
+//		}
+//		if (listM.isEmpty() && (listSensor.isEmpty())) {
+//			actualizationListSensor(listAlert);
+//		}
 	}
 
 	public void findAllSensor(Sensor sensor) {
