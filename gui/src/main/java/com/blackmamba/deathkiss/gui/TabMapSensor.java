@@ -254,15 +254,15 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		
 		///////////////////////// IMAGE/////////////////////////////////////////////////
 
-		// Displays the plan of nursing home
-		imageNursingHome = new JLabel();
-		nursingHome = new ImageIcon("gui\\src\\main\\resources\\NursingHome.jpg");
-		// 200 * 100 is the position of image
-		// 50 * 50 is the size of image
-		imageNursingHome.setBounds(200, 100, 50, 50);
-		imageNursingHome.setIcon(nursingHome);
-		bar.add(imageNursingHome);
-		bar.setVisible(true);
+//		// Displays the plan of nursing home
+//		imageNursingHome = new JLabel();
+//		nursingHome = new ImageIcon("gui\\src\\main\\resources\\NursingHome.jpg");
+//		// 200 * 100 is the position of image
+//		// 50 * 50 is the size of image
+//		imageNursingHome.setBounds(200, 100, 50, 50);
+//		imageNursingHome.setIcon(nursingHome);
+//		bar.add(imageNursingHome);
+//		bar.setVisible(true);
 
 	}
 
