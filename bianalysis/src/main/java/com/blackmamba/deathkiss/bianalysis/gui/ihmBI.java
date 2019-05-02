@@ -43,9 +43,10 @@ import com.toedter.calendar.JDateChooser;
  *
  */
 
-public class GuiBi extends JFrame {
+public class ihmBI extends JFrame {
 //TODO SL les trois ligne tu peux les mettre chacune juste avant de les utiliser 
-
+	String[] periode = { "Année", "Mois", "Jour" };
+	String[] area = { "RC", "Etage 1", "Etage 2" };
 	// pour celle la j'ai changer, tu ira voir dans la classe ou tu l'a prise et tu
 	// prendra la forme que j'ai pcq on a pas le droit de les mettre en dur comme ca
 	// faut utiliser l'enum
@@ -53,6 +54,8 @@ public class GuiBi extends JFrame {
 			"ROUTER" };
 	private JList<String> list;
 	private JList<String> list1;
+	private Font policeLabel;
+	private JLabel labelNumber;
 	private static List<Sensor> listSensor = new ArrayList<Sensor>();
 	private static List<SensorHistorical> listSensorHistorical = new ArrayList<SensorHistorical>();
 	private ObjectMapper objectMapper;
@@ -70,9 +73,6 @@ public class GuiBi extends JFrame {
 	private DefaultListModel<String> ListModel;
 	private JScrollPane sc;
 	private JScrollPane sc1;
-	
-	private JComboBox cbArea;
-	private JComboBox cbCapteur;
 
 	private JButton btnRecherche;
 	private JButton btnDeconnexion;
@@ -85,7 +85,7 @@ public class GuiBi extends JFrame {
 	private JDateChooser dateChooser_1;
 	private JTextField tfDate;
 	private JTextField tfDate1;
-	private JDialog ratioNbSensors;
+	private JDialog ratioHommeFemmeJdialog;
 	private ChartPanel cPanel;
 
 //TODO SL tu met la methode main dans une classe qui s'appelle MainBianalysisGUI
@@ -105,7 +105,7 @@ public class GuiBi extends JFrame {
 					// copie pas les classes que j'ai faite dans ton projet tu les ouvres tu copie
 					// ok mais les integre pas pcq apres tu ne sais pas ou t'en es et apres au
 					// moment de l'execution t'as des conflit pour rien
-					GuiBi frame = new GuiBi();
+					ihmBI frame = new ihmBI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -118,9 +118,9 @@ public class GuiBi extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GuiBi() {
-		GetAllSensor();
-		GetAllSensorHistorical();
+	public ihmBI() {
+		requestAllSensor();
+		requestSensorHistorical();
 		initComponents();
 		createEvents();
 
@@ -137,6 +137,8 @@ public class GuiBi extends JFrame {
 		contentPane.setLayout(null);
 
 		// Label
+		// TODO SL les type comme JLabel et autre du les definits en haut de la classe
+		// comme dans les autres classes
 		JLabel lblTempratureMoyenne = new JLabel("Température moyenne");
 		lblTempratureMoyenne.setBounds(54, 544, 139, 16);
 		contentPane.add(lblTempratureMoyenne);
@@ -149,32 +151,18 @@ public class GuiBi extends JFrame {
 		lblNombreDalertes.setBounds(719, 426, 147, 22);
 		contentPane.add(lblNombreDalertes);
 
-		JLabel lblStock = new JLabel("Number of sensors");
+		JLabel lblStock = new JLabel("Nombre de capteurs en stock");
 		lblStock.setBounds(340, 277, 147, 16);
 		contentPane.add(lblStock);
-		
-		JLabel lblNewLabel = new JLabel("Data Range from");
-		lblNewLabel.setBounds(316, 18, 97, 16);
-		contentPane.add(lblNewLabel);
 
-		JLabel lblTo = new JLabel("to");
-		lblTo.setBounds(309, 49, 28, 16);
-		contentPane.add(lblTo);
-
-/////////////////////////////////////////////////////////
-		//JComboBox 
-		
-		String[] periode = { "Année", "Mois", "Jour" };
-		String[] area = { "RC", "Etage 1", "Etage 2" };
-		
-		cbArea = new JComboBox(area);
+		JComboBox cbArea = new JComboBox(area);
 		cbArea.setBounds(632, 52, 100, 35);
 		contentPane.add(cbArea);
 
-		cbCapteur = new JComboBox(sensorType);
+		JComboBox cbCapteur = new JComboBox(sensorType);
 		cbCapteur.setBounds(632, 6, 100, 35);
 		contentPane.add(cbCapteur);
-//////////////////////////////////////////////////////////
+
 		// Bouton
 
 		btnRecherche = new JButton("Recherche");
@@ -192,12 +180,7 @@ public class GuiBi extends JFrame {
 		btnDate = new JButton("GetDate");
 		btnDate.setBounds(752, 72, 89, 28);
 		contentPane.add(btnDate);
-		
-		JButton btnGraphique = new JButton("View graphic");
-		btnGraphique.setBounds(391, 304, 186, 28);
-		contentPane.add(btnGraphique);
-		
-////////////////////////////////////////////////////
+
 		// Textfield
 		nbPanne = new JTextField();
 		nbPanne.setBounds(813, 501, 112, 28);
@@ -219,7 +202,7 @@ public class GuiBi extends JFrame {
 
 		tfStock = new JTextField();
 		tfStock.setBounds(495, 271, 112, 28);
-		tfStock.setText(monObj[3].toString());
+		tfStock.setText(monObj[2].toString());
 		contentPane.add(tfStock);
 		tfStock.setColumns(10);
 
@@ -227,21 +210,12 @@ public class GuiBi extends JFrame {
 		tfRecherche.setBounds(10, 33, 289, 28);
 		contentPane.add(tfRecherche);
 		tfRecherche.setColumns(10);
-		
-		tfDate = new JTextField();
-		tfDate.setBounds(396, 6, 89, 28);
-		contentPane.add(tfDate);
-		tfDate.setColumns(10);
 
-		tfDate1 = new JTextField();
-		tfDate1.setBounds(396, 50, 89, 28);
-		contentPane.add(tfDate1);
-		tfDate1.setColumns(10);
-		
-//////////////////////////////////////////////////
-		///////////////////// List
+		// List
 		listM = new DefaultListModel<String>();
 		list = new JList<String>(listM);
+//		JList list = new JList();
+//		list.setBounds(45, 109, 327, 488);
 		sc = new JScrollPane(list);
 		sc.setBounds(30, 120, 300, 300);
 
@@ -264,8 +238,7 @@ public class GuiBi extends JFrame {
 		}
 
 		contentPane.add(sc1);
-//////////////////////////////////////////////////
-		/// DateChooser 
+
 		dateChooser = new JDateChooser();
 		dateChooser.setBounds(495, 6, 112, 28);
 		contentPane.add(dateChooser);
@@ -273,24 +246,52 @@ public class GuiBi extends JFrame {
 		dateChooser_1 = new JDateChooser();
 		dateChooser_1.setBounds(495, 50, 112, 28);
 		contentPane.add(dateChooser_1);
-///////////////////////////////////////////////////////
-		// Dialog
-		ratioNbSensors = new JDialog();
+
+		JLabel lblNewLabel = new JLabel("Data Range from");
+		lblNewLabel.setBounds(316, 18, 97, 16);
+		contentPane.add(lblNewLabel);
+
+		JLabel lblTo = new JLabel("to");
+		lblTo.setBounds(309, 49, 28, 16);
+		contentPane.add(lblTo);
+
+		tfDate = new JTextField();
+		tfDate.setBounds(396, 6, 89, 28);
+		contentPane.add(tfDate);
+		tfDate.setColumns(10);
+
+		tfDate1 = new JTextField();
+		tfDate1.setBounds(396, 50, 89, 28);
+		contentPane.add(tfDate1);
+		tfDate1.setColumns(10);
+		// contentPane.add(list);
+
+		//
+		ratioHommeFemmeJdialog = new JDialog();
+
 		DefaultPieDataset pieDataset = new DefaultPieDataset();
-		pieDataset.setValue("Number of Unused Sensors", (Number) monObj[0]);
-		pieDataset.setValue("Number of used Sensors", (Number) monObj[1]);
-////////////////////////////////////////////////////////
-		
-		// Graphic
-		
-		JFreeChart pieChart = ChartFactory.createPieChart("Ratio Sensor", pieDataset, true, true, true);
+		pieDataset.setValue("Valeur1", (Number) monObj[1]);
+		pieDataset.setValue("Valeur2", new Integer(10));
+		pieDataset.setValue("Valeur3", new Integer(50));
+		pieDataset.setValue("Valeur4", new Integer(5));
+
+		JFreeChart pieChart = ChartFactory.createPieChart("Test camembert", pieDataset, true, true, true);
 		ChartPanel cPanel = new ChartPanel(pieChart);
 		contentPane.add(cPanel);
-/////////////////////////////////////////////////////////
-		
-		
 
+		JButton btnGraphique = new JButton("VisualisationGraphique");
+		btnGraphique.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 
+				ratioHommeFemmeJdialog.getContentPane().add(cPanel, CENTER);
+
+				ratioHommeFemmeJdialog.pack();
+				ratioHommeFemmeJdialog.setVisible(true);
+
+			}
+		});
+		btnGraphique.setBounds(386, 319, 186, 28);
+		contentPane.add(btnGraphique);
 
 		ChartPanel myChart = new ChartPanel(pieChart);
 		myChart.setBounds(366, 89, 223, 182);
@@ -315,20 +316,9 @@ public class GuiBi extends JFrame {
 				DateFormat df1 = new SimpleDateFormat("dd-MM-yyyy");
 
 				tfDate.setText(df.format(dateChooser.getDate()));
-				tfDate1.setText(df1.format(dateChooser_1.getDate()));
+				tfDate1.setText(df.format(dateChooser_1.getDate()));
 				
-		
-				btnGraphique.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-
-						ratioNbSensors.getContentPane().add(cPanel, CENTER);
-
-						ratioNbSensors.pack();
-						ratioNbSensors.setVisible(true);
-
-					}
-				});		
-		
+				
 ///////////////////////////////////////////////////////				
 				ListModel.removeAllElements();
 				for (SensorHistorical sensorHistorical1 : listSensorHistorical) {
@@ -359,7 +349,7 @@ public class GuiBi extends JFrame {
 
 	// TODO SL les noms des methodes met des nom explicite genre getAllSensor et
 	// getAllSensorHistorical
-	private void GetAllSensor() {
+	private void requestAllSensor() {
 
 		requestType = "READ ALL";
 		table = "Sensor";
@@ -379,7 +369,7 @@ public class GuiBi extends JFrame {
 
 	}
 
-	private void GetAllSensorHistorical() {
+	private void requestSensorHistorical() {
 
 		requestType = "READ ALL";
 		table = "SensorHistorical";
@@ -399,40 +389,60 @@ public class GuiBi extends JFrame {
 
 	}
 
+	private void requestSensorHistoricalFIND() {
+
+		requestType = "READ ALL";
+		table = "SensorHistorical";
+		objectMapper = new ObjectMapper();
+		try {
+			jsonString = "SELECT * FROM SensorHistorical WHERE idHistorical >= date_chooser AND date_chooser1";
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			SensorHistorical[] sensorHistorical = objectMapper.readValue(jsonString, SensorHistorical[].class);
+			listSensorHistorical = Arrays.asList(sensorHistorical);
+			logger.log(Level.INFO, "Find SensorHistorical data succed");
+
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
+		}
+
+	}
 
 	public String returnNumber() {
-		int numberAlerts = 0;
+		int nb = 0;
 		if (!listSensorHistorical.isEmpty()) {
-			for (SensorHistorical sensorH : listSensorHistorical) {
-				numberAlerts++;
+			for (SensorHistorical sensorHistorical : listSensorHistorical) {
+				nb++;
 
 			}
 
 		}
 
-		return String.valueOf(numberAlerts);
+		return String.valueOf(nb);
 
 	}
 
-////////////////////////////////////////// Method to calculate the number of Sensor 
+//TODO SL donne des noms explicite pour les objets pcq nob et nunu est pas comprehensible a la rigueur x et y c'est plus explicite que ca
 	public static Object[] returns() {
 
-		int nbUnusedSensor = 0;
-		int nbUsedSensor = 0;
-		int nbTotalSensor = 0;
+		int nob = 0;
+		int nunu = 0;
+		int total = 0;
+//TODO SL supprime les espaces entre les truc tu perds au moment de la comprehension met plutot des 
 		////////////////////////////////////////////////////////////////////////////////////////////
+		//pour separer des methodes si il faut
 		for (Sensor sensor : listSensor) {
-			nbTotalSensor++;
+			total++;
 
 			if (sensor.getIdSensor() == 0)
-				nbUnusedSensor++;
+				nob++;
 
 			else
-				nbUsedSensor++;
+				nunu++;
 
 		}
 
-		return new Object[] { nbUsedSensor, nbUnusedSensor, nbTotalSensor };
+		return new Object[] { nunu, nob, total };
 
 	}
 }
