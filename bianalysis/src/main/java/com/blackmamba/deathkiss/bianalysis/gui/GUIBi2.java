@@ -2,7 +2,6 @@ package com.blackmamba.deathkiss.bianalysis.gui;
 
 import static java.awt.BorderLayout.CENTER;
 
-import java.awt.event.*;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -44,9 +43,10 @@ import com.toedter.calendar.JDateChooser;
  *
  */
 
-public class GUIBi extends JFrame {
+public class GUIBi2 extends JFrame {
 //TODO SL les trois ligne tu peux les mettre chacune juste avant de les utiliser 
-
+	String[] periode = { "Année", "Mois", "Jour" };
+	String[] area = { "RC", "Etage 1", "Etage 2" };
 	// pour celle la j'ai changer, tu ira voir dans la classe ou tu l'a prise et tu
 	// prendra la forme que j'ai pcq on a pas le droit de les mettre en dur comme ca
 	// faut utiliser l'enum
@@ -106,7 +106,7 @@ public class GUIBi extends JFrame {
 					// copie pas les classes que j'ai faite dans ton projet tu les ouvres tu copie
 					// ok mais les integre pas pcq apres tu ne sais pas ou t'en es et apres au
 					// moment de l'execution t'as des conflit pour rien
-					GUIBi frame = new GUIBi();
+					GUIBi2 frame = new GUIBi2();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -119,7 +119,7 @@ public class GUIBi extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GUIBi() {
+	public GUIBi2() {
 		GetAllSensor();
 		GetAllSensorHistorical();
 		initComponents();
@@ -141,15 +141,15 @@ public class GUIBi extends JFrame {
 		// TODO SL les type comme JLabel et autre du les definits en haut de la classe
 		// comme dans les autres classes
 		JLabel lblTempratureMoyenne = new JLabel("Température moyenne");
-		lblTempratureMoyenne.setBounds(10, 544, 139, 16);
+		lblTempratureMoyenne.setBounds(54, 544, 139, 16);
 		contentPane.add(lblTempratureMoyenne);
 
 		JLabel lblNombreDePannes = new JLabel("Nombre de pannes");
-		lblNombreDePannes.setBounds(627, 431, 139, 16);
+		lblNombreDePannes.setBounds(632, 507, 139, 16);
 		contentPane.add(lblNombreDePannes);
 
 		JLabel lblNombreDalertes = new JLabel("Nombre d'alertes");
-		lblNombreDalertes.setBounds(340, 504, 147, 22);
+		lblNombreDalertes.setBounds(719, 426, 147, 22);
 		contentPane.add(lblNombreDalertes);
 
 		JLabel lblStock = new JLabel("Nombre de capteurs en stock");
@@ -168,33 +168,13 @@ public class GUIBi extends JFrame {
 /////////////////////////////////////////////
 		//// JCombobox
 		
-		String[] periode = { "Année", "Mois", "Jour" };
-		String[] area = { "RC", "Etage 1", "Etage 2" };
 		cbArea = new JComboBox(area);
-		
-		cbArea.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-			
-			JComboBox comboBox = (JComboBox)
-		});
-		cbArea.setEditable(true);
-		cbArea.addItem(area);
 		cbArea.setBounds(632, 52, 100, 35);
 		contentPane.add(cbArea);
-		
-		
-		
-		
-		
+
 		cbCapteur = new JComboBox(sensorType);
-		cbCapteur.setBounds(168, 69, 100, 35);
+		cbCapteur.setBounds(632, 6, 100, 35);
 		contentPane.add(cbCapteur);
-		
-        
-
-
-		
 		
 ///////////////////////////////////////////////
 		// Bouton
@@ -204,7 +184,7 @@ public class GUIBi extends JFrame {
 		contentPane.add(btnRecherche);
 
 		btnTemperature = new JButton("Calculer");
-		btnTemperature.setBounds(136, 571, 124, 28);
+		btnTemperature.setBounds(382, 538, 124, 28);
 		contentPane.add(btnTemperature);
 
 		btnDeconnexion = new JButton("Deconnexion");
@@ -219,17 +199,17 @@ public class GUIBi extends JFrame {
 ////////////////////////////////////////////////////
 		// Textfield
 		nbPanne = new JTextField();
-		nbPanne.setBounds(813, 425, 112, 28);
+		nbPanne.setBounds(813, 501, 112, 28);
 		contentPane.add(nbPanne);
 		nbPanne.setColumns(10);
 
 		tfTemperature = new JTextField();
-		tfTemperature.setBounds(148, 538, 112, 28);
+		tfTemperature.setBounds(235, 538, 112, 28);
 		contentPane.add(tfTemperature);
 		tfTemperature.setColumns(10);
 
 		tfAlertes = new JTextField();
-		tfAlertes.setBounds(497, 501, 112, 28);
+		tfAlertes.setBounds(862, 423, 112, 28);
 		tfAlertes.setText(returnNumber().toString());
 		contentPane.add(tfAlertes);
 		tfAlertes.setColumns(10);
@@ -299,35 +279,18 @@ public class GUIBi extends JFrame {
 		ratioSensors = new JDialog();
 
 ////////////////////////////////////
-		// Graphic All sensor
+		// Graphic
 		DefaultPieDataset pieDataset = new DefaultPieDataset();
 		pieDataset.setValue("Number of Unused Sensors", (Number) monObj[0]);
 		pieDataset.setValue("Number of used Sensors", (Number) monObj[1]);
 
-		JFreeChart pieChart = ChartFactory.createPieChart("Ratio of unused sensors and used", pieDataset, true, true, true);
+		JFreeChart pieChart = ChartFactory.createPieChart("Test camembert", pieDataset, true, true, true);
 		ChartPanel cPanel = new ChartPanel(pieChart);
 		contentPane.add(cPanel);
-		ChartPanel cpSensors = new ChartPanel(pieChart);
-		cpSensors.setBounds(366, 89, 223, 182);
-		contentPane.add(cpSensors);
-		cpSensors.setMouseWheelEnabled(true);
-		
-
-		
-		//Graphic Historical alert 
-		
-		DefaultPieDataset HistoricalAlert = new DefaultPieDataset();
-		HistoricalAlert.setValue("Number of Unused Sensors", (Number) monObj[0]);
-		HistoricalAlert.setValue("Number of used Sensors", (Number) monObj[1]);
-
-		JFreeChart pieChart1 = ChartFactory.createPieChart(" Ratio of number of alert", HistoricalAlert, true, true, true);
-		ChartPanel cPanel1 = new ChartPanel(pieChart1);
-		contentPane.add(cPanel1);
-		ChartPanel cpAlerts = new ChartPanel(pieChart1);
-		cpAlerts.setBounds(366, 304, 223, 182);
-		contentPane.add(cpAlerts);
-		
-		
+		ChartPanel myChart = new ChartPanel(pieChart);
+		myChart.setBounds(366, 89, 223, 182);
+		contentPane.add(myChart);
+		myChart.setMouseWheelEnabled(true);
 ////////////////////////////////////////////////////////////////////
 		// Bouton Graphic
 		JButton btnGraphic = new JButton("VisualisationGraphique");
@@ -342,6 +305,10 @@ public class GUIBi extends JFrame {
 			}
 		});
 		
+
+
+
+
 	}
 
 	private void createEvents() {
@@ -360,7 +327,7 @@ public class GUIBi extends JFrame {
 				DateFormat df1 = new SimpleDateFormat("dd-MM-yyyy");
 
 				tfDate.setText(df.format(dateChooser.getDate()));
-				tfDate1.setText(df1.format(dateChooser_1.getDate()));
+				tfDate1.setText(df.format(dateChooser_1.getDate()));
 								
 ///////////////////////////////////////////////////////				
 				ListModel.removeAllElements();
@@ -387,9 +354,6 @@ public class GUIBi extends JFrame {
 				}
 			
 		});
-		
-		
-		
 
 	}
 ////////////////////////////////////
@@ -435,7 +399,24 @@ public class GUIBi extends JFrame {
 
 	}
 
+	private void requestSensorHistoricalFIND() {
 
+		requestType = "READ ALL";
+		table = "SensorHistorical";
+		objectMapper = new ObjectMapper();
+		try {
+			jsonString = "SELECT * FROM SensorHistorical WHERE idHistorical >= date_chooser AND date_chooser1";
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			SensorHistorical[] sensorHistorical = objectMapper.readValue(jsonString, SensorHistorical[].class);
+			listSensorHistorical = Arrays.asList(sensorHistorical);
+			logger.log(Level.INFO, "Find SensorHistorical data succed");
+
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
+		}
+
+	}
 //////////////////////////////////////
 	// Method calculate all alerts
 	public String returnNumber() {
@@ -459,7 +440,7 @@ public class GUIBi extends JFrame {
 		int nbUnusedSensor = 0;
 		int nbUsedSensor = 0;
 		int nbTotalSensor = 0;
-//////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 		for (Sensor sensor : listSensor) {
 			nbTotalSensor++;
 
@@ -474,20 +455,4 @@ public class GUIBi extends JFrame {
 		return new Object[] { nbUsedSensor, nbUnusedSensor, nbTotalSensor };
 
 	}
-	
-	public String returnAlert() {
-		int numberAlerts = 0;
-		if (!listSensorHistorical.isEmpty()) {
-			for (SensorHistorical sensorH : listSensorHistorical) {
-				
-
-			}
-
-		}
-
-		return String.valueOf(numberAlerts);
-
-	}
 }
-
-
