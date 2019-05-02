@@ -96,6 +96,23 @@ public class TabCommonArea extends JPanel {
 	 * @param color
 	 * @param idemployee
 	 * @param title
+	 * @param idCommonArea
+	 */
+	public TabCommonArea(Color color, int idemployee, String title, int idCommonArea) {
+		//TODO PA tester
+		requestType = "READ";
+		table = "CommonArea";
+		commonArea.setIdCommonArea(idCommonArea);
+		getCommonArea(commonArea, requestType, table);
+		new TabCommonArea(color, idemployee, title);
+	}
+
+	/**
+	 * Constructor
+	 * 
+	 * @param color
+	 * @param idemployee
+	 * @param title
 	 */
 	public TabCommonArea(Color color, int idemployee, String title) {
 		this.idemployee = idemployee;
@@ -333,7 +350,7 @@ public class TabCommonArea extends JPanel {
 		labelHeadList.setBounds(40, 90, 200, 30);
 		labelHeadList.setFont(policeBar);
 		this.add(labelHeadList);
-		
+
 		//////////////////// TEXT AREA////////////////////////////////////////////////
 		/**
 		 * Definition of textArea IdCommonArea
@@ -579,8 +596,7 @@ public class TabCommonArea extends JPanel {
 		 * Definition of Button Restore
 		 */
 		restaure = new JButton("Restore");
-		restaure.setBounds(((int)
-		getToolkit().getScreenSize().getWidth() * 4 / 7), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
+		restaure.setBounds(((int) getToolkit().getScreenSize().getWidth() * 4 / 7), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
 		this.add(restaure);
 		restaure.addActionListener(new ActionListener() {
 			/**

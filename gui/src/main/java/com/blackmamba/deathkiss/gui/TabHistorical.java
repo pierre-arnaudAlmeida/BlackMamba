@@ -19,11 +19,16 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.blackmamba.deathkiss.entity.Sensor;
 import com.blackmamba.deathkiss.entity.SensorHistorical;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -47,11 +52,16 @@ public class TabHistorical extends JPanel {
 	private JLabel labelIdEmployee;
 	private JButton checkSensor;
 	private JButton checkCommonArea;
+	private JButton delete;
 	private Font police;
 	private JScrollPane sc;
+	private Sensor sensor;
 	private SensorHistorical sensorHistorical;
-	private JList<String> tableau;
-	private DefaultListModel<String> tableModel;
+	private TabSensor tabSensor;
+	private TabCommonArea tabCommonArea;
+	private JTabbedPane tab;
+	private JList<String> list;
+	private DefaultListModel<String> listM;
 	private JButton disconnection;
 	private Thread threadListSensorHistorical;
 	private List<SensorHistorical> listSensorHistorical = new ArrayList<SensorHistorical>();
@@ -86,8 +96,7 @@ public class TabHistorical extends JPanel {
 					try {
 						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
-						logger.log(Level.INFO,
-								"Impossible to sleep the thread Historical " + e.getClass().getCanonicalName());
+						logger.log(Level.INFO, "Impossible to sleep the thread Historical " + e.getClass().getCanonicalName());
 					}
 				}
 			}
@@ -126,16 +135,13 @@ public class TabHistorical extends JPanel {
 		});
 
 		///////////////////////// TABLE/////////////////////////////////////////////////
-		tableModel = new DefaultListModel<String>();
-		tableau = new JList<String>(tableModel);
+		listM = new DefaultListModel<String>();
+		list = new JList<String>(listM);
 		/**
 		 * Add a scrollBar on list
 		 */
-		sc = new JScrollPane(tableau);
-		sc.setBounds((int) getToolkit().getScreenSize().getWidth() * 3 / 10,
-				(int) getToolkit().getScreenSize().getHeight() * 2 / 10,
-				(int) getToolkit().getScreenSize().getWidth() * 1 / 2,
-				(int) getToolkit().getScreenSize().getHeight() * 1 / 2);
+		sc = new JScrollPane(list);
+		sc.setBounds((int) getToolkit().getScreenSize().getWidth() * 3 / 10, (int) getToolkit().getScreenSize().getHeight() * 2 / 10, (int) getToolkit().getScreenSize().getWidth() * 1 / 2, (int) getToolkit().getScreenSize().getHeight() * 1 / 2);
 		this.add(sc);
 
 		/**
@@ -143,26 +149,50 @@ public class TabHistorical extends JPanel {
 		 */
 		MouseListener mouseListener = new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				index = tableau.locationToIndex(e.getPoint());
-				String substring = tableModel.getElementAt(index).toString();
-				int position = substring.indexOf(" ");
-				index = Integer.parseInt(substring.substring(0, position));
+				index = list.locationToIndex(e.getPoint());
+				String substring = listM.getElementAt(index).toString();
+				int position = substring.indexOf("ID Sensor : ");
+				int position2 = substring.indexOf(" State : ");
+				// TODO PA tester
+				if (position > -1 && position2 > -1) {
+					sensorHistorical.setIdSensor(Integer.parseInt(substring.substring(position + 12, position2)));
+				}
+				position = substring.indexOf(" ");
+				if (position > -1) {
+					index = Integer.parseInt(substring.substring(0, position));
+					sensorHistorical.setIdHistorical(index);
+				}
 			}
 		};
-		tableau.addMouseListener(mouseListener);
+		list.addMouseListener(mouseListener);
 
 		///////////////////////// BUTTON/////////////////////////////////////////////////
 		/**
 		 * Definition of Button CheckSensor
 		 */
 		checkSensor = new JButton("Display Sensor");
-		checkSensor.setBounds(((int) getToolkit().getScreenSize().getWidth() * 5 / 10),
-				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
+		checkSensor.setBounds(((int) getToolkit().getScreenSize().getWidth() * 5 / 10), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
 		this.add(checkSensor);
 		checkSensor.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO PA
+				// TODO PA tester
+				if (sensorHistorical.getIdSensor() == 0) {
+					JOptionPane.showMessageDialog(null, "Please select an line", "Error", JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					tab = new JTabbedPane();
+					tab = Frame.getTab();
+					try {
+						if (!tab.isEnabledAt(2)) {
+							tab.remove(2);
+							tabSensor = new TabSensor(color, idemployee, "Tab Sensors", sensorHistorical.getIdSensor());
+							tab.add("Tab Sensors", tabSensor);
+							Frame.goToTab(2);
+						}
+					} catch (IndexOutOfBoundsException e1) {
+						logger.log(Level.INFO, "Impossible to create the tab Sensor " + e1.getClass().getCanonicalName());
+					}
+				}
 			}
 		});
 
@@ -170,22 +200,73 @@ public class TabHistorical extends JPanel {
 		 * Definition of Button newCommonArea
 		 */
 		checkCommonArea = new JButton("Display Common area");
-		checkCommonArea.setBounds(((int) getToolkit().getScreenSize().getWidth() * 3 / 10),
-				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
+		checkCommonArea.setBounds(((int) getToolkit().getScreenSize().getWidth() * 3 / 10), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
 		this.add(checkCommonArea);
 		checkCommonArea.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO PA
+				// TODO PA tester
+				if (sensorHistorical.getIdSensor() == 0 && index != -9999) {
+					JOptionPane.showMessageDialog(null, "Please select an line", "Error", JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					getSensor(sensorHistorical.getIdSensor());
+					tab = new JTabbedPane();
+					tab = Frame.getTab();
+					try {
+						if (!tab.isEnabledAt(1)) {
+							tab.remove(1);
+							tabCommonArea = new TabCommonArea(color, idemployee, "Tab Common Areas", sensor.getIdCommonArea());
+							tab.add("Tab Common Areas", tabCommonArea);
+							Frame.goToTab(1);
+						}
+					} catch (IndexOutOfBoundsException e1) {
+						logger.log(Level.INFO, "Impossible to create the tab CommonArea " + e1.getClass().getCanonicalName());
+					}
+				}
 			}
 		});
 
-		// TODO PA bouton supprimer ligne d'historique
-
+		/**
+		 * Definition of Button Delete the line of historical
+		 */
+		delete = new JButton("Delete line");
+		// TODO PA changer la position
+		delete.setBounds(((int) getToolkit().getScreenSize().getWidth() * 1 / 10), (int) getToolkit().getScreenSize().getHeight() * 5 / 20, 150, 40);
+		this.add(delete);
+		delete.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO PA tester
+				if (index != -9999) {
+					requestType = "DELETE";
+					table = "SensorHistorical";
+					ObjectMapper objectMapper = new ObjectMapper();
+					try {
+						jsonString = objectMapper.writeValueAsString(sensorHistorical);
+						new ClientSocket(requestType, jsonString, table);
+						jsonString = ClientSocket.getJson();
+						if (!jsonString.equals("DELETED")) {
+							JOptionPane.showMessageDialog(null, "Deletion failed", "Error", JOptionPane.ERROR_MESSAGE);
+							logger.log(Level.INFO, "Impossible to delete this SensorHistorical");
+						} else {
+							JOptionPane.showMessageDialog(null, "Deletion succeeded", "Information", JOptionPane.INFORMATION_MESSAGE);
+							logger.log(Level.INFO, "Deletion of SensorHistorical succeeded");
+						}
+						listM.removeElementAt(index);
+						index = -9999;
+					} catch (Exception e1) {
+						logger.log(Level.INFO, "Impossible to parse in JSON SensorHistorical " + e1.getClass().getCanonicalName());
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Please select an line to be deleted", "Error", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
 		/**
 		 * Launch the thread
 		 */
 		threadListSensorHistorical.start();
+
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
 		 * Different parameters of the window
@@ -210,16 +291,31 @@ public class TabHistorical extends JPanel {
 			listSensorHistorical = Arrays.asList(listSensorHistoricals);
 			logger.log(Level.INFO, "Find all SensorHistorical datas succeeded");
 		} catch (Exception e1) {
-			logger.log(Level.INFO,
-					"Impossible to parse in JSON SensorHistorical datas" + e1.getClass().getCanonicalName());
+			logger.log(Level.INFO, "Impossible to parse in JSON SensorHistorical datas" + e1.getClass().getCanonicalName());
 		}
 
-		tableModel.removeAllElements();
-		tableModel.addElement("ID Historical, Date, ID Sensor, State, Alert State");
+		listM.removeAllElements();
+		// TODO PA voir si c'est pas mieux de faire un tableModel = new
+		// DefaultListModel<String>();
+		listM.addElement("ID Historical, Date, ID Sensor, State, Alert State");
 		for (SensorHistorical sensorHistoricals : listSensorHistorical) {
-			tableModel.addElement(Integer.toString(sensorHistoricals.getIdHistorical()) + " "
-					+ sensorHistoricals.getDate() + " " + sensorHistoricals.getIdSensor() + " "
-					+ sensorHistoricals.getSensorState() + " " + sensorHistoricals.getAlertState());
+			listM.addElement(Integer.toString(sensorHistoricals.getIdHistorical()) + " Date : " + sensorHistoricals.getDate() + " ID Sensor : " + sensorHistoricals.getIdSensor() + " State : " + sensorHistoricals.getSensorState() + " Alert State :" + sensorHistoricals.getAlertState());
+		}
+	}
+
+	public void getSensor(int id) {
+		requestType = "READ";
+		sensor = new Sensor();
+		table = "Sensor";
+		sensor.setIdSensor(id);
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			jsonString = objectMapper.writeValueAsString(sensor);
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			sensor = objectMapper.readValue(jsonString, Sensor.class);
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 		}
 	}
 
