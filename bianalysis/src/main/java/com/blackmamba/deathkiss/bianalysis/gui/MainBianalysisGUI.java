@@ -4,12 +4,14 @@ import java.awt.EventQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JFrame;
+
 /**
  * 
  * @author Pierre-Arnaud
  *
  */
-public class Main {
+public class MainBianalysisGUI extends JFrame {
 
 //	private static Connexion popupConnexion;
 	private static Logger logger = Logger.getLogger("logger");
@@ -22,7 +24,7 @@ public class Main {
 					// popupConnexion.setVisible(true);
 					logger.log(Level.INFO, "Application runned");
 
-					Frame frame = new Frame(1);
+					GUIBi frame = new GUIBi();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					logger.log(Level.INFO,
