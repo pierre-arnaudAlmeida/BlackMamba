@@ -3,10 +3,12 @@ package com.blackmamba.deathkiss.gui;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 import com.blackmamba.deathkiss.entity.CommonArea;
 
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -14,12 +16,14 @@ import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 /**
  * @author Raymond
  */
-public class SurfacePolygon extends Polygon {
+public class SurfacePolygon extends JFrame {
 
 	private CommonArea idCommonArea;
 	private float surface;
@@ -27,76 +31,98 @@ public class SurfacePolygon extends Polygon {
 	private int tab;
 	private int[] xPoints;
 	private int[] yPoints;
-	private Image image;
-	
-	Rectangle polygon1 = new Rectangle(0, 0, 10, 10);
-	Rectangle polygon2 = new Rectangle(0, 0, 20, 20);
-	Rectangle polygon3 = new Rectangle(0, 0, 30, 30);
-	Rectangle polygon4 = new Rectangle(0, 0, 40, 40);
-	
+	private static Image img;
+
+	private static final Rectangle polygon1 = new Rectangle(7, 56, 108, 313);
+	private static final Rectangle polygon2 = new Rectangle(129, 72, 105, 97);
+	private static final Rectangle polygon3 = new Rectangle(240, 171, 346, 45);
+	private static final Rectangle polygon4_1 = new Rectangle(591, 171, 282, 182);
+	private static final Rectangle polygon4_2 = new Rectangle(733, 71, 140, 99);
 
 	private static final long serialVersionUID = -1793953027487918460L;
 
-	public SurfacePolygon(List<Point> listPoint) throws IOException {
-		for (Point point : listPoint) {
-			this.addPoint(point.x, point.y);
-			image = ImageIO.read(getClass().getClassLoader().getResource("resources/image.gif"));
+	private static class Canvas extends JComponent implements MouseListener {
+
+		private static final long serialVersionUID = -2873372597458047717L;
+		private BufferedImage buffer = null;
+
+		public Canvas(BufferedImage image) {
+			this.addMouseListener(this);
+			this.buffer = image;
+		}
+
+		public void paint(Graphics g) {
+
+			// Draw image
+			g.drawImage(buffer, 0, 0, buffer.getWidth(), buffer.getHeight(), this);
+
+			g.setColor(Color.GREEN);
+			// Draw rectangle
+			g.drawRect(polygon1.x, polygon1.y, polygon1.width, polygon1.height);
+			g.drawRect(polygon2.x, polygon2.y, polygon2.width, polygon2.height);
+			g.drawRect(polygon3.x, polygon3.y, polygon3.width, polygon3.height);
+			g.drawRect(polygon4_1.x, polygon4_1.y, polygon4_1.width, polygon4_1.height);
+			g.drawRect(polygon4_2.x, polygon4_2.y, polygon4_2.width, polygon4_2.height);
+		}
+
+		private void testLocation(Point mouse, Rectangle commonArea, String text) {
+			// if the mouse if here
+			if (commonArea.contains(mouse))
+				System.out.println(text + " - image");
+			else
+				System.out.println(text + " - !image");
+		}
+
+		public void mouseClicked(MouseEvent e) {
+			// récupération de la position de la souri
+			Point p = e.getPoint();
+			testLocation(p, polygon1, "mouseClicked - data 1");
+			testLocation(p, polygon2, "mouseClicked - data 2");
+			testLocation(p, polygon3, "mouseClicked - data 3");
+			testLocation(p, polygon4_1, "mouseClicked - data 4_1");
+			testLocation(p, polygon4_2, "mouseClicked - data 4_2");
+		}
+
+		public void mousePressed(MouseEvent e) {
+//			// récupération de la position de la souri
+//			Point p = e.getPoint();
+//			testLocation(p, polygon1, "mousePressed - data 1");
+//			testLocation(p, polygon2, "mousePressed - data 2");
+		}
+
+		public void mouseReleased(MouseEvent e) {
+			// récupération de la position de la souri
+			Point p = e.getPoint();
+			testLocation(p, polygon1, "mouseReleased - data 1");
+			testLocation(p, polygon2, "mouseReleased - data 2");
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
 		}
 
 	}
-	
-	public void paint(Graphics g) {
-	    int xpoints[] = {25, 145, 25, 145, 25};
-	    int ypoints[] = {25, 25, 145, 145, 25};
-	    int npoints = 5;
-	    
-	    g.setColor(Color.GREEN);
-	    g.drawRect(polygon1.x, polygon1.y, polygon1.width, polygon1.height);
-	    g.drawRect(polygon2.x, polygon2.y, polygon2.width, polygon2.height);
-	    g.drawRect(polygon3.x, polygon3.y, polygon3.width, polygon3.height);
-	    g.drawRect(polygon4.x, polygon4.y, polygon4.width, polygon4.height);
-	  }
-	
-	  public void paintComponent(Graphics g) {
-//          // dessine l'image
-//          g.drawImage(buff, 0, 0, buff.getWidth(), buff.getHeight(), this);
-//          // juste histoire de voir ou se trouvent les zones (plus facil pour le test ^^)
-//          g.setColor(Color.GREEN);
-//          g.drawRect(ZONE_IMAGE_1.x, ZONE_IMAGE_1.y, ZONE_IMAGE_1.width, ZONE_IMAGE_1.height);
-//          g.drawRect(ZONE_IMAGE_2.x, ZONE_IMAGE_2.y, ZONE_IMAGE_2.width, ZONE_IMAGE_2.height);
-      }
-	  
-	  
-      private void testLocation(Point mouse, Rectangle area, String text) {
-//          // test si la souris est dans les data de l'image
-//          if(area.contains(mouse))
-//              System.out.println(text + " - image");
-//          else
-//              System.out.println(text + " - !image");
-      }
 
-      public void mouseClicked(MouseEvent e) {
-//          //récupération de la position de la souri
-//          Point p = e.getPoint();
-//          testLocation(p, ZONE_IMAGE_1, "mouseClicked - data 1");
-//          testLocation(p, ZONE_IMAGE_2, "mouseClicked - data 2");
-      }
-	    
-	    
-	    
-	    
-	
-	public static void main(String[] args) {
-	    JFrame frame = new JFrame();
-	    frame.getContentPane().add(new TabMapSensor());
+	public SurfacePolygon() {
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setSize(1000, 500);
+		setLocationRelativeTo(null);
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(getClass().getClassLoader().getResource("image.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		setContentPane(new Canvas(img));
 
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    frame.setSize(1000,500);
-	    frame.setVisible(true);
 	}
 
-	public SurfacePolygon(int tab, int[] xPoints, int[] yPoints) {
-		super(yPoints, xPoints, tab);
+	public static void main(String[] args) {
+		new SurfacePolygon().setVisible(true);
 	}
 
 	public CommonArea getIdCommonArea() {
