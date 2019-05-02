@@ -176,7 +176,8 @@ public class GUIBi extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 			
-			JComboBox comboBox = (JComboBox)
+			
+			
 		});
 		cbArea.setEditable(true);
 		cbArea.addItem(area);
