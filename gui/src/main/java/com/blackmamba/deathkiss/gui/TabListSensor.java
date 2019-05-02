@@ -54,7 +54,6 @@ public class TabListSensor extends JPanel {
 	private CommonArea commonArea;
 	private CommonArea area;
 	private JScrollPane sc;
-	private Object[][] listM;
 	private JTabbedPane tab;
 	private TabSensor tabSensor;
 	private Thread threadListSensor;
@@ -93,7 +92,8 @@ public class TabListSensor extends JPanel {
 					try {
 						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
-						logger.log(Level.INFO, "Impossible to sleep the thread ListSensor " + e.getClass().getCanonicalName());
+						logger.log(Level.INFO,
+								"Impossible to sleep the thread ListSensor " + e.getClass().getCanonicalName());
 					}
 				}
 			}
@@ -143,7 +143,10 @@ public class TabListSensor extends JPanel {
 		 * Add a scrollBar on list
 		 */
 		sc = new JScrollPane(tableau);
-		sc.setBounds((int) getToolkit().getScreenSize().getWidth() * 3 / 10, (int) getToolkit().getScreenSize().getHeight() * 2 / 10, (int) getToolkit().getScreenSize().getWidth() * 1 / 2, (int) getToolkit().getScreenSize().getHeight() * 1 / 2);
+		sc.setBounds((int) getToolkit().getScreenSize().getWidth() * 3 / 10,
+				(int) getToolkit().getScreenSize().getHeight() * 2 / 10,
+				(int) getToolkit().getScreenSize().getWidth() * 1 / 2,
+				(int) getToolkit().getScreenSize().getHeight() * 1 / 2);
 		this.add(sc);
 
 		/**
@@ -164,7 +167,8 @@ public class TabListSensor extends JPanel {
 		 * Definition of Button CheckSensor
 		 */
 		checkSensor = new JButton("Display Sensor");
-		checkSensor.setBounds(((int) getToolkit().getScreenSize().getWidth() * 5 / 10), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
+		checkSensor.setBounds(((int) getToolkit().getScreenSize().getWidth() * 5 / 10),
+				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
 		this.add(checkSensor);
 		checkSensor.addActionListener(new ActionListener() {
 			/**
@@ -174,7 +178,8 @@ public class TabListSensor extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (index == 0) {
-					JOptionPane.showMessageDialog(null, "Please select an sensor", "Information", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Please select an sensor", "Information",
+							JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					tab = new JTabbedPane();
 					tab = Frame.getTab();
@@ -192,7 +197,8 @@ public class TabListSensor extends JPanel {
 		 * Definition of Button newCommonArea
 		 */
 		newCommonArea = new JButton("New common area");
-		newCommonArea.setBounds(((int) getToolkit().getScreenSize().getWidth() * 3 / 10), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
+		newCommonArea.setBounds(((int) getToolkit().getScreenSize().getWidth() * 3 / 10),
+				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
 		this.add(newCommonArea);
 		newCommonArea.addActionListener(new ActionListener() {
 			/**
@@ -249,26 +255,12 @@ public class TabListSensor extends JPanel {
 		tableModel.removeAllElements();
 		tableModel.addElement("ID, Sensor type, State, Name common area");
 		for (Sensor sensors : listSensor) {
-			tableModel.addElement(Integer.toString(sensors.getIdSensor()) + " " + sensors.getTypeSensor() + " " + sensors.getSensorState() + " " + area.getNameCommonArea());
+			tableModel.addElement(Integer.toString(sensors.getIdSensor()) + " " + sensors.getTypeSensor() + " "
+					+ sensors.getSensorState() + " " + area.getNameCommonArea());
 		}
-	}
-
-	/**
-	 * Getter of list with all the sensor of the CommonArea selected before
-	 * 
-	 * @return listM
-	 */
-	public Object[][] getListM() {
-		return listM;
-	}
-
-	/**
-	 * Setter of list, update the value of the listM
-	 * 
-	 * @param listM
-	 */
-	public void setListM(Object[][] listM) {
-		this.listM = listM;
+		if (tableModel.isEmpty() && (!listSensor.isEmpty())) {
+			updateListSensor();
+		}
 	}
 
 	/**

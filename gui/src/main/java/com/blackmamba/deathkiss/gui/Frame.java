@@ -94,7 +94,7 @@ public class Frame extends JFrame {
 		 * Creation of different tabs
 		 */
 		tabEmployes = new TabEmployes(Color.GRAY, this.idEmployee, "Tab Employees");
-		tabCommonArea = new TabCommonArea(Color.GRAY, this.idEmployee, "Tab Common Areas");
+		tabCommonArea = new TabCommonArea(Color.GRAY, this.idEmployee, 0, "Tab Common Areas");
 		tabSensor = new TabSensor(Color.GRAY, this.idEmployee, "Tab Sensors", 0);
 		tabResident = new TabResident(Color.GRAY, this.idEmployee, "Tab Residents");
 		tabHistorical = new TabHistorical(Color.GRAY, this.idEmployee, "Tab Historical");
@@ -144,7 +144,8 @@ public class Frame extends JFrame {
 		/**
 		 * Launch the threads
 		 */
-		threadAlert.start();
+		//TODO PA a remettre
+		// threadAlert.start();
 		threadFrame.start();
 
 		///////////////////////// FRAME/////////////////////////////////////////////////
