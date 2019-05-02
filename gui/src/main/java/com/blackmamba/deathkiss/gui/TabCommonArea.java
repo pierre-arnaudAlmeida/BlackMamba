@@ -99,9 +99,10 @@ public class TabCommonArea extends JPanel {
 	 * @param idCommonArea
 	 */
 	public TabCommonArea(Color color, int idemployee, String title, int idCommonArea) {
-		//TODO PA tester
+		// TODO PA tester
 		requestType = "READ";
 		table = "CommonArea";
+		commonArea = new CommonArea();
 		commonArea.setIdCommonArea(idCommonArea);
 		getCommonArea(commonArea, requestType, table);
 		new TabCommonArea(color, idemployee, title);

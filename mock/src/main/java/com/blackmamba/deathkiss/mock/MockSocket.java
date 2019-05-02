@@ -128,6 +128,7 @@ public class MockSocket {
 			logger.log(Level.INFO, "IP Host dont find " + e.getClass().getCanonicalName());
 		} catch (IOException e) {
 			logger.log(Level.INFO, "Impossible create the socket " + e.getClass().getCanonicalName());
+		} catch (NullPointerException e) {
 		}
 	}
 

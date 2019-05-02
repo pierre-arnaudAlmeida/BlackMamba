@@ -620,7 +620,7 @@ public class RequestHandler implements Runnable {
 						logger.log(Level.INFO, "Socket Closed by Server");
 					}
 				}
-			} catch (IOException e) {
+			} catch (IOException | NullPointerException e) {
 			}
 		}
 		if (sock.isClosed())
