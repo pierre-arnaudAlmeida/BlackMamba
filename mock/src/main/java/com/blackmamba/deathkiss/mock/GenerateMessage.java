@@ -131,6 +131,7 @@ public class GenerateMessage extends Thread {
 						"Impossible to sleep the threadGenerateMessage " + e.getClass().getCanonicalName());
 			}
 		}
+
 	}
 
 	/**

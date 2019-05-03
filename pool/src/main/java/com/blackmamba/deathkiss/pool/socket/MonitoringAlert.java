@@ -125,12 +125,8 @@ public class MonitoringAlert {
 						}
 					}
 					detectAlert(sensors);
-					listMessageInTreatment.removeAll(listMessageTreated);
-					listMessageTreated.removeAll(listMessageTreated);
 				} else {
 					detectAlert(sensors);
-					listMessageInTreatment.removeAll(listMessageTreated);
-					listMessageTreated.removeAll(listMessageTreated);
 				}
 				if (nbAlert != 0) {
 					difference = firstAlertDate.getTime() - lastAlertDate.getTime();
@@ -168,9 +164,12 @@ public class MonitoringAlert {
 							listMessageTreated.add(messages);
 						}
 					}
+					listMessageInTreatment.removeAll(listMessageTreated);
+					listMessageTreated.clear();
 				}
 			}
 			listMessageInTreatment.removeAll(listMessageTreated);
+			listMessageTreated.clear();
 		}
 	}
 
@@ -470,34 +469,38 @@ public class MonitoringAlert {
 
 	public void detectAlert(Sensor sensors) {
 		for (Message messages : listMessageInTreatment) {
-			if (sensors.getTypeSensor().equals(SensorType.SMOKE) || sensors.getTypeSensor().equals(SensorType.ELEVATOR)
-					|| sensors.getTypeSensor().equals(SensorType.TEMPERATURE)) {
-				if (((sensors.getThresholdMin() >= messages.getThreshold())
-						|| sensors.getThresholdMax() <= messages.getThreshold())) {
-					if (nbAlert == 0) {
-						firstAlertDate = messages.getAlertDate();
+			if (sensors.getSensorState()) {
+				if (sensors.getTypeSensor().equals(SensorType.SMOKE)
+						|| sensors.getTypeSensor().equals(SensorType.ELEVATOR)
+						|| sensors.getTypeSensor().equals(SensorType.TEMPERATURE)) {
+					if (((sensors.getThresholdMin() >= messages.getThreshold())
+							|| sensors.getThresholdMax() <= messages.getThreshold())) {
+						if (nbAlert == 0) {
+							firstAlertDate = messages.getAlertDate();
+						}
+						lastAlertDate = messages.getAlertDate();
+						nbAlert++;
+						logger.log(Level.INFO,
+								"Sensor : " + sensors.getIdSensor() + " threshold reached : " + messages.getThreshold()
+										+ ", Min : " + sensors.getThresholdMin() + " Max : "
+										+ sensors.getThresholdMax());
+						lastThreshold = messages.getThreshold();
+					} else {
+						listMessageTreated.add(messages);
 					}
-					lastAlertDate = messages.getAlertDate();
-					nbAlert++;
-					logger.log(Level.INFO,
-							"Sensor : " + sensors.getIdSensor() + " threshold reached : " + messages.getThreshold()
-									+ ", Min : " + sensors.getThresholdMin() + " Max : " + sensors.getThresholdMax());
-					lastThreshold = messages.getThreshold();
 				} else {
-					listMessageTreated.add(messages);
-				}
-			} else {
-				if (sensors.getThresholdMax() == messages.getThreshold()) {
-					if (nbAlert == 0) {
-						firstAlertDate = messages.getAlertDate();
+					if (sensors.getThresholdMax() == messages.getThreshold()) {
+						if (nbAlert == 0) {
+							firstAlertDate = messages.getAlertDate();
+						}
+						lastAlertDate = messages.getAlertDate();
+						nbAlert++;
+						logger.log(Level.INFO, "Sensor : " + sensors.getIdSensor() + " threshold reached : "
+								+ messages.getThreshold() + ", Max : " + sensors.getThresholdMax());
+						lastThreshold = messages.getThreshold();
+					} else {
+						listMessageTreated.add(messages);
 					}
-					lastAlertDate = messages.getAlertDate();
-					nbAlert++;
-					logger.log(Level.INFO, "Sensor : " + sensors.getIdSensor() + " threshold reached : "
-							+ messages.getThreshold() + ", Max : " + sensors.getThresholdMax());
-					lastThreshold = messages.getThreshold();
-				} else {
-					listMessageTreated.add(messages);
 				}
 			}
 		}
