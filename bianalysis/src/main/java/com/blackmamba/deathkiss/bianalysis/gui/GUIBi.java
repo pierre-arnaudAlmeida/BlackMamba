@@ -377,23 +377,24 @@ public class GUIBi extends JFrame {
 				
 			    JComboBox cbArea =(JComboBox) e.getSource();
 			    String selectedBook = (String) cbArea.getSelectedItem();
-
-			    
+			    			    
 				if (selectedBook.equals("RC")) {
 
 					System.out.println("Nous sommes au RC");
-					for (SensorHistorical sensorHistorical1 : listSensorHistorical ) {
-						if (sensorHistorical1.getIdSensor() == 0)
-							 {
-							ListModel.addElement(sensorHistorical1.getAlertState() + "# "
-									+ sensorHistorical1.getIdHistorical() + " ," + sensorHistorical1.getIdSensor()
-									+ " ," + sensorHistorical1.getDate());
-						}
-					}
 				}
 				
 			    else if (selectedBook.equals("Etage 1"))
 			    {
+			    	for ( Sensor str : listSensor) {
+			    		if (listSensorHistorical.contains(str.getIdSensor())) {
+			    			System.out.println("oui");
+			    			if (str.getIdCommonArea()== 1) {// A MODIFIER PLUS TARD
+			    			
+				    			ListModel.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ," + str.getSensorState()
+								+ " ," + str.getIdCommonArea());
+			    			}	    			
+			    		}
+			    	}
 			    	System.out.println("Nous sommes à l'etage 1");
 			    }
 			    else if (selectedBook.equals("Etage 2"))
