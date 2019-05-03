@@ -252,15 +252,14 @@ public class TabListSensor extends JPanel {
 			logger.log(Level.INFO, "Impossible to parse in JSON Sensor datas" + e1.getClass().getCanonicalName());
 		}
 
-		tableModel.removeAllElements();
+		tableModel.clear();
+		tableModel = new DefaultListModel<>();
 		tableModel.addElement("ID, Sensor type, State, Name common area");
 		for (Sensor sensors : listSensor) {
 			tableModel.addElement(Integer.toString(sensors.getIdSensor()) + " " + sensors.getTypeSensor() + " "
 					+ sensors.getSensorState() + " " + area.getNameCommonArea());
 		}
-		if (tableModel.isEmpty() && (!listSensor.isEmpty())) {
-			updateListSensor();
-		}
+		tableau.setModel(tableModel);
 	}
 
 	/**

@@ -677,15 +677,14 @@ public class TabResident extends JPanel {
 		requestType = "READ ALL";
 		table = "Resident";
 		listResident = getAllResident(null, requestType, table);
-		listM.removeAllElements();
+		listM.clear();
+		listM = new DefaultListModel<>();
 		listM.addElement("All residents ");
 		for (Resident residents : listResident) {
 			listM.addElement(residents.getIdResident() + "# " + residents.getLastnameResident() + " "
 					+ residents.getNameResident());
 		}
-		if (listM.isEmpty() && (!listResident.isEmpty())) {
-			updateListResident();
-		}
+		list.setModel(listM);
 	}
 
 	/**

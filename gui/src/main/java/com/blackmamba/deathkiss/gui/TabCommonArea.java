@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -24,9 +25,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import com.blackmamba.deathkiss.entity.CommonArea;
 import com.blackmamba.deathkiss.entity.Sensor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -269,6 +272,8 @@ public class TabCommonArea extends JPanel {
 		///////////////////////// LIST COMMONAREA////////////////////////////////////
 		listM = new DefaultListModel<String>();
 		list = new JList<String>(listM);
+		sc = new JScrollPane(list);
+
 		updateListCommonArea();
 		if (idcommonArea != 0) {
 			commonArea = new CommonArea();
@@ -279,7 +284,7 @@ public class TabCommonArea extends JPanel {
 		/**
 		 * Add a scrollBar on list
 		 */
-		sc = new JScrollPane(list);
+
 		sc.setBounds(30, 120, 300, ((int) getToolkit().getScreenSize().getHeight() - 300));
 		this.add(sc);
 
@@ -703,16 +708,14 @@ public class TabCommonArea extends JPanel {
 		requestType = "READ ALL";
 		table = "CommonArea";
 		listCommonArea = getAllCommonArea(null, requestType, table);
-
-		listM.removeAllElements();
+		listM.clear();
+		listM = new DefaultListModel<>();
 		listM.addElement("All commons areas");
 		for (CommonArea commonAreas : listCommonArea) {
 			listM.addElement(commonAreas.getIdCommonArea() + "# " + commonAreas.getNameCommonArea() + " ,"
 					+ commonAreas.getEtageCommonArea());
 		}
-		if (listM.isEmpty() && (!listCommonArea.isEmpty())) {
-			updateListCommonArea();
-		}
+		list.setModel(listM);
 	}
 
 	/**
@@ -746,10 +749,10 @@ public class TabCommonArea extends JPanel {
 	 * @param table
 	 * @return
 	 */
-	public CommonArea getCommonArea(CommonArea commonArea, String requestType, String table) {
+	public CommonArea getCommonArea(CommonArea area, String requestType, String table) {
 		objectMapper = new ObjectMapper();
 		try {
-			jsonString = objectMapper.writeValueAsString(commonArea);
+			jsonString = objectMapper.writeValueAsString(area);
 			new ClientSocket(requestType, jsonString, table);
 			jsonString = ClientSocket.getJson();
 			commonArea = objectMapper.readValue(jsonString, CommonArea.class);

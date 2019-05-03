@@ -308,16 +308,15 @@ public class TabHistorical extends JPanel {
 					"Impossible to parse in JSON SensorHistorical datas" + e1.getClass().getCanonicalName());
 		}
 
-		listM.removeAllElements();
+		listM.clear();
+		listM = new DefaultListModel<>();
 		listM.addElement("ID Historical, Date, ID Sensor, State, Alert State");
 		for (SensorHistorical sensorHistoricals : listSensorHistorical) {
 			listM.addElement(Integer.toString(sensorHistoricals.getIdHistorical()) + " Date : "
 					+ sensorHistoricals.getDate() + " ID Sensor : " + sensorHistoricals.getIdSensor() + " State : "
 					+ sensorHistoricals.getSensorState() + " Alert State :" + sensorHistoricals.getAlertState());
 		}
-		if (listM.isEmpty() && (!listSensorHistorical.isEmpty())) {
-			updateListSensorHistorical();
-		}
+		list.setModel(listM);
 	}
 
 	public void getSensor(int id) {

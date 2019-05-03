@@ -730,15 +730,14 @@ public class TabEmployes extends JPanel {
 		requestType = "READ ALL";
 		table = "Employee";
 		listEmployee = getAllEmployee(null, requestType, table);
-		listM.removeAllElements();
+		listM.clear();
+		listM = new DefaultListModel<>();
 		listM.addElement("All employees");
 		for (Employee employees : listEmployee) {
 			listM.addElement(employees.getIdEmployee() + "# " + employees.getLastnameEmployee() + " "
 					+ employees.getNameEmployee() + " ," + employees.getPoste());
 		}
-		if (listM.isEmpty() && (!listEmployee.isEmpty())) {
-			updateListEmployee();
-		}
+		list.setModel(listM);
 	}
 
 	/**

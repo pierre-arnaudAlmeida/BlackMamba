@@ -528,6 +528,8 @@ public class TabSensor extends JPanel {
 				logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 			}
 			textInputTypeSensor.setSelectedItem(sensor.getTypeSensor().name());
+			textInputNameCommonArea
+					.setSelectedItem(commonArea.getNameCommonArea() + " #" + commonArea.getIdCommonArea());
 			if (sensor.getSensorState()) {
 				switchButton.setText("ON");
 				switchButton.setBackground(Color.GREEN);
@@ -883,15 +885,14 @@ public class TabSensor extends JPanel {
 		table = "Alert";
 		listAlert = getAllAlert(null, requestType, table);
 
-		listM.removeAllElements();
+		listM.clear();
+		listM = new DefaultListModel<>();
 		listM.addElement("All alert");
 		for (Alert alerts : listAlert) {
 			listM.addElement(alerts.getIdAlert() + "# " + alerts.getAlertState() + " ," + alerts.getIdSensor() + " , "
 					+ alerts.getIdAlert());
 		}
-		if (listM.isEmpty() && (!listCommonArea.isEmpty())) {
-			updateListAlert();
-		}
+		list.setModel(listM);
 	}
 
 	/**
