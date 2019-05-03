@@ -171,32 +171,17 @@ public class GUIBi extends JFrame {
 		String[] periode = { "Année", "Mois", "Jour" };
 		String[] area = { "RC", "Etage 1", "Etage 2" };
 		cbArea = new JComboBox(area);
+
 		
-		cbArea.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-			
-			
-			
-		});
 		cbArea.setEditable(true);
 		cbArea.addItem(area);
 		cbArea.setBounds(632, 52, 100, 35);
 		contentPane.add(cbArea);
-		
-		
-		
-		
-		
 		cbCapteur = new JComboBox(sensorType);
 		cbCapteur.setBounds(168, 69, 100, 35);
 		contentPane.add(cbCapteur);
 		
         
-
-
-		
-		
 ///////////////////////////////////////////////
 		// Bouton
 
@@ -367,8 +352,6 @@ public class GUIBi extends JFrame {
 				ListModel.removeAllElements();
 				for (SensorHistorical sensorHistorical1 : listSensorHistorical) {
 					
-					
-					
 					if (tfDate.getText()!=null && tfDate1.getText()!=null) {
 						
 						if (sensorHistorical1.getDate().after(dateChooser.getDate())
@@ -378,7 +361,7 @@ public class GUIBi extends JFrame {
 										+ sensorHistorical1.getIdSensor() + " ," + sensorHistorical1.getDate());
 
 						}
-					} else if (tfDate.getText()==null && tfDate1.getText()==null) {
+					} else if (tfDate.getText()!=null && tfDate1.getText()==null) {
 						for (SensorHistorical sensorHistorical : listSensorHistorical) {
 							ListModel.addElement(sensorHistorical.getAlertState() + "# " + sensorHistorical.getIdHistorical() + " ,"
 									 + " ," + sensorHistorical.getDate());
@@ -389,7 +372,36 @@ public class GUIBi extends JFrame {
 			
 		});
 		
-		
+		cbArea.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			    JComboBox cbArea =(JComboBox) e.getSource();
+			    String selectedBook = (String) cbArea.getSelectedItem();
+
+			    
+				if (selectedBook.equals("RC")) {
+
+					System.out.println("Nous sommes au RC");
+					for (SensorHistorical sensorHistorical1 : listSensorHistorical ) {
+						if (sensorHistorical1.getIdSensor() == 0)
+							 {
+							ListModel.addElement(sensorHistorical1.getAlertState() + "# "
+									+ sensorHistorical1.getIdHistorical() + " ," + sensorHistorical1.getIdSensor()
+									+ " ," + sensorHistorical1.getDate());
+						}
+					}
+				}
+				
+			    else if (selectedBook.equals("Etage 1"))
+			    {
+			    	System.out.println("Nous sommes à l'etage 1");
+			    }
+			    else if (selectedBook.equals("Etage 2"))
+			    {
+			    	System.out.println("Nous somme à l'étage 2");
+			    }
+			}		
+		});
 		
 
 	}
@@ -433,7 +445,7 @@ public class GUIBi extends JFrame {
 		} catch (Exception e1) {
 			logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
 		}
-
+		
 	}
 
 
