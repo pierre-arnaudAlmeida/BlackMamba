@@ -56,7 +56,7 @@ public class GUIBi extends JFrame {
 	private JList<String> list1;
 	private static List<Sensor> listSensor = new ArrayList<Sensor>();
 	private static List<SensorHistorical> listSensorHistorical = new ArrayList<SensorHistorical>();
-	private ObjectMapper objectMapper;
+	private ObjectMapper objectMapper; 
 	private String requestType;
 	private String table;
 	private String jsonString;
@@ -213,10 +213,11 @@ public class GUIBi extends JFrame {
 		tfTemperature.setBounds(148, 538, 112, 28);
 		contentPane.add(tfTemperature);
 		tfTemperature.setColumns(10);
-
+		
+		Object[] monObj1 = returnNumber();
 		tfAlertes = new JTextField();
 		tfAlertes.setBounds(497, 501, 112, 28);
-		tfAlertes.setText(returnNumber().toString());
+		tfAlertes.setText(monObj1[0].toString());
 		contentPane.add(tfAlertes);
 		tfAlertes.setColumns(10);
 
@@ -303,9 +304,12 @@ public class GUIBi extends JFrame {
 		//Graphic Historical alert 
 		
 		DefaultPieDataset HistoricalAlert = new DefaultPieDataset();
-		HistoricalAlert.setValue("Number of Unused Sensors", (Number) monObj[0]);
-		HistoricalAlert.setValue("Number of used Sensors", (Number) monObj[1]);
 
+		HistoricalAlert.setValue("Number of DOWN Sensors", (Number) monObj1[1]);
+		HistoricalAlert.setValue("Number of OVER Sensors", (Number) monObj1[2]);
+		HistoricalAlert.setValue("Number of NORMAL Sensors", (Number) monObj1[3]);
+		HistoricalAlert.setValue("Number of Alert Sensors", (Number) monObj1[4]);
+		
 		JFreeChart pieChart1 = ChartFactory.createPieChart(" Ratio of number of alert", HistoricalAlert, true, true, true);
 		ChartPanel cPanel1 = new ChartPanel(pieChart1);
 		contentPane.add(cPanel1);
@@ -352,24 +356,14 @@ public class GUIBi extends JFrame {
 				ListModel.removeAllElements();
 				for (SensorHistorical sensorHistorical1 : listSensorHistorical) {
 					
-					if (tfDate.getText()!=null && tfDate1.getText()!=null) {
-						
 						if (sensorHistorical1.getDate().after(dateChooser.getDate())
 							&& sensorHistorical1.getDate().before((dateChooser_1.getDate()))) {
-						ListModel.addElement(
-								sensorHistorical1.getAlertState() + "# " + sensorHistorical1.getIdHistorical() + " ,"
-										+ sensorHistorical1.getIdSensor() + " ," + sensorHistorical1.getDate());
-
-						}
-					} else if (tfDate.getText()!=null && tfDate1.getText()==null) {
-						for (SensorHistorical sensorHistorical : listSensorHistorical) {
-							ListModel.addElement(sensorHistorical.getAlertState() + "# " + sensorHistorical.getIdHistorical() + " ,"
-									 + " ," + sensorHistorical.getDate());
-						}
+						ListModel.addElement(Integer.toString(sensorHistorical1.getIdHistorical()) + " Date : "
+								+ sensorHistorical1.getDate() + " ID Sensor : " + sensorHistorical1.getIdSensor() + " State : "
+								+ sensorHistorical1.getSensorState() + " Alert State :" + sensorHistorical1.getAlertState());
 						}
 					}
 				}
-			
 		});
 		
 		cbArea.addActionListener(new ActionListener() {
@@ -389,7 +383,7 @@ public class GUIBi extends JFrame {
 			    		if (listSensorHistorical.contains(str.getIdSensor())) {
 			    			System.out.println("oui");
 			    			if (str.getIdCommonArea()== 1) {// A MODIFIER PLUS TARD
-			    			
+			    				ListModel.removeAllElements();
 				    			ListModel.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ," + str.getSensorState()
 								+ " ," + str.getIdCommonArea());
 			    			}	    			
@@ -452,17 +446,33 @@ public class GUIBi extends JFrame {
 
 //////////////////////////////////////
 	// Method calculate all alerts
-	public String returnNumber() {
+	public static Object[] returnNumber() {
 		int numberAlerts = 0;
+		int nbAlNormal = 0;
+		int nbAlDown = 0;
+		int nbAlOver = 0;
+		int nbAlert = 0;
+ 		
+
 		if (!listSensorHistorical.isEmpty()) {
 			for (SensorHistorical sensorH : listSensorHistorical) {
 				numberAlerts++;
-
+				
+				if (sensorH.getAlertState().equals("DOWN")) {
+					nbAlDown ++;
+				} else if (sensorH.getAlertState().equals("OVER")) {
+					nbAlOver ++;
+				} else if (sensorH.getAlertState().equals("NORMAL")){
+					nbAlNormal ++;
+				} else if (sensorH.getAlertState().equals("ALERT")) {
+					
+				}
+					
 			}
 
 		}
 
-		return String.valueOf(numberAlerts);
+		return new Object[] { numberAlerts, nbAlNormal, nbAlDown, nbAlOver,nbAlert};
 
 	}
 
