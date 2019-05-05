@@ -162,11 +162,13 @@ public class MainServerGUI extends JFrame {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ts.close();
-				timer1.stop();
-				nbServer = 0;
-				logger.log(Level.INFO, "Server Closed");
-				logger.log(Level.INFO, "Application closed");
+				if (nbServer > 0) {
+					ts.close();
+					timer1.stop();
+					nbServer = 0;
+					logger.log(Level.INFO, "Server Closed");
+					logger.log(Level.INFO, "Application closed");
+				}
 			}
 		});
 

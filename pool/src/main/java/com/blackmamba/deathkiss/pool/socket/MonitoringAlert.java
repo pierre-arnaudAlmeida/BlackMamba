@@ -42,8 +42,6 @@ public class MonitoringAlert {
 	/**
 	 * Different parameters used
 	 */
-	private String requestType;
-	private String jsonString;
 	private Alert alert;
 	private Sensor sensor;
 	private SensorHistorical sensorHistorical;
@@ -60,14 +58,17 @@ public class MonitoringAlert {
 	private int numberOfIteration;
 	private int lastThreshold;
 	private int nbAlert;
-	private long difference;
 	private int sensitivity;
 	private int nbSensor;
 	private int nbSensorDown;
+	private int nbOfTimeWithoutMessage = 0;
+	private long difference;
+	private boolean result;
+	private String requestType;
+	private String jsonString;
 	private SimpleDateFormat formater;
 	private JDBCConnectionPool pool;
 	private Connection connectionGived;
-	private boolean result;
 	private List<Alert> listAlert = new ArrayList<Alert>();
 	private List<Message> listMessage = new ArrayList<Message>();
 	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
@@ -94,7 +95,6 @@ public class MonitoringAlert {
 	public MonitoringAlert() {
 	}
 
-	// TODO PA IA pour les alertes
 	/**
 	 * Verify if the messages send by the different sensor can be considerate to an
 	 * alert verify if the threshold have been reached and if they did'nt have an
@@ -103,11 +103,11 @@ public class MonitoringAlert {
 	 * send at Client
 	 */
 	public void alertTreatment() {
-		if (listMessage.size() != 0) {
+		if (!listMessage.isEmpty()) {
 			getAllSensor();
 			curDate = new Date();
 			// verifySensorMessageBeforeActivity();
-			// verifySensorActivity(curDate);
+			verifySensorActivity(curDate);
 			for (Sensor sensors : listSensor) {
 				for (Message messages : listMessage) {
 					if (sensors.getSensorState() && sensors.getIdSensor() == messages.getIdSensor()) {
@@ -185,7 +185,6 @@ public class MonitoringAlert {
 			listMessageInTreatment.removeAll(listMessageTreated);
 			listMessageTreated.clear();
 		}
-
 	}
 
 	/**
@@ -203,15 +202,15 @@ public class MonitoringAlert {
 		afterDate = calAfter.getTime();
 		formater = new SimpleDateFormat("h:mm a");
 
-		getAllSensor();
 		listMessageInTreatment = listMessage;
-		if (listMessageInTreatment.size() != 0) {
+		if (!listMessageInTreatment.isEmpty()) {
 			for (Sensor sensors : listSensor) {
+				// TODO PA verifier le comparateur de date
 				if (sensors.getIdCommonArea() != 0 && sensors.getSensorState()
 						&& (formater.format(sensors.getStartActivity()).compareTo(formater.format(beforeDate)) >= 0)
 						&& (formater.format(sensors.getStartActivity()).compareTo(formater.format(afterDate)) <= 0)) {
 					numberOfMessages = 0;
-					for (Message alerts : listMessage) {
+					for (Message alerts : listMessageInTreatment) {
 						if ((alerts.getIdSensor() == sensors.getIdSensor()) && (formater.format(alerts.getAlertDate())
 								.compareTo(formater.format(afterDate)) <= 0)) {
 							numberOfMessages++;
@@ -229,11 +228,13 @@ public class MonitoringAlert {
 						sensors.setAlertState(AlertState.DOWN);
 						updateSensorAlertState(sensors);
 						addHistorical(sensors);
+						// TODO PA mettre un message dans la base message
 					}
 				}
 			}
 		}
 		listMessageInTreatment.clear();
+
 	}
 
 	/**
@@ -249,11 +250,12 @@ public class MonitoringAlert {
 		// TODO PA a corriger potentiel faute
 		cleanListSensor(listSensorDown);
 		listMessageInTreatment = listMessage;
-		if (listMessageInTreatment.size() != 0) {
+		if (!listMessageInTreatment.isEmpty()) {
+			nbOfTimeWithoutMessage = 0;
 			for (Sensor sensors : listSensor) {
 				numberOfIteration = 0;
 				if (sensors.getSensorState()) {
-					for (Message messages : listMessage) {
+					for (Message messages : listMessageInTreatment) {
 						if (sensors.getIdSensor() == messages.getIdSensor()) {
 							numberOfIteration++;
 						}
@@ -277,6 +279,7 @@ public class MonitoringAlert {
 					sensor.setIdSensor(0);
 					sensor.setSensorState(true);
 					addHistorical(sensor);
+					// TODO PA mettre un message dans la base message
 				} else {
 					for (Sensor sensors : listSensorDown) {
 						alert = new Alert();
@@ -290,6 +293,7 @@ public class MonitoringAlert {
 						sensors.setAlertState(AlertState.DOWN);
 						updateSensorAlertState(sensors);
 						addHistorical(sensors);
+						// TODO PA mettre une message dans la base message
 					}
 
 					getAllCommonArea();
@@ -313,10 +317,23 @@ public class MonitoringAlert {
 							alert.setIdSensor(commonArea.getIdCommonArea());
 							listAlert.add(alert);
 							logger.log(Level.INFO, "No Activity on commonArea : " + commonArea.getIdCommonArea());
+							// TODO PA mettre un message dans la base message
 						}
 					}
-
 				}
+			}
+		} else {
+			if (nbOfTimeWithoutMessage >= Integer.parseInt(rsAlert.getString("nbOfTimeWithoutMessage"))) {
+				alert = new Alert();
+				alert.setAlertDate(currentDate);
+				alert.setAlertState(AlertState.OVER);
+				alert.setIdAlert(0);
+				alert.setIdSensor(0);
+				listAlert.add(alert);
+				logger.log(Level.INFO, "No Activity from all sensors !!");
+				nbOfTimeWithoutMessage = 0;
+			} else {
+				nbOfTimeWithoutMessage++;
 			}
 		}
 		listMessageInTreatment.clear();
@@ -378,7 +395,6 @@ public class MonitoringAlert {
 		} catch (SQLException | IOException e) {
 			logger.log(Level.INFO, "Impossible to get datas " + e.getClass().getCanonicalName());
 		}
-
 	}
 
 	/**
@@ -398,7 +414,6 @@ public class MonitoringAlert {
 		} catch (SQLException | IOException e) {
 			logger.log(Level.INFO, "Impossible to get datas " + e.getClass().getCanonicalName());
 		}
-
 	}
 
 	/**
@@ -427,6 +442,12 @@ public class MonitoringAlert {
 		}
 	}
 
+	/**
+	 * Add on table Sensor Historical the string converted in sensor and his state
+	 * and date
+	 * 
+	 * @param str
+	 */
 	public void addHistorical(String str) {
 		objectMapper = new ObjectMapper();
 		try {
@@ -449,6 +470,12 @@ public class MonitoringAlert {
 		}
 	}
 
+	/**
+	 * Add on table Message the sensor and his state and date
+	 * 
+	 * @param sensor
+	 * @param threshold
+	 */
 	public void addMessage(int threshold, Sensor sens) {
 		objectMapper = new ObjectMapper();
 		curDate = new Date();
@@ -467,9 +494,13 @@ public class MonitoringAlert {
 		} catch (JsonProcessingException | SQLException e) {
 			logger.log(Level.INFO, "Impossible to insert datas " + e.getClass().getCanonicalName());
 		}
-
 	}
 
+	/**
+	 * delete alert list an alert
+	 * 
+	 * @param str
+	 */
 	public void deleteAlert(String str) {
 		objectMapper = new ObjectMapper();
 		try {
@@ -484,6 +515,11 @@ public class MonitoringAlert {
 		}
 	}
 
+	/**
+	 * Detect if the messages send by one sensor reached the sensor threshold
+	 * 
+	 * @param sensors
+	 */
 	public void detectAlert(Sensor sensors) {
 		for (Message messages : listMessageInTreatment) {
 			if (sensors.getSensorState()) {

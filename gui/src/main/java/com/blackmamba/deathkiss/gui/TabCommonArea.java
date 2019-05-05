@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -25,11 +24,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.entity.CommonArea;
 import com.blackmamba.deathkiss.entity.Sensor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -77,7 +74,6 @@ public class TabCommonArea extends JPanel {
 	private CommonArea commonArea2;
 	private Sensor sensor;
 	private TabListSensor tabListSensor;
-	private TabCommonArea tabCommonArea;
 	private ObjectMapper objectMapper;
 	private Thread threadCommonArea;
 	private JList<String> list;
