@@ -33,8 +33,10 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 
+import com.blackmamba.deathkiss.bianalysis.entity.AlertState;
 import com.blackmamba.deathkiss.bianalysis.entity.Sensor;
 import com.blackmamba.deathkiss.bianalysis.entity.SensorHistorical;
+import com.blackmamba.deathkiss.bianalysis.entity.SensorType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toedter.calendar.JDateChooser;
 
@@ -382,7 +384,7 @@ public class GUIBi extends JFrame {
 			    	for ( Sensor str : listSensor) {
 			    		if (listSensorHistorical.contains(str.getIdSensor())) {
 			    			System.out.println("oui");
-			    			if (str.getIdCommonArea()== 1) {// A MODIFIER PLUS TARD
+			    			if (str.getIdCommonArea()==0) {// A MODIFIER PLUS TARD
 			    				ListModel.removeAllElements();
 				    			ListModel.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ," + str.getSensorState()
 								+ " ," + str.getIdCommonArea());
@@ -458,14 +460,14 @@ public class GUIBi extends JFrame {
 			for (SensorHistorical sensorH : listSensorHistorical) {
 				numberAlerts++;
 				
-				if (sensorH.getAlertState().equals("DOWN")) {
+				if (sensorH.getAlertState() == AlertState.DOWN) {
 					nbAlDown ++;
-				} else if (sensorH.getAlertState().equals("OVER")) {
+				} else if (sensorH.getAlertState() == AlertState.OVER) {
 					nbAlOver ++;
-				} else if (sensorH.getAlertState().equals("NORMAL")){
+				} else if (sensorH.getAlertState() == AlertState.NORMAL){
 					nbAlNormal ++;
-				} else if (sensorH.getAlertState().equals("ALERT")) {
-					
+				} else if (sensorH.getAlertState() == AlertState.ALERT) {
+					nbAlert++;
 				}
 					
 			}
