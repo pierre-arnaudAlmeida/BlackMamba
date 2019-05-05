@@ -3,6 +3,7 @@ package com.blackmamba.deathkiss.pool.socket;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -139,9 +140,22 @@ public class MonitoringAlert {
 				} else {
 					sensitivity = Integer.parseInt(rsAlert.getString("lowNbOfAlertMessage"));
 				}
-				// TODO PA rectifier au niveau de la date
-//				Time timeAlert = new java.sql.Time(lastAlertDate.getTime());
-//				if (timeAlert.compareTo(sensors.getStartActivity()) >= 0 && timeAlert.compareTo(sensors.getEndActivity()) <= 0) {
+				if (sensitivity != Integer.parseInt(rsAlert.getString("lowNbOfAlertMessage"))) {
+					Time lastTime = new java.sql.Time(lastAlertDate.getTime());
+					String str = lastTime.toString();
+					Time timeAlert = Time.valueOf(str);
+					if ((timeAlert.after(sensors.getEndActivity()) && timeAlert.before(sensors.getStartActivity()))) {
+						sensitivity = Integer.parseInt(rsAlert.getString("lowNbOfAlertMessage"));
+					} else {
+						if ((sensors.getEndActivity().getTime() - sensors.getStartActivity().getTime()) >= 0) {
+							if (timeAlert.after(sensors.getEndActivity())) {
+								sensitivity = Integer.parseInt(rsAlert.getString("lowNbOfAlertMessage"));
+							} else if (timeAlert.before(sensors.getStartActivity())) {
+								sensitivity = Integer.parseInt(rsAlert.getString("lowNbOfAlertMessage"));
+							}
+						}
+					}
+				}
 				if (nbAlert >= sensitivity && nbAlert > 0
 						&& difference <= Integer.parseInt(rsAlert.getString("timeBetweenAlert"))) {
 					alert = new Alert();
@@ -171,6 +185,7 @@ public class MonitoringAlert {
 			listMessageInTreatment.removeAll(listMessageTreated);
 			listMessageTreated.clear();
 		}
+
 	}
 
 	/**
@@ -218,6 +233,7 @@ public class MonitoringAlert {
 				}
 			}
 		}
+		listMessageInTreatment.clear();
 	}
 
 	/**
@@ -303,6 +319,7 @@ public class MonitoringAlert {
 				}
 			}
 		}
+		listMessageInTreatment.clear();
 	}
 
 	/**
