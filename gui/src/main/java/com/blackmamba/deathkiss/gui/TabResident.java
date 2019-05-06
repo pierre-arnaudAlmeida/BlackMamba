@@ -388,7 +388,7 @@ public class TabResident extends JPanel {
 		 * Definition of Button AddResident
 		 */
 		addResident = new JButton("Add");
-		addResident.setBounds(30, (int) getToolkit().getScreenSize().getHeight() - 150, 300, 40);
+		addResident.setBounds(30, (int) getToolkit().getScreenSize().getHeight() * 16 / 20, 300, 40);
 		this.add(addResident);
 		addResident.addActionListener(new ActionListener() {
 			/**

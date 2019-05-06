@@ -394,7 +394,7 @@ public class TabCommonArea extends JPanel {
 		 * Definition of Button AddCommonArea
 		 */
 		addCommonArea = new JButton("Add");
-		addCommonArea.setBounds(30, (int) getToolkit().getScreenSize().getHeight() - 150, 300, 40);
+		addCommonArea.setBounds(30, (int) getToolkit().getScreenSize().getHeight() * 16 / 20, 300, 40);
 		this.add(addCommonArea);
 		addCommonArea.addActionListener(new ActionListener() {
 			/**

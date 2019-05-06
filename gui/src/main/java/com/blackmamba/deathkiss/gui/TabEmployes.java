@@ -402,7 +402,7 @@ public class TabEmployes extends JPanel {
 		 * Definition of Button AddEmployee
 		 */
 		addEmployee = new JButton("Add");
-		addEmployee.setBounds(30, (int) getToolkit().getScreenSize().getHeight() - 150, 300, 40);
+		addEmployee.setBounds(30, (int) getToolkit().getScreenSize().getHeight() * 16 / 20, 300, 40);
 		this.add(addEmployee);
 		addEmployee.addActionListener(new ActionListener() {
 			/**

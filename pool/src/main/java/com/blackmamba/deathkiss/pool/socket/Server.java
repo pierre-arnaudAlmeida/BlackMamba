@@ -154,8 +154,8 @@ public class Server {
 				while (true) {
 					monitoringAlert.alertTreatment();
 					try {
-						//TODO PA a remetttre
-						Thread.sleep(1000);//rsAlert.getString("time_alertTreatment")));
+						// TODO PA a remetttre
+						Thread.sleep(1000);// rsAlert.getString("time_alertTreatment")));
 					} catch (InterruptedException e) {
 						logger.log(Level.WARN,
 								"Impossible to sleep the threadAlertTreatment " + e.getClass().getCanonicalName());
@@ -163,9 +163,10 @@ public class Server {
 				}
 			}
 		});
-		threadAlertTreatment.start();
+		// TODO PA remettre
+		// threadAlertTreatment.start();
 	}
-	
+
 	/**
 	 * Set false the Socket runner to Close the socket
 	 */

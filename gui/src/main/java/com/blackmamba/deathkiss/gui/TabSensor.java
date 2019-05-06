@@ -6,8 +6,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -35,6 +33,7 @@ import com.blackmamba.deathkiss.entity.CommonArea;
 import com.blackmamba.deathkiss.entity.Sensor;
 import com.blackmamba.deathkiss.entity.SensorType;
 import com.blackmamba.deathkiss.launcher.ClientSocket;
+import com.blackmamba.deathkiss.entity.Sensitivity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -62,8 +61,15 @@ public class TabSensor extends JPanel {
 	private JLabel labelTypeSensor;
 	private JLabel labelStateSensor;
 	private JLabel labelHeadList;
+	private JLabel labelSensitivity;
+	private JLabel labelAlertState;
+	private JLabel labelStartActivity;
+	private JLabel labelEndActivity;
+	private JLabel labelThresholdMin;
+	private JLabel labelThresholdMax;
 	private JTextField textInputIdSensor;
 	private JTextField searchBar;
+	private JTextField textInputAlertState;
 	private Font policeBar;
 	private Font policeLabel;
 	private JButton disconnection;
@@ -82,6 +88,7 @@ public class TabSensor extends JPanel {
 	private Thread threadSensor;
 	private JComboBox<String> textInputNameCommonArea;
 	private JComboBox<String> textInputTypeSensor;
+	private JComboBox<String> textInputSensitivity;
 	private DefaultListModel<String> listM;
 	private JList<String> list;
 	private List<Alert> listAlert = new ArrayList<Alert>();
@@ -90,6 +97,8 @@ public class TabSensor extends JPanel {
 	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
 	private static final Logger logger = LogManager.getLogger(TabSensor.class);
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
+	private static Sensitivity elementSensitivity = null;
+	private static SensorType elementSensorType = null;
 
 	/**
 	 * Constructor
@@ -324,7 +333,6 @@ public class TabSensor extends JPanel {
 				int position = substring.indexOf("#");
 				if (position > -1) {
 					String id = substring.substring(0, position);
-
 					/**
 					 * Find the Sensor by the id get on list
 					 */
@@ -372,6 +380,7 @@ public class TabSensor extends JPanel {
 						switchButton.setText("OFF");
 						switchButton.setBackground(Color.RED);
 					}
+					textInputAlertState.setText(sensor.getAlertState().name());
 				}
 			}
 		};
@@ -387,10 +396,10 @@ public class TabSensor extends JPanel {
 		/**
 		 * Definition of label IdSensor
 		 */
-		policeLabel = new Font("Arial", Font.BOLD, (int) getToolkit().getScreenSize().getWidth() / 80);
+		policeLabel = new Font("Arial", Font.BOLD, (int) getToolkit().getScreenSize().getWidth() / 100);
 		labelIdSensor = new JLabel("ID : ");
 		labelIdSensor.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
-				(int) getToolkit().getScreenSize().getHeight() * 2 / 10, 200, 30);
+				(int) getToolkit().getScreenSize().getHeight() * 3 / 20, 200, 30);
 		labelIdSensor.setFont(policeLabel);
 		this.add(labelIdSensor);
 
@@ -399,7 +408,7 @@ public class TabSensor extends JPanel {
 		 */
 		labelNameCommonArea = new JLabel("Common Area name : ");
 		labelNameCommonArea.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
-				(int) getToolkit().getScreenSize().getHeight() * 2 / 10, 300, 30);
+				(int) getToolkit().getScreenSize().getHeight() * 3 / 20, 300, 30);
 		labelNameCommonArea.setFont(policeLabel);
 		this.add(labelNameCommonArea);
 
@@ -408,7 +417,7 @@ public class TabSensor extends JPanel {
 		 */
 		labelTypeSensor = new JLabel("Sensor type : ");
 		labelTypeSensor.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
-				(int) getToolkit().getScreenSize().getHeight() * 4 / 10, 200, 30);
+				(int) getToolkit().getScreenSize().getHeight() * 5 / 20, 200, 30);
 		labelTypeSensor.setFont(policeLabel);
 		this.add(labelTypeSensor);
 
@@ -417,9 +426,63 @@ public class TabSensor extends JPanel {
 		 */
 		labelStateSensor = new JLabel("Sensor state : ");
 		labelStateSensor.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
-				(int) getToolkit().getScreenSize().getHeight() * 4 / 10, 200, 30);
+				(int) getToolkit().getScreenSize().getHeight() * 5 / 20, 200, 30);
 		labelStateSensor.setFont(policeLabel);
 		this.add(labelStateSensor);
+
+		/**
+		 * Definition of label Sensitivity
+		 */
+		labelSensitivity = new JLabel("Sensitivity");
+		labelSensitivity.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 7 / 20, 200, 30);
+		labelSensitivity.setFont(policeLabel);
+		this.add(labelSensitivity);
+
+		/**
+		 * Definition of label Alert State
+		 */
+		labelAlertState = new JLabel("Alert State");
+		labelAlertState.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 7 / 20, 200, 30);
+		labelAlertState.setFont(policeLabel);
+		this.add(labelAlertState);
+
+		/**
+		 * Definition of label Start Activity
+		 */
+		labelStartActivity = new JLabel("Start Activity");
+		labelStartActivity.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 9 / 20, 200, 30);
+		labelStartActivity.setFont(policeLabel);
+		this.add(labelStartActivity);
+
+		/**
+		 * Definition of label End Activity
+		 */
+		labelEndActivity = new JLabel("End Activity");
+		labelEndActivity.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 9 / 20, 200, 30);
+		labelEndActivity.setFont(policeLabel);
+		this.add(labelEndActivity);
+
+		/**
+		 * Definition of label Threshold Min
+		 */
+		labelThresholdMin = new JLabel("Threshold Min");
+		labelThresholdMin.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 11 / 20, 200, 30);
+		labelThresholdMin.setFont(policeLabel);
+		this.add(labelThresholdMin);
+
+		/**
+		 * Definition of label Threshold Max
+		 */
+		labelThresholdMax = new JLabel("Threshold Max");
+		labelThresholdMax.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 11 / 20, 200, 30);
+		labelThresholdMax.setFont(policeLabel);
+		this.add(labelThresholdMax);
 
 		/**
 		 * Definition of label HeadList
@@ -435,7 +498,7 @@ public class TabSensor extends JPanel {
 		 */
 		textInputIdSensor = new JTextField();
 		textInputIdSensor.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
-				(int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
+				(int) getToolkit().getScreenSize().getHeight() * 4 / 20, 300, 30);
 		textInputIdSensor.setFont(policeLabel);
 		if (idSensor == 0)
 			textInputIdSensor.setText("");
@@ -448,38 +511,39 @@ public class TabSensor extends JPanel {
 		 * Definition of textArea NameCommonArea
 		 */
 		textInputNameCommonArea.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
-				(int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
+				(int) getToolkit().getScreenSize().getHeight() * 4 / 20, 300, 30);
 		textInputNameCommonArea.setFont(policeLabel);
 		this.add(textInputNameCommonArea);
 
 		/**
 		 * Definition of textArea TypeSensor
 		 */
-		String[] types = { SensorType.SMOKE.name(), SensorType.MOVE.name(), SensorType.TEMPERATURE.name(),
-				SensorType.WINDOW.name(), SensorType.DOOR.name(), SensorType.ELEVATOR.name(), SensorType.LIGHT.name(),
-				SensorType.FIRE.name(), SensorType.BADGE.name(), SensorType.ROUTER.name() };
-		textInputTypeSensor = new JComboBox<String>(types);
+		textInputTypeSensor = new JComboBox<String>();
 		textInputTypeSensor.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
-				(int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);
+				(int) getToolkit().getScreenSize().getHeight() * 6 / 20, 300, 30);
 		textInputTypeSensor.setFont(policeLabel);
 		this.add(textInputTypeSensor);
-		textInputTypeSensor.addItemListener(new ItemListener() {
-			/**
-			 * All type of Sensor
-			 */
+		textInputTypeSensor.addItem("-");
+		for (SensorType typeSensor : SensorType.values()) {
+			textInputTypeSensor.addItem(typeSensor.name());
+		}
+		textInputTypeSensor.addActionListener(new ActionListener() {
 			@Override
-			public void itemStateChanged(ItemEvent e) {
-				SensorType element = SensorType.valueOf(e.getItem().toString());
-				sensor.setTypeSensor(element);
+			public void actionPerformed(ActionEvent e) {
+				if (textInputTypeSensor.getSelectedIndex() != 0)
+					elementSensorType = SensorType.valueOf(textInputTypeSensor.getSelectedItem().toString());
 			}
 		});
+		if (elementSensorType != null) {
+			sensor.setTypeSensor(elementSensorType);
+		}
 
 		/**
 		 * Definition of textArea StateSensor
 		 */
 		switchButton = new JButton();
 		switchButton.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
-				(int) getToolkit().getScreenSize().getHeight() * 9 / 20, 100, 40);
+				(int) getToolkit().getScreenSize().getHeight() * 6 / 20, 100, 30);
 		switchButton.setText("OFF");
 		switchButton.setBackground(Color.RED);
 		switchButton.setFont(policeLabel);
@@ -540,12 +604,46 @@ public class TabSensor extends JPanel {
 			}
 		}
 
+		/**
+		 * Definition of textArea Alert State
+		 */
+		textInputAlertState = new JTextField();
+		textInputAlertState.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 8 / 20, 300, 30);
+		textInputAlertState.setFont(policeLabel);
+		textInputAlertState.setText("");
+		textInputAlertState.setEditable(false);
+		this.add(textInputAlertState);
+
+		/**
+		 * Definition of textArea Sensitivity
+		 */
+		textInputSensitivity = new JComboBox<String>();
+		textInputSensitivity.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 8 / 20, 300, 30);
+		textInputSensitivity.setFont(policeLabel);
+		this.add(textInputSensitivity);
+		textInputSensitivity.addItem("-");
+		for (Sensitivity typeSensitivity : Sensitivity.values()) {
+			textInputSensitivity.addItem(typeSensitivity.name());
+		}
+		textInputSensitivity.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (textInputSensitivity.getSelectedIndex() != 0)
+					elementSensitivity = Sensitivity.valueOf(textInputSensitivity.getSelectedItem().toString());
+			}
+		});
+		if (elementSensitivity != null) {
+			sensor.setSensitivity(elementSensitivity);
+		}
+
 		///////////////////////// BUTTON/////////////////////////////////////////////////
 		/**
 		 * Definition of Button AddSensor
 		 */
 		addSensor = new JButton("Add");
-		addSensor.setBounds(30, (int) getToolkit().getScreenSize().getHeight() - 150, 300, 40);
+		addSensor.setBounds(30, (int) getToolkit().getScreenSize().getHeight() * 16 / 20, 300, 40);
 		this.add(addSensor);
 		addSensor.addActionListener(new ActionListener() {
 			/**
@@ -617,7 +715,7 @@ public class TabSensor extends JPanel {
 		 */
 		save = new JButton("Save");
 		save.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4) + 250,
-				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
+				(int) getToolkit().getScreenSize().getHeight() * 16 / 20, 200, 40);
 		this.add(save);
 		save.addActionListener(new ActionListener() {
 			/**
@@ -687,7 +785,7 @@ public class TabSensor extends JPanel {
 		 */
 		restaure = new JButton("Restore");
 		restaure.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4),
-				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
+				(int) getToolkit().getScreenSize().getHeight() * 16 / 20, 200, 40);
 		this.add(restaure);
 		restaure.addActionListener(new ActionListener() {
 			/**
@@ -718,7 +816,7 @@ public class TabSensor extends JPanel {
 		 */
 		delete = new JButton("Delete");
 		delete.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4) - 250,
-				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
+				(int) getToolkit().getScreenSize().getHeight() * 16 / 20, 200, 40);
 		this.add(delete);
 		delete.addActionListener(new ActionListener() {
 			/**
@@ -822,12 +920,14 @@ public class TabSensor extends JPanel {
 		} catch (Exception e1) {
 			logger.log(Level.WARN, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
 		}
-		listM.removeAllElements();
+		listM.clear();
+		listM = new DefaultListModel<>();
 		listM.addElement("All sensors");
 		for (Sensor sens : listSensor) {
 			listM.addElement(sens.getIdSensor() + "# " + sens.getTypeSensor() + " ," + sens.getSensorState() + " ,"
 					+ sens.getIdCommonArea());
 		}
+		list.setModel(listM);
 	}
 
 	/**
@@ -868,6 +968,7 @@ public class TabSensor extends JPanel {
 					switchButton.setText("OFF");
 					switchButton.setBackground(Color.RED);
 				}
+				textInputAlertState.setText(sensor.getAlertState().name());
 			}
 		}
 	}
