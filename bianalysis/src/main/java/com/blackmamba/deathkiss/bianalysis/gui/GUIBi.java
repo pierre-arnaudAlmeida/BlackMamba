@@ -33,6 +33,7 @@ import org.jfree.data.general.DefaultPieDataset;
 
 import com.blackmamba.deathkiss.bianalysis.entity.AlertState;
 import com.blackmamba.deathkiss.bianalysis.entity.CommonArea;
+import com.blackmamba.deathkiss.bianalysis.entity.Message;
 import com.blackmamba.deathkiss.bianalysis.entity.Sensor;
 import com.blackmamba.deathkiss.bianalysis.entity.SensorHistorical;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -57,6 +58,7 @@ public class GUIBi extends JFrame {
 	private static List<Sensor> listSensor = new ArrayList<Sensor>();
 	private static List<SensorHistorical> listSensorHistorical = new ArrayList<SensorHistorical>();
 	private static List<CommonArea> listCommonAreas = new ArrayList<CommonArea>();
+	private static List<Message> listAllMessage = new ArrayList<Message>(); 
 	private ObjectMapper objectMapper;
 	private String requestType;
 	private String table;
@@ -124,6 +126,7 @@ public class GUIBi extends JFrame {
 		GetAllSensor();
 		GetAllSensorHistorical();
 		getAllCommonArea();
+		getAllMessage();
 		initComponents();
 		createEvents();
 
@@ -170,7 +173,7 @@ public class GUIBi extends JFrame {
 		//// JCombobox
 
 		String[] periode = { "Année", "Mois", "Jour" };
-		String[] area = { "RC", "Etage 1", "Etage 2" };
+		String[] area = { "ALL",  "RC", "Etage 1", "Etage 2" };
 		cbArea = new JComboBox(area);
 
 		cbArea.setEditable(true);
@@ -212,10 +215,10 @@ public class GUIBi extends JFrame {
 		contentPane.add(tfTemperature);
 		tfTemperature.setColumns(10);
 
-		Object[] monObj1 = returnNumber();
+//		Object[] monObj1 = returnNumber();
 		tfAlertes = new JTextField();
 		tfAlertes.setBounds(497, 501, 112, 28);
-		tfAlertes.setText(monObj1[0].toString());
+//		tfAlertes.setText(monObj1[0].toString());
 		contentPane.add(tfAlertes);
 		tfAlertes.setColumns(10);
 
@@ -300,10 +303,10 @@ public class GUIBi extends JFrame {
 
 		DefaultPieDataset HistoricalAlert = new DefaultPieDataset();
 
-		HistoricalAlert.setValue("Number of DOWN Sensors", (Number) monObj1[1]);
-		HistoricalAlert.setValue("Number of OVER Sensors", (Number) monObj1[2]);
-		HistoricalAlert.setValue("Number of NORMAL Sensors", (Number) monObj1[3]);
-		HistoricalAlert.setValue("Number of Alert Sensors", (Number) monObj1[4]);
+//		HistoricalAlert.setValue("Number of DOWN Sensors", (Number) monObj1[1]);
+//		HistoricalAlert.setValue("Number of OVER Sensors", (Number) monObj1[2]);
+//		HistoricalAlert.setValue("Number of NORMAL Sensors", (Number) monObj1[3]);
+//		HistoricalAlert.setValue("Number of Alert Sensors", (Number) monObj1[4]);
 
 		JFreeChart pieChart1 = ChartFactory.createPieChart(" Ratio of number of alert", HistoricalAlert, true, true,
 				true);
@@ -367,8 +370,25 @@ public class GUIBi extends JFrame {
 
 				JComboBox cbArea = (JComboBox) e.getSource();
 				String selectedBook = (String) cbArea.getSelectedItem();
+				
+				if (selectedBook.equals("ALL")) {
+					ListModel.clear();
+					for (CommonArea area : listCommonAreas) {
+							for (Sensor str : listSensor) {
+								for (SensorHistorical hist : listSensorHistorical) {
+											ListModel.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
+													+ str.getSensorState() + " ," + area.getNameCommonArea()
+													+ str.getAlertState() + "#" + area.getEtageCommonArea());
+										
+									
+								}
+							}
+						
+					}
 
-				if (selectedBook.equals("RC")) {
+					System.out.println("Nous sommes au RC");
+				} else if (selectedBook.equals("RC")) {
+					ListModel.clear();
 					for (CommonArea area : listCommonAreas) {
 						if (area.getEtageCommonArea() == 0) {
 							for (Sensor str : listSensor) {
@@ -495,37 +515,58 @@ public class GUIBi extends JFrame {
 
 		}
 	}
+	//////////////////////////////////////
+	// Method GetAllMessage
+	
+	public void getAllMessage() {
+		requestType = "READ ALL";
+		table = "Message";
+		objectMapper = new ObjectMapper();
+		try {
+			jsonString = "READ ALL";
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			Message [] Message = objectMapper.readValue(jsonString, Message[].class);
+			logger.log(Level.INFO, "Find CommonArea data succed");
+			listAllMessage = Arrays.asList(Message);
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON CommonArea datas " + e1.getClass().getCanonicalName());
+
+		}
+	}
+	
 
 //////////////////////////////////////
 	// Method calculate all alerts
-	public static Object[] returnNumber() {
-		int numberAlerts = 0;
-		int nbAlNormal = 0;
-		int nbAlDown = 0;
-		int nbAlOver = 0;
-		int nbAlert = 0;
-
-		if (!listSensorHistorical.isEmpty()) {
-			for (SensorHistorical sensorH : listSensorHistorical) {
-				numberAlerts++;
-
-				if (sensorH.getAlertState() == AlertState.DOWN) {
-					nbAlDown++;
-				} else if (sensorH.getAlertState() == AlertState.OVER) {
-					nbAlOver++;
-				} else if (sensorH.getAlertState() == AlertState.NORMAL) {
-					nbAlNormal++;
-				} else if (sensorH.getAlertState() == AlertState.ALERT) {
-					nbAlert++;
-				}
-
-			}
-
-		}
-
-		return new Object[] { numberAlerts, nbAlNormal, nbAlDown, nbAlOver, nbAlert };
-
-	}
+	//TODO MODIFIER POUR LIRE LES ALERTES 
+//	public static Object[] returnNumber() {
+//		int numberAlerts = 0;
+//		int nbAlNormal = 0;
+//		int nbAlDown = 0;
+//		int nbAlOver = 0;
+//		int nbAlert = 0;
+//
+//		if (!listAllMessage.isEmpty()) {
+//			for (Message allMessage : listAllMessage) {
+//				numberAlerts++;
+//
+//				if (allMessage.getAlertState() == AlertState.DOWN) {
+//					nbAlDown++;
+//				} else if (allMessage.getAlertState() == AlertState.OVER) {
+//					nbAlOver++;
+//				} else if (allMessage.getAlertState() == AlertState.NORMAL) {
+//					nbAlNormal++;
+//				} else if (allMessage.getAlertState() == AlertState.ALERT) {
+//					nbAlert++;
+//				}
+//
+//			}
+//
+//		}
+//
+//		return new Object[] { numberAlerts, nbAlNormal, nbAlDown, nbAlOver, nbAlert };
+//
+//	}
 
 ///////////////////////////////////////////////////////////
 	// Method to calculate the number of Sensor
@@ -563,3 +604,7 @@ public class GUIBi extends JFrame {
 
 	}
 }
+
+///////////////
+//TODO CALCULER LE NOMBRE DE MODIFICATIONS 
+
