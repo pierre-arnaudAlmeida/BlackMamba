@@ -170,6 +170,8 @@ public class MonitoringAlert {
 					logger.log(Level.INFO, "ALERT DETECTED!!");
 					logger.log(Level.INFO, "Sensor : " + sensors.getIdSensor() + " on ALERT on commonArea : "
 							+ sensors.getIdCommonArea());
+					logger.log(Level.INFO, "Threshold reached : " + lastThreshold + ", Min : "
+							+ sensors.getThresholdMin() + " Max : " + sensors.getThresholdMax());
 					logger.log(Level.INFO, "*********************************************************************");
 					sensors.setAlertState(AlertState.ALERT);
 					updateSensorAlertState(sensors);
@@ -552,9 +554,7 @@ public class MonitoringAlert {
 						}
 						lastAlertDate = messages.getAlertDate();
 						nbAlert++;
-						// TODO mettre le threshold dans le message d'alerte
-						// mettre en DEBUG
-						logger.log(Level.INFO,
+						logger.log(Level.DEBUG,
 								"Sensor : " + sensors.getIdSensor() + " threshold reached : " + messages.getThreshold()
 										+ ", Min : " + sensors.getThresholdMin() + " Max : "
 										+ sensors.getThresholdMax());
@@ -569,9 +569,7 @@ public class MonitoringAlert {
 						}
 						lastAlertDate = messages.getAlertDate();
 						nbAlert++;
-						// TODO mettre le threshold dans le message d'alerte
-						// mettre en DEBUG
-						logger.log(Level.INFO, "Sensor : " + sensors.getIdSensor() + " threshold reached : "
+						logger.log(Level.DEBUG, "Sensor : " + sensors.getIdSensor() + " threshold reached : "
 								+ messages.getThreshold() + ", Max : " + sensors.getThresholdMax());
 						lastThreshold = messages.getThreshold();
 					} else {
