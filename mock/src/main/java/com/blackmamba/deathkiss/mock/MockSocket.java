@@ -93,7 +93,7 @@ public class MockSocket {
 				if (!response.equals("ERROR")) {
 					response = jsonString;
 					writer.println(response);
-					logger.log(Level.INFO, "Message Send to server");
+					logger.log(Level.DEBUG, "Message Send to server");
 
 					response = reader.readLine();
 					/**
@@ -119,15 +119,15 @@ public class MockSocket {
 					writer.close();
 				}
 			} else {
-				logger.log(Level.INFO, "ERROR, Impossible to Receive datas");
+				logger.log(Level.WARN, "ERROR, Impossible to Receive datas");
 				response = "CLOSE";
 				writer.println(response);
 				writer.close();
 			}
 		} catch (UnknownHostException e) {
-			logger.log(Level.INFO, "IP Host dont find " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "IP Host dont find " + e.getClass().getCanonicalName());
 		} catch (IOException e) {
-			logger.log(Level.INFO, "Impossible create the socket " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible create the socket " + e.getClass().getCanonicalName());
 		} catch (NullPointerException e) {
 		}
 	}

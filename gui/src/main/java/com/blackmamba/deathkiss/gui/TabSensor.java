@@ -121,7 +121,7 @@ public class TabSensor extends JPanel {
 					try {
 						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
-						logger.log(Level.INFO, "Impossible to sleep the thread" + e.getClass().getCanonicalName());
+						logger.log(Level.WARN, "Impossible to sleep the thread" + e.getClass().getCanonicalName());
 					}
 				}
 			}
@@ -218,9 +218,9 @@ public class TabSensor extends JPanel {
 							new ClientSocket(requestType, jsonString, table);
 							jsonString = ClientSocket.getJson();
 							sensor2 = objectMapper.readValue(jsonString, Sensor.class);
-							logger.log(Level.INFO, "Find Sensor data succed");
+							logger.log(Level.DEBUG, "Find Sensor data succed");
 						} catch (Exception e1) {
-							logger.log(Level.INFO,
+							logger.log(Level.WARN,
 									"Impossible to parse in JSON Sensor datas " + e1.getClass().getCanonicalName());
 						}
 						listM.removeAllElements();
@@ -293,9 +293,9 @@ public class TabSensor extends JPanel {
 				new ClientSocket(requestType, jsonString, table);
 				jsonString = ClientSocket.getJson();
 				sensor = readMapper.readValue(jsonString, Sensor.class);
-				logger.log(Level.INFO, "Find Sensor datas succed");
+				logger.log(Level.DEBUG, "Find Sensor datas succed");
 			} catch (Exception e1) {
-				logger.log(Level.INFO, "Impossible to parse in JSON Sensor datas " + e1.getClass().getCanonicalName());
+				logger.log(Level.WARN, "Impossible to parse in JSON Sensor datas " + e1.getClass().getCanonicalName());
 			}
 		}
 
@@ -337,7 +337,7 @@ public class TabSensor extends JPanel {
 						jsonString = ClientSocket.getJson();
 						sensor = objectMapper.readValue(jsonString, Sensor.class);
 					} catch (IOException e1) {
-						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+						logger.log(Level.WARN, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 					}
 					/**
 					 * Find the CommonAreaName by the idCommonArea get on list
@@ -353,7 +353,7 @@ public class TabSensor extends JPanel {
 						jsonString = ClientSocket.getJson();
 						commonArea = readMapper.readValue(jsonString, CommonArea.class);
 					} catch (IOException e1) {
-						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+						logger.log(Level.WARN, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 					}
 
 					textInputIdSensor.setText(Integer.toString(sensor.getIdSensor()));
@@ -509,7 +509,7 @@ public class TabSensor extends JPanel {
 				jsonString = ClientSocket.getJson();
 				sensor = objectMapper.readValue(jsonString, Sensor.class);
 			} catch (Exception e1) {
-				logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+				logger.log(Level.WARN, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 			}
 			/**
 			 * Find the CommonAreaName by the idCommonArea get on list
@@ -525,7 +525,7 @@ public class TabSensor extends JPanel {
 				jsonString = ClientSocket.getJson();
 				commonArea = readMapper.readValue(jsonString, CommonArea.class);
 			} catch (Exception e1) {
-				logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+				logger.log(Level.WARN, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 			}
 			textInputTypeSensor.setSelectedItem(sensor.getTypeSensor().name());
 			textInputNameCommonArea
@@ -586,9 +586,9 @@ public class TabSensor extends JPanel {
 					jsonString = ClientSocket.getJson();
 					if (!jsonString.equals("INSERTED")) {
 						JOptionPane.showMessageDialog(null, "Insertion failed", "Error", JOptionPane.ERROR_MESSAGE);
-						logger.log(Level.INFO, "Impossible to insert sensor");
+						logger.log(Level.WARN, "Impossible to insert sensor");
 					} else {
-						logger.log(Level.INFO, "Insertion Succeeded");
+						logger.log(Level.DEBUG, "Insertion Succeeded");
 						requestType = "READ ALL";
 						table = "Sensor";
 						jsonString = "READ ALL";
@@ -600,12 +600,12 @@ public class TabSensor extends JPanel {
 						sensor = listSensor.get(x);
 						listM.addElement(sensor.getIdSensor() + "# " + sensor.getTypeSensor() + " ,"
 								+ sensor.getSensorState() + " ," + sensor.getIdCommonArea());
-						logger.log(Level.INFO, "Find Sensor succeeded");
+						logger.log(Level.DEBUG, "Find Sensor succeeded");
 						JOptionPane.showMessageDialog(null, "Insertion succeeded", "Information",
 								JOptionPane.INFORMATION_MESSAGE);
 					}
 				} catch (Exception e1) {
-					logger.log(Level.INFO,
+					logger.log(Level.WARN,
 							"Impossible to parse in JSON Sensor datas " + e1.getClass().getCanonicalName());
 				}
 			}
@@ -665,16 +665,16 @@ public class TabSensor extends JPanel {
 						jsonString = ClientSocket.getJson();
 						if (!jsonString.equals("UPDATED")) {
 							JOptionPane.showMessageDialog(null, "Update failed", "Error", JOptionPane.ERROR_MESSAGE);
-							logger.log(Level.INFO, "Impossible to update sensor");
+							logger.log(Level.WARN, "Impossible to update sensor");
 						} else {
-							logger.log(Level.INFO, "Update Succeeded");
+							logger.log(Level.DEBUG, "Update Succeeded");
 							listM.set(index, sensor.getIdSensor() + "# " + sensor.getTypeSensor() + " ,"
 									+ sensor.getSensorState() + " ," + sensor.getIdCommonArea());
 							JOptionPane.showMessageDialog(null, "Datas updated", "Information",
 									JOptionPane.INFORMATION_MESSAGE);
 						}
 					} catch (Exception e1) {
-						logger.log(Level.INFO,
+						logger.log(Level.WARN,
 								"Impossible to parse in JSON sensor datas " + e1.getClass().getCanonicalName());
 					}
 				}
@@ -736,14 +736,14 @@ public class TabSensor extends JPanel {
 						jsonString = ClientSocket.getJson();
 						if (!jsonString.equals("DELETED")) {
 							JOptionPane.showMessageDialog(null, "Deletion failed", "Error", JOptionPane.ERROR_MESSAGE);
-							logger.log(Level.INFO, "Impossible to delete this sensor");
+							logger.log(Level.WARN, "Impossible to delete this sensor");
 						} else {
 							JOptionPane.showMessageDialog(null, "Deletion succeeded", "Information",
 									JOptionPane.INFORMATION_MESSAGE);
-							logger.log(Level.INFO, "Deletion of sensor succed");
+							logger.log(Level.DEBUG, "Deletion of sensor succed");
 						}
 					} catch (Exception e1) {
-						logger.log(Level.INFO,
+						logger.log(Level.WARN,
 								"Impossible to parse in JSON Sensor datas " + e1.getClass().getCanonicalName());
 					}
 					sensor.setIdCommonArea(0);
@@ -790,9 +790,9 @@ public class TabSensor extends JPanel {
 			jsonString = ClientSocket.getJson();
 			CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
 			listCommonArea = Arrays.asList(commonAreas);
-			logger.log(Level.INFO, "Recuperation of all Common Areas available succed");
+			logger.log(Level.DEBUG, "Recuperation of all Common Areas available succed");
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Common Area datas " + e1.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to parse in JSON Common Area datas " + e1.getClass().getCanonicalName());
 		}
 		String areasAdd = "";
 		textInputNameCommonArea.removeAllItems();
@@ -801,7 +801,7 @@ public class TabSensor extends JPanel {
 				textInputNameCommonArea.addItem(commonAreas.getNameCommonArea() + " #" + commonAreas.getIdCommonArea());
 			areasAdd = areasAdd + commonAreas.getNameCommonArea() + " #" + commonAreas.getIdCommonArea() + ",";
 		}
-		logger.log(Level.INFO, "Convertion of all Common Areas available in a list succed");
+		logger.log(Level.DEBUG, "Convertion of all Common Areas available in a list succed");
 	}
 
 	/**
@@ -817,9 +817,9 @@ public class TabSensor extends JPanel {
 			jsonString = ClientSocket.getJson();
 			Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
 			listSensor = Arrays.asList(sensors);
-			logger.log(Level.INFO, "Find Sensor data succed");
+			logger.log(Level.DEBUG, "Find Sensor data succed");
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
 		}
 		listM.removeAllElements();
 		listM.addElement("All sensors");
@@ -849,7 +849,7 @@ public class TabSensor extends JPanel {
 					jsonString = ClientSocket.getJson();
 					sensor = objectMapper.readValue(jsonString, Sensor.class);
 				} catch (Exception e1) {
-					logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+					logger.log(Level.WARN, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 				}
 
 				textInputIdSensor.setText(Integer.toString(sensor.getIdSensor()));
@@ -928,9 +928,9 @@ public class TabSensor extends JPanel {
 			jsonString = ClientSocket.getJson();
 			Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
 			listSearchSensor = Arrays.asList(sensors);
-			logger.log(Level.INFO, "Find Sensor data succed");
+			logger.log(Level.DEBUG, "Find Sensor data succed");
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Sensor datas " + e1.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to parse in JSON Sensor datas " + e1.getClass().getCanonicalName());
 		}
 	}
 
@@ -941,10 +941,10 @@ public class TabSensor extends JPanel {
 			new ClientSocket(requestType, jsonString, table);
 			jsonString = ClientSocket.getJson();
 			Alert[] alerts = objectMapper.readValue(jsonString, Alert[].class);
-			logger.log(Level.INFO, "Find Alert data succed");
+			logger.log(Level.DEBUG, "Find Alert data succed");
 			return Arrays.asList(alerts);
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Alert datas " + e1.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to parse in JSON Alert datas " + e1.getClass().getCanonicalName());
 			return null;
 		}
 	}

@@ -106,7 +106,7 @@ public class TabResident extends JPanel {
 					try {
 						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
-						logger.log(Level.INFO,
+						logger.log(Level.WARN,
 								"Impossible to sleep the thread Resident " + e.getClass().getCanonicalName());
 					}
 				}
@@ -194,9 +194,9 @@ public class TabResident extends JPanel {
 							new ClientSocket(requestType, jsonString, table);
 							jsonString = ClientSocket.getJson();
 							resident2 = objectMapper.readValue(jsonString, Resident.class);
-							logger.log(Level.INFO, "Find Resident data succed");
+							logger.log(Level.DEBUG, "Find Resident data succed");
 						} catch (Exception e1) {
-							logger.log(Level.INFO,
+							logger.log(Level.WARN,
 									"Impossible to parse in JSON Resident datas " + e1.getClass().getCanonicalName());
 						}
 						listM.removeAllElements();
@@ -223,9 +223,9 @@ public class TabResident extends JPanel {
 							jsonString = ClientSocket.getJson();
 							Resident[] residents = objectMapper.readValue(jsonString, Resident[].class);
 							listSearchResident = Arrays.asList(residents);
-							logger.log(Level.INFO, "Find Resident data succed");
+							logger.log(Level.DEBUG, "Find Resident data succed");
 						} catch (Exception e1) {
-							logger.log(Level.INFO,
+							logger.log(Level.WARN,
 									"Impossible to parse in JSON Resident datas " + e1.getClass().getCanonicalName());
 						}
 						listM.removeAllElements();
@@ -250,9 +250,9 @@ public class TabResident extends JPanel {
 						jsonString = ClientSocket.getJson();
 						Resident[] residents = objectMapper.readValue(jsonString, Resident[].class);
 						listResident = Arrays.asList(residents);
-						logger.log(Level.INFO, "Find Resident data succed");
+						logger.log(Level.DEBUG, "Find Resident data succed");
 					} catch (Exception e1) {
-						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+						logger.log(Level.WARN, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 					}
 					listM.removeAllElements();
 					if (listResident.size() > 0)
@@ -437,13 +437,13 @@ public class TabResident extends JPanel {
 							if (!jsonString.equals("INSERTED")) {
 								JOptionPane.showMessageDialog(null, "Insertion failed", "Error",
 										JOptionPane.ERROR_MESSAGE);
-								logger.log(Level.INFO, "Impossible to insert resident");
+								logger.log(Level.WARN, "Impossible to insert resident");
 							} else {
 								/**
 								 * After insertion we get the informations about the last resident inserted to
 								 * be added and displayed on list
 								 */
-								logger.log(Level.INFO, "Insertion Succeeded");
+								logger.log(Level.DEBUG, "Insertion Succeeded");
 								requestType = "READ ALL";
 								table = "Resident";
 								listResident = getAllResident(null, requestType, table);
@@ -460,7 +460,7 @@ public class TabResident extends JPanel {
 								textInputNameResident.setText("");
 							}
 						} catch (Exception e1) {
-							logger.log(Level.INFO,
+							logger.log(Level.WARN,
 									"Impossible to parse in JSON Resident datas" + e1.getClass().getCanonicalName());
 						}
 					}
@@ -506,16 +506,16 @@ public class TabResident extends JPanel {
 						jsonString = ClientSocket.getJson();
 						if (!jsonString.equals("UPDATED")) {
 							JOptionPane.showMessageDialog(null, "Update failed", "Error", JOptionPane.ERROR_MESSAGE);
-							logger.log(Level.INFO, "Impossible to update resident");
+							logger.log(Level.WARN, "Impossible to update resident");
 						} else {
-							logger.log(Level.INFO, "Update Succeeded");
+							logger.log(Level.DEBUG, "Update Succeeded");
 							listM.set(index, resident.getIdResident() + "# " + resident.getLastnameResident() + " "
 									+ resident.getNameResident());
 							JOptionPane.showMessageDialog(null, "Datas updated", "Information",
 									JOptionPane.INFORMATION_MESSAGE);
 						}
 					} catch (Exception e1) {
-						logger.log(Level.INFO,
+						logger.log(Level.WARN,
 								"Impossible to parse in JSON Resident datas" + e1.getClass().getCanonicalName());
 					}
 				}
@@ -550,13 +550,13 @@ public class TabResident extends JPanel {
 							if (!jsonString.equals("DELETED")) {
 								JOptionPane.showMessageDialog(null, "Deletion failed", "Error",
 										JOptionPane.ERROR_MESSAGE);
-								logger.log(Level.INFO, "Impossible to delete this resident");
+								logger.log(Level.WARN, "Impossible to delete this resident");
 							} else {
 								JOptionPane.showMessageDialog(null, "Deletion succeeded", "Information",
 										JOptionPane.INFORMATION_MESSAGE);
 							}
 						} catch (Exception e1) {
-							logger.log(Level.INFO,
+							logger.log(Level.WARN,
 									"Impossible to parse in JSON Resident datas" + e1.getClass().getCanonicalName());
 						}
 						listM.removeElementAt(index);
@@ -571,7 +571,6 @@ public class TabResident extends JPanel {
 					} else {
 						JOptionPane.showMessageDialog(null, "Please select an resident to be delete", "Error",
 								JOptionPane.INFORMATION_MESSAGE);
-
 					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Please select an resident to be delete", "Error",
@@ -630,10 +629,10 @@ public class TabResident extends JPanel {
 			new ClientSocket(requestType, jsonString, table);
 			jsonString = ClientSocket.getJson();
 			resident = objectMapper.readValue(jsonString, Resident.class);
-			logger.log(Level.INFO, "Find Resident datas succed");
+			logger.log(Level.DEBUG, "Find Resident datas succed");
 			return resident;
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Resident datas " + e1.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to parse in JSON Resident datas " + e1.getClass().getCanonicalName());
 			return null;
 		}
 	}
@@ -702,10 +701,10 @@ public class TabResident extends JPanel {
 			new ClientSocket(requestType, jsonString, table);
 			jsonString = ClientSocket.getJson();
 			Resident[] residents = objectMapper.readValue(jsonString, Resident[].class);
-			logger.log(Level.INFO, "Find Residents datas succed");
+			logger.log(Level.DEBUG, "Find Residents datas succed");
 			return Arrays.asList(residents);
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Residents datas " + e1.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to parse in JSON Residents datas " + e1.getClass().getCanonicalName());
 			return null;
 		}
 	}

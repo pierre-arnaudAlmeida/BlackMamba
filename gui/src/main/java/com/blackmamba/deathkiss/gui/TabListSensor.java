@@ -92,7 +92,7 @@ public class TabListSensor extends JPanel {
 					try {
 						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
-						logger.log(Level.INFO,
+						logger.log(Level.WARN,
 								"Impossible to sleep the thread ListSensor " + e.getClass().getCanonicalName());
 					}
 				}
@@ -247,9 +247,9 @@ public class TabListSensor extends JPanel {
 			Sensor[] listSensors = readMapper.readValue(jsonString, Sensor[].class);
 			listSensor = Arrays.asList(listSensors);
 			commonArea.setListSensor(listSensor);
-			logger.log(Level.INFO, "Find all Sensors datas succeeded");
+			logger.log(Level.DEBUG, "Find all Sensors datas succeeded");
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Sensor datas" + e1.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to parse in JSON Sensor datas" + e1.getClass().getCanonicalName());
 		}
 
 		tableModel.clear();

@@ -127,7 +127,7 @@ public class GenerateMessage extends Thread {
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
-				logger.log(Level.INFO,
+				logger.log(Level.WARN,
 						"Impossible to sleep the threadGenerateMessage " + e.getClass().getCanonicalName());
 			}
 		}
@@ -144,7 +144,7 @@ public class GenerateMessage extends Thread {
 			jsonString = objectMapper.writeValueAsString(message);
 			new MockSocket(requestType, jsonString, null);
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Message data " + e1.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to parse in JSON Message data " + e1.getClass().getCanonicalName());
 		}
 	}
 

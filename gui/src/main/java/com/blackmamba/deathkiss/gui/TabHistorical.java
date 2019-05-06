@@ -93,7 +93,7 @@ public class TabHistorical extends JPanel {
 					try {
 						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
-						logger.log(Level.INFO,
+						logger.log(Level.WARN,
 								"Impossible to sleep the thread Historical " + e.getClass().getCanonicalName());
 					}
 				}
@@ -195,7 +195,7 @@ public class TabHistorical extends JPanel {
 								Frame.goToTab(2);
 							}
 						} catch (IndexOutOfBoundsException e1) {
-							logger.log(Level.INFO,
+							logger.log(Level.WARN,
 									"Impossible to create the tab Sensor " + e1.getClass().getCanonicalName());
 						}
 					}
@@ -230,7 +230,7 @@ public class TabHistorical extends JPanel {
 							Frame.goToTab(1);
 						}
 					} catch (IndexOutOfBoundsException e1) {
-						logger.log(Level.INFO,
+						logger.log(Level.WARN,
 								"Impossible to create the tab CommonArea " + e1.getClass().getCanonicalName());
 					}
 				}
@@ -257,16 +257,16 @@ public class TabHistorical extends JPanel {
 						jsonString = ClientSocket.getJson();
 						if (!jsonString.equals("DELETED")) {
 							JOptionPane.showMessageDialog(null, "Deletion failed", "Error", JOptionPane.ERROR_MESSAGE);
-							logger.log(Level.INFO, "Impossible to delete this SensorHistorical");
+							logger.log(Level.WARN, "Impossible to delete this SensorHistorical");
 						} else {
 							JOptionPane.showMessageDialog(null, "Deletion succeeded", "Information",
 									JOptionPane.INFORMATION_MESSAGE);
-							logger.log(Level.INFO, "Deletion of SensorHistorical succeeded");
+							logger.log(Level.DEBUG, "Deletion of SensorHistorical succeeded");
 						}
 						listM.removeElementAt(index);
 						index = -9999;
 					} catch (Exception e1) {
-						logger.log(Level.INFO,
+						logger.log(Level.WARN,
 								"Impossible to parse in JSON SensorHistorical " + e1.getClass().getCanonicalName());
 					}
 				} else {
@@ -302,9 +302,9 @@ public class TabHistorical extends JPanel {
 			jsonString = ClientSocket.getJson();
 			SensorHistorical[] listSensorHistoricals = readMapper.readValue(jsonString, SensorHistorical[].class);
 			listSensorHistorical = Arrays.asList(listSensorHistoricals);
-			logger.log(Level.INFO, "Find all SensorHistorical datas succeeded");
+			logger.log(Level.DEBUG, "Find all SensorHistorical datas succeeded");
 		} catch (Exception e1) {
-			logger.log(Level.INFO,
+			logger.log(Level.WARN,
 					"Impossible to parse in JSON SensorHistorical datas" + e1.getClass().getCanonicalName());
 		}
 
@@ -331,7 +331,7 @@ public class TabHistorical extends JPanel {
 			jsonString = ClientSocket.getJson();
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 		}
 	}
 

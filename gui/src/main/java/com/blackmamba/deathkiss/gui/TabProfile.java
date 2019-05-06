@@ -90,7 +90,7 @@ public class TabProfile extends JPanel {
 					try {
 						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
-						logger.log(Level.INFO, "Impossible to sleep the thread Profile " + e.getClass().getCanonicalName());
+						logger.log(Level.WARN, "Impossible to sleep the thread Profile " + e.getClass().getCanonicalName());
 					}
 				}
 			}
@@ -271,7 +271,7 @@ public class TabProfile extends JPanel {
 							jsonString = ClientSocket.getJson();
 							employee2 = readMapper.readValue(jsonString, Employee.class);
 						} catch (IOException e1) {
-							logger.log(Level.INFO, "Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
+							logger.log(Level.WARN, "Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
 						}
 						/**
 						 * If the password is correct they send the datas to be updated
@@ -289,13 +289,13 @@ public class TabProfile extends JPanel {
 								jsonString = ClientSocket.getJson();
 								if (!jsonString.equals("UPDATED")) {
 									JOptionPane.showMessageDialog(null, "Update failed", "Error", JOptionPane.ERROR_MESSAGE);
-									logger.log(Level.INFO, "Impossible to update employee");
+									logger.log(Level.WARN, "Impossible to update employee");
 								} else {
-									logger.log(Level.INFO, "Update Succeeded");
+									logger.log(Level.DEBUG, "Update Succeeded");
 									JOptionPane.showMessageDialog(null, "Datas updated", "Information", JOptionPane.INFORMATION_MESSAGE);
 								}
 							} catch (Exception e1) {
-								logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+								logger.log(Level.WARN, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 							}
 						} else {
 							JOptionPane.showMessageDialog(null, "One more time and you will be kicked", "Error, Wrong password", JOptionPane.INFORMATION_MESSAGE);
@@ -312,13 +312,13 @@ public class TabProfile extends JPanel {
 							jsonString = ClientSocket.getJson();
 							if (!jsonString.equals("UPDATED")) {
 								JOptionPane.showMessageDialog(null, "Update failed", "Error", JOptionPane.ERROR_MESSAGE);
-								logger.log(Level.INFO, "Impossible to update employee");
+								logger.log(Level.WARN, "Impossible to update employee");
 							} else {
-								logger.log(Level.INFO, "Update Succeeded");
+								logger.log(Level.DEBUG, "Update Succeeded");
 								JOptionPane.showMessageDialog(null, "Datas updated", "Information", JOptionPane.INFORMATION_MESSAGE);
 							}
 						} catch (Exception e1) {
-							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+							logger.log(Level.WARN, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 						}
 					}
 				}
@@ -374,9 +374,9 @@ public class TabProfile extends JPanel {
 			new ClientSocket(requestType, jsonString, table);
 			jsonString = ClientSocket.getJson();
 			employee = readMapper.readValue(jsonString, Employee.class);
-			logger.log(Level.INFO, "Find Employee data succed");
+			logger.log(Level.DEBUG, "Find Employee data succed");
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Employee datas " + e1.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to parse in JSON Employee datas " + e1.getClass().getCanonicalName());
 		}
 		textInputLastnameEmployee.setText(employee.getLastnameEmployee());
 		textInputNameEmployee.setText(employee.getNameEmployee());

@@ -110,6 +110,7 @@ public class MessageDAO extends DAO<Message> {
 	 */
 	@Override
 	public String read(String jsonString) {
+		// TODO PA le convertir en une alerte et pas un message
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			Message mess = objectMapper.readValue(jsonString, Message.class);
