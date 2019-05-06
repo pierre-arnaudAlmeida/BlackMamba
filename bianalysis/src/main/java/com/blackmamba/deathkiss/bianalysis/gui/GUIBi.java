@@ -37,6 +37,7 @@ import com.blackmamba.deathkiss.bianalysis.entity.CommonArea;
 import com.blackmamba.deathkiss.bianalysis.entity.Message;
 import com.blackmamba.deathkiss.bianalysis.entity.Sensor;
 import com.blackmamba.deathkiss.bianalysis.entity.SensorHistorical;
+import com.blackmamba.deathkiss.bianalysis.entity.SensorType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toedter.calendar.JDateChooser;
 
@@ -52,8 +53,7 @@ public class GUIBi extends JFrame {
 	// pour celle la j'ai changer, tu ira voir dans la classe ou tu l'a prise et tu
 	// prendra la forme que j'ai pcq on a pas le droit de les mettre en dur comme ca
 	// faut utiliser l'enum
-	String[] sensorType = { "SMOKE", "MOVE", "TEMPERATURE", "WINDOW", "DOOR", "ELEVATOR", "LIGHT", "FIRE", "BADGE",
-			"ROUTER" };
+
 	private JList<String> list;
 	private JList<String> list1;
 	private static List<Sensor> listSensor = new ArrayList<Sensor>();
@@ -181,7 +181,90 @@ public class GUIBi extends JFrame {
 		cbArea.addItem(area);
 		cbArea.setBounds(632, 52, 100, 35);
 		contentPane.add(cbArea);
+
+		String[] sensorType = { "ALL", "SMOKE", "MOVE", "TEMPERATURE", "WINDOW", "DOOR", "ELEVATOR", "LIGHT", "FIRE",
+				"BADGE", "ROUTER" };
 		cbCapteur = new JComboBox(sensorType);
+		cbCapteur.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				JComboBox cbCapteur = (JComboBox) e.getSource();
+				String selectedBook = (String) cbCapteur.getSelectedItem();
+
+				if (selectedBook.equals("ALL")) {
+					listM.clear();
+					for (Sensor str : listSensor) {
+
+						listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ," + str.getSensorState()
+								+ " ," + str.getIdCommonArea());
+
+					}
+
+				} else if (selectedBook.equals("SMOKE")) {
+					listM.clear();
+					for (Sensor str : listSensor) {
+						if (str.getTypeSensor().equals(SensorType.SMOKE)) {
+							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
+									+ str.getSensorState() + " ," + str.getIdCommonArea());
+						}
+					}
+
+				} else if (selectedBook.equals("ROUTER")) {
+					listM.clear();
+					for (Sensor str : listSensor) {
+						if (str.getTypeSensor().equals(SensorType.ROUTER)) {
+							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
+									+ str.getSensorState() + " ," + str.getIdCommonArea());
+						}
+					}
+					
+				} else if (selectedBook.equals("ELEVATOR")) {
+					listM.clear();
+					for (Sensor str : listSensor) {
+						if (str.getTypeSensor().equals(SensorType.ELEVATOR))
+							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
+									+ str.getSensorState() + " ," + str.getIdCommonArea());
+
+					}
+
+				} else if (selectedBook.equals("DOOR")) {
+					listM.clear();
+					for (Sensor str : listSensor) {
+						if (str.getTypeSensor().equals(SensorType.DOOR)) {
+							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
+									+ str.getSensorState() + " ," + str.getIdCommonArea());
+						}
+					}
+				} else if (selectedBook.equals("LIGHT")) {
+					listM.clear();
+
+					for (Sensor str : listSensor) {
+						if (str.getTypeSensor().equals(SensorType.LIGHT))
+							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
+									+ str.getSensorState() + " ," + str.getIdCommonArea());
+
+					}
+
+				} else if (selectedBook.equals("MOVE")) {
+					listM.clear();
+					for (Sensor str : listSensor) {
+						if (str.getTypeSensor().equals(SensorType.MOVE)) {
+							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
+									+ str.getSensorState() + " ," + str.getIdCommonArea());
+						}
+					}
+				} else if (selectedBook.equals("WINDOW")) {
+					listM.clear();
+					for (Sensor str : listSensor) {
+						if (str.getTypeSensor().equals(SensorType.WINDOW))
+							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
+									+ str.getSensorState() + " ," + str.getIdCommonArea());
+
+					}
+
+				}
+			}
+		});
 		cbCapteur.setBounds(168, 69, 100, 35);
 		contentPane.add(cbCapteur);
 
@@ -307,7 +390,6 @@ public class GUIBi extends JFrame {
 		HistoricalAlert.setValue("Number of DOWN Sensors", (Number) monObj1[2]);
 		HistoricalAlert.setValue("Number of OVER Sensors", (Number) monObj1[3]);
 		HistoricalAlert.setValue("Number of NORMAL Sensors", (Number) monObj1[1]);
-
 
 		JFreeChart pieChart1 = ChartFactory.createPieChart(" Ratio of number of alert", HistoricalAlert, true, true,
 				true);
@@ -566,7 +648,7 @@ public class GUIBi extends JFrame {
 			}
 
 		}
-	return new Object[]{numberAlerts,nbAlNormal,nbAlDown,nbAlOver,nbAlert};
+		return new Object[] { numberAlerts, nbAlNormal, nbAlDown, nbAlOver, nbAlert };
 
 	}
 
