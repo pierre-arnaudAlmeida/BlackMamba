@@ -72,7 +72,7 @@ public class Frame extends JFrame {
 					try {
 						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
-						logger.log(Level.INFO,
+						logger.log(Level.WARN,
 								"Impossible to sleep the thread Frame " + e.getClass().getCanonicalName());
 					}
 				}
@@ -134,7 +134,7 @@ public class Frame extends JFrame {
 						try {
 							Thread.sleep(Integer.parseInt(rs.getString("time_threadAlert")));
 						} catch (InterruptedException e) {
-							logger.log(Level.INFO,
+							logger.log(Level.WARN,
 									"Impossible to sleep the thread Alert" + e.getClass().getCanonicalName());
 						}
 				}
@@ -144,7 +144,7 @@ public class Frame extends JFrame {
 		/**
 		 * Launch the threads
 		 */
-		//TODO PA a remettre
+		// TODO PA a remettre
 		// threadAlert.start();
 		threadFrame.start();
 
@@ -175,9 +175,9 @@ public class Frame extends JFrame {
 			new ClientSocket(requestType, jsonString, table);
 			jsonString = ClientSocket.getJson();
 			employee = objectMapper.readValue(jsonString, Employee.class);
-			logger.log(Level.INFO, "Find Employee data succed");
+			logger.log(Level.DEBUG, "Find Employee data succed");
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Employee datas " + e1.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to parse in JSON Employee datas " + e1.getClass().getCanonicalName());
 		}
 	}
 
@@ -194,9 +194,9 @@ public class Frame extends JFrame {
 			jsonString = ClientSocket.getJson();
 			Alert[] alerts = objectMapper.readValue(jsonString, Alert[].class);
 			listAlert = Arrays.asList(alerts);
-			logger.log(Level.INFO, "Find Messages datas succed");
+			logger.log(Level.DEBUG, "Find Messages datas succed");
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Messages datas " + e1.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to parse in JSON Messages datas " + e1.getClass().getCanonicalName());
 		}
 	}
 

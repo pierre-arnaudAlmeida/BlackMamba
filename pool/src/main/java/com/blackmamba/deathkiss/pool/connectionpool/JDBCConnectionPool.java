@@ -163,7 +163,7 @@ public class JDBCConnectionPool {
 				}
 			}
 		} catch (SQLException e) {
-			logger.log(Level.INFO, e.getClass().getCanonicalName());
+			logger.log(Level.ERROR, e.getClass().getCanonicalName());
 		}
 	}
 

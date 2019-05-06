@@ -112,7 +112,7 @@ public class TabEmployes extends JPanel {
 					try {
 						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
-						logger.log(Level.INFO,
+						logger.log(Level.WARN,
 								"Impossible to sleep the thread Employee " + e.getClass().getCanonicalName());
 					}
 				}
@@ -460,13 +460,13 @@ public class TabEmployes extends JPanel {
 							if (!jsonString.equals("INSERTED")) {
 								JOptionPane.showMessageDialog(null, "Insertion failed", "Error",
 										JOptionPane.ERROR_MESSAGE);
-								logger.log(Level.INFO, "Impossible to insert employee");
+								logger.log(Level.WARN, "Impossible to insert employee");
 							} else {
 								/**
 								 * After insertion we get the informations about the last employee inserted to
 								 * be added and displayed on list
 								 */
-								logger.log(Level.INFO, "Insertion Succeeded");
+								logger.log(Level.DEBUG, "Insertion Succeeded");
 								requestType = "READ ALL";
 								table = "Employee";
 								listEmployee = getAllEmployee(null, requestType, table);
@@ -485,7 +485,7 @@ public class TabEmployes extends JPanel {
 								textInputPasswordEmployee.setText("");
 							}
 						} catch (Exception e1) {
-							logger.log(Level.INFO,
+							logger.log(Level.WARN,
 									"Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
 						}
 					}
@@ -545,7 +545,7 @@ public class TabEmployes extends JPanel {
 							jsonString = ClientSocket.getJson();
 							employee2 = objectMapper.readValue(jsonString, Employee.class);
 						} catch (IOException e1) {
-							logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+							logger.log(Level.WARN, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
 						}
 						/**
 						 * If the password is correct they send the datas to be updated
@@ -562,9 +562,9 @@ public class TabEmployes extends JPanel {
 								if (!jsonString.equals("UPDATED")) {
 									JOptionPane.showMessageDialog(null, "Update failed", "Error",
 											JOptionPane.ERROR_MESSAGE);
-									logger.log(Level.INFO, "Impossible to update employee");
+									logger.log(Level.WARN, "Impossible to update employee");
 								} else {
-									logger.log(Level.INFO, "Update Succeeded");
+									logger.log(Level.DEBUG, "Update Succeeded");
 									textInputPasswordEmployee.setText("");
 									listM.set(index, employee.getIdEmployee() + "# " + employee.getLastnameEmployee()
 											+ " " + employee.getNameEmployee() + " ," + employee.getPoste() + "");
@@ -572,7 +572,7 @@ public class TabEmployes extends JPanel {
 											JOptionPane.INFORMATION_MESSAGE);
 								}
 							} catch (Exception e1) {
-								logger.log(Level.INFO, "Impossible to parse in JSON Employee datas"
+								logger.log(Level.WARN, "Impossible to parse in JSON Employee datas"
 										+ e1.getClass().getCanonicalName());
 							}
 						} else {
@@ -591,9 +591,9 @@ public class TabEmployes extends JPanel {
 							if (!jsonString.equals("UPDATED")) {
 								JOptionPane.showMessageDialog(null, "Update failed", "Error",
 										JOptionPane.ERROR_MESSAGE);
-								logger.log(Level.INFO, "Impossible to update employee");
+								logger.log(Level.WARN, "Impossible to update employee");
 							} else {
-								logger.log(Level.INFO, "Update Succeeded");
+								logger.log(Level.DEBUG, "Update Succeeded");
 								textInputPasswordEmployee.setText("");
 								listM.set(index, employee.getIdEmployee() + "# " + employee.getLastnameEmployee() + " "
 										+ employee.getNameEmployee() + " ," + employee.getPoste() + "");
@@ -601,7 +601,7 @@ public class TabEmployes extends JPanel {
 										JOptionPane.INFORMATION_MESSAGE);
 							}
 						} catch (Exception e1) {
-							logger.log(Level.INFO,
+							logger.log(Level.WARN,
 									"Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
 						}
 					}
@@ -659,13 +659,13 @@ public class TabEmployes extends JPanel {
 								if (!jsonString.equals("DELETED")) {
 									JOptionPane.showMessageDialog(null, "Deletion failed", "Error",
 											JOptionPane.ERROR_MESSAGE);
-									logger.log(Level.INFO, "Impossible to delete this employee");
+									logger.log(Level.WARN, "Impossible to delete this employee");
 								} else {
 									JOptionPane.showMessageDialog(null, "Deletion succeeded", "Information",
 											JOptionPane.INFORMATION_MESSAGE);
 								}
 							} catch (Exception e1) {
-								logger.log(Level.INFO, "Impossible to parse in JSON Employee datas"
+								logger.log(Level.WARN, "Impossible to parse in JSON Employee datas"
 										+ e1.getClass().getCanonicalName());
 							}
 							listM.removeElementAt(index);
@@ -779,10 +779,10 @@ public class TabEmployes extends JPanel {
 			new ClientSocket(requestType, jsonString, table);
 			jsonString = ClientSocket.getJson();
 			employee = objectMapper.readValue(jsonString, Employee.class);
-			logger.log(Level.INFO, "Find Employee datas succed");
+			logger.log(Level.DEBUG, "Find Employee datas succed");
 			return employee;
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
 			return null;
 		}
 	}
@@ -802,10 +802,10 @@ public class TabEmployes extends JPanel {
 			new ClientSocket(requestType, jsonString, table);
 			jsonString = ClientSocket.getJson();
 			Employee[] employees = objectMapper.readValue(jsonString, Employee[].class);
-			logger.log(Level.INFO, "Find Employees datas succed");
+			logger.log(Level.DEBUG, "Find Employees datas succed");
 			return Arrays.asList(employees);
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Employees datas" + e1.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to parse in JSON Employees datas" + e1.getClass().getCanonicalName());
 			return null;
 		}
 	}

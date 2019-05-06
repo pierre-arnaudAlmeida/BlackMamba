@@ -56,10 +56,11 @@ public class MessageDAO extends DAO<Message> {
 					+ sqlDate + "', '" + mess.getThreshold() + "');";
 			Statement st = con.createStatement();
 			st.execute(request);
-			logger.log(Level.INFO, "Message succesfully inserted in BDD ");
+			logger.log(Level.DEBUG, "Message succesfully inserted in BDD ");
 			return true;
 		} catch (IOException | SQLException e) {
-			logger.log(Level.INFO, "Impossible to insert message datas in BDD " + e.getClass().getCanonicalName());
+			e.printStackTrace();
+			logger.log(Level.WARN, "Impossible to insert message datas in BDD " + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -75,10 +76,10 @@ public class MessageDAO extends DAO<Message> {
 			request = "DELETE FROM message where date_alerte < " + mess.getAlertDate() + ";";
 			Statement st = con.createStatement();
 			st.execute(request);
-			logger.log(Level.INFO, "Messages succesfully deleted in BDD ");
+			logger.log(Level.DEBUG, "Messages succesfully deleted in BDD ");
 			return true;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to delete Message datas in BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to delete Message datas in BDD " + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -96,10 +97,10 @@ public class MessageDAO extends DAO<Message> {
 					+ "', seuil='" + mess.getThreshold() + "';";
 			Statement st = con.createStatement();
 			st.execute(request);
-			logger.log(Level.INFO, "Message succesfully update in BDD");
+			logger.log(Level.DEBUG, "Message succesfully update in BDD");
 			return true;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to update message datas in BDD" + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to update message datas in BDD" + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -119,10 +120,10 @@ public class MessageDAO extends DAO<Message> {
 			convertDatas(result);
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(message);
-			logger.log(Level.INFO, "Message succesfully find in BDD");
+			logger.log(Level.DEBUG, "Message succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException | ParseException e) {
-			logger.log(Level.INFO, "Impossible to get message datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to get message datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;
@@ -144,10 +145,10 @@ public class MessageDAO extends DAO<Message> {
 				listMessage.add(message);
 			}
 			jsonString = objectMapper.writeValueAsString(listMessage);
-			logger.log(Level.INFO, "Message succesfully find in BDD");
+			logger.log(Level.DEBUG, "Message succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException | ParseException e) {
-			logger.log(Level.INFO, "Impossible to get messages datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to get messages datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;

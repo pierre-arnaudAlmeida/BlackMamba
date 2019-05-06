@@ -51,10 +51,10 @@ public class EmployeeDAO extends DAO<Employee> {
 					+ emp.getPoste() + "');";
 			Statement st = con.createStatement();
 			st.execute(request);
-			logger.log(Level.INFO, "Employee succesfully inserted in BDD");
+			logger.log(Level.DEBUG, "Employee succesfully inserted in BDD");
 			return true;
 		} catch (IOException | SQLException e) {
-			logger.log(Level.INFO, "Impossible to insert employee datas in BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to insert employee datas in BDD " + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -71,10 +71,10 @@ public class EmployeeDAO extends DAO<Employee> {
 			request = "DELETE FROM employee where id_employee = " + emp.getIdEmployee() + ";";
 			Statement st = con.createStatement();
 			st.execute(request);
-			logger.log(Level.INFO, "Employee succesfully deleted in BDD");
+			logger.log(Level.DEBUG, "Employee succesfully deleted in BDD");
 			return true;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to delete employee datas  in BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to delete employee datas  in BDD " + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -99,10 +99,10 @@ public class EmployeeDAO extends DAO<Employee> {
 			}
 			Statement st = con.createStatement();
 			st.execute(request);
-			logger.log(Level.INFO, "Employee succesfully update in BDD");
+			logger.log(Level.DEBUG, "Employee succesfully update in BDD");
 			return true;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to update employee datas in BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to update employee datas in BDD " + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -124,10 +124,10 @@ public class EmployeeDAO extends DAO<Employee> {
 
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(employee);
-			logger.log(Level.INFO, "Employee succesfully recognized in BDD");
+			logger.log(Level.DEBUG, "Employee succesfully recognized in BDD");
 			return jsonString;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to get employee datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to get employee datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;
@@ -150,10 +150,10 @@ public class EmployeeDAO extends DAO<Employee> {
 
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(employee);
-			logger.log(Level.INFO, "Employee succesfully find in BDD");
+			logger.log(Level.DEBUG, "Employee succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to get employee datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to get employee datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;
@@ -176,10 +176,10 @@ public class EmployeeDAO extends DAO<Employee> {
 			}
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(listEmployee);
-			logger.log(Level.INFO, "Employees succesfully find in BDD");
+			logger.log(Level.DEBUG, "Employees succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to get employee datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to get employee datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;
@@ -207,10 +207,10 @@ public class EmployeeDAO extends DAO<Employee> {
 			}
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(listEmployee);
-			logger.log(Level.INFO, "Employees succesfully find in BDD");
+			logger.log(Level.DEBUG, "Employees succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to get employee datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to get employee datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;

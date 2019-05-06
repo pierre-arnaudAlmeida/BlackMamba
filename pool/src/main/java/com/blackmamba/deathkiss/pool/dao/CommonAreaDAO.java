@@ -50,10 +50,10 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 					+ area.getNameCommonArea() + "','" + area.getEtageCommonArea() + "');";
 			Statement st = con.createStatement();
 			st.execute(request);
-			logger.log(Level.INFO, "CommonArea succesfully inserted in BDD");
+			logger.log(Level.DEBUG, "CommonArea succesfully inserted in BDD");
 			return true;
 		} catch (IOException | SQLException e) {
-			logger.log(Level.INFO, "Impossible to insert commonArea datas in BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to insert commonArea datas in BDD " + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -70,10 +70,10 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 			request = "DELETE FROM partie_commune where id_partie_commune = " + area.getIdCommonArea() + ";";
 			Statement st = con.createStatement();
 			st.execute(request);
-			logger.log(Level.INFO, "CommonArea succesfully deleted in BDD");
+			logger.log(Level.DEBUG, "CommonArea succesfully deleted in BDD");
 			return true;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to delete commonArea datas in BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to delete commonArea datas in BDD " + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -101,10 +101,10 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 				return false;
 			Statement st = con.createStatement();
 			st.execute(request);
-			logger.log(Level.INFO, "CommonArea succesfully update in BDD");
+			logger.log(Level.DEBUG, "CommonArea succesfully update in BDD");
 			return true;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to update commonArea datas in BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to update commonArea datas in BDD " + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -125,10 +125,10 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 			convertDatas(result);
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(commonArea);
-			logger.log(Level.INFO, "CommonArea succesfully find in BDD");
+			logger.log(Level.DEBUG, "CommonArea succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to get commonArea datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to get commonArea datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;
@@ -151,10 +151,10 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 			}
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(listCommonArea);
-			logger.log(Level.INFO, "CommonAreas succesfully find in BDD");
+			logger.log(Level.DEBUG, "CommonAreas succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to get commonArea datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to get commonArea datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;
@@ -183,10 +183,10 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 			}
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(listCommonArea);
-			logger.log(Level.INFO, "CommonAreas succesfully find in BDD");
+			logger.log(Level.DEBUG, "CommonAreas succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to get commonArea datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to get commonArea datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;

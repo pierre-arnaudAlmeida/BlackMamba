@@ -55,14 +55,17 @@ public class SensorDAO extends DAO<Sensor> {
 				state = "ON";
 			} else
 				state = "OFF";
-			request = "insert into capteur (type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,parametre) values ('" + sensor.getTypeSensor() + "','" + state + "','" + sensor.getIdCommonArea() + "','" + sensor.getAlertState() + "','" + sensor.getSensitivity() + "','"
-					+ sensor.getStartActivity() + "','" + sensor.getEndActivity() + "','" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "');";
+			request = "insert into capteur (type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,parametre) values ('"
+					+ sensor.getTypeSensor() + "','" + state + "','" + sensor.getIdCommonArea() + "','"
+					+ sensor.getAlertState() + "','" + sensor.getSensitivity() + "','" + sensor.getStartActivity()
+					+ "','" + sensor.getEndActivity() + "','" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:"
+					+ sensor.getThresholdMax() + "');";
 			Statement st = con.createStatement();
 			st.execute(request);
-			logger.log(Level.INFO, "Sensor succesfully inserted in BDD");
+			logger.log(Level.DEBUG, "Sensor succesfully inserted in BDD");
 			return true;
 		} catch (IOException | SQLException e) {
-			logger.log(Level.INFO, "Impossible to insert sensor datas in BDD" + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to insert sensor datas in BDD" + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -79,10 +82,10 @@ public class SensorDAO extends DAO<Sensor> {
 			request = "DELETE FROM capteur where id_capteur = " + sensor.getIdSensor() + ";";
 			Statement st = con.createStatement();
 			st.execute(request);
-			logger.log(Level.INFO, "Sensor succesfully deleted in BDD");
+			logger.log(Level.DEBUG, "Sensor succesfully deleted in BDD");
 			return true;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to delete sensor data in BDD" + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to delete sensor data in BDD" + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -98,28 +101,44 @@ public class SensorDAO extends DAO<Sensor> {
 			Sensor sensor = objectMapper.readValue(jsonString, Sensor.class);
 			if (sensor.getSensorState()) {
 				if (sensor.getIdCommonArea() == 0) {
-					request = "UPDATE capteur SET id_partie_commune = null, etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity() + "',heure_fin='"
-							+ sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor()+";";
+					request = "UPDATE capteur SET id_partie_commune = null, etat = 'ON', type_capteur = '"
+							+ sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='"
+							+ sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity() + "',heure_fin='"
+							+ sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin()
+							+ "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor()
+							+ ";";
 				} else {
-					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea() + ", etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity()
-							+ "',heure_fin='" + sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor()+";";
+					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea()
+							+ ", etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='"
+							+ sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='"
+							+ sensor.getStartActivity() + "',heure_fin='" + sensor.getEndActivity() + "',parametre='"
+							+ "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax()
+							+ "' where id_capteur = " + sensor.getIdSensor() + ";";
 				}
 			} else if (!sensor.getSensorState()) {
 				if (sensor.getIdCommonArea() == 0) {
-					request = "UPDATE capteur SET id_partie_commune = null, etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity() + "',heure_fin='"
-							+ sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor()+";";
+					request = "UPDATE capteur SET id_partie_commune = null, etat = 'OFF', type_capteur = '"
+							+ sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='"
+							+ sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity() + "',heure_fin='"
+							+ sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin()
+							+ "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor()
+							+ ";";
 				} else {
-					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea() + ", etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity()
-							+ "',heure_fin='" + sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "' where id_capteur = " + sensor.getIdSensor()+";";
+					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea()
+							+ ", etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='"
+							+ sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='"
+							+ sensor.getStartActivity() + "',heure_fin='" + sensor.getEndActivity() + "',parametre='"
+							+ "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax()
+							+ "' where id_capteur = " + sensor.getIdSensor() + ";";
 				}
 			} else
 				return false;
 			Statement st = con.createStatement();
 			st.execute(request);
-			logger.log(Level.INFO, "Sensor succesfully update in BDD");
+			logger.log(Level.DEBUG, "Sensor succesfully update in BDD");
 			return true;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to update sensor datas in BDD" + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to update sensor datas in BDD" + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -141,10 +160,10 @@ public class SensorDAO extends DAO<Sensor> {
 
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(sensor);
-			logger.log(Level.INFO, "Sensor succesfully find in BDD");
+			logger.log(Level.DEBUG, "Sensor succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to get sensor datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to get sensor datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;
@@ -167,10 +186,10 @@ public class SensorDAO extends DAO<Sensor> {
 			}
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(listSensor);
-			logger.log(Level.INFO, "Sensors succesfully find in BDD");
+			logger.log(Level.DEBUG, "Sensors succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to get sensor datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to get sensor datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;
@@ -200,10 +219,10 @@ public class SensorDAO extends DAO<Sensor> {
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(listSensor);
 			System.out.println(jsonString);
-			logger.log(Level.INFO, "Sensors succesfully find in BDD");
+			logger.log(Level.DEBUG, "Sensors succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to get sensor datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to get sensor datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;

@@ -113,7 +113,7 @@ public class TabCommonArea extends JPanel {
 					try {
 						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
-						logger.log(Level.INFO,
+						logger.log(Level.WARN,
 								"Impossible to sleep the thread CommonArea " + e.getClass().getCanonicalName());
 					}
 				}
@@ -427,13 +427,13 @@ public class TabCommonArea extends JPanel {
 						jsonString = ClientSocket.getJson();
 						if (!jsonString.equals("INSERTED")) {
 							JOptionPane.showMessageDialog(null, "Insertion failed", "Error", JOptionPane.ERROR_MESSAGE);
-							logger.log(Level.INFO, "Impossible to insert commonArea");
+							logger.log(Level.WARN, "Impossible to insert commonArea");
 						} else {
 							/**
 							 * Get the information about the CommoNArea came to be inserted in data base and
 							 * at the information to list
 							 */
-							logger.log(Level.INFO, "Insertion Succeeded");
+							logger.log(Level.DEBUG, "Insertion Succeeded");
 							requestType = "READ ALL";
 							table = "CommonArea";
 							listCommonArea = getAllCommonArea(null, requestType, table);
@@ -445,7 +445,7 @@ public class TabCommonArea extends JPanel {
 									JOptionPane.INFORMATION_MESSAGE);
 						}
 					} catch (Exception e1) {
-						logger.log(Level.INFO,
+						logger.log(Level.WARN,
 								"Impossible to parse in JSON CommonArea data " + e1.getClass().getCanonicalName());
 					}
 				}
@@ -493,16 +493,16 @@ public class TabCommonArea extends JPanel {
 						jsonString = ClientSocket.getJson();
 						if (!jsonString.equals("UPDATED")) {
 							JOptionPane.showMessageDialog(null, "Update failed", "Error", JOptionPane.ERROR_MESSAGE);
-							logger.log(Level.INFO, "Impossible to update commonArea");
+							logger.log(Level.WARN, "Impossible to update commonArea");
 						} else {
-							logger.log(Level.INFO, "Update Succeeded");
+							logger.log(Level.DEBUG, "Update Succeeded");
 							listM.set(index, commonArea.getIdCommonArea() + "# " + commonArea.getNameCommonArea() + " "
 									+ commonArea.getEtageCommonArea());
 							JOptionPane.showMessageDialog(null, "Datas updated", "Information",
 									JOptionPane.INFORMATION_MESSAGE);
 						}
 					} catch (Exception e1) {
-						logger.log(Level.INFO,
+						logger.log(Level.WARN,
 								"Impossible to parse in JSON CommonArea " + e1.getClass().getCanonicalName());
 					}
 					textInputIdCommonArea.setText("");
@@ -545,9 +545,9 @@ public class TabCommonArea extends JPanel {
 							jsonString = ClientSocket.getJson();
 							Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
 							listSensorUsed = Arrays.asList(sensors);
-							logger.log(Level.INFO, "Find Sensor data succeeded");
+							logger.log(Level.DEBUG, "Find Sensor data succeeded");
 						} catch (Exception e1) {
-							logger.log(Level.INFO,
+							logger.log(Level.WARN,
 									"Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
 						}
 						if (!listSensorUsed.isEmpty()) {
@@ -561,12 +561,12 @@ public class TabCommonArea extends JPanel {
 									new ClientSocket(requestType, jsonString, table);
 									jsonString = ClientSocket.getJson();
 									if (!jsonString.equals("UPDATED")) {
-										logger.log(Level.INFO, "Impossible to update sensor");
+										logger.log(Level.WARN, "Impossible to update sensor");
 									} else {
-										logger.log(Level.INFO, "Update Succeeded");
+										logger.log(Level.DEBUG, "Update Succeeded");
 									}
 								} catch (Exception e1) {
-									logger.log(Level.INFO, "Impossible to parse in JSON sensor datas "
+									logger.log(Level.WARN, "Impossible to parse in JSON sensor datas "
 											+ e1.getClass().getCanonicalName());
 								}
 							}
@@ -582,14 +582,14 @@ public class TabCommonArea extends JPanel {
 							if (!jsonString.equals("DELETED")) {
 								JOptionPane.showMessageDialog(null, "Deletion failed", "Error",
 										JOptionPane.ERROR_MESSAGE);
-								logger.log(Level.INFO, "Impossible to delete this commonArea");
+								logger.log(Level.WARN, "Impossible to delete this commonArea");
 							} else {
 								JOptionPane.showMessageDialog(null, "Deletion succeeded", "Information",
 										JOptionPane.INFORMATION_MESSAGE);
-								logger.log(Level.INFO, "Deletion of CommonArea succeeded");
+								logger.log(Level.DEBUG, "Deletion of CommonArea succeeded");
 							}
 						} catch (Exception e1) {
-							logger.log(Level.INFO,
+							logger.log(Level.WARN,
 									"Impossible to parse in JSON CommonArea " + e1.getClass().getCanonicalName());
 						}
 						listM.removeElementAt(index);
@@ -752,10 +752,10 @@ public class TabCommonArea extends JPanel {
 			new ClientSocket(requestType, jsonString, table);
 			jsonString = ClientSocket.getJson();
 			commonArea = objectMapper.readValue(jsonString, CommonArea.class);
-			logger.log(Level.INFO, "Find CommonArea data succed");
+			logger.log(Level.DEBUG, "Find CommonArea data succed");
 			return commonArea;
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON CommonArea datas " + e1.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to parse in JSON CommonArea datas " + e1.getClass().getCanonicalName());
 			return null;
 		}
 	}
@@ -775,10 +775,10 @@ public class TabCommonArea extends JPanel {
 			new ClientSocket(requestType, jsonString, table);
 			jsonString = ClientSocket.getJson();
 			CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
-			logger.log(Level.INFO, "Find CommonArea data succed");
+			logger.log(Level.DEBUG, "Find CommonArea data succed");
 			return Arrays.asList(commonAreas);
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON CommonArea datas " + e1.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to parse in JSON CommonArea datas " + e1.getClass().getCanonicalName());
 			return null;
 		}
 	}

@@ -48,10 +48,10 @@ public class ResidentDAO extends DAO<Resident> {
 					+ "','" + resid.getNameResident() + "');";
 			Statement st = con.createStatement();
 			st.execute(request);
-			logger.log(Level.INFO, "Resident succesfully inserted in BDD");
+			logger.log(Level.DEBUG, "Resident succesfully inserted in BDD");
 			return true;
 		} catch (IOException | SQLException e) {
-			logger.log(Level.INFO, "Impossible to insert resident datas in BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to insert resident datas in BDD " + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -68,10 +68,10 @@ public class ResidentDAO extends DAO<Resident> {
 			request = "DELETE FROM resident where id_resident = " + resid.getIdResident() + ";";
 			Statement st = con.createStatement();
 			st.execute(request);
-			logger.log(Level.INFO, "Resident succesfully deleted in BDD");
+			logger.log(Level.DEBUG, "Resident succesfully deleted in BDD");
 			return true;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to delete resident datas in BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to delete resident datas in BDD " + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -96,10 +96,10 @@ public class ResidentDAO extends DAO<Resident> {
 				return false;
 			Statement st = con.createStatement();
 			st.execute(request);
-			logger.log(Level.INFO, "Resident succesfully update in BDD");
+			logger.log(Level.DEBUG, "Resident succesfully update in BDD");
 			return true;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to update resident datas in BDD" + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to update resident datas in BDD" + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -121,10 +121,10 @@ public class ResidentDAO extends DAO<Resident> {
 
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(resident);
-			logger.log(Level.INFO, "Resident succesfully find in BDD");
+			logger.log(Level.DEBUG, "Resident succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to get resident datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to get resident datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;
@@ -147,10 +147,10 @@ public class ResidentDAO extends DAO<Resident> {
 			}
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(listResident);
-			logger.log(Level.INFO, "Residents succesfully find in BDD");
+			logger.log(Level.DEBUG, "Residents succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to get resident datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to get resident datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;
@@ -176,10 +176,10 @@ public class ResidentDAO extends DAO<Resident> {
 			}
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(listResident);
-			logger.log(Level.INFO, "Residents succesfully find in BDD");
+			logger.log(Level.DEBUG, "Residents succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to get residents datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to get residents datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;
@@ -200,10 +200,10 @@ public class ResidentDAO extends DAO<Resident> {
 					+ idSensor + "','" + formater.format(currentDate) + "');";
 			Statement st = con.createStatement();
 			st.execute(request);
-			logger.log(Level.INFO, "Resident succesfully inserted in BDD");
+			logger.log(Level.DEBUG, "Resident succesfully inserted in BDD");
 			return true;
 		} catch (SQLException e) {
-			logger.log(Level.INFO, "Impossible to insert resident datas in BDD" + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to insert resident datas in BDD" + e.getClass().getCanonicalName());
 			return false;
 		}
 	}

@@ -33,7 +33,7 @@ public class MainGUI {
 					frame.setVisible(true);
 					logger.log(Level.INFO, "Application Deathkiss runned");
 				} catch (Exception e) {
-					logger.log(Level.INFO, "Impossible to create the window 'frame' " + e.getClass().getCanonicalName());
+					logger.log(Level.WARN, "Impossible to create the window 'frame' " + e.getClass().getCanonicalName());
 				}
 			}
 		});

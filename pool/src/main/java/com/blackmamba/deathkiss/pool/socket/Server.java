@@ -45,9 +45,9 @@ public class Server {
 			server = new ServerSocket(Integer.parseInt(rsConfig.getString("server.default.port")), 100,
 					InetAddress.getByName(rsConfig.getString("server.default.host")));
 		} catch (UnknownHostException e) {
-			logger.log(Level.INFO, "IP Host dont find " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "IP Host dont find " + e.getClass().getCanonicalName());
 		} catch (IOException e) {
-			logger.log(Level.INFO, "Impossible create the socket" + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible create the socket" + e.getClass().getCanonicalName());
 		}
 	}
 
@@ -66,11 +66,11 @@ public class Server {
 			monitoringAlert = new MonitoringAlert(pool);
 
 		} catch (UnknownHostException e) {
-			logger.log(Level.INFO, "IP Host dont find " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "IP Host dont find " + e.getClass().getCanonicalName());
 		} catch (IOException e) {
-			logger.log(Level.INFO, "Impossible create the socket " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible create the socket " + e.getClass().getCanonicalName());
 		} catch (SQLException e) {
-			logger.log(Level.INFO, "Acces to COnnectionPool impossible " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Acces to COnnectionPool impossible " + e.getClass().getCanonicalName());
 		}
 	}
 
@@ -85,7 +85,7 @@ public class Server {
 					try {
 						client = server.accept();
 						connectionGived = DataSource.getConnectionFromJDBC(pool);
-						logger.log(Level.INFO, "Client Connection recieved");
+						logger.log(Level.DEBUG, "Client Connection recieved");
 						Thread threadRequestHandler = new Thread(
 								new RequestHandler(client, connectionGived, monitoringAlert));
 						threadRequestHandler.start();
@@ -98,7 +98,7 @@ public class Server {
 					server.close();
 					logger.log(Level.INFO, "Server closed");
 				} catch (IOException e) {
-					logger.log(Level.INFO, "Impossible to close server " + e.getClass().getCanonicalName());
+					logger.log(Level.WARN, "Impossible to close server " + e.getClass().getCanonicalName());
 					server = null;
 				}
 			}
@@ -123,7 +123,7 @@ public class Server {
 							numberConnection++;
 						}
 						connectionGived = DataSource.getConnectionFromJDBC(pool);
-						logger.log(Level.INFO, "Client Connection recieved");
+						logger.log(Level.DEBUG, "Client Connection recieved");
 						Thread threadRequestHandler = new Thread(
 								new RequestHandler(client, connectionGived, monitoringAlert));
 						threadRequestHandler.start();
@@ -136,7 +136,7 @@ public class Server {
 					server.close();
 					logger.log(Level.INFO, "Server closed");
 				} catch (IOException e) {
-					logger.log(Level.INFO, "Impossible to close server " + e.getClass().getCanonicalName());
+					logger.log(Level.WARN, "Impossible to close server " + e.getClass().getCanonicalName());
 					server = null;
 				}
 			}
@@ -155,9 +155,9 @@ public class Server {
 					monitoringAlert.alertTreatment();
 					try {
 						//TODO PA a remetttre
-						Thread.sleep(5000);//rsAlert.getString("time_alertTreatment")));
+						Thread.sleep(1000);//rsAlert.getString("time_alertTreatment")));
 					} catch (InterruptedException e) {
-						logger.log(Level.INFO,
+						logger.log(Level.WARN,
 								"Impossible to sleep the threadAlertTreatment " + e.getClass().getCanonicalName());
 					}
 				}

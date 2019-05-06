@@ -146,20 +146,20 @@ public class Connexion extends JFrame {
 						jsonString = ClientSocket.getJson();
 						employee = connectionMapper.readValue(jsonString, Employee.class);
 					} catch (IOException e) {
-						logger.log(Level.INFO, "Impossible to parse in JSON connection datas " + e.getClass().getCanonicalName());
+						logger.log(Level.WARN, "Impossible to parse in JSON connection datas " + e.getClass().getCanonicalName());
 					}
 					if (!employee.getPoste().equals("")) {
 						frame = new Frame(employee.getIdEmployee());
 						setVisible(false);
 						dispose();
 						frame.setVisible(true);
-						logger.log(Level.INFO, "Connection succesfuly accepted, redirection to Window");
+						logger.log(Level.DEBUG, "Connection succesfuly accepted, redirection to Window");
 					} else {
 						logger.log(Level.INFO, "Attempt of connection with wrong password employee or id employee");
 						JOptionPane.showMessageDialog(null, "Wrong Login or password", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
-					logger.log(Level.INFO, "Crash of application, Application closed");
+					logger.log(Level.WARN, "Crash of application, Application closed");
 					JOptionPane.showMessageDialog(null, "An error as occured, restart the application", "Warning", JOptionPane.WARNING_MESSAGE);
 				}
 			}

@@ -2,7 +2,6 @@ package com.blackmamba.deathkiss.pool.dao;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -58,14 +57,17 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 				sensorState = "ON";
 			else
 				sensorState = "OFF";
-			request = "insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('" + formater.format(sensorH.getDate()) + "','" + sensorState + "','" + sensorH.getAlertState().toString() + "', " + sensorH.getIdSensor() + ");";
+			request = "insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('"
+					+ formater.format(sensorH.getDate()) + "','" + sensorState + "','"
+					+ sensorH.getAlertState().toString() + "', " + sensorH.getIdSensor() + ");";
 			Statement st = con.createStatement();
 			st.execute(request);
-			logger.log(Level.INFO, "SensorHistorical succesfully inserted in BDD");
+			logger.log(Level.DEBUG, "SensorHistorical succesfully inserted in BDD");
 			return true;
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();
-			logger.log(Level.INFO, "Impossible to insert sensorHistorical datas in BDD" + e.getClass().getCanonicalName());
+			logger.log(Level.WARN,
+					"Impossible to insert sensorHistorical datas in BDD" + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -79,13 +81,14 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			SensorHistorical sensorH = objectMapper.readValue(jsonString, SensorHistorical.class);
-			request = "DELETE FROM historique where id_historique = " + sensorH.getIdHistorical()+";";
+			request = "DELETE FROM historique where id_historique = " + sensorH.getIdHistorical() + ";";
 			Statement st = con.createStatement();
 			st.execute(request);
-			logger.log(Level.INFO, "SensorHistorical succesfully deleted in BDD");
+			logger.log(Level.DEBUG, "SensorHistorical succesfully deleted in BDD");
 			return true;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to delete sensorHistorical datas  in BDD" + e.getClass().getCanonicalName());
+			logger.log(Level.WARN,
+					"Impossible to delete sensorHistorical datas  in BDD" + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -104,13 +107,15 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 				sensorState = "ON";
 			else
 				sensorState = "OFF";
-			request = "UPDATE message SET id_capteur = '" + sensorH.getIdSensor() + "', date_historique = '" + formater.format(sensorH.getDate()) + "', etat_capteur='" + sensorState + "', type_alerte='" + sensorH.getAlertState().toString() + "';";
+			request = "UPDATE message SET id_capteur = '" + sensorH.getIdSensor() + "', date_historique = '"
+					+ formater.format(sensorH.getDate()) + "', etat_capteur='" + sensorState + "', type_alerte='"
+					+ sensorH.getAlertState().toString() + "';";
 			Statement st = con.createStatement();
 			st.execute(request);
-			logger.log(Level.INFO, "Message succesfully update in BDD");
+			logger.log(Level.DEBUG, "Message succesfully update in BDD");
 			return true;
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to update message datas in BDD" + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to update message datas in BDD" + e.getClass().getCanonicalName());
 			return false;
 		}
 	}
@@ -131,10 +136,11 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 			convertDatas(result);
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(sensorHistorical);
-			logger.log(Level.INFO, "SensorHistorical succesfully find in BDD");
+			logger.log(Level.DEBUG, "SensorHistorical succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException | ParseException e) {
-			logger.log(Level.INFO, "Impossible to get sensorHistorical datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN,
+					"Impossible to get sensorHistorical datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;
@@ -157,10 +163,11 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 			}
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(listSensorHistorical);
-			logger.log(Level.INFO, "SensorHistorical succesfully find in BDD");
+			logger.log(Level.DEBUG, "SensorHistorical succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException | ParseException e) {
-			logger.log(Level.INFO, "Impossible to get sensorHistorical datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN,
+					"Impossible to get sensorHistorical datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;
@@ -183,10 +190,10 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(sensorHistorical);
-			logger.log(Level.INFO, "Sensor succesfully find in BDD");
+			logger.log(Level.DEBUG, "Sensor succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException | ParseException e) {
-			logger.log(Level.INFO, "Impossible to get sensor datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to get sensor datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;

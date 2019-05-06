@@ -61,7 +61,7 @@ public class ClientSocket {
 			reader = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 
 			writer.println("OPEN");
-			logger.log(Level.INFO, "Command OPEN connection send to server");
+			logger.log(Level.DEBUG, "Command OPEN connection send to server");
 			response = reader.readLine();
 
 			/**
@@ -98,7 +98,7 @@ public class ClientSocket {
 					response = "";
 				}
 				writer.println(response);
-				logger.log(Level.INFO, "Request Type Send to server");
+				logger.log(Level.DEBUG, "Request Type Send to server");
 				response = reader.readLine();
 
 				/**
@@ -107,25 +107,25 @@ public class ClientSocket {
 				if (!response.equals("ERROR")) {
 					response = jsonString;
 					writer.println(response);
-					logger.log(Level.INFO, "Request Send to server");
+					logger.log(Level.DEBUG, "Request Send to server");
 					response = reader.readLine();
 					/**
 					 * Receive the data in JSON string after the execution by server
 					 */
 					if (!response.equals("ERROR")) {
 						ClientSocket.setJsonString(response);
-						logger.log(Level.INFO, "Datas received on client");
+						logger.log(Level.DEBUG, "Datas received on client");
 						response = "CLOSE";
 						writer.println(response);
-						logger.log(Level.INFO, "Command CLOSE connection send to server");
+						logger.log(Level.DEBUG, "Command CLOSE connection send to server");
 						writer.close();
-						logger.log(Level.INFO, "Connection Closed by client");
+						logger.log(Level.DEBUG, "Connection Closed by client");
 					} else {
 						response = "CLOSE";
 						writer.println(response);
-						logger.log(Level.INFO, "Command CLOSE connection send to server");
+						logger.log(Level.DEBUG, "Command CLOSE connection send to server");
 						writer.close();
-						logger.log(Level.INFO, "Connection Closed by client");
+						logger.log(Level.DEBUG, "Connection Closed by client");
 					}
 				} else {
 					/**
@@ -134,22 +134,22 @@ public class ClientSocket {
 					 */
 					response = "CLOSE";
 					writer.println(response);
-					logger.log(Level.INFO, "Command CLOSE connection send to server");
+					logger.log(Level.DEBUG, "Command CLOSE connection send to server");
 					writer.close();
-					logger.log(Level.INFO, "Connection Closed by client");
+					logger.log(Level.DEBUG, "Connection Closed by client");
 				}
 			} else {
-				logger.log(Level.INFO, "ERROR, Impossible to Receive datas");
+				logger.log(Level.DEBUG, "ERROR, Impossible to Receive datas");
 				response = "CLOSE";
 				writer.println(response);
-				logger.log(Level.INFO, "Command CLOSE connection send to server");
+				logger.log(Level.DEBUG, "Command CLOSE connection send to server");
 				writer.close();
-				logger.log(Level.INFO, "Connection Closed by client");
+				logger.log(Level.DEBUG, "Connection Closed by client");
 			}
 		} catch (UnknownHostException e) {
-			logger.log(Level.INFO, "IP Host dont find " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "IP Host dont find " + e.getClass().getCanonicalName());
 		} catch (IOException e) {
-			logger.log(Level.INFO, "Impossible create the socket " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible create the socket " + e.getClass().getCanonicalName());
 		} catch (NullPointerException e) {
 		}
 	}

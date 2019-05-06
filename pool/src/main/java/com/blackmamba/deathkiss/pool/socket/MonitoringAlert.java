@@ -103,11 +103,13 @@ public class MonitoringAlert {
 	 * send at Client
 	 */
 	public void alertTreatment() {
+		getAllSensor();
+		verifySensorActivity(curDate);
 		if (!listMessage.isEmpty()) {
-			getAllSensor();
+
 			curDate = new Date();
 			// verifySensorMessageBeforeActivity();
-			verifySensorActivity(curDate);
+
 			for (Sensor sensors : listSensor) {
 				for (Message messages : listMessage) {
 					if (sensors.getSensorState() && sensors.getIdSensor() == messages.getIdSensor()) {
@@ -223,12 +225,14 @@ public class MonitoringAlert {
 						alert.setIdAlert(0);
 						alert.setIdSensor(sensors.getIdSensor());
 						listAlert.add(alert);
+						logger.log(Level.INFO, "*********************************************************************");
 						logger.log(Level.INFO, "No Activity Sensor : " + sensors.getIdSensor()
 								+ " DOWN on commonArea : " + sensors.getIdCommonArea());
+						logger.log(Level.INFO, "*********************************************************************");
 						sensors.setAlertState(AlertState.DOWN);
 						updateSensorAlertState(sensors);
 						addHistorical(sensors);
-						// TODO PA mettre un message dans la base message
+						addMessage(0, sensors);
 					}
 				}
 			}
@@ -273,13 +277,15 @@ public class MonitoringAlert {
 					alert.setIdAlert(0);
 					alert.setIdSensor(0);
 					listAlert.add(alert);
+					logger.log(Level.INFO, "*********************************************************************");
 					logger.log(Level.INFO, "No Activity from all sensors !!");
+					logger.log(Level.INFO, "*********************************************************************");
 					sensor = new Sensor();
 					sensor.setAlertState(AlertState.OVER);
 					sensor.setIdSensor(0);
 					sensor.setSensorState(true);
 					addHistorical(sensor);
-					// TODO PA mettre un message dans la base message
+					addMessage(0, sensor);
 				} else {
 					for (Sensor sensors : listSensorDown) {
 						alert = new Alert();
@@ -288,12 +294,14 @@ public class MonitoringAlert {
 						alert.setIdAlert(0);
 						alert.setIdSensor(sensors.getIdSensor());
 						listAlert.add(alert);
+						logger.log(Level.INFO, "*********************************************************************");
 						logger.log(Level.INFO, "No Activity Sensor : " + sensors.getIdSensor()
 								+ " DOWN on commonArea : " + sensors.getIdCommonArea());
+						logger.log(Level.INFO, "*********************************************************************");
 						sensors.setAlertState(AlertState.DOWN);
 						updateSensorAlertState(sensors);
 						addHistorical(sensors);
-						// TODO PA mettre une message dans la base message
+						addMessage(0, sensors);
 					}
 
 					getAllCommonArea();
@@ -316,8 +324,14 @@ public class MonitoringAlert {
 							alert.setIdAlert(0);
 							alert.setIdSensor(commonArea.getIdCommonArea());
 							listAlert.add(alert);
+							logger.log(Level.INFO,
+									"*********************************************************************");
 							logger.log(Level.INFO, "No Activity on commonArea : " + commonArea.getIdCommonArea());
-							// TODO PA mettre un message dans la base message
+							logger.log(Level.INFO,
+									"*********************************************************************");
+							sensor = new Sensor();
+							sensor.setIdSensor(0);
+							addMessage(0, sensor);
 						}
 					}
 				}
@@ -330,8 +344,13 @@ public class MonitoringAlert {
 				alert.setIdAlert(0);
 				alert.setIdSensor(0);
 				listAlert.add(alert);
+				logger.log(Level.INFO, "*********************************************************************");
 				logger.log(Level.INFO, "No Activity from all sensors !!");
+				logger.log(Level.INFO, "*********************************************************************");
 				nbOfTimeWithoutMessage = 0;
+				sensor = new Sensor();
+				sensor.setIdSensor(0);
+				addMessage(0, sensor);
 			} else {
 				nbOfTimeWithoutMessage++;
 			}
@@ -352,9 +371,9 @@ public class MonitoringAlert {
 			DAO<Sensor> sensorDao = new SensorDAO(connectionGived);
 			setResult(((SensorDAO) sensorDao).update(jsonString));
 			if (result)
-				logger.log(Level.INFO, "Update Succeded");
+				logger.log(Level.DEBUG, "Update Succeded");
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON sensor datas" + e1.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to parse in JSON sensor datas" + e1.getClass().getCanonicalName());
 		}
 	}
 
@@ -372,9 +391,9 @@ public class MonitoringAlert {
 			DAO<Sensor> sensorDao = new SensorDAO(connectionGived);
 			jsonString = ((SensorDAO) sensorDao).read(jsonString);
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
-			logger.log(Level.INFO, "Find Sensor data succed");
+			logger.log(Level.DEBUG, "Find Sensor data succed");
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Sensor datas " + e1.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to parse in JSON Sensor datas " + e1.getClass().getCanonicalName());
 		}
 	}
 
@@ -391,9 +410,9 @@ public class MonitoringAlert {
 			DataSource.returnConnection(pool, connectionGived);
 			Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
 			listSensor = Arrays.asList(sensors);
-			logger.log(Level.INFO, "Find Sensor datas succed");
+			logger.log(Level.DEBUG, "Find Sensor datas succed");
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to get datas " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to get datas " + e.getClass().getCanonicalName());
 		}
 	}
 
@@ -410,9 +429,9 @@ public class MonitoringAlert {
 			DataSource.returnConnection(pool, connectionGived);
 			CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
 			listCommonArea = Arrays.asList(commonAreas);
-			logger.log(Level.INFO, "Find Sensor datas succed");
+			logger.log(Level.DEBUG, "Find CommonArea datas succed");
 		} catch (SQLException | IOException e) {
-			logger.log(Level.INFO, "Impossible to get datas " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to get datas " + e.getClass().getCanonicalName());
 		}
 	}
 
@@ -436,9 +455,9 @@ public class MonitoringAlert {
 			setResult(((SensorHistoricalDAO) sensorHistoricalDao).create(jsonString));
 			DataSource.returnConnection(pool, connectionGived);
 			if (result)
-				logger.log(Level.INFO, "Insertion SensorHistorical datas succed");
+				logger.log(Level.DEBUG, "Insertion SensorHistorical datas succed");
 		} catch (SQLException | JsonProcessingException e) {
-			logger.log(Level.INFO, "Impossible to insert datas " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to insert datas " + e.getClass().getCanonicalName());
 		}
 	}
 
@@ -464,9 +483,9 @@ public class MonitoringAlert {
 			setResult(((SensorHistoricalDAO) sensorHistoricalDao).create(jsonString));
 			DataSource.returnConnection(pool, connectionGived);
 			if (result)
-				logger.log(Level.INFO, "Insertion SensorHistorical datas succed");
+				logger.log(Level.DEBUG, "Insertion SensorHistorical datas succed");
 		} catch (IOException | SQLException e) {
-			logger.log(Level.INFO, "Impossible to insert datas " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to insert datas " + e.getClass().getCanonicalName());
 		}
 	}
 
@@ -490,9 +509,9 @@ public class MonitoringAlert {
 			setResult(((MessageDAO) messageDao).create(jsonString));
 			DataSource.returnConnection(pool, connectionGived);
 			if (result)
-				logger.log(Level.INFO, "Insertion Message datas succed");
+				logger.log(Level.DEBUG, "Insertion Message datas succed");
 		} catch (JsonProcessingException | SQLException e) {
-			logger.log(Level.INFO, "Impossible to insert datas " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to insert datas " + e.getClass().getCanonicalName());
 		}
 	}
 
@@ -511,7 +530,7 @@ public class MonitoringAlert {
 				}
 			}
 		} catch (IOException e) {
-			logger.log(Level.INFO, "Impossible to delete on Alert list " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to delete on Alert list " + e.getClass().getCanonicalName());
 		}
 	}
 
@@ -533,6 +552,8 @@ public class MonitoringAlert {
 						}
 						lastAlertDate = messages.getAlertDate();
 						nbAlert++;
+						// TODO mettre le threshold dans le message d'alerte
+						// mettre en DEBUG
 						logger.log(Level.INFO,
 								"Sensor : " + sensors.getIdSensor() + " threshold reached : " + messages.getThreshold()
 										+ ", Min : " + sensors.getThresholdMin() + " Max : "
@@ -548,6 +569,8 @@ public class MonitoringAlert {
 						}
 						lastAlertDate = messages.getAlertDate();
 						nbAlert++;
+						// TODO mettre le threshold dans le message d'alerte
+						// mettre en DEBUG
 						logger.log(Level.INFO, "Sensor : " + sensors.getIdSensor() + " threshold reached : "
 								+ messages.getThreshold() + ", Max : " + sensors.getThresholdMax());
 						lastThreshold = messages.getThreshold();
