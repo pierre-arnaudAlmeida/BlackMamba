@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -58,7 +59,7 @@ public class GUIBi extends JFrame {
 	private static List<Sensor> listSensor = new ArrayList<Sensor>();
 	private static List<SensorHistorical> listSensorHistorical = new ArrayList<SensorHistorical>();
 	private static List<CommonArea> listCommonAreas = new ArrayList<CommonArea>();
-	private static List<Message> listAllMessage = new ArrayList<Message>(); 
+	private static List<Message> listAllMessage = new ArrayList<Message>();
 	private ObjectMapper objectMapper;
 	private String requestType;
 	private String table;
@@ -153,7 +154,7 @@ public class GUIBi extends JFrame {
 		lblNombreDePannes.setBounds(627, 431, 139, 16);
 		contentPane.add(lblNombreDePannes);
 
-		JLabel lblNombreDalertes = new JLabel("Nombre d'alertes");
+		JLabel lblNombreDalertes = new JLabel("Total Alerts");
 		lblNombreDalertes.setBounds(340, 504, 147, 22);
 		contentPane.add(lblNombreDalertes);
 
@@ -173,7 +174,7 @@ public class GUIBi extends JFrame {
 		//// JCombobox
 
 		String[] periode = { "Année", "Mois", "Jour" };
-		String[] area = { "ALL",  "RC", "Etage 1", "Etage 2" };
+		String[] area = { "ALL", "RC", "Etage 1", "Etage 2" };
 		cbArea = new JComboBox(area);
 
 		cbArea.setEditable(true);
@@ -215,10 +216,10 @@ public class GUIBi extends JFrame {
 		contentPane.add(tfTemperature);
 		tfTemperature.setColumns(10);
 
-//		Object[] monObj1 = returnNumber();
+		Object[] monObj1 = returnNumber();
 		tfAlertes = new JTextField();
 		tfAlertes.setBounds(497, 501, 112, 28);
-//		tfAlertes.setText(monObj1[0].toString());
+		tfAlertes.setText(monObj1[0].toString());
 		contentPane.add(tfAlertes);
 		tfAlertes.setColumns(10);
 
@@ -303,10 +304,10 @@ public class GUIBi extends JFrame {
 
 		DefaultPieDataset HistoricalAlert = new DefaultPieDataset();
 
-//		HistoricalAlert.setValue("Number of DOWN Sensors", (Number) monObj1[1]);
-//		HistoricalAlert.setValue("Number of OVER Sensors", (Number) monObj1[2]);
-//		HistoricalAlert.setValue("Number of NORMAL Sensors", (Number) monObj1[3]);
-//		HistoricalAlert.setValue("Number of Alert Sensors", (Number) monObj1[4]);
+		HistoricalAlert.setValue("Number of DOWN Sensors", (Number) monObj1[2]);
+		HistoricalAlert.setValue("Number of OVER Sensors", (Number) monObj1[3]);
+		HistoricalAlert.setValue("Number of NORMAL Sensors", (Number) monObj1[1]);
+
 
 		JFreeChart pieChart1 = ChartFactory.createPieChart(" Ratio of number of alert", HistoricalAlert, true, true,
 				true);
@@ -370,20 +371,19 @@ public class GUIBi extends JFrame {
 
 				JComboBox cbArea = (JComboBox) e.getSource();
 				String selectedBook = (String) cbArea.getSelectedItem();
-				
+
 				if (selectedBook.equals("ALL")) {
 					ListModel.clear();
 					for (CommonArea area : listCommonAreas) {
-							for (Sensor str : listSensor) {
-								for (SensorHistorical hist : listSensorHistorical) {
-											ListModel.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
-													+ str.getSensorState() + " ," + area.getNameCommonArea()
-													+ str.getAlertState() + "#" + area.getEtageCommonArea());
-										
-									
-								}
+						for (Sensor str : listSensor) {
+							for (SensorHistorical hist : listSensorHistorical) {
+								ListModel.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
+										+ str.getSensorState() + " ," + area.getNameCommonArea() + str.getAlertState()
+										+ "#" + area.getEtageCommonArea());
+
 							}
-						
+						}
+
 					}
 
 					System.out.println("Nous sommes au RC");
@@ -395,7 +395,7 @@ public class GUIBi extends JFrame {
 								for (SensorHistorical hist : listSensorHistorical) {
 									if (hist.getIdSensor() == str.getIdSensor()) {
 										if (str.getIdCommonArea() == area.getIdCommonArea()) {// A MODIFIER PLUS TARD
-				
+
 											ListModel.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
 													+ str.getSensorState() + " ," + area.getNameCommonArea()
 													+ str.getAlertState() + "#" + area.getEtageCommonArea());
@@ -417,7 +417,7 @@ public class GUIBi extends JFrame {
 								for (SensorHistorical hist : listSensorHistorical) {
 									if (hist.getIdSensor() == str.getIdSensor()) {
 										if (str.getIdCommonArea() == area.getIdCommonArea()) {// A MODIFIER PLUS TARD
-				
+
 											ListModel.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
 													+ str.getSensorState() + " ," + area.getNameCommonArea()
 													+ str.getAlertState() + "#" + area.getEtageCommonArea());
@@ -429,15 +429,16 @@ public class GUIBi extends JFrame {
 					}
 //			    	System.out.println("Nous sommes à l'etage 1");
 				} else if (selectedBook.equals("Etage 2")) {
+					ListModel.clear();
 					System.out.println("Nous somme à l'étage 2");
-					
+
 					for (CommonArea area : listCommonAreas) {
 						if (area.getEtageCommonArea() == 2) {
 							for (Sensor str : listSensor) {
 								for (SensorHistorical hist : listSensorHistorical) {
 									if (hist.getIdSensor() == str.getIdSensor()) {
 										if (str.getIdCommonArea() == area.getIdCommonArea()) {// A MODIFIER PLUS TARD
-				
+
 											ListModel.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
 													+ str.getSensorState() + " ," + area.getNameCommonArea()
 													+ str.getAlertState() + "#" + area.getEtageCommonArea());
@@ -517,7 +518,7 @@ public class GUIBi extends JFrame {
 	}
 	//////////////////////////////////////
 	// Method GetAllMessage
-	
+
 	public void getAllMessage() {
 		requestType = "READ ALL";
 		table = "Message";
@@ -526,7 +527,7 @@ public class GUIBi extends JFrame {
 			jsonString = "READ ALL";
 			new ClientSocket(requestType, jsonString, table);
 			jsonString = ClientSocket.getJson();
-			Message [] Message = objectMapper.readValue(jsonString, Message[].class);
+			Message[] Message = objectMapper.readValue(jsonString, Message[].class);
 			logger.log(Level.INFO, "Find CommonArea data succed");
 			listAllMessage = Arrays.asList(Message);
 		} catch (Exception e1) {
@@ -534,39 +535,40 @@ public class GUIBi extends JFrame {
 
 		}
 	}
-	
 
 //////////////////////////////////////
 	// Method calculate all alerts
-	//TODO MODIFIER POUR LIRE LES ALERTES 
-//	public static Object[] returnNumber() {
-//		int numberAlerts = 0;
-//		int nbAlNormal = 0;
-//		int nbAlDown = 0;
-//		int nbAlOver = 0;
-//		int nbAlert = 0;
-//
-//		if (!listAllMessage.isEmpty()) {
-//			for (Message allMessage : listAllMessage) {
-//				numberAlerts++;
-//
-//				if (allMessage.getAlertState() == AlertState.DOWN) {
-//					nbAlDown++;
-//				} else if (allMessage.getAlertState() == AlertState.OVER) {
-//					nbAlOver++;
-//				} else if (allMessage.getAlertState() == AlertState.NORMAL) {
-//					nbAlNormal++;
-//				} else if (allMessage.getAlertState() == AlertState.ALERT) {
-//					nbAlert++;
-//				}
-//
-//			}
-//
-//		}
-//
-//		return new Object[] { numberAlerts, nbAlNormal, nbAlDown, nbAlOver, nbAlert };
-//
-//	}
+	// TODO MODIFIER POUR LIRE LES ALERTES
+	public static Object[] returnNumber() {
+		int numberAlerts = 0;
+		int nbAlNormal = 0;
+		int nbAlDown = 0;
+		int nbAlOver = 0;
+		int nbAlert = 0;
+
+		if (!listAllMessage.isEmpty()) {
+			for (Message allMessage : listAllMessage) {
+				numberAlerts++;
+
+				if (allMessage.getThreshold() != 0) {
+					nbAlNormal++;
+				} else {
+					if (allMessage.getIdSensor() != 0) {
+
+						if (allMessage.getIdSensor() != 9999) {
+							nbAlDown++;
+						} else {
+							nbAlOver++;
+						}
+					}
+				}
+
+			}
+
+		}
+	return new Object[]{numberAlerts,nbAlNormal,nbAlDown,nbAlOver,nbAlert};
+
+	}
 
 ///////////////////////////////////////////////////////////
 	// Method to calculate the number of Sensor
@@ -581,12 +583,9 @@ public class GUIBi extends JFrame {
 
 			if (sensor.getIdSensor() == 0)
 				nbUnusedSensor++;
-
 			else
 				nbUsedSensor++;
-
 		}
-
 		return new Object[] { nbUsedSensor, nbUnusedSensor, nbTotalSensor };
 
 	}
@@ -607,4 +606,3 @@ public class GUIBi extends JFrame {
 
 ///////////////
 //TODO CALCULER LE NOMBRE DE MODIFICATIONS 
-
