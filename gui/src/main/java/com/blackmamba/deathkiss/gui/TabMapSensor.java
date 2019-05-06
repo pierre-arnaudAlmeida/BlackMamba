@@ -304,7 +304,9 @@ public class TabMapSensor extends JPanel implements MouseListener {
 			e1.printStackTrace();
 		}
 		JLabel picLabel = new JLabel(new ImageIcon(img));
-		add(picLabel);
+		picLabel.setPreferredSize(new Dimension(350, 30));;
+		picLabel.setLayout(new BorderLayout());
+		add(picLabel, BorderLayout.EAST);
 		//setContentPane(new Canvas(img));
 	}
 
