@@ -26,7 +26,7 @@ import java.io.IOException;
  */
 public class SurfacePolygon extends JFrame {
 
-	private CommonArea idCommonArea;
+	private CommonArea idCommonArea; 
 	private float surface;
 	// Point coordinates table
 	private int tab;
@@ -92,9 +92,8 @@ public class SurfacePolygon extends JFrame {
 			testLocation(p, polygon4_2, "mouseClicked - data 4_2");
 
 			if (location(p, polygon1) == true) {
-				popup = new JPopupMenu();
-				popup.add(new JMenuItem("Do Something1"));
-				System.out.println("de4<qds464q<dq<d");
+				//new SurfacePolygon(polygon1).setVisible(true);
+				System.out.println("Polygon1");
 			}
 		}
 
@@ -135,12 +134,30 @@ public class SurfacePolygon extends JFrame {
 		setContentPane(new Canvas(img));
 
 	}
+	
+
 
 //	private void formMouseMoved(MouseEvent evt) {
 //		   SurfacePolygon.getToolTipLocation(evt);
 //			SurfacePolygon.setToolTipText("Infos"); // Active l'infobulle
 //			SurfacePolygon.setToolTipText(null); // Désactive l'infobulle
 //	}
+	
+	
+//	JPanel southPanel = new JPanel(new BorderLayout());
+//	add(southPanel, BorderLayout.SOUTH);
+//	JLabel logo = new JLabel(new ImageIcon(TabMapSensor.class.getResource("image.png")));
+//	southPanel.add(logo, BorderLayout.EAST);
+
+//	canvas = new JPanel();
+//	canvas.setSize(1200, 700);
+//	canvas.setLocation(null);
+//	try {
+//		img = ImageIO.read(getClass().getClassLoader().getResource("image.jpg"));
+//	} catch (IOException e) {
+//		e.printStackTrace();
+//	}
+	
 
 	public static void main(String[] args) {
 		new SurfacePolygon().setVisible(true);

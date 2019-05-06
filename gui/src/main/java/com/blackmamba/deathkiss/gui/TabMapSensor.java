@@ -2,22 +2,36 @@ package com.blackmamba.deathkiss.gui;
 
 import java.awt.Color;
 import java.awt.Polygon;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import javax.imageio.ImageIO;
+import java.awt.Canvas;
+import java.io.IOException;
+import java.text.Normalizer;
 
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+
 import org.apache.logging.log4j.Level;
 
 import com.blackmamba.deathkiss.entity.CommonArea;
 import com.blackmamba.deathkiss.entity.Alert;
 import com.blackmamba.deathkiss.entity.Sensor;
+import com.blackmamba.deathkiss.entity.SensorType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -27,8 +41,11 @@ import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import org.apache.logging.log4j.LogManager;
@@ -41,47 +58,63 @@ import org.apache.logging.log4j.Logger;
 
 public class TabMapSensor extends JPanel implements MouseListener {
 
-	private int idEmployee;
 	private int index;
+	private int idEmployee;
+	private JTextField textInputIdSensor;
 	private Font police;
 	private Font policeBar;
 	private JButton disconnection;
-	private JButton switchButton;
 	private JButton validButton;
 	private JPanel bar;
 	private JPanel search;
+	private JPanel canvas;
 	private JLabel labelIdEmployee;
 	private JLabel labelSearch;
-	private JScrollPane sc;
 	private JTextField searchBar;
-	private JTextField textInputIdSensor;
-	private JLabel imageNursingHome;
-	private ImageIcon nursingHome;
 
 	private List<SurfacePolygon> surfacePolygon = new ArrayList<SurfacePolygon>();
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private List<Alert> listAlert = new ArrayList<Alert>();
+	private JButton switchButton;
 
 	private Sensor sensor;
+	private Sensor sensor2;
 	private TabSensor tabSensor;
 	private String requestType;
 	private String table;
 	private String jsonString;
 	private static final Logger logger = LogManager.getLogger(TabMapSensor.class);
 	private static final long serialVersionUID = 7348020021300445245L;
-
 	private CommonArea commonArea;
 	private ObjectMapper objectMapper;
 	private Thread threadMapSensor;
+	private JScrollPane sc;
 
 	private JList<String> list;
 	private JComboBox<String> textInputNameCommonArea;
 	private JComboBox<String> textInputTypeSensor;
 	private DefaultListModel<String> listM;
+	private List<Sensor> listSearchSensor = new ArrayList<Sensor>();
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
-	public TabMapSensor() {
+	private BufferedImage img = null;
+	private BufferedImage buffer = null;
+	private Point p = null;
+	private Image planImage;
+	
+	private static final Rectangle polygon1 = new Rectangle(7, 56, 108, 313);
+	private static final Rectangle polygon2 = new Rectangle(129, 72, 105, 97);
+	private static final Rectangle polygon3 = new Rectangle(240, 171, 346, 45);
+	private static final Rectangle polygon4_1 = new Rectangle(591, 171, 282, 182);
+	private static final Rectangle polygon4_2 = new Rectangle(733, 71, 140, 99);
 
+
+	public TabMapSensor() {
+	}
+
+	public TabMapSensor(BufferedImage image) {
+		this.addMouseListener(this);
+		this.buffer = image;
 	}
 
 	public TabMapSensor(Color color, int idEmployee, String title) {
@@ -94,7 +127,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 			@Override
 			public void run() {
 				while (true) {
-					//tabSensor.actualizationListSensor();
+					// tabSensor.actualizationListSensor();
 					tabSensor.updateSensorSelected();
 					try {
 						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
@@ -104,8 +137,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 				}
 			}
 		}));
-		
-		
+
 		/**
 		 * Definition of the structure of this tab
 		 */
@@ -169,6 +201,90 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		validButton = new JButton();
 		validButton.setText("Search");
 		search.add(validButton);
+		validButton.addActionListener(new ActionListener() {
+			/**
+			 * Verify the content of the search if they match with just numerics they will
+			 * send a request to search with the id written in the research the IdSensor or
+			 * the IdCommonArea of the Sensor. And add all the results on a list to display
+			 * But if there is letter and numerics they will send a request to return all
+			 * the Sensor when the type of Sensor contains the research
+			 */
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				sensor2 = new Sensor();
+				String searchReceived = searchBar.getText().trim();
+				if (!searchReceived.equals("")) {
+					/**
+					 * If the research is just numerics they find first the IdSensor
+					 */
+					if (searchReceived.matches("[0-9]+[0-9]*")) {
+						requestType = "READ";
+						sensor2 = new Sensor();
+						table = "Sensor";
+						sensor2.setIdSensor(Integer.parseInt(searchReceived));
+						try {
+							jsonString = objectMapper.writeValueAsString(sensor2);
+							new ClientSocket(requestType, jsonString, table);
+							jsonString = ClientSocket.getJson();
+							sensor2 = objectMapper.readValue(jsonString, Sensor.class);
+							logger.log(Level.INFO, "Find Sensor data succed");
+						} catch (Exception e1) {
+							logger.log(Level.INFO,
+									"Impossible to parse in JSON Sensor datas " + e1.getClass().getCanonicalName());
+						}
+						listM.removeAllElements();
+						if (sensor2.getTypeSensor() != null) {
+							listM.addElement("Result for sensor with id : " + searchReceived);
+							listM.addElement(sensor2.getIdSensor() + "# " + sensor2.getTypeSensor() + " ,"
+									+ sensor2.getSensorState() + " ," + sensor2.getIdCommonArea());
+						}
+						/**
+						 * Find Sensor with IdCommonArea
+						 */
+						searchReceived = Normalizer.normalize(searchReceived, Normalizer.Form.NFD)
+								.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+						sensor2.setIdCommonArea(Integer.parseInt(searchReceived));
+						findAllSensor(sensor2);
+						if (listSearchSensor.size() > 0)
+							listM.addElement("Results for sensor in common area : " + searchReceived);
+						for (Sensor sensors : listSearchSensor) {
+							listM.addElement(sensors.getIdSensor() + "# " + sensors.getTypeSensor() + " ,"
+									+ sensors.getSensorState() + " ," + sensors.getIdCommonArea());
+						}
+					} else {
+						/**
+						 * If the research contains letter and numerics we match with the types of
+						 * Sensor
+						 */
+						sensor2 = new Sensor();
+						for (SensorType type : SensorType.values()) {
+							if (type.name().startsWith(searchReceived.toUpperCase())) {
+								sensor2.setTypeSensor(type);
+							}
+						}
+						findAllSensor(sensor2);
+						listM.removeAllElements();
+						if (listSearchSensor.size() > 0)
+							listM.addElement("Results for sensor type : " + searchReceived);
+						for (Sensor sensors : listSearchSensor) {
+							listM.addElement(sensors.getIdSensor() + "# " + sensors.getTypeSensor() + " ,"
+									+ sensors.getSensorState() + " ," + sensors.getIdCommonArea());
+						}
+					}
+				} else {
+					/**
+					 * If the research is empty they display all the Sensors
+					 */
+					updateListSensor();
+				}
+				searchBar.setText("");
+			}
+		});
+
+		/**
+		 * Definition of the List CommonArea
+		 */
+		textInputNameCommonArea = new JComboBox<String>();
 
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
@@ -178,119 +294,107 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		this.add(bar, BorderLayout.NORTH);
 		this.setBackground(color);
 
-		///////////////////////// LIST SENSOR///////////////////////////////////////////
-		listM = new DefaultListModel<String>();
-		list = new JList<String>(listM);
 
-		/**
-		 * TODO RK Update sensors Every time an alert is declared, the list is updated
-		 */
-		//tabSensor.actualizationListSensor();
-
-		sc = new JScrollPane(list);
-		sc.setBounds(30, 120, 300, ((int) getToolkit().getScreenSize().getHeight() - 300));
-		this.add(sc);
-
-		/**
-		 * when we pressed a line in the list they will send a request to get all the
-		 * information about the Sensor selected to be displayed on the textField
-		 */
-		index = -9999;
-		MouseListener mouseListener = new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				index = list.locationToIndex(e.getPoint());
-				String substring = listM.getElementAt(index).toString();
-				int position = substring.indexOf("#");
-				if (position > -1) {
-					String id = substring.substring(0, position);
-
-					/**
-					 * Find the Sensor by the id get on list
-					 */
-					requestType = "READ";
-					sensor = new Sensor();
-					table = "Sensor";
-					sensor.setIdSensor(Integer.parseInt(id));
-					try {
-						jsonString = objectMapper.writeValueAsString(sensor);
-						;
-						new ClientSocket(requestType, jsonString, table);
-						jsonString = ClientSocket.getJson();
-						sensor = objectMapper.readValue(jsonString, Sensor.class);
-					} catch (Exception e1) {
-						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
-					}
-					/**
-					 * Find the CommonAreaName by the idCommonArea get on list
-					 */
-					requestType = "READ";
-					commonArea = new CommonArea();
-					table = "CommonArea";
-					ObjectMapper readMapper = new ObjectMapper();
-					commonArea.setIdCommonArea(sensor.getIdCommonArea());
-					try {
-						jsonString = readMapper.writeValueAsString(commonArea);
-						;
-						new ClientSocket(requestType, jsonString, table);
-						jsonString = ClientSocket.getJson();
-						commonArea = readMapper.readValue(jsonString, CommonArea.class);
-					} catch (Exception e1) {
-						logger.log(Level.INFO, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
-					}
-
-					textInputIdSensor.setText(Integer.toString(sensor.getIdSensor()));
-					String str = commonArea.getNameCommonArea() + " #" + sensor.getIdCommonArea();
-					for (int i = 0; i < textInputNameCommonArea.getItemCount(); i++) {
-						if (textInputNameCommonArea.getItemAt(i).toString().contains(str)) {
-							textInputNameCommonArea.setSelectedIndex(i);
-						}
-					}
-
-				}
-			}
-		};
-		list.addMouseListener(mouseListener);
-
-		
 		///////////////////////// IMAGE/////////////////////////////////////////////////
-
 		
+		try {
+			img = ImageIO.read(getClass().getClassLoader().getResource("image.jpg"));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		JLabel picLabel = new JLabel(new ImageIcon(img));
+		add(picLabel);
+		//setContentPane(new Canvas(img));
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		/**
-		 * TODO RK Lorsqu'on clique sur une partie commune, cela créera un popup d'une
-		 * liste de capteur
-		 */
+//	public void paintComponent(Graphics g) {
+//
+//		super.paintComponent(g);
+//		Graphics2D g2 = (Graphics2D) g;
+//		int planWidth = getWidth();
+//		int panelWidth = this.getWidth();
+//		int leftOffset = (panelWidth - planWidth) / 2;
+//
+//		// Draw image
+//		g2.drawImage(planImage, leftOffset, 20, null);
+//		g2.drawImage(buffer, 0, 0, buffer.getWidth(), buffer.getHeight(), this);
+//		this.revalidate();
+//
+//		g.setColor(Color.GREEN);
+//		// Draw rectangle
+//		g.drawRect(polygon1.x, polygon1.y, polygon1.width, polygon1.height);
+//		g.drawRect(polygon2.x, polygon2.y, polygon2.width, polygon2.height);
+//		g.drawRect(polygon3.x, polygon3.y, polygon3.width, polygon3.height);
+//		g.drawRect(polygon4_1.x, polygon4_1.y, polygon4_1.width, polygon4_1.height);
+//		g.drawRect(polygon4_2.x, polygon4_2.y, polygon4_2.width, polygon4_2.height);
+//	}
+//
+//	private void testLocation(Point mouse, Rectangle commonArea, String text) {
+//		// if the mouse if here
+//		if (commonArea.contains(mouse))
+//			System.out.println(text + " - image");
+//		else
+//			System.out.println(text + " - !image");
+//	}
+//
+//	private boolean location(Point mouse, Rectangle commonArea) {
+//		if (commonArea.contains(mouse))
+//			return true;
+//		else
+//			return false;
+//	}
+
+	public void mouseClicked(MouseEvent e) {
+//		// recovering the position of the mouse
+//		p = e.getPoint();
+//		testLocation(p, polygon1, "mouseClicked - data 1");
+//		testLocation(p, polygon2, "mouseClicked - data 2");
+//		testLocation(p, polygon3, "mouseClicked - data 3");
+//		testLocation(p, polygon4_1, "mouseClicked - data 4_1");
+//		testLocation(p, polygon4_2, "mouseClicked - data 4_2");
+//
+//		if (location(p, polygon1) == true) {
+//			System.out.println("Polygon1");
+//		}
 	}
 
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		/**
-		 * TODO RK Lorsqu'on rentre dans une partie commune, cela modiifera sa couleur
-		 */
+
+	public void findAllSensor(Sensor sensor) {
+		requestType = "FIND ALL";
+		table = "Sensor";
+		objectMapper = new ObjectMapper();
+		try {
+			jsonString = objectMapper.writeValueAsString(sensor);
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
+			listSearchSensor = Arrays.asList(sensors);
+			logger.log(Level.INFO, "Find Sensor data succed");
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON Sensor datas " + e1.getClass().getCanonicalName());
+		}
 	}
 
-	@Override
-	public void mouseExited(MouseEvent e) {
-		/**
-		 * TODO RK
-		 */
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		/**
-		 * TODO RK
-		 */
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		/**
-		 * TODO RK
-		 */
+	public void updateListSensor() {
+		requestType = "READ ALL";
+		table = "Sensor";
+		objectMapper = new ObjectMapper();
+		try {
+			jsonString = "READ ALL";
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
+			listSensor = Arrays.asList(sensors);
+			logger.log(Level.INFO, "Find Sensor data succed");
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
+		}
+		listM.removeAllElements();
+		listM.addElement("All sensors");
+		for (Sensor sens : listSensor) {
+			listM.addElement(sens.getIdSensor() + "# " + sens.getTypeSensor() + " ," + sens.getSensorState() + " ,"
+					+ sens.getIdCommonArea());
+		}
 	}
 
 	/**
@@ -355,6 +459,30 @@ public class TabMapSensor extends JPanel implements MouseListener {
 
 	public void removeSensor(Sensor sensor) {
 		this.listSensor.remove(sensor);
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
