@@ -34,6 +34,7 @@ import com.blackmamba.deathkiss.entity.Alert;
 import com.blackmamba.deathkiss.entity.CommonArea;
 import com.blackmamba.deathkiss.entity.Sensor;
 import com.blackmamba.deathkiss.entity.SensorType;
+import com.blackmamba.deathkiss.launcher.ClientSocket;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**

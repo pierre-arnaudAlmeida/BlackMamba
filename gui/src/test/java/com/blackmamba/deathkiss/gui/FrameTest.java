@@ -6,8 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.jupiter.api.Test;
 
-import com.blackmamba.deathkiss.gui.Frame;
-
 /**
  * 
  * @author Pierre-Arnaud

@@ -1,4 +1,4 @@
-package com.blackmamba.deathkiss.gui;
+package com.blackmamba.deathkiss.launcher;
 
 import java.io.BufferedReader;
 import java.io.IOException;

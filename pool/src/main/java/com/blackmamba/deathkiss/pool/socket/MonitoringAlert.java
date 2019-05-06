@@ -104,12 +104,10 @@ public class MonitoringAlert {
 	 */
 	public void alertTreatment() {
 		getAllSensor();
+		curDate = new Date();
 		verifySensorActivity(curDate);
+		verifySensorMessageBeforeActivity();
 		if (!listMessage.isEmpty()) {
-
-			curDate = new Date();
-			// verifySensorMessageBeforeActivity();
-
 			for (Sensor sensors : listSensor) {
 				for (Message messages : listMessage) {
 					if (sensors.getSensorState() && sensors.getIdSensor() == messages.getIdSensor()) {
@@ -196,7 +194,6 @@ public class MonitoringAlert {
 	 * if they did'nt send it's because he is breakdown
 	 */
 	public void verifySensorMessageBeforeActivity() {
-		// TODO PA a corriger potentiel bugg
 		curDate = new Date();
 		calBefore = Calendar.getInstance();
 		calAfter = Calendar.getInstance();
@@ -209,7 +206,6 @@ public class MonitoringAlert {
 		listMessageInTreatment = listMessage;
 		if (!listMessageInTreatment.isEmpty()) {
 			for (Sensor sensors : listSensor) {
-				// TODO PA verifier le comparateur de date
 				if (sensors.getIdCommonArea() != 0 && sensors.getSensorState()
 						&& (formater.format(sensors.getStartActivity()).compareTo(formater.format(beforeDate)) >= 0)
 						&& (formater.format(sensors.getStartActivity()).compareTo(formater.format(afterDate)) <= 0)) {
@@ -253,7 +249,6 @@ public class MonitoringAlert {
 		 * the sensor active if an sensor does'nt have send an alert/message to server
 		 * they will be considerate to breakdown and we update is state on data base
 		 */
-		// TODO PA a corriger potentiel faute
 		cleanListSensor(listSensorDown);
 		listMessageInTreatment = listMessage;
 		if (!listMessageInTreatment.isEmpty()) {
@@ -332,8 +327,8 @@ public class MonitoringAlert {
 							logger.log(Level.INFO,
 									"*********************************************************************");
 							sensor = new Sensor();
-							sensor.setIdSensor(0);
-							addMessage(0, sensor);
+							sensor.setIdSensor(commonArea.getIdCommonArea());
+							addMessage(9999, sensor);
 						}
 					}
 				}
@@ -355,6 +350,9 @@ public class MonitoringAlert {
 				addMessage(0, sensor);
 			} else {
 				nbOfTimeWithoutMessage++;
+				if (nbOfTimeWithoutMessage % 5 == 0) {
+					logger.log(Level.INFO,nbOfTimeWithoutMessage+" Secondes without messages");
+				}
 			}
 		}
 		listMessageInTreatment.clear();

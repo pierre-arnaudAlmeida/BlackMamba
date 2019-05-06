@@ -1,4 +1,4 @@
-package com.blackmamba.deathkiss.pool.socket;
+package com.blackmamba.deathkiss.pool.launcher;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +8,8 @@ import javax.swing.Timer;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.blackmamba.deathkiss.pool.socket.Server;
 
 /**
  * 
