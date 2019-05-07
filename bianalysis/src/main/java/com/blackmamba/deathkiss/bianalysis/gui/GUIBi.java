@@ -65,7 +65,7 @@ public class GUIBi extends JFrame {
 	private String table;
 	private String jsonString;
 	private JPanel contentPane;
-	private JTextField nbPanne;
+	private JTextField tfDown;
 	private JTextField tfAlertes;
 	private JTextField tfStock;
 	private JTextField tfRecherche;
@@ -92,9 +92,11 @@ public class GUIBi extends JFrame {
 	private JTextField tfDate1;
 	private JDialog ratioSensors;
 	private ChartPanel cPanel;
-	private JTextField textField;
+	private JTextField tfNbOver;
 	private JLabel lblTotalAlertAttente;
-	private JTextField textField_1;
+	private JTextField tfPendingAlert;
+	private int indice = 0;
+	private int indice1 = 0;
 
 //TODO SL tu met la methode main dans une classe qui s'appelle MainBianalysisGUI
 	//////////////////////////////////////////////////////////////////////
@@ -154,7 +156,7 @@ public class GUIBi extends JFrame {
 		contentPane.add(lblTempratureMoyenne);
 
 		JLabel lblNombreDePannes = new JLabel("Total DOWN");
-		lblNombreDePannes.setBounds(627, 431, 139, 16);
+		lblNombreDePannes.setBounds(627, 431, 89, 16);
 		contentPane.add(lblNombreDePannes);
 
 		JLabel lblNombreDalertes = new JLabel("Total Alerts");
@@ -172,15 +174,14 @@ public class GUIBi extends JFrame {
 		JLabel lblTo = new JLabel("to");
 		lblTo.setBounds(309, 49, 28, 16);
 		contentPane.add(lblTo);
-		
+
 		JLabel lblTotalOver = new JLabel("Total OVER");
 		lblTotalOver.setBounds(627, 469, 139, 22);
 		contentPane.add(lblTotalOver);
-		
+
 		lblTotalAlertAttente = new JLabel("Total Pending Alert");
-		lblTotalAlertAttente.setBounds(627, 504, 139, 22);
+		lblTotalAlertAttente.setBounds(627, 504, 97, 22);
 		contentPane.add(lblTotalAlertAttente);
-		
 
 /////////////////////////////////////////////
 		//// JCombobox
@@ -196,6 +197,7 @@ public class GUIBi extends JFrame {
 
 		String[] sensorType = { "ALL", "SMOKE", "MOVE", "TEMPERATURE", "WINDOW", "DOOR", "ELEVATOR", "LIGHT", "FIRE",
 				"BADGE", "ROUTER" };
+
 		cbCapteur = new JComboBox(sensorType);
 		cbCapteur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -210,6 +212,9 @@ public class GUIBi extends JFrame {
 						listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ," + str.getSensorState()
 								+ " ," + str.getIdCommonArea());
 
+						indice = listM.size();
+						System.out.println("okay " + indice);
+
 					}
 
 				} else if (selectedBook.equals("SMOKE")) {
@@ -218,6 +223,8 @@ public class GUIBi extends JFrame {
 						if (str.getTypeSensor().equals(SensorType.SMOKE)) {
 							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
 									+ str.getSensorState() + " ," + str.getIdCommonArea());
+
+							System.out.println("okay " + indice);
 						}
 					}
 
@@ -227,15 +234,17 @@ public class GUIBi extends JFrame {
 						if (str.getTypeSensor().equals(SensorType.ROUTER)) {
 							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
 									+ str.getSensorState() + " ," + str.getIdCommonArea());
+							indice = listM.size();
 						}
 					}
-					
+
 				} else if (selectedBook.equals("ELEVATOR")) {
 					listM.clear();
 					for (Sensor str : listSensor) {
 						if (str.getTypeSensor().equals(SensorType.ELEVATOR))
 							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
 									+ str.getSensorState() + " ," + str.getIdCommonArea());
+						indice = listM.size();
 
 					}
 
@@ -245,6 +254,7 @@ public class GUIBi extends JFrame {
 						if (str.getTypeSensor().equals(SensorType.DOOR)) {
 							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
 									+ str.getSensorState() + " ," + str.getIdCommonArea());
+							indice = listM.size();
 						}
 					}
 				} else if (selectedBook.equals("LIGHT")) {
@@ -254,6 +264,7 @@ public class GUIBi extends JFrame {
 						if (str.getTypeSensor().equals(SensorType.LIGHT))
 							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
 									+ str.getSensorState() + " ," + str.getIdCommonArea());
+						indice = listM.size();
 
 					}
 
@@ -263,6 +274,7 @@ public class GUIBi extends JFrame {
 						if (str.getTypeSensor().equals(SensorType.MOVE)) {
 							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
 									+ str.getSensorState() + " ," + str.getIdCommonArea());
+							indice = listM.size();
 						}
 					}
 				} else if (selectedBook.equals("WINDOW")) {
@@ -271,7 +283,7 @@ public class GUIBi extends JFrame {
 						if (str.getTypeSensor().equals(SensorType.WINDOW))
 							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
 									+ str.getSensorState() + " ," + str.getIdCommonArea());
-
+						indice = listM.size();
 					}
 
 				}
@@ -301,20 +313,13 @@ public class GUIBi extends JFrame {
 
 ////////////////////////////////////////////////////
 		// Textfield
-		nbPanne = new JTextField();
-		nbPanne.setBounds(742, 425, 112, 28);
-		contentPane.add(nbPanne);
-		nbPanne.setColumns(10);
 
 		tfTemperature = new JTextField();
 		tfTemperature.setBounds(148, 538, 112, 28);
 		contentPane.add(tfTemperature);
 		tfTemperature.setColumns(10);
+
 		
-		textField = new JTextField();
-		textField.setBounds(744, 458, 110, 28);
-		contentPane.add(textField);
-		textField.setColumns(10);
 
 		Object[] monObj1 = returnNumber();
 		tfAlertes = new JTextField();
@@ -329,7 +334,20 @@ public class GUIBi extends JFrame {
 		tfStock.setText(monObj[2].toString());
 		contentPane.add(tfStock);
 		tfStock.setColumns(10);
+		
+		tfNbOver = new JTextField();
+		tfNbOver.setBounds(744, 458, 110, 28);
+		tfNbOver.setText(monObj1[3].toString());
+		contentPane.add(tfNbOver);
+		tfNbOver.setColumns(10);
+		
+		tfDown = new JTextField();
+		tfDown.setBounds(742, 425, 112, 28);
+		tfDown.setText(monObj1[2].toString());
+		contentPane.add(tfDown);
+		tfDown.setColumns(10);
 
+		
 		tfRecherche = new JTextField();
 		tfRecherche.setBounds(10, 33, 289, 28);
 		contentPane.add(tfRecherche);
@@ -415,14 +433,17 @@ public class GUIBi extends JFrame {
 		ChartPanel cpAlerts = new ChartPanel(pieChart1);
 		cpAlerts.setBounds(366, 304, 223, 182);
 		contentPane.add(cpAlerts);
-		
 
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(744, 501, 110, 28);
-		contentPane.add(textField_1);
-		
+		tfPendingAlert = new JTextField();
+		tfPendingAlert.setColumns(10);
+		tfPendingAlert.setBounds(744, 501, 110, 28);
+		indice = listSensor.size();
+		tfPendingAlert.setText(String.valueOf(indice1));
+		contentPane.add(tfPendingAlert);
 
+		JButton btnDetails = new JButton("Details");
+		btnDetails.setBounds(860, 504, 89, 23);
+		contentPane.add(btnDetails);
 
 ////////////////////////////////////////////////////////////////////
 		// Bouton Graphic
@@ -468,6 +489,8 @@ public class GUIBi extends JFrame {
 								+ sensorHistorical1.getDate() + " ID Sensor : " + sensorHistorical1.getIdSensor()
 								+ " State : " + sensorHistorical1.getSensorState() + " Alert State :"
 								+ sensorHistorical1.getAlertState());
+						indice1 = ListModel.getSize();
+						System.out.println("okay "+ indice1);
 					}
 				}
 			}
@@ -484,16 +507,21 @@ public class GUIBi extends JFrame {
 					for (CommonArea area : listCommonAreas) {
 						for (Sensor str : listSensor) {
 							for (SensorHistorical hist : listSensorHistorical) {
-								ListModel.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
-										+ str.getSensorState() + " ," + area.getNameCommonArea() + str.getAlertState()
-										+ "#" + area.getEtageCommonArea());
-							
+								if (hist.getIdSensor() == str.getIdSensor()) {
+									if (str.getIdCommonArea() == area.getIdCommonArea()) {// A MODIFIER PLUS TARD
+
+										ListModel.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
+												+ str.getSensorState() + " ," + area.getNameCommonArea()
+												+ str.getAlertState() + "#" + area.getEtageCommonArea());
+										
+									}
+								}
 							}
 						}
-
 					}
-
-					System.out.println("Nous sommes au RC");
+					indice1 = ListModel.getSize();
+					tfPendingAlert.setText(String.valueOf(indice1));
+					
 				} else if (selectedBook.equals("RC")) {
 					ListModel.clear();
 					for (CommonArea area : listCommonAreas) {
@@ -506,6 +534,7 @@ public class GUIBi extends JFrame {
 											ListModel.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
 													+ str.getSensorState() + " ," + area.getNameCommonArea()
 													+ str.getAlertState() + "#" + area.getEtageCommonArea());
+											
 										}
 									}
 								}
@@ -513,7 +542,9 @@ public class GUIBi extends JFrame {
 						}
 					}
 
-					System.out.println("Nous sommes au RC");
+					indice1 = ListModel.getSize();
+					System.out.println("okay "+ indice1);
+					tfPendingAlert.setText(String.valueOf(indice1));
 				}
 
 				else if (selectedBook.equals("Etage 1")) {
@@ -534,7 +565,9 @@ public class GUIBi extends JFrame {
 							}
 						}
 					}
-//			    	System.out.println("Nous sommes à l'etage 1");
+			    	indice1 = ListModel.getSize();
+					System.out.println("okay "+ indice1);
+					tfPendingAlert.setText(String.valueOf(indice1));
 				} else if (selectedBook.equals("Etage 2")) {
 					ListModel.clear();
 					System.out.println("Nous somme à l'étage 2");
@@ -556,6 +589,8 @@ public class GUIBi extends JFrame {
 						}
 					}
 				}
+				indice1 = ListModel.getSize();
+				tfPendingAlert.setText(String.valueOf(indice1));
 			}
 		});
 
