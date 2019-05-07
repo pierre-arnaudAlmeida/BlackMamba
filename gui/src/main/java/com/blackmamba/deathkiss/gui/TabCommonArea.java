@@ -104,7 +104,10 @@ public class TabCommonArea extends JPanel {
 		///////////////////////// Thread/////////////////////////////////////////////////
 		setThreadCommonArea(new Thread(new Runnable() {
 			/**
-			 * Loop and update every 30 seconds the list of commonAreas
+			 * Loop and update every 30 seconds the list of commonAreas Update first the
+			 * commonArea selected by the user if they have selected one and update the list
+			 * of commonArea existing in Data base And at end the thread wait 30
+			 * seconds/time define in file properties in resources
 			 */
 			@Override
 			public void run() {
@@ -200,7 +203,8 @@ public class TabCommonArea extends JPanel {
 				String searchReceived = searchBar.getText().trim();
 				if (!searchReceived.equals("")) {
 					/**
-					 * If the research is just numerics they find first the IdCommonArea
+					 * If the research is just numerics they find first the IdCommonArea. And
+					 * display this list at left of screen
 					 */
 					if (searchReceived.matches("[0-9]+[0-9]*")) {
 						commonArea2 = new CommonArea();
@@ -215,7 +219,8 @@ public class TabCommonArea extends JPanel {
 									+ " ," + commonArea2.getEtageCommonArea());
 						}
 						/**
-						 * Find CommonArea with the stage
+						 * Find CommonArea with the stage inserted by user on search bar. And display
+						 * this list at left of screen
 						 */
 						commonArea2 = new CommonArea();
 						commonArea2.setEtageCommonArea(Integer.parseInt(searchReceived));
@@ -230,7 +235,8 @@ public class TabCommonArea extends JPanel {
 						}
 					} else {
 						/**
-						 * If the research contains letter and numerics
+						 * If the research contains letter and numerics they get all commonArea who
+						 * contains the characters wrote And display it in Scroll list at left of screen
 						 */
 						searchReceived = Normalizer.normalize(searchReceived, Normalizer.Form.NFD)
 								.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
@@ -249,7 +255,7 @@ public class TabCommonArea extends JPanel {
 					}
 				} else {
 					/**
-					 * If the research is empty they display all the CommonAreas
+					 * If the research is empty they display all the CommonAreas at left of screen
 					 */
 					requestType = "READ ALL";
 					table = "CommonArea";
@@ -281,7 +287,6 @@ public class TabCommonArea extends JPanel {
 		/**
 		 * Add a scrollBar on list
 		 */
-
 		sc.setBounds(30, 120, 300, ((int) getToolkit().getScreenSize().getHeight() - 300));
 		this.add(sc);
 
@@ -289,6 +294,7 @@ public class TabCommonArea extends JPanel {
 		 * when we pressed a line in the list they will send a request to get all the
 		 * information about the CommonArea selected to be displayed on the textField
 		 */
+		// TODO PA COMMENTAIRE
 		index = -9999;
 		MouseListener mouseListener = new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {

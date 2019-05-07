@@ -6,7 +6,8 @@ package com.blackmamba.deathkiss.pool.entity;
  *
  */
 public enum Sensitivity {
-	LOW,
-	MEDIUM,
-	HIGH
+	/**
+	 * Different sensitivity of an sensor, they have 3 level of sensitivity
+	 */
+	LOW, MEDIUM, HIGH
 }

@@ -161,7 +161,8 @@ public class Frame extends JFrame {
 	}
 
 	/**
-	 * Verify if the employee exist in the data base
+	 * Verify if the employee exist in the data base Send the id inserted by user,
+	 * and wait the response with all the informations about this user
 	 * 
 	 * @param id
 	 */
@@ -183,7 +184,8 @@ public class Frame extends JFrame {
 	}
 
 	/**
-	 * Get all Alert stocked on server and add on listAlert
+	 * Get all Alert stocked on server and add on listAlert Send the request to get
+	 * all alerts and receive an list of alert
 	 */
 	public void getAlert() {
 		requestType = "GET ALERT";
@@ -195,14 +197,14 @@ public class Frame extends JFrame {
 			jsonString = ClientSocket.getJson();
 			Alert[] alerts = objectMapper.readValue(jsonString, Alert[].class);
 			listAlert = Arrays.asList(alerts);
-			logger.log(Level.DEBUG, "Find Messages datas succed");
+			logger.log(Level.DEBUG, "Find Alerts datas succed");
 		} catch (Exception e1) {
-			logger.log(Level.WARN, "Impossible to parse in JSON Messages datas " + e1.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to parse in JSON Alerts datas " + e1.getClass().getCanonicalName());
 		}
 	}
 
 	/**
-	 * Method to switch to as other tab
+	 * Method to switch to an other tab
 	 * 
 	 * @param index
 	 */
@@ -213,7 +215,7 @@ public class Frame extends JFrame {
 	/**
 	 * Method to get the actual tab of frame
 	 * 
-	 * @return
+	 * @return tab
 	 */
 	public static JTabbedPane getTab() {
 		return tab;

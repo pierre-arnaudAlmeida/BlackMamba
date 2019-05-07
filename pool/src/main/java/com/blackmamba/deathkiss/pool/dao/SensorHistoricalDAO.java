@@ -24,7 +24,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 public class SensorHistoricalDAO extends DAO<SensorHistorical> {
-	//TODO PA changer la base sensor historical pour slayde
 	/**
 	 * Initialization of parameters
 	 */

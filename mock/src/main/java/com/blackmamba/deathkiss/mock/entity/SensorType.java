@@ -6,14 +6,8 @@ package com.blackmamba.deathkiss.mock.entity;
  *
  */
 public enum SensorType {
-	SMOKE,
-	MOVE,
-	TEMPERATURE,
-	WINDOW,
-	DOOR,
-	ELEVATOR,
-	LIGHT,
-	FIRE,
-	BADGE,
-	ROUTER
+	/**
+	 * The different sensors existing in the system
+	 */
+	SMOKE, MOVE, TEMPERATURE, WINDOW, DOOR, ELEVATOR, LIGHT, FIRE, BADGE, ROUTER
 }
