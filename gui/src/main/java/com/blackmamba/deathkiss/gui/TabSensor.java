@@ -781,9 +781,12 @@ public class TabSensor extends JPanel {
 						+ textInputMinuteStartActivity.getSelectedItem() + ":00"));
 				sensor.setEndActivity(Time.valueOf(textInputHourEndActivity.getSelectedItem() + ":"
 						+ textInputMinuteEndActivity.getSelectedItem() + ":00"));
-
-				// TODO PA ajouter les threshold min et max avec verification que c'est un
-				// entier
+				if (textInputThresholdMin.getText().trim().matches("[0-9]+[0-9]*")) {
+					sensor.setThresholdMin(Integer.parseInt(textInputThresholdMin.getText().trim()));
+				}
+				if (textInputThresholdMax.getText().trim().matches("[0-9]+[0-9]*")) {
+					sensor.setThresholdMax(Integer.parseInt(textInputThresholdMax.getText().trim()));
+				}
 				/**
 				 * Read the sensor type selected
 				 */
@@ -879,8 +882,12 @@ public class TabSensor extends JPanel {
 						+ textInputMinuteStartActivity.getSelectedItem() + ":00"));
 				sensor.setEndActivity(Time.valueOf(textInputHourEndActivity.getSelectedItem() + ":"
 						+ textInputMinuteEndActivity.getSelectedItem() + ":00"));
-				// TODO PA ajouter le threshold min et max avec verification que si c'est un
-				// entier
+				if (textInputThresholdMin.getText().trim().matches("[0-9]+[0-9]*")) {
+					sensor.setThresholdMin(Integer.parseInt(textInputThresholdMin.getText().trim()));
+				}
+				if (textInputThresholdMax.getText().trim().matches("[0-9]+[0-9]*")) {
+					sensor.setThresholdMax(Integer.parseInt(textInputThresholdMax.getText().trim()));
+				}
 				/**
 				 * Select the type of sensor
 				 */
