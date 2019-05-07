@@ -1,9 +1,7 @@
 package com.blackmamba.deathkiss.entity;
 
 import java.sql.Time;
-import com.blackmamba.deathkiss.entity.AlertState;
-import com.blackmamba.deathkiss.entity.Sensitivity;
-import com.blackmamba.deathkiss.entity.SensorType;
+import java.util.Date;
 
 /**
  * 
@@ -25,6 +23,7 @@ public class Sensor {
 	private Time endActivity = null;
 	private int thresholdMin = 0;
 	private int thresholdMax = 0;
+	private Date lastUpdate;
 
 	/**
 	 * Constructor
@@ -198,5 +197,19 @@ public class Sensor {
 	 */
 	public void setEndActivity(Time endActivity) {
 		this.endActivity = endActivity;
+	}
+
+	/**
+	 * @return the lastUpdate
+	 */
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
+
+	/**
+	 * @param lastUpdate the lastUpdate to set
+	 */
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 }

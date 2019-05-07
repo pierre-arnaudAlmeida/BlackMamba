@@ -1,6 +1,8 @@
 package com.blackmamba.deathkiss.bianalysis.entity;
 
 import java.sql.Time;
+import java.util.Date;
+
 import com.blackmamba.deathkiss.bianalysis.entity.AlertState;
 import com.blackmamba.deathkiss.bianalysis.entity.Sensitivity;
 import com.blackmamba.deathkiss.bianalysis.entity.SensorType;
@@ -25,6 +27,7 @@ public class Sensor {
 	private Time endActivity = null;
 	private int thresholdMin = 0;
 	private int thresholdMax = 0;
+	private Date lastUpdate;
 
 	/**
 	 * Constructor
@@ -199,5 +202,19 @@ public class Sensor {
 	 */
 	public void setEndActivity(Time endActivity) {
 		this.endActivity = endActivity;
+	}
+
+	/**
+	 * @return the lastUpdate
+	 */
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
+
+	/**
+	 * @param lastUpdate the lastUpdate to set
+	 */
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 }
