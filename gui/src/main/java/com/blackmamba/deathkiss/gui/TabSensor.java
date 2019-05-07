@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -24,7 +26,10 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSlider;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -52,6 +57,8 @@ public class TabSensor extends JPanel {
 	private String jsonString;
 	private int idemployee;
 	private int index;
+	private int thresholdMin;
+	private int thresholdMax;
 	private JPanel bar;
 	private JPanel search;
 	private JLabel labelIdEmployee;
@@ -90,6 +97,8 @@ public class TabSensor extends JPanel {
 	private CommonArea commonArea;
 	private ObjectMapper objectMapper;
 	private Thread threadSensor;
+	private JSlider sliderThresholdMin;
+	private JSlider sliderThresholdMax;
 	private JComboBox<String> textInputNameCommonArea;
 	private JComboBox<String> textInputTypeSensor;
 	private JComboBox<String> textInputSensitivity;
@@ -571,7 +580,60 @@ public class TabSensor extends JPanel {
 		textInputTypeSensor.addItem("-");
 		for (SensorType typeSensor : SensorType.values()) {
 			textInputTypeSensor.addItem(typeSensor.name());
-		} // TODO PA tester sans le action listener
+		}
+		textInputTypeSensor.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if (textInputTypeSensor.getSelectedIndex() != 0) {
+					SensorType element = SensorType.valueOf(textInputTypeSensor.getSelectedItem().toString());
+					switch (element) {
+					case SMOKE:
+						sliderThresholdMin.setMaximum(50);
+						sliderThresholdMin.setMinimum(0);
+						sliderThresholdMin.setValue(10);
+						sliderThresholdMin.setMinorTickSpacing(5);
+						sliderThresholdMin.setMajorTickSpacing(10);
+						sliderThresholdMax.setMaximum(50);
+						sliderThresholdMax.setMinimum(0);
+						sliderThresholdMax.setValue(10);
+						sliderThresholdMax.setMinorTickSpacing(5);
+						sliderThresholdMax.setMajorTickSpacing(10);
+						break;
+					case TEMPERATURE:
+						sliderThresholdMin.setMaximum(50);
+						sliderThresholdMin.setMinimum(-20);
+						sliderThresholdMin.setValue(20);
+						sliderThresholdMin.setMinorTickSpacing(5);
+						sliderThresholdMin.setMajorTickSpacing(10);
+						sliderThresholdMax.setMaximum(50);
+						sliderThresholdMax.setMinimum(-20);
+						sliderThresholdMax.setValue(20);
+						sliderThresholdMax.setMinorTickSpacing(5);
+						sliderThresholdMax.setMajorTickSpacing(10);
+						break;
+					case ELEVATOR:
+						sliderThresholdMin.setMaximum(8);
+						sliderThresholdMin.setMinimum(0);
+						sliderThresholdMin.setValue(4);
+						sliderThresholdMin.setMinorTickSpacing(1);
+						sliderThresholdMin.setMajorTickSpacing(2);
+						sliderThresholdMax.setMaximum(8);
+						sliderThresholdMax.setMinimum(0);
+						sliderThresholdMax.setValue(4);
+						sliderThresholdMax.setMinorTickSpacing(1);
+						sliderThresholdMax.setMajorTickSpacing(2);
+						break;
+					default:
+						sliderThresholdMin.setMaximum(1);
+						sliderThresholdMin.setMinimum(0);
+						sliderThresholdMin.setValue(0);
+						sliderThresholdMax.setMaximum(1);
+						sliderThresholdMax.setMinimum(0);
+						sliderThresholdMax.setValue(0);
+					}
+				}
+			}
+		});
 
 		/**
 		 * Definition of textArea StateSensor
@@ -711,6 +773,90 @@ public class TabSensor extends JPanel {
 			textInputMinuteEndActivity.addItem(i);
 		}
 
+		/**
+		 * Definition of Slider Threshold Min
+		 */
+		sliderThresholdMin = new JSlider();
+		sliderThresholdMin.setPaintTicks(true);
+		sliderThresholdMin.setPaintLabels(true);
+		sliderThresholdMin.setMaximum(100);
+		sliderThresholdMin.setMinimum(0);
+		sliderThresholdMin.setValue(30);
+		sliderThresholdMin.setMinorTickSpacing(5);
+		sliderThresholdMin.setMajorTickSpacing(10);
+
+		sliderThresholdMin.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent event) {
+				sensor = new Sensor();// TODO PA a supprimer
+				if (textInputTypeSensor.getSelectedIndex() != 0) {
+					SensorType element = SensorType.valueOf(textInputTypeSensor.getSelectedItem().toString());
+					switch (element) {
+					case ELEVATOR:
+						labelThresholdMin
+								.setText("Threshold Min : " + ((JSlider) event.getSource()).getValue() + "00kg");
+						thresholdMin = ((JSlider) event.getSource()).getValue() * 100;
+						sensor.setThresholdMin(((JSlider) event.getSource()).getValue() * 100);
+						break;
+					case SMOKE:
+						labelThresholdMin
+								.setText("Threshold Min : " + ((JSlider) event.getSource()).getValue() + "0ppm");
+						sensor.setThresholdMin(((JSlider) event.getSource()).getValue() * 10);
+						break;
+					default:
+						labelThresholdMin.setText("Threshold Min : " + ((JSlider) event.getSource()).getValue());
+						thresholdMin = ((JSlider) event.getSource()).getValue();
+						sensor.setThresholdMin(((JSlider) event.getSource()).getValue());
+					}
+				}
+			}
+		});
+		sliderThresholdMin.setBackground(color);
+		sliderThresholdMin.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 12 / 20, 200, 100);
+		this.add(sliderThresholdMin);
+
+		/**
+		 * Definition of Slider Threshold Max
+		 */
+		sliderThresholdMax = new JSlider();
+		sliderThresholdMax.setPaintTicks(true);
+		sliderThresholdMax.setPaintLabels(true);
+		sliderThresholdMax.setMaximum(100);
+		sliderThresholdMax.setMinimum(0);
+		sliderThresholdMax.setValue(30);
+		sliderThresholdMax.setMinorTickSpacing(5);
+		sliderThresholdMax.setMajorTickSpacing(10);
+
+		sliderThresholdMax.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent event) {
+				sensor = new Sensor();// TODO PA a supprimer
+				if (textInputTypeSensor.getSelectedIndex() != 0) {
+					SensorType element = SensorType.valueOf(textInputTypeSensor.getSelectedItem().toString());
+					switch (element) {
+					case ELEVATOR:
+						labelThresholdMax
+								.setText("Threshold Max : " + ((JSlider) event.getSource()).getValue() + "00kg");
+						thresholdMax = ((JSlider) event.getSource()).getValue() * 100;
+						sensor.setThresholdMax(((JSlider) event.getSource()).getValue() * 100);
+						break;
+					case SMOKE:
+						labelThresholdMax
+								.setText("Threshold Max : " + ((JSlider) event.getSource()).getValue() + "0ppm");
+						sensor.setThresholdMax(((JSlider) event.getSource()).getValue() * 10);
+						break;
+					default:
+						labelThresholdMax.setText("Threshold Max : " + ((JSlider) event.getSource()).getValue());
+						thresholdMax = ((JSlider) event.getSource()).getValue();
+						sensor.setThresholdMax(((JSlider) event.getSource()).getValue());
+					}
+				}
+			}
+		});
+		sliderThresholdMax.setBackground(color);
+		sliderThresholdMax.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 12 / 20, 200, 100);
+		this.add(sliderThresholdMax);
+
 		///////////////////////// BUTTON/////////////////////////////////////////////////
 		/**
 		 * Definition of Button AddSensor
@@ -748,6 +894,7 @@ public class TabSensor extends JPanel {
 				 * Read the sensor type selected
 				 */
 				// TODO PA verifier
+				// ajaouter les nouveaux parametre
 				if (textInputTypeSensor.getSelectedIndex() != 1) {
 					String newTypeSensor = textInputTypeSensor.getSelectedItem().toString();
 					SensorType element = SensorType.valueOf(newTypeSensor);
@@ -790,6 +937,7 @@ public class TabSensor extends JPanel {
 		/**
 		 * Definition of Button Save
 		 */
+		// TODO PA ajouter les nouveaux parametre
 		save = new JButton("Save");
 		save.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4) + 250,
 				(int) getToolkit().getScreenSize().getHeight() * 16 / 20, 200, 40);
@@ -863,6 +1011,7 @@ public class TabSensor extends JPanel {
 		/**
 		 * Definition of Button Restore
 		 */
+		// TODO PA ajouter les nouveaux parametre
 		restaure = new JButton("Restore");
 		restaure.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4),
 				(int) getToolkit().getScreenSize().getHeight() * 16 / 20, 200, 40);
@@ -1015,6 +1164,7 @@ public class TabSensor extends JPanel {
 	 * Find the Sensor by the id get on list
 	 */
 	public void updateSensorSelected() {
+		// TODO PA ajouter les nouveaux parametre
 		if (index != -9999) {
 			String substring = listM.getElementAt(index).toString();
 			int position = substring.indexOf("#");

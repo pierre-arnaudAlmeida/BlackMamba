@@ -94,13 +94,13 @@ public class Frame extends JFrame {
 		/**
 		 * Creation of different tabs
 		 */
-		tabEmployes = new TabEmployes(Color.GRAY, this.idEmployee, "Tab Employees");
-		tabCommonArea = new TabCommonArea(Color.GRAY, this.idEmployee, 0, "Tab Common Areas");
+		//tabEmployes = new TabEmployes(Color.GRAY, this.idEmployee, "Tab Employees");
+		//tabCommonArea = new TabCommonArea(Color.GRAY, this.idEmployee, 0, "Tab Common Areas");
 		tabSensor = new TabSensor(Color.GRAY, this.idEmployee, "Tab Sensors", 0);
-		tabResident = new TabResident(Color.GRAY, this.idEmployee, "Tab Residents");
-		tabHistorical = new TabHistorical(Color.GRAY, this.idEmployee, "Tab Historical");
-		tabProfile = new TabProfile(Color.GRAY, this.idEmployee, "Tab Profile");
-		tabMapSensor = new TabMapSensor(Color.GRAY, this.idEmployee, "Tab Map");
+		//tabResident = new TabResident(Color.GRAY, this.idEmployee, "Tab Residents");
+		//tabHistorical = new TabHistorical(Color.GRAY, this.idEmployee, "Tab Historical");
+		//tabProfile = new TabProfile(Color.GRAY, this.idEmployee, "Tab Profile");
+		//tabMapSensor = new TabMapSensor(Color.GRAY, this.idEmployee, "Tab Map");
 
 		/**
 		 * Add of the title of tabs
@@ -147,7 +147,7 @@ public class Frame extends JFrame {
 		 */
 		// TODO PA a remettre
 		// threadAlert.start();
-		threadFrame.start();
+		//threadFrame.start();
 
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
