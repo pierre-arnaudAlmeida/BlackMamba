@@ -270,8 +270,8 @@ public class SensorDAO extends DAO<Sensor> {
 		sensor.setAlertState(alertStateElement);
 		Sensitivity sensitivityElement = Sensitivity.valueOf(result.getObject(6).toString());
 		sensor.setSensitivity(sensitivityElement);
-		// sensor.setStartActivity(Time.valueOf(result.getObject(7).toString()));
-		// sensor.setEndActivity(Time.valueOf(result.getObject(8).toString()));
+		sensor.setStartActivity(Time.valueOf(result.getObject(7).toString()));
+		sensor.setEndActivity(Time.valueOf(result.getObject(8).toString()));
 		// sensor = getThreshold(sensor, result.getObject(9).toString());
 	}
 }

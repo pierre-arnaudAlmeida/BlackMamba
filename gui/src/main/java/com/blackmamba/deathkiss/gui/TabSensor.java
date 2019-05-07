@@ -362,7 +362,7 @@ public class TabSensor extends JPanel {
 					textInputAlertState.setText(sensor.getAlertState().name());
 					textInputSensitivity.setSelectedItem(sensor.getSensitivity().name());
 					textInputTypeSensor.setSelectedItem(sensor.getTypeSensor().name());
-
+					convertActivityTime(sensor.getStartActivity(), sensor.getEndActivity());
 					if (sensor.getSensorState()) {
 						switchButton.setText("ON");
 						switchButton.setBackground(Color.GREEN);
@@ -745,8 +745,6 @@ public class TabSensor extends JPanel {
 				/**
 				 * Read the sensor type selected
 				 */
-				// TODO PA verifier
-				// ajaouter les nouveaux parametre
 				if (textInputTypeSensor.getSelectedIndex() != 0) {
 					String newTypeSensor = textInputTypeSensor.getSelectedItem().toString();
 					SensorType element = SensorType.valueOf(newTypeSensor);
@@ -796,7 +794,6 @@ public class TabSensor extends JPanel {
 		/**
 		 * Definition of Button Save
 		 */
-		// TODO PA ajouter les nouveaux parametre
 		save = new JButton("Save");
 		save.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4) + 250,
 				(int) getToolkit().getScreenSize().getHeight() * 16 / 20, 200, 40);
@@ -880,7 +877,6 @@ public class TabSensor extends JPanel {
 		/**
 		 * Definition of Button Restore
 		 */
-		// TODO PA ajouter les nouveaux parametre
 		restaure = new JButton("Restore");
 		restaure.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4),
 				(int) getToolkit().getScreenSize().getHeight() * 16 / 20, 200, 40);
@@ -957,6 +953,14 @@ public class TabSensor extends JPanel {
 					textInputIdSensor.setText("");
 					switchButton.setText("OFF");
 					switchButton.setBackground(Color.RED);
+					textInputNameCommonArea.setSelectedIndex(0);
+					textInputAlertState.setText("");
+					textInputSensitivity.setSelectedIndex(0);
+					textInputTypeSensor.setSelectedItem(0);
+					textInputHourStartActivity.setSelectedIndex(0);
+					textInputMinuteStartActivity.setSelectedIndex(0);
+					textInputHourEndActivity.setSelectedIndex(0);
+					textInputMinuteEndActivity.setSelectedIndex(0);
 				} else {
 					JOptionPane.showMessageDialog(null, "Please select an sensor to deleted", "Error",
 							JOptionPane.INFORMATION_MESSAGE);
@@ -1039,7 +1043,6 @@ public class TabSensor extends JPanel {
 	 * Find the Sensor by the id get on list
 	 */
 	public void updateSensorSelected() {
-		// TODO PA ajouter les nouveaux parametre
 		if (index != -9999) {
 			String substring = listM.getElementAt(index).toString();
 			int position = substring.indexOf("#");
@@ -1068,6 +1071,7 @@ public class TabSensor extends JPanel {
 						textInputNameCommonArea.setSelectedIndex(i);
 					}
 				}
+				convertActivityTime(sensor.getStartActivity(), sensor.getEndActivity());
 				if (sensor.getSensorState()) {
 					switchButton.setText("ON");
 					switchButton.setBackground(Color.GREEN);
@@ -1155,6 +1159,19 @@ public class TabSensor extends JPanel {
 			logger.log(Level.WARN, "Impossible to parse in JSON Alert datas " + e1.getClass().getCanonicalName());
 			return null;
 		}
+	}
+
+	public void convertActivityTime(Time startActivity, Time endActivity) {
+		String sA = startActivity.toString();
+		String eA = endActivity.toString();
+
+		int position = sA.indexOf(":");
+		textInputHourStartActivity.setSelectedIndex(Integer.parseInt(sA.substring(0, position).trim()));
+		textInputMinuteStartActivity
+				.setSelectedIndex(Integer.parseInt(sA.substring(position + 1, position + 3).trim()));
+		position = eA.indexOf(":");
+		textInputHourEndActivity.setSelectedIndex(Integer.parseInt(eA.substring(0, position).trim()));
+		textInputMinuteEndActivity.setSelectedIndex(Integer.parseInt(eA.substring(position + 1, position + 3).trim()));
 	}
 
 	/**
