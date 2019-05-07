@@ -54,14 +54,12 @@ public class SensorDAO extends DAO<Sensor> {
 			if (sensor.getSensorState()) {
 				state = "ON";
 			} else
-				state = "OFF";// TODO PA ,parametre
+				state = "OFF";
 			request = "insert into capteur (type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin) values ('"
 					+ sensor.getTypeSensor() + "','" + state + "','" + sensor.getIdCommonArea() + "','"
 					+ sensor.getAlertState() + "','" + sensor.getSensitivity() + "','" + sensor.getStartActivity()
-					+ "','" + sensor.getEndActivity() + "');";
-			// TODO + "','" + "seuilMin:" +
-			// sensor.getThresholdMin() + "seuilMax:"
-			// + sensor.getThresholdMax() + "');";
+					+ "','" + sensor.getEndActivity() + "','" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:"
+					+ sensor.getThresholdMax() + "');";
 			Statement st = con.createStatement();
 			st.execute(request);
 			logger.log(Level.DEBUG, "Sensor succesfully inserted in BDD");
@@ -272,6 +270,6 @@ public class SensorDAO extends DAO<Sensor> {
 		sensor.setSensitivity(sensitivityElement);
 		sensor.setStartActivity(Time.valueOf(result.getObject(7).toString()));
 		sensor.setEndActivity(Time.valueOf(result.getObject(8).toString()));
-		// sensor = getThreshold(sensor, result.getObject(9).toString());
+		sensor = getThreshold(sensor, result.getObject(9).toString());
 	}
 }

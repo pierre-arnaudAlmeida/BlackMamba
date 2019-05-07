@@ -67,7 +67,8 @@ public class TabSensor extends JPanel {
 	private JLabel labelAlertState;
 	private JLabel labelStartActivity;
 	private JLabel labelEndActivity;
-	private JLabel labelThreshold;
+	private JLabel labelThresholdMin;
+	private JLabel labelThresholdMax;
 	private JLabel labelHourStartActivity;
 	private JLabel labelMinuteStartActivity;
 	private JLabel labelHourEndActivity;
@@ -75,6 +76,8 @@ public class TabSensor extends JPanel {
 	private JTextField textInputIdSensor;
 	private JTextField searchBar;
 	private JTextField textInputAlertState;
+	private JTextField textInputThresholdMin;
+	private JTextField textInputThresholdMax;
 	private Font policeBar;
 	private Font policeLabel;
 	private JButton disconnection;
@@ -362,6 +365,8 @@ public class TabSensor extends JPanel {
 					textInputAlertState.setText(sensor.getAlertState().name());
 					textInputSensitivity.setSelectedItem(sensor.getSensitivity().name());
 					textInputTypeSensor.setSelectedItem(sensor.getTypeSensor().name());
+					textInputThresholdMin.setText(Integer.toString(sensor.getThresholdMin()));
+					textInputThresholdMax.setText(Integer.toString(sensor.getThresholdMax()));
 					convertActivityTime(sensor.getStartActivity(), sensor.getEndActivity());
 					if (sensor.getSensorState()) {
 						switchButton.setText("ON");
@@ -481,11 +486,20 @@ public class TabSensor extends JPanel {
 		/**
 		 * Definition of label Threshold
 		 */
-		labelThreshold = new JLabel("Threshold");
-		labelThreshold.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
+		labelThresholdMin = new JLabel("Threshold Min");
+		labelThresholdMin.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
 				(int) getToolkit().getScreenSize().getHeight() * 11 / 20, 200, 30);
-		labelThreshold.setFont(policeLabel);
-		this.add(labelThreshold);
+		labelThresholdMin.setFont(policeLabel);
+		this.add(labelThresholdMin);
+
+		/**
+		 * Definition of label Threshold Min
+		 */
+		labelThresholdMax = new JLabel("Threshold Max");
+		labelThresholdMax.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 11 / 20, 200, 30);
+		labelThresholdMax.setFont(policeLabel);
+		this.add(labelThresholdMax);
 
 		/**
 		 * Definition of label Hour Start Activity
@@ -624,6 +638,11 @@ public class TabSensor extends JPanel {
 			textInputTypeSensor.setSelectedItem(sensor.getTypeSensor().name());
 			textInputNameCommonArea
 					.setSelectedItem(commonArea.getNameCommonArea() + " #" + commonArea.getIdCommonArea());
+			textInputAlertState.setText(sensor.getAlertState().name());
+			textInputSensitivity.setSelectedItem(sensor.getSensitivity().name());
+			textInputThresholdMin.setText(Integer.toString(sensor.getThresholdMin()));
+			textInputThresholdMax.setText(Integer.toString(sensor.getThresholdMax()));
+			convertActivityTime(sensor.getStartActivity(), sensor.getEndActivity());
 			if (sensor.getSensorState()) {
 				switchButton.setText("ON");
 				switchButton.setBackground(Color.GREEN);
@@ -705,6 +724,26 @@ public class TabSensor extends JPanel {
 			textInputMinuteEndActivity.addItem(i);
 		}
 
+		/**
+		 * Definition of textArea Threshold Min
+		 */
+		textInputThresholdMin = new JTextField();
+		textInputThresholdMin.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 12 / 20, 300, 30);
+		textInputThresholdMin.setFont(policeLabel);
+		textInputThresholdMin.setText("");
+		this.add(textInputThresholdMin);
+
+		/**
+		 * Definition of textArea Threshold Max
+		 */
+		textInputThresholdMax = new JTextField();
+		textInputThresholdMax.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 12 / 20, 300, 30);
+		textInputThresholdMax.setFont(policeLabel);
+		textInputThresholdMax.setText("");
+		this.add(textInputThresholdMax);
+
 		///////////////////////// BUTTON/////////////////////////////////////////////////
 		/**
 		 * Definition of Button AddSensor
@@ -742,6 +781,9 @@ public class TabSensor extends JPanel {
 						+ textInputMinuteStartActivity.getSelectedItem() + ":00"));
 				sensor.setEndActivity(Time.valueOf(textInputHourEndActivity.getSelectedItem() + ":"
 						+ textInputMinuteEndActivity.getSelectedItem() + ":00"));
+
+				// TODO PA ajouter les threshold min et max avec verification que c'est un
+				// entier
 				/**
 				 * Read the sensor type selected
 				 */
@@ -837,6 +879,8 @@ public class TabSensor extends JPanel {
 						+ textInputMinuteStartActivity.getSelectedItem() + ":00"));
 				sensor.setEndActivity(Time.valueOf(textInputHourEndActivity.getSelectedItem() + ":"
 						+ textInputMinuteEndActivity.getSelectedItem() + ":00"));
+				// TODO PA ajouter le threshold min et max avec verification que si c'est un
+				// entier
 				/**
 				 * Select the type of sensor
 				 */
@@ -908,6 +952,8 @@ public class TabSensor extends JPanel {
 				textInputMinuteStartActivity.setSelectedIndex(0);
 				textInputHourEndActivity.setSelectedIndex(0);
 				textInputMinuteEndActivity.setSelectedIndex(0);
+				textInputThresholdMin.setText(Integer.toString(sensor.getThresholdMin()));
+				textInputThresholdMax.setText(Integer.toString(sensor.getThresholdMax()));
 			}
 		});
 
@@ -961,6 +1007,8 @@ public class TabSensor extends JPanel {
 					textInputMinuteStartActivity.setSelectedIndex(0);
 					textInputHourEndActivity.setSelectedIndex(0);
 					textInputMinuteEndActivity.setSelectedIndex(0);
+					textInputThresholdMin.setText("");
+					textInputThresholdMax.setText("");
 				} else {
 					JOptionPane.showMessageDialog(null, "Please select an sensor to deleted", "Error",
 							JOptionPane.INFORMATION_MESSAGE);
@@ -1065,6 +1113,8 @@ public class TabSensor extends JPanel {
 				textInputSensitivity.setSelectedItem(sensor.getSensitivity().name());
 				textInputAlertState.setText(sensor.getAlertState().name());
 				textInputIdSensor.setText(Integer.toString(sensor.getIdSensor()));
+				textInputThresholdMin.setText(Integer.toString(sensor.getThresholdMin()));
+				textInputThresholdMax.setText(Integer.toString(sensor.getThresholdMax()));
 				String str = commonArea.getNameCommonArea() + " #" + sensor.getIdCommonArea();
 				for (int i = 0; i < textInputNameCommonArea.getItemCount(); i++) {
 					if (textInputNameCommonArea.getItemAt(i).toString().contains(str)) {
