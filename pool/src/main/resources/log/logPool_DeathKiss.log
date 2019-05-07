@@ -1,0 +1,142 @@
+2019-05-07 14:50:39 [main] INFO  MainServerGUI:65 - ______           _   _     _    _         
+2019-05-07 14:50:39 [main] INFO  MainServerGUI:66 - |  _  \         | | | |   | |  (_)        
+2019-05-07 14:50:39 [main] INFO  MainServerGUI:67 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-05-07 14:50:39 [main] INFO  MainServerGUI:68 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-05-07 14:50:39 [main] INFO  MainServerGUI:69 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-05-07 14:50:39 [main] INFO  MainServerGUI:70 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-05-07 14:50:39 [main] INFO  MainServerGUI:71 -                                           
+2019-05-07 14:50:41 [AWT-EventQueue-0] INFO  MainServerGUI:85 - Server Initialized
+2019-05-07 16:06:48 [Thread-1708] WARN  SensorDAO:68 - Impossible to insert sensor datas in BDDorg.postgresql.util.PSQLException
+2019-05-07 16:07:36 [Thread-1726] WARN  SensorDAO:68 - Impossible to insert sensor datas in BDDorg.postgresql.util.PSQLException
+2019-05-07 16:09:22 [main] INFO  MainServerGUI:65 - ______           _   _     _    _         
+2019-05-07 16:09:22 [main] INFO  MainServerGUI:66 - |  _  \         | | | |   | |  (_)        
+2019-05-07 16:09:22 [main] INFO  MainServerGUI:67 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-05-07 16:09:22 [main] INFO  MainServerGUI:68 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-05-07 16:09:22 [main] INFO  MainServerGUI:69 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-05-07 16:09:22 [main] INFO  MainServerGUI:70 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-05-07 16:09:22 [main] INFO  MainServerGUI:71 -                                           
+2019-05-07 16:09:23 [AWT-EventQueue-0] INFO  MainServerGUI:85 - Server Initialized
+2019-05-07 16:09:51 [Thread-37] WARN  SensorDAO:68 - Impossible to insert sensor datas in BDDorg.postgresql.util.PSQLException
+2019-05-07 16:12:13 [main] INFO  MainServerGUI:65 - ______           _   _     _    _         
+2019-05-07 16:12:13 [main] INFO  MainServerGUI:66 - |  _  \         | | | |   | |  (_)        
+2019-05-07 16:12:13 [main] INFO  MainServerGUI:67 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-05-07 16:12:13 [main] INFO  MainServerGUI:68 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-05-07 16:12:13 [main] INFO  MainServerGUI:69 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-05-07 16:12:13 [main] INFO  MainServerGUI:70 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-05-07 16:12:13 [main] INFO  MainServerGUI:71 -                                           
+2019-05-07 16:12:15 [AWT-EventQueue-0] INFO  MainServerGUI:85 - Server Initialized
+2019-05-07 16:12:33 [Thread-20] WARN  SensorDAO:69 - Impossible to insert sensor datas in BDDorg.postgresql.util.PSQLException
+2019-05-07 16:14:21 [main] INFO  MainServerGUI:65 - ______           _   _     _    _         
+2019-05-07 16:14:21 [main] INFO  MainServerGUI:66 - |  _  \         | | | |   | |  (_)        
+2019-05-07 16:14:21 [main] INFO  MainServerGUI:67 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-05-07 16:14:21 [main] INFO  MainServerGUI:68 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-05-07 16:14:21 [main] INFO  MainServerGUI:69 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-05-07 16:14:21 [main] INFO  MainServerGUI:70 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-05-07 16:14:21 [main] INFO  MainServerGUI:71 -                                           
+2019-05-07 16:14:22 [AWT-EventQueue-0] INFO  MainServerGUI:85 - Server Initialized
+2019-05-07 16:14:38 [main] WARN  Server:71 - Impossible create the socket java.net.BindException
+2019-05-07 16:14:38 [main] INFO  MainServerGUI:65 - ______           _   _     _    _         
+2019-05-07 16:14:38 [main] INFO  MainServerGUI:66 - |  _  \         | | | |   | |  (_)        
+2019-05-07 16:14:38 [main] INFO  MainServerGUI:67 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-05-07 16:14:38 [main] INFO  MainServerGUI:68 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-05-07 16:14:38 [main] INFO  MainServerGUI:69 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-05-07 16:14:38 [main] INFO  MainServerGUI:70 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-05-07 16:14:38 [main] INFO  MainServerGUI:71 -                                           
+2019-05-07 16:14:39 [AWT-EventQueue-0] INFO  MainServerGUI:85 - Server Initialized
+2019-05-07 16:14:56 [main] INFO  MainServerGUI:65 - ______           _   _     _    _         
+2019-05-07 16:14:56 [main] INFO  MainServerGUI:66 - |  _  \         | | | |   | |  (_)        
+2019-05-07 16:14:56 [main] INFO  MainServerGUI:67 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-05-07 16:14:56 [main] INFO  MainServerGUI:68 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-05-07 16:14:56 [main] INFO  MainServerGUI:69 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-05-07 16:14:56 [main] INFO  MainServerGUI:70 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-05-07 16:14:56 [main] INFO  MainServerGUI:71 -                                           
+2019-05-07 16:14:57 [AWT-EventQueue-0] INFO  MainServerGUI:85 - Server Initialized
+2019-05-07 16:17:55 [main] INFO  MainServerGUI:65 - ______           _   _     _    _         
+2019-05-07 16:17:55 [main] INFO  MainServerGUI:66 - |  _  \         | | | |   | |  (_)        
+2019-05-07 16:17:55 [main] INFO  MainServerGUI:67 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-05-07 16:17:55 [main] INFO  MainServerGUI:68 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-05-07 16:17:55 [main] INFO  MainServerGUI:69 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-05-07 16:17:55 [main] INFO  MainServerGUI:70 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-05-07 16:17:55 [main] INFO  MainServerGUI:71 -                                           
+2019-05-07 16:17:56 [AWT-EventQueue-0] INFO  MainServerGUI:85 - Server Initialized
+2019-05-07 16:19:13 [main] INFO  MainServerGUI:65 - ______           _   _     _    _         
+2019-05-07 16:19:13 [main] INFO  MainServerGUI:66 - |  _  \         | | | |   | |  (_)        
+2019-05-07 16:19:13 [main] INFO  MainServerGUI:67 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-05-07 16:19:13 [main] INFO  MainServerGUI:68 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-05-07 16:19:13 [main] INFO  MainServerGUI:69 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-05-07 16:19:13 [main] INFO  MainServerGUI:70 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-05-07 16:19:13 [main] INFO  MainServerGUI:71 -                                           
+2019-05-07 16:19:14 [AWT-EventQueue-0] INFO  MainServerGUI:85 - Server Initialized
+2019-05-07 16:20:21 [main] INFO  MainServerGUI:65 - ______           _   _     _    _         
+2019-05-07 16:20:21 [main] INFO  MainServerGUI:66 - |  _  \         | | | |   | |  (_)        
+2019-05-07 16:20:21 [main] INFO  MainServerGUI:67 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-05-07 16:20:21 [main] INFO  MainServerGUI:68 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-05-07 16:20:21 [main] INFO  MainServerGUI:69 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-05-07 16:20:21 [main] INFO  MainServerGUI:70 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-05-07 16:20:21 [main] INFO  MainServerGUI:71 -                                           
+2019-05-07 16:20:21 [AWT-EventQueue-0] INFO  MainServerGUI:85 - Server Initialized
+2019-05-07 16:23:18 [main] INFO  MainServerGUI:65 - ______           _   _     _    _         
+2019-05-07 16:23:18 [main] INFO  MainServerGUI:66 - |  _  \         | | | |   | |  (_)        
+2019-05-07 16:23:18 [main] INFO  MainServerGUI:67 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-05-07 16:23:18 [main] INFO  MainServerGUI:68 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-05-07 16:23:18 [main] INFO  MainServerGUI:69 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-05-07 16:23:18 [main] INFO  MainServerGUI:70 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-05-07 16:23:18 [main] INFO  MainServerGUI:71 -                                           
+2019-05-07 16:23:20 [AWT-EventQueue-0] INFO  MainServerGUI:85 - Server Initialized
+2019-05-07 16:27:48 [main] INFO  MainServerGUI:65 - ______           _   _     _    _         
+2019-05-07 16:27:48 [main] INFO  MainServerGUI:66 - |  _  \         | | | |   | |  (_)        
+2019-05-07 16:27:48 [main] INFO  MainServerGUI:67 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-05-07 16:27:48 [main] INFO  MainServerGUI:68 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-05-07 16:27:48 [main] INFO  MainServerGUI:69 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-05-07 16:27:48 [main] INFO  MainServerGUI:70 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-05-07 16:27:48 [main] INFO  MainServerGUI:71 -                                           
+2019-05-07 16:27:49 [AWT-EventQueue-0] INFO  MainServerGUI:85 - Server Initialized
+2019-05-07 16:28:08 [AWT-EventQueue-0] INFO  MainServerGUI:110 - Server already launch
+2019-05-07 16:28:29 [main] INFO  MainServerGUI:65 - ______           _   _     _    _         
+2019-05-07 16:28:29 [main] INFO  MainServerGUI:66 - |  _  \         | | | |   | |  (_)        
+2019-05-07 16:28:29 [main] INFO  MainServerGUI:67 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-05-07 16:28:29 [main] INFO  MainServerGUI:68 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-05-07 16:28:29 [main] INFO  MainServerGUI:69 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-05-07 16:28:29 [main] INFO  MainServerGUI:70 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-05-07 16:28:29 [main] INFO  MainServerGUI:71 -                                           
+2019-05-07 16:28:30 [AWT-EventQueue-0] INFO  MainServerGUI:85 - Server Initialized
+2019-05-07 16:33:55 [main] INFO  MainServerGUI:65 - ______           _   _     _    _         
+2019-05-07 16:33:55 [main] INFO  MainServerGUI:66 - |  _  \         | | | |   | |  (_)        
+2019-05-07 16:33:55 [main] INFO  MainServerGUI:67 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-05-07 16:33:55 [main] INFO  MainServerGUI:68 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-05-07 16:33:55 [main] INFO  MainServerGUI:69 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-05-07 16:33:55 [main] INFO  MainServerGUI:70 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-05-07 16:33:55 [main] INFO  MainServerGUI:71 -                                           
+2019-05-07 16:33:56 [AWT-EventQueue-0] INFO  MainServerGUI:85 - Server Initialized
+2019-05-07 16:34:29 [main] INFO  MainServerGUI:65 - ______           _   _     _    _         
+2019-05-07 16:34:29 [main] INFO  MainServerGUI:66 - |  _  \         | | | |   | |  (_)        
+2019-05-07 16:34:29 [main] INFO  MainServerGUI:67 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-05-07 16:34:29 [main] INFO  MainServerGUI:68 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-05-07 16:34:29 [main] INFO  MainServerGUI:69 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-05-07 16:34:29 [main] INFO  MainServerGUI:70 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-05-07 16:34:29 [main] INFO  MainServerGUI:71 -                                           
+2019-05-07 16:34:30 [AWT-EventQueue-0] INFO  MainServerGUI:85 - Server Initialized
+2019-05-07 16:36:43 [main] INFO  MainServerGUI:65 - ______           _   _     _    _         
+2019-05-07 16:36:43 [main] INFO  MainServerGUI:66 - |  _  \         | | | |   | |  (_)        
+2019-05-07 16:36:43 [main] INFO  MainServerGUI:67 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-05-07 16:36:43 [main] INFO  MainServerGUI:68 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-05-07 16:36:43 [main] INFO  MainServerGUI:69 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-05-07 16:36:43 [main] INFO  MainServerGUI:70 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-05-07 16:36:43 [main] INFO  MainServerGUI:71 -                                           
+2019-05-07 16:36:44 [AWT-EventQueue-0] INFO  MainServerGUI:85 - Server Initialized
+2019-05-07 16:37:27 [main] INFO  MainServerGUI:65 - ______           _   _     _    _         
+2019-05-07 16:37:27 [main] INFO  MainServerGUI:66 - |  _  \         | | | |   | |  (_)        
+2019-05-07 16:37:27 [main] INFO  MainServerGUI:67 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-05-07 16:37:27 [main] INFO  MainServerGUI:68 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-05-07 16:37:27 [main] INFO  MainServerGUI:69 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-05-07 16:37:27 [main] INFO  MainServerGUI:70 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-05-07 16:37:27 [main] INFO  MainServerGUI:71 -                                           
+2019-05-07 16:37:28 [AWT-EventQueue-0] INFO  MainServerGUI:85 - Server Initialized
+2019-05-07 16:46:49 [main] INFO  MainServerGUI:65 - ______           _   _     _    _         
+2019-05-07 16:46:49 [main] INFO  MainServerGUI:66 - |  _  \         | | | |   | |  (_)        
+2019-05-07 16:46:49 [main] INFO  MainServerGUI:67 - | | | |___  __ _| |_| |__ | | ___ ___ ___ 
+2019-05-07 16:46:49 [main] INFO  MainServerGUI:68 - | | | / _ \/ _` | __| '_ \| |/ / / __/ __|
+2019-05-07 16:46:49 [main] INFO  MainServerGUI:69 - | |/ /  __/ (_| | |_| | | |   <| \__ \__ \
+2019-05-07 16:46:49 [main] INFO  MainServerGUI:70 - |___/ \___|\__,_|\__|_| |_|_|\_\_|___/___/
+2019-05-07 16:46:49 [main] INFO  MainServerGUI:71 -                                           
+2019-05-07 16:46:50 [AWT-EventQueue-0] INFO  MainServerGUI:85 - Server Initialized

@@ -54,17 +54,20 @@ public class SensorDAO extends DAO<Sensor> {
 			if (sensor.getSensorState()) {
 				state = "ON";
 			} else
-				state = "OFF";
-			request = "insert into capteur (type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,parametre) values ('"
+				state = "OFF";// TODO PA ,parametre
+			request = "insert into capteur (type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin) values ('"
 					+ sensor.getTypeSensor() + "','" + state + "','" + sensor.getIdCommonArea() + "','"
 					+ sensor.getAlertState() + "','" + sensor.getSensitivity() + "','" + sensor.getStartActivity()
-					+ "','" + sensor.getEndActivity() + "','" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:"
-					+ sensor.getThresholdMax() + "');";
+					+ "','" + sensor.getEndActivity() + "');";
+			// TODO + "','" + "seuilMin:" +
+			// sensor.getThresholdMin() + "seuilMax:"
+			// + sensor.getThresholdMax() + "');";
 			Statement st = con.createStatement();
 			st.execute(request);
 			logger.log(Level.DEBUG, "Sensor succesfully inserted in BDD");
 			return true;
 		} catch (IOException | SQLException e) {
+			e.printStackTrace();
 			logger.log(Level.WARN, "Impossible to insert sensor datas in BDD" + e.getClass().getCanonicalName());
 			return false;
 		}
@@ -267,8 +270,8 @@ public class SensorDAO extends DAO<Sensor> {
 		sensor.setAlertState(alertStateElement);
 		Sensitivity sensitivityElement = Sensitivity.valueOf(result.getObject(6).toString());
 		sensor.setSensitivity(sensitivityElement);
-		sensor.setStartActivity(Time.valueOf(result.getObject(7).toString()));
-		sensor.setEndActivity(Time.valueOf(result.getObject(8).toString()));
-		sensor = getThreshold(sensor, result.getObject(9).toString());
+		// sensor.setStartActivity(Time.valueOf(result.getObject(7).toString()));
+		// sensor.setEndActivity(Time.valueOf(result.getObject(8).toString()));
+		// sensor = getThreshold(sensor, result.getObject(9).toString());
 	}
 }
