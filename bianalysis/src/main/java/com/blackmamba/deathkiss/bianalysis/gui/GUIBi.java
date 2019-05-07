@@ -40,6 +40,8 @@ import com.blackmamba.deathkiss.bianalysis.entity.SensorHistorical;
 import com.blackmamba.deathkiss.bianalysis.entity.SensorType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toedter.calendar.JDateChooser;
+import javax.swing.JTabbedPane;
+import java.awt.Color;
 
 /**
  * 
@@ -66,9 +68,8 @@ public class GUIBi extends JFrame {
 	private String jsonString;
 	private JPanel contentPane;
 	private JTextField tfDown;
-	private JTextField tfAlertes;
+	private JTextField tfAlertesReceived;
 	private JTextField tfStock;
-	private JTextField tfRecherche;
 	private JTextField tfTemperature;
 	private JTextField searchBar;
 	private DefaultListModel<String> listM;
@@ -78,8 +79,6 @@ public class GUIBi extends JFrame {
 
 	private JComboBox cbArea;
 	private JComboBox cbCapteur;
-
-	private JButton btnRecherche;
 	private JButton btnDeconnexion;
 	private JButton btnTemperature;
 	private JButton btnDate;
@@ -97,6 +96,15 @@ public class GUIBi extends JFrame {
 	private JTextField tfPendingAlert;
 	private int indice = 0;
 	private int indice1 = 0;
+	private int indice2 = 0;
+	private JTabbedPane tabbedPane;
+	private JPanel panel;
+	private JPanel panel_1;
+	private JPanel panel_2;
+	private JLabel lblNumberOfCommon;
+	private JTextField textField;
+	private JTextField tfSensor;
+	private JTextField textField_1;
 
 //TODO SL tu met la methode main dans une classe qui s'appelle MainBianalysisGUI
 	//////////////////////////////////////////////////////////////////////
@@ -148,57 +156,242 @@ public class GUIBi extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		// Label
-		// TODO SL les type comme JLabel et autre du les definits en haut de la classe
-		// comme dans les autres classes
-		JLabel lblTempratureMoyenne = new JLabel("Température moyenne");
-		lblTempratureMoyenne.setBounds(10, 544, 139, 16);
-		contentPane.add(lblTempratureMoyenne);
-
-		JLabel lblNombreDePannes = new JLabel("Total DOWN");
-		lblNombreDePannes.setBounds(627, 431, 89, 16);
-		contentPane.add(lblNombreDePannes);
-
-		JLabel lblNombreDalertes = new JLabel("Total Alerts");
-		lblNombreDalertes.setBounds(340, 504, 147, 22);
-		contentPane.add(lblNombreDalertes);
-
-		JLabel lblStock = new JLabel("Nombre de capteurs en stock");
-		lblStock.setBounds(340, 277, 147, 16);
-		contentPane.add(lblStock);
-
-		JLabel lblNewLabel = new JLabel("Data Range from");
-		lblNewLabel.setBounds(316, 18, 97, 16);
-		contentPane.add(lblNewLabel);
-
-		JLabel lblTo = new JLabel("to");
-		lblTo.setBounds(309, 49, 28, 16);
-		contentPane.add(lblTo);
-
-		JLabel lblTotalOver = new JLabel("Total OVER");
-		lblTotalOver.setBounds(627, 469, 139, 22);
-		contentPane.add(lblTotalOver);
-
-		lblTotalAlertAttente = new JLabel("Total Pending Alert");
-		lblTotalAlertAttente.setBounds(627, 504, 97, 22);
-		contentPane.add(lblTotalAlertAttente);
-
 /////////////////////////////////////////////
 		//// JCombobox
 
 		String[] periode = { "Année", "Mois", "Jour" };
 		String[] area = { "ALL", "RC", "Etage 1", "Etage 2" };
-		cbArea = new JComboBox(area);
-
-		cbArea.setEditable(true);
-		cbArea.addItem(area);
-		cbArea.setBounds(632, 52, 100, 35);
-		contentPane.add(cbArea);
 
 		String[] sensorType = { "ALL", "SMOKE", "MOVE", "TEMPERATURE", "WINDOW", "DOOR", "ELEVATOR", "LIGHT", "FIRE",
 				"BADGE", "ROUTER" };
 
+		btnDeconnexion = new JButton("Deconnexion");
+		btnDeconnexion.setBounds(860, 0, 124, 28);
+		contentPane.add(btnDeconnexion);
+
+		Object[] monObj1 = returnNumber();
+
+		Object[] monObj = returns();
+
+///////////////////////////////////////////////////
+		// List
+		listM = new DefaultListModel<String>();
+
+		listM.addElement("Tout les capteurs");
+		for (Sensor sensors : listSensor) {
+			listM.addElement(sensors.getIdSensor() + "# " + sensors.getTypeSensor() + " ," + sensors.getSensorState()
+					+ " ," + sensors.getIdCommonArea());
+		}
+
+		ListModel = new DefaultListModel<String>();
+
+		ListModel.addElement("Toute les alertes");
+		for (SensorHistorical sensorHistorical : listSensorHistorical) {
+			ListModel.addElement(sensorHistorical.getAlertState() + "# " + sensorHistorical.getIdHistorical() + " ,"
+					+ sensorHistorical.getIdSensor() + " ," + sensorHistorical.getDate());
+		}
+
+/////////////////////////////////////
+		// Dialog
+		ratioSensors = new JDialog();
+
+////////////////////////////////////
+		// Graphic All sensor
+		DefaultPieDataset pieDataset = new DefaultPieDataset();
+		pieDataset.setValue("Number of Unused Sensors", (Number) monObj[0]);
+		pieDataset.setValue("Number of used Sensors", (Number) monObj[1]);
+
+		JFreeChart pieChart = ChartFactory.createPieChart("Ratio of unused sensors and used", pieDataset, true, true,
+				true);
+		ChartPanel cPanel = new ChartPanel(pieChart);
+		contentPane.add(cPanel);
+
+		// Graphic Historical alert
+
+		DefaultPieDataset HistoricalAlert = new DefaultPieDataset();
+
+		HistoricalAlert.setValue("Number of DOWN Sensors", (Number) monObj1[2]);
+		HistoricalAlert.setValue("Number of OVER Sensors", (Number) monObj1[3]);
+		HistoricalAlert.setValue("Number of NORMAL Sensors", (Number) monObj1[1]);
+
+		JFreeChart pieChart1 = ChartFactory.createPieChart(" Ratio of number of alert", HistoricalAlert, true, true,
+				true);
+		ChartPanel cPanel1 = new ChartPanel(pieChart1);
+		contentPane.add(cPanel1);
+
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(22, 11, 824, 577);
+		contentPane.add(tabbedPane);
+
+		panel = new JPanel();
+		tabbedPane.addTab("DASHBOARD", null, panel, null);
+		panel.setLayout(null);
+		ChartPanel cpSensors = new ChartPanel(pieChart);
+		cpSensors.setBounds(198, 33, 307, 159);
+		panel.add(cpSensors);
+		cpSensors.setMouseWheelEnabled(true);
+
+		JLabel lblStock = new JLabel("Number of sensors in stock");
+		lblStock.setBounds(198, 222, 147, 16);
+		panel.add(lblStock);
+		tfStock = new JTextField();
+		tfStock.setBounds(346, 216, 41, 28);
+		panel.add(tfStock);
+		tfStock.setText(monObj[2].toString());
+		tfStock.setColumns(10);
+		ChartPanel cpAlerts = new ChartPanel(pieChart1);
+		cpAlerts.setBounds(515, 33, 281, 159);
+		panel.add(cpAlerts);
+
+		JLabel lblNombreDalertes = new JLabel("Total Alerts received");
+		lblNombreDalertes.setBounds(594, 492, 112, 22);
+		panel.add(lblNombreDalertes);
+		tfAlertesReceived = new JTextField();
+		tfAlertesReceived.setBounds(612, 428, 69, 55);
+		tfAlertesReceived.setText(String.valueOf(indice2));
+		tfAlertesReceived.setColumns(10);
+		panel.add(tfAlertesReceived);
+
+		JLabel lblNombreDePannes = new JLabel("Total DOWN");
+		lblNombreDePannes.setBounds(535, 268, 89, 16);
+		panel.add(lblNombreDePannes);
+
+		tfDown = new JTextField();
+		tfDown.setBackground(Color.ORANGE);
+		tfDown.setBounds(525, 203, 97, 55);
+		tfDown.setText(monObj1[2].toString());
+		tfDown.setColumns(10);
+		panel.add(tfDown);
+
+		tfNbOver = new JTextField();
+		tfNbOver.setBackground(Color.RED);
+		tfNbOver.setBounds(663, 203, 97, 55);
+		tfNbOver.setText(monObj1[3].toString());
+		tfNbOver.setColumns(10);
+		panel.add(tfNbOver);
+
+		JLabel lblTotalOver = new JLabel("Total OVER");
+		lblTotalOver.setBounds(680, 265, 139, 22);
+		panel.add(lblTotalOver);
+
+		JButton btnDetails = new JButton("Details");
+		btnDetails.setBounds(691, 444, 89, 23);
+		panel.add(btnDetails);
+
+		tfPendingAlert = new JTextField();
+		tfPendingAlert.setBackground(Color.GREEN);
+		tfPendingAlert.setBounds(591, 321, 97, 65);
+		tfPendingAlert.setColumns(10);
+		tfPendingAlert.setText(monObj1[0].toString());
+		panel.add(tfPendingAlert);
+
+		lblTotalAlertAttente = new JLabel("Total Pending Alert");
+		lblTotalAlertAttente.setBounds(591, 395, 97, 22);
+		panel.add(lblTotalAlertAttente);
+
+		// Label
+		// TODO SL les type comme JLabel et autre du les definits en haut de la classe
+		// comme dans les autres classes
+		JLabel lblTempratureMoyenne = new JLabel("Température moyenne");
+		lblTempratureMoyenne.setBounds(43, 498, 139, 16);
+		panel.add(lblTempratureMoyenne);
+
+		////////////////////////////////////////////////////
+		// Textfield
+
+		tfTemperature = new JTextField();
+		tfTemperature.setBounds(198, 492, 112, 28);
+		panel.add(tfTemperature);
+		tfTemperature.setColumns(10);
+
+		btnTemperature = new JButton("Calculer");
+		btnTemperature.setBounds(359, 492, 124, 28);
+		panel.add(btnTemperature);
+
+		lblNumberOfCommon = new JLabel("number of common area");
+		lblNumberOfCommon.setBounds(10, 33, 123, 28);
+		panel.add(lblNumberOfCommon);
+
+		textField = new JTextField();
+		textField.setBounds(20, 72, 112, 55);
+		panel.add(textField);
+		textField.setColumns(10);
+
+		panel_1 = new JPanel();
+		tabbedPane.addTab("Alert", null, panel_1, null);
+		panel_1.setLayout(null);
+		cbArea = new JComboBox(area);
+		cbArea.setBounds(291, 39, 61, 35);
+		panel_1.add(cbArea);
+
+		cbArea.setEditable(true);
+		cbArea.addItem(area);
+
+		dateChooser_1 = new JDateChooser();
+		dateChooser_1.setBounds(189, 55, 47, 28);
+		panel_1.add(dateChooser_1);
+		/////////////////////////////////////////////////////////////
+		// Date
+		dateChooser = new JDateChooser();
+		dateChooser.setBounds(189, 11, 47, 28);
+		panel_1.add(dateChooser);
+
+		tfDate = new JTextField();
+		tfDate.setBounds(90, 11, 47, 28);
+		panel_1.add(tfDate);
+		tfDate.setColumns(10);
+
+		tfDate1 = new JTextField();
+		tfDate1.setBounds(90, 55, 47, 28);
+		panel_1.add(tfDate1);
+		tfDate1.setColumns(10);
+
+		JLabel lblTo = new JLabel("to");
+		lblTo.setBounds(52, 66, 28, 16);
+		panel_1.add(lblTo);
+
+		JLabel lblNewLabel = new JLabel("Data Range from");
+		lblNewLabel.setBounds(10, 23, 97, 16);
+		panel_1.add(lblNewLabel);
+		sc1 = new JScrollPane();
+		sc1.setBounds(31, 145, 276, 354);
+		panel_1.add(sc1);
+		list1 = new JList<String>(ListModel);
+		sc1.setViewportView(list1);
+
+		btnDate = new JButton("GetDate");
+		btnDate.setBounds(386, 39, 97, 22);
+		panel_1.add(btnDate);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(330, 262, 119, 67);
+		panel_1.add(textField_1);
+		textField_1.setColumns(10);
+
+		panel_2 = new JPanel();
+		tabbedPane.addTab("Sensor", null, panel_2, null);
+		panel_2.setLayout(null);
+		sc = new JScrollPane();
+		sc.setBounds(38, 64, 313, 381);
+		panel_2.add(sc);
+		list = new JList<String>(listM);
+		sc.setViewportView(list);
+
+		JLabel lblSensors = new JLabel("Sensors");
+		lblSensors.setBounds(57, 11, 55, 39);
+		panel_2.add(lblSensors);
+
 		cbCapteur = new JComboBox(sensorType);
+		cbCapteur.setBounds(111, 13, 100, 35);
+		panel_2.add(cbCapteur);
+		
+		tfSensor = new JTextField();
+		tfSensor.setText(String.valueOf(indice1));
+		tfSensor.setColumns(10);
+		tfSensor.setBackground(Color.GREEN);
+		tfSensor.setBounds(132, 456, 97, 65);
+		panel_2.add(tfSensor);
+		
 		cbCapteur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -289,161 +482,6 @@ public class GUIBi extends JFrame {
 				}
 			}
 		});
-		cbCapteur.setBounds(168, 69, 100, 35);
-		contentPane.add(cbCapteur);
-
-///////////////////////////////////////////////
-		// Bouton
-
-		btnRecherche = new JButton("Recherche");
-		btnRecherche.setBounds(742, 33, 112, 28);
-		contentPane.add(btnRecherche);
-
-		btnTemperature = new JButton("Calculer");
-		btnTemperature.setBounds(136, 571, 124, 28);
-		contentPane.add(btnTemperature);
-
-		btnDeconnexion = new JButton("Deconnexion");
-		btnDeconnexion.setBounds(860, 0, 124, 28);
-		contentPane.add(btnDeconnexion);
-
-		btnDate = new JButton("GetDate");
-		btnDate.setBounds(752, 72, 89, 28);
-		contentPane.add(btnDate);
-
-////////////////////////////////////////////////////
-		// Textfield
-
-		tfTemperature = new JTextField();
-		tfTemperature.setBounds(148, 538, 112, 28);
-		contentPane.add(tfTemperature);
-		tfTemperature.setColumns(10);
-
-		
-
-		Object[] monObj1 = returnNumber();
-		tfAlertes = new JTextField();
-		tfAlertes.setBounds(477, 498, 112, 28);
-		tfAlertes.setText(monObj1[0].toString());
-		contentPane.add(tfAlertes);
-		tfAlertes.setColumns(10);
-
-		Object[] monObj = returns();
-		tfStock = new JTextField();
-		tfStock.setBounds(495, 271, 112, 28);
-		tfStock.setText(monObj[2].toString());
-		contentPane.add(tfStock);
-		tfStock.setColumns(10);
-		
-		tfNbOver = new JTextField();
-		tfNbOver.setBounds(744, 458, 110, 28);
-		tfNbOver.setText(monObj1[3].toString());
-		contentPane.add(tfNbOver);
-		tfNbOver.setColumns(10);
-		
-		tfDown = new JTextField();
-		tfDown.setBounds(742, 425, 112, 28);
-		tfDown.setText(monObj1[2].toString());
-		contentPane.add(tfDown);
-		tfDown.setColumns(10);
-
-		
-		tfRecherche = new JTextField();
-		tfRecherche.setBounds(10, 33, 289, 28);
-		contentPane.add(tfRecherche);
-		tfRecherche.setColumns(10);
-
-///////////////////////////////////////////////////
-		// List
-		listM = new DefaultListModel<String>();
-		list = new JList<String>(listM);
-		sc = new JScrollPane(list);
-		sc.setBounds(30, 120, 300, 300);
-
-		listM.addElement("Tout les capteurs");
-		for (Sensor sensors : listSensor) {
-			listM.addElement(sensors.getIdSensor() + "# " + sensors.getTypeSensor() + " ," + sensors.getSensorState()
-					+ " ," + sensors.getIdCommonArea());
-		}
-		contentPane.add(sc);
-
-		ListModel = new DefaultListModel<String>();
-		list1 = new JList<String>(ListModel);
-		sc1 = new JScrollPane(list1);
-		sc1.setBounds(627, 111, 298, 298);
-
-		ListModel.addElement("Toute les alertes");
-		for (SensorHistorical sensorHistorical : listSensorHistorical) {
-			ListModel.addElement(sensorHistorical.getAlertState() + "# " + sensorHistorical.getIdHistorical() + " ,"
-					+ sensorHistorical.getIdSensor() + " ," + sensorHistorical.getDate());
-		}
-
-		contentPane.add(sc1);
-/////////////////////////////////////////////////////////////
-		// Date
-		dateChooser = new JDateChooser();
-		dateChooser.setBounds(495, 6, 112, 28);
-		contentPane.add(dateChooser);
-
-		dateChooser_1 = new JDateChooser();
-		dateChooser_1.setBounds(495, 50, 112, 28);
-		contentPane.add(dateChooser_1);
-
-		tfDate = new JTextField();
-		tfDate.setBounds(396, 6, 89, 28);
-		contentPane.add(tfDate);
-		tfDate.setColumns(10);
-
-		tfDate1 = new JTextField();
-		tfDate1.setBounds(396, 50, 89, 28);
-		contentPane.add(tfDate1);
-		tfDate1.setColumns(10);
-
-/////////////////////////////////////
-		// Dialog
-		ratioSensors = new JDialog();
-
-////////////////////////////////////
-		// Graphic All sensor
-		DefaultPieDataset pieDataset = new DefaultPieDataset();
-		pieDataset.setValue("Number of Unused Sensors", (Number) monObj[0]);
-		pieDataset.setValue("Number of used Sensors", (Number) monObj[1]);
-
-		JFreeChart pieChart = ChartFactory.createPieChart("Ratio of unused sensors and used", pieDataset, true, true,
-				true);
-		ChartPanel cPanel = new ChartPanel(pieChart);
-		contentPane.add(cPanel);
-		ChartPanel cpSensors = new ChartPanel(pieChart);
-		cpSensors.setBounds(366, 89, 223, 182);
-		contentPane.add(cpSensors);
-		cpSensors.setMouseWheelEnabled(true);
-
-		// Graphic Historical alert
-
-		DefaultPieDataset HistoricalAlert = new DefaultPieDataset();
-
-		HistoricalAlert.setValue("Number of DOWN Sensors", (Number) monObj1[2]);
-		HistoricalAlert.setValue("Number of OVER Sensors", (Number) monObj1[3]);
-		HistoricalAlert.setValue("Number of NORMAL Sensors", (Number) monObj1[1]);
-
-		JFreeChart pieChart1 = ChartFactory.createPieChart(" Ratio of number of alert", HistoricalAlert, true, true,
-				true);
-		ChartPanel cPanel1 = new ChartPanel(pieChart1);
-		contentPane.add(cPanel1);
-		ChartPanel cpAlerts = new ChartPanel(pieChart1);
-		cpAlerts.setBounds(366, 304, 223, 182);
-		contentPane.add(cpAlerts);
-
-		tfPendingAlert = new JTextField();
-		tfPendingAlert.setColumns(10);
-		tfPendingAlert.setBounds(744, 501, 110, 28);
-		indice = listSensor.size();
-		tfPendingAlert.setText(String.valueOf(indice1));
-		contentPane.add(tfPendingAlert);
-
-		JButton btnDetails = new JButton("Details");
-		btnDetails.setBounds(860, 504, 89, 23);
-		contentPane.add(btnDetails);
 
 ////////////////////////////////////////////////////////////////////
 		// Bouton Graphic
@@ -490,7 +528,7 @@ public class GUIBi extends JFrame {
 								+ " State : " + sensorHistorical1.getSensorState() + " Alert State :"
 								+ sensorHistorical1.getAlertState());
 						indice1 = ListModel.getSize();
-						System.out.println("okay "+ indice1);
+						System.out.println("okay " + indice1);
 					}
 				}
 			}
@@ -513,15 +551,17 @@ public class GUIBi extends JFrame {
 										ListModel.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
 												+ str.getSensorState() + " ," + area.getNameCommonArea()
 												+ str.getAlertState() + "#" + area.getEtageCommonArea());
-										
+
 									}
 								}
 							}
 						}
 					}
+					indice2 = ListModel.getSize();
 					indice1 = ListModel.getSize();
+					tfAlertesReceived.setText(String.valueOf(indice2));
 					tfPendingAlert.setText(String.valueOf(indice1));
-					
+
 				} else if (selectedBook.equals("RC")) {
 					ListModel.clear();
 					for (CommonArea area : listCommonAreas) {
@@ -534,7 +574,7 @@ public class GUIBi extends JFrame {
 											ListModel.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
 													+ str.getSensorState() + " ," + area.getNameCommonArea()
 													+ str.getAlertState() + "#" + area.getEtageCommonArea());
-											
+
 										}
 									}
 								}
@@ -543,7 +583,7 @@ public class GUIBi extends JFrame {
 					}
 
 					indice1 = ListModel.getSize();
-					System.out.println("okay "+ indice1);
+					System.out.println("okay " + indice1);
 					tfPendingAlert.setText(String.valueOf(indice1));
 				}
 
@@ -565,8 +605,8 @@ public class GUIBi extends JFrame {
 							}
 						}
 					}
-			    	indice1 = ListModel.getSize();
-					System.out.println("okay "+ indice1);
+					indice1 = ListModel.getSize();
+					System.out.println("okay " + indice1);
 					tfPendingAlert.setText(String.valueOf(indice1));
 				} else if (selectedBook.equals("Etage 2")) {
 					ListModel.clear();
@@ -708,7 +748,7 @@ public class GUIBi extends JFrame {
 			}
 
 		}
-		return new Object[] { numberAlerts, nbAlNormal, nbAlDown, nbAlOver, nbAlert };
+		return new Object[] { numberAlerts, nbAlNormal, nbAlDown, nbAlOver };
 
 	}
 
