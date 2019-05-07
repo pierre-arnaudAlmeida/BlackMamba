@@ -92,6 +92,9 @@ public class GUIBi extends JFrame {
 	private JTextField tfDate1;
 	private JDialog ratioSensors;
 	private ChartPanel cPanel;
+	private JTextField textField;
+	private JLabel lblTotalAlertAttente;
+	private JTextField textField_1;
 
 //TODO SL tu met la methode main dans une classe qui s'appelle MainBianalysisGUI
 	//////////////////////////////////////////////////////////////////////
@@ -150,7 +153,7 @@ public class GUIBi extends JFrame {
 		lblTempratureMoyenne.setBounds(10, 544, 139, 16);
 		contentPane.add(lblTempratureMoyenne);
 
-		JLabel lblNombreDePannes = new JLabel("Nombre de pannes");
+		JLabel lblNombreDePannes = new JLabel("Total DOWN");
 		lblNombreDePannes.setBounds(627, 431, 139, 16);
 		contentPane.add(lblNombreDePannes);
 
@@ -169,6 +172,15 @@ public class GUIBi extends JFrame {
 		JLabel lblTo = new JLabel("to");
 		lblTo.setBounds(309, 49, 28, 16);
 		contentPane.add(lblTo);
+		
+		JLabel lblTotalOver = new JLabel("Total OVER");
+		lblTotalOver.setBounds(627, 469, 139, 22);
+		contentPane.add(lblTotalOver);
+		
+		lblTotalAlertAttente = new JLabel("Total Pending Alert");
+		lblTotalAlertAttente.setBounds(627, 504, 139, 22);
+		contentPane.add(lblTotalAlertAttente);
+		
 
 /////////////////////////////////////////////
 		//// JCombobox
@@ -290,7 +302,7 @@ public class GUIBi extends JFrame {
 ////////////////////////////////////////////////////
 		// Textfield
 		nbPanne = new JTextField();
-		nbPanne.setBounds(813, 425, 112, 28);
+		nbPanne.setBounds(742, 425, 112, 28);
 		contentPane.add(nbPanne);
 		nbPanne.setColumns(10);
 
@@ -298,10 +310,15 @@ public class GUIBi extends JFrame {
 		tfTemperature.setBounds(148, 538, 112, 28);
 		contentPane.add(tfTemperature);
 		tfTemperature.setColumns(10);
+		
+		textField = new JTextField();
+		textField.setBounds(744, 458, 110, 28);
+		contentPane.add(textField);
+		textField.setColumns(10);
 
 		Object[] monObj1 = returnNumber();
 		tfAlertes = new JTextField();
-		tfAlertes.setBounds(497, 501, 112, 28);
+		tfAlertes.setBounds(477, 498, 112, 28);
 		tfAlertes.setText(monObj1[0].toString());
 		contentPane.add(tfAlertes);
 		tfAlertes.setColumns(10);
@@ -398,6 +415,14 @@ public class GUIBi extends JFrame {
 		ChartPanel cpAlerts = new ChartPanel(pieChart1);
 		cpAlerts.setBounds(366, 304, 223, 182);
 		contentPane.add(cpAlerts);
+		
+
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(744, 501, 110, 28);
+		contentPane.add(textField_1);
+		
+
 
 ////////////////////////////////////////////////////////////////////
 		// Bouton Graphic
@@ -462,7 +487,7 @@ public class GUIBi extends JFrame {
 								ListModel.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
 										+ str.getSensorState() + " ," + area.getNameCommonArea() + str.getAlertState()
 										+ "#" + area.getEtageCommonArea());
-
+							
 							}
 						}
 
