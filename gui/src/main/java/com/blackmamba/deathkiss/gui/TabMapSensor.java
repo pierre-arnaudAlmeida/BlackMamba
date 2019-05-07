@@ -99,27 +99,24 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
 	private BufferedImage img = null;
+	private BufferedImage img1 = null;
 	private BufferedImage buffer = null;
+	private BufferedImage buffer1 = null;
 	private Point p = null;
 	private Image planImage;
-	
+
 	private static final Rectangle polygon1 = new Rectangle(7, 56, 108, 313);
 	private static final Rectangle polygon2 = new Rectangle(129, 72, 105, 97);
 	private static final Rectangle polygon3 = new Rectangle(240, 171, 346, 45);
 	private static final Rectangle polygon4_1 = new Rectangle(591, 171, 282, 182);
 	private static final Rectangle polygon4_2 = new Rectangle(733, 71, 140, 99);
 
-
 	public TabMapSensor() {
-	}
-
-	public TabMapSensor(BufferedImage image) {
-		this.addMouseListener(this);
-		this.buffer = image;
 	}
 
 	public TabMapSensor(Color color, int idEmployee, String title) {
 		this.idEmployee = idEmployee;
+		this.addMouseListener(this);
 
 		setThreadMapSensor(new Thread(new Runnable() {
 			/**
@@ -294,73 +291,86 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);
 		this.setBackground(color);
-
-
-		///////////////////////// IMAGE/////////////////////////////////////////////////
 		
-		try {
-			img = ImageIO.read(getClass().getClassLoader().getResource("image.jpg"));
+		
+		///////////////////////// PANEL/////////////////////////////////////////////////
+
+		
+		
+		
+		///////////////////////// IMAGE/////////////////////////////////////////////////
+
+        try {
+			img = ImageIO.read(getClass().getClassLoader().getResource("etage0bis.jpg"));
+			img1 = ImageIO.read(getClass().getClassLoader().getResource("etage1bis.jpg"));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		JLabel picLabel = new JLabel(new ImageIcon(img));
-		picLabel.setPreferredSize(new Dimension(350, 30));;
-		picLabel.setLayout(new BorderLayout());
-		add(picLabel, BorderLayout.EAST);
-		//setContentPane(new Canvas(img));
+		this.buffer = img;
+		this.buffer1 = img1;
+        
+		JLabel image = new JLabel(new ImageIcon(img));
+		JLabel image1 = new JLabel(new ImageIcon(img1));
+
+		
+		///////////////////////// JScrollPane///////////////////////////////////////////
+
+		JScrollPane scroll = new JScrollPane();
+        scroll.setPreferredSize(new Dimension(40, 60));
+        image.add(scroll);
+		
+
+		
 	}
 
-//	public void paintComponent(Graphics g) {
-//
-//		super.paintComponent(g);
-//		Graphics2D g2 = (Graphics2D) g;
-//		int planWidth = getWidth();
-//		int panelWidth = this.getWidth();
-//		int leftOffset = (panelWidth - planWidth) / 2;
-//
-//		// Draw image
-//		g2.drawImage(planImage, leftOffset, 20, null);
-//		g2.drawImage(buffer, 0, 0, buffer.getWidth(), buffer.getHeight(), this);
-//		this.revalidate();
-//
-//		g.setColor(Color.GREEN);
-//		// Draw rectangle
-//		g.drawRect(polygon1.x, polygon1.y, polygon1.width, polygon1.height);
-//		g.drawRect(polygon2.x, polygon2.y, polygon2.width, polygon2.height);
-//		g.drawRect(polygon3.x, polygon3.y, polygon3.width, polygon3.height);
-//		g.drawRect(polygon4_1.x, polygon4_1.y, polygon4_1.width, polygon4_1.height);
-//		g.drawRect(polygon4_2.x, polygon4_2.y, polygon4_2.width, polygon4_2.height);
-//	}
-//
-//	private void testLocation(Point mouse, Rectangle commonArea, String text) {
-//		// if the mouse if here
-//		if (commonArea.contains(mouse))
-//			System.out.println(text + " - image");
-//		else
-//			System.out.println(text + " - !image");
-//	}
-//
-//	private boolean location(Point mouse, Rectangle commonArea) {
-//		if (commonArea.contains(mouse))
-//			return true;
-//		else
-//			return false;
-//	}
+	public void paintComponent(Graphics g) {
+
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		int planWidth = getWidth();
+		int panelWidth = this.getWidth();
+
+		// Draw image
+		g2.drawImage(buffer, 700, 50, buffer.getWidth(), buffer.getHeight(), this);
+		g2.drawImage(buffer1, 700, 400, buffer1.getWidth(), buffer1.getHeight(), this);
+
+		g.setColor(Color.GREEN);
+		// Draw rectangle
+		g.drawRect(polygon1.x, polygon1.y, polygon1.width, polygon1.height);
+		g.drawRect(polygon2.x, polygon2.y, polygon2.width, polygon2.height);
+		g.drawRect(polygon3.x, polygon3.y, polygon3.width, polygon3.height);
+		g.drawRect(polygon4_1.x, polygon4_1.y, polygon4_1.width, polygon4_1.height);
+		g.drawRect(polygon4_2.x, polygon4_2.y, polygon4_2.width, polygon4_2.height);
+	}
+
+	private void testLocation(Point mouse, Rectangle commonArea, String text) {
+		// if the mouse if here
+		if (commonArea.contains(mouse))
+			System.out.println(text + " - image");
+		else
+			System.out.println(text + " - !image");
+	}
+
+	private boolean location(Point mouse, Rectangle commonArea) {
+		if (commonArea.contains(mouse))
+			return true;
+		else
+			return false;
+	}
 
 	public void mouseClicked(MouseEvent e) {
-//		// recovering the position of the mouse
-//		p = e.getPoint();
-//		testLocation(p, polygon1, "mouseClicked - data 1");
-//		testLocation(p, polygon2, "mouseClicked - data 2");
-//		testLocation(p, polygon3, "mouseClicked - data 3");
-//		testLocation(p, polygon4_1, "mouseClicked - data 4_1");
-//		testLocation(p, polygon4_2, "mouseClicked - data 4_2");
-//
-//		if (location(p, polygon1) == true) {
-//			System.out.println("Polygon1");
-//		}
-	}
+		// recovering the position of the mouse
+		p = e.getPoint();
+		testLocation(p, polygon1, "mouseClicked - data 1");
+		testLocation(p, polygon2, "mouseClicked - data 2");
+		testLocation(p, polygon3, "mouseClicked - data 3");
+		testLocation(p, polygon4_1, "mouseClicked - data 4_1");
+		testLocation(p, polygon4_2, "mouseClicked - data 4_2");
 
+		if (location(p, polygon1) == true) {
+			System.out.println("Polygon1");
+		}
+	}
 
 	public void findAllSensor(Sensor sensor) {
 		requestType = "FIND ALL";
