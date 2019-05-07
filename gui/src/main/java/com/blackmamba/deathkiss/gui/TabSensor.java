@@ -30,10 +30,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.blackmamba.deathkiss.entity.Alert;
 import com.blackmamba.deathkiss.entity.CommonArea;
+import com.blackmamba.deathkiss.entity.Sensitivity;
 import com.blackmamba.deathkiss.entity.Sensor;
 import com.blackmamba.deathkiss.entity.SensorType;
 import com.blackmamba.deathkiss.launcher.ClientSocket;
-import com.blackmamba.deathkiss.entity.Sensitivity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -67,6 +67,10 @@ public class TabSensor extends JPanel {
 	private JLabel labelEndActivity;
 	private JLabel labelThresholdMin;
 	private JLabel labelThresholdMax;
+	private JLabel labelHourStartActivity;
+	private JLabel labelMinuteStartActivity;
+	private JLabel labelHourEndActivity;
+	private JLabel labelMinuteEndActivity;
 	private JTextField textInputIdSensor;
 	private JTextField searchBar;
 	private JTextField textInputAlertState;
@@ -89,6 +93,10 @@ public class TabSensor extends JPanel {
 	private JComboBox<String> textInputNameCommonArea;
 	private JComboBox<String> textInputTypeSensor;
 	private JComboBox<String> textInputSensitivity;
+	private JComboBox<Integer> textInputHourStartActivity;
+	private JComboBox<Integer> textInputMinuteStartActivity;
+	private JComboBox<Integer> textInputHourEndActivity;
+	private JComboBox<Integer> textInputMinuteEndActivity;
 	private DefaultListModel<String> listM;
 	private JList<String> list;
 	private List<Alert> listAlert = new ArrayList<Alert>();
@@ -97,8 +105,6 @@ public class TabSensor extends JPanel {
 	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
 	private static final Logger logger = LogManager.getLogger(TabSensor.class);
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
-	private static Sensitivity elementSensitivity = null;
-	private static SensorType elementSensorType = null;
 
 	/**
 	 * Constructor
@@ -237,7 +243,8 @@ public class TabSensor extends JPanel {
 						if (sensor2.getTypeSensor() != null) {
 							listM.addElement("Result for sensor with id : " + searchReceived);
 							listM.addElement(sensor2.getIdSensor() + "# " + sensor2.getTypeSensor() + " ,"
-									+ sensor2.getSensorState() + " ," + sensor2.getIdCommonArea());
+									+ sensor2.getSensorState() + " ," + sensor2.getIdCommonArea() + " , "
+									+ sensor2.getAlertState().name() + " , " + sensor2.getSensitivity().name());
 						}
 						/**
 						 * Find Sensor with IdCommonArea
@@ -250,7 +257,8 @@ public class TabSensor extends JPanel {
 							listM.addElement("Results for sensor in common area : " + searchReceived);
 						for (Sensor sensors : listSearchSensor) {
 							listM.addElement(sensors.getIdSensor() + "# " + sensors.getTypeSensor() + " ,"
-									+ sensors.getSensorState() + " ," + sensors.getIdCommonArea());
+									+ sensors.getSensorState() + " ," + sensors.getIdCommonArea() + " , "
+									+ sensors.getAlertState().name() + " , " + sensors.getSensitivity().name());
 						}
 					} else {
 						/**
@@ -269,7 +277,8 @@ public class TabSensor extends JPanel {
 							listM.addElement("Results for sensor type : " + searchReceived);
 						for (Sensor sensors : listSearchSensor) {
 							listM.addElement(sensors.getIdSensor() + "# " + sensors.getTypeSensor() + " ,"
-									+ sensors.getSensorState() + " ," + sensors.getIdCommonArea());
+									+ sensors.getSensorState() + " ," + sensors.getIdCommonArea() + " , "
+									+ sensors.getAlertState().name() + " , " + sensors.getSensitivity().name());
 						}
 					}
 				} else {
@@ -485,6 +494,42 @@ public class TabSensor extends JPanel {
 		this.add(labelThresholdMax);
 
 		/**
+		 * Definition of label Hour Start Activity
+		 */
+		labelHourStartActivity = new JLabel("hh");
+		labelHourStartActivity.setBounds((int) getToolkit().getScreenSize().getWidth() * 9 / 28,
+				(int) getToolkit().getScreenSize().getHeight() * 10 / 20, 200, 30);
+		labelHourStartActivity.setFont(policeLabel);
+		this.add(labelHourStartActivity);
+
+		/**
+		 * Definition of label Minute Start Activity
+		 */
+		labelMinuteStartActivity = new JLabel("mm");
+		labelMinuteStartActivity.setBounds((int) getToolkit().getScreenSize().getWidth() * 11 / 28,
+				(int) getToolkit().getScreenSize().getHeight() * 10 / 20, 200, 30);
+		labelMinuteStartActivity.setFont(policeLabel);
+		this.add(labelMinuteStartActivity);
+
+		/**
+		 * Definition of label Hour End Activity
+		 */
+		labelHourEndActivity = new JLabel("hh");
+		labelHourEndActivity.setBounds((int) getToolkit().getScreenSize().getWidth() * 17 / 28,
+				(int) getToolkit().getScreenSize().getHeight() * 10 / 20, 200, 30);
+		labelHourEndActivity.setFont(policeLabel);
+		this.add(labelHourEndActivity);
+
+		/**
+		 * Definition of label Minute End Activity
+		 */
+		labelMinuteEndActivity = new JLabel("mm");
+		labelMinuteEndActivity.setBounds((int) getToolkit().getScreenSize().getWidth() * 19 / 28,
+				(int) getToolkit().getScreenSize().getHeight() * 10 / 20, 200, 30);
+		labelMinuteEndActivity.setFont(policeLabel);
+		this.add(labelMinuteEndActivity);
+
+		/**
 		 * Definition of label HeadList
 		 */
 		labelHeadList = new JLabel("ID /Type /State /ID common area");
@@ -526,17 +571,7 @@ public class TabSensor extends JPanel {
 		textInputTypeSensor.addItem("-");
 		for (SensorType typeSensor : SensorType.values()) {
 			textInputTypeSensor.addItem(typeSensor.name());
-		}
-		textInputTypeSensor.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (textInputTypeSensor.getSelectedIndex() != 0)
-					elementSensorType = SensorType.valueOf(textInputTypeSensor.getSelectedItem().toString());
-			}
-		});
-		if (elementSensorType != null) {
-			sensor.setTypeSensor(elementSensorType);
-		}
+		} // TODO PA tester sans le action listener
 
 		/**
 		 * Definition of textArea StateSensor
@@ -627,15 +662,53 @@ public class TabSensor extends JPanel {
 		for (Sensitivity typeSensitivity : Sensitivity.values()) {
 			textInputSensitivity.addItem(typeSensitivity.name());
 		}
-		textInputSensitivity.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (textInputSensitivity.getSelectedIndex() != 0)
-					elementSensitivity = Sensitivity.valueOf(textInputSensitivity.getSelectedItem().toString());
-			}
-		});
-		if (elementSensitivity != null) {
-			sensor.setSensitivity(elementSensitivity);
+
+		/**
+		 * Definition of textArea Hour Start Activity
+		 */
+		textInputHourStartActivity = new JComboBox<Integer>();
+		textInputHourStartActivity.setBounds((int) getToolkit().getScreenSize().getWidth() * 8 / 28,
+				(int) getToolkit().getScreenSize().getHeight() * 10 / 20, 40, 30);
+		textInputHourStartActivity.setFont(policeLabel);
+		this.add(textInputHourStartActivity);
+		for (int i = 0; i < 24; i++) {
+			textInputHourStartActivity.addItem(i);
+		}
+
+		/**
+		 * Definition of textArea Minute Start Activity
+		 */
+		textInputMinuteStartActivity = new JComboBox<Integer>();
+		textInputMinuteStartActivity.setBounds((int) getToolkit().getScreenSize().getWidth() * 10 / 28,
+				(int) getToolkit().getScreenSize().getHeight() * 10 / 20, 40, 30);
+		textInputMinuteStartActivity.setFont(policeLabel);
+		this.add(textInputMinuteStartActivity);
+		for (int i = 0; i < 59; i++) {
+			textInputMinuteStartActivity.addItem(i);
+		}
+
+		/**
+		 * Definition of textArea Hour End Activity
+		 */
+		textInputHourEndActivity = new JComboBox<Integer>();
+		textInputHourEndActivity.setBounds((int) getToolkit().getScreenSize().getWidth() * 16 / 28,
+				(int) getToolkit().getScreenSize().getHeight() * 10 / 20, 40, 30);
+		textInputHourEndActivity.setFont(policeLabel);
+		this.add(textInputHourEndActivity);
+		for (int i = 0; i < 24; i++) {
+			textInputHourEndActivity.addItem(i);
+		}
+
+		/**
+		 * Definition of textArea Minute End Activity
+		 */
+		textInputMinuteEndActivity = new JComboBox<Integer>();
+		textInputMinuteEndActivity.setBounds((int) getToolkit().getScreenSize().getWidth() * 18 / 28,
+				(int) getToolkit().getScreenSize().getHeight() * 10 / 20, 40, 30);
+		textInputMinuteEndActivity.setFont(policeLabel);
+		this.add(textInputMinuteEndActivity);
+		for (int i = 0; i < 59; i++) {
+			textInputMinuteEndActivity.addItem(i);
 		}
 
 		///////////////////////// BUTTON/////////////////////////////////////////////////
@@ -674,10 +747,13 @@ public class TabSensor extends JPanel {
 				/**
 				 * Read the sensor type selected
 				 */
-				String newTypeSensor = textInputTypeSensor.getSelectedItem().toString();
-				SensorType element = SensorType.valueOf(newTypeSensor);
-				sensor.setTypeSensor(element);
-
+				// TODO PA verifier
+				if (textInputTypeSensor.getSelectedIndex() != 1) {
+					String newTypeSensor = textInputTypeSensor.getSelectedItem().toString();
+					SensorType element = SensorType.valueOf(newTypeSensor);
+					if (element != null)
+						sensor.setTypeSensor(element);
+				}
 				ObjectMapper insertMapper = new ObjectMapper();
 				try {
 					jsonString = insertMapper.writeValueAsString(sensor);
@@ -698,7 +774,8 @@ public class TabSensor extends JPanel {
 						int x = listSensor.size() - 1;
 						sensor = listSensor.get(x);
 						listM.addElement(sensor.getIdSensor() + "# " + sensor.getTypeSensor() + " ,"
-								+ sensor.getSensorState() + " ," + sensor.getIdCommonArea());
+								+ sensor.getSensorState() + " ," + sensor.getIdCommonArea() + " , "
+								+ sensor.getAlertState().name() + " , " + sensor.getSensitivity().name());
 						logger.log(Level.DEBUG, "Find Sensor succeeded");
 						JOptionPane.showMessageDialog(null, "Insertion succeeded", "Information",
 								JOptionPane.INFORMATION_MESSAGE);
@@ -751,7 +828,8 @@ public class TabSensor extends JPanel {
 				 */
 				String newTypeSensor = textInputTypeSensor.getSelectedItem().toString();
 				SensorType element = SensorType.valueOf(newTypeSensor);
-				sensor.setTypeSensor(element);
+				if (element != null)
+					sensor.setTypeSensor(element);
 
 				if (sensor.getIdSensor() == 0) {
 					JOptionPane.showMessageDialog(null, "Please select an sensor to be update", "Error",
@@ -767,8 +845,10 @@ public class TabSensor extends JPanel {
 							logger.log(Level.WARN, "Impossible to update sensor");
 						} else {
 							logger.log(Level.DEBUG, "Update Succeeded");
-							listM.set(index, sensor.getIdSensor() + "# " + sensor.getTypeSensor() + " ,"
-									+ sensor.getSensorState() + " ," + sensor.getIdCommonArea());
+							listM.set(index,
+									sensor.getIdSensor() + "# " + sensor.getTypeSensor() + " ,"
+											+ sensor.getSensorState() + " ," + sensor.getIdCommonArea() + " , "
+											+ sensor.getAlertState().name() + " , " + sensor.getSensitivity().name());
 							JOptionPane.showMessageDialog(null, "Datas updated", "Information",
 									JOptionPane.INFORMATION_MESSAGE);
 						}
@@ -925,7 +1005,8 @@ public class TabSensor extends JPanel {
 		listM.addElement("All sensors");
 		for (Sensor sens : listSensor) {
 			listM.addElement(sens.getIdSensor() + "# " + sens.getTypeSensor() + " ," + sens.getSensorState() + " ,"
-					+ sens.getIdCommonArea());
+					+ sens.getIdCommonArea() + " , " + sens.getAlertState().name() + " , "
+					+ sens.getSensitivity().name());
 		}
 		list.setModel(listM);
 	}
