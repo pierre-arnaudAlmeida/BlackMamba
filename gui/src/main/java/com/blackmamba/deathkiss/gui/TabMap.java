@@ -31,6 +31,8 @@ import com.blackmamba.deathkiss.entity.Sensor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.FlowLayout;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.JScrollBar;
+import java.awt.Scrollbar;
 
 public class TabMap extends JPanel {
 
@@ -105,7 +107,7 @@ public class TabMap extends JPanel {
 		labelIdEmployee.setForeground(Color.WHITE);
 		labelIdEmployee.setFont(police);
 
-///////////////////////// BAR/////////////////////////////////////////////////
+		///////////////////////// BAR/////////////////////////////////////////////////
 		/**
 		 * Definition of label Login on header bar
 		 */
@@ -117,8 +119,9 @@ public class TabMap extends JPanel {
 		flowLayout.setHgap(200);
 		add(panel);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		panel.add(scrollPane);
+		JScrollBar scrollBar = new JScrollBar();
+		scrollBar.setMaximum(300);
+		panel.add(scrollBar);
 
 	}
 

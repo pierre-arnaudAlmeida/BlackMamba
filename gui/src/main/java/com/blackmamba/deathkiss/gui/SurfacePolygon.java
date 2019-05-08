@@ -126,15 +126,12 @@ public class SurfacePolygon extends JFrame {
 		setSize(1200, 700);
 		setLocationRelativeTo(null);
 		BufferedImage img = null;
-		BufferedImage img1 = null;
 		try {
-			img = ImageIO.read(getClass().getClassLoader().getResource("etage0bis.jpg"));
-			img1 = ImageIO.read(getClass().getClassLoader().getResource("etage1bis.jpg"));
+			img = ImageIO.read(getClass().getClassLoader().getResource("image.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		setContentPane(new Canvas(img));
-		setContentPane(new Canvas(img1));
 
 	}
 	
