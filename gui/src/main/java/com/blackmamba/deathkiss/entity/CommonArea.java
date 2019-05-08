@@ -17,6 +17,8 @@ public class CommonArea {
 	private int idCommonArea = 0;
 	private String nameCommonArea = "";
 	private int etageCommonArea = 0;
+	private int maxSensor = 0;
+	private int area = 0;
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 
 	/**
@@ -107,5 +109,33 @@ public class CommonArea {
 	 */
 	public void removeSensor(Sensor sensor) {
 		this.listSensor.remove(sensor);
+	}
+
+	/**
+	 * @return the maxSensor
+	 */
+	public int getMaxSensor() {
+		return maxSensor;
+	}
+
+	/**
+	 * @param maxSensor the maxSensor to set
+	 */
+	public void setMaxSensor(int maxSensor) {
+		this.maxSensor = maxSensor;
+	}
+
+	/**
+	 * @return the area
+	 */
+	public int getArea() {
+		return area;
+	}
+
+	/**
+	 * @param area the area to set
+	 */
+	public void setArea(int area) {
+		this.area = area;
 	}
 }

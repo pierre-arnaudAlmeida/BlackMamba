@@ -70,7 +70,7 @@ public class Server {
 		} catch (IOException e) {
 			logger.log(Level.WARN, "Impossible create the socket " + e.getClass().getCanonicalName());
 		} catch (SQLException e) {
-			logger.log(Level.WARN, "Acces to COnnectionPool impossible " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Acces to ConnectionPool impossible " + e.getClass().getCanonicalName());
 		}
 	}
 

@@ -56,8 +56,12 @@ public class TabCommonArea extends JPanel {
 	private JLabel labelIdCommonArea;
 	private JLabel labelSearch;
 	private JLabel labelHeadList;
+	private JLabel labelMaxSensor;
+	private JLabel labelAreaCommonArea;
 	private JTextField textInputNameCommonArea;
 	private JTextField textInputStageCommonArea;
+	private JTextField textInputAreaCommonArea;
+	private JTextField textInputMaxSensor;
 	private JTextField textInputIdCommonArea;
 	private JTextField searchBar;
 	private Font policeBar;
@@ -350,6 +354,24 @@ public class TabCommonArea extends JPanel {
 		this.add(labelStageCommonArea);
 
 		/**
+		 * Definition of label Area CommonArea
+		 */
+		labelAreaCommonArea = new JLabel("Area : ");
+		labelAreaCommonArea.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 2 / 10, 200, 30);
+		labelAreaCommonArea.setFont(policeLabel);
+		this.add(labelAreaCommonArea);
+
+		/**
+		 * Definition of label Max Sensor
+		 */
+		labelMaxSensor = new JLabel("Max Sensors : ");
+		labelMaxSensor.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 4 / 10, 200, 30);
+		labelMaxSensor.setFont(policeLabel);
+		this.add(labelMaxSensor);
+
+		/**
 		 * Definition of label HeadList
 		 */
 		labelHeadList = new JLabel("ID /Name /Floor");
@@ -357,6 +379,9 @@ public class TabCommonArea extends JPanel {
 		labelHeadList.setFont(policeBar);
 		this.add(labelHeadList);
 
+		// TODO PA donc verifier a chaque fois qu'on ajoute un capteur la taille de la
+		// partie
+		// commune
 		//////////////////// TEXT AREA////////////////////////////////////////////////
 		/**
 		 * Definition of textArea IdCommonArea
@@ -395,6 +420,26 @@ public class TabCommonArea extends JPanel {
 			textInputStageCommonArea.setText(Integer.toString(commonArea.getEtageCommonArea()));
 		this.add(textInputStageCommonArea);
 
+		/**
+		 * Definition of textArea Area CommonArea
+		 */
+		textInputAreaCommonArea = new JTextField();
+		textInputAreaCommonArea.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 5 / 20, 300, 40);
+		textInputAreaCommonArea.setFont(policeLabel);
+		textInputAreaCommonArea.setText(commonArea.getNameCommonArea());
+		this.add(textInputAreaCommonArea);
+
+		/**
+		 * Definition of textArea Mac Sensors
+		 */
+		textInputMaxSensor = new JTextField();
+		textInputMaxSensor.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
+				(int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);
+		textInputMaxSensor.setFont(policeLabel);
+		textInputMaxSensor.setText(commonArea.getNameCommonArea());
+		this.add(textInputMaxSensor);
+
 		//////////////////// BUTTON////////////////////////////////////////////////
 		/**
 		 * Definition of Button AddCommonArea
@@ -418,15 +463,20 @@ public class TabCommonArea extends JPanel {
 				newNameCommonArea = Normalizer.normalize(newNameCommonArea, Normalizer.Form.NFD)
 						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				String newStageCommonArea = textInputStageCommonArea.getText().trim();
+				String newArea = textInputAreaCommonArea.getText().trim();
+				String newMaxSensor = textInputMaxSensor.getText().trim();
 				if (newNameCommonArea.equals("") || newStageCommonArea.equals("")) {
 					JOptionPane.showMessageDialog(null, "Missing values", "Error", JOptionPane.INFORMATION_MESSAGE);
 					logger.log(Level.INFO, "Attempt of insertion without characters");
-				} else if (!(newStageCommonArea.matches("[0-9]+[0-9]*"))) {
-					JOptionPane.showMessageDialog(null, "The floor is an integer", "Error",
+				} else if (!(newStageCommonArea.matches("[0-9]+[0-9]*")) || !(newArea.matches("[0-9]+[0-9]*"))
+						|| !(newMaxSensor.matches("[0-9]+[0-9]*"))) {
+					JOptionPane.showMessageDialog(null, "The floor/the area/the max sensor are integer", "Error",
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					commonArea.setNameCommonArea(newNameCommonArea.toUpperCase());
 					commonArea.setEtageCommonArea(Integer.parseInt(newStageCommonArea));
+					commonArea.setArea(Integer.parseInt(newArea));
+					commonArea.setMaxSensor(Integer.parseInt(newMaxSensor));
 					ObjectMapper insertMapper = new ObjectMapper();
 					try {
 						jsonString = insertMapper.writeValueAsString(commonArea);
@@ -482,17 +532,22 @@ public class TabCommonArea extends JPanel {
 				newNameCommonArea = Normalizer.normalize(newNameCommonArea, Normalizer.Form.NFD)
 						.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 				String newStageCommonArea = textInputStageCommonArea.getText().trim();
+				String newArea = textInputAreaCommonArea.getText().trim();
+				String newMaxSensor = textInputMaxSensor.getText().trim();
 				if (newNameCommonArea.equals("") || newStageCommonArea.equals("")) {
 					JOptionPane.showMessageDialog(null, "Fields Empty", "Error", JOptionPane.INFORMATION_MESSAGE);
 					/**
 					 * if text area do not contains numerics they open an pop-up
 					 */
-				} else if (!(newStageCommonArea.matches("[0-9]+[0-9]*"))) {
-					JOptionPane.showMessageDialog(null, "The floor is an integer", "Error",
+				} else if (!(newStageCommonArea.matches("[0-9]+[0-9]*")) || !(newArea.matches("[0-9]+[0-9]*"))
+						|| !(newMaxSensor.matches("[0-9]+[0-9]*"))) {
+					JOptionPane.showMessageDialog(null, "The floor/the area/the max sensor are integer", "Error",
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					commonArea.setNameCommonArea(newNameCommonArea.toUpperCase());
 					commonArea.setEtageCommonArea(Integer.parseInt(newStageCommonArea));
+					commonArea.setArea(Integer.parseInt(newArea));
+					commonArea.setMaxSensor(Integer.parseInt(newMaxSensor));
 					ObjectMapper insertMapper = new ObjectMapper();
 					try {
 						jsonString = insertMapper.writeValueAsString(commonArea);
@@ -605,10 +660,14 @@ public class TabCommonArea extends JPanel {
 						commonArea.setEtageCommonArea(0);
 						commonArea.setListSensor(null);
 						commonArea.setNameCommonArea("");
+						commonArea.setArea(0);
+						commonArea.setMaxSensor(0);
 
 						textInputIdCommonArea.setText("");
 						textInputNameCommonArea.setText("");
 						textInputStageCommonArea.setText("");
+						textInputAreaCommonArea.setText("");
+						textInputMaxSensor.setText("");
 					} else {
 						JOptionPane.showMessageDialog(null, "Please select an common area to be deleted", "Error",
 								JOptionPane.INFORMATION_MESSAGE);
@@ -645,6 +704,8 @@ public class TabCommonArea extends JPanel {
 				} else {
 					textInputStageCommonArea.setText(Integer.toString(commonArea.getEtageCommonArea()));
 				}
+				textInputAreaCommonArea.setText(Integer.toString(commonArea.getArea()));
+				textInputMaxSensor.setText(Integer.toString(commonArea.getMaxSensor()));
 			}
 		});
 
@@ -704,9 +765,6 @@ public class TabCommonArea extends JPanel {
 	 */
 	public void updateListCommonArea() {
 		commonArea = new CommonArea();
-		commonArea.setIdCommonArea(0);
-		commonArea.setNameCommonArea("");
-		commonArea.setEtageCommonArea(99);
 
 		requestType = "READ ALL";
 		table = "CommonArea";
@@ -740,6 +798,8 @@ public class TabCommonArea extends JPanel {
 				textInputIdCommonArea.setText(Integer.toString(commonArea.getIdCommonArea()));
 				textInputNameCommonArea.setText(commonArea.getNameCommonArea());
 				textInputStageCommonArea.setText(Integer.toString(commonArea.getEtageCommonArea()));
+				textInputAreaCommonArea.setText(Integer.toString(commonArea.getArea()));
+				textInputMaxSensor.setText(Integer.toString(commonArea.getMaxSensor()));
 			}
 		}
 	}
