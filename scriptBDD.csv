@@ -79,6 +79,7 @@ CREATE TABLE public.capteur
     heure_debut time without time zone,
     heure_fin time without time zone,
     parametre text COLLATE pg_catalog."default",
+    mise_a_jour timestamp(4) without time zone,
     CONSTRAINT capteur_pkey PRIMARY KEY (id_capteur),
     CONSTRAINT id_partie_commune FOREIGN KEY (id_partie_commune)
         REFERENCES public.partie_commune (id_partie_commune) MATCH SIMPLE
@@ -122,13 +123,11 @@ ALTER TABLE public.historique
 CREATE TABLE public.badger
 (
     id_resident integer NOT NULL,
+    date_historique timestamp without time zone NOT NULL,
+    etat_capteur text COLLATE pg_catalog."default" NOT NULL,
+    type_alerte text COLLATE pg_catalog."default" NOT NULL,
     id_capteur integer NOT NULL,
-    date_badger timestamp without time zone NOT NULL,
-    CONSTRAINT badger_pkey PRIMARY KEY (id_resident, id_capteur),
-    CONSTRAINT id_resident FOREIGN KEY (id_resident)
-        REFERENCES public.resident (id_resident) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+    CONSTRAINT historique_pkey PRIMARY KEY (id_historique)
 )
 WITH (
     OIDS = FALSE
@@ -149,11 +148,7 @@ CREATE TABLE public.message
     id_capteur integer,
     date_alerte timestamp without time zone,
     seuil text COLLATE pg_catalog."default",
-    CONSTRAINT message_pkey PRIMARY KEY (id_message),
-    CONSTRAINT message_id_capteur_fk FOREIGN KEY (id_capteur)
-        REFERENCES public.capteur (id_capteur) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+    CONSTRAINT message_pkey PRIMARY KEY (id_message)
 )
 WITH (
     OIDS = FALSE
