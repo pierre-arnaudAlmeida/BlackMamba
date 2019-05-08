@@ -23,6 +23,8 @@ import javax.swing.JScrollBar;
 import org.apache.logging.log4j.Level;
 
 import com.blackmamba.deathkiss.entity.CommonArea;
+import com.blackmamba.deathkiss.entity.Floor;
+import com.blackmamba.deathkiss.entity.Sensitivity;
 import com.blackmamba.deathkiss.entity.Alert;
 import com.blackmamba.deathkiss.entity.Sensor;
 import com.blackmamba.deathkiss.entity.SensorType;
@@ -50,7 +52,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
@@ -86,6 +90,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private List<Alert> listAlert = new ArrayList<Alert>();
 	private JButton switchButton;
+	private JButton configureSensor;
 
 	private Sensor sensor;
 	private Sensor sensor2;
@@ -99,11 +104,13 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	private ObjectMapper objectMapper;
 	private Thread threadMapSensor;
 	private JScrollPane sc;
+	private JTabbedPane tab;
 
 	private JList<String> list;
 	private JComboBox<String> textInputNameCommonArea;
 	private JComboBox<String> textInputTypeSensor;
 	private JComboBox<String> textInputSensitivity;
+	private JComboBox<String> textFloor;
 	private JComboBox<Integer> textInputHourStartActivity;
 	private JComboBox<Integer> textInputMinuteStartActivity;
 	private JComboBox<Integer> textInputHourEndActivity;
@@ -187,7 +194,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		 */
 		textInputNameCommonArea = new JComboBox<String>();
 
-///////////////////////// FROM LIST SENSOR//////////////////////////////////////
+		///////////////////////// FROM LIST SENSOR//////////////////////////////////////
 		/**
 		 * if the is before on TabListSensor they send a idSensor and if they are
 		 * different to 0 they send a request to get informations about this Sensor
@@ -209,7 +216,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 			}
 		}
 
-///////////////////////// LIST SENSOR///////////////////////////////////////////
+		///////////////////////// LIST SENSOR///////////////////////////////////////////
 		listM = new DefaultListModel<String>();
 		list = new JList<String>(listM);
 		updateListSensor();
@@ -218,7 +225,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		 * Add a scrollBar on list
 		 */
 		sc = new JScrollPane(list);
-		sc.setBounds(30, 120, 300, ((int) getToolkit().getScreenSize().getHeight() - 300));
+		sc.setBounds(30, 170, 300, ((int) getToolkit().getScreenSize().getHeight() - 350));
 		this.add(sc);
 
 		/**
@@ -289,15 +296,26 @@ public class TabMapSensor extends JPanel implements MouseListener {
 			}
 		};
 		list.addMouseListener(mouseListener);
-		
+
 		/**
 		 * Definition of label HeadList
 		 */
-		labelHeadList = new JLabel("ID /Type /State /ID common area");
-		labelHeadList.setBounds(40, 90, 300, 30);
-		labelHeadList.setFont(policeBar);
+		labelHeadList = new JLabel("ID /Type /State /ID common area /  :");
+		labelHeadList.setBounds(40, 140, 300, 30);
+		labelHeadList.setFont(police);
 		this.add(labelHeadList);
 
+		///////////////////////// JComboBox/////////////////////////////////////////////
+		/**
+		 * List of floor
+		 */
+		textFloor = new JComboBox<String>();
+		textFloor.setBounds(40, 90, 140, 30);
+		this.add(textFloor);
+		textFloor.addItem("-");
+		for (Floor listFloor : Floor.values()) {
+			textFloor.addItem(listFloor.name());
+		}
 
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
@@ -306,6 +324,38 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);
 		this.setBackground(color);
+
+		///////////////////////// BUTTON////////////////////////////////////////////////
+		/**
+		 * Definition of Button CheckSensor
+		 */
+//		configureSensor = new JButton("Configure Sensor");
+//		configureSensor.setBounds(30, (int) getToolkit().getScreenSize().getHeight() * 16 / 20, 150, 40);
+//		this.add(configureSensor);
+//		configureSensor.addActionListener(new ActionListener() {
+//			/**
+//			 * If we pressed the Configure Sensor Button we go to the TabSensor to watch the
+//			 * informations about this sensor
+//			 */
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				
+//				if (index == 0 && index==-9999)  {
+//					JOptionPane.showMessageDialog(null, "Please select an sensor", "Information",
+//							JOptionPane.INFORMATION_MESSAGE);
+//				} 
+//				else {
+//					tab = new JTabbedPane();
+//					tab = Frame.getTab();
+//
+//					tab.remove(2);
+//					tabSensor = new TabSensor(Color.GRAY, idEmployee, "Tab Sensors", index);
+//					tab.add(tabSensor, 2);
+//					tab.setTitleAt(2, "Tab Sensors");
+//					Frame.goToTab(2);
+//				}
+//			}
+//		});
 
 		///////////////////////// PANEL/////////////////////////////////////////////////
 
@@ -428,8 +478,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 					+ sens.getIdCommonArea());
 		}
 	}
-	
-	
+
 	public void convertActivityTime(Time startActivity, Time endActivity) {
 		String sA = startActivity.toString();
 		String eA = endActivity.toString();
