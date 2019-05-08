@@ -94,6 +94,8 @@ public class GUIBi extends JFrame {
 	private JTextField tfNbOver;
 	private JLabel lblTotalAlertAttente;
 	private JTextField tfPendingAlert;
+	private int nbCommonArea = 0;
+	private int nbTotalAlert = 0;
 	private int indice = 0;
 	private int indice1 = 0;
 	private int indice2 = 0;
@@ -104,7 +106,7 @@ public class GUIBi extends JFrame {
 	private JLabel lblNumberOfCommon;
 	private JTextField textField;
 	private JTextField tfSensor;
-	private JTextField textField_1;
+	private JTextField tfAlert;
 
 //TODO SL tu met la methode main dans une classe qui s'appelle MainBianalysisGUI
 	//////////////////////////////////////////////////////////////////////
@@ -248,7 +250,7 @@ public class GUIBi extends JFrame {
 		panel.add(lblNombreDalertes);
 		tfAlertesReceived = new JTextField();
 		tfAlertesReceived.setBounds(612, 428, 69, 55);
-		tfAlertesReceived.setText(String.valueOf(indice2));
+		tfAlertesReceived.setText(String.valueOf(nbTotalAlert));
 		tfAlertesReceived.setColumns(10);
 		panel.add(tfAlertesReceived);
 
@@ -314,8 +316,10 @@ public class GUIBi extends JFrame {
 
 		textField = new JTextField();
 		textField.setBounds(20, 72, 112, 55);
+		textField.setText(String.valueOf(nbCommonArea));
 		panel.add(textField);
 		textField.setColumns(10);
+		
 
 		panel_1 = new JPanel();
 		tabbedPane.addTab("Alert", null, panel_1, null);
@@ -363,10 +367,10 @@ public class GUIBi extends JFrame {
 		btnDate.setBounds(386, 39, 97, 22);
 		panel_1.add(btnDate);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(330, 262, 119, 67);
-		panel_1.add(textField_1);
-		textField_1.setColumns(10);
+		tfAlert = new JTextField();
+		tfAlert.setBounds(330, 262, 119, 67);
+		panel_1.add(tfAlert);
+		tfAlert.setColumns(10);
 
 		panel_2 = new JPanel();
 		tabbedPane.addTab("Sensor", null, panel_2, null);
@@ -560,7 +564,7 @@ public class GUIBi extends JFrame {
 					indice2 = ListModel.getSize();
 					indice1 = ListModel.getSize();
 					tfAlertesReceived.setText(String.valueOf(indice2));
-					tfPendingAlert.setText(String.valueOf(indice1));
+					tfAlert.setText(String.valueOf(indice1));
 
 				} else if (selectedBook.equals("RC")) {
 					ListModel.clear();
@@ -583,8 +587,7 @@ public class GUIBi extends JFrame {
 					}
 
 					indice1 = ListModel.getSize();
-					System.out.println("okay " + indice1);
-					tfPendingAlert.setText(String.valueOf(indice1));
+					tfAlert.setText(String.valueOf(indice1));
 				}
 
 				else if (selectedBook.equals("Etage 1")) {
@@ -606,8 +609,7 @@ public class GUIBi extends JFrame {
 						}
 					}
 					indice1 = ListModel.getSize();
-					System.out.println("okay " + indice1);
-					tfPendingAlert.setText(String.valueOf(indice1));
+					tfAlert.setText(String.valueOf(indice1));
 				} else if (selectedBook.equals("Etage 2")) {
 					ListModel.clear();
 					System.out.println("Nous somme à l'étage 2");
@@ -630,7 +632,7 @@ public class GUIBi extends JFrame {
 					}
 				}
 				indice1 = ListModel.getSize();
-				tfPendingAlert.setText(String.valueOf(indice1));
+				tfAlert.setText(String.valueOf(indice1));
 			}
 		});
 
@@ -673,16 +675,17 @@ public class GUIBi extends JFrame {
 			SensorHistorical[] sensorHistorical = objectMapper.readValue(jsonString, SensorHistorical[].class);
 			listSensorHistorical = Arrays.asList(sensorHistorical);
 			logger.log(Level.INFO, "Find SensorHistorical data succed");
-
+			nbTotalAlert = listSensorHistorical.size();
 		} catch (Exception e1) {
 			logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
 		}
-
+		
 	}
 	////////////////////////////////////
 	// Method GetAllComonArea
-
-	public void getAllCommonArea() {
+	
+	
+	public int getAllCommonArea() {
 		requestType = "READ ALL";
 		table = "CommonArea";
 		objectMapper = new ObjectMapper();
@@ -693,10 +696,13 @@ public class GUIBi extends JFrame {
 			CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
 			logger.log(Level.INFO, "Find CommonArea data succed");
 			listCommonAreas = Arrays.asList(commonAreas);
+			 nbCommonArea = listCommonAreas.size();
+			
 		} catch (Exception e1) {
 			logger.log(Level.INFO, "Impossible to parse in JSON CommonArea datas " + e1.getClass().getCanonicalName());
 
 		}
+		return nbCommonArea;
 	}
 	//////////////////////////////////////
 	// Method GetAllMessage
