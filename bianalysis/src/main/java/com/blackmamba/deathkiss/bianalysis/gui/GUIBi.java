@@ -554,7 +554,7 @@ public class GUIBi extends JFrame {
 
 										ListModel.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
 												+ str.getSensorState() + " ," + area.getNameCommonArea()
-												+ str.getAlertState() + "#" + area.getEtageCommonArea());
+												+ str.getAlertState() + "#" + area.getFloorCommonArea());
 
 									}
 								}
@@ -569,7 +569,7 @@ public class GUIBi extends JFrame {
 				} else if (selectedBook.equals("RC")) {
 					ListModel.clear();
 					for (CommonArea area : listCommonAreas) {
-						if (area.getEtageCommonArea() == 0) {
+						if (area.getFloorCommonArea() == 0) {
 							for (Sensor str : listSensor) {
 								for (SensorHistorical hist : listSensorHistorical) {
 									if (hist.getIdSensor() == str.getIdSensor()) {
@@ -577,7 +577,7 @@ public class GUIBi extends JFrame {
 
 											ListModel.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
 													+ str.getSensorState() + " ," + area.getNameCommonArea()
-													+ str.getAlertState() + "#" + area.getEtageCommonArea());
+													+ str.getAlertState() + "#" + area.getFloorCommonArea());
 
 										}
 									}
@@ -593,7 +593,7 @@ public class GUIBi extends JFrame {
 				else if (selectedBook.equals("Etage 1")) {
 					ListModel.clear();
 					for (CommonArea area : listCommonAreas) {
-						if (area.getEtageCommonArea() == 1) {
+						if (area.getFloorCommonArea() == 1) {
 							for (Sensor str : listSensor) {
 								for (SensorHistorical hist : listSensorHistorical) {
 									if (hist.getIdSensor() == str.getIdSensor()) {
@@ -601,7 +601,7 @@ public class GUIBi extends JFrame {
 
 											ListModel.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
 													+ str.getSensorState() + " ," + area.getNameCommonArea()
-													+ str.getAlertState() + "#" + area.getEtageCommonArea());
+													+ str.getAlertState() + "#" + area.getFloorCommonArea());
 										}
 									}
 								}
@@ -615,7 +615,7 @@ public class GUIBi extends JFrame {
 					System.out.println("Nous somme à l'étage 2");
 
 					for (CommonArea area : listCommonAreas) {
-						if (area.getEtageCommonArea() == 2) {
+						if (area.getFloorCommonArea() == 2) {
 							for (Sensor str : listSensor) {
 								for (SensorHistorical hist : listSensorHistorical) {
 									if (hist.getIdSensor() == str.getIdSensor()) {
@@ -623,7 +623,7 @@ public class GUIBi extends JFrame {
 
 											ListModel.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
 													+ str.getSensorState() + " ," + area.getNameCommonArea()
-													+ str.getAlertState() + "#" + area.getEtageCommonArea());
+													+ str.getAlertState() + "#" + area.getFloorCommonArea());
 										}
 									}
 								}

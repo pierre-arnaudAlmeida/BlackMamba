@@ -16,7 +16,7 @@ public class CommonArea {
 	 */
 	private int idCommonArea = 0;
 	private String nameCommonArea = "";
-	private int etageCommonArea = 0;
+	private int floorCommonArea = 0;
 	private int maxSensor = 0;
 	private int area = 0;
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
@@ -28,11 +28,11 @@ public class CommonArea {
 	 * @param nameCommonArea
 	 * @param etageCommonArea
 	 */
-	public CommonArea(int idCommonArea, String nameCommonArea, int etageCommonArea) {
+	public CommonArea(int idCommonArea, String nameCommonArea, int floorCommonArea) {
 		super();
 		this.idCommonArea = idCommonArea;
 		this.nameCommonArea = nameCommonArea;
-		this.etageCommonArea = etageCommonArea;
+		this.floorCommonArea = floorCommonArea;
 	}
 
 	/**
@@ -72,15 +72,15 @@ public class CommonArea {
 	/**
 	 * @return the etageCommonArea
 	 */
-	public int getEtageCommonArea() {
-		return etageCommonArea;
+	public int getFloorCommonArea() {
+		return floorCommonArea;
 	}
 
 	/**
 	 * @param etageCommonArea the etageCommonArea to set
 	 */
-	public void setEtageCommonArea(int etageCommonArea) {
-		this.etageCommonArea = etageCommonArea;
+	public void setFloorCommonArea(int floorCommonArea) {
+		this.floorCommonArea = floorCommonArea;
 	}
 
 	/**
