@@ -403,7 +403,7 @@ public class RequestHandler implements Runnable {
 								} else {
 									logger.log(Level.WARN, "Request not recognized");
 								}
-								monitoringAlert.deleteAlert(jsonString);
+								//monitoringAlert.deleteAlert(jsonString);TODO PA a regler foncionne pas
 								break;
 							case "CommonArea":
 								if (!response.equals("")) {

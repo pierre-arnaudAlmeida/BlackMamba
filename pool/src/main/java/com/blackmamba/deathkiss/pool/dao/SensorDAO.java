@@ -20,6 +20,7 @@ import org.apache.logging.log4j.Logger;
 import com.blackmamba.deathkiss.pool.entity.AlertState;
 import com.blackmamba.deathkiss.pool.entity.Sensitivity;
 import com.blackmamba.deathkiss.pool.entity.Sensor;
+import com.blackmamba.deathkiss.pool.entity.SensorHistorical;
 import com.blackmamba.deathkiss.pool.entity.SensorType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -35,6 +36,7 @@ public class SensorDAO extends DAO<Sensor> {
 	 */
 	private ResultSet result = null;
 	private Sensor sensor;
+	private SensorHistorical sensorHistorical;
 	private String request;
 	private static final Logger logger = LogManager.getLogger(SensorDAO.class);
 
@@ -149,6 +151,16 @@ public class SensorDAO extends DAO<Sensor> {
 			Statement st = con.createStatement();
 			st.execute(request);
 			logger.log(Level.DEBUG, "Sensor succesfully update in BDD");
+
+			sensorHistorical = new SensorHistorical();
+			sensorHistorical.setIdSensor(sensor.getIdSensor());
+			sensorHistorical.setSensorState(sensor.getSensorState());
+			sensorHistorical.setAlertState(sensor.getAlertState());
+			sensorHistorical.setDate(currentDate);
+			jsonString = objectMapper.writeValueAsString(sensorHistorical);
+			DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(con);
+			((SensorHistoricalDAO) sensorHistoricalDao).create(jsonString);
+			logger.log(Level.DEBUG, "SensorHistorical succesfully inserted in BDD");
 			return true;
 		} catch (SQLException | IOException e) {
 			logger.log(Level.WARN, "Impossible to update sensor datas in BDD" + e.getClass().getCanonicalName());

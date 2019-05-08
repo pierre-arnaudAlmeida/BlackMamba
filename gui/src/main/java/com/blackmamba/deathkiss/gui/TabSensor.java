@@ -14,8 +14,10 @@ import java.sql.Time;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -26,16 +28,20 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import com.blackmamba.deathkiss.entity.Alert;
 import com.blackmamba.deathkiss.entity.AlertState;
 import com.blackmamba.deathkiss.entity.CommonArea;
 import com.blackmamba.deathkiss.entity.Sensitivity;
 import com.blackmamba.deathkiss.entity.Sensor;
+import com.blackmamba.deathkiss.entity.SensorHistorical;
 import com.blackmamba.deathkiss.entity.SensorType;
 import com.blackmamba.deathkiss.launcher.ClientSocket;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -54,6 +60,7 @@ public class TabSensor extends JPanel {
 	private String jsonString;
 	private int idemployee;
 	private int index;
+	private Date currentDate;
 	private JPanel bar;
 	private JPanel search;
 	private JLabel labelIdEmployee;
@@ -92,6 +99,7 @@ public class TabSensor extends JPanel {
 	private JScrollPane sc;
 	private Alert alert;
 	private CommonArea commonArea;
+	private SensorHistorical sensorHistorical;
 	private ObjectMapper objectMapper;
 	private Thread threadSensor;
 	private JComboBox<String> textInputNameCommonArea;
@@ -829,6 +837,18 @@ public class TabSensor extends JPanel {
 						JOptionPane.showMessageDialog(null, "Insertion succeeded", "Information",
 								JOptionPane.INFORMATION_MESSAGE);
 					}
+					requestType = "CREATE";
+					table = "SensorHistorical";
+					currentDate = new Date();
+					sensorHistorical = new SensorHistorical();
+					sensorHistorical.setIdSensor(sensor.getIdSensor());
+					sensorHistorical.setSensorState(sensor.getSensorState());
+					sensorHistorical.setAlertState(sensor.getAlertState());
+					sensorHistorical.setDate(currentDate);
+					jsonString = insertMapper.writeValueAsString(sensorHistorical);
+					new ClientSocket(requestType, jsonString, table);
+					jsonString = ClientSocket.getJson();
+					logger.log(Level.DEBUG, "Insertion Succeeded");
 				} catch (Exception e1) {
 					logger.log(Level.WARN,
 							"Impossible to parse in JSON Sensor datas " + e1.getClass().getCanonicalName());
@@ -981,7 +1001,10 @@ public class TabSensor extends JPanel {
 				if (!textInputIdSensor.getText().toString().equals("")) {
 					requestType = "DELETE";
 					table = "Sensor";
+					sensorHistorical = new SensorHistorical();
+					sensorHistorical.setIdSensor(sensor.getIdSensor());
 					ObjectMapper connectionMapper = new ObjectMapper();
+					ObjectMapper objectMapper = new ObjectMapper();
 					try {
 						jsonString = connectionMapper.writeValueAsString(sensor);
 						new ClientSocket(requestType, jsonString, table);
@@ -1019,6 +1042,20 @@ public class TabSensor extends JPanel {
 				} else {
 					JOptionPane.showMessageDialog(null, "Please select an sensor to deleted", "Error",
 							JOptionPane.INFORMATION_MESSAGE);
+				}
+				try {
+					requestType = "CREATE";
+					table = "SensorHistorical";
+					currentDate = new Date();
+
+					sensorHistorical.setSensorState(sensor.getSensorState());
+					sensorHistorical.setAlertState(AlertState.DELETED);
+					sensorHistorical.setDate(currentDate);
+					jsonString = objectMapper.writeValueAsString(sensorHistorical);
+					new ClientSocket(requestType, jsonString, table);
+					logger.log(Level.DEBUG, "Insertion of sensor succed");
+				} catch (JsonProcessingException e1) {
+					logger.log(Level.DEBUG, "Impossible to insert in SensorHistorical");
 				}
 			}
 		});

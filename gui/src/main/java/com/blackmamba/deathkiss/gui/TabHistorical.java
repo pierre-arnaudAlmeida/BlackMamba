@@ -305,6 +305,7 @@ public class TabHistorical extends JPanel {
 			listSensorHistorical = Arrays.asList(listSensorHistoricals);
 			logger.log(Level.DEBUG, "Find all SensorHistorical datas succeeded");
 		} catch (Exception e1) {
+			//TODO bugg
 			logger.log(Level.WARN,
 					"Impossible to parse in JSON SensorHistorical datas" + e1.getClass().getCanonicalName());
 		}

@@ -60,11 +60,11 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 					+ formater.format(sensorH.getDate()) + "','" + sensorState + "','"
 					+ sensorH.getAlertState().toString() + "', " + sensorH.getIdSensor() + ");";
 			Statement st = con.createStatement();
+			
 			st.execute(request);
 			logger.log(Level.DEBUG, "SensorHistorical succesfully inserted in BDD");
 			return true;
 		} catch (IOException | SQLException e) {
-			e.printStackTrace();
 			logger.log(Level.WARN,
 					"Impossible to insert sensorHistorical datas in BDD" + e.getClass().getCanonicalName());
 			return false;
