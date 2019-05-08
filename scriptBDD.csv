@@ -23,7 +23,7 @@ CREATE DATABASE pds
 --Creation tables
 CREATE TABLE public.employee
 (
-    id_employee integer NOT NULL DEFAULT,
+    id_employee integer NOT NULL,
     nom_employee text COLLATE pg_catalog."default" NOT NULL,
     prenom_employee text COLLATE pg_catalog."default" NOT NULL,
     mot_de_passe text COLLATE pg_catalog."default" NOT NULL,
@@ -123,11 +123,13 @@ ALTER TABLE public.historique
 CREATE TABLE public.badger
 (
     id_resident integer NOT NULL,
-    date_historique timestamp without time zone NOT NULL,
-    etat_capteur text COLLATE pg_catalog."default" NOT NULL,
-    type_alerte text COLLATE pg_catalog."default" NOT NULL,
     id_capteur integer NOT NULL,
-    CONSTRAINT historique_pkey PRIMARY KEY (id_historique)
+    date_badger timestamp without time zone NOT NULL,
+    CONSTRAINT badger_pkey PRIMARY KEY (id_resident, id_capteur),
+    CONSTRAINT id_resident FOREIGN KEY (id_resident)
+        REFERENCES public.resident (id_resident) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
 )
 WITH (
     OIDS = FALSE
@@ -144,7 +146,7 @@ CREATE INDEX fki_id_resident
     
 CREATE TABLE public.message
 (
-    id_message integer NOT NULL DEFAULT nextval('message_id_message_seq'::regclass),
+    id_message integer NOT NULL,
     id_capteur integer,
     date_alerte timestamp without time zone,
     seuil text COLLATE pg_catalog."default",
