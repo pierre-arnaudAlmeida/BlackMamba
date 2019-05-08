@@ -5,7 +5,9 @@ import static java.awt.BorderLayout.CENTER;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -97,8 +99,7 @@ public class GUIBi extends JFrame {
 	private int nbCommonArea = 0;
 	private int nbTotalAlert = 0;
 	private int indice = 0;
-	private int indice1 = 0;
-	private int indice2 = 0;
+	private int nbAlertSensor = 0;
 	private JTabbedPane tabbedPane;
 	private JPanel panel;
 	private JPanel panel_1;
@@ -107,6 +108,8 @@ public class GUIBi extends JFrame {
 	private JTextField textField;
 	private JTextField tfSensor;
 	private JTextField tfAlert;
+	private JTextField textField_1;
+	private JTextField textField_2;
 
 //TODO SL tu met la methode main dans une classe qui s'appelle MainBianalysisGUI
 	//////////////////////////////////////////////////////////////////////
@@ -171,7 +174,7 @@ public class GUIBi extends JFrame {
 		btnDeconnexion.setBounds(860, 0, 124, 28);
 		contentPane.add(btnDeconnexion);
 
-		Object[] monObj1 = returnNumber();
+		Object[] monObj1 = returnNumberMessage();
 
 		Object[] monObj = returns();
 
@@ -320,6 +323,19 @@ public class GUIBi extends JFrame {
 		panel.add(textField);
 		textField.setColumns(10);
 		
+		
+		Object[] monObj2 = returnNbSensorType();
+		textField_1 = new JTextField();
+		textField_1.setBounds(231, 298, 57, 44);
+		textField_1.setText(monObj2[0].toString());
+		panel.add(textField_1);
+		textField_1.setColumns(10);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(198, 353, 78, 44);
+		textField_2.setText(monObj2[1].toString());
+		panel.add(textField_2);
+		textField_2.setColumns(10);
 
 		panel_1 = new JPanel();
 		tabbedPane.addTab("Alert", null, panel_1, null);
@@ -366,7 +382,7 @@ public class GUIBi extends JFrame {
 		btnDate = new JButton("GetDate");
 		btnDate.setBounds(386, 39, 97, 22);
 		panel_1.add(btnDate);
-		
+
 		tfAlert = new JTextField();
 		tfAlert.setBounds(330, 262, 119, 67);
 		panel_1.add(tfAlert);
@@ -388,14 +404,14 @@ public class GUIBi extends JFrame {
 		cbCapteur = new JComboBox(sensorType);
 		cbCapteur.setBounds(111, 13, 100, 35);
 		panel_2.add(cbCapteur);
-		
+
 		tfSensor = new JTextField();
-		tfSensor.setText(String.valueOf(indice1));
+		tfSensor.setText(String.valueOf(nbAlertSensor));
 		tfSensor.setColumns(10);
 		tfSensor.setBackground(Color.GREEN);
 		tfSensor.setBounds(132, 456, 97, 65);
 		panel_2.add(tfSensor);
-		
+
 		cbCapteur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -531,8 +547,8 @@ public class GUIBi extends JFrame {
 								+ sensorHistorical1.getDate() + " ID Sensor : " + sensorHistorical1.getIdSensor()
 								+ " State : " + sensorHistorical1.getSensorState() + " Alert State :"
 								+ sensorHistorical1.getAlertState());
-						indice1 = ListModel.getSize();
-						System.out.println("okay " + indice1);
+						nbAlertSensor = ListModel.getSize();
+						System.out.println("okay " + nbAlertSensor);
 					}
 				}
 			}
@@ -561,10 +577,10 @@ public class GUIBi extends JFrame {
 							}
 						}
 					}
-					indice2 = ListModel.getSize();
-					indice1 = ListModel.getSize();
-					tfAlertesReceived.setText(String.valueOf(indice2));
-					tfAlert.setText(String.valueOf(indice1));
+					nbTotalAlert = ListModel.getSize();
+					nbAlertSensor = ListModel.getSize();
+					tfAlertesReceived.setText(String.valueOf(nbTotalAlert));
+					tfAlert.setText(String.valueOf(nbAlertSensor));
 
 				} else if (selectedBook.equals("RC")) {
 					ListModel.clear();
@@ -586,8 +602,8 @@ public class GUIBi extends JFrame {
 						}
 					}
 
-					indice1 = ListModel.getSize();
-					tfAlert.setText(String.valueOf(indice1));
+					nbAlertSensor = ListModel.getSize();
+					tfAlert.setText(String.valueOf(nbAlertSensor));
 				}
 
 				else if (selectedBook.equals("Etage 1")) {
@@ -608,8 +624,8 @@ public class GUIBi extends JFrame {
 							}
 						}
 					}
-					indice1 = ListModel.getSize();
-					tfAlert.setText(String.valueOf(indice1));
+					nbAlertSensor = ListModel.getSize();
+					tfAlert.setText(String.valueOf(nbAlertSensor));
 				} else if (selectedBook.equals("Etage 2")) {
 					ListModel.clear();
 					System.out.println("Nous somme à l'étage 2");
@@ -631,8 +647,8 @@ public class GUIBi extends JFrame {
 						}
 					}
 				}
-				indice1 = ListModel.getSize();
-				tfAlert.setText(String.valueOf(indice1));
+				nbAlertSensor = ListModel.getSize();
+				tfAlert.setText(String.valueOf(nbAlertSensor));
 			}
 		});
 
@@ -679,12 +695,11 @@ public class GUIBi extends JFrame {
 		} catch (Exception e1) {
 			logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
 		}
-		
+
 	}
 	////////////////////////////////////
 	// Method GetAllComonArea
-	
-	
+
 	public int getAllCommonArea() {
 		requestType = "READ ALL";
 		table = "CommonArea";
@@ -696,8 +711,8 @@ public class GUIBi extends JFrame {
 			CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
 			logger.log(Level.INFO, "Find CommonArea data succed");
 			listCommonAreas = Arrays.asList(commonAreas);
-			 nbCommonArea = listCommonAreas.size();
-			
+			nbCommonArea = listCommonAreas.size();
+
 		} catch (Exception e1) {
 			logger.log(Level.INFO, "Impossible to parse in JSON CommonArea datas " + e1.getClass().getCanonicalName());
 
@@ -727,7 +742,7 @@ public class GUIBi extends JFrame {
 //////////////////////////////////////
 	// Method calculate all alerts
 	// TODO MODIFIER POUR LIRE LES ALERTES
-	public static Object[] returnNumber() {
+	public static Object[] returnNumberMessage() {
 		int numberAlerts = 0;
 		int nbAlNormal = 0;
 		int nbAlDown = 0;
@@ -755,6 +770,72 @@ public class GUIBi extends JFrame {
 
 		}
 		return new Object[] { numberAlerts, nbAlNormal, nbAlDown, nbAlOver };
+
+	}
+
+///////////////////////////////////////////////////////////
+	// Method to calculate the number of Sensor for each type
+	public static Object[] returnNbSensorType() {
+		int nbSensorType = 0;
+		int nbSensorTemperature = 0;
+		int nbSensorSmoke = 0;
+		int nbSensorWindow = 0;
+		int nbSensorDoor = 0;
+		int nbSensorMove = 0;
+		int nbSensorElevator = 0;
+		int nbSensorLight = 0;
+		int nbSensorFire = 0;
+		int nbSensorBadge = 0;
+		int nbSensorRouter = 0;
+		double resultatTemperature = 0;
+
+		if (!listSensor.isEmpty()) {
+			for (Sensor type : listSensor) {
+				nbSensorType++;
+
+				if (type.getTypeSensor().equals(SensorType.TEMPERATURE)) {
+					nbSensorTemperature++;
+				} else if (type.getTypeSensor().equals(SensorType.SMOKE)) {
+						nbSensorSmoke++;
+				} else if  (type.getTypeSensor().equals(SensorType.WINDOW)) {
+						nbSensorWindow++;
+						}
+				else if  (type.getTypeSensor().equals(SensorType.DOOR)) {
+					nbSensorDoor++;
+					}
+				else if  (type.getTypeSensor().equals(SensorType.MOVE)) {
+					nbSensorMove++;
+					}
+				else if  (type.getTypeSensor().equals(SensorType.ELEVATOR)) {
+					nbSensorElevator++;
+					}
+				else if  (type.getTypeSensor().equals(SensorType.LIGHT)) {
+					nbSensorLight++;
+					}
+				else if  (type.getTypeSensor().equals(SensorType.FIRE)) {
+					nbSensorFire++;
+					}
+				else if  (type.getTypeSensor().equals(SensorType.BADGE)) {
+					nbSensorBadge++;
+					}
+				else if  (type.getTypeSensor().equals(SensorType.ROUTER)) {
+					nbSensorRouter++;
+					}
+					}
+				
+
+			
+
+		}
+		
+//		BigDecimal resultatTemperature1 = ((new BigDecimal(nbSensorLight).divide(new BigDecimal(nbSensorType)).multiply(new BigDecimal(100))));
+		
+		resultatTemperature = (nbSensorLight / nbSensorType)*100; 
+	 
+		DecimalFormat df2 = new DecimalFormat("###.##");
+		
+		
+		return new Object[]{df2.format(resultatTemperature) + "%" ,nbSensorType,nbSensorSmoke,nbSensorWindow,};
 
 	}
 
