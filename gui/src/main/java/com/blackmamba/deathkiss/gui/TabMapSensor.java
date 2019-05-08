@@ -376,7 +376,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		///////////////////////// IMAGE/////////////////////////////////////////////////
 
 		try {
-			img = ImageIO.read(getClass().getClassLoader().getResource("etage0.jpg"));
+			img = ImageIO.read(getClass().getClassLoader().getResource("floor0.jpg"));
 			img1 = ImageIO.read(getClass().getClassLoader().getResource("etage1bis.jpg"));
 		} catch (IOException e1) {
 			e1.printStackTrace();
