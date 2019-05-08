@@ -31,6 +31,7 @@ public class MainGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					//TODO PA regenerer le code de la base de données
 					// popupConnexion = new Connexion();
 					// popupConnexion.setVisible(true);
 					Frame frame = new Frame(1);

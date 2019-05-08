@@ -163,7 +163,7 @@ public class Server {
 				}
 			}
 		});
-		// TODO PA remettre
+		// TODO PA a remettre
 		// threadAlertTreatment.start();
 	}
 

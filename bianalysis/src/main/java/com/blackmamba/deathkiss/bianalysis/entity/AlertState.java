@@ -6,5 +6,5 @@ package com.blackmamba.deathkiss.bianalysis.entity;
  *
  */
 public enum AlertState {
-	NORMAL, ALERT, DOWN, OVER
+	NORMAL, ALERT, DOWN, OVER, DELETED
 }

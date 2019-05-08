@@ -351,7 +351,7 @@ public class MonitoringAlert {
 			} else {
 				nbOfTimeWithoutMessage++;
 				if (nbOfTimeWithoutMessage % 5 == 0) {
-					logger.log(Level.INFO,nbOfTimeWithoutMessage+" Secondes without messages");
+					logger.log(Level.INFO, nbOfTimeWithoutMessage + " Secondes without messages");
 				}
 			}
 		}

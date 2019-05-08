@@ -75,7 +75,6 @@ public class SensorDAO extends DAO<Sensor> {
 			logger.log(Level.DEBUG, "Sensor succesfully inserted in BDD");
 			return true;
 		} catch (IOException | SQLException e) {
-			e.printStackTrace();
 			logger.log(Level.WARN, "Impossible to insert sensor datas in BDD" + e.getClass().getCanonicalName());
 			return false;
 		}
@@ -228,7 +227,6 @@ public class SensorDAO extends DAO<Sensor> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<Sensor> listSensor = new ArrayList<>();
 		try {
-			System.out.println(jsonString);
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
 			if (sensor.getIdCommonArea() != 0) {
 				request = "SELECT * FROM capteur where id_partie_commune = '" + sensor.getIdCommonArea() + "';";
@@ -243,7 +241,6 @@ public class SensorDAO extends DAO<Sensor> {
 			}
 			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(listSensor);
-			System.out.println(jsonString);
 			logger.log(Level.DEBUG, "Sensors succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException | NumberFormatException | ParseException e) {

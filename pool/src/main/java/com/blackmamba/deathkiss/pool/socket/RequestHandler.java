@@ -317,7 +317,7 @@ public class RequestHandler implements Runnable {
 									jsonString = "UPDATED";
 									writer.println(jsonString);
 									logger.log(Level.DEBUG, "Response send to client");
-									monitoringAlert.addHistorical(jsonString);
+									monitoringAlert.addHistorical(response);
 								} else {
 									logger.log(Level.WARN, "Request not recognized");
 								}
@@ -403,7 +403,7 @@ public class RequestHandler implements Runnable {
 								} else {
 									logger.log(Level.WARN, "Request not recognized");
 								}
-								//monitoringAlert.deleteAlert(jsonString);TODO PA a regler foncionne pas
+								monitoringAlert.deleteAlert(response);
 								break;
 							case "CommonArea":
 								if (!response.equals("")) {
