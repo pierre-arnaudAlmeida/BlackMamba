@@ -74,14 +74,14 @@ public class CommonArea {
 	}
 
 	/**
-	 * @return the etageCommonArea
+	 * @return the FloorCommonArea
 	 */
 	public int getFloorCommonArea() {
 		return floorCommonArea;
 	}
 
 	/**
-	 * @param etageCommonArea the etageCommonArea to set
+	 * @param FloorCommonArea the etageCommonArea to set
 	 */
 	public void setFloorCommonArea(int floorCommonArea) {
 		this.floorCommonArea = floorCommonArea;

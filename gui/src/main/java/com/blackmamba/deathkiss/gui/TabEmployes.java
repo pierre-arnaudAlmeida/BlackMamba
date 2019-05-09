@@ -212,7 +212,7 @@ public class TabEmployes extends JPanel {
 						if (!employee2.getLastnameEmployee().equals("")) {
 							listM.addElement("Results for employee with id : " + searchReceived);
 							listM.addElement(employee2.getIdEmployee() + "# " + employee2.getLastnameEmployee() + " "
-									+ employee2.getNameEmployee() + " ," + employee2.getPoste());
+									+ employee2.getNameEmployee() + " ," + employee2.getFunction());
 						}
 					} else {
 						/**
@@ -229,7 +229,7 @@ public class TabEmployes extends JPanel {
 							listM.addElement("Results for : " + searchReceived);
 						for (Employee employees : listSearchEmployee) {
 							listM.addElement(employees.getIdEmployee() + "# " + employees.getLastnameEmployee() + " "
-									+ employees.getNameEmployee() + " ," + employees.getPoste());
+									+ employees.getNameEmployee() + " ," + employees.getFunction());
 						}
 					}
 				} else {
@@ -243,7 +243,7 @@ public class TabEmployes extends JPanel {
 					listM.addElement("All employees ");
 					for (Employee employees : listEmployee) {
 						listM.addElement(employees.getIdEmployee() + "# " + employees.getLastnameEmployee() + " "
-								+ employees.getNameEmployee() + " ," + employees.getPoste());
+								+ employees.getNameEmployee() + " ," + employees.getFunction());
 					}
 				}
 				searchBar.setText("");
@@ -281,7 +281,7 @@ public class TabEmployes extends JPanel {
 					employee = getEmployee(employee, requestType, table);
 					textInputLastnameEmployee.setText(employee.getLastnameEmployee());
 					textInputNameEmployee.setText(employee.getNameEmployee());
-					textInputFunctionEmployee.setText(employee.getPoste());
+					textInputFunctionEmployee.setText(employee.getFunction());
 					textInputPasswordEmployee.setText("");
 				}
 			}
@@ -371,7 +371,7 @@ public class TabEmployes extends JPanel {
 		textInputFunctionEmployee.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
 				(int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);
 		textInputFunctionEmployee.setFont(policeLabel);
-		textInputFunctionEmployee.setText(employee.getPoste());
+		textInputFunctionEmployee.setText(employee.getFunction());
 		this.add(textInputFunctionEmployee);
 
 		///////////////////////// BUTTON/////////////////////////////////////////////////
@@ -440,7 +440,7 @@ public class TabEmployes extends JPanel {
 					employee = getEmployee(employee, requestType, table);
 					if (newLastnameEmployee.equals(employee.getLastnameEmployee())
 							&& newNameEmployee.equals(employee.getNameEmployee())
-							&& newFunctionEmployee.equals(employee.getPoste())) {
+							&& newFunctionEmployee.equals(employee.getFunction())) {
 						JOptionPane.showMessageDialog(null, "This Employee already exist", "Information",
 								JOptionPane.WARNING_MESSAGE);
 					} else {
@@ -453,7 +453,7 @@ public class TabEmployes extends JPanel {
 						employee.setLastnameEmployee(newLastnameEmployee.toUpperCase());
 						employee.setNameEmployee(newNameEmployee);
 						employee.setPassword(newPasswordEmployee);
-						employee.setPoste(newFunctionEmployee.toUpperCase());
+						employee.setFunction(newFunctionEmployee.toUpperCase());
 						try {
 							jsonString = objectMapper.writeValueAsString(employee);
 							new ClientSocket(requestType, jsonString, table);
@@ -476,7 +476,7 @@ public class TabEmployes extends JPanel {
 
 								employee = listEmployee.get(x);
 								listM.addElement(employee.getIdEmployee() + "# " + employee.getLastnameEmployee() + " "
-										+ employee.getNameEmployee() + " ," + employee.getPoste());
+										+ employee.getNameEmployee() + " ," + employee.getFunction());
 								JOptionPane.showMessageDialog(null, "Insertion succeeded", "Information",
 										JOptionPane.INFORMATION_MESSAGE);
 
@@ -554,7 +554,7 @@ public class TabEmployes extends JPanel {
 						if (!(employee2.getLastnameEmployee().equals(""))) {
 							employee.setLastnameEmployee(newLastnameEmployee.toUpperCase());
 							employee.setNameEmployee(newNameEmployee);
-							employee.setPoste(newFunctionEmployee.toUpperCase());
+							employee.setFunction(newFunctionEmployee.toUpperCase());
 							employee.setPassword(newPasswordEmployee);
 							try {
 								jsonString = objectMapper.writeValueAsString(employee);
@@ -568,7 +568,7 @@ public class TabEmployes extends JPanel {
 									logger.log(Level.DEBUG, "Update Succeeded");
 									textInputPasswordEmployee.setText("");
 									listM.set(index, employee.getIdEmployee() + "# " + employee.getLastnameEmployee()
-											+ " " + employee.getNameEmployee() + " ," + employee.getPoste() + "");
+											+ " " + employee.getNameEmployee() + " ," + employee.getFunction() + "");
 									JOptionPane.showMessageDialog(null, "Datas updated", "Information",
 											JOptionPane.INFORMATION_MESSAGE);
 								}
@@ -583,7 +583,7 @@ public class TabEmployes extends JPanel {
 					} else {
 						employee.setLastnameEmployee(newLastnameEmployee.toUpperCase());
 						employee.setNameEmployee(newNameEmployee);
-						employee.setPoste(newFunctionEmployee.toUpperCase());
+						employee.setFunction(newFunctionEmployee.toUpperCase());
 
 						try {
 							jsonString = objectMapper.writeValueAsString(employee);
@@ -597,7 +597,7 @@ public class TabEmployes extends JPanel {
 								logger.log(Level.DEBUG, "Update Succeeded");
 								textInputPasswordEmployee.setText("");
 								listM.set(index, employee.getIdEmployee() + "# " + employee.getLastnameEmployee() + " "
-										+ employee.getNameEmployee() + " ," + employee.getPoste() + "");
+										+ employee.getNameEmployee() + " ," + employee.getFunction() + "");
 								JOptionPane.showMessageDialog(null, "Datas updated", "Information",
 										JOptionPane.INFORMATION_MESSAGE);
 							}
@@ -626,7 +626,7 @@ public class TabEmployes extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				textInputLastnameEmployee.setText(employee.getLastnameEmployee());
 				textInputNameEmployee.setText(employee.getNameEmployee());
-				textInputFunctionEmployee.setText(employee.getPoste());
+				textInputFunctionEmployee.setText(employee.getFunction());
 				textInputPasswordEmployee.setText("");
 			}
 		});
@@ -674,7 +674,7 @@ public class TabEmployes extends JPanel {
 							employee.setIdEmployee(0);
 							employee.setLastnameEmployee("");
 							employee.setNameEmployee("");
-							employee.setPoste("");
+							employee.setFunction("");
 							employee.setPassword("");
 
 							textInputLastnameEmployee.setText("");
@@ -723,7 +723,7 @@ public class TabEmployes extends JPanel {
 		employee.setLastnameEmployee("");
 		employee.setNameEmployee("");
 		employee.setPassword("");
-		employee.setPoste("");
+		employee.setFunction("");
 
 		/**
 		 * Find all the Employee in the data base and add on list to be displayed
@@ -736,7 +736,7 @@ public class TabEmployes extends JPanel {
 		listM.addElement("All employees");
 		for (Employee employees : listEmployee) {
 			listM.addElement(employees.getIdEmployee() + "# " + employees.getLastnameEmployee() + " "
-					+ employees.getNameEmployee() + " ," + employees.getPoste());
+					+ employees.getNameEmployee() + " ," + employees.getFunction());
 		}
 		list.setModel(listM);
 	}
@@ -759,7 +759,7 @@ public class TabEmployes extends JPanel {
 				employee = getEmployee(employee, requestType, table);
 				textInputLastnameEmployee.setText(employee.getLastnameEmployee());
 				textInputNameEmployee.setText(employee.getNameEmployee());
-				textInputFunctionEmployee.setText(employee.getPoste());
+				textInputFunctionEmployee.setText(employee.getFunction());
 				textInputPasswordEmployee.setText("");
 			}
 		}

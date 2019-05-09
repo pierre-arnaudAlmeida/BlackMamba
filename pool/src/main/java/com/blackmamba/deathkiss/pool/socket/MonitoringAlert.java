@@ -525,7 +525,6 @@ public class MonitoringAlert {
 	public void deleteAlert(String str) {
 		objectMapper = new ObjectMapper();
 		try {
-			System.out.println(str);
 			sensor = objectMapper.readValue(str, Sensor.class);
 			for (Alert alerts : listAlert) {
 				if (alerts.getIdSensor() == sensor.getIdSensor()) {

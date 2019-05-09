@@ -14,7 +14,7 @@ public class Employee {
 	private String lastnameEmployee = "";
 	private String nameEmployee = "";
 	private String password = "";
-	private String poste = "";
+	private String function = "";
 
 	/**
 	 * Constructor
@@ -25,13 +25,13 @@ public class Employee {
 	 * @param password
 	 * @param poste
 	 */
-	public Employee(int idEmployee, String lastnameEmployee, String nameEmployee, String password, String poste) {
+	public Employee(int idEmployee, String lastnameEmployee, String nameEmployee, String password, String function) {
 		super();
 		this.idEmployee = idEmployee;
 		this.lastnameEmployee = lastnameEmployee;
 		this.nameEmployee = nameEmployee;
 		this.password = password;
-		this.poste = poste;
+		this.function = function;
 	}
 
 	/**
@@ -97,16 +97,16 @@ public class Employee {
 	}
 
 	/**
-	 * @return the poste
+	 * @return the function
 	 */
-	public String getPoste() {
-		return poste;
+	public String getFunction() {
+		return function;
 	}
 
 	/**
-	 * @param poste the poste to set
+	 * @param poste the function to set
 	 */
-	public void setPoste(String poste) {
-		this.poste = poste;
+	public void setFunction(String function) {
+		this.function = function;
 	}
 }

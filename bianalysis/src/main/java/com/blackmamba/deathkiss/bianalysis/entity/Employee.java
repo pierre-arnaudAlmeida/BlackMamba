@@ -14,6 +14,7 @@ public class Employee {
 	private String lastnameEmployee = "";
 	private String nameEmployee = "";
 	private String password = "";
+	//TODO PA changer le poste en fonction
 	private String poste = "";
 
 	/**

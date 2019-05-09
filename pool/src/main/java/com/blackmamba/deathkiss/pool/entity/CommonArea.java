@@ -83,7 +83,7 @@ public class CommonArea {
 	/**
 	 * @param etageCommonArea the etageCommonArea to set
 	 */
-	public void setFlooreCommonArea(int floorCommonArea) {
+	public void setFloorCommonArea(int floorCommonArea) {
 		this.floorCommonArea = floorCommonArea;
 	}
 

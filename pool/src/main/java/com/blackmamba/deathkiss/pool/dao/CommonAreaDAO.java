@@ -2,6 +2,7 @@ package com.blackmamba.deathkiss.pool.dao;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -24,8 +25,12 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 	 * Initialization of parameters
 	 */
 	private CommonArea commonArea;
+	private CommonArea area;
 	private ResultSet result = null;
 	private String request;
+	private PreparedStatement prepareStatement;
+	private Statement st;
+	private StringBuilder requestSB;
 	private static final Logger logger = LogManager.getLogger(CommonAreaDAO.class);
 
 	/**
@@ -43,18 +48,22 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 	 */
 	@Override
 	public boolean create(String jsonString) {
+		boolean result = false;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			CommonArea area = objectMapper.readValue(jsonString, CommonArea.class);
-			request = "insert into partie_commune (nom_partie_commune, etage_partie_commune,surface,max_capteur) values ('" + area.getNameCommonArea() + "','" + area.getFloorCommonArea() + "','" + area.getArea() + "','" + area.getMaxSensor() + "');";
-			Statement st = con.createStatement();
-			st.execute(request);
+			area = objectMapper.readValue(jsonString, CommonArea.class);
+			prepareStatement = con.prepareStatement(
+					"INSERT INTO partie_commune (nom_partie_commune, etage_partie_commune,surface,max_capteur) values (?,?,?,?)");
+			prepareStatement.setString(1, area.getNameCommonArea());
+			prepareStatement.setInt(2, area.getFloorCommonArea());
+			prepareStatement.setInt(3, area.getArea());
+			prepareStatement.setInt(4, area.getMaxSensor());
+			result = prepareStatement.execute();
 			logger.log(Level.DEBUG, "CommonArea succesfully inserted in BDD");
-			return true;
 		} catch (IOException | SQLException e) {
 			logger.log(Level.WARN, "Impossible to insert commonArea datas in BDD " + e.getClass().getCanonicalName());
-			return false;
 		}
+		return result;
 	}
 
 	/**
@@ -63,18 +72,19 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 	 */
 	@Override
 	public boolean delete(String jsonString) {
+		boolean result = false;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			CommonArea area = objectMapper.readValue(jsonString, CommonArea.class);
-			request = "DELETE FROM partie_commune where id_partie_commune = " + area.getIdCommonArea() + ";";
-			Statement st = con.createStatement();
-			st.execute(request);
+			area = objectMapper.readValue(jsonString, CommonArea.class);
+			requestSB = new StringBuilder("DELETE FROM partie_commune where id_partie_commune=");
+			requestSB.append(area.getIdCommonArea());
+			st = con.createStatement();
+			result = st.execute(requestSB.toString());
 			logger.log(Level.DEBUG, "CommonArea succesfully deleted in BDD");
-			return true;
 		} catch (SQLException | IOException e) {
 			logger.log(Level.WARN, "Impossible to delete commonArea datas in BDD " + e.getClass().getCanonicalName());
-			return false;
 		}
+		return result;
 	}
 
 	/**
@@ -83,19 +93,23 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 	 */
 	@Override
 	public boolean update(String jsonString) {
+		boolean result = false;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			CommonArea area = objectMapper.readValue(jsonString, CommonArea.class);
-			request = "UPDATE partie_commune SET etage_partie_commune = '" + area.getFloorCommonArea() + "', nom_partie_commune = '" + area.getNameCommonArea() + "', surface='" + area.getArea() + "', max_capteur='" + area.getMaxSensor() + "' where id_partie_commune = '" + area.getIdCommonArea()
-					+ "';";
-			Statement st = con.createStatement();
-			st.execute(request);
+			area = objectMapper.readValue(jsonString, CommonArea.class);
+			prepareStatement = con.prepareStatement(
+					"UPDATE partie_commune SET etage_partie_commune = ?, nom_partie_commune = ?, surface= ?, max_capteur= ? where id_partie_commune = ?");
+			prepareStatement.setInt(1, area.getFloorCommonArea());
+			prepareStatement.setString(2, area.getNameCommonArea());
+			prepareStatement.setInt(3, area.getArea());
+			prepareStatement.setInt(4, area.getMaxSensor());
+			prepareStatement.setInt(5, area.getIdCommonArea());
+			result = prepareStatement.execute();
 			logger.log(Level.DEBUG, "CommonArea succesfully update in BDD");
-			return true;
 		} catch (SQLException | IOException e) {
 			logger.log(Level.WARN, "Impossible to update commonArea datas in BDD " + e.getClass().getCanonicalName());
-			return false;
 		}
+		return result;
 	}
 
 	/**
@@ -104,22 +118,24 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 	 */
 	@Override
 	public String read(String jsonString) {
+		ObjectMapper objWriter = new ObjectMapper();
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			CommonArea area = objectMapper.readValue(jsonString, CommonArea.class);
-			request = "SELECT * FROM partie_commune where id_partie_commune='" + area.getIdCommonArea() + "';";
-			Statement st = con.createStatement();
-			result = st.executeQuery(request);
+			area = objectMapper.readValue(jsonString, CommonArea.class);
+			requestSB = new StringBuilder(
+					"SELECT id_partie_commune,nom_partie_commune, etage_partie_commune,surface,max_capteur ");
+			requestSB.append("FROM partie_commune where id_partie_commune=");
+			requestSB.append(area.getIdCommonArea());
+			st = con.createStatement();
+			result = st.executeQuery(requestSB.toString());
 			result.next();
 			convertDatas(result);
-			ObjectMapper obj = new ObjectMapper();
-			jsonString = obj.writeValueAsString(commonArea);
+			jsonString = objWriter.writeValueAsString(commonArea);
 			logger.log(Level.DEBUG, "CommonArea succesfully find in BDD");
-			return jsonString;
 		} catch (SQLException | IOException e) {
 			logger.log(Level.WARN, "Impossible to get commonArea datas from BDD " + e.getClass().getCanonicalName());
+			jsonString = "ERROR";
 		}
-		jsonString = "ERROR";
 		return jsonString;
 	}
 
@@ -129,23 +145,22 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 	 */
 	@Override
 	public String readAll(String jsonString) {
+		ObjectMapper objWriter = new ObjectMapper();
 		List<CommonArea> listCommonArea = new ArrayList<>();
 		try {
-			request = "SELECT * FROM partie_commune;";
-			Statement st = con.createStatement();
+			request = "SELECT id_partie_commune,nom_partie_commune, etage_partie_commune,surface,max_capteur FROM partie_commune;";
+			st = con.createStatement();
 			result = st.executeQuery(request);
 			while (result.next()) {
 				convertDatas(result);
 				listCommonArea.add(commonArea);
 			}
-			ObjectMapper obj = new ObjectMapper();
-			jsonString = obj.writeValueAsString(listCommonArea);
+			jsonString = objWriter.writeValueAsString(listCommonArea);
 			logger.log(Level.DEBUG, "CommonAreas succesfully find in BDD");
-			return jsonString;
 		} catch (SQLException | IOException e) {
 			logger.log(Level.WARN, "Impossible to get commonArea datas from BDD " + e.getClass().getCanonicalName());
+			jsonString = "ERROR";
 		}
-		jsonString = "ERROR";
 		return jsonString;
 	}
 
@@ -154,38 +169,41 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 	 * values in table 'partie_commune' by the name or the stage of 'partie_commune'
 	 */
 	public String findByName(String jsonString) {
+		ObjectMapper objWriter = new ObjectMapper();
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<CommonArea> listCommonArea = new ArrayList<>();
 		try {
-			CommonArea area = objectMapper.readValue(jsonString, CommonArea.class);
-			if (!(area.getNameCommonArea().equals("")))
-				request = "SELECT * FROM partie_commune where nom_partie_commune LIKE '%" + area.getNameCommonArea().toUpperCase() + "%';";
-			else
-				request = "SELECT * FROM partie_commune where etage_partie_commune = '" + area.getFloorCommonArea() + "';";
-			Statement st = con.createStatement();
-			result = st.executeQuery(request);
+			area = objectMapper.readValue(jsonString, CommonArea.class);
+			if (!(area.getNameCommonArea().equals(""))) {
+				prepareStatement = con.prepareStatement(
+						"SELECT id_partie_commune,nom_partie_commune, etage_partie_commune,surface,max_capteur FROM partie_commune where nom_partie_commune LIKE ?");
+				prepareStatement.setString(1, "%" + area.getNameCommonArea().toUpperCase() + "%");
+			} else {
+				prepareStatement = con.prepareStatement(
+						"SELECT id_partie_commune,nom_partie_commune, etage_partie_commune,surface,max_capteur FROM partie_commune where etage_partie_commune = ?");
+				prepareStatement.setInt(1, area.getFloorCommonArea());
+			}
+			result = prepareStatement.executeQuery();
 			while (result.next()) {
 				convertDatas(result);
 				listCommonArea.add(commonArea);
 			}
-			ObjectMapper obj = new ObjectMapper();
-			jsonString = obj.writeValueAsString(listCommonArea);
+			jsonString = objWriter.writeValueAsString(listCommonArea);
 			logger.log(Level.DEBUG, "CommonAreas succesfully find in BDD");
-			return jsonString;
 		} catch (SQLException | IOException e) {
 			logger.log(Level.WARN, "Impossible to get commonArea datas from BDD " + e.getClass().getCanonicalName());
+			jsonString = "ERROR";
 		}
-		jsonString = "ERROR";
 		return jsonString;
 	}
 
 	public void convertDatas(ResultSet result) throws NumberFormatException, SQLException {
 		commonArea = new CommonArea();
-		commonArea.setIdCommonArea(Integer.parseInt(result.getObject(1).toString()));
-		commonArea.setNameCommonArea(result.getObject(2).toString());
-		commonArea.setFlooreCommonArea(Integer.parseInt(result.getObject(3).toString()));
-		commonArea.setArea(Integer.parseInt(result.getObject(4).toString()));
-		commonArea.setMaxSensor(Integer.parseInt(result.getObject(5).toString()));
+		commonArea.setIdCommonArea(result.getInt("id_partie_commune"));
+		commonArea.setNameCommonArea(result.getString("nom_partie_commune"));
+		commonArea.setFloorCommonArea(result.getInt("etage_partie_commune"));
+		commonArea.setArea(result.getInt("surface"));
+		commonArea.setMaxSensor(result.getInt("max_capteur"));
 		commonArea.setListSensor(null);
 	}
 }

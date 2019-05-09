@@ -2,6 +2,7 @@ package com.blackmamba.deathkiss.pool.dao;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -25,7 +26,10 @@ public class EmployeeDAO extends DAO<Employee> {
 	 */
 	private Employee employee;
 	private ResultSet result = null;
+	private StringBuilder requestSB;
 	private String request;
+	private Statement st;
+	private PreparedStatement prepareStatement;
 	private static final Logger logger = LogManager.getLogger(EmployeeDAO.class);
 
 	/**
@@ -43,20 +47,23 @@ public class EmployeeDAO extends DAO<Employee> {
 	 */
 	@Override
 	public boolean create(String jsonString) {
+		boolean result = false;
+		Employee emp;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			Employee emp = objectMapper.readValue(jsonString, Employee.class);
-			request = "insert into employee (nom_employee, prenom_employee, mot_de_passe, poste) values ('"
-					+ emp.getLastnameEmployee() + "','" + emp.getNameEmployee() + "','" + emp.getPassword() + "','"
-					+ emp.getPoste() + "');";
-			Statement st = con.createStatement();
-			st.execute(request);
+			emp = objectMapper.readValue(jsonString, Employee.class);
+			prepareStatement = con.prepareStatement(
+					"INSERT INTO employee (nom_employee, prenom_employee, mot_de_passe, poste) values (?,?,?,?)");
+			prepareStatement.setString(1, emp.getLastnameEmployee());
+			prepareStatement.setString(2, emp.getNameEmployee());
+			prepareStatement.setString(3, emp.getPassword());
+			prepareStatement.setString(4, emp.getFunction());
+			result = prepareStatement.execute();
 			logger.log(Level.DEBUG, "Employee succesfully inserted in BDD");
-			return true;
 		} catch (IOException | SQLException e) {
 			logger.log(Level.WARN, "Impossible to insert employee datas in BDD " + e.getClass().getCanonicalName());
-			return false;
 		}
+		return result;
 	}
 
 	/**
@@ -65,18 +72,20 @@ public class EmployeeDAO extends DAO<Employee> {
 	 */
 	@Override
 	public boolean delete(String jsonString) {
+		boolean result = false;
+		Employee emp;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			Employee emp = objectMapper.readValue(jsonString, Employee.class);
-			request = "DELETE FROM employee where id_employee = " + emp.getIdEmployee() + ";";
-			Statement st = con.createStatement();
-			st.execute(request);
+			emp = objectMapper.readValue(jsonString, Employee.class);
+			requestSB = new StringBuilder("DELETE FROM employee where id_employee= ");
+			requestSB.append(emp.getIdEmployee());
+			st = con.createStatement();
+			result = st.execute(requestSB.toString());
 			logger.log(Level.DEBUG, "Employee succesfully deleted in BDD");
-			return true;
 		} catch (SQLException | IOException e) {
 			logger.log(Level.WARN, "Impossible to delete employee datas  in BDD " + e.getClass().getCanonicalName());
-			return false;
 		}
+		return result;
 	}
 
 	/**
@@ -85,26 +94,31 @@ public class EmployeeDAO extends DAO<Employee> {
 	 */
 	@Override
 	public boolean update(String jsonString) {
+		boolean result = false;
+		Employee emp;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			Employee emp = objectMapper.readValue(jsonString, Employee.class);
-			if (employee.getPassword().equals("")) {
-				request = "UPDATE employee SET prenom_employee = '" + emp.getNameEmployee() + "', nom_employee = '"
-						+ emp.getLastnameEmployee() + "',poste = '" + emp.getPoste() + "' where id_employee = "
-						+ emp.getIdEmployee() + ";";
-			} else {
-				request = "UPDATE employee SET mot_de_passe = '" + emp.getPassword() + "', nom_employee = '"
-						+ emp.getLastnameEmployee() + "', prenom_employee = '" + emp.getNameEmployee()
-						+ "' where id_employee = " + emp.getIdEmployee() + ";";
-			}
-			Statement st = con.createStatement();
-			st.execute(request);
+			// TODO PA faire un preparestatement
+			emp = objectMapper.readValue(jsonString, Employee.class);
+			System.out.println(jsonString);
+			requestSB = new StringBuilder("UPDATE employee SET prenom_employee = '");
+			requestSB.append(emp.getNameEmployee());
+			requestSB.append("', nom_employee = '");
+			requestSB.append(emp.getLastnameEmployee());
+			requestSB.append("',poste = '");
+			requestSB.append(emp.getFunction());
+			requestSB.append("',mot_de_passe = '");
+			requestSB.append(emp.getPassword());
+			requestSB.append("' where id_employee = ");
+			requestSB.append(emp.getIdEmployee());
+			st = con.createStatement();
+			result = st.execute(requestSB.toString());
 			logger.log(Level.DEBUG, "Employee succesfully update in BDD");
-			return true;
 		} catch (SQLException | IOException e) {
+			e.printStackTrace();
 			logger.log(Level.WARN, "Impossible to update employee datas in BDD " + e.getClass().getCanonicalName());
-			return false;
 		}
+		return result;
 	}
 
 	/**
@@ -112,24 +126,27 @@ public class EmployeeDAO extends DAO<Employee> {
 	 * values in table 'employee' with the id and the password return a JSON string
 	 */
 	public String connection(String jsonString) {
+		Employee emp;
+		ObjectMapper objWriter = new ObjectMapper();
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			Employee emp = objectMapper.readValue(jsonString, Employee.class);
-			request = "SELECT * FROM Employee where id_employee='" + emp.getIdEmployee() + "' and mot_de_passe='"
-					+ emp.getPassword() + "';";
-			Statement st = con.createStatement();
-			result = st.executeQuery(request);
+			emp = objectMapper.readValue(jsonString, Employee.class);
+			System.out.println(jsonString);
+			prepareStatement = con.prepareStatement(
+					"SELECT id_employee,nom_employee, prenom_employee, mot_de_passe, poste FROM Employee where id_employee= ? and mot_de_passe= ?");
+			prepareStatement.setInt(1, emp.getIdEmployee());
+			prepareStatement.setString(2, emp.getPassword());
+			System.out.println(prepareStatement);
+			result = prepareStatement.executeQuery();
 			result.next();
 			convertDatas(result);
-
-			ObjectMapper obj = new ObjectMapper();
-			jsonString = obj.writeValueAsString(employee);
+			jsonString = objWriter.writeValueAsString(employee);
+			System.out.println(jsonString);
 			logger.log(Level.DEBUG, "Employee succesfully recognized in BDD");
-			return jsonString;
 		} catch (SQLException | IOException e) {
 			logger.log(Level.WARN, "Impossible to get employee datas from BDD " + e.getClass().getCanonicalName());
+			jsonString = "ERROR";
 		}
-		jsonString = "ERROR";
 		return jsonString;
 	}
 
@@ -139,23 +156,24 @@ public class EmployeeDAO extends DAO<Employee> {
 	 */
 	@Override
 	public String read(String jsonString) {
+		Employee emp;
+		ObjectMapper objWriter = new ObjectMapper();
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			Employee emp = objectMapper.readValue(jsonString, Employee.class);
-			request = "SELECT * FROM Employee where id_employee='" + emp.getIdEmployee() + "';";
-			Statement st = con.createStatement();
-			result = st.executeQuery(request);
+			emp = objectMapper.readValue(jsonString, Employee.class);
+			requestSB = new StringBuilder("SELECT id_employee,nom_employee, prenom_employee, mot_de_passe, poste ");
+			requestSB.append("FROM Employee where id_employee=");
+			requestSB.append(emp.getIdEmployee());
+			st = con.createStatement();
+			result = st.executeQuery(requestSB.toString());
 			result.next();
 			convertDatas(result);
-
-			ObjectMapper obj = new ObjectMapper();
-			jsonString = obj.writeValueAsString(employee);
+			jsonString = objWriter.writeValueAsString(employee);
 			logger.log(Level.DEBUG, "Employee succesfully find in BDD");
-			return jsonString;
 		} catch (SQLException | IOException e) {
 			logger.log(Level.WARN, "Impossible to get employee datas from BDD " + e.getClass().getCanonicalName());
+			jsonString = "ERROR";
 		}
-		jsonString = "ERROR";
 		return jsonString;
 	}
 
@@ -165,23 +183,22 @@ public class EmployeeDAO extends DAO<Employee> {
 	 */
 	@Override
 	public String readAll(String jsonString) {
+		ObjectMapper objWriter = new ObjectMapper();
 		List<Employee> listEmployee = new ArrayList<>();
 		try {
-			request = "SELECT * FROM Employee";
-			Statement st = con.createStatement();
+			request = "SELECT id_employee,nom_employee, prenom_employee, mot_de_passe, poste FROM Employee";
+			st = con.createStatement();
 			result = st.executeQuery(request);
 			while (result.next()) {
 				convertDatas(result);
 				listEmployee.add(employee);
 			}
-			ObjectMapper obj = new ObjectMapper();
-			jsonString = obj.writeValueAsString(listEmployee);
+			jsonString = objWriter.writeValueAsString(listEmployee);
 			logger.log(Level.DEBUG, "Employees succesfully find in BDD");
-			return jsonString;
 		} catch (SQLException | IOException e) {
 			logger.log(Level.WARN, "Impossible to get employee datas from BDD " + e.getClass().getCanonicalName());
+			jsonString = "ERROR";
 		}
-		jsonString = "ERROR";
 		return jsonString;
 	}
 
@@ -190,38 +207,39 @@ public class EmployeeDAO extends DAO<Employee> {
 	 * values in table 'employee' by the name or lastName or function
 	 */
 	public String findByName(String jsonString) {
+		Employee emp;
+		ObjectMapper objWriter = new ObjectMapper();
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<Employee> listEmployee = new ArrayList<>();
 		try {
-			Employee emp = objectMapper.readValue(jsonString, Employee.class);
-			request = "SELECT * FROM employee where ((nom_employee LIKE '%" + emp.getLastnameEmployee().toUpperCase()
-					+ "%') or (prenom_employee LIKE '%" + emp.getLastnameEmployee().toLowerCase()
-					+ "%') or (prenom_employee LIKE '%" + emp.getLastnameEmployee().toUpperCase()
-					+ "%') or (poste LIKE '%" + emp.getLastnameEmployee().toLowerCase() + "%') or (poste LIKE '%"
-					+ emp.getLastnameEmployee().toUpperCase() + "%'));";
-			Statement st = con.createStatement();
-			result = st.executeQuery(request);
+			emp = objectMapper.readValue(jsonString, Employee.class);
+			prepareStatement = con.prepareStatement(
+					"SELECT id_employee,nom_employee, prenom_employee, mot_de_passe, poste FROM employee where ((nom_employee LIKE ?) or (prenom_employee LIKE ?) or (prenom_employee LIKE ?) or (poste LIKE ?) or (poste LIKE ?));");
+			prepareStatement.setString(1, "%" + emp.getLastnameEmployee().toUpperCase() + "%");
+			prepareStatement.setString(2, "%" + emp.getLastnameEmployee().toLowerCase() + "%");
+			prepareStatement.setString(3, "%" + emp.getLastnameEmployee().toUpperCase() + "%");
+			prepareStatement.setString(4, "%" + emp.getLastnameEmployee().toLowerCase() + "%");
+			prepareStatement.setString(5, "%" + emp.getLastnameEmployee().toUpperCase() + "%");
+			result = prepareStatement.executeQuery();
 			while (result.next()) {
 				convertDatas(result);
 				listEmployee.add(employee);
 			}
-			ObjectMapper obj = new ObjectMapper();
-			jsonString = obj.writeValueAsString(listEmployee);
+			jsonString = objWriter.writeValueAsString(listEmployee);
 			logger.log(Level.DEBUG, "Employees succesfully find in BDD");
-			return jsonString;
 		} catch (SQLException | IOException e) {
 			logger.log(Level.WARN, "Impossible to get employee datas from BDD " + e.getClass().getCanonicalName());
+			jsonString = "ERROR";
 		}
-		jsonString = "ERROR";
 		return jsonString;
 	}
 
 	public void convertDatas(ResultSet result) throws NumberFormatException, SQLException {
 		employee = new Employee();
-		employee.setIdEmployee(Integer.parseInt(result.getObject(1).toString()));
-		employee.setLastnameEmployee(result.getObject(2).toString());
-		employee.setNameEmployee(result.getObject(3).toString());
-		employee.setPassword(result.getObject(4).toString());
-		employee.setPoste(result.getObject(5).toString());
+		employee.setIdEmployee(result.getInt("id_employee"));
+		employee.setLastnameEmployee(result.getString("nom_employee"));
+		employee.setNameEmployee(result.getString("prenom_employee"));
+		employee.setPassword(result.getString("mot_de_passe"));
+		employee.setFunction(result.getString("poste"));
 	}
 }

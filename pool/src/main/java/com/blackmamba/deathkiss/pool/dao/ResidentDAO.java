@@ -30,6 +30,9 @@ public class ResidentDAO extends DAO<Resident> {
 	private String request;
 	private Resident resident;
 	private ResultSet result = null;
+	private StringBuilder requestSB;
+	private Statement st;
+	private PreparedStatement prepareStatement;
 	private static final Logger logger = LogManager.getLogger(ResidentDAO.class);
 
 	public ResidentDAO(Connection con) {
@@ -43,10 +46,11 @@ public class ResidentDAO extends DAO<Resident> {
 	@Override
 	public boolean create(String jsonString) {
 		boolean result = false;
+		Resident resid;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			Resident resid = objectMapper.readValue(jsonString, Resident.class);
-			PreparedStatement prepareStatement = con
+			resid = objectMapper.readValue(jsonString, Resident.class);
+			prepareStatement = con
 					.prepareStatement("INSERT INTO resident (nom_resident, prenom_resident) values (?,?)");
 			prepareStatement.setString(1, resid.getLastnameResident());
 			prepareStatement.setString(2, resid.getNameResident());
@@ -64,14 +68,14 @@ public class ResidentDAO extends DAO<Resident> {
 	 */
 	@Override
 	public boolean delete(String jsonString) {
-		StringBuilder requestSB;
 		boolean result = false;
+		Resident resid;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			Resident resid = objectMapper.readValue(jsonString, Resident.class);
+			resid = objectMapper.readValue(jsonString, Resident.class);
 			requestSB = new StringBuilder("DELETE FROM resident where id_resident= ");
 			requestSB.append(resid.getIdResident());
-			Statement st = con.createStatement();
+			st = con.createStatement();
 			result = st.execute(requestSB.toString());
 			logger.log(Level.DEBUG, "Resident succesfully deleted in BDD");
 		} catch (SQLException | IOException e) {
@@ -87,10 +91,11 @@ public class ResidentDAO extends DAO<Resident> {
 	@Override
 	public boolean update(String jsonString) {
 		boolean result = false;
+		Resident resid;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			Resident resid = objectMapper.readValue(jsonString, Resident.class);
-			PreparedStatement prepareStatement = con.prepareStatement(
+			resid = objectMapper.readValue(jsonString, Resident.class);
+			prepareStatement = con.prepareStatement(
 					"UPDATE resident SET nom_resident = ?, prenom_resident = ? where id_resident = ?");
 			prepareStatement.setString(1, resid.getLastnameResident());
 			prepareStatement.setString(2, resid.getNameResident());
@@ -109,26 +114,24 @@ public class ResidentDAO extends DAO<Resident> {
 	 */
 	@Override
 	public String read(String jsonString) {
-		StringBuilder requestSB;
+		Resident resid;
 		ObjectMapper objectMapper = new ObjectMapper();
 		ObjectMapper objWriter = new ObjectMapper();
 		try {
-			Resident resid = objectMapper.readValue(jsonString, Resident.class);
+			resid = objectMapper.readValue(jsonString, Resident.class);
 			requestSB = new StringBuilder("SELECT id_resident,nom_resident, prenom_resident ");
 			requestSB.append("FROM resident where id_resident=");
 			requestSB.append(resid.getIdResident());
-
-			Statement st = con.createStatement();
+			st = con.createStatement();
 			result = st.executeQuery(requestSB.toString());
-			if (result.next())
-				convertDatas(result);
+			result.next();
+			convertDatas(result);
 			jsonString = objWriter.writeValueAsString(resident);
 			logger.log(Level.DEBUG, "Resident succesfully find in BDD");
-			return jsonString;
 		} catch (SQLException | IOException e) {
 			logger.log(Level.WARN, "Impossible to get resident datas from BDD " + e.getClass().getCanonicalName());
+			jsonString = "ERROR";
 		}
-		jsonString = "ERROR";
 		return jsonString;
 	}
 
@@ -138,23 +141,22 @@ public class ResidentDAO extends DAO<Resident> {
 	 */
 	@Override
 	public String readAll(String jsonString) {
+		ObjectMapper objWriter = new ObjectMapper();
 		List<Resident> listResident = new ArrayList<>();
 		try {
 			request = "SELECT id_resident,nom_resident,prenom_resident FROM resident";
-			Statement st = con.createStatement();
+			st = con.createStatement();
 			result = st.executeQuery(request);
 			while (result.next()) {
 				convertDatas(result);
 				listResident.add(resident);
 			}
-			ObjectMapper obj = new ObjectMapper();
-			jsonString = obj.writeValueAsString(listResident);
+			jsonString = objWriter.writeValueAsString(listResident);
 			logger.log(Level.DEBUG, "Residents succesfully find in BDD");
-			return jsonString;
 		} catch (SQLException | IOException e) {
 			logger.log(Level.WARN, "Impossible to get resident datas from BDD " + e.getClass().getCanonicalName());
+			jsonString = "ERROR";
 		}
-		jsonString = "ERROR";
 		return jsonString;
 	}
 
@@ -163,11 +165,13 @@ public class ResidentDAO extends DAO<Resident> {
 	 * values in table 'resident' by the name or lastName
 	 */
 	public String findByName(String jsonString) {
+		Resident resid;
+		ObjectMapper objWriter = new ObjectMapper();
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<Resident> listResident = new ArrayList<>();
 		try {
-			Resident resid = objectMapper.readValue(jsonString, Resident.class);
-			PreparedStatement prepareStatement = con.prepareStatement(
+			resid = objectMapper.readValue(jsonString, Resident.class);
+			prepareStatement = con.prepareStatement(
 					"SELECT id_resident,nom_resident, prenom_resident FROM resident where ((nom_resident LIKE ?) or (prenom_resident LIKE ?) or (prenom_resident LIKE ?))");
 			prepareStatement.setString(1, "%" + resid.getLastnameResident().toUpperCase() + "%");
 			prepareStatement.setString(2, "%" + resid.getLastnameResident().toLowerCase() + "%");
@@ -177,14 +181,12 @@ public class ResidentDAO extends DAO<Resident> {
 				convertDatas(result);
 				listResident.add(resident);
 			}
-			ObjectMapper obj = new ObjectMapper();
-			jsonString = obj.writeValueAsString(listResident);
+			jsonString = objWriter.writeValueAsString(listResident);
 			logger.log(Level.DEBUG, "Residents succesfully find in BDD");
-			return jsonString;
 		} catch (SQLException | IOException e) {
 			logger.log(Level.WARN, "Impossible to get residents datas from BDD " + e.getClass().getCanonicalName());
+			jsonString = "ERROR";
 		}
-		jsonString = "ERROR";
 		return jsonString;
 	}
 
@@ -196,7 +198,6 @@ public class ResidentDAO extends DAO<Resident> {
 	 * @return
 	 */
 	public boolean badger(int idResident, int idSensor) {
-		StringBuilder requestSB;
 		boolean result = false;
 		Date currentDate = new Date();
 		Format formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -208,7 +209,7 @@ public class ResidentDAO extends DAO<Resident> {
 			requestSB.append(",'");
 			requestSB.append(formater.format(currentDate));
 			requestSB.append("')");
-			Statement st = con.createStatement();
+			st = con.createStatement();
 			result = st.execute(requestSB.toString());
 			logger.log(Level.DEBUG, "Resident succesfully inserted in BDD");
 		} catch (SQLException e) {

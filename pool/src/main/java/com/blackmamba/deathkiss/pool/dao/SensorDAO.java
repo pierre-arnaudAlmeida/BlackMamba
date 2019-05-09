@@ -60,7 +60,8 @@ public class SensorDAO extends DAO<Sensor> {
 		try {
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
 
-			PreparedStatement prepareStatement = con.prepareStatement("INSERT INTO capteur (type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max) values (?,?,?,?,?,?,?,?,?,?");
+			PreparedStatement prepareStatement = con.prepareStatement(
+					"INSERT INTO capteur (type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max) values (?,?,?,?,?,?,?,?,?,?");
 			prepareStatement.setString(1, sensor.getTypeSensor().name());
 			prepareStatement.setString(2, "ON");
 			if (sensor.getSensorState())
@@ -118,7 +119,8 @@ public class SensorDAO extends DAO<Sensor> {
 		try {
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
 
-			PreparedStatement prepareStatement = con.prepareStatement("UPDATE capteur SET id_partie_commune = ?,type_capteur = ?,type_alert= ?,sensibilite= ?,heure_debut= ?,heure_fin= ?,seuil_min= ?,seuil_max= ?,mise_a_jour= ?,etat= ?  where id_capteur = ?");
+			PreparedStatement prepareStatement = con.prepareStatement(
+					"UPDATE capteur SET id_partie_commune = ?,type_capteur = ?,type_alert= ?,sensibilite= ?,heure_debut= ?,heure_fin= ?,seuil_min= ?,seuil_max= ?,mise_a_jour= ?,etat= ?  where id_capteur = ?");
 			prepareStatement.setInt(1, sensor.getIdCommonArea());
 			prepareStatement.setString(2, sensor.getTypeSensor().name());
 			prepareStatement.setString(3, sensor.getAlertState().name());
@@ -162,14 +164,15 @@ public class SensorDAO extends DAO<Sensor> {
 		ObjectMapper objWriter = new ObjectMapper();
 		try {
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
-			requestSB = new StringBuilder("SELECT id_capteur,type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max ");
+			requestSB = new StringBuilder(
+					"SELECT id_capteur,type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max ");
 			requestSB.append("FROM capteur where id_capteur=");
 			requestSB.append(sensor.getIdSensor());
 
 			Statement st = con.createStatement();
 			result = st.executeQuery(requestSB.toString());
-			if (result.next())
-				convertDatas(result);
+			result.next();
+			convertDatas(result);
 
 			jsonString = objWriter.writeValueAsString(sensor);
 			logger.log(Level.DEBUG, "Sensor succesfully find in BDD");
@@ -219,7 +222,8 @@ public class SensorDAO extends DAO<Sensor> {
 		try {
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
 
-			requestSB = new StringBuilder("SELECT id_capteur,type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max ");
+			requestSB = new StringBuilder(
+					"SELECT id_capteur,type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max ");
 			if (sensor.getIdCommonArea() != 0) {
 				requestSB.append("FROM capteur where id_partie_commune =");
 				requestSB.append(sensor.getIdCommonArea());
@@ -268,7 +272,10 @@ public class SensorDAO extends DAO<Sensor> {
 		sensor.setLastUpdate(result.getDate("mise_a_jour"));
 		sensor.setThresholdMax(result.getInt("seuil_max"));
 
-		if (sensor.getIdCommonArea() != 0 && (!sensor.getEndActivity().equals(Time.valueOf("00:00:00")) || sensor.getStartActivity().equals(Time.valueOf("00:00:00"))) && sensor.getSensitivity() != null && sensor.getTypeSensor() != null
+		if (sensor.getIdCommonArea() != 0
+				&& (!sensor.getEndActivity().equals(Time.valueOf("00:00:00"))
+						|| sensor.getStartActivity().equals(Time.valueOf("00:00:00")))
+				&& sensor.getSensitivity() != null && sensor.getTypeSensor() != null
 				&& (sensor.getThresholdMin() != 0 || sensor.getThresholdMax() != 0)) {
 			sensor.setConfigured(true);
 		}
