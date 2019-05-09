@@ -65,11 +65,8 @@ public class SensorDAO extends DAO<Sensor> {
 				state = "ON";
 			} else
 				state = "OFF";
-			request = "insert into capteur (type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,parametre,mise_a_jour) values ('"
-					+ sensor.getTypeSensor() + "','" + state + "','" + sensor.getIdCommonArea() + "','"
-					+ sensor.getAlertState() + "','" + sensor.getSensitivity() + "','" + sensor.getStartActivity()
-					+ "','" + sensor.getEndActivity() + "','" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:"
-					+ sensor.getThresholdMax() + "', '" + formater.format(currentDate) + "');";
+			request = "insert into capteur (type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,parametre,mise_a_jour) values ('" + sensor.getTypeSensor() + "','" + state + "','" + sensor.getIdCommonArea() + "','" + sensor.getAlertState() + "','"
+					+ sensor.getSensitivity() + "','" + sensor.getStartActivity() + "','" + sensor.getEndActivity() + "','" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "', '" + formater.format(currentDate) + "');";
 			Statement st = con.createStatement();
 			st.execute(request);
 			logger.log(Level.DEBUG, "Sensor succesfully inserted in BDD");
@@ -113,37 +110,19 @@ public class SensorDAO extends DAO<Sensor> {
 			Sensor sensor = objectMapper.readValue(jsonString, Sensor.class);
 			if (sensor.getSensorState()) {
 				if (sensor.getIdCommonArea() == 0) {
-					request = "UPDATE capteur SET id_partie_commune = null, etat = 'ON', type_capteur = '"
-							+ sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='"
-							+ sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity() + "',heure_fin='"
-							+ sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin()
-							+ "seuilMax:" + sensor.getThresholdMax() + "', mise_a_jour= '"
-							+ formater.format(currentDate) + "' where id_capteur = " + sensor.getIdSensor() + ";";
+					request = "UPDATE capteur SET id_partie_commune = null, etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity() + "',heure_fin='"
+							+ sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "', mise_a_jour= '" + formater.format(currentDate) + "' where id_capteur = " + sensor.getIdSensor() + ";";
 				} else {
-					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea()
-							+ ", etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='"
-							+ sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='"
-							+ sensor.getStartActivity() + "',heure_fin='" + sensor.getEndActivity() + "',parametre='"
-							+ "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax()
-							+ "', mise_a_jour= '" + formater.format(currentDate) + "' where id_capteur = "
-							+ sensor.getIdSensor() + ";";
+					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea() + ", etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity()
+							+ "',heure_fin='" + sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "', mise_a_jour= '" + formater.format(currentDate) + "' where id_capteur = " + sensor.getIdSensor() + ";";
 				}
 			} else if (!sensor.getSensorState()) {
 				if (sensor.getIdCommonArea() == 0) {
-					request = "UPDATE capteur SET id_partie_commune = null, etat = 'OFF', type_capteur = '"
-							+ sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='"
-							+ sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity() + "',heure_fin='"
-							+ sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin()
-							+ "seuilMax:" + sensor.getThresholdMax() + "', mise_a_jour= '"
-							+ formater.format(currentDate) + "' where id_capteur = " + sensor.getIdSensor() + ";";
+					request = "UPDATE capteur SET id_partie_commune = null, etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity() + "',heure_fin='"
+							+ sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "', mise_a_jour= '" + formater.format(currentDate) + "' where id_capteur = " + sensor.getIdSensor() + ";";
 				} else {
-					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea()
-							+ ", etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='"
-							+ sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='"
-							+ sensor.getStartActivity() + "',heure_fin='" + sensor.getEndActivity() + "',parametre='"
-							+ "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax()
-							+ "', mise_a_jour= '" + formater.format(currentDate) + "' where id_capteur = "
-							+ sensor.getIdSensor() + ";";
+					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea() + ", etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity()
+							+ "',heure_fin='" + sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "', mise_a_jour= '" + formater.format(currentDate) + "' where id_capteur = " + sensor.getIdSensor() + ";";
 				}
 			} else
 				return false;
@@ -295,5 +274,10 @@ public class SensorDAO extends DAO<Sensor> {
 		sensor = getThreshold(sensor, result.getObject(9).toString());
 		Date date = formatter.parse(result.getObject(10).toString());
 		sensor.setLastUpdate(date);
+
+		if (sensor.getIdCommonArea() != 0 && (!sensor.getEndActivity().equals(Time.valueOf("00:00:00")) || sensor.getStartActivity().equals(Time.valueOf("00:00:00"))) && sensor.getSensitivity() != null && sensor.getTypeSensor() != null
+				&& (sensor.getThresholdMin() != 0 || sensor.getThresholdMax() != 0)) {
+			sensor.setConfigured(true);
+		}
 	}
 }

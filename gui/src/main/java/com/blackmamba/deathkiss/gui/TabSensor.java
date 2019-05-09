@@ -902,6 +902,10 @@ public class TabSensor extends JPanel {
 						logger.log(Level.WARN, "Impossible to parse in JSON sensor datas " + e1.getClass().getCanonicalName());
 					}
 				}
+				if (sensor.getIdCommonArea() != 0 && (!sensor.getEndActivity().equals(Time.valueOf("00:00:00")) || sensor.getStartActivity().equals(Time.valueOf("00:00:00"))) && sensor.getSensitivity() != null && sensor.getTypeSensor() != null
+						&& (sensor.getThresholdMin() != 0 || sensor.getThresholdMax() != 0)) {
+					sensor.setConfigured(true);
+				}
 			}
 		});
 
