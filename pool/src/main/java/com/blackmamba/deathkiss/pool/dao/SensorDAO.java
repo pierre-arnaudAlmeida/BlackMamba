@@ -2,21 +2,19 @@ package com.blackmamba.deathkiss.pool.dao;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
-import java.text.Format;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
-
+import java.util.Locale;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.pool.entity.AlertState;
 import com.blackmamba.deathkiss.pool.entity.Sensitivity;
 import com.blackmamba.deathkiss.pool.entity.Sensor;
@@ -55,26 +53,34 @@ public class SensorDAO extends DAO<Sensor> {
 	 */
 	@Override
 	public boolean create(String jsonString) {
+		Sensor sensor;
+		boolean result = false;
 		ObjectMapper objectMapper = new ObjectMapper();
-		Date currentDate = new Date();
-		Format formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar currentDate = Calendar.getInstance(Locale.FRENCH);
 		try {
-			Sensor sensor = objectMapper.readValue(jsonString, Sensor.class);
-			String state = null;
-			if (sensor.getSensorState()) {
-				state = "ON";
-			} else
-				state = "OFF";
-			request = "insert into capteur (type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,parametre,mise_a_jour) values ('" + sensor.getTypeSensor() + "','" + state + "','" + sensor.getIdCommonArea() + "','" + sensor.getAlertState() + "','"
-					+ sensor.getSensitivity() + "','" + sensor.getStartActivity() + "','" + sensor.getEndActivity() + "','" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "', '" + formater.format(currentDate) + "');";
-			Statement st = con.createStatement();
-			st.execute(request);
+			sensor = objectMapper.readValue(jsonString, Sensor.class);
+
+			PreparedStatement prepareStatement = con.prepareStatement("INSERT INTO capteur (type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max) values (?,?,?,?,?,?,?,?,?,?");
+			prepareStatement.setString(1, sensor.getTypeSensor().name());
+			prepareStatement.setString(2, "ON");
+			if (sensor.getSensorState())
+				prepareStatement.setString(2, "ON");
+			else
+				prepareStatement.setString(2, "OFF");
+			prepareStatement.setInt(3, sensor.getIdCommonArea());
+			prepareStatement.setString(4, sensor.getAlertState().name());
+			prepareStatement.setString(5, sensor.getSensitivity().name());
+			prepareStatement.setTime(6, sensor.getStartActivity());
+			prepareStatement.setTime(7, sensor.getEndActivity());
+			prepareStatement.setInt(8, sensor.getThresholdMin());
+			prepareStatement.setDate(9, new java.sql.Date(currentDate.getTime().getTime()));
+			prepareStatement.setInt(10, sensor.getThresholdMax());
+			result = prepareStatement.execute();
 			logger.log(Level.DEBUG, "Sensor succesfully inserted in BDD");
-			return true;
 		} catch (IOException | SQLException e) {
 			logger.log(Level.WARN, "Impossible to insert sensor datas in BDD" + e.getClass().getCanonicalName());
-			return false;
 		}
+		return result;
 	}
 
 	/**
@@ -83,18 +89,20 @@ public class SensorDAO extends DAO<Sensor> {
 	 */
 	@Override
 	public boolean delete(String jsonString) {
+		StringBuilder requestSB;
+		boolean result = false;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			Sensor sensor = objectMapper.readValue(jsonString, Sensor.class);
-			request = "DELETE FROM capteur where id_capteur = " + sensor.getIdSensor() + ";";
+			requestSB = new StringBuilder("DELETE FROM capteur where id_capteur=");
+			requestSB.append(sensor.getIdSensor());
 			Statement st = con.createStatement();
-			st.execute(request);
+			result = st.execute(requestSB.toString());
 			logger.log(Level.DEBUG, "Sensor succesfully deleted in BDD");
-			return true;
 		} catch (SQLException | IOException e) {
 			logger.log(Level.WARN, "Impossible to delete sensor data in BDD" + e.getClass().getCanonicalName());
-			return false;
 		}
+		return result;
 	}
 
 	/**
@@ -103,47 +111,44 @@ public class SensorDAO extends DAO<Sensor> {
 	 */
 	@Override
 	public boolean update(String jsonString) {
+		Sensor sensor;
+		boolean result = false;
 		ObjectMapper objectMapper = new ObjectMapper();
-		Date currentDate = new Date();
-		Format formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar currentDate = Calendar.getInstance(Locale.FRENCH);
 		try {
-			Sensor sensor = objectMapper.readValue(jsonString, Sensor.class);
-			if (sensor.getSensorState()) {
-				if (sensor.getIdCommonArea() == 0) {
-					request = "UPDATE capteur SET id_partie_commune = null, etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity() + "',heure_fin='"
-							+ sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "', mise_a_jour= '" + formater.format(currentDate) + "' where id_capteur = " + sensor.getIdSensor() + ";";
-				} else {
-					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea() + ", etat = 'ON', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity()
-							+ "',heure_fin='" + sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "', mise_a_jour= '" + formater.format(currentDate) + "' where id_capteur = " + sensor.getIdSensor() + ";";
-				}
-			} else if (!sensor.getSensorState()) {
-				if (sensor.getIdCommonArea() == 0) {
-					request = "UPDATE capteur SET id_partie_commune = null, etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity() + "',heure_fin='"
-							+ sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "', mise_a_jour= '" + formater.format(currentDate) + "' where id_capteur = " + sensor.getIdSensor() + ";";
-				} else {
-					request = "UPDATE capteur SET id_partie_commune = " + sensor.getIdCommonArea() + ", etat = 'OFF', type_capteur = '" + sensor.getTypeSensor() + "',type_alert='" + sensor.getAlertState() + "',sensibilite='" + sensor.getSensitivity() + "',heure_debut='" + sensor.getStartActivity()
-							+ "',heure_fin='" + sensor.getEndActivity() + "',parametre='" + "seuilMin:" + sensor.getThresholdMin() + "seuilMax:" + sensor.getThresholdMax() + "', mise_a_jour= '" + formater.format(currentDate) + "' where id_capteur = " + sensor.getIdSensor() + ";";
-				}
-			} else
-				return false;
-			Statement st = con.createStatement();
-			st.execute(request);
+			sensor = objectMapper.readValue(jsonString, Sensor.class);
+
+			PreparedStatement prepareStatement = con.prepareStatement("UPDATE capteur SET id_partie_commune = ?,type_capteur = ?,type_alert= ?,sensibilite= ?,heure_debut= ?,heure_fin= ?,seuil_min= ?,seuil_max= ?,mise_a_jour= ?,etat= ?  where id_capteur = ?");
+			prepareStatement.setInt(1, sensor.getIdCommonArea());
+			prepareStatement.setString(2, sensor.getTypeSensor().name());
+			prepareStatement.setString(3, sensor.getAlertState().name());
+			prepareStatement.setString(4, sensor.getSensitivity().name());
+			prepareStatement.setTime(5, sensor.getStartActivity());
+			prepareStatement.setTime(6, sensor.getEndActivity());
+			prepareStatement.setInt(7, sensor.getThresholdMin());
+			prepareStatement.setInt(8, sensor.getThresholdMax());
+			prepareStatement.setDate(9, new java.sql.Date(currentDate.getTime().getTime()));
+			if (sensor.getSensorState())
+				prepareStatement.setString(10, "ON");
+			else
+				prepareStatement.setString(10, "OFF");
+			prepareStatement.setInt(11, sensor.getIdSensor());
+			result = prepareStatement.execute();
 			logger.log(Level.DEBUG, "Sensor succesfully update in BDD");
 
 			sensorHistorical = new SensorHistorical();
 			sensorHistorical.setIdSensor(sensor.getIdSensor());
 			sensorHistorical.setSensorState(sensor.getSensorState());
 			sensorHistorical.setAlertState(sensor.getAlertState());
-			sensorHistorical.setDate(currentDate);
+			sensorHistorical.setDate(currentDate.getTime());
 			jsonString = objectMapper.writeValueAsString(sensorHistorical);
 			DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(con);
 			((SensorHistoricalDAO) sensorHistoricalDao).create(jsonString);
 			logger.log(Level.DEBUG, "SensorHistorical succesfully inserted in BDD");
-			return true;
 		} catch (SQLException | IOException e) {
 			logger.log(Level.WARN, "Impossible to update sensor datas in BDD" + e.getClass().getCanonicalName());
-			return false;
 		}
+		return result;
 	}
 
 	/**
@@ -152,17 +157,21 @@ public class SensorDAO extends DAO<Sensor> {
 	 */
 	@Override
 	public String read(String jsonString) {
+		StringBuilder requestSB;
 		ObjectMapper objectMapper = new ObjectMapper();
+		ObjectMapper objWriter = new ObjectMapper();
 		try {
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
-			request = "SELECT * FROM capteur where id_capteur='" + sensor.getIdSensor() + "';";
-			Statement st = con.createStatement();
-			result = st.executeQuery(request);
-			result.next();
-			convertDatas(result);
+			requestSB = new StringBuilder("SELECT id_capteur,type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max ");
+			requestSB.append("FROM capteur where id_capteur=");
+			requestSB.append(sensor.getIdSensor());
 
-			ObjectMapper obj = new ObjectMapper();
-			jsonString = obj.writeValueAsString(sensor);
+			Statement st = con.createStatement();
+			result = st.executeQuery(requestSB.toString());
+			if (result.next())
+				convertDatas(result);
+
+			jsonString = objWriter.writeValueAsString(sensor);
 			logger.log(Level.DEBUG, "Sensor succesfully find in BDD");
 			return jsonString;
 		} catch (SQLException | IOException | NumberFormatException | ParseException e) {
@@ -178,16 +187,16 @@ public class SensorDAO extends DAO<Sensor> {
 	 */
 	@Override
 	public String readAll(String jsonString) {
+		ObjectMapper obj = new ObjectMapper();
 		List<Sensor> listSensor = new ArrayList<>();
 		try {
-			request = "SELECT * FROM capteur;";
+			request = "SELECT SELECT id_capteur,type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max FROM capteur";
 			Statement st = con.createStatement();
 			result = st.executeQuery(request);
 			while (result.next()) {
 				convertDatas(result);
 				listSensor.add(sensor);
 			}
-			ObjectMapper obj = new ObjectMapper();
 			jsonString = obj.writeValueAsString(listSensor);
 			logger.log(Level.DEBUG, "Sensors succesfully find in BDD");
 			return jsonString;
@@ -203,77 +212,61 @@ public class SensorDAO extends DAO<Sensor> {
 	 * values in table 'capteur' by the type of sensor or the id of commonArea
 	 */
 	public String findAll(String jsonString) {
+		StringBuilder requestSB;
 		ObjectMapper objectMapper = new ObjectMapper();
+		ObjectMapper objWriter = new ObjectMapper();
 		List<Sensor> listSensor = new ArrayList<>();
 		try {
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
+
+			requestSB = new StringBuilder("SELECT id_capteur,type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max ");
 			if (sensor.getIdCommonArea() != 0) {
-				request = "SELECT * FROM capteur where id_partie_commune = '" + sensor.getIdCommonArea() + "';";
+				requestSB.append("FROM capteur where id_partie_commune =");
+				requestSB.append(sensor.getIdCommonArea());
 			} else {
-				request = "SELECT * FROM capteur where type_capteur = '" + sensor.getTypeSensor() + "';";
+				requestSB.append("FROM capteur where type_capteur =");
+				requestSB.append(sensor.getTypeSensor());
 			}
+
 			Statement st = con.createStatement();
-			result = st.executeQuery(request);
+			result = st.executeQuery(requestSB.toString());
 			while (result.next()) {
 				convertDatas(result);
 				listSensor.add(sensor);
 			}
-			ObjectMapper obj = new ObjectMapper();
-			jsonString = obj.writeValueAsString(listSensor);
+			jsonString = objWriter.writeValueAsString(listSensor);
 			logger.log(Level.DEBUG, "Sensors succesfully find in BDD");
 			return jsonString;
-		} catch (SQLException | IOException | NumberFormatException | ParseException e) {
+		} catch (SQLException | IOException | NumberFormatException |
+
+				ParseException e) {
 			logger.log(Level.WARN, "Impossible to get sensor datas from BDD " + e.getClass().getCanonicalName());
 		}
 		jsonString = "ERROR";
 		return jsonString;
 	}
 
-	public Sensor getThreshold(Sensor sens, String string) {
-		int positionMin = string.indexOf("seuilMin");
-		int positionMax = string.indexOf("seuilMax");
-		if (positionMin > -1 && positionMax > -1) {
-			String thresholdMin = string.substring(positionMin + 9, positionMax).trim();
-			sens.setThresholdMin(Integer.parseInt(thresholdMin));
-			String thresholdMax = string.substring(positionMax + 9).trim();
-			sens.setThresholdMax(Integer.parseInt(thresholdMax));
-		} else if (positionMin > -1 && positionMax == -1) {
-			String thresholdMin = string.substring(positionMin + 9).trim();
-			sens.setThresholdMin(Integer.parseInt(thresholdMin));
-		} else if (positionMin == -1 && positionMax > -1) {
-			String thresholdMax = string.substring(positionMax + 9).trim();
-			sens.setThresholdMax(Integer.parseInt(thresholdMax));
-		}
-		return sens;
-	}
-
 	public void convertDatas(ResultSet result) throws NumberFormatException, SQLException, ParseException {
 		sensor = new Sensor();
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		sensor.setIdSensor(Integer.parseInt(result.getObject(1).toString()));
-		SensorType element = SensorType.valueOf(result.getObject(2).toString());
+
+		sensor.setIdSensor(result.getInt("id_capteur"));
+		SensorType element = SensorType.valueOf(result.getString("type_capteur"));
 		sensor.setTypeSensor(element);
-		if (result.getObject(3).toString().equals("ON")) {
+		if (result.getString("etat").equals("ON")) {
 			sensor.setSensorState(true);
-		} else if (result.getObject(3).toString().equals("OFF")) {
+		} else if (result.getString("etat").toString().equals("OFF")) {
 			sensor.setSensorState(false);
 		}
-		try {
-			if (!result.getObject(4).equals("")) {
-				sensor.setIdCommonArea(Integer.parseInt(result.getObject(4).toString()));
-			}
-		} catch (Exception e) {
-			sensor.setIdCommonArea(0);
-		}
-		AlertState alertStateElement = AlertState.valueOf(result.getObject(5).toString());
+		sensor.setIdCommonArea(result.getInt("id_partie_commune"));
+		AlertState alertStateElement = AlertState.valueOf(result.getString("type_alert"));
 		sensor.setAlertState(alertStateElement);
-		Sensitivity sensitivityElement = Sensitivity.valueOf(result.getObject(6).toString());
+		Sensitivity sensitivityElement = Sensitivity.valueOf(result.getString("sensibilite"));
 		sensor.setSensitivity(sensitivityElement);
-		sensor.setStartActivity(Time.valueOf(result.getObject(7).toString()));
-		sensor.setEndActivity(Time.valueOf(result.getObject(8).toString()));
-		sensor = getThreshold(sensor, result.getObject(9).toString());
-		Date date = formatter.parse(result.getObject(10).toString());
-		sensor.setLastUpdate(date);
+		sensor.setStartActivity(result.getTime("heure_debut"));
+		sensor.setEndActivity(result.getTime("heure_fin"));
+		sensor.setThresholdMin(result.getInt("seuil_min"));
+		sensor.setLastUpdate(result.getDate("mise_a_jour"));
+		sensor.setThresholdMax(result.getInt("seuil_max"));
 
 		if (sensor.getIdCommonArea() != 0 && (!sensor.getEndActivity().equals(Time.valueOf("00:00:00")) || sensor.getStartActivity().equals(Time.valueOf("00:00:00"))) && sensor.getSensitivity() != null && sensor.getTypeSensor() != null
 				&& (sensor.getThresholdMin() != 0 || sensor.getThresholdMax() != 0)) {
