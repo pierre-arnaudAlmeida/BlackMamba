@@ -26,7 +26,7 @@ import java.io.IOException;
  */
 public class SurfacePolygon extends JFrame {
 
-	private CommonArea idCommonArea; 
+	private CommonArea idCommonArea;
 	private float surface;
 	// Point coordinates table
 	private int tab;
@@ -34,11 +34,23 @@ public class SurfacePolygon extends JFrame {
 	private int[] yPoints;
 	private static JPopupMenu popup;
 
-	private static final Rectangle polygon1 = new Rectangle(7, 56, 108, 313);
-	private static final Rectangle polygon2 = new Rectangle(129, 72, 105, 97);
-	private static final Rectangle polygon3 = new Rectangle(240, 171, 346, 45);
-	private static final Rectangle polygon4_1 = new Rectangle(591, 171, 282, 182);
-	private static final Rectangle polygon4_2 = new Rectangle(733, 71, 140, 99);
+	private static final Rectangle entranceHall = new Rectangle(490, 99, 95, 197);
+	private static final Rectangle livingRoomE0 = new Rectangle(343, 2, 145, 97);
+	private static final Rectangle sittingRoom = new Rectangle(343, 297, 146, 96);
+	private static final Rectangle corridorE0_A = new Rectangle(148, 102, 340, 48);
+	private static final Rectangle corridorE0_B = new Rectangle(148, 241, 340, 54);
+	private static final Rectangle corridorE0_C = new Rectangle(103, 2, 43, 391);
+	private static final Rectangle elevatorA = new Rectangle(147, 152, 33, 31);
+	private static final Rectangle elevatorB = new Rectangle(148, 207, 33, 31);
+	private static final Rectangle diningRoomE0 = new Rectangle(2, 100, 99, 195);
+
+	private static final Rectangle staffRoom = new Rectangle(245, 296, 146, 99);
+	private static final Rectangle livingRoomE1 = new Rectangle(246, 4, 144, 96);
+	private static final Rectangle corridorE1_A = new Rectangle(490, 4, 36, 390);
+	private static final Rectangle corridorE1_B = new Rectangle(148, 102, 340, 48);
+	private static final Rectangle corridorE1_C = new Rectangle(103, 3, 43, 394);
+	private static final Rectangle corridorE1_D = new Rectangle(103, 3, 43, 394);
+	private static final Rectangle diningRoomE1 = new Rectangle(2, 101, 100, 194);
 
 	private static final long serialVersionUID = -1793953027487918460L;
 
@@ -54,22 +66,37 @@ public class SurfacePolygon extends JFrame {
 		}
 
 		public void paint(Graphics g) {
-			
+
 			// 50% transparent
 			int alpha = 127; 
-			
+
 			// Draw image
 			g.drawImage(buffer, 0, 0, buffer.getWidth(), buffer.getHeight(), this);
-			
-			Color myColour = new Color(255, 255, 255, alpha);
 
+			Color myColour = new Color(255, 255, 255, alpha);
 			g.setColor(myColour);
+
+//			g.setColor(Color.GREEN);
 			// Draw rectangle
-			g.drawRect(polygon1.x, polygon1.y, polygon1.width, polygon1.height);
-			g.drawRect(polygon2.x, polygon2.y, polygon2.width, polygon2.height);
-			g.drawRect(polygon3.x, polygon3.y, polygon3.width, polygon3.height);
-			g.drawRect(polygon4_1.x, polygon4_1.y, polygon4_1.width, polygon4_1.height);
-			g.drawRect(polygon4_2.x, polygon4_2.y, polygon4_2.width, polygon4_2.height);
+			g.drawRect(entranceHall.x, entranceHall.y, entranceHall.width, entranceHall.height);
+			g.drawRect(livingRoomE0.x, livingRoomE0.y, livingRoomE0.width, livingRoomE0.height);
+			g.drawRect(sittingRoom.x, sittingRoom.y, sittingRoom.width, sittingRoom.height);
+			g.drawRect(corridorE0_A.x, corridorE0_A.y, corridorE0_A.width, corridorE0_A.height);
+			g.drawRect(corridorE0_B.x, corridorE0_B.y, corridorE0_B.width, corridorE0_B.height);
+			g.drawRect(corridorE0_C.x, corridorE0_C.y, corridorE0_C.width, corridorE0_C.height);
+			g.drawRect(elevatorA.x, elevatorA.y, elevatorA.width, elevatorA.height);
+			g.drawRect(elevatorB.x, elevatorB.y, elevatorB.width, elevatorB.height);
+			g.drawRect(diningRoomE0.x, diningRoomE0.y, diningRoomE0.width, diningRoomE0.height);
+			
+//			g.drawRect(staffRoom.x, staffRoom.y, staffRoom.width, staffRoom.height);
+//			g.drawRect(livingRoomE1.x, livingRoomE1.y, livingRoomE1.width, livingRoomE1.height);
+//			g.drawRect(corridorE1_A.x, corridorE1_A.y, corridorE1_A.width, corridorE1_A.height);
+//			g.drawRect(corridorE1_B.x, corridorE1_B.y, corridorE1_B.width, corridorE1_B.height);
+//			g.drawRect(corridorE1_C.x, corridorE1_C.y, corridorE1_C.width, corridorE1_C.height);
+//			g.drawRect(corridorE1_D.x, corridorE1_D.y, corridorE1_D.width, corridorE1_D.height);
+//			g.drawRect(elevatorA.x, elevatorA.y, elevatorA.width, elevatorA.height);
+//			g.drawRect(elevatorB.x, elevatorB.y, elevatorB.width, elevatorB.height);
+//			g.drawRect(diningRoomE1.x, diningRoomE1.y, diningRoomE1.width, diningRoomE1.height);
 		}
 
 		private void testLocation(Point mouse, Rectangle commonArea, String text) {
@@ -90,14 +117,14 @@ public class SurfacePolygon extends JFrame {
 		public void mouseClicked(MouseEvent e) {
 			// récupération de la position de la souri
 			p = e.getPoint();
-			testLocation(p, polygon1, "mouseClicked - data 1");
-			testLocation(p, polygon2, "mouseClicked - data 2");
-			testLocation(p, polygon3, "mouseClicked - data 3");
-			testLocation(p, polygon4_1, "mouseClicked - data 4_1");
-			testLocation(p, polygon4_2, "mouseClicked - data 4_2");
+			testLocation(p, entranceHall, "mouseClicked - data 1");
+			testLocation(p, livingRoomE0, "mouseClicked - data 2");
+			testLocation(p, sittingRoom, "mouseClicked - data 3");
+			testLocation(p, corridorE0_A, "mouseClicked - data 4_1");
+			testLocation(p, corridorE0_B, "mouseClicked - data 4_2");
 
-			if (location(p, polygon1) == true) {
-				//new SurfacePolygon(polygon1).setVisible(true);
+			if (location(p, entranceHall) == true) {
+				// new SurfacePolygon(polygon1).setVisible(true);
 				System.out.println("Polygon1");
 			}
 		}
@@ -132,23 +159,20 @@ public class SurfacePolygon extends JFrame {
 		setLocationRelativeTo(null);
 		BufferedImage img = null;
 		try {
-			img = ImageIO.read(getClass().getClassLoader().getResource("image.jpg"));
+			img = ImageIO.read(getClass().getClassLoader().getResource("floor0.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		setContentPane(new Canvas(img));
 
 	}
-	
-
 
 //	private void formMouseMoved(MouseEvent evt) {
 //		   SurfacePolygon.getToolTipLocation(evt);
 //			SurfacePolygon.setToolTipText("Infos"); // Active l'infobulle
 //			SurfacePolygon.setToolTipText(null); // Désactive l'infobulle
 //	}
-	
-	
+
 //	JPanel southPanel = new JPanel(new BorderLayout());
 //	add(southPanel, BorderLayout.SOUTH);
 //	JLabel logo = new JLabel(new ImageIcon(TabMapSensor.class.getResource("image.png")));
@@ -162,7 +186,6 @@ public class SurfacePolygon extends JFrame {
 //	} catch (IOException e) {
 //		e.printStackTrace();
 //	}
-	
 
 	public static void main(String[] args) {
 		new SurfacePolygon().setVisible(true);

@@ -41,6 +41,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -62,6 +63,8 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	private JTextField textInputIdSensor;
 	private Font police;
 	private JButton disconnection;
+	private JButton configureSensor;
+	private JTabbedPane tab;
 	private JPanel bar;
 	private JLabel labelIdEmployee;
 	private JLabel labelHeadList;
@@ -95,16 +98,17 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	private JComboBox<Integer> textInputMinuteStartActivity;
 	private JComboBox<Integer> textInputHourEndActivity;
 	private JComboBox<Integer> textInputMinuteEndActivity;
-	
+
 	private DefaultListModel<String> listM;
 	private List<Sensor> listSearchSensor = new ArrayList<Sensor>();
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private List<Alert> listAlert = new ArrayList<Alert>();
 	private List<SurfacePolygon> surfacePolygon = new ArrayList<SurfacePolygon>();
-	
+
 	private ResourceBundle rsParameters = ResourceBundle.getBundle("parameters");
+	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
 	private static final long serialVersionUID = 7348020021300445245L;
-	
+
 	private static final Logger logger = LogManager.getLogger(TabMapSensor.class);
 	private static final Rectangle polygon1 = new Rectangle(7, 56, 108, 313);
 	private static final Rectangle polygon2 = new Rectangle(129, 72, 105, 97);
@@ -117,7 +121,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	 */
 	public TabMapSensor() {
 	}
-	
+
 	/**
 	 * Constructor
 	 * 
@@ -308,6 +312,13 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		for (Floor listFloor : Floor.values()) {
 			textFloor.addItem(listFloor.name());
 		}
+		textFloor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+//				if () {
+//					
+//				}
+			}
+		});
 
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
@@ -360,8 +371,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 
 		///////////////////////// JScrollPane///////////////////////////////////////////
 
-		JScrollPane scroll = new JScrollPane(panel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
-				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		JScrollPane scroll = new JScrollPane(panel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scroll.setBounds(0, 0, 930, 610);
 		this.add(scroll);
 
@@ -384,12 +394,11 @@ public class TabMapSensor extends JPanel implements MouseListener {
 
 	}
 
+	@Override
 	public void paintComponent(Graphics g) {
 
-		super.paintComponent(g);
+		// super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		int planWidth = getWidth();
-		int panelWidth = this.getWidth();
 
 		// Draw image
 		g2.drawImage(buffer, 700, 50, buffer.getWidth(), buffer.getHeight(), this);
@@ -412,13 +421,6 @@ public class TabMapSensor extends JPanel implements MouseListener {
 			System.out.println(text + " - !image");
 	}
 
-	private boolean location(Point mouse, Rectangle commonArea) {
-		if (commonArea.contains(mouse))
-			return true;
-		else
-			return false;
-	}
-
 	public void mouseClicked(MouseEvent e) {
 		// recovering the position of the mouse
 		p = e.getPoint();
@@ -427,10 +429,6 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		testLocation(p, polygon3, "mouseClicked - data 3");
 		testLocation(p, polygon4_1, "mouseClicked - data 4_1");
 		testLocation(p, polygon4_2, "mouseClicked - data 4_2");
-
-		if (location(p, polygon1) == true) {
-			System.out.println("Polygon1");
-		}
 	}
 
 	/**
@@ -470,8 +468,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		listM.removeAllElements();
 		listM.addElement("All sensors");
 		for (Sensor sens : listSensor) {
-			listM.addElement(sens.getIdSensor() + "# " + sens.getTypeSensor() + " ," + sens.getSensorState() + " ,"
-					+ sens.getIdCommonArea());
+			listM.addElement(sens.getIdSensor() + "# " + sens.getTypeSensor() + " ," + sens.getSensorState() + " ," + sens.getIdCommonArea());
 		}
 	}
 
@@ -486,8 +483,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 
 		int position = sA.indexOf(":");
 		textInputHourStartActivity.setSelectedIndex(Integer.parseInt(sA.substring(0, position).trim()));
-		textInputMinuteStartActivity
-				.setSelectedIndex(Integer.parseInt(sA.substring(position + 1, position + 3).trim()));
+		textInputMinuteStartActivity.setSelectedIndex(Integer.parseInt(sA.substring(position + 1, position + 3).trim()));
 		position = eA.indexOf(":");
 		textInputHourEndActivity.setSelectedIndex(Integer.parseInt(eA.substring(0, position).trim()));
 		textInputMinuteEndActivity.setSelectedIndex(Integer.parseInt(eA.substring(position + 1, position + 3).trim()));
