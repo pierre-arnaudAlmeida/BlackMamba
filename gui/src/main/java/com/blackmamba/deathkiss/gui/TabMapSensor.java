@@ -110,11 +110,21 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	private static final long serialVersionUID = 7348020021300445245L;
 
 	private static final Logger logger = LogManager.getLogger(TabMapSensor.class);
-	private static final Rectangle polygon1 = new Rectangle(7, 56, 108, 313);
-	private static final Rectangle polygon2 = new Rectangle(129, 72, 105, 97);
-	private static final Rectangle polygon3 = new Rectangle(240, 171, 346, 45);
-	private static final Rectangle polygon4_1 = new Rectangle(591, 171, 282, 182);
-	private static final Rectangle polygon4_2 = new Rectangle(733, 71, 140, 99);
+	private static final Rectangle rectangle1 = new Rectangle(400, 204, 147, 66);
+	private static final Rectangle rectangle2 = new Rectangle(400, 272, 147, 202);
+	private static final Rectangle rectangle3 = new Rectangle(400, 476, 147, 64);
+	private static final Rectangle rectangle4 = new Rectangle(543, 85, 430, 83);
+	private static final Rectangle rectangle5 = new Rectangle(400, 170, 718, 33);
+	private static final Rectangle rectangle6 = new Rectangle(549, 205, 64, 334);
+	private static final Rectangle rectangle7 = new Rectangle(400, 541, 718, 35);
+	private static final Rectangle rectangle8 = new Rectangle(547, 577, 428, 84);
+	private static final Rectangle rectangle9 = new Rectangle(616, 288, 502, 43);
+	private static final Rectangle rectangle10 = new Rectangle(616, 409, 502, 46);
+	private static final Rectangle rectangle11 = new Rectangle(905, 205, 213, 80);
+	private static final Rectangle rectangle12 = new Rectangle(905, 458, 213, 81);
+	private static final Rectangle rectangle13 = new Rectangle(1120, 170, 176, 407);
+	private static final Rectangle elevatorA = new Rectangle(616, 331, 48, 29);
+	private static final Rectangle elevatorB = new Rectangle(616, 380, 48, 27);
 
 	/**
 	 * Constructor
@@ -362,24 +372,21 @@ public class TabMapSensor extends JPanel implements MouseListener {
 
 		///////////////////////// PANEL/////////////////////////////////////////////////
 
-		JPanel panel = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
-		flowLayout.setVgap(100);
-		flowLayout.setHgap(200);
-		panel.setBackground(Color.GRAY);
-		add(panel);
+//		JPanel panel = new JPanel();
+//		panel.setBackground(Color.GRAY);
+//		add(panel);
 
 		///////////////////////// JScrollPane///////////////////////////////////////////
 
-		JScrollPane scroll = new JScrollPane(panel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scroll.setBounds(0, 0, 930, 610);
-		this.add(scroll);
+//		JScrollPane scroll = new JScrollPane(panel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+//		scroll.setBounds(0, 0, 930, 610);
+//		this.add(scroll);
 
 		///////////////////////// IMAGE/////////////////////////////////////////////////
 
 		try {
-			img = ImageIO.read(getClass().getClassLoader().getResource("floor0.jpg"));
-			img1 = ImageIO.read(getClass().getClassLoader().getResource("etage1bis.jpg"));
+			img = ImageIO.read(getClass().getClassLoader().getResource("Floor0.jpg"));
+			img1 = ImageIO.read(getClass().getClassLoader().getResource("Floor1.jpg"));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -389,28 +396,39 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		JLabel image = new JLabel(new ImageIcon(img));
 		JLabel image1 = new JLabel(new ImageIcon(img1));
 
-		panel.setLayout(new BorderLayout());
-		panel.add(image, BorderLayout.EAST);
+//		panel.setLayout(new BorderLayout());
+//		panel.add(image1, BorderLayout.EAST);
 
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
 
-		// super.paintComponent(g);
+		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 
 		// Draw image
-		g2.drawImage(buffer, 700, 50, buffer.getWidth(), buffer.getHeight(), this);
-		g2.drawImage(buffer1, 700, 400, buffer1.getWidth(), buffer1.getHeight(), this);
+		g2.drawImage(buffer, 400, 85, 900, 580, this);
+		// g2.drawImage(buffer1, 700, 400, buffer1.getWidth(), buffer1.getHeight(),
+		// this);
 
-		g.setColor(Color.GREEN);
+		g2.setColor(Color.GREEN);
 		// Draw rectangle
-		g.drawRect(polygon1.x, polygon1.y, polygon1.width, polygon1.height);
-		g.drawRect(polygon2.x, polygon2.y, polygon2.width, polygon2.height);
-		g.drawRect(polygon3.x, polygon3.y, polygon3.width, polygon3.height);
-		g.drawRect(polygon4_1.x, polygon4_1.y, polygon4_1.width, polygon4_1.height);
-		g.drawRect(polygon4_2.x, polygon4_2.y, polygon4_2.width, polygon4_2.height);
+		g2.drawRect(rectangle1.x, rectangle1.y, rectangle1.width, rectangle1.height);
+		g2.drawRect(rectangle2.x, rectangle2.y, rectangle2.width, rectangle2.height);
+		g2.drawRect(rectangle3.x, rectangle3.y, rectangle3.width, rectangle3.height);
+		g2.drawRect(rectangle4.x, rectangle4.y, rectangle4.width, rectangle4.height);
+		g2.drawRect(rectangle5.x, rectangle5.y, rectangle5.width, rectangle5.height);
+		g2.drawRect(rectangle6.x, rectangle6.y, rectangle6.width, rectangle6.height);
+		g2.drawRect(rectangle7.x, rectangle7.y, rectangle7.width, rectangle7.height);
+		g2.drawRect(rectangle8.x, rectangle8.y, rectangle8.width, rectangle8.height);
+		g2.drawRect(rectangle9.x, rectangle9.y, rectangle9.width, rectangle9.height);
+		g2.drawRect(rectangle10.x, rectangle10.y, rectangle10.width, rectangle10.height);
+		g2.drawRect(rectangle11.x, rectangle11.y, rectangle11.width, rectangle11.height);
+		g2.drawRect(rectangle12.x, rectangle12.y, rectangle12.width, rectangle12.height);
+		g2.drawRect(rectangle13.x, rectangle13.y, rectangle13.width, rectangle13.height);
+		g2.drawRect(elevatorA.x, elevatorA.y, elevatorA.width, elevatorA.height);
+		g2.drawRect(elevatorB.x, elevatorB.y, elevatorB.width, elevatorB.height);
 	}
 
 	private void testLocation(Point mouse, Rectangle commonArea, String text) {
@@ -424,11 +442,6 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		// recovering the position of the mouse
 		p = e.getPoint();
-		testLocation(p, polygon1, "mouseClicked - data 1");
-		testLocation(p, polygon2, "mouseClicked - data 2");
-		testLocation(p, polygon3, "mouseClicked - data 3");
-		testLocation(p, polygon4_1, "mouseClicked - data 4_1");
-		testLocation(p, polygon4_2, "mouseClicked - data 4_2");
 	}
 
 	/**
@@ -445,7 +458,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 			jsonString = ClientSocket.getJson();
 			Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
 			listSearchSensor = Arrays.asList(sensors);
-			logger.log(Level.INFO, "Find Sensor data succed");
+			logger.log(Level.DEBUG, "Find Sensor data succed");
 		} catch (Exception e1) {
 			logger.log(Level.INFO, "Impossible to parse in JSON Sensor datas " + e1.getClass().getCanonicalName());
 		}
@@ -468,7 +481,8 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		listM.removeAllElements();
 		listM.addElement("All sensors");
 		for (Sensor sens : listSensor) {
-			listM.addElement(sens.getIdSensor() + "# " + sens.getTypeSensor() + " ," + sens.getSensorState() + " ," + sens.getIdCommonArea());
+			listM.addElement(sens.getIdSensor() + "# " + sens.getTypeSensor() + " ," + sens.getSensorState() + " ,"
+					+ sens.getIdCommonArea());
 		}
 	}
 
@@ -483,7 +497,8 @@ public class TabMapSensor extends JPanel implements MouseListener {
 
 		int position = sA.indexOf(":");
 		textInputHourStartActivity.setSelectedIndex(Integer.parseInt(sA.substring(0, position).trim()));
-		textInputMinuteStartActivity.setSelectedIndex(Integer.parseInt(sA.substring(position + 1, position + 3).trim()));
+		textInputMinuteStartActivity
+				.setSelectedIndex(Integer.parseInt(sA.substring(position + 1, position + 3).trim()));
 		position = eA.indexOf(":");
 		textInputHourEndActivity.setSelectedIndex(Integer.parseInt(eA.substring(0, position).trim()));
 		textInputMinuteEndActivity.setSelectedIndex(Integer.parseInt(eA.substring(position + 1, position + 3).trim()));
