@@ -26,13 +26,17 @@ public class CommonArea {
 	 * 
 	 * @param idCommonArea
 	 * @param nameCommonArea
-	 * @param etageCommonArea
+	 * @param floorCommonArea
+	 * @param area
+	 * @param maxSensor
 	 */
-	public CommonArea(int idCommonArea, String nameCommonArea, int floorCommonArea) {
+	public CommonArea(int idCommonArea, String nameCommonArea, int floorCommonArea, int area, int maxSensor) {
 		super();
 		this.idCommonArea = idCommonArea;
 		this.nameCommonArea = nameCommonArea;
 		this.floorCommonArea = floorCommonArea;
+		this.area = area;
+		this.maxSensor = maxSensor;
 	}
 
 	/**

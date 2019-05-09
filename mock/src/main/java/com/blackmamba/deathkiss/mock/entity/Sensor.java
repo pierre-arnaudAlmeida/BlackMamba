@@ -3,6 +3,10 @@ package com.blackmamba.deathkiss.mock.entity;
 import java.sql.Time;
 import java.util.Date;
 
+import com.blackmamba.deathkiss.mock.entity.AlertState;
+import com.blackmamba.deathkiss.mock.entity.Sensitivity;
+import com.blackmamba.deathkiss.mock.entity.SensorType;
+
 /**
  * 
  * @author Pierre-Arnaud
@@ -24,6 +28,7 @@ public class Sensor {
 	private int thresholdMin = 0;
 	private int thresholdMax = 0;
 	private Date lastUpdate;
+	private boolean configured = false;
 
 	/**
 	 * Constructor
@@ -38,8 +43,10 @@ public class Sensor {
 	 * @param endActivity
 	 * @param thresholdMin
 	 * @param thresholdMax
+	 * @param lastUpdate
+	 * @param configured
 	 */
-	public Sensor(int idSensor, SensorType typeSensor, boolean sensorState, int idCommonArea, AlertState alertState, Sensitivity maxSensitivity, Time startActivity, Time endActivity, int thresholdMin, int thresholdMax) {
+	public Sensor(int idSensor, SensorType typeSensor, boolean sensorState, int idCommonArea, AlertState alertState, Sensitivity maxSensitivity, Time startActivity, Time endActivity, int thresholdMin, int thresholdMax, Date lastUpdate, boolean configured) {
 		super();
 		this.idSensor = idSensor;
 		this.typeSensor = typeSensor;
@@ -51,6 +58,8 @@ public class Sensor {
 		this.endActivity = endActivity;
 		this.thresholdMin = thresholdMin;
 		this.thresholdMax = thresholdMax;
+		this.lastUpdate = lastUpdate;
+		this.configured = configured;
 	}
 
 	/**
@@ -211,5 +220,19 @@ public class Sensor {
 	 */
 	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
+	}
+
+	/**
+	 * @return the configured
+	 */
+	public boolean isConfigured() {
+		return configured;
+	}
+
+	/**
+	 * @param configured the configured to set
+	 */
+	public void setConfigured(boolean configured) {
+		this.configured = configured;
 	}
 }
