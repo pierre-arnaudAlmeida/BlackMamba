@@ -321,7 +321,7 @@ public class RequestHandler implements Runnable {
 								} else {
 									logger.log(Level.WARN, "Request not recognized");
 								}
-								monitoringAlert.deleteAlert(jsonString);
+								monitoringAlert.deleteAlert(response);
 								break;
 							case "CommonArea":
 								if (!response.equals("")) {

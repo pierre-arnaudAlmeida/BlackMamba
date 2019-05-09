@@ -102,7 +102,8 @@ public class MonitoringAlert {
 	 * considerate the messages to an alert they add an alert on alertList to be
 	 * send at Client
 	 */
-	//TODO PA a verifier si c'est un capteur badge ou fenetre ou porte ou autres en 0-1 dans la nuit il faut qu'il se déclanche
+	// TODO PA a verifier si c'est un capteur badge ou fenetre ou porte ou autres en
+	// 0-1 dans la nuit il faut qu'il se déclanche
 	public void alertTreatment() {
 		getAllSensor();
 		curDate = new Date();
@@ -524,6 +525,7 @@ public class MonitoringAlert {
 	public void deleteAlert(String str) {
 		objectMapper = new ObjectMapper();
 		try {
+			System.out.println(str);
 			sensor = objectMapper.readValue(str, Sensor.class);
 			for (Alert alerts : listAlert) {
 				if (alerts.getIdSensor() == sensor.getIdSensor()) {

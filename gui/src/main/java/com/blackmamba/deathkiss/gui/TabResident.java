@@ -537,7 +537,6 @@ public class TabResident extends JPanel {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(index);
 				if (index != -9999) {
 					String substring = listM.getElementAt(index).toString();
 					int position = substring.indexOf("#");

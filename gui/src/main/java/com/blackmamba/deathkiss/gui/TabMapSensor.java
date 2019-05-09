@@ -461,7 +461,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 			jsonString = ClientSocket.getJson();
 			Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
 			listSensor = Arrays.asList(sensors);
-			logger.log(Level.INFO, "Find Sensor data succed");
+			logger.log(Level.DEBUG, "Find Sensor data succed");
 		} catch (Exception e1) {
 			logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
 		}
