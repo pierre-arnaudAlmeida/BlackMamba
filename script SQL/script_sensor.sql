@@ -1,38 +1,4 @@
---Réinitialiser les compteurs des identifiants et insertions des employés de base
-delete from employee;
-select setval('employee_id_employee_seq', 1);
-insert into employee (id_employee,nom_employee,prenom_employee,mot_de_passe,poste) values ('1','ALMEIDA','pierre','root','PDG');
-insert into employee (nom_employee,prenom_employee,mot_de_passe,poste) values ('KEITA','raymond','raymond','VIGILE');
-insert into employee (nom_employee,prenom_employee,mot_de_passe,poste) values ('LE DOUX','slayde','slayde','CUISINIER');
-insert into employee (nom_employee,prenom_employee,mot_de_passe,poste) values ('SADDIKI','latifa','latifa','CUISINIERE');
-insert into employee (nom_employee,prenom_employee,mot_de_passe,poste) values ('DAS NEVES','nicolas','nicolas','PROFESSEUR DE MUSIQUE');
-insert into employee (nom_employee,prenom_employee,mot_de_passe,poste) values ('GIRAUD','gilles','gilles','PROFESSEUR DE DANSE');
-insert into employee (nom_employee,prenom_employee,mot_de_passe,poste) values ('PIPARD','eric','eric','PROFESSEUR DE CHANT');
-
-
---Réinitialiser les compteurs des identifiants et insertions des parties communes de base
-delete from capteur;
-delete from partie_commune;
-select setval('partie_commune_id_partie_commune_seq', 1);
-insert into partie_commune (id_partie_commune, nom_partie_commune, etage_partie_commune, surface, max_sensor) values (1, 'ENTRANCE HALL', 0, 75, 13);
-insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_sensor) values ('LIVING ROOM', 0, 50, 9);
-insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_sensor) values ('SITTING ROOM', 0, 50, 9);
-insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_sensor) values ('CORRIDOR E0-A', 0, 25, 10);
-insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_sensor) values ('CORRIDOR E0-B', 0, 25, 10);
-insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_sensor) values ('CORRIDOR E0-C', 0, 30, 10);
-insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_sensor) values ('ELEVATOR A', 0, 5, 2);
-insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_sensor) values ('ELEVATOR B', 0, 5, 2);
-insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_sensor) values ('DINING ROOM', 0, 50, 11);
-insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_sensor) values ('STAFF ROOM', 1, 50, 9);
-insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_sensor) values ('LIVING ROOM', 1, 50, 8);
-insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_sensor) values ('CORRIDOR E1-A', 1, 30, 12);
-insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_sensor) values ('CORRIDOR E1-B', 1, 25, 16);
-insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_sensor) values ('CORRIDOR E1-C', 1, 25, 16);
-insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_sensor) values ('CORRIDOR E1-D', 1, 30, 10);
-insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_sensor) values ('DINING ROOM', 1, 50, 11);
-
-
---Réinitialiser les compteurs des identifiants et insertions des capteurs de base
+--Reinitialiser les compteurs des identifiants et insertions des capteurs de base
 select setval('capteur_id_capteur_seq', 1);
 insert into capteur (id_capteur, type_capteur, etat, id_partie_commune, type_alert, sensibilite, heure_debut, heure_fin, parametre) values (92, 'MOVE', 'ON', 1, 'DOWN', 'LOW', '11:27 PM', '9:43 AM', 'seuilMin 0 seuilMax 1');
 insert into capteur (id_capteur, type_capteur, etat, id_partie_commune, type_alert, sensibilite, heure_debut, heure_fin, parametre) values (59, 'LIGHT', 'OFF', 4, 'DOWN', 'LOW', '10:06 PM', '9:35 AM', 'seuilMin 0 seuilMax 1');

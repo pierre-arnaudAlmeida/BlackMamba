@@ -3,6 +3,7 @@ package com.blackmamba.deathkiss.mock;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -26,6 +27,7 @@ public class GenerateMessage extends Thread {
 	private String request;
 	private String requestType;
 	private String jsonString;
+	private Random random;
 	private SensorType sensorType;
 	private ObjectMapper objectMapper;
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
@@ -50,6 +52,7 @@ public class GenerateMessage extends Thread {
 	 */
 	public void run() {
 		bool = true;
+		random = new Random();
 		while (bool) {
 			if (request.equals("ALL")) {
 				/**
@@ -61,7 +64,8 @@ public class GenerateMessage extends Thread {
 						message2 = new Message();
 						message2.setUUIDMessage(UUID.randomUUID().toString());
 						message2.setIdSensor(sensors.getIdSensor());
-						message2.setThreshold((sensors.getThresholdMax() - sensors.getThresholdMin()) / 2);
+						// TODO PA tester
+						message2.setThreshold(generateThreshold(sensors));
 						message2.setAlertDate(currentDate);
 						sendMessage(message2);
 						nbMessageGenerate++;
@@ -86,7 +90,8 @@ public class GenerateMessage extends Thread {
 					} else if (sensors.getSensorState()) {
 						currentDate = new Date();
 						message2.setUUIDMessage(UUID.randomUUID().toString());
-						message2.setThreshold((sensors.getThresholdMax() - sensors.getThresholdMin()) / 2);
+						// TODO PA tester
+						message2.setThreshold(generateThreshold(sensors));
 						message2.setAlertDate(currentDate);
 						message2.setIdSensor(sensors.getIdSensor());
 						sendMessage(message2);
@@ -117,7 +122,8 @@ public class GenerateMessage extends Thread {
 						currentDate = new Date();
 						message2.setUUIDMessage(UUID.randomUUID().toString());
 						message2.setIdSensor(sensors.getIdSensor());
-						message2.setThreshold((sensors.getThresholdMax() - sensors.getThresholdMin()) / 2);
+						// TODO PA tester
+						message2.setThreshold(generateThreshold(sensors));
 						message2.setAlertDate(currentDate);
 						sendMessage(message2);
 						nbMessageGenerate++;
@@ -127,8 +133,7 @@ public class GenerateMessage extends Thread {
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
-				logger.log(Level.WARN,
-						"Impossible to sleep the threadGenerateMessage " + e.getClass().getCanonicalName());
+				logger.log(Level.WARN, "Impossible to sleep the threadGenerateMessage " + e.getClass().getCanonicalName());
 			}
 		}
 
@@ -146,6 +151,24 @@ public class GenerateMessage extends Thread {
 		} catch (Exception e1) {
 			logger.log(Level.WARN, "Impossible to parse in JSON Message data " + e1.getClass().getCanonicalName());
 		}
+	}
+
+	public int generateThreshold(Sensor sens) {
+		int threshold = 0;
+		switch (sens.getTypeSensor()) {
+		case SMOKE:
+			threshold = random.nextInt(sens.getThresholdMax() + 50);
+			break;
+		case TEMPERATURE:
+			threshold = (sens.getThresholdMin() - 10) + random.nextInt((sens.getThresholdMax() + 10) - (sens.getThresholdMin() - 10));
+			break;
+		case ELEVATOR:
+			threshold = random.nextInt(sens.getThresholdMax() + 100);
+			break;
+		default:
+			threshold = random.nextInt(sens.getThresholdMax() + 1);
+		}
+		return threshold;
 	}
 
 	/**
