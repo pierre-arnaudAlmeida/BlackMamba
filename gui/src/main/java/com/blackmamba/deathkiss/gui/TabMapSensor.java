@@ -1,7 +1,6 @@
 package com.blackmamba.deathkiss.gui;
 
 import java.awt.Color;
-import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -11,23 +10,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
-import java.awt.Canvas;
 import java.io.IOException;
 import java.sql.Time;
-import java.text.Normalizer;
 
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollBar;
 
 import org.apache.logging.log4j.Level;
 
 import com.blackmamba.deathkiss.entity.CommonArea;
 import com.blackmamba.deathkiss.entity.Floor;
-import com.blackmamba.deathkiss.entity.Sensitivity;
 import com.blackmamba.deathkiss.entity.Alert;
 import com.blackmamba.deathkiss.entity.Sensor;
-import com.blackmamba.deathkiss.entity.SensorType;
 import com.blackmamba.deathkiss.launcher.ClientSocket;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.BorderLayout;
@@ -36,7 +29,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,12 +39,8 @@ import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -70,54 +58,27 @@ public class TabMapSensor extends JPanel implements MouseListener {
 
 	private int index;
 	private int idEmployee;
+	private Sensor sensor;
 	private JTextField textInputIdSensor;
 	private Font police;
-	private Font policeBar;
 	private JButton disconnection;
-	private JButton validButton;
 	private JPanel bar;
-	private JPanel search;
-	private JPanel canvas;
 	private JLabel labelIdEmployee;
 	private JLabel labelHeadList;
-	private JLabel labelSearch;
-	private JTextField searchBar;
 	private JTextField textInputAlertState;
 	private JTextField textInputThresholdMin;
 	private JTextField textInputThresholdMax;
 
-	private List<SurfacePolygon> surfacePolygon = new ArrayList<SurfacePolygon>();
-	private List<Sensor> listSensor = new ArrayList<Sensor>();
-	private List<Alert> listAlert = new ArrayList<Alert>();
 	private JButton switchButton;
-	private JButton configureSensor;
 
-	private Sensor sensor;
-	private Sensor sensor2;
 	private TabSensor tabSensor;
 	private String requestType;
 	private String table;
 	private String jsonString;
-	private static final Logger logger = LogManager.getLogger(TabMapSensor.class);
-	private static final long serialVersionUID = 7348020021300445245L;
 	private CommonArea commonArea;
 	private ObjectMapper objectMapper;
 	private Thread threadMapSensor;
 	private JScrollPane sc;
-	private JTabbedPane tab;
-
-	private JList<String> list;
-	private JComboBox<String> textInputNameCommonArea;
-	private JComboBox<String> textInputTypeSensor;
-	private JComboBox<String> textInputSensitivity;
-	private JComboBox<String> textFloor;
-	private JComboBox<Integer> textInputHourStartActivity;
-	private JComboBox<Integer> textInputMinuteStartActivity;
-	private JComboBox<Integer> textInputHourEndActivity;
-	private JComboBox<Integer> textInputMinuteEndActivity;
-	private DefaultListModel<String> listM;
-	private List<Sensor> listSearchSensor = new ArrayList<Sensor>();
-	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
 	private BufferedImage img = null;
 	private BufferedImage img1 = null;
@@ -125,15 +86,46 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	private BufferedImage buffer1 = null;
 	private Point p = null;
 
+	private JList<String> list;
+	private JComboBox<String> textFloor;
+	private JComboBox<String> textInputNameCommonArea;
+	private JComboBox<String> textInputTypeSensor;
+	private JComboBox<String> textInputSensitivity;
+	private JComboBox<Integer> textInputHourStartActivity;
+	private JComboBox<Integer> textInputMinuteStartActivity;
+	private JComboBox<Integer> textInputHourEndActivity;
+	private JComboBox<Integer> textInputMinuteEndActivity;
+	
+	private DefaultListModel<String> listM;
+	private List<Sensor> listSearchSensor = new ArrayList<Sensor>();
+	private List<Sensor> listSensor = new ArrayList<Sensor>();
+	private List<Alert> listAlert = new ArrayList<Alert>();
+	private List<SurfacePolygon> surfacePolygon = new ArrayList<SurfacePolygon>();
+	
+	private ResourceBundle rsParameters = ResourceBundle.getBundle("parameters");
+	private static final long serialVersionUID = 7348020021300445245L;
+	
+	private static final Logger logger = LogManager.getLogger(TabMapSensor.class);
 	private static final Rectangle polygon1 = new Rectangle(7, 56, 108, 313);
 	private static final Rectangle polygon2 = new Rectangle(129, 72, 105, 97);
 	private static final Rectangle polygon3 = new Rectangle(240, 171, 346, 45);
 	private static final Rectangle polygon4_1 = new Rectangle(591, 171, 282, 182);
 	private static final Rectangle polygon4_2 = new Rectangle(733, 71, 140, 99);
 
+	/**
+	 * Constructor
+	 */
 	public TabMapSensor() {
 	}
-
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param color
+	 * @param idEmployee
+	 * @param title
+	 * @param idSensor
+	 */
 	public TabMapSensor(Color color, int idEmployee, String title, int idSensor) {
 		this.idEmployee = idEmployee;
 		this.addMouseListener(this);
@@ -148,7 +140,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 					// tabSensor.actualizationListSensor();
 					tabSensor.updateSensorSelected();
 					try {
-						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
+						Thread.sleep(Integer.parseInt(rsParameters.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
 						logger.log(Level.INFO, "Impossible to sleep the thread " + e.getClass().getCanonicalName());
 					}
@@ -441,6 +433,10 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		}
 	}
 
+	/**
+	 * 
+	 * @param sensor
+	 */
 	public void findAllSensor(Sensor sensor) {
 		requestType = "FIND ALL";
 		table = "Sensor";
@@ -479,6 +475,11 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		}
 	}
 
+	/**
+	 * 
+	 * @param startActivity
+	 * @param endActivity
+	 */
 	public void convertActivityTime(Time startActivity, Time endActivity) {
 		String sA = startActivity.toString();
 		String eA = endActivity.toString();

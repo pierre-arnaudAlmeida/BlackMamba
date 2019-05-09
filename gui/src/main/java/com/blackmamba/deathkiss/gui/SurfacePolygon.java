@@ -54,11 +54,16 @@ public class SurfacePolygon extends JFrame {
 		}
 
 		public void paint(Graphics g) {
-
+			
+			// 50% transparent
+			int alpha = 127; 
+			
 			// Draw image
 			g.drawImage(buffer, 0, 0, buffer.getWidth(), buffer.getHeight(), this);
+			
+			Color myColour = new Color(255, 255, 255, alpha);
 
-			g.setColor(Color.GREEN);
+			g.setColor(myColour);
 			// Draw rectangle
 			g.drawRect(polygon1.x, polygon1.y, polygon1.width, polygon1.height);
 			g.drawRect(polygon2.x, polygon2.y, polygon2.width, polygon2.height);
