@@ -190,7 +190,7 @@ public class SensorDAO extends DAO<Sensor> {
 		ObjectMapper obj = new ObjectMapper();
 		List<Sensor> listSensor = new ArrayList<>();
 		try {
-			request = "SELECT SELECT id_capteur,type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max FROM capteur";
+			request = "SELECT id_capteur,type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max FROM capteur";
 			Statement st = con.createStatement();
 			result = st.executeQuery(request);
 			while (result.next()) {

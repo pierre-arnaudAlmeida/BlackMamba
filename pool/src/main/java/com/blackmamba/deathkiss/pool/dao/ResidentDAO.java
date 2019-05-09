@@ -46,7 +46,8 @@ public class ResidentDAO extends DAO<Resident> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			Resident resid = objectMapper.readValue(jsonString, Resident.class);
-			PreparedStatement prepareStatement = con.prepareStatement("INSERT INTO resident (nom_resident, prenom_resident) values (?,?)");
+			PreparedStatement prepareStatement = con
+					.prepareStatement("INSERT INTO resident (nom_resident, prenom_resident) values (?,?)");
 			prepareStatement.setString(1, resid.getLastnameResident());
 			prepareStatement.setString(2, resid.getNameResident());
 			result = prepareStatement.execute();
@@ -89,7 +90,8 @@ public class ResidentDAO extends DAO<Resident> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			Resident resid = objectMapper.readValue(jsonString, Resident.class);
-			PreparedStatement prepareStatement = con.prepareStatement("UPDATE resident SET nom_resident = ?, prenom_resident = ? where id_resident = ?");
+			PreparedStatement prepareStatement = con.prepareStatement(
+					"UPDATE resident SET nom_resident = ?, prenom_resident = ? where id_resident = ?");
 			prepareStatement.setString(1, resid.getLastnameResident());
 			prepareStatement.setString(2, resid.getNameResident());
 			prepareStatement.setInt(3, resid.getIdResident());
@@ -112,15 +114,14 @@ public class ResidentDAO extends DAO<Resident> {
 		ObjectMapper objWriter = new ObjectMapper();
 		try {
 			Resident resid = objectMapper.readValue(jsonString, Resident.class);
-			requestSB = new StringBuilder("SELECT id_resident,nom_resident, prenom_resident");
+			requestSB = new StringBuilder("SELECT id_resident,nom_resident, prenom_resident ");
 			requestSB.append("FROM resident where id_resident=");
 			requestSB.append(resid.getIdResident());
 
 			Statement st = con.createStatement();
-			result = st.executeQuery(request);
+			result = st.executeQuery(requestSB.toString());
 			if (result.next())
 				convertDatas(result);
-
 			jsonString = objWriter.writeValueAsString(resident);
 			logger.log(Level.DEBUG, "Resident succesfully find in BDD");
 			return jsonString;
@@ -139,7 +140,7 @@ public class ResidentDAO extends DAO<Resident> {
 	public String readAll(String jsonString) {
 		List<Resident> listResident = new ArrayList<>();
 		try {
-			request = "SELECT id_resident,nom_resident, prenom_resident FROM resident";
+			request = "SELECT id_resident,nom_resident,prenom_resident FROM resident";
 			Statement st = con.createStatement();
 			result = st.executeQuery(request);
 			while (result.next()) {
@@ -166,10 +167,11 @@ public class ResidentDAO extends DAO<Resident> {
 		List<Resident> listResident = new ArrayList<>();
 		try {
 			Resident resid = objectMapper.readValue(jsonString, Resident.class);
-			PreparedStatement prepareStatement = con.prepareStatement("SELECT id_resident,nom_resident, prenom_resident FROM resident where ((nom_resident LIKE '%?%') or (prenom_resident LIKE '%?%') or (prenom_resident LIKE '%?%'))");
-			prepareStatement.setString(1, resid.getLastnameResident().toUpperCase());
-			prepareStatement.setString(2, resid.getLastnameResident().toLowerCase());
-			prepareStatement.setString(3, resid.getLastnameResident().toUpperCase());
+			PreparedStatement prepareStatement = con.prepareStatement(
+					"SELECT id_resident,nom_resident, prenom_resident FROM resident where ((nom_resident LIKE ?) or (prenom_resident LIKE ?) or (prenom_resident LIKE ?))");
+			prepareStatement.setString(1, "%" + resid.getLastnameResident().toUpperCase() + "%");
+			prepareStatement.setString(2, "%" + resid.getLastnameResident().toLowerCase() + "%");
+			prepareStatement.setString(3, "%" + resid.getLastnameResident().toUpperCase() + "%");
 			result = prepareStatement.executeQuery();
 			while (result.next()) {
 				convertDatas(result);
