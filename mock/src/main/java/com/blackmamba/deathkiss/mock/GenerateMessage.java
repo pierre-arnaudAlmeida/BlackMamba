@@ -155,6 +155,7 @@ public class GenerateMessage extends Thread {
 
 	public int generateThreshold(Sensor sens) {
 		int threshold = 0;
+		random = new Random();
 		switch (sens.getTypeSensor()) {
 		case SMOKE:
 			threshold = random.nextInt(sens.getThresholdMax() + 50);
