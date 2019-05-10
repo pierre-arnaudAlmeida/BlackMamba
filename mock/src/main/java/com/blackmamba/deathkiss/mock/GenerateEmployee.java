@@ -41,7 +41,7 @@ public class GenerateEmployee {
 	}
 
 	/**
-	 * Generate an random employee and add it to data base
+	 * Generate an random employee and add it into data base
 	 */
 	public void generate() {
 		for (int i = 0; i < nbGeneration; i++) {
@@ -58,9 +58,8 @@ public class GenerateEmployee {
 				jsonString = objectMapper.writeValueAsString(employee);
 				new MockSocket(requestType, jsonString, table);
 			} catch (Exception e1) {
-				logger.log(Level.WARN, "Impossible to parse in JSON Message data " + e1.getClass().getCanonicalName());
+				logger.log(Level.WARN, "Impossible to parse in JSON Employee data " + e1.getClass().getCanonicalName());
 			}
 		}
 	}
-
 }

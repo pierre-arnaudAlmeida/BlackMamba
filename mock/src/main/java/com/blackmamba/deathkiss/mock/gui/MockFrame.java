@@ -16,6 +16,7 @@ public class MockFrame extends JFrame {
 	private static JTabbedPane tab;
 	private TabMockMessage tabMockMessage;
 	private TabMockEmployee tabMockEmployee;
+	private TabMockResident tabMockResident;
 	private static final Logger logger = LogManager.getLogger(MockFrame.class);
 
 	/**
@@ -38,18 +39,20 @@ public class MockFrame extends JFrame {
 		 */
 		tabMockMessage = new TabMockMessage(Color.GRAY, "Tab Message");
 		tabMockEmployee = new TabMockEmployee(Color.GRAY, "Tab Employee");
+		tabMockResident = new TabMockResident(Color.GRAY, "Tab Resident");
 
 		/**
 		 * Add of the title of tabs
 		 */
 		tab = new JTabbedPane();
-		String tabOfTab[] = { "Message", "Employee" };
+		String tabOfTab[] = { "Message", "Employee", "Resident" };
 
 		/**
 		 * Add of tabs on the window
 		 */
 		tab.add("Tab " + tabOfTab[0], tabMockMessage);
 		tab.add("Tab " + tabOfTab[1], tabMockEmployee);
+		tab.add("Tab " + tabOfTab[2], tabMockResident);
 
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
