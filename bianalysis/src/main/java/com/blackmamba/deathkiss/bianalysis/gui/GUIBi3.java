@@ -44,6 +44,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JTabbedPane;
 import java.awt.Color;
+import javax.swing.JTextPane;
+import javax.swing.SwingConstants;
+import javax.swing.JFormattedTextField;
 
 /**
  * 
@@ -51,7 +54,7 @@ import java.awt.Color;
  *
  */
 
-public class GUIBi extends JFrame {
+public class GUIBi3 extends JFrame {
 //TODO SL les trois ligne tu peux les mettre chacune juste avant de les utiliser 
 
 	// pour celle la j'ai changer, tu ira voir dans la classe ou tu l'a prise et tu
@@ -72,7 +75,6 @@ public class GUIBi extends JFrame {
 	private JTextField tfDown;
 	private JTextField tfAlertesReceived;
 	private JTextField tfStock;
-	private JTextField tfTemperature;
 	private JTextField searchBar;
 	private DefaultListModel<String> listM;
 	private DefaultListModel<String> ListModel;
@@ -105,11 +107,15 @@ public class GUIBi extends JFrame {
 	private JPanel panel_1;
 	private JPanel panel_2;
 	private JLabel lblNumberOfCommon;
-	private JTextField textField;
+	private JTextField tfCommonArea;
 	private JTextField tfSensor;
 	private JTextField tfAlert;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField tfNbSensorStage;
+	private JTextField tfNbSensorStage1;
+	private JTextField tfNbSensorStage2;
+	private JTextField tfMeanTemperatureRc;
+	private JTextField tfMeanTemperature1;
+	private JTextField tfMeanTemperature2;
 
 //TODO SL tu met la methode main dans une classe qui s'appelle MainBianalysisGUI
 	//////////////////////////////////////////////////////////////////////
@@ -128,7 +134,7 @@ public class GUIBi extends JFrame {
 					// copie pas les classes que j'ai faite dans ton projet tu les ouvres tu copie
 					// ok mais les integre pas pcq apres tu ne sais pas ou t'en es et apres au
 					// moment de l'execution t'as des conflit pour rien
-					GUIBi3 frame = new GUIBi3();
+					GUIBi frame = new GUIBi();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -141,7 +147,7 @@ public class GUIBi extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GUIBi() {
+	public GUIBi3() {
 		GetAllSensor();
 		GetAllSensorHistorical();
 		getAllCommonArea();
@@ -228,114 +234,38 @@ public class GUIBi extends JFrame {
 		tabbedPane.setBounds(22, 11, 824, 577);
 		contentPane.add(tabbedPane);
 
-		panel = new JPanel();
-		tabbedPane.addTab("DASHBOARD", null, panel, null);
-		panel.setLayout(null);
-		ChartPanel cpSensors = new ChartPanel(pieChart);
-		cpSensors.setBounds(198, 33, 307, 159);
-		panel.add(cpSensors);
-		cpSensors.setMouseWheelEnabled(true);
+		btnDate = new JButton("GetDate");
+		btnDate.setBounds(386, 39, 97, 22);
+		panel_1.add(btnDate);
 
-		JLabel lblStock = new JLabel("Number of sensors in stock");
-		lblStock.setBounds(198, 222, 147, 16);
-		panel.add(lblStock);
-		tfStock = new JTextField();
-		tfStock.setBounds(346, 216, 41, 28);
-		panel.add(tfStock);
-		tfStock.setText(monObj[2].toString());
-		tfStock.setColumns(10);
-		ChartPanel cpAlerts = new ChartPanel(pieChart1);
-		cpAlerts.setBounds(515, 33, 281, 159);
-		panel.add(cpAlerts);
+		JLabel lblTo = new JLabel("to");
+		lblTo.setBounds(52, 66, 28, 16);
+		panel_1.add(lblTo);
 
-		JLabel lblNombreDalertes = new JLabel("Total Alerts received");
-		lblNombreDalertes.setBounds(594, 492, 112, 22);
-		panel.add(lblNombreDalertes);
-		tfAlertesReceived = new JTextField();
-		tfAlertesReceived.setBounds(612, 428, 69, 55);
-		tfAlertesReceived.setText(String.valueOf(nbTotalAlert));
-		tfAlertesReceived.setColumns(10);
-		panel.add(tfAlertesReceived);
+		JLabel lblNewLabel = new JLabel("Data Range from");
+		lblNewLabel.setBounds(10, 23, 97, 16);
+		panel_1.add(lblNewLabel);
 
-		JLabel lblNombreDePannes = new JLabel("Total DOWN");
-		lblNombreDePannes.setBounds(535, 268, 89, 16);
-		panel.add(lblNombreDePannes);
+		JLabel lblSensors = new JLabel("Sensors");
+		lblSensors.setBounds(57, 11, 55, 39);
+		panel_2.add(lblSensors);
 
-		tfDown = new JTextField();
-		tfDown.setBackground(Color.ORANGE);
-		tfDown.setBounds(525, 203, 97, 55);
-		tfDown.setText(monObj1[2].toString());
-		tfDown.setColumns(10);
-		panel.add(tfDown);
-
-		tfNbOver = new JTextField();
-		tfNbOver.setBackground(Color.RED);
-		tfNbOver.setBounds(663, 203, 97, 55);
-		tfNbOver.setText(monObj1[3].toString());
-		tfNbOver.setColumns(10);
-		panel.add(tfNbOver);
-
-		JLabel lblTotalOver = new JLabel("Total OVER");
-		lblTotalOver.setBounds(680, 265, 139, 22);
-		panel.add(lblTotalOver);
-
-		JButton btnDetails = new JButton("Details");
-		btnDetails.setBounds(691, 444, 89, 23);
-		panel.add(btnDetails);
-
-		tfPendingAlert = new JTextField();
-		tfPendingAlert.setBackground(Color.GREEN);
-		tfPendingAlert.setBounds(591, 321, 97, 65);
-		tfPendingAlert.setColumns(10);
-		tfPendingAlert.setText(monObj1[0].toString());
-		panel.add(tfPendingAlert);
-
-		lblTotalAlertAttente = new JLabel("Total Pending Alert");
-		lblTotalAlertAttente.setBounds(591, 395, 97, 22);
-		panel.add(lblTotalAlertAttente);
-
-		// Label
-		// TODO SL les type comme JLabel et autre du les definits en haut de la classe
-		// comme dans les autres classes
-		JLabel lblTempratureMoyenne = new JLabel("Température moyenne");
-		lblTempratureMoyenne.setBounds(43, 498, 139, 16);
-		panel.add(lblTempratureMoyenne);
-
-		////////////////////////////////////////////////////
-		// Textfield
-
-		tfTemperature = new JTextField();
-		tfTemperature.setBounds(198, 492, 112, 28);
-		panel.add(tfTemperature);
-		tfTemperature.setColumns(10);
-
-		btnTemperature = new JButton("Calculer");
-		btnTemperature.setBounds(359, 492, 124, 28);
-		panel.add(btnTemperature);
-
-		lblNumberOfCommon = new JLabel("number of common area");
-		lblNumberOfCommon.setBounds(10, 33, 123, 28);
-		panel.add(lblNumberOfCommon);
-
-		textField = new JTextField();
-		textField.setBounds(20, 72, 112, 55);
-		textField.setText(String.valueOf(nbCommonArea));
-		panel.add(textField);
-		textField.setColumns(10);
-		
-		
 		Object[] monObj2 = returnNbSensorType();
-		textField_1 = new JTextField();
-		textField_1.setBounds(231, 298, 57, 44);
-		textField_1.setText(monObj2[0].toString());
-		panel.add(textField_1);
-		textField_1.setColumns(10);
-		
-		textField_2 = new JTextField();
-		textField_2.setBounds(198, 353, 78, 44);
-		textField_2.setText(monObj2[1].toString());
-		panel.add(textField_2);
-		textField_2.setColumns(10);
+
+		tfSensor = new JTextField();
+		tfSensor.setText(String.valueOf(nbAlertSensor));
+		tfSensor.setColumns(10);
+		tfSensor.setBackground(Color.GREEN);
+		tfSensor.setBounds(132, 456, 97, 65);
+		panel_2.add(tfSensor);
+
+		tfAlert = new JTextField();
+		tfAlert.setBounds(330, 262, 119, 67);
+		panel_1.add(tfAlert);
+		tfAlert.setColumns(10);
+
+		////////////////////////////////////////////////
+		// Panel
 
 		panel_1 = new JPanel();
 		tabbedPane.addTab("Alert", null, panel_1, null);
@@ -366,27 +296,11 @@ public class GUIBi extends JFrame {
 		panel_1.add(tfDate1);
 		tfDate1.setColumns(10);
 
-		JLabel lblTo = new JLabel("to");
-		lblTo.setBounds(52, 66, 28, 16);
-		panel_1.add(lblTo);
-
-		JLabel lblNewLabel = new JLabel("Data Range from");
-		lblNewLabel.setBounds(10, 23, 97, 16);
-		panel_1.add(lblNewLabel);
 		sc1 = new JScrollPane();
 		sc1.setBounds(31, 145, 276, 354);
 		panel_1.add(sc1);
 		list1 = new JList<String>(ListModel);
 		sc1.setViewportView(list1);
-
-		btnDate = new JButton("GetDate");
-		btnDate.setBounds(386, 39, 97, 22);
-		panel_1.add(btnDate);
-
-		tfAlert = new JTextField();
-		tfAlert.setBounds(330, 262, 119, 67);
-		panel_1.add(tfAlert);
-		tfAlert.setColumns(10);
 
 		panel_2 = new JPanel();
 		tabbedPane.addTab("Sensor", null, panel_2, null);
@@ -397,20 +311,174 @@ public class GUIBi extends JFrame {
 		list = new JList<String>(listM);
 		sc.setViewportView(list);
 
-		JLabel lblSensors = new JLabel("Sensors");
-		lblSensors.setBounds(57, 11, 55, 39);
-		panel_2.add(lblSensors);
-
 		cbCapteur = new JComboBox(sensorType);
 		cbCapteur.setBounds(111, 13, 100, 35);
 		panel_2.add(cbCapteur);
 
-		tfSensor = new JTextField();
-		tfSensor.setText(String.valueOf(nbAlertSensor));
-		tfSensor.setColumns(10);
-		tfSensor.setBackground(Color.GREEN);
-		tfSensor.setBounds(132, 456, 97, 65);
-		panel_2.add(tfSensor);
+		panel = new JPanel();
+		tabbedPane.addTab("DASHBOARD", null, panel, null);
+		panel.setLayout(null);
+		ChartPanel cpSensors = new ChartPanel(pieChart);
+		cpSensors.setBounds(198, 33, 307, 159);
+		panel.add(cpSensors);
+		cpSensors.setMouseWheelEnabled(true);
+
+		JLabel lblStock = new JLabel("Number of sensors in stock");
+		lblStock.setBounds(198, 222, 147, 16);
+		panel.add(lblStock);
+		tfStock = new JTextField();
+		tfStock.setBounds(346, 216, 41, 28);
+		panel.add(tfStock);
+		tfStock.setText(monObj[2].toString());
+		tfStock.setColumns(10);
+		ChartPanel cpAlerts = new ChartPanel(pieChart1);
+		cpAlerts.setBounds(515, 33, 281, 159);
+		panel.add(cpAlerts);
+
+		JLabel lblNombreDalertes = new JLabel("Total Alerts received");
+		lblNombreDalertes.setBounds(594, 492, 112, 22);
+		panel.add(lblNombreDalertes);
+		tfAlertesReceived = new JTextField();
+		tfAlertesReceived.setBounds(612, 428, 69, 55);
+		tfAlertesReceived.setText(String.valueOf(nbTotalAlert));
+		tfAlertesReceived.setColumns(10);
+		panel.add(tfAlertesReceived);
+
+		tfPendingAlert = new JTextField();
+		tfPendingAlert.setBackground(Color.GREEN);
+		tfPendingAlert.setBounds(591, 321, 97, 65);
+		tfPendingAlert.setColumns(10);
+		tfPendingAlert.setText(monObj1[0].toString());
+		panel.add(tfPendingAlert);
+
+		/////////////////////////////////////////////////////
+		// Button
+
+		btnTemperature = new JButton("Calculer");
+		btnTemperature.setBounds(132, 489, 124, 28);
+		panel.add(btnTemperature);
+
+		JButton btnDetails = new JButton("Details");
+		btnDetails.setBounds(691, 444, 89, 23);
+		panel.add(btnDetails);
+
+		JLabel lblTotalOver = new JLabel("Total OVER");
+		lblTotalOver.setBounds(680, 265, 139, 22);
+		panel.add(lblTotalOver);
+
+		lblTotalAlertAttente = new JLabel("Total Pending Alert");
+		lblTotalAlertAttente.setBounds(591, 395, 97, 22);
+		panel.add(lblTotalAlertAttente);
+
+		lblNumberOfCommon = new JLabel("number of common area");
+		lblNumberOfCommon.setBounds(10, 33, 123, 28);
+		panel.add(lblNumberOfCommon);
+
+		JLabel lblNombreDePannes = new JLabel("Total DOWN");
+		lblNombreDePannes.setBounds(535, 268, 89, 16);
+		panel.add(lblNombreDePannes);
+
+		tfCommonArea = new JTextField();
+		tfCommonArea.setBounds(10, 72, 112, 55);
+		tfCommonArea.setText(String.valueOf(nbCommonArea));
+		panel.add(tfCommonArea);
+		tfCommonArea.setColumns(10);
+
+		tfDown = new JTextField();
+		tfDown.setBackground(Color.ORANGE);
+		tfDown.setBounds(525, 203, 97, 55);
+		tfDown.setText(monObj1[2].toString());
+		tfDown.setColumns(10);
+		panel.add(tfDown);
+
+		tfNbOver = new JTextField();
+		tfNbOver.setBackground(Color.RED);
+		tfNbOver.setBounds(663, 203, 97, 55);
+		tfNbOver.setText(monObj1[3].toString());
+		tfNbOver.setColumns(10);
+		panel.add(tfNbOver);
+		
+		JTextPane tfNbSensorMaj = new JTextPane();
+		tfNbSensorMaj.setBounds(10, 150, 112, 55);
+		panel.add(tfNbSensorMaj);
+		
+		JLabel lblNbSensorMaj = new JLabel("Total UPDATE SENSORS");
+		lblNbSensorMaj.setBounds(10, 210, 123, 28);
+		panel.add(lblNbSensorMaj);
+		
+		JDateChooser dateChooser_2 = new JDateChooser();
+		dateChooser_2.setBounds(132, 150, 69, 20);
+		panel.add(dateChooser_2);
+		
+		JDateChooser dateChooser_3 = new JDateChooser();
+		dateChooser_3.setBounds(132, 181, 69, 20);
+		panel.add(dateChooser_3);
+		
+		tfNbSensorStage = new JTextField();
+		tfNbSensorStage.setHorizontalAlignment(SwingConstants.TRAILING);
+		tfNbSensorStage.setBounds(20, 290, 57, 44);
+		panel.add(tfNbSensorStage);
+		tfNbSensorStage.setColumns(10);
+		
+		JLabel lblTota = new JLabel("Total  Sensor Stage RC");
+		lblTota.setBounds(10, 341, 124, 22);
+		panel.add(lblTota);
+		
+		tfNbSensorStage1 = new JTextField();
+		tfNbSensorStage1.setHorizontalAlignment(SwingConstants.TRAILING);
+		tfNbSensorStage1.setColumns(10);
+		tfNbSensorStage1.setBounds(190, 290, 57, 44);
+		panel.add(tfNbSensorStage1);
+		
+		JLabel lblTotalSensorStage = new JLabel("Total  Sensor Stage 1");
+		lblTotalSensorStage.setBounds(174, 341, 124, 22);
+		panel.add(lblTotalSensorStage);
+		
+		tfNbSensorStage2 = new JTextField();
+		tfNbSensorStage2.setHorizontalAlignment(SwingConstants.TRAILING);
+		tfNbSensorStage2.setColumns(10);
+		tfNbSensorStage2.setBounds(335, 290, 57, 44);
+		panel.add(tfNbSensorStage2);
+		
+		JLabel lblTotalSensorStage_1 = new JLabel("Total  Sensor Stage 2");
+		lblTotalSensorStage_1.setBounds(317, 341, 124, 22);
+		panel.add(lblTotalSensorStage_1);
+		
+		tfMeanTemperatureRc = new JTextField();
+		tfMeanTemperatureRc.setHorizontalAlignment(SwingConstants.TRAILING);
+		tfMeanTemperatureRc.setColumns(10);
+		tfMeanTemperatureRc.setBounds(20, 395, 57, 44);
+		panel.add(tfMeanTemperatureRc);
+		
+		tfMeanTemperature1 = new JTextField();
+		tfMeanTemperature1.setHorizontalAlignment(SwingConstants.TRAILING);
+		tfMeanTemperature1.setColumns(10);
+		tfMeanTemperature1.setBounds(190, 395, 57, 44);
+		panel.add(tfMeanTemperature1);
+		
+		tfMeanTemperature2 = new JTextField();
+		tfMeanTemperature2.setHorizontalAlignment(SwingConstants.TRAILING);
+		tfMeanTemperature2.setColumns(10);
+		tfMeanTemperature2.setBounds(337, 395, 57, 44);
+		panel.add(tfMeanTemperature2);
+		
+		JLabel lblMeanTemperatureStage_2 = new JLabel("Mean temperature Stage 2");
+		lblMeanTemperatureStage_2.setBounds(319, 446, 147, 22);
+		panel.add(lblMeanTemperatureStage_2);
+		
+		JLabel lblMeanTemperatureStage_1 = new JLabel("Mean temperature Stage 1");
+		lblMeanTemperatureStage_1.setBounds(174, 446, 135, 22);
+		panel.add(lblMeanTemperatureStage_1);
+		
+		JLabel lblMeanTemperatureStage = new JLabel("Mean temperature Stage RC");
+		lblMeanTemperatureStage.setBounds(0, 446, 147, 22);
+		panel.add(lblMeanTemperatureStage);
+		
+		String[] CommonArea = { "ALL", "RC", "Etage 1", "Etage 2" };
+		
+		JComboBox cbStage = new JComboBox(CommonArea);
+		cbStage.setBounds(129, 88, 59, 28);
+		panel.add(cbStage);
 
 		cbCapteur.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -796,46 +864,35 @@ public class GUIBi extends JFrame {
 				if (type.getTypeSensor().equals(SensorType.TEMPERATURE)) {
 					nbSensorTemperature++;
 				} else if (type.getTypeSensor().equals(SensorType.SMOKE)) {
-						nbSensorSmoke++;
-				} else if  (type.getTypeSensor().equals(SensorType.WINDOW)) {
-						nbSensorWindow++;
-						}
-				else if  (type.getTypeSensor().equals(SensorType.DOOR)) {
+					nbSensorSmoke++;
+				} else if (type.getTypeSensor().equals(SensorType.WINDOW)) {
+					nbSensorWindow++;
+				} else if (type.getTypeSensor().equals(SensorType.DOOR)) {
 					nbSensorDoor++;
-					}
-				else if  (type.getTypeSensor().equals(SensorType.MOVE)) {
+				} else if (type.getTypeSensor().equals(SensorType.MOVE)) {
 					nbSensorMove++;
-					}
-				else if  (type.getTypeSensor().equals(SensorType.ELEVATOR)) {
+				} else if (type.getTypeSensor().equals(SensorType.ELEVATOR)) {
 					nbSensorElevator++;
-					}
-				else if  (type.getTypeSensor().equals(SensorType.LIGHT)) {
+				} else if (type.getTypeSensor().equals(SensorType.LIGHT)) {
 					nbSensorLight++;
-					}
-				else if  (type.getTypeSensor().equals(SensorType.FIRE)) {
+				} else if (type.getTypeSensor().equals(SensorType.FIRE)) {
 					nbSensorFire++;
-					}
-				else if  (type.getTypeSensor().equals(SensorType.BADGE)) {
+				} else if (type.getTypeSensor().equals(SensorType.BADGE)) {
 					nbSensorBadge++;
-					}
-				else if  (type.getTypeSensor().equals(SensorType.ROUTER)) {
+				} else if (type.getTypeSensor().equals(SensorType.ROUTER)) {
 					nbSensorRouter++;
-					}
-					}
-				
-
-			
+				}
+			}
 
 		}
-		
+
 //		BigDecimal resultatTemperature1 = ((new BigDecimal(nbSensorLight).divide(new BigDecimal(nbSensorType)).multiply(new BigDecimal(100))));
-		
-		resultatTemperature = (nbSensorLight / nbSensorType)*100; 
-	 
+
+		resultatTemperature = (nbSensorLight / nbSensorType) * 100;
+
 		DecimalFormat df2 = new DecimalFormat("###.##");
-		
-		
-		return new Object[]{df2.format(resultatTemperature) + "%" ,nbSensorType,nbSensorSmoke,nbSensorWindow,};
+
+		return new Object[] { df2.format(resultatTemperature) + "%", nbSensorType, nbSensorSmoke, nbSensorWindow, };
 
 	}
 
@@ -874,4 +931,3 @@ public class GUIBi extends JFrame {
 }
 
 ///////////////
-//TODO CALCULER LE NOMBRE DE MODIFICATIONS 
