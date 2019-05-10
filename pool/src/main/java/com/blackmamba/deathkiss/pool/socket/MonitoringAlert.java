@@ -116,6 +116,10 @@ public class MonitoringAlert {
 				}
 				listMessage.removeAll(listMessageInTreatment);
 				nbAlert = 0;
+				/**
+				 * If the threshold are equal to 0 then we affect an default threshold in
+				 * function of the sensor type
+				 */
 				if (sensors.getThresholdMin() == 0 && sensors.getThresholdMax() == 0) {
 					for (SensorType type : SensorType.values()) {
 						if (type.equals(sensors.getTypeSensor())) {
@@ -127,6 +131,14 @@ public class MonitoringAlert {
 				} else {
 					detectAlert(sensors);
 				}
+				/**
+				 * If the number of message who reached the sensor threshold, is different to 0
+				 * then we will get a number of message Then the sensitivity and the type of
+				 * sensor is analyze and then we get the properties corresponding And for sensor
+				 * type Fire the number of message if only the defaultNbOfMessage. And for other
+				 * if the sensor send a message into the time slot they get her proper
+				 * sensitivity
+				 */
 				if (nbAlert != 0) {
 					difference = firstAlertDate.getTime() - lastAlertDate.getTime();
 					for (Sensitivity type : Sensitivity.values()) {
@@ -169,6 +181,10 @@ public class MonitoringAlert {
 						}
 					}
 				}
+				/**
+				 * When the number of message reached the sensitivity define before we send an
+				 * alert and add it on listAlert and add on historical
+				 */
 				if (nbAlert >= sensitivity && nbAlert > 0 && difference <= Integer.parseInt(rsAlert.getString("timeBetweenAlert"))) {
 					alert = new Alert();
 					alert.setAlertDate(lastAlertDate);

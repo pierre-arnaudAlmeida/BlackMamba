@@ -1,9 +1,11 @@
-package com.blackmamba.deathkiss.mock.gui;
+package com.blackmamba.deathkiss.mock.launcher;
 
 import java.awt.EventQueue;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.blackmamba.deathkiss.mock.gui.MockFrame;
 
 public class MainMockGUI {
 

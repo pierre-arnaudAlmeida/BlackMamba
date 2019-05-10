@@ -8,7 +8,6 @@ import javax.swing.Timer;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.pool.socket.Server;
 
 /**
@@ -70,12 +69,26 @@ public class MainServer {
 				}
 				if (minute == 60) {
 					minute = 0;
-					heure++;
+					setHeure(getHeure() + 1);
 				}
 			}
 		};
 
 		timer1 = new Timer(delais, tache_timer);
 		timer1.start();
+	}
+
+	/**
+	 * @return the heure
+	 */
+	public static int getHeure() {
+		return heure;
+	}
+
+	/**
+	 * @param heure the heure to set
+	 */
+	public static void setHeure(int heure) {
+		MainServer.heure = heure;
 	}
 }
