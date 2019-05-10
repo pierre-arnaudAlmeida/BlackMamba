@@ -432,6 +432,14 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		y1 = (int) getToolkit().getScreenSize().getHeight() * 3 / 20 + 3;
 
 		entranceHall = new Rectangle(x0 + 720, y0 + 85, 176, 407);
+		//TODO RK
+		// Récupére toute partie commune
+		//faire une liste de toutes les nom des rectangles en les inserant deja en lowercase
+		//boucle inbriquer
+		//premiere boucle sur la list avec les noms des rectangles
+		// Fais boucle sur la liste partie commune
+		// Dedans faire if et compare commonArea.getName().lowercas.suppEspace.equals(lisNom[i])
+		//alors on ajoute dans une liste d'object ou tableau bidimentionnel, le nom du rectangle et l'id de la partie commune
 		kitchenE0 = new Rectangle(x0, y0 + 119, 147, 66);
 		dinningRoomE0 = new Rectangle(x0, y0 + 187, 147, 202);
 		staffRoomE0 = new Rectangle(x0, y0 + 391, 147, 64);
