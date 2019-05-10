@@ -52,11 +52,11 @@ public class SurfacePolygon extends JFrame {
 	private static final Rectangle corridorE1_D = new Rectangle(103, 3, 43, 394);
 	private static final Rectangle diningRoomE1 = new Rectangle(2, 101, 100, 194);
 
-	private static final long serialVersionUID = -1793953027487918460L;
+	private static final long serialVersionUID = 1L;
 
 	private static class Canvas extends JComponent implements MouseListener {
 
-		private static final long serialVersionUID = -2873372597458047717L;
+		private static final long serialVersionUID = 1L;
 		private BufferedImage buffer = null;
 		Point p = null;
 
