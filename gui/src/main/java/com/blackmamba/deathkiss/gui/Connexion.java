@@ -135,8 +135,8 @@ public class Connexion extends JFrame {
 				password = new String(passwordfield);
 
 				if (!(idEmployee.matches("[0-9]+[0-9]*")) || password.equals("")) {
-
 					JOptionPane.showMessageDialog(null, "You did not fill in all the fields", "Warning", JOptionPane.WARNING_MESSAGE);
+					logger.log(Level.DEBUG, "IdEmployeeFields or PasswordField are empty");
 				} else if ((idEmployee.matches("[0-9]+[0-9]*")) && !(password.equals(""))) {
 					employee.setIdEmployee(Integer.parseInt(idEmployee));
 					employee.setPassword(password);
@@ -193,8 +193,10 @@ public class Connexion extends JFrame {
 			 */
 			public void actionPerformed(ActionEvent e) {
 				if (showButton.isSelected()) {
+					logger.log(Level.DEBUG, "Password show");
 					textInputPassword.setEchoChar((char) 0);
 				} else {
+					logger.log(Level.DEBUG, "Password hidden");
 					textInputPassword.setEchoChar('*');
 				}
 			}

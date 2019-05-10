@@ -58,23 +58,22 @@ public class Frame extends JFrame {
 		///////////////////////// Thread/////////////////////////////////////////////////
 		setThreadFrame(new Thread(new Runnable() {
 			/**
-			 * Loop and update every 30 sec the list of employees If the employee is'nt in
-			 * Data base they will be disconnected
+			 * Loop and update every 30 seconds the list of employees If the employee is'nt
+			 * in Data base they will be disconnected
 			 */
 			@Override
 			public void run() {
 				while (true) {
 					verificationUser(idEmployee);
 					if (employee.getLastnameEmployee().equals("")) {
-						JOptionPane.showMessageDialog(null, "You will be disconnect", "Error",
-								JOptionPane.ERROR_MESSAGE);
+						logger.log(Level.INFO, "Disconnection, user don't find");
+						JOptionPane.showMessageDialog(null, "You will be disconnect", "Error", JOptionPane.ERROR_MESSAGE);
 						System.exit(ABORT);
 					}
 					try {
 						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
-						logger.log(Level.WARN,
-								"Impossible to sleep the thread Frame " + e.getClass().getCanonicalName());
+						logger.log(Level.WARN, "Impossible to sleep the thread Frame " + e.getClass().getCanonicalName());
 					}
 				}
 			}
@@ -132,12 +131,12 @@ public class Frame extends JFrame {
 					if (!listAlert.isEmpty())
 						// TODO RK
 						// tabSensor.actualizationListSensor(listAlert);
-						try {
-							Thread.sleep(Integer.parseInt(rs.getString("time_threadAlert")));
-						} catch (InterruptedException e) {
-							logger.log(Level.WARN,
-									"Impossible to sleep the thread Alert" + e.getClass().getCanonicalName());
-						}
+						logger.log(Level.DEBUG, "Actualization of listAlert succeed");
+					try {
+						Thread.sleep(Integer.parseInt(rs.getString("time_threadAlert")));
+					} catch (InterruptedException e) {
+						logger.log(Level.WARN, "Impossible to sleep the thread Alert " + e.getClass().getCanonicalName());
+					}
 				}
 			}
 		}));
