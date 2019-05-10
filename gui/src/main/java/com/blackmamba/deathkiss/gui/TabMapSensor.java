@@ -110,21 +110,23 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	private static final long serialVersionUID = 7348020021300445245L;
 
 	private static final Logger logger = LogManager.getLogger(TabMapSensor.class);
-	private static final Rectangle rectangle1 = new Rectangle(400, 204, 147, 66);
-	private static final Rectangle rectangle2 = new Rectangle(400, 272, 147, 202);
-	private static final Rectangle rectangle3 = new Rectangle(400, 476, 147, 64);
-	private static final Rectangle rectangle4 = new Rectangle(543, 85, 430, 83);
-	private static final Rectangle rectangle5 = new Rectangle(400, 170, 718, 33);
-	private static final Rectangle rectangle6 = new Rectangle(549, 205, 64, 334);
-	private static final Rectangle rectangle7 = new Rectangle(400, 541, 718, 35);
-	private static final Rectangle rectangle8 = new Rectangle(547, 577, 428, 84);
-	private static final Rectangle rectangle9 = new Rectangle(616, 288, 502, 43);
-	private static final Rectangle rectangle10 = new Rectangle(616, 409, 502, 46);
-	private static final Rectangle rectangle11 = new Rectangle(905, 205, 213, 80);
-	private static final Rectangle rectangle12 = new Rectangle(905, 458, 213, 81);
-	private static final Rectangle rectangle13 = new Rectangle(1120, 170, 176, 407);
-	private static final Rectangle elevatorA = new Rectangle(616, 331, 48, 29);
-	private static final Rectangle elevatorB = new Rectangle(616, 380, 48, 27);
+
+	private static final Rectangle rectangleE1_1 = new Rectangle(408,136, 168, 116);
+	private static final Rectangle rectangleE1_2 = new Rectangle(408,338, 168, 164);
+	private static final Rectangle rectangleE1_3 = new Rectangle(408,587, 168, 125);
+	private static final Rectangle corridorE1_A = new Rectangle(578,218, 721, 34);
+	private static final Rectangle corridorE1_B = new Rectangle(656,338, 578, 39);
+	private static final Rectangle corridorE1_C = new Rectangle(656,457, 578, 45);
+	private static final Rectangle corridorE1_D = new Rectangle(578,587, 721, 39);
+	private static final Rectangle corridorE1_E = new Rectangle(578,254, 74, 332);
+	private static final Rectangle corridorE1_F = new Rectangle(1237,254, 62, 330);
+	private static final Rectangle rectangleE1_10 = new Rectangle(745,136, 389, 80);
+	private static final Rectangle rectangleE1_11 = new Rectangle(822,254, 247, 82);
+	private static final Rectangle rectangleE1_12 = new Rectangle(1047,379, 188, 76);
+	private static final Rectangle rectangleE1_13 = new Rectangle(821,504, 248, 81);
+	private static final Rectangle rectangleE1_14 = new Rectangle(745,628, 389, 84);
+	private static final Rectangle elevatorE1_A = new Rectangle(656,380, 52, 28);
+	private static final Rectangle elevatorE1_B = new Rectangle(656,426, 52, 29);
 
 	/**
 	 * Constructor
@@ -408,27 +410,30 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		Graphics2D g2 = (Graphics2D) g;
 
 		// Draw image
-		g2.drawImage(buffer, 400, 85, 900, 580, this);
-		// g2.drawImage(buffer1, 700, 400, buffer1.getWidth(), buffer1.getHeight(),
-		// this);
+//		g2.drawImage(buffer, 400, 85, 900, 580, this);
+		g2.drawImage(buffer1, (int) getToolkit().getScreenSize().getWidth() * 6/20, (int) getToolkit().getScreenSize().getWidth() * 2/33 , 900, 580, this);
 
 		g2.setColor(Color.GREEN);
 		// Draw rectangle
-		g2.drawRect(rectangle1.x, rectangle1.y, rectangle1.width, rectangle1.height);
-		g2.drawRect(rectangle2.x, rectangle2.y, rectangle2.width, rectangle2.height);
-		g2.drawRect(rectangle3.x, rectangle3.y, rectangle3.width, rectangle3.height);
-		g2.drawRect(rectangle4.x, rectangle4.y, rectangle4.width, rectangle4.height);
-		g2.drawRect(rectangle5.x, rectangle5.y, rectangle5.width, rectangle5.height);
-		g2.drawRect(rectangle6.x, rectangle6.y, rectangle6.width, rectangle6.height);
-		g2.drawRect(rectangle7.x, rectangle7.y, rectangle7.width, rectangle7.height);
-		g2.drawRect(rectangle8.x, rectangle8.y, rectangle8.width, rectangle8.height);
-		g2.drawRect(rectangle9.x, rectangle9.y, rectangle9.width, rectangle9.height);
-		g2.drawRect(rectangle10.x, rectangle10.y, rectangle10.width, rectangle10.height);
-		g2.drawRect(rectangle11.x, rectangle11.y, rectangle11.width, rectangle11.height);
-		g2.drawRect(rectangle12.x, rectangle12.y, rectangle12.width, rectangle12.height);
-		g2.drawRect(rectangle13.x, rectangle13.y, rectangle13.width, rectangle13.height);
-		g2.drawRect(elevatorA.x, elevatorA.y, elevatorA.width, elevatorA.height);
-		g2.drawRect(elevatorB.x, elevatorB.y, elevatorB.width, elevatorB.height);
+		
+		
+		
+		g2.drawRect(rectangleE1_1.x, rectangleE1_1.y, rectangleE1_1.width, rectangleE1_1.height);
+		g2.drawRect(rectangleE1_2.x, rectangleE1_2.y, rectangleE1_2.width, rectangleE1_2.height);
+		g2.drawRect(rectangleE1_3.x, rectangleE1_3.y, rectangleE1_3.width, rectangleE1_3.height);
+		g2.drawRect(corridorE1_A.x, corridorE1_A.y, corridorE1_A.width, corridorE1_A.height);
+		g2.drawRect(corridorE1_B.x, corridorE1_B.y, corridorE1_B.width, corridorE1_B.height);
+		g2.drawRect(corridorE1_C.x, corridorE1_C.y, corridorE1_C.width, corridorE1_C.height);
+		g2.drawRect(corridorE1_D.x, corridorE1_D.y, corridorE1_D.width, corridorE1_D.height);
+		g2.drawRect(corridorE1_E.x, corridorE1_E.y, corridorE1_E.width, corridorE1_E.height);
+		g2.drawRect(corridorE1_F.x, corridorE1_F.y, corridorE1_F.width, corridorE1_F.height);
+		g2.drawRect(rectangleE1_10.x, rectangleE1_10.y, rectangleE1_10.width, rectangleE1_10.height);
+		g2.drawRect(rectangleE1_11.x, rectangleE1_11.y, rectangleE1_11.width, rectangleE1_11.height);
+		g2.drawRect(rectangleE1_12.x, rectangleE1_12.y, rectangleE1_12.width, rectangleE1_12.height);
+		g2.drawRect(rectangleE1_13.x, rectangleE1_13.y, rectangleE1_13.width, rectangleE1_13.height);
+		g2.drawRect(rectangleE1_14.x, rectangleE1_14.y, rectangleE1_14.width, rectangleE1_14.height);
+		g2.drawRect(elevatorE1_A.x, elevatorE1_A.y, elevatorE1_A.width, elevatorE1_A.height);
+		g2.drawRect(elevatorE1_B.x, elevatorE1_B.y, elevatorE1_B.width, elevatorE1_B.height);
 	}
 
 	private void testLocation(Point mouse, Rectangle commonArea, String text) {
