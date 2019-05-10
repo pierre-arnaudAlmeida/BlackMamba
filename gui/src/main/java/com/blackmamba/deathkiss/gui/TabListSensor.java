@@ -215,11 +215,6 @@ public class TabListSensor extends JPanel {
 			}
 		});
 
-		/**
-		 * Launch thread
-		 */
-		threadListSensor.start();
-
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
 		 * Different parameters of the window
@@ -227,9 +222,16 @@ public class TabListSensor extends JPanel {
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);
 		this.setBackground(Color.GRAY);
-
 	}
 
+	/**
+	 * Launch thread
+	 */
+	//TODO PA verifier
+	public void threadLauncher() {
+		threadListSensor.start();
+	}
+	
 	/**
 	 * They find all the Sensors present in the CommonArea with the id sent by the
 	 * TabCommonArea And add all this sensor in a list do be displayed

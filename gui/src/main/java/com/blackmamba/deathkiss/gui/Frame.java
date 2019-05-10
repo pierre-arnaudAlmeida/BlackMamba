@@ -147,6 +147,12 @@ public class Frame extends JFrame {
 		// TODO PA a remettre
 		// threadAlert.start();
 		threadFrame.start();
+		tabCommonArea.threadLauncher();
+		tabEmployes.threadLauncher();
+		tabHistorical.threadLauncher();
+		tabProfile.threadLauncher();
+		tabResident.threadLauncher();
+		tabSensor.threadLauncher();
 
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**

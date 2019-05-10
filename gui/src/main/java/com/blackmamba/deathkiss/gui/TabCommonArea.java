@@ -318,6 +318,7 @@ public class TabCommonArea extends JPanel {
 					textInputStageCommonArea.setText(Integer.toString(commonArea.getFloorCommonArea()));
 					textInputAreaCommonArea.setText(Integer.toString(commonArea.getArea()));
 					textInputMaxSensor.setText(Integer.toString(commonArea.getMaxSensor()));
+					logger.log(Level.DEBUG, "Sensor : " + commonArea.getIdCommonArea() + " selected");
 				}
 			}
 		};
@@ -418,7 +419,7 @@ public class TabCommonArea extends JPanel {
 		this.add(textInputAreaCommonArea);
 
 		/**
-		 * Definition of textArea Mac Sensors
+		 * Definition of textArea Max Sensors
 		 */
 		textInputMaxSensor = new JTextField();
 		textInputMaxSensor.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7, (int) getToolkit().getScreenSize().getHeight() * 9 / 20, 300, 40);
@@ -426,7 +427,6 @@ public class TabCommonArea extends JPanel {
 		textInputMaxSensor.setText(commonArea.getNameCommonArea());
 		this.add(textInputMaxSensor);
 
-		// TODO PA COMMENTAIRE
 		//////////////////// BUTTON////////////////////////////////////////////////
 		/**
 		 * Definition of Button AddCommonArea
@@ -652,6 +652,7 @@ public class TabCommonArea extends JPanel {
 						textInputStageCommonArea.setText("");
 						textInputAreaCommonArea.setText("");
 						textInputMaxSensor.setText("");
+						logger.log(Level.DEBUG, "Deletion of commonArea succeed");
 					} else {
 						JOptionPane.showMessageDialog(null, "Please select an common area to be deleted", "Error", JOptionPane.INFORMATION_MESSAGE);
 					}
@@ -687,6 +688,7 @@ public class TabCommonArea extends JPanel {
 				}
 				textInputAreaCommonArea.setText(Integer.toString(commonArea.getArea()));
 				textInputMaxSensor.setText(Integer.toString(commonArea.getMaxSensor()));
+				logger.log(Level.DEBUG, "Restoration ComonAreaFields succeed");
 			}
 		});
 
@@ -714,21 +716,18 @@ public class TabCommonArea extends JPanel {
 							tab.remove(7);
 							tabListSensor = new TabListSensor(commonArea, idemployee, "Tab Sensor List");
 							tab.add("Tab Sensor List", tabListSensor);
+							tabListSensor.threadLauncher();
 							Frame.goToTab(7);
 						}
 					} catch (IndexOutOfBoundsException e1) {
 						tabListSensor = new TabListSensor(commonArea, idemployee, "Tab Sensor List");
 						tab.add("Tab Sensor List", tabListSensor);
+						tabListSensor.threadLauncher();
 						Frame.goToTab(7);
 					}
 				}
 			}
 		});
-
-		/**
-		 * Launch thread
-		 */
-		threadCommonArea.start();
 
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
@@ -737,6 +736,15 @@ public class TabCommonArea extends JPanel {
 		this.setLayout(new BorderLayout());
 		this.add(bar, BorderLayout.NORTH);
 		this.setBackground(color);
+		logger.log(Level.DEBUG, "Frame TabCommonArea succesfully created");
+	}
+
+	/**
+	 * Launch thread
+	 */
+	// TODO PA verifier
+	public void threadLauncher() {
+		threadCommonArea.start();
 	}
 
 	/**
@@ -756,10 +764,12 @@ public class TabCommonArea extends JPanel {
 			listM.addElement(commonAreas.getIdCommonArea() + "# " + commonAreas.getNameCommonArea() + " ," + commonAreas.getFloorCommonArea());
 		}
 		list.setModel(listM);
+		logger.log(Level.DEBUG, "List CommonArea updated wih success");
 	}
 
 	/**
-	 * Find the CommonArea by the id get on list
+	 * Find the CommonArea by the id get on list And send a request to update the
+	 * different parameters
 	 */
 	public void updateCommonAreaSelected() {
 		if (index != -9999) {
@@ -778,12 +788,14 @@ public class TabCommonArea extends JPanel {
 				textInputStageCommonArea.setText(Integer.toString(commonArea.getFloorCommonArea()));
 				textInputAreaCommonArea.setText(Integer.toString(commonArea.getArea()));
 				textInputMaxSensor.setText(Integer.toString(commonArea.getMaxSensor()));
+				logger.log(Level.DEBUG, "CommonArea selected succesfully updated");
 			}
 		}
 	}
 
 	/**
-	 * Get the commonArea for the request READ
+	 * Get the commonArea for the request READ Send a request to get an specific
+	 * common Area
 	 * 
 	 * @param commonArea
 	 * @param requestType
