@@ -580,7 +580,6 @@ public class TabResident extends JPanel {
 	/**
 	 * Launch thread
 	 */
-	// TODO PA verifier
 	public void threadLauncher() {
 		threadResident.start();
 		logger.log(Level.DEBUG, "Thread Resident started");

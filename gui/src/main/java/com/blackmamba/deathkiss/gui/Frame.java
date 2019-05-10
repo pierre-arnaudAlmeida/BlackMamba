@@ -100,7 +100,7 @@ public class Frame extends JFrame {
 		tabResident = new TabResident(Color.GRAY, this.idEmployee, "Tab Residents");
 		tabHistorical = new TabHistorical(Color.GRAY, this.idEmployee, "Tab Historical");
 		tabProfile = new TabProfile(Color.GRAY, this.idEmployee, "Tab Profile");
-		tabMapSensor = new TabMapSensor(Color.GRAY, this.idEmployee, "Tab Map", 0);
+		//tabMapSensor = new TabMapSensor(Color.GRAY, this.idEmployee, "Tab Map", 0);
 
 		/**
 		 * Add of the title of tabs

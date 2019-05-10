@@ -679,7 +679,6 @@ public class TabEmployes extends JPanel {
 	/**
 	 * Launch thread
 	 */
-	// TODO PA verifier
 	public void threadLauncher() {
 		threadEmployee.start();
 		logger.log(Level.DEBUG, "Thread Employee started");

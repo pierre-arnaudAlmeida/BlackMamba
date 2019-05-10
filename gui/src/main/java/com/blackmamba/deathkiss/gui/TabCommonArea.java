@@ -747,7 +747,6 @@ public class TabCommonArea extends JPanel {
 	/**
 	 * Launch thread
 	 */
-	// TODO PA verifier
 	public void threadLauncher() {
 		threadCommonArea.start();
 		logger.log(Level.DEBUG, "Thread CommonArea started");

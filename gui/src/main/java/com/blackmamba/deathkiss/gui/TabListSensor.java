@@ -221,7 +221,6 @@ public class TabListSensor extends JPanel {
 	/**
 	 * Launch thread
 	 */
-	// TODO PA verifier
 	public void threadLauncher() {
 		threadListSensor.start();
 		logger.log(Level.DEBUG, "Thread ListSensor started");

@@ -23,6 +23,7 @@ public class GenerateEmployee {
 	private ResourceBundle rsLastname = ResourceBundle.getBundle("lastname_employee_list");
 	private ResourceBundle rsFirstname = ResourceBundle.getBundle("firstname_employee_list");
 	private ResourceBundle rsFunction = ResourceBundle.getBundle("function_employee_list");
+	private ResourceBundle rsPassword = ResourceBundle.getBundle("password_employee_list");
 	private static final Logger logger = LogManager.getLogger(GenerateEmployee.class);
 
 	/**
@@ -50,6 +51,7 @@ public class GenerateEmployee {
 			employee.setLastnameEmployee(rsLastname.getString(Integer.toString(random.nextInt(1000))));
 			employee.setNameEmployee(rsFirstname.getString(Integer.toString(random.nextInt(1000))));
 			employee.setFunction(rsFunction.getString(Integer.toString(random.nextInt(1000))));
+			employee.setPassword(rsPassword.getString(Integer.toString(random.nextInt(1000))));
 
 			requestType = "CREATE";
 			table = "Employee";

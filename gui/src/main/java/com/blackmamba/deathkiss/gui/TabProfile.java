@@ -359,7 +359,6 @@ public class TabProfile extends JPanel {
 	/**
 	 * Launch thread
 	 */
-	// TODO PA verifier
 	public void threadLauncher() {
 		threadProfile.start();
 		logger.log(Level.DEBUG, "Thread Profile started");
