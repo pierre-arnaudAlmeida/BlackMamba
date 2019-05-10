@@ -82,7 +82,7 @@ public class TabProfile extends JPanel {
 		///////////////////////// Thread/////////////////////////////////////////////////
 		setThreadProfile(new Thread(new Runnable() {
 			/**
-			 * Loop and update every 30 sec the list of employees
+			 * Loop and update every 30 seconds the list of employees
 			 */
 			@Override
 			public void run() {
@@ -211,8 +211,10 @@ public class TabProfile extends JPanel {
 			 */
 			public void actionPerformed(ActionEvent e) {
 				if (showButton.isSelected()) {
+					logger.log(Level.DEBUG, "Password show");
 					textInputPasswordEmployee.setEchoChar((char) 0);
 				} else {
+					logger.log(Level.DEBUG, "Password hidden");
 					textInputPasswordEmployee.setEchoChar('*');
 				}
 			}
@@ -230,9 +232,9 @@ public class TabProfile extends JPanel {
 		this.add(save);
 		save.addActionListener(new ActionListener() {
 			/**
-			 * When we pressed the button save we update the Employee datas we check if the
-			 * informations are correct, if the textField are not empty and we supress the
-			 * special caracters
+			 * When we pressed the button save we update the Employee data we check if the
+			 * informations are correct, if the textField are not empty and we suppress the
+			 * special characters
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -360,6 +362,7 @@ public class TabProfile extends JPanel {
 	// TODO PA verifier
 	public void threadLauncher() {
 		threadProfile.start();
+		logger.log(Level.DEBUG, "Thread Profile started");
 	}
 
 	///////////////////////// GET DATAS//////////////////////////////////////////

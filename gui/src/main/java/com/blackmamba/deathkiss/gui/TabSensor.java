@@ -108,10 +108,10 @@ public class TabSensor extends JPanel {
 	private JComboBox<Integer> textInputMinuteEndActivity;
 	private DefaultListModel<String> listM;
 	private JList<String> list;
-	private List<Alert> listAlert = new ArrayList<Alert>();
-	private List<Sensor> listSensor = new ArrayList<Sensor>();
-	private List<Sensor> listSearchSensor = new ArrayList<Sensor>();
-	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
+	private List<Alert> listAlert;
+	private List<Sensor> listSensor;
+	private List<Sensor> listSearchSensor;
+	private List<CommonArea> listCommonArea;
 	private static final Logger logger = LogManager.getLogger(TabSensor.class);
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
@@ -131,6 +131,10 @@ public class TabSensor extends JPanel {
 	 */
 	public TabSensor(Color color, int idemployee, String title, int idSensor) {
 		this.idemployee = idemployee;
+		this.listAlert = new ArrayList<Alert>();
+		this.listSensor = new ArrayList<Sensor>();
+		this.listSearchSensor = new ArrayList<Sensor>();
+		this.listCommonArea = new ArrayList<CommonArea>();
 
 		///////////////////////// Thread/////////////////////////////////////////////////
 		setThreadSensor(new Thread(new Runnable() {
@@ -400,7 +404,7 @@ public class TabSensor extends JPanel {
 		list.addMouseListener(mouseListener);
 
 		/**
-		 * Call the method define at end to update the list of CommonAreas availables
+		 * Call the method define at end to update the list of CommonAreas available
 		 * they will be execute one time at creation of the window
 		 */
 		updateListAreas();
@@ -913,7 +917,7 @@ public class TabSensor extends JPanel {
 		restaure.addActionListener(new ActionListener() {
 			/**
 			 * when the button Restore is pressed, we define the textAreas as the last
-			 * sensor datas selected in the list by the user
+			 * sensor data selected in the list by the user
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -1028,6 +1032,7 @@ public class TabSensor extends JPanel {
 	// TODO PA verifier
 	public void threadLauncher() {
 		threadSensor.start();
+		logger.log(Level.DEBUG, "Thread Sensor started");
 	}
 
 	///////////////////////// LIST COMMON AREA//////////////////////////////////////

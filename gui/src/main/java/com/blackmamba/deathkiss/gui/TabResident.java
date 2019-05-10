@@ -73,8 +73,8 @@ public class TabResident extends JPanel {
 	private Thread threadResident;
 	private JList<String> list;
 	private DefaultListModel<String> listM;
-	private List<Resident> listResident = new ArrayList<Resident>();
-	private List<Resident> listSearchResident = new ArrayList<Resident>();
+	private List<Resident> listResident;
+	private List<Resident> listSearchResident;
 	private static final Logger logger = LogManager.getLogger(TabProfile.class);
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
@@ -93,11 +93,13 @@ public class TabResident extends JPanel {
 	 */
 	public TabResident(Color color, int idemployee, String title) {
 		this.idemployee = idemployee;
+		this.listResident = new ArrayList<Resident>();
+		this.listSearchResident = new ArrayList<Resident>();
 
 		///////////////////////// Thread/////////////////////////////////////////////////
 		setThreadResident(new Thread(new Runnable() {
 			/**
-			 * Loop and update every 30 sec the list of resident
+			 * Loop and update every 30 seconds the list of resident
 			 */
 			@Override
 			public void run() {
@@ -456,7 +458,7 @@ public class TabResident extends JPanel {
 		this.add(save);
 		save.addActionListener(new ActionListener() {
 			/**
-			 * When we pressed the button save we update the Resident datas we check if the
+			 * When we pressed the button save we update the Resident data we check if the
 			 * informations are correct
 			 */
 			@Override
@@ -581,6 +583,7 @@ public class TabResident extends JPanel {
 	// TODO PA verifier
 	public void threadLauncher() {
 		threadResident.start();
+		logger.log(Level.DEBUG, "Thread Resident started");
 	}
 
 	/**

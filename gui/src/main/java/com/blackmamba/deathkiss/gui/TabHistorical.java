@@ -62,10 +62,11 @@ public class TabHistorical extends JPanel {
 	private DefaultListModel<String> listM;
 	private JButton disconnection;
 	private Thread threadListSensorHistorical;
-	private List<SensorHistorical> listSensorHistorical = new ArrayList<SensorHistorical>();
+	private List<SensorHistorical> listSensorHistorical;
 	private static final Logger logger = LogManager.getLogger(TabHistorical.class);
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
+	// TODO PA COMMENTAIRE
 	/**
 	 * Constructor
 	 */
@@ -81,6 +82,7 @@ public class TabHistorical extends JPanel {
 	 */
 	public TabHistorical(Color color, int idemployee, String title) {
 		this.idemployee = idemployee;
+		this.listSensorHistorical = new ArrayList<SensorHistorical>();
 
 		///////////////////////// Thread/////////////////////////////////////////////////
 		setThreadListSensorHistorical(new Thread(new Runnable() {
@@ -91,6 +93,7 @@ public class TabHistorical extends JPanel {
 			public void run() {
 				while (true) {
 					updateListSensorHistorical();
+					logger.log(Level.DEBUG, "Thread Historical do with success");
 					try {
 						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
@@ -160,6 +163,7 @@ public class TabHistorical extends JPanel {
 				if (position > -1) {
 					sensorHistorical.setIdHistorical(Integer.parseInt(substring.substring(0, position)));
 				}
+				logger.log(Level.DEBUG, "SensorHistorical : " + sensorHistorical.getIdHistorical() + " selected");
 			}
 		};
 		list.addMouseListener(mouseListener);
@@ -276,6 +280,7 @@ public class TabHistorical extends JPanel {
 	// TODO PA verifier
 	public void threadLauncher() {
 		threadListSensorHistorical.start();
+		logger.log(Level.DEBUG, "Thread Historical started");
 	}
 
 	/**
@@ -305,6 +310,11 @@ public class TabHistorical extends JPanel {
 		list.setModel(listM);
 	}
 
+	/**
+	 * Get info about a specific sensor with the id_sensor
+	 * 
+	 * @param id
+	 */
 	public void getSensor(int id) {
 		requestType = "READ";
 		sensor = new Sensor();

@@ -60,7 +60,7 @@ public class TabListSensor extends JPanel {
 	private Thread threadListSensor;
 	private JList<String> tableau;
 	private DefaultListModel<String> tableModel;
-	private List<Sensor> listSensor = new ArrayList<Sensor>();
+	private List<Sensor> listSensor;
 	private static final Logger logger = LogManager.getLogger(TabListSensor.class);
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
@@ -80,6 +80,7 @@ public class TabListSensor extends JPanel {
 	public TabListSensor(CommonArea area, int idemployee, String title) {
 		this.idemployee = idemployee;
 		this.area = area;
+		this.listSensor = new ArrayList<Sensor>();
 
 		///////////////////////// Thread/////////////////////////////////////////////////
 		setThreadListSensor(new Thread(new Runnable() {
@@ -93,8 +94,7 @@ public class TabListSensor extends JPanel {
 					try {
 						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
-						logger.log(Level.WARN,
-								"Impossible to sleep the thread ListSensor " + e.getClass().getCanonicalName());
+						logger.log(Level.WARN, "Impossible to sleep the thread ListSensor " + e.getClass().getCanonicalName());
 					}
 				}
 			}
@@ -144,10 +144,7 @@ public class TabListSensor extends JPanel {
 		 * Add a scrollBar on list
 		 */
 		sc = new JScrollPane(tableau);
-		sc.setBounds((int) getToolkit().getScreenSize().getWidth() * 3 / 10,
-				(int) getToolkit().getScreenSize().getHeight() * 2 / 10,
-				(int) getToolkit().getScreenSize().getWidth() * 1 / 2,
-				(int) getToolkit().getScreenSize().getHeight() * 1 / 2);
+		sc.setBounds((int) getToolkit().getScreenSize().getWidth() * 3 / 10, (int) getToolkit().getScreenSize().getHeight() * 2 / 10, (int) getToolkit().getScreenSize().getWidth() * 1 / 2, (int) getToolkit().getScreenSize().getHeight() * 1 / 2);
 		this.add(sc);
 
 		/**
@@ -168,8 +165,7 @@ public class TabListSensor extends JPanel {
 		 * Definition of Button CheckSensor
 		 */
 		checkSensor = new JButton("Display Sensor");
-		checkSensor.setBounds(((int) getToolkit().getScreenSize().getWidth() * 5 / 10),
-				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
+		checkSensor.setBounds(((int) getToolkit().getScreenSize().getWidth() * 5 / 10), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
 		this.add(checkSensor);
 		checkSensor.addActionListener(new ActionListener() {
 			/**
@@ -179,8 +175,7 @@ public class TabListSensor extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (index == 0) {
-					JOptionPane.showMessageDialog(null, "Please select an sensor", "Information",
-							JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Please select an sensor", "Information", JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					tab = new JTabbedPane();
 					tab = Frame.getTab();
@@ -198,8 +193,7 @@ public class TabListSensor extends JPanel {
 		 * Definition of Button newCommonArea
 		 */
 		newCommonArea = new JButton("New common area");
-		newCommonArea.setBounds(((int) getToolkit().getScreenSize().getWidth() * 3 / 10),
-				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
+		newCommonArea.setBounds(((int) getToolkit().getScreenSize().getWidth() * 3 / 10), (int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
 		this.add(newCommonArea);
 		newCommonArea.addActionListener(new ActionListener() {
 			/**
@@ -227,11 +221,12 @@ public class TabListSensor extends JPanel {
 	/**
 	 * Launch thread
 	 */
-	//TODO PA verifier
+	// TODO PA verifier
 	public void threadLauncher() {
 		threadListSensor.start();
+		logger.log(Level.DEBUG, "Thread ListSensor started");
 	}
-	
+
 	/**
 	 * They find all the Sensors present in the CommonArea with the id sent by the
 	 * TabCommonArea And add all this sensor in a list do be displayed
@@ -259,8 +254,7 @@ public class TabListSensor extends JPanel {
 		tableModel = new DefaultListModel<>();
 		tableModel.addElement("ID, Sensor type, State, Name common area");
 		for (Sensor sensors : listSensor) {
-			tableModel.addElement(Integer.toString(sensors.getIdSensor()) + " " + sensors.getTypeSensor() + " "
-					+ sensors.getSensorState() + " " + area.getNameCommonArea());
+			tableModel.addElement(Integer.toString(sensors.getIdSensor()) + " " + sensors.getTypeSensor() + " " + sensors.getSensorState() + " " + area.getNameCommonArea());
 		}
 		tableau.setModel(tableModel);
 	}

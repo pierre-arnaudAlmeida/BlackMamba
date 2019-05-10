@@ -79,8 +79,8 @@ public class TabEmployes extends JPanel {
 	private Thread threadEmployee;
 	private JList<String> list;
 	private DefaultListModel<String> listM;
-	private List<Employee> listEmployee = new ArrayList<Employee>();
-	private List<Employee> listSearchEmployee = new ArrayList<Employee>();
+	private List<Employee> listEmployee;
+	private List<Employee> listSearchEmployee;
 	private static final Logger logger = LogManager.getLogger(TabEmployes.class);
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
@@ -90,7 +90,6 @@ public class TabEmployes extends JPanel {
 	public TabEmployes() {
 	}
 
-	// TODO PA COMMENTAIRE
 	/**
 	 * Constructor
 	 * 
@@ -100,6 +99,8 @@ public class TabEmployes extends JPanel {
 	 */
 	public TabEmployes(Color color, int idemployee, String title) {
 		this.idemployee = idemployee;
+		this.listEmployee = new ArrayList<Employee>();
+		this.listSearchEmployee = new ArrayList<Employee>();
 
 		///////////////////////// Thread/////////////////////////////////////////////////
 		setThreadEmployee(new Thread(new Runnable() {
@@ -111,6 +112,7 @@ public class TabEmployes extends JPanel {
 				while (true) {
 					updateEmployeeSelected();
 					updateListEmployee();
+					logger.log(Level.DEBUG, "Thread CommonArea do with success");
 					try {
 						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
@@ -243,6 +245,7 @@ public class TabEmployes extends JPanel {
 					}
 				}
 				searchBar.setText("");
+				logger.log(Level.DEBUG, "Research Employee succeeded");
 			}
 		});
 
@@ -279,6 +282,7 @@ public class TabEmployes extends JPanel {
 					textInputNameEmployee.setText(employee.getNameEmployee());
 					textInputFunctionEmployee.setText(employee.getFunction());
 					textInputPasswordEmployee.setText("");
+					logger.log(Level.DEBUG, "Employee : " + employee.getIdEmployee() + " selected");
 				}
 			}
 		};
@@ -378,8 +382,10 @@ public class TabEmployes extends JPanel {
 			 */
 			public void actionPerformed(ActionEvent e) {
 				if (showButton.isSelected()) {
+					logger.log(Level.DEBUG, "Password show");
 					textInputPasswordEmployee.setEchoChar((char) 0);
 				} else {
+					logger.log(Level.DEBUG, "Password hidden");
 					textInputPasswordEmployee.setEchoChar('*');
 				}
 			}
@@ -393,8 +399,8 @@ public class TabEmployes extends JPanel {
 		this.add(addEmployee);
 		addEmployee.addActionListener(new ActionListener() {
 			/**
-			 * When we pressed the button addEmployee we supress the space and we get out
-			 * the special caracters and verify if the textField are empty or not If one of
+			 * When we pressed the button addEmployee we suppress the space and we get out
+			 * the special characters and verify if the textField are empty or not If one of
 			 * them is empty they send a message to user else they send the request to
 			 * server
 			 */
@@ -478,9 +484,9 @@ public class TabEmployes extends JPanel {
 		this.add(save);
 		save.addActionListener(new ActionListener() {
 			/**
-			 * When we pressed the button save we update the Employee datas we check if the
-			 * informations are correct, if the textField are not empty and we supress the
-			 * special caracters
+			 * When we pressed the button save we update the Employee data we check if the
+			 * informations are correct, if the textField are not empty and we suppress the
+			 * special characters
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -540,6 +546,10 @@ public class TabEmployes extends JPanel {
 									textInputPasswordEmployee.setText("");
 									listM.set(index, employee.getIdEmployee() + "# " + employee.getLastnameEmployee() + " " + employee.getNameEmployee() + " ," + employee.getFunction() + "");
 									JOptionPane.showMessageDialog(null, "Datas updated", "Information", JOptionPane.INFORMATION_MESSAGE);
+									textInputLastnameEmployee.setText("");
+									textInputNameEmployee.setText("");
+									textInputFunctionEmployee.setText("");
+									textInputPasswordEmployee.setText("");
 								}
 							} catch (Exception e1) {
 								logger.log(Level.WARN, "Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
@@ -564,6 +574,10 @@ public class TabEmployes extends JPanel {
 								textInputPasswordEmployee.setText("");
 								listM.set(index, employee.getIdEmployee() + "# " + employee.getLastnameEmployee() + " " + employee.getNameEmployee() + " ," + employee.getFunction() + "");
 								JOptionPane.showMessageDialog(null, "Datas updated", "Information", JOptionPane.INFORMATION_MESSAGE);
+								textInputLastnameEmployee.setText("");
+								textInputNameEmployee.setText("");
+								textInputFunctionEmployee.setText("");
+								textInputPasswordEmployee.setText("");
 							}
 						} catch (Exception e1) {
 							logger.log(Level.WARN, "Impossible to parse in JSON Employee datas" + e1.getClass().getCanonicalName());
@@ -590,6 +604,7 @@ public class TabEmployes extends JPanel {
 				textInputNameEmployee.setText(employee.getNameEmployee());
 				textInputFunctionEmployee.setText(employee.getFunction());
 				textInputPasswordEmployee.setText("");
+				logger.log(Level.DEBUG, "Restoration succeeded");
 			}
 		});
 
@@ -667,6 +682,7 @@ public class TabEmployes extends JPanel {
 	// TODO PA verifier
 	public void threadLauncher() {
 		threadEmployee.start();
+		logger.log(Level.DEBUG, "Thread Employee started");
 	}
 
 	/**
@@ -695,6 +711,7 @@ public class TabEmployes extends JPanel {
 			listM.addElement(employees.getIdEmployee() + "# " + employees.getLastnameEmployee() + " " + employees.getNameEmployee() + " ," + employees.getFunction());
 		}
 		list.setModel(listM);
+		logger.log(Level.DEBUG, "Update list Employee succeed");
 	}
 
 	/**
@@ -717,6 +734,7 @@ public class TabEmployes extends JPanel {
 				textInputNameEmployee.setText(employee.getNameEmployee());
 				textInputFunctionEmployee.setText(employee.getFunction());
 				textInputPasswordEmployee.setText("");
+				logger.log(Level.DEBUG, "Update Employee selected succeed");
 			}
 		}
 	}

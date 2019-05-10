@@ -43,7 +43,7 @@ public class Frame extends JFrame {
 	private ObjectMapper objectMapper;
 	private Thread threadFrame;
 	private Thread threadAlert;
-	private List<Alert> listAlert = new ArrayList<Alert>();
+	private List<Alert> listAlert;
 	private static final Logger logger = LogManager.getLogger(Frame.class);
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
@@ -54,6 +54,7 @@ public class Frame extends JFrame {
 	 */
 	public Frame(int idEmployee) {
 		this.idEmployee = idEmployee;
+		this.listAlert = new ArrayList<Alert>();
 
 		///////////////////////// Thread/////////////////////////////////////////////////
 		setThreadFrame(new Thread(new Runnable() {

@@ -22,8 +22,8 @@ public class MainGUI {
 	private static Logger logger = LogManager.getLogger(MainGUI.class);
 
 	/**
-	 * Method Main Launch the creation of the frame pop-pup connection to permitte
-	 * at user to connect at application
+	 * Method Main Launch the creation of the frame pop-pup connection to let user
+	 * to connect at application
 	 * 
 	 * @param args
 	 */
@@ -31,15 +31,14 @@ public class MainGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					//TODO PA a remettre
+					// TODO PA a remettre
 					// popupConnexion = new Connexion();
 					// popupConnexion.setVisible(true);
 					Frame frame = new Frame(1);
 					frame.setVisible(true);
 					logger.log(Level.INFO, "Application Deathkiss runned");
 				} catch (Exception e) {
-					logger.log(Level.WARN,
-							"Impossible to create the window 'frame' " + e.getClass().getCanonicalName());
+					logger.log(Level.WARN, "Impossible to create the window 'frame' " + e.getClass().getCanonicalName());
 				}
 			}
 		});

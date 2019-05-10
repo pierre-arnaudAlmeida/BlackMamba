@@ -83,9 +83,9 @@ public class TabCommonArea extends JPanel {
 	private Thread threadCommonArea;
 	private JList<String> list;
 	private DefaultListModel<String> listM;
-	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
-	private List<CommonArea> listSearchCommonArea = new ArrayList<CommonArea>();
-	private List<Sensor> listSensorUsed = new ArrayList<Sensor>();
+	private List<CommonArea> listCommonArea;
+	private List<CommonArea> listSearchCommonArea;
+	private List<Sensor> listSensorUsed;
 	private static final Logger logger = LogManager.getLogger(TabCommonArea.class);
 	private ResourceBundle rsParameters = ResourceBundle.getBundle("parameters");
 
@@ -104,6 +104,9 @@ public class TabCommonArea extends JPanel {
 	 */
 	public TabCommonArea(Color color, int idemployee, int idcommonArea, String title) {
 		this.idemployee = idemployee;
+		this.listCommonArea = new ArrayList<CommonArea>();
+		this.listSearchCommonArea = new ArrayList<CommonArea>();
+		this.listSensorUsed = new ArrayList<Sensor>();
 
 		///////////////////////// Thread/////////////////////////////////////////////////
 		setThreadCommonArea(new Thread(new Runnable() {
@@ -118,6 +121,7 @@ public class TabCommonArea extends JPanel {
 				while (true) {
 					updateCommonAreaSelected();
 					updateListCommonArea();
+					logger.log(Level.DEBUG, "Thread CommonArea do with success");
 					try {
 						Thread.sleep(Integer.parseInt(rsParameters.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
@@ -267,6 +271,7 @@ public class TabCommonArea extends JPanel {
 					}
 				}
 				searchBar.setText("");
+				logger.log(Level.DEBUG, "Research Employee succeeded");
 			}
 		});
 
@@ -745,6 +750,7 @@ public class TabCommonArea extends JPanel {
 	// TODO PA verifier
 	public void threadLauncher() {
 		threadCommonArea.start();
+		logger.log(Level.DEBUG, "Thread CommonArea started");
 	}
 
 	/**
