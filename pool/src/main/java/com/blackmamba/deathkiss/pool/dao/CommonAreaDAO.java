@@ -52,8 +52,7 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			area = objectMapper.readValue(jsonString, CommonArea.class);
-			prepareStatement = con.prepareStatement(
-					"INSERT INTO partie_commune (nom_partie_commune, etage_partie_commune,surface,max_capteur) values (?,?,?,?)");
+			prepareStatement = con.prepareStatement("INSERT INTO partie_commune (nom_partie_commune, etage_partie_commune,surface,max_capteur) values (?,?,?,?)");
 			prepareStatement.setString(1, area.getNameCommonArea());
 			prepareStatement.setInt(2, area.getFloorCommonArea());
 			prepareStatement.setInt(3, area.getArea());
@@ -97,8 +96,7 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			area = objectMapper.readValue(jsonString, CommonArea.class);
-			prepareStatement = con.prepareStatement(
-					"UPDATE partie_commune SET etage_partie_commune = ?, nom_partie_commune = ?, surface= ?, max_capteur= ? where id_partie_commune = ?");
+			prepareStatement = con.prepareStatement("UPDATE partie_commune SET etage_partie_commune = ?, nom_partie_commune = ?, surface= ?, max_capteur= ? where id_partie_commune = ?");
 			prepareStatement.setInt(1, area.getFloorCommonArea());
 			prepareStatement.setString(2, area.getNameCommonArea());
 			prepareStatement.setInt(3, area.getArea());
@@ -122,8 +120,7 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			area = objectMapper.readValue(jsonString, CommonArea.class);
-			requestSB = new StringBuilder(
-					"SELECT id_partie_commune,nom_partie_commune, etage_partie_commune,surface,max_capteur ");
+			requestSB = new StringBuilder("SELECT id_partie_commune,nom_partie_commune, etage_partie_commune,surface,max_capteur ");
 			requestSB.append("FROM partie_commune where id_partie_commune=");
 			requestSB.append(area.getIdCommonArea());
 			st = con.createStatement();
@@ -167,6 +164,9 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 	/**
 	 * Convert the JSON string in Object and create a request to read (select) all
 	 * values in table 'partie_commune' by the name or the stage of 'partie_commune'
+	 * 
+	 * @param jsonString
+	 * @return
 	 */
 	public String findByName(String jsonString) {
 		ObjectMapper objWriter = new ObjectMapper();
@@ -175,12 +175,10 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 		try {
 			area = objectMapper.readValue(jsonString, CommonArea.class);
 			if (!(area.getNameCommonArea().equals(""))) {
-				prepareStatement = con.prepareStatement(
-						"SELECT id_partie_commune,nom_partie_commune, etage_partie_commune,surface,max_capteur FROM partie_commune where nom_partie_commune LIKE ?");
+				prepareStatement = con.prepareStatement("SELECT id_partie_commune,nom_partie_commune, etage_partie_commune,surface,max_capteur FROM partie_commune where nom_partie_commune LIKE ?");
 				prepareStatement.setString(1, "%" + area.getNameCommonArea().toUpperCase() + "%");
 			} else {
-				prepareStatement = con.prepareStatement(
-						"SELECT id_partie_commune,nom_partie_commune, etage_partie_commune,surface,max_capteur FROM partie_commune where etage_partie_commune = ?");
+				prepareStatement = con.prepareStatement("SELECT id_partie_commune,nom_partie_commune, etage_partie_commune,surface,max_capteur FROM partie_commune where etage_partie_commune = ?");
 				prepareStatement.setInt(1, area.getFloorCommonArea());
 			}
 			result = prepareStatement.executeQuery();
@@ -197,6 +195,13 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 		return jsonString;
 	}
 
+	/**
+	 * Convert the resultSet from the request into a CommonArea java object
+	 * 
+	 * @param result
+	 * @throws NumberFormatException
+	 * @throws SQLException
+	 */
 	public void convertDatas(ResultSet result) throws NumberFormatException, SQLException {
 		commonArea = new CommonArea();
 		commonArea.setIdCommonArea(result.getInt("id_partie_commune"));
@@ -205,5 +210,6 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 		commonArea.setArea(result.getInt("surface"));
 		commonArea.setMaxSensor(result.getInt("max_capteur"));
 		commonArea.setListSensor(null);
+		logger.log(Level.DEBUG, "Convertion resultSet into commonArea java object succeed");
 	}
 }

@@ -25,6 +25,7 @@ public class EmployeeDAO extends DAO<Employee> {
 	 * Initialization of parameters
 	 */
 	private Employee employee;
+	private Employee emp;
 	private ResultSet result = null;
 	private StringBuilder requestSB;
 	private String request;
@@ -48,12 +49,10 @@ public class EmployeeDAO extends DAO<Employee> {
 	@Override
 	public boolean create(String jsonString) {
 		boolean result = false;
-		Employee emp;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			emp = objectMapper.readValue(jsonString, Employee.class);
-			prepareStatement = con.prepareStatement(
-					"INSERT INTO employee (nom_employee, prenom_employee, mot_de_passe, poste) values (?,?,?,?)");
+			prepareStatement = con.prepareStatement("INSERT INTO employee (nom_employee, prenom_employee, mot_de_passe, poste) values (?,?,?,?)");
 			prepareStatement.setString(1, emp.getLastnameEmployee());
 			prepareStatement.setString(2, emp.getNameEmployee());
 			prepareStatement.setString(3, emp.getPassword());
@@ -73,7 +72,6 @@ public class EmployeeDAO extends DAO<Employee> {
 	@Override
 	public boolean delete(String jsonString) {
 		boolean result = false;
-		Employee emp;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			emp = objectMapper.readValue(jsonString, Employee.class);
@@ -95,27 +93,18 @@ public class EmployeeDAO extends DAO<Employee> {
 	@Override
 	public boolean update(String jsonString) {
 		boolean result = false;
-		Employee emp;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			// TODO PA faire un preparestatement
 			emp = objectMapper.readValue(jsonString, Employee.class);
-			System.out.println(jsonString);
-			requestSB = new StringBuilder("UPDATE employee SET prenom_employee = '");
-			requestSB.append(emp.getNameEmployee());
-			requestSB.append("', nom_employee = '");
-			requestSB.append(emp.getLastnameEmployee());
-			requestSB.append("',poste = '");
-			requestSB.append(emp.getFunction());
-			requestSB.append("',mot_de_passe = '");
-			requestSB.append(emp.getPassword());
-			requestSB.append("' where id_employee = ");
-			requestSB.append(emp.getIdEmployee());
-			st = con.createStatement();
-			result = st.execute(requestSB.toString());
+			prepareStatement = con.prepareStatement("UPDATE employee SET prenom_employee = ?, nom_employee = ?,poste = ?,mot_de_passe = ? where id_employee = ?");
+			prepareStatement.setString(1, emp.getNameEmployee());
+			prepareStatement.setString(2, emp.getLastnameEmployee());
+			prepareStatement.setString(3, emp.getFunction());
+			prepareStatement.setString(4, emp.getPassword());
+			prepareStatement.setInt(5, emp.getIdEmployee());
+			result = prepareStatement.execute();
 			logger.log(Level.DEBUG, "Employee succesfully update in BDD");
 		} catch (SQLException | IOException e) {
-			e.printStackTrace();
 			logger.log(Level.WARN, "Impossible to update employee datas in BDD " + e.getClass().getCanonicalName());
 		}
 		return result;
@@ -124,16 +113,17 @@ public class EmployeeDAO extends DAO<Employee> {
 	/**
 	 * Convert the JSON string in Object and create a request to read (select)
 	 * values in table 'employee' with the id and the password return a JSON string
+	 * 
+	 * @param jsonString
+	 * @return jsonString
 	 */
 	public String connection(String jsonString) {
-		Employee emp;
 		ObjectMapper objWriter = new ObjectMapper();
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			emp = objectMapper.readValue(jsonString, Employee.class);
 			System.out.println(jsonString);
-			prepareStatement = con.prepareStatement(
-					"SELECT id_employee,nom_employee, prenom_employee, mot_de_passe, poste FROM Employee where id_employee= ? and mot_de_passe= ?");
+			prepareStatement = con.prepareStatement("SELECT id_employee,nom_employee, prenom_employee, mot_de_passe, poste FROM Employee where id_employee= ? and mot_de_passe= ?");
 			prepareStatement.setInt(1, emp.getIdEmployee());
 			prepareStatement.setString(2, emp.getPassword());
 			System.out.println(prepareStatement);
@@ -156,7 +146,6 @@ public class EmployeeDAO extends DAO<Employee> {
 	 */
 	@Override
 	public String read(String jsonString) {
-		Employee emp;
 		ObjectMapper objWriter = new ObjectMapper();
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
@@ -205,16 +194,17 @@ public class EmployeeDAO extends DAO<Employee> {
 	/**
 	 * Convert the JSON string in Object and create a request to read (select) all
 	 * values in table 'employee' by the name or lastName or function
+	 * 
+	 * @param jsonString
+	 * @return jsonString
 	 */
 	public String findByName(String jsonString) {
-		Employee emp;
 		ObjectMapper objWriter = new ObjectMapper();
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<Employee> listEmployee = new ArrayList<>();
 		try {
 			emp = objectMapper.readValue(jsonString, Employee.class);
-			prepareStatement = con.prepareStatement(
-					"SELECT id_employee,nom_employee, prenom_employee, mot_de_passe, poste FROM employee where ((nom_employee LIKE ?) or (prenom_employee LIKE ?) or (prenom_employee LIKE ?) or (poste LIKE ?) or (poste LIKE ?));");
+			prepareStatement = con.prepareStatement("SELECT id_employee,nom_employee, prenom_employee, mot_de_passe, poste FROM employee where ((nom_employee LIKE ?) or (prenom_employee LIKE ?) or (prenom_employee LIKE ?) or (poste LIKE ?) or (poste LIKE ?));");
 			prepareStatement.setString(1, "%" + emp.getLastnameEmployee().toUpperCase() + "%");
 			prepareStatement.setString(2, "%" + emp.getLastnameEmployee().toLowerCase() + "%");
 			prepareStatement.setString(3, "%" + emp.getLastnameEmployee().toUpperCase() + "%");
@@ -234,6 +224,13 @@ public class EmployeeDAO extends DAO<Employee> {
 		return jsonString;
 	}
 
+	/**
+	 * Transform the result of the request in one Employee object
+	 * 
+	 * @param result
+	 * @throws NumberFormatException
+	 * @throws SQLException
+	 */
 	public void convertDatas(ResultSet result) throws NumberFormatException, SQLException {
 		employee = new Employee();
 		employee.setIdEmployee(result.getInt("id_employee"));
@@ -241,5 +238,6 @@ public class EmployeeDAO extends DAO<Employee> {
 		employee.setNameEmployee(result.getString("prenom_employee"));
 		employee.setPassword(result.getString("mot_de_passe"));
 		employee.setFunction(result.getString("poste"));
+		logger.log(Level.DEBUG, "Convertion resultSet into employee java object succeed");
 	}
 }

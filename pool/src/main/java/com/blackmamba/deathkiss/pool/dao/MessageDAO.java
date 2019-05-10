@@ -52,8 +52,7 @@ public class MessageDAO extends DAO<Message> {
 		try {
 			Message mess = objectMapper.readValue(jsonString, Message.class);
 			java.sql.Date sqlDate = new java.sql.Date(mess.getAlertDate().getTime());
-			request = "insert into message (id_capteur,date_alerte,seuil) values ('" + mess.getIdSensor() + "','"
-					+ sqlDate + "', '" + mess.getThreshold() + "');";
+			request = "insert into message (id_capteur,date_alerte,seuil) values ('" + mess.getIdSensor() + "','" + sqlDate + "', '" + mess.getThreshold() + "');";
 			Statement st = con.createStatement();
 			st.execute(request);
 			logger.log(Level.DEBUG, "Message succesfully inserted in BDD ");
@@ -93,8 +92,7 @@ public class MessageDAO extends DAO<Message> {
 		try {
 			Message mess = objectMapper.readValue(jsonString, Message.class);
 			java.sql.Date sqlDate = new java.sql.Date(mess.getAlertDate().getTime());
-			request = "UPDATE message SET id_capteur = '" + mess.getIdSensor() + "', date_alerte = '" + sqlDate
-					+ "', seuil='" + mess.getThreshold() + "';";
+			request = "UPDATE message SET id_capteur = '" + mess.getIdSensor() + "', date_alerte = '" + sqlDate + "', seuil='" + mess.getThreshold() + "';";
 			Statement st = con.createStatement();
 			st.execute(request);
 			logger.log(Level.DEBUG, "Message succesfully update in BDD");
@@ -154,17 +152,20 @@ public class MessageDAO extends DAO<Message> {
 		return jsonString;
 	}
 
-	/*
+	/**
 	 * Transform the result of the request in one Message object
+	 * 
+	 * @param result
+	 * @throws NumberFormatException
+	 * @throws SQLException
+	 * @throws ParseException
 	 */
 	public void convertDatas(ResultSet result) throws NumberFormatException, SQLException, ParseException {
 		message = new Message();
-		message.setIdMessage(Integer.parseInt(result.getObject(1).toString()));
-		message.setIdSensor(Integer.parseInt(result.getObject(2).toString()));
-
-		dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		alertDate = dateFormat.parse(result.getObject(3).toString());
-		message.setAlertDate(alertDate);
-		message.setThreshold(Integer.parseInt(result.getObject(4).toString()));
+		message.setIdMessage(result.getInt("id_message"));
+		message.setIdSensor(result.getInt("id_capteur"));
+		message.setAlertDate(result.getDate("date_alerte"));
+		message.setThreshold(result.getInt("seuil"));
+		logger.log(Level.DEBUG, "Convertion resultSet into message java object succeed");
 	}
 }

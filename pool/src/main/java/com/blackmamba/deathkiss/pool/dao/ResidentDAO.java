@@ -29,6 +29,7 @@ public class ResidentDAO extends DAO<Resident> {
 	 */
 	private String request;
 	private Resident resident;
+	private Resident resid;;
 	private ResultSet result = null;
 	private StringBuilder requestSB;
 	private Statement st;
@@ -46,12 +47,10 @@ public class ResidentDAO extends DAO<Resident> {
 	@Override
 	public boolean create(String jsonString) {
 		boolean result = false;
-		Resident resid;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			resid = objectMapper.readValue(jsonString, Resident.class);
-			prepareStatement = con
-					.prepareStatement("INSERT INTO resident (nom_resident, prenom_resident) values (?,?)");
+			prepareStatement = con.prepareStatement("INSERT INTO resident (nom_resident, prenom_resident) values (?,?)");
 			prepareStatement.setString(1, resid.getLastnameResident());
 			prepareStatement.setString(2, resid.getNameResident());
 			result = prepareStatement.execute();
@@ -69,7 +68,6 @@ public class ResidentDAO extends DAO<Resident> {
 	@Override
 	public boolean delete(String jsonString) {
 		boolean result = false;
-		Resident resid;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			resid = objectMapper.readValue(jsonString, Resident.class);
@@ -91,12 +89,10 @@ public class ResidentDAO extends DAO<Resident> {
 	@Override
 	public boolean update(String jsonString) {
 		boolean result = false;
-		Resident resid;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			resid = objectMapper.readValue(jsonString, Resident.class);
-			prepareStatement = con.prepareStatement(
-					"UPDATE resident SET nom_resident = ?, prenom_resident = ? where id_resident = ?");
+			prepareStatement = con.prepareStatement("UPDATE resident SET nom_resident = ?, prenom_resident = ? where id_resident = ?");
 			prepareStatement.setString(1, resid.getLastnameResident());
 			prepareStatement.setString(2, resid.getNameResident());
 			prepareStatement.setInt(3, resid.getIdResident());
@@ -114,7 +110,6 @@ public class ResidentDAO extends DAO<Resident> {
 	 */
 	@Override
 	public String read(String jsonString) {
-		Resident resid;
 		ObjectMapper objectMapper = new ObjectMapper();
 		ObjectMapper objWriter = new ObjectMapper();
 		try {
@@ -163,16 +158,17 @@ public class ResidentDAO extends DAO<Resident> {
 	/**
 	 * Convert the JSON string in Object and create a request to read (select) all
 	 * values in table 'resident' by the name or lastName
+	 * 
+	 * @param jsonString
+	 * @return jsonString
 	 */
 	public String findByName(String jsonString) {
-		Resident resid;
 		ObjectMapper objWriter = new ObjectMapper();
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<Resident> listResident = new ArrayList<>();
 		try {
 			resid = objectMapper.readValue(jsonString, Resident.class);
-			prepareStatement = con.prepareStatement(
-					"SELECT id_resident,nom_resident, prenom_resident FROM resident where ((nom_resident LIKE ?) or (prenom_resident LIKE ?) or (prenom_resident LIKE ?))");
+			prepareStatement = con.prepareStatement("SELECT id_resident,nom_resident, prenom_resident FROM resident where ((nom_resident LIKE ?) or (prenom_resident LIKE ?) or (prenom_resident LIKE ?))");
 			prepareStatement.setString(1, "%" + resid.getLastnameResident().toUpperCase() + "%");
 			prepareStatement.setString(2, "%" + resid.getLastnameResident().toLowerCase() + "%");
 			prepareStatement.setString(3, "%" + resid.getLastnameResident().toUpperCase() + "%");
@@ -195,7 +191,7 @@ public class ResidentDAO extends DAO<Resident> {
 	 * 
 	 * @param idResident
 	 * @param idSensor
-	 * @return
+	 * @return result
 	 */
 	public boolean badger(int idResident, int idSensor) {
 		boolean result = false;
@@ -218,10 +214,18 @@ public class ResidentDAO extends DAO<Resident> {
 		return result;
 	}
 
+	/**
+	 * Transform the result of the request in one Resident object
+	 * 
+	 * @param result
+	 * @throws NumberFormatException
+	 * @throws SQLException
+	 */
 	public void convertDatas(ResultSet result) throws NumberFormatException, SQLException {
 		resident = new Resident();
 		resident.setIdResident(result.getInt("id_resident"));
 		resident.setLastnameResident(result.getString("nom_resident"));
 		resident.setNameResident(result.getString("prenom_resident"));
+		logger.log(Level.DEBUG, "Convertion resultSet into resident java object succeed");
 	}
 }

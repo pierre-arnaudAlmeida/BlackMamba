@@ -36,6 +36,9 @@ public class SensorDAO extends DAO<Sensor> {
 	private Sensor sensor;
 	private SensorHistorical sensorHistorical;
 	private String request;
+	private StringBuilder requestSB;
+	private Statement st;
+	private PreparedStatement prepareStatement;
 	private static final Logger logger = LogManager.getLogger(SensorDAO.class);
 
 	/**
@@ -53,15 +56,12 @@ public class SensorDAO extends DAO<Sensor> {
 	 */
 	@Override
 	public boolean create(String jsonString) {
-		Sensor sensor;
 		boolean result = false;
 		ObjectMapper objectMapper = new ObjectMapper();
 		Calendar currentDate = Calendar.getInstance(Locale.FRENCH);
 		try {
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
-
-			PreparedStatement prepareStatement = con.prepareStatement(
-					"INSERT INTO capteur (type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max) values (?,?,?,?,?,?,?,?,?,?");
+			prepareStatement = con.prepareStatement("INSERT INTO capteur (type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max) values (?,?,?,?,?,?,?,?,?,?");
 			prepareStatement.setString(1, sensor.getTypeSensor().name());
 			prepareStatement.setString(2, "ON");
 			if (sensor.getSensorState())
@@ -90,14 +90,13 @@ public class SensorDAO extends DAO<Sensor> {
 	 */
 	@Override
 	public boolean delete(String jsonString) {
-		StringBuilder requestSB;
 		boolean result = false;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			Sensor sensor = objectMapper.readValue(jsonString, Sensor.class);
+			sensor = objectMapper.readValue(jsonString, Sensor.class);
 			requestSB = new StringBuilder("DELETE FROM capteur where id_capteur=");
 			requestSB.append(sensor.getIdSensor());
-			Statement st = con.createStatement();
+			st = con.createStatement();
 			result = st.execute(requestSB.toString());
 			logger.log(Level.DEBUG, "Sensor succesfully deleted in BDD");
 		} catch (SQLException | IOException e) {
@@ -112,15 +111,13 @@ public class SensorDAO extends DAO<Sensor> {
 	 */
 	@Override
 	public boolean update(String jsonString) {
-		Sensor sensor;
 		boolean result = false;
 		ObjectMapper objectMapper = new ObjectMapper();
 		Calendar currentDate = Calendar.getInstance(Locale.FRENCH);
 		try {
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
 
-			PreparedStatement prepareStatement = con.prepareStatement(
-					"UPDATE capteur SET id_partie_commune = ?,type_capteur = ?,type_alert= ?,sensibilite= ?,heure_debut= ?,heure_fin= ?,seuil_min= ?,seuil_max= ?,mise_a_jour= ?,etat= ?  where id_capteur = ?");
+			prepareStatement = con.prepareStatement("UPDATE capteur SET id_partie_commune = ?,type_capteur = ?,type_alert= ?,sensibilite= ?,heure_debut= ?,heure_fin= ?,seuil_min= ?,seuil_max= ?,mise_a_jour= ?,etat= ?  where id_capteur = ?");
 			prepareStatement.setInt(1, sensor.getIdCommonArea());
 			prepareStatement.setString(2, sensor.getTypeSensor().name());
 			prepareStatement.setString(3, sensor.getAlertState().name());
@@ -159,28 +156,23 @@ public class SensorDAO extends DAO<Sensor> {
 	 */
 	@Override
 	public String read(String jsonString) {
-		StringBuilder requestSB;
 		ObjectMapper objectMapper = new ObjectMapper();
 		ObjectMapper objWriter = new ObjectMapper();
 		try {
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
-			requestSB = new StringBuilder(
-					"SELECT id_capteur,type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max ");
+			requestSB = new StringBuilder("SELECT id_capteur,type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max ");
 			requestSB.append("FROM capteur where id_capteur=");
 			requestSB.append(sensor.getIdSensor());
-
-			Statement st = con.createStatement();
+			st = con.createStatement();
 			result = st.executeQuery(requestSB.toString());
 			result.next();
 			convertDatas(result);
-
 			jsonString = objWriter.writeValueAsString(sensor);
 			logger.log(Level.DEBUG, "Sensor succesfully find in BDD");
-			return jsonString;
 		} catch (SQLException | IOException | NumberFormatException | ParseException e) {
 			logger.log(Level.WARN, "Impossible to get sensor datas from BDD " + e.getClass().getCanonicalName());
+			jsonString = "ERROR";
 		}
-		jsonString = "ERROR";
 		return jsonString;
 	}
 
@@ -194,7 +186,7 @@ public class SensorDAO extends DAO<Sensor> {
 		List<Sensor> listSensor = new ArrayList<>();
 		try {
 			request = "SELECT id_capteur,type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max FROM capteur";
-			Statement st = con.createStatement();
+			st = con.createStatement();
 			result = st.executeQuery(request);
 			while (result.next()) {
 				convertDatas(result);
@@ -202,28 +194,27 @@ public class SensorDAO extends DAO<Sensor> {
 			}
 			jsonString = obj.writeValueAsString(listSensor);
 			logger.log(Level.DEBUG, "Sensors succesfully find in BDD");
-			return jsonString;
 		} catch (SQLException | IOException | NumberFormatException | ParseException e) {
 			logger.log(Level.WARN, "Impossible to get sensor datas from BDD " + e.getClass().getCanonicalName());
+			jsonString = "ERROR";
 		}
-		jsonString = "ERROR";
 		return jsonString;
 	}
 
 	/**
 	 * Convert the JSON string in Object and create a request to read (select) all
 	 * values in table 'capteur' by the type of sensor or the id of commonArea
+	 * 
+	 * @param jsonString
+	 * @return jsonString
 	 */
 	public String findAll(String jsonString) {
-		StringBuilder requestSB;
 		ObjectMapper objectMapper = new ObjectMapper();
 		ObjectMapper objWriter = new ObjectMapper();
 		List<Sensor> listSensor = new ArrayList<>();
 		try {
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
-
-			requestSB = new StringBuilder(
-					"SELECT id_capteur,type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max ");
+			requestSB = new StringBuilder("SELECT id_capteur,type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max ");
 			if (sensor.getIdCommonArea() != 0) {
 				requestSB.append("FROM capteur where id_partie_commune =");
 				requestSB.append(sensor.getIdCommonArea());
@@ -231,8 +222,7 @@ public class SensorDAO extends DAO<Sensor> {
 				requestSB.append("FROM capteur where type_capteur =");
 				requestSB.append(sensor.getTypeSensor());
 			}
-
-			Statement st = con.createStatement();
+			st = con.createStatement();
 			result = st.executeQuery(requestSB.toString());
 			while (result.next()) {
 				convertDatas(result);
@@ -240,19 +230,23 @@ public class SensorDAO extends DAO<Sensor> {
 			}
 			jsonString = objWriter.writeValueAsString(listSensor);
 			logger.log(Level.DEBUG, "Sensors succesfully find in BDD");
-			return jsonString;
-		} catch (SQLException | IOException | NumberFormatException |
-
-				ParseException e) {
+		} catch (SQLException | IOException | NumberFormatException | ParseException e) {
 			logger.log(Level.WARN, "Impossible to get sensor datas from BDD " + e.getClass().getCanonicalName());
+			jsonString = "ERROR";
 		}
-		jsonString = "ERROR";
 		return jsonString;
 	}
 
+	/**
+	 * Transform the result of the request in one Sensor object
+	 * 
+	 * @param result
+	 * @throws NumberFormatException
+	 * @throws SQLException
+	 * @throws ParseException
+	 */
 	public void convertDatas(ResultSet result) throws NumberFormatException, SQLException, ParseException {
 		sensor = new Sensor();
-
 		sensor.setIdSensor(result.getInt("id_capteur"));
 		SensorType element = SensorType.valueOf(result.getString("type_capteur"));
 		sensor.setTypeSensor(element);
@@ -272,12 +266,10 @@ public class SensorDAO extends DAO<Sensor> {
 		sensor.setLastUpdate(result.getDate("mise_a_jour"));
 		sensor.setThresholdMax(result.getInt("seuil_max"));
 
-		if (sensor.getIdCommonArea() != 0
-				&& (!sensor.getEndActivity().equals(Time.valueOf("00:00:00"))
-						|| sensor.getStartActivity().equals(Time.valueOf("00:00:00")))
-				&& sensor.getSensitivity() != null && sensor.getTypeSensor() != null
+		if (sensor.getIdCommonArea() != 0 && (!sensor.getEndActivity().equals(Time.valueOf("00:00:00")) || sensor.getStartActivity().equals(Time.valueOf("00:00:00"))) && sensor.getSensitivity() != null && sensor.getTypeSensor() != null
 				&& (sensor.getThresholdMin() != 0 || sensor.getThresholdMax() != 0)) {
 			sensor.setConfigured(true);
 		}
+		logger.log(Level.DEBUG, "Convertion resultSet into Sensor java object succeed");
 	}
 }

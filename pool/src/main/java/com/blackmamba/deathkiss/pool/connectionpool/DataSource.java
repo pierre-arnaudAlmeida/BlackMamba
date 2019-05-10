@@ -36,8 +36,7 @@ public class DataSource {
 
 	/**
 	 * Close all connection using the method closeAllConnection from
-	 * JDBCCOnnectionPool On ferme toutes les connexions en utilisatn la méthode
-	 * closeAllConnections()
+	 * JDBCCOnnectionPool
 	 * 
 	 * @param pool
 	 */
@@ -49,7 +48,7 @@ public class DataSource {
 	 * Return the number max of Connection in JDBCConnectionPool
 	 * 
 	 * @param pool
-	 * @return int
+	 * @return integer
 	 */
 	public static int getMaxConnectionFromJDBC(JDBCConnectionPool pool) {
 		return pool.getMaxConnection();
