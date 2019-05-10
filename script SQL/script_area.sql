@@ -18,7 +18,6 @@ insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, m
 insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_sensor) values ('INFIRMARY', 0, 50, 9);
 insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_sensor) values ('RELAXATION ROOM', 0, 80, 15);
 insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_sensor) values ('DINING ROOM', 0, 50, 11);
-
 insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_sensor) values ('STAFF ROOM', 1, 50, 9);
 insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_sensor) values ('LIVING ROOM', 1, 50, 8);
 insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_sensor) values ('CORRIDOR E1-A', 1, 30, 12);
