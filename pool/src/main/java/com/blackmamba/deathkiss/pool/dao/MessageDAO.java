@@ -2,13 +2,12 @@ package com.blackmamba.deathkiss.pool.dao;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -27,10 +26,12 @@ public class MessageDAO extends DAO<Message> {
 	 * Initialization of parameters
 	 */
 	private ResultSet result = null;
-	private SimpleDateFormat dateFormat;
-	private Date alertDate;
 	private String request;
+	private Statement st;
+	private StringBuilder requestSB;
+	private PreparedStatement prepareStatement;
 	private Message message;
+	private Message mess;
 	private static final Logger logger = LogManager.getLogger(MessageDAO.class);
 
 	/**
@@ -48,20 +49,20 @@ public class MessageDAO extends DAO<Message> {
 	 */
 	@Override
 	public boolean create(String jsonString) {
+		boolean result = false;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			Message mess = objectMapper.readValue(jsonString, Message.class);
-			java.sql.Date sqlDate = new java.sql.Date(mess.getAlertDate().getTime());
-			request = "insert into message (id_capteur,date_alerte,seuil) values ('" + mess.getIdSensor() + "','" + sqlDate + "', '" + mess.getThreshold() + "');";
-			Statement st = con.createStatement();
-			st.execute(request);
+			mess = objectMapper.readValue(jsonString, Message.class);
+			prepareStatement = con.prepareStatement("INSERT INTO message (id_capteur,date_alerte,seuil) values (?,?,?)");
+			prepareStatement.setInt(1, mess.getIdSensor());
+			prepareStatement.setDate(2, new java.sql.Date(mess.getAlertDate().getTime()));
+			prepareStatement.setInt(3, mess.getThreshold());
+			result = prepareStatement.execute();
 			logger.log(Level.DEBUG, "Message succesfully inserted in BDD ");
-			return true;
 		} catch (IOException | SQLException e) {
-			e.printStackTrace();
 			logger.log(Level.WARN, "Impossible to insert message datas in BDD " + e.getClass().getCanonicalName());
-			return false;
 		}
+		return result;
 	}
 
 	/**
@@ -69,18 +70,19 @@ public class MessageDAO extends DAO<Message> {
 	 */
 	@Override
 	public boolean delete(String jsonString) {
+		boolean result = false;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			Message mess = objectMapper.readValue(jsonString, Message.class);
-			request = "DELETE FROM message where date_alerte < " + mess.getAlertDate() + ";";
-			Statement st = con.createStatement();
-			st.execute(request);
+			mess = objectMapper.readValue(jsonString, Message.class);
+			requestSB = new StringBuilder("DELETE FROM message where date_alerte <");
+			requestSB.append(new java.sql.Date(mess.getAlertDate().getTime()));
+			st = con.createStatement();
+			result = st.execute(requestSB.toString());
 			logger.log(Level.DEBUG, "Messages succesfully deleted in BDD ");
-			return true;
 		} catch (SQLException | IOException e) {
 			logger.log(Level.WARN, "Impossible to delete Message datas in BDD " + e.getClass().getCanonicalName());
-			return false;
 		}
+		return result;
 	}
 
 	/**
@@ -88,19 +90,21 @@ public class MessageDAO extends DAO<Message> {
 	 */
 	@Override
 	public boolean update(String jsonString) {
+		boolean result = false;
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			Message mess = objectMapper.readValue(jsonString, Message.class);
-			java.sql.Date sqlDate = new java.sql.Date(mess.getAlertDate().getTime());
-			request = "UPDATE message SET id_capteur = '" + mess.getIdSensor() + "', date_alerte = '" + sqlDate + "', seuil='" + mess.getThreshold() + "';";
-			Statement st = con.createStatement();
-			st.execute(request);
+			mess = objectMapper.readValue(jsonString, Message.class);
+			prepareStatement = con.prepareStatement("UPDATE message SET id_capteur = ?, date_alerte = ?, seuil= ? where id_message = ?");
+			prepareStatement.setInt(1, mess.getIdSensor());
+			prepareStatement.setDate(2, new java.sql.Date(mess.getAlertDate().getTime()));
+			prepareStatement.setInt(3, mess.getThreshold());
+			prepareStatement.setInt(4, mess.getIdMessage());
+			result = prepareStatement.execute();
 			logger.log(Level.DEBUG, "Message succesfully update in BDD");
-			return true;
 		} catch (SQLException | IOException e) {
 			logger.log(Level.WARN, "Impossible to update message datas in BDD" + e.getClass().getCanonicalName());
-			return false;
 		}
+		return result;
 	}
 
 	/**
@@ -108,22 +112,23 @@ public class MessageDAO extends DAO<Message> {
 	 */
 	@Override
 	public String read(String jsonString) {
+		ObjectMapper objWriter = new ObjectMapper();
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			Message mess = objectMapper.readValue(jsonString, Message.class);
-			request = "SELECT * FROM message where id_message='" + mess.getIdMessage() + "';";
-			Statement st = con.createStatement();
-			result = st.executeQuery(request);
+			mess = objectMapper.readValue(jsonString, Message.class);
+			requestSB = new StringBuilder("SELECT id_message,id_capteur,date_alerte,seuil FROM message ");
+			requestSB.append("FROM message where id_message=");
+			requestSB.append(mess.getIdMessage());
+			st = con.createStatement();
+			result = st.executeQuery(requestSB.toString());
 			result.next();
 			convertDatas(result);
-			ObjectMapper obj = new ObjectMapper();
-			jsonString = obj.writeValueAsString(message);
+			jsonString = objWriter.writeValueAsString(message);
 			logger.log(Level.DEBUG, "Message succesfully find in BDD");
-			return jsonString;
 		} catch (SQLException | IOException | ParseException e) {
 			logger.log(Level.WARN, "Impossible to get message datas from BDD " + e.getClass().getCanonicalName());
+			jsonString = "ERROR";
 		}
-		jsonString = "ERROR";
 		return jsonString;
 	}
 
@@ -135,8 +140,8 @@ public class MessageDAO extends DAO<Message> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<Message> listMessage = new ArrayList<>();
 		try {
-			request = "SELECT * FROM message;";
-			Statement st = con.createStatement();
+			request = "SELECT id_message,id_capteur,date_alerte,seuil FROM message;";
+			st = con.createStatement();
 			result = st.executeQuery(request);
 			while (result.next()) {
 				convertDatas(result);
@@ -144,11 +149,10 @@ public class MessageDAO extends DAO<Message> {
 			}
 			jsonString = objectMapper.writeValueAsString(listMessage);
 			logger.log(Level.DEBUG, "Message succesfully find in BDD");
-			return jsonString;
 		} catch (SQLException | IOException | ParseException e) {
 			logger.log(Level.WARN, "Impossible to get messages datas from BDD " + e.getClass().getCanonicalName());
+			jsonString = "ERROR";
 		}
-		jsonString = "ERROR";
 		return jsonString;
 	}
 

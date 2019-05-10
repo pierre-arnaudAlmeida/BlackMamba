@@ -116,7 +116,6 @@ public class SensorDAO extends DAO<Sensor> {
 		Calendar currentDate = Calendar.getInstance(Locale.FRENCH);
 		try {
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
-
 			prepareStatement = con.prepareStatement("UPDATE capteur SET id_partie_commune = ?,type_capteur = ?,type_alert= ?,sensibilite= ?,heure_debut= ?,heure_fin= ?,seuil_min= ?,seuil_max= ?,mise_a_jour= ?,etat= ?  where id_capteur = ?");
 			prepareStatement.setInt(1, sensor.getIdCommonArea());
 			prepareStatement.setString(2, sensor.getTypeSensor().name());
@@ -248,18 +247,15 @@ public class SensorDAO extends DAO<Sensor> {
 	public void convertDatas(ResultSet result) throws NumberFormatException, SQLException, ParseException {
 		sensor = new Sensor();
 		sensor.setIdSensor(result.getInt("id_capteur"));
-		SensorType element = SensorType.valueOf(result.getString("type_capteur"));
-		sensor.setTypeSensor(element);
+		sensor.setTypeSensor(SensorType.valueOf(result.getString("type_capteur")));
 		if (result.getString("etat").equals("ON")) {
 			sensor.setSensorState(true);
 		} else if (result.getString("etat").toString().equals("OFF")) {
 			sensor.setSensorState(false);
 		}
 		sensor.setIdCommonArea(result.getInt("id_partie_commune"));
-		AlertState alertStateElement = AlertState.valueOf(result.getString("type_alert"));
-		sensor.setAlertState(alertStateElement);
-		Sensitivity sensitivityElement = Sensitivity.valueOf(result.getString("sensibilite"));
-		sensor.setSensitivity(sensitivityElement);
+		sensor.setAlertState(AlertState.valueOf(result.getString("type_alert")));
+		sensor.setSensitivity(Sensitivity.valueOf(result.getString("sensibilite")));
 		sensor.setStartActivity(result.getTime("heure_debut"));
 		sensor.setEndActivity(result.getTime("heure_fin"));
 		sensor.setThresholdMin(result.getInt("seuil_min"));
