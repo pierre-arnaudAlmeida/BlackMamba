@@ -58,6 +58,8 @@ CREATE TABLE public.partie_commune
     id_partie_commune integer NOT NULL,
     nom_partie_commune text COLLATE pg_catalog."default" NOT NULL,
     etage_partie_commune integer NOT NULL,
+    surface integer,
+    max_capteur integer,
     CONSTRAINT partie_commune_pkey PRIMARY KEY (id_partie_commune)
 )
 WITH (
@@ -78,8 +80,9 @@ CREATE TABLE public.capteur
     sensibilite text COLLATE pg_catalog."default",
     heure_debut time without time zone,
     heure_fin time without time zone,
-    parametre text COLLATE pg_catalog."default",
+    seuil_min integer,
     mise_a_jour timestamp(4) without time zone,
+    seuil_max integer,
     CONSTRAINT capteur_pkey PRIMARY KEY (id_capteur),
     CONSTRAINT id_partie_commune FOREIGN KEY (id_partie_commune)
         REFERENCES public.partie_commune (id_partie_commune) MATCH SIMPLE
@@ -106,11 +109,7 @@ CREATE TABLE public.historique
     etat_capteur text COLLATE pg_catalog."default" NOT NULL,
     type_alerte text COLLATE pg_catalog."default" NOT NULL,
     id_capteur integer NOT NULL,
-    CONSTRAINT historique_pkey PRIMARY KEY (id_historique),
-    CONSTRAINT id_capteur FOREIGN KEY (id_capteur)
-        REFERENCES public.capteur (id_capteur) MATCH SIMPLE
-        ON UPDATE NO ACTION
-        ON DELETE NO ACTION
+    CONSTRAINT historique_pkey PRIMARY KEY (id_historique)
 )
 WITH (
     OIDS = FALSE
@@ -149,7 +148,7 @@ CREATE TABLE public.message
     id_message integer NOT NULL,
     id_capteur integer,
     date_alerte timestamp without time zone,
-    seuil text COLLATE pg_catalog."default",
+    seuil integer,
     CONSTRAINT message_pkey PRIMARY KEY (id_message)
 )
 WITH (
