@@ -111,22 +111,25 @@ public class TabMapSensor extends JPanel implements MouseListener {
 
 	private static final Logger logger = LogManager.getLogger(TabMapSensor.class);
 
-	private static final Rectangle rectangleE1_1 = new Rectangle(408,136, 168, 116);
-	private static final Rectangle rectangleE1_2 = new Rectangle(408,338, 168, 164);
-	private static final Rectangle rectangleE1_3 = new Rectangle(408,587, 168, 125);
-	private static final Rectangle corridorE1_A = new Rectangle(578,218, 721, 34);
-	private static final Rectangle corridorE1_B = new Rectangle(656,338, 578, 39);
-	private static final Rectangle corridorE1_C = new Rectangle(656,457, 578, 45);
-	private static final Rectangle corridorE1_D = new Rectangle(578,587, 721, 39);
-	private static final Rectangle corridorE1_E = new Rectangle(578,254, 74, 332);
-	private static final Rectangle corridorE1_F = new Rectangle(1237,254, 62, 330);
-	private static final Rectangle rectangleE1_10 = new Rectangle(745,136, 389, 80);
-	private static final Rectangle rectangleE1_11 = new Rectangle(822,254, 247, 82);
-	private static final Rectangle rectangleE1_12 = new Rectangle(1047,379, 188, 76);
-	private static final Rectangle rectangleE1_13 = new Rectangle(821,504, 248, 81);
-	private static final Rectangle rectangleE1_14 = new Rectangle(745,628, 389, 84);
-	private static final Rectangle elevatorE1_A = new Rectangle(656,380, 52, 28);
-	private static final Rectangle elevatorE1_B = new Rectangle(656,426, 52, 29);
+	private static int xOrigin = 0;
+	private static int yOrigin = 0;
+	
+	private static Rectangle rectangleE1_1 = null;
+	private static Rectangle rectangleE1_2 = null;
+	private static Rectangle rectangleE1_3 = null;
+	private static Rectangle corridorE1_A = null;
+	private static Rectangle corridorE1_B = null;
+	private static Rectangle corridorE1_C = null;
+	private static Rectangle corridorE1_D = null;
+	private static Rectangle corridorE1_E = null;
+	private static Rectangle corridorE1_F = null;
+	private static Rectangle rectangleE1_10 = null;
+	private static Rectangle rectangleE1_11 = null;
+	private static Rectangle rectangleE1_12 = null;
+	private static Rectangle rectangleE1_13 = null;
+	private static Rectangle rectangleE1_14 = null;
+	private static Rectangle elevatorE1_A = null;
+	private static Rectangle elevatorE1_B = null;
 
 	/**
 	 * Constructor
@@ -385,7 +388,8 @@ public class TabMapSensor extends JPanel implements MouseListener {
 //		this.add(scroll);
 
 		///////////////////////// IMAGE/////////////////////////////////////////////////
-
+		
+		
 		try {
 			img = ImageIO.read(getClass().getClassLoader().getResource("Floor0.jpg"));
 			img1 = ImageIO.read(getClass().getClassLoader().getResource("Floor1.jpg"));
@@ -395,9 +399,30 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		this.buffer = img;
 		this.buffer1 = img1;
 
-		JLabel image = new JLabel(new ImageIcon(img));
-		JLabel image1 = new JLabel(new ImageIcon(img1));
-
+//		JLabel image = new JLabel(new ImageIcon(img));
+//		JLabel image1 = new JLabel(new ImageIcon(img1));
+	
+		
+		xOrigin = (int) getToolkit().getScreenSize().getWidth() * 6/20 + 5;
+		yOrigin = (int) getToolkit().getScreenSize().getHeight() * 3/20 + 3;
+		
+		rectangleE1_1 = new Rectangle(xOrigin,yOrigin, 168, 116);
+		rectangleE1_2 = new Rectangle(xOrigin,yOrigin+202, 168, 164);
+		rectangleE1_3 = new Rectangle(xOrigin,yOrigin+451, 168, 125);
+		corridorE1_A = new Rectangle(xOrigin+170,yOrigin+82, 721, 34);
+		corridorE1_B = new Rectangle(xOrigin+248,yOrigin+202, 578, 39);
+		corridorE1_C = new Rectangle(xOrigin+248,yOrigin+321, 578, 45);
+		corridorE1_D = new Rectangle(xOrigin+170,yOrigin+451, 721, 39);
+		corridorE1_E = new Rectangle(xOrigin+170,yOrigin+118, 74, 332);
+		corridorE1_F = new Rectangle(xOrigin+829,yOrigin+118, 62, 330);
+		rectangleE1_10 = new Rectangle(xOrigin+337,yOrigin, 389, 80);
+		rectangleE1_11 = new Rectangle(xOrigin+414,yOrigin+118, 247, 82);
+		rectangleE1_12 = new Rectangle(xOrigin+639,yOrigin+243, 188, 76);
+		rectangleE1_13 = new Rectangle(xOrigin+413,yOrigin+368, 248, 81);
+		rectangleE1_14 = new Rectangle(xOrigin+337,yOrigin+492, 389, 84);
+		elevatorE1_A = new Rectangle(xOrigin+248,yOrigin+244, 52, 28);
+		elevatorE1_B = new Rectangle(xOrigin+248,yOrigin+290, 52, 29);
+		
 //		panel.setLayout(new BorderLayout());
 //		panel.add(image1, BorderLayout.EAST);
 
@@ -411,7 +436,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 
 		// Draw image
 //		g2.drawImage(buffer, 400, 85, 900, 580, this);
-		g2.drawImage(buffer1, (int) getToolkit().getScreenSize().getWidth() * 6/20, (int) getToolkit().getScreenSize().getWidth() * 2/33 , 900, 580, this);
+		g2.drawImage(buffer1, (int) getToolkit().getScreenSize().getWidth() * 6/20, (int) getToolkit().getScreenSize().getHeight() * 3/20 , 900, 580, this);
 
 		g2.setColor(Color.GREEN);
 		// Draw rectangle
