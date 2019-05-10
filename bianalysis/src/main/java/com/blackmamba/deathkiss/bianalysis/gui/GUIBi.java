@@ -52,11 +52,6 @@ import java.awt.Color;
  */
 
 public class GUIBi extends JFrame {
-//TODO SL les trois ligne tu peux les mettre chacune juste avant de les utiliser 
-
-	// pour celle la j'ai changer, tu ira voir dans la classe ou tu l'a prise et tu
-	// prendra la forme que j'ai pcq on a pas le droit de les mettre en dur comme ca
-	// faut utiliser l'enum
 
 	private JList<String> list;
 	private JList<String> list1;
@@ -111,7 +106,6 @@ public class GUIBi extends JFrame {
 	private JTextField textField_1;
 	private JTextField textField_2;
 
-//TODO SL tu met la methode main dans une classe qui s'appelle MainBianalysisGUI
 	//////////////////////////////////////////////////////////////////////
 	/**
 	 * Launch the application.
@@ -128,7 +122,7 @@ public class GUIBi extends JFrame {
 					// copie pas les classes que j'ai faite dans ton projet tu les ouvres tu copie
 					// ok mais les integre pas pcq apres tu ne sais pas ou t'en es et apres au
 					// moment de l'execution t'as des conflit pour rien
-					GUIBi3 frame = new GUIBi3();
+					GUIBi frame = new GUIBi();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

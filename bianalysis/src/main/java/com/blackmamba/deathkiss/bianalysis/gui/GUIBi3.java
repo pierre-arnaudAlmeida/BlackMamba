@@ -55,11 +55,6 @@ import javax.swing.JFormattedTextField;
  */
 
 public class GUIBi3 extends JFrame {
-//TODO SL les trois ligne tu peux les mettre chacune juste avant de les utiliser 
-
-	// pour celle la j'ai changer, tu ira voir dans la classe ou tu l'a prise et tu
-	// prendra la forme que j'ai pcq on a pas le droit de les mettre en dur comme ca
-	// faut utiliser l'enum
 
 	private JList<String> list;
 	private JList<String> list1;
@@ -117,7 +112,6 @@ public class GUIBi3 extends JFrame {
 	private JTextField tfMeanTemperature1;
 	private JTextField tfMeanTemperature2;
 
-//TODO SL tu met la methode main dans une classe qui s'appelle MainBianalysisGUI
 	//////////////////////////////////////////////////////////////////////
 	/**
 	 * Launch the application.
@@ -126,14 +120,6 @@ public class GUIBi3 extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					// TODO SL change le nom de ta classe ihmBI c'est du français on fait l'appli en
-					// anglais meme le texte sur l'ihm
-					// ihm == GUI
-					// donc appelle la Frame c'est simple et comprehensible de toute facon y aura
-					// pas deux frame dans ton jar donc pas de conflit
-					// copie pas les classes que j'ai faite dans ton projet tu les ouvres tu copie
-					// ok mais les integre pas pcq apres tu ne sais pas ou t'en es et apres au
-					// moment de l'execution t'as des conflit pour rien
 					GUIBi frame = new GUIBi();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -809,7 +795,6 @@ public class GUIBi3 extends JFrame {
 
 //////////////////////////////////////
 	// Method calculate all alerts
-	// TODO MODIFIER POUR LIRE LES ALERTES
 	public static Object[] returnNumberMessage() {
 		int numberAlerts = 0;
 		int nbAlNormal = 0;
@@ -928,6 +913,14 @@ public class GUIBi3 extends JFrame {
 		return String.valueOf(numberAlerts);
 
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 }
 
 ///////////////
