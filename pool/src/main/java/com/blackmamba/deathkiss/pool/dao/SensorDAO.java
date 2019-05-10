@@ -20,6 +20,7 @@ import com.blackmamba.deathkiss.pool.entity.Sensitivity;
 import com.blackmamba.deathkiss.pool.entity.Sensor;
 import com.blackmamba.deathkiss.pool.entity.SensorHistorical;
 import com.blackmamba.deathkiss.pool.entity.SensorType;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -61,7 +62,8 @@ public class SensorDAO extends DAO<Sensor> {
 		Calendar currentDate = Calendar.getInstance(Locale.FRENCH);
 		try {
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
-			prepareStatement = con.prepareStatement("INSERT INTO capteur (type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max) values (?,?,?,?,?,?,?,?,?,?");
+			prepareStatement = con.prepareStatement(
+					"INSERT INTO capteur (type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max) values (?,?,?,?,?,?,?,?,?,?");
 			prepareStatement.setString(1, sensor.getTypeSensor().name());
 			prepareStatement.setString(2, "ON");
 			if (sensor.getSensorState())
@@ -116,7 +118,8 @@ public class SensorDAO extends DAO<Sensor> {
 		Calendar currentDate = Calendar.getInstance(Locale.FRENCH);
 		try {
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
-			prepareStatement = con.prepareStatement("UPDATE capteur SET id_partie_commune = ?,type_capteur = ?,type_alert= ?,sensibilite= ?,heure_debut= ?,heure_fin= ?,seuil_min= ?,seuil_max= ?,mise_a_jour= ?,etat= ?  where id_capteur = ?");
+			prepareStatement = con.prepareStatement(
+					"UPDATE capteur SET id_partie_commune = ?,type_capteur = ?,type_alert= ?,sensibilite= ?,heure_debut= ?,heure_fin= ?,seuil_min= ?,seuil_max= ?,mise_a_jour= ?,etat= ?  where id_capteur = ?");
 			prepareStatement.setInt(1, sensor.getIdCommonArea());
 			prepareStatement.setString(2, sensor.getTypeSensor().name());
 			prepareStatement.setString(3, sensor.getAlertState().name());
@@ -159,7 +162,8 @@ public class SensorDAO extends DAO<Sensor> {
 		ObjectMapper objWriter = new ObjectMapper();
 		try {
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
-			requestSB = new StringBuilder("SELECT id_capteur,type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max ");
+			requestSB = new StringBuilder(
+					"SELECT id_capteur,type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max ");
 			requestSB.append("FROM capteur where id_capteur=");
 			requestSB.append(sensor.getIdSensor());
 			st = con.createStatement();
@@ -213,7 +217,8 @@ public class SensorDAO extends DAO<Sensor> {
 		List<Sensor> listSensor = new ArrayList<>();
 		try {
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
-			requestSB = new StringBuilder("SELECT id_capteur,type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max ");
+			requestSB = new StringBuilder(
+					"SELECT id_capteur,type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max ");
 			if (sensor.getIdCommonArea() != 0) {
 				requestSB.append("FROM capteur where id_partie_commune =");
 				requestSB.append(sensor.getIdCommonArea());
@@ -232,6 +237,90 @@ public class SensorDAO extends DAO<Sensor> {
 		} catch (SQLException | IOException | NumberFormatException | ParseException e) {
 			logger.log(Level.WARN, "Impossible to get sensor datas from BDD " + e.getClass().getCanonicalName());
 			jsonString = "ERROR";
+		}
+		return jsonString;
+	}
+
+	/**
+	 * Count the number of sensor Used/Not Used
+	 * 
+	 * @return
+	 */
+	public String usedNotUsedSensor() {
+		ObjectMapper objWriter = new ObjectMapper();
+		String jsonString = "";
+		try {
+			request = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor,sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur";
+			st = con.createStatement();
+			result = st.executeQuery(request);
+			result.next();
+			jsonString = result.getInt(1) + "," + result.getInt(2);
+			jsonString = objWriter.writeValueAsString(jsonString);
+		} catch (SQLException | JsonProcessingException e) {
+			logger.log(Level.WARN, "Impossible to get Sensor datas from BDD " + e.getClass().getCanonicalName());
+		}
+		return jsonString;
+	}
+
+	/**
+	 * Count the number of sensor Active/Passive Used
+	 * 
+	 * @return
+	 */
+	public String activePassiveSensor() {
+		ObjectMapper objWriter = new ObjectMapper();
+		String jsonString = "";
+		try {
+			request = "SELECT sum(case when etat = 'ON' then 1 else 0 end ) As nbActiveSensor,sum(case when etat = 'OFF' then 1 else 0 end ) As nbPassiveSensor FROM capteur";
+			st = con.createStatement();
+			result = st.executeQuery(request);
+			result.next();
+			jsonString = result.getInt(1) + "," + result.getInt(2);
+			jsonString = objWriter.writeValueAsString(jsonString);
+		} catch (SQLException | JsonProcessingException e) {
+			logger.log(Level.WARN, "Impossible to get Sensor datas from BDD " + e.getClass().getCanonicalName());
+		}
+		return jsonString;
+	}
+
+	/**
+	 * Count the number of sensor Used/Not Used for each sensor type
+	 * 
+	 * @return
+	 */
+	public String usedNotUsedSensorType() {
+		ObjectMapper objWriter = new ObjectMapper();
+		String jsonString = "";
+		try {
+			request = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor,sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur WHERE ( type_capteur = ' ')";
+			st = con.createStatement();
+			result = st.executeQuery(request);
+			result.next();
+			jsonString = result.getInt(1) + "," + result.getInt(2);
+			jsonString = objWriter.writeValueAsString(jsonString);
+		} catch (SQLException | JsonProcessingException e) {
+			logger.log(Level.WARN, "Impossible to get Sensor datas from BDD " + e.getClass().getCanonicalName());
+		}
+		return jsonString;
+	}
+
+	/**
+	 * Count the number of sensor per floor
+	 * 
+	 * @return
+	 */
+	public String countSensorPerFloor() {
+		ObjectMapper objWriter = new ObjectMapper();
+		String jsonString = "";
+		try {
+			request = "SELECT sum(case when ( id_partie_commune = 1 AND id_capteur != 0) then 1 else 0 end ) As nbSensorEtage1,sum(case when ( id_partie_commune = 0 AND id_capteur != 0) then 1 else 0 end ) As nbSensorRC FROM capteur";
+			st = con.createStatement();
+			result = st.executeQuery(request);
+			result.next();
+			jsonString = result.getInt(1) + "," + result.getInt(2);
+			jsonString = objWriter.writeValueAsString(jsonString);
+		} catch (SQLException | JsonProcessingException e) {
+			logger.log(Level.WARN, "Impossible to get Sensor datas from BDD " + e.getClass().getCanonicalName());
 		}
 		return jsonString;
 	}
@@ -262,7 +351,10 @@ public class SensorDAO extends DAO<Sensor> {
 		sensor.setLastUpdate(result.getDate("mise_a_jour"));
 		sensor.setThresholdMax(result.getInt("seuil_max"));
 
-		if (sensor.getIdCommonArea() != 0 && (!sensor.getEndActivity().equals(Time.valueOf("00:00:00")) || sensor.getStartActivity().equals(Time.valueOf("00:00:00"))) && sensor.getSensitivity() != null && sensor.getTypeSensor() != null
+		if (sensor.getIdCommonArea() != 0
+				&& (!sensor.getEndActivity().equals(Time.valueOf("00:00:00"))
+						|| sensor.getStartActivity().equals(Time.valueOf("00:00:00")))
+				&& sensor.getSensitivity() != null && sensor.getTypeSensor() != null
 				&& (sensor.getThresholdMin() != 0 || sensor.getThresholdMax() != 0)) {
 			sensor.setConfigured(true);
 		}

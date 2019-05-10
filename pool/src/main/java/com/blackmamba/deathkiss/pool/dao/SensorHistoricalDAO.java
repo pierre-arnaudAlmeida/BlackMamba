@@ -14,6 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.blackmamba.deathkiss.pool.entity.AlertState;
 import com.blackmamba.deathkiss.pool.entity.SensorHistorical;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -53,7 +54,8 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			sensorH = objectMapper.readValue(jsonString, SensorHistorical.class);
-			prepareStatement = con.prepareStatement("INSERT INTO historique (date_historique, etat_capteur, type_alerte, id_capteur) values (?,?,?,?");
+			prepareStatement = con.prepareStatement(
+					"INSERT INTO historique (date_historique, etat_capteur, type_alerte, id_capteur) values (?,?,?,?");
 			prepareStatement.setDate(1, new java.sql.Date(sensorH.getDate().getTime()));
 			if (sensorH.getSensorState())
 				prepareStatement.setString(2, "ON");
@@ -64,7 +66,8 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 			result = prepareStatement.execute();
 			logger.log(Level.DEBUG, "SensorHistorical succesfully inserted in BDD");
 		} catch (IOException | SQLException e) {
-			logger.log(Level.WARN, "Impossible to insert sensorHistorical datas in BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN,
+					"Impossible to insert sensorHistorical datas in BDD " + e.getClass().getCanonicalName());
 		}
 		return result;
 	}
@@ -85,7 +88,8 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 			result = st.execute(requestSB.toString());
 			logger.log(Level.DEBUG, "SensorHistorical succesfully deleted in BDD");
 		} catch (SQLException | IOException e) {
-			logger.log(Level.WARN, "Impossible to delete sensorHistorical datas  in BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN,
+					"Impossible to delete sensorHistorical datas  in BDD " + e.getClass().getCanonicalName());
 		}
 		return result;
 	}
@@ -100,7 +104,8 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			sensorH = objectMapper.readValue(jsonString, SensorHistorical.class);
-			prepareStatement = con.prepareStatement("UPDATE historique SET id_capteur = ?, date_historique = ?, etat_capteur= ?, type_alerte= ? where id_historique = ?");
+			prepareStatement = con.prepareStatement(
+					"UPDATE historique SET id_capteur = ?, date_historique = ?, etat_capteur= ?, type_alerte= ? where id_historique = ?");
 			prepareStatement.setInt(1, sensorH.getIdSensor());
 			prepareStatement.setDate(2, new java.sql.Date(sensorH.getDate().getTime()));
 			if (sensorH.getSensorState())
@@ -127,7 +132,8 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			sensorH = objectMapper.readValue(jsonString, SensorHistorical.class);
-			requestSB = new StringBuilder("SELECT id_historique,date_historique, etat_capteur, type_alerte, id_capteur ");
+			requestSB = new StringBuilder(
+					"SELECT id_historique,date_historique, etat_capteur, type_alerte, id_capteur ");
 			requestSB.append("FROM historique where id_historique=");
 			requestSB.append(sensorH.getIdHistorical());
 			st = con.createStatement();
@@ -137,7 +143,8 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 			jsonString = objWriter.writeValueAsString(sensorHistorical);
 			logger.log(Level.DEBUG, "SensorHistorical succesfully find in BDD");
 		} catch (SQLException | IOException | ParseException e) {
-			logger.log(Level.WARN, "Impossible to get sensorHistorical datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN,
+					"Impossible to get sensorHistorical datas from BDD " + e.getClass().getCanonicalName());
 			jsonString = "ERROR";
 		}
 		return jsonString;
@@ -162,7 +169,8 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 			jsonString = objWriter.writeValueAsString(listSensorHistorical);
 			logger.log(Level.DEBUG, "SensorHistorical succesfully find in BDD");
 		} catch (SQLException | IOException | ParseException e) {
-			logger.log(Level.WARN, "Impossible to get sensorHistorical datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.WARN,
+					"Impossible to get sensorHistorical datas from BDD " + e.getClass().getCanonicalName());
 			jsonString = "ERROR";
 		}
 		return jsonString;
@@ -181,7 +189,8 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			sensorH = objectMapper.readValue(jsonString, SensorHistorical.class);
-			requestSB = new StringBuilder("SELECT id_historique,date_historique, etat_capteur, type_alerte, id_capteur ");
+			requestSB = new StringBuilder(
+					"SELECT id_historique,date_historique, etat_capteur, type_alerte, id_capteur ");
 			requestSB.append("FROM historique where id_capteur=");
 			requestSB.append(sensorH.getIdSensor());
 			st = con.createStatement();
@@ -193,6 +202,72 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 		} catch (SQLException | IOException | ParseException e) {
 			logger.log(Level.WARN, "Impossible to get sensor datas from BDD " + e.getClass().getCanonicalName());
 			jsonString = "ERROR";
+		}
+		return jsonString;
+	}
+
+	/**
+	 * Count the number of lines in the table 'historique'
+	 * 
+	 * @return
+	 */
+	public String countSensorHistorical() {
+		ObjectMapper objWriter = new ObjectMapper();
+		String jsonString = "";
+		try {
+			request = "SELECT COUNT (*) FROM historique";
+			st = con.createStatement();
+			result = st.executeQuery(request);
+			result.next();
+			jsonString = result.getObject(1).toString();
+			jsonString = objWriter.writeValueAsString(jsonString);
+		} catch (SQLException | JsonProcessingException e) {
+			logger.log(Level.WARN,
+					"Impossible to get SensorHistorical datas from BDD " + e.getClass().getCanonicalName());
+		}
+		return jsonString;
+	}
+
+	/**
+	 * Count the number of lines in the table 'historique' where date condition
+	 * 
+	 * @return
+	 */
+	public String countUpdateSensorHistorical() {
+		ObjectMapper objWriter = new ObjectMapper();
+		String jsonString = "";
+		try {
+			request = "SELECT COUNT(*) FROM historique WHERE date_historique BETWEEN '2000-10-01' AND '2008-10-01' AND ( type_alerte = 'NORMAL' )";
+			st = con.createStatement();
+			result = st.executeQuery(request);
+			result.next();
+			jsonString = result.getObject(1).toString();
+			jsonString = objWriter.writeValueAsString(jsonString);
+		} catch (SQLException | JsonProcessingException e) {
+			logger.log(Level.WARN,
+					"Impossible to get SensorHistorical datas from BDD " + e.getClass().getCanonicalName());
+		}
+		return jsonString;
+	}
+
+	/**
+	 * Count the number of lines in the table 'historique' for every state
+	 * 
+	 * @return
+	 */
+	public String countAllStateSensorHistorical() {
+		ObjectMapper objWriter = new ObjectMapper();
+		String jsonString = "";
+		try {
+			request = "SELECT sum(case when type_alerte = 'DELETED' then 1 else 0 end ) As DeletedCount,sum(case when type_alerte = 'NORMAL' then 1 else 0 end ) As NormalCount,sum(case when type_alerte = 'DOWN' then 1 else 0 end ) As DownCount,sum(case when type_alerte = 'ALERT' then 1 else 0 end ) As AlertCount FROM historique";
+			st = con.createStatement();
+			result = st.executeQuery(request);
+			result.next();
+			jsonString = result.getInt(1) + "," + result.getInt(2) + "," + result.getInt(3) + "," + result.getInt(4);
+			jsonString = objWriter.writeValueAsString(jsonString);
+		} catch (SQLException | JsonProcessingException e) {
+			logger.log(Level.WARN,
+					"Impossible to get SensorHistorical datas from BDD " + e.getClass().getCanonicalName());
 		}
 		return jsonString;
 	}

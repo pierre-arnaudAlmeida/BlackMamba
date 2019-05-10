@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.blackmamba.deathkiss.pool.entity.CommonArea;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -52,7 +53,8 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			area = objectMapper.readValue(jsonString, CommonArea.class);
-			prepareStatement = con.prepareStatement("INSERT INTO partie_commune (nom_partie_commune, etage_partie_commune,surface,max_capteur) values (?,?,?,?)");
+			prepareStatement = con.prepareStatement(
+					"INSERT INTO partie_commune (nom_partie_commune, etage_partie_commune,surface,max_capteur) values (?,?,?,?)");
 			prepareStatement.setString(1, area.getNameCommonArea());
 			prepareStatement.setInt(2, area.getFloorCommonArea());
 			prepareStatement.setInt(3, area.getArea());
@@ -96,7 +98,8 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			area = objectMapper.readValue(jsonString, CommonArea.class);
-			prepareStatement = con.prepareStatement("UPDATE partie_commune SET etage_partie_commune = ?, nom_partie_commune = ?, surface= ?, max_capteur= ? where id_partie_commune = ?");
+			prepareStatement = con.prepareStatement(
+					"UPDATE partie_commune SET etage_partie_commune = ?, nom_partie_commune = ?, surface= ?, max_capteur= ? where id_partie_commune = ?");
 			prepareStatement.setInt(1, area.getFloorCommonArea());
 			prepareStatement.setString(2, area.getNameCommonArea());
 			prepareStatement.setInt(3, area.getArea());
@@ -120,7 +123,8 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			area = objectMapper.readValue(jsonString, CommonArea.class);
-			requestSB = new StringBuilder("SELECT id_partie_commune,nom_partie_commune, etage_partie_commune,surface,max_capteur ");
+			requestSB = new StringBuilder(
+					"SELECT id_partie_commune,nom_partie_commune, etage_partie_commune,surface,max_capteur ");
 			requestSB.append("FROM partie_commune where id_partie_commune=");
 			requestSB.append(area.getIdCommonArea());
 			st = con.createStatement();
@@ -175,10 +179,12 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 		try {
 			area = objectMapper.readValue(jsonString, CommonArea.class);
 			if (!(area.getNameCommonArea().equals(""))) {
-				prepareStatement = con.prepareStatement("SELECT id_partie_commune,nom_partie_commune, etage_partie_commune,surface,max_capteur FROM partie_commune where nom_partie_commune LIKE ?");
+				prepareStatement = con.prepareStatement(
+						"SELECT id_partie_commune,nom_partie_commune, etage_partie_commune,surface,max_capteur FROM partie_commune where nom_partie_commune LIKE ?");
 				prepareStatement.setString(1, "%" + area.getNameCommonArea().toUpperCase() + "%");
 			} else {
-				prepareStatement = con.prepareStatement("SELECT id_partie_commune,nom_partie_commune, etage_partie_commune,surface,max_capteur FROM partie_commune where etage_partie_commune = ?");
+				prepareStatement = con.prepareStatement(
+						"SELECT id_partie_commune,nom_partie_commune, etage_partie_commune,surface,max_capteur FROM partie_commune where etage_partie_commune = ?");
 				prepareStatement.setInt(1, area.getFloorCommonArea());
 			}
 			result = prepareStatement.executeQuery();
@@ -191,6 +197,27 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 		} catch (SQLException | IOException e) {
 			logger.log(Level.WARN, "Impossible to get commonArea datas from BDD " + e.getClass().getCanonicalName());
 			jsonString = "ERROR";
+		}
+		return jsonString;
+	}
+
+	/**
+	 * Count the number of lines in the table 'partie_commune'
+	 * 
+	 * @return
+	 */
+	public String countCommonArea() {
+		ObjectMapper objWriter = new ObjectMapper();
+		String jsonString = "";
+		try {
+			request = "SELECT COUNT(*) FROM partie_commune";
+			st = con.createStatement();
+			result = st.executeQuery(request);
+			result.next();
+			jsonString = result.getObject(1).toString();
+			jsonString = objWriter.writeValueAsString(jsonString);
+		} catch (SQLException | JsonProcessingException e) {
+			logger.log(Level.WARN, "Impossible to get commonArea datas from BDD " + e.getClass().getCanonicalName());
 		}
 		return jsonString;
 	}

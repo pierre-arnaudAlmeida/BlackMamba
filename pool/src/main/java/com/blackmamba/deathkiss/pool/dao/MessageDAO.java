@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.blackmamba.deathkiss.pool.entity.Message;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -53,7 +54,8 @@ public class MessageDAO extends DAO<Message> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			mess = objectMapper.readValue(jsonString, Message.class);
-			prepareStatement = con.prepareStatement("INSERT INTO message (id_capteur,date_alerte,seuil) values (?,?,?)");
+			prepareStatement = con
+					.prepareStatement("INSERT INTO message (id_capteur,date_alerte,seuil) values (?,?,?)");
 			prepareStatement.setInt(1, mess.getIdSensor());
 			prepareStatement.setDate(2, new java.sql.Date(mess.getAlertDate().getTime()));
 			prepareStatement.setInt(3, mess.getThreshold());
@@ -94,7 +96,8 @@ public class MessageDAO extends DAO<Message> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			mess = objectMapper.readValue(jsonString, Message.class);
-			prepareStatement = con.prepareStatement("UPDATE message SET id_capteur = ?, date_alerte = ?, seuil= ? where id_message = ?");
+			prepareStatement = con.prepareStatement(
+					"UPDATE message SET id_capteur = ?, date_alerte = ?, seuil= ? where id_message = ?");
 			prepareStatement.setInt(1, mess.getIdSensor());
 			prepareStatement.setDate(2, new java.sql.Date(mess.getAlertDate().getTime()));
 			prepareStatement.setInt(3, mess.getThreshold());
@@ -152,6 +155,27 @@ public class MessageDAO extends DAO<Message> {
 		} catch (SQLException | IOException | ParseException e) {
 			logger.log(Level.WARN, "Impossible to get messages datas from BDD " + e.getClass().getCanonicalName());
 			jsonString = "ERROR";
+		}
+		return jsonString;
+	}
+
+	/**
+	 * Count the number of sensor down and the number of sensor over
+	 * 
+	 * @return
+	 */
+	public String countMessage() {
+		ObjectMapper objWriter = new ObjectMapper();
+		String jsonString = "";
+		try {
+			request = "SELECT sum(case when seuil = '0' AND (id_capteur !=0 AND id_capteur != 9999) then 1 else 0 end ) As nbSensorDown, sum(case when seuil = '0' AND (id_capteur !=0 AND id_capteur = 9999) then 1 else 0 end ) As nbSensorOver FROM message";
+			st = con.createStatement();
+			result = st.executeQuery(request);
+			result.next();
+			jsonString = result.getInt(1) + "," + result.getInt(2);
+			jsonString = objWriter.writeValueAsString(jsonString);
+		} catch (SQLException | JsonProcessingException e) {
+			logger.log(Level.WARN, "Impossible to get Message datas from BDD " + e.getClass().getCanonicalName());
 		}
 		return jsonString;
 	}
