@@ -74,7 +74,6 @@ public class TabMockMessage extends JPanel {
 	 * Constructor
 	 */
 	public TabMockMessage() {
-
 	}
 
 	/**
