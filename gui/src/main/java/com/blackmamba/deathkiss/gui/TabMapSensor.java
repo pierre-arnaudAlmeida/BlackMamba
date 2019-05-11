@@ -8,7 +8,6 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -139,7 +138,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	private static Rectangle elevatorE0B;
 
 	private static Rectangle sittingRoomE1;
-	private static Rectangle dinningroomE1;
+	private static Rectangle dinningRoomE1;
 	private static Rectangle kitchenE1;
 	private static Rectangle corridorE1A;
 	private static Rectangle corridorE1B;
@@ -181,6 +180,8 @@ public class TabMapSensor extends JPanel implements MouseListener {
 			public void run() {
 				while (true) {
 					// tabSensor.actualizationListSensor();
+					updateListAreas();
+					updateListSensor();
 					tabSensor.updateSensorSelected();
 					try {
 						Thread.sleep(Integer.parseInt(rsParameters.getString("time_threadSleep")));
@@ -200,7 +201,6 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		bar.setLayout(new BorderLayout());
 		bar.setBorder(BorderFactory.createMatteBorder(20, 100, 20, 100, bar.getBackground()));
 
-		
 		///////////////////////// BAR/////////////////////////////////////////////////
 		/**
 		 * Definition of label Login on header bar
@@ -228,7 +228,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.GRAY);
 		add(panel);
-		
+
 		/**
 		 * Definition of the List CommonArea
 		 */
@@ -407,8 +407,6 @@ public class TabMapSensor extends JPanel implements MouseListener {
 
 		///////////////////////// PANEL/////////////////////////////////////////////////
 
-
-
 		///////////////////////// JScrollPane///////////////////////////////////////////
 
 //		JScrollPane scroll = new JScrollPane(panel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -452,7 +450,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		elevatorE0B = new Rectangle(x0 + 216, y0 + 295, 48, 27);
 
 		sittingRoomE1 = new Rectangle(x1, y1, 168, 116);
-		dinningroomE1 = new Rectangle(x1, y1 + 202, 168, 164);
+		dinningRoomE1 = new Rectangle(x1, y1 + 202, 168, 164);
 		kitchenE1 = new Rectangle(x1, y1 + 451, 168, 125);
 		corridorE1A = new Rectangle(x1 + 170, y1 + 82, 721, 34);
 		corridorE1B = new Rectangle(x1 + 248, y1 + 202, 578, 39);
@@ -467,11 +465,10 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		infirmaryE1 = new Rectangle(x1 + 337, y1 + 492, 389, 84);
 		elevatorE1A = new Rectangle(x1 + 248, y1 + 244, 52, 28);
 		elevatorE1B = new Rectangle(x1 + 248, y1 + 290, 52, 29);
-		
-		
+
 		listNameRectangle.add("salon");
 		listNameRectangle.add("entrancehall");
-		listNameRectangle.add("kitchene0");
+		listNameRectangle.add(getKitchenE0().toString());
 		listNameRectangle.add("dinningroome0");
 		listNameRectangle.add("staffroome0");
 		listNameRectangle.add("relaxationroome0");
@@ -508,6 +505,14 @@ public class TabMapSensor extends JPanel implements MouseListener {
 
 	}
 
+	public static Rectangle getKitchenE0() {
+		return kitchenE0;
+	}
+
+	public static void setKitchenE0(Rectangle kitchenE0) {
+		TabMapSensor.kitchenE0 = kitchenE0;
+	}
+
 	@Override
 	public void paintComponent(Graphics g) {
 
@@ -519,7 +524,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		g2.drawImage(buffer1, x0, y0, 900, 580, this);
 
 		g2.setColor(Color.GREEN);
-		
+
 		// Draw rectangle
 //		g2.drawRect(kitchenE0.x, kitchenE0.y, kitchenE0.width, kitchenE0.height);
 //		g2.drawRect(dinningRoomE0.x, dinningRoomE0.y, dinningRoomE0.width, dinningRoomE0.height);
@@ -538,7 +543,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 //		g2.drawRect(elevatorE0B.x, elevatorE0B.y, elevatorE0B.width, elevatorE0B.height);
 
 		g2.drawRect(sittingRoomE1.x, sittingRoomE1.y, sittingRoomE1.width, sittingRoomE1.height);
-		g2.drawRect(dinningroomE1.x, dinningroomE1.y, dinningroomE1.width, dinningroomE1.height);
+		g2.drawRect(dinningRoomE1.x, dinningRoomE1.y, dinningRoomE1.width, dinningRoomE1.height);
 		g2.drawRect(kitchenE1.x, kitchenE1.y, kitchenE1.width, kitchenE1.height);
 		g2.drawRect(corridorE1A.x, corridorE1A.y, corridorE1A.width, corridorE1A.height);
 		g2.drawRect(corridorE1B.x, corridorE1B.y, corridorE1B.width, corridorE1B.height);
@@ -554,7 +559,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		g2.drawRect(elevatorE1A.x, elevatorE1A.y, elevatorE1A.width, elevatorE1A.height);
 		g2.drawRect(elevatorE1B.x, elevatorE1B.y, elevatorE1B.width, elevatorE1B.height);
 
-		//draw(g);
+		// draw(g);
 	}
 
 //	private void draw(Graphics g) {
@@ -574,8 +579,12 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		// recovering the position of the mouse
 		p = e.getPoint();
+		testLocation(p, dinningRoomE1, "mouseClicked - data 1");
+		if (nameRectangle(dinningRoomE1) == true) {
+			System.out.println("Cool");
+		}
 	}
-	
+
 	/**
 	 * Mouse Entered
 	 */
@@ -584,28 +593,40 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		p = e.getPoint();
 	}
 
-
-	//TODO RK
-	// Récupére toute partie commune  check
-	//faire une liste de toutes les nom des rectangles en les inserant deja en lowercase
-	//boucle inbriquer
-	//premiere boucle sur la list avec les noms des rectangles
+	// TODO RK
+	// Récupére toute partie commune                                             updateListAreas()
+	// faire une liste de toutes les nom des rectangles en les inserant deja en
+	// lowercase                                                                 listNameRectangle()
+	// boucle inbriquer
+	// premiere boucle sur la list avec les noms des rectangles                  displayRectangle()
 	// Fais boucle sur la liste partie commune
-	// Dedans faire if et compare commonArea.getName().lowercas.suppEspace.equals(lisNom[i])
-	//alors on ajoute dans une liste d'object ou tableau bidimentionnel, le nom du rectangle et l'id de la partie commune
-	
-	
-	public void afficheRectangle() {
+	// Dedans faire if et compare
+	// commonArea.getName().lowercas.suppEspace.equals(lisNom[i])
+	// alors on ajoute dans une liste d'object ou tableau bidimentionnel, le nom du
+	// rectangle et l'id de la partie commune                                    listRectangleCommonArea
+
+	public void displayRectangle() {
 		updateListAreas();
-		for (int i = 0; i<listNameRectangle.size(); i++) {
-			for(CommonArea areas : listCommonArea) {
-				if (areas.getNameCommonArea().toLowerCase().trim().equals(listNameRectangle.get(i)) ) {
+		for (int i = 0; i < listNameRectangle.size(); i++) {
+			for (CommonArea areas : listCommonArea) {
+				if (areas.getNameCommonArea().toLowerCase().trim().equals(listNameRectangle.get(i))) {
 					listRectangleCommonArea.put(areas.getIdCommonArea(), listNameRectangle.get(i));
 				}
 			}
 		}
 	}
 
+	
+	public boolean nameRectangle(Rectangle commonArea) {
+		Boolean bol = null;
+		for (int i = 0; i < listRectangleCommonArea.size(); i++) {
+			if (listRectangleCommonArea.containsValue(commonArea.toString().toLowerCase())) {
+				bol = true;
+			}
+		}
+		return bol;
+
+	}
 
 	public void updateListAreas() {
 		requestType = "READ ALL";
@@ -630,8 +651,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		}
 		logger.log(Level.DEBUG, "Convertion of all Common Areas available in a list succed");
 	}
-	
-	
+
 	/**
 	 * 
 	 * @param sensor
@@ -669,7 +689,8 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		listM.removeAllElements();
 		listM.addElement("All sensors");
 		for (Sensor sens : listSensor) {
-			listM.addElement(sens.getIdSensor() + "# " + sens.getTypeSensor() + " ," + sens.getSensorState() + " ," + sens.getIdCommonArea());
+			listM.addElement(sens.getIdSensor() + "# " + sens.getTypeSensor() + " ," + sens.getSensorState() + " ,"
+					+ sens.getIdCommonArea());
 		}
 	}
 
@@ -684,7 +705,8 @@ public class TabMapSensor extends JPanel implements MouseListener {
 
 		int position = sA.indexOf(":");
 		textInputHourStartActivity.setSelectedIndex(Integer.parseInt(sA.substring(0, position).trim()));
-		textInputMinuteStartActivity.setSelectedIndex(Integer.parseInt(sA.substring(position + 1, position + 3).trim()));
+		textInputMinuteStartActivity
+				.setSelectedIndex(Integer.parseInt(sA.substring(position + 1, position + 3).trim()));
 		position = eA.indexOf(":");
 		textInputHourEndActivity.setSelectedIndex(Integer.parseInt(eA.substring(0, position).trim()));
 		textInputMinuteEndActivity.setSelectedIndex(Integer.parseInt(eA.substring(position + 1, position + 3).trim()));
@@ -731,7 +753,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	public void setListAlert(List<Alert> listAlert) {
 		this.listAlert = listAlert;
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -755,6 +777,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	public Map<Integer, String> getListRectangleCommonArea() {
 		return listRectangleCommonArea;
 	}
+
 	/**
 	 * 
 	 * @param listRectangleCommonArea

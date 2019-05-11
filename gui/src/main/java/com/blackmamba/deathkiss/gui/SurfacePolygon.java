@@ -167,29 +167,50 @@ public class SurfacePolygon extends JFrame {
 
 	}
 
-//	private void formMouseMoved(MouseEvent evt) {
-//		   SurfacePolygon.getToolTipLocation(evt);
-//			SurfacePolygon.setToolTipText("Infos"); // Active l'infobulle
-//			SurfacePolygon.setToolTipText(null); // Désactive l'infobulle
+//	private JButton overButton;
+//
+//	public SurfacePolygon(String title) {
+//		super(title);
+//		initialize();
 //	}
-
-//	JPanel southPanel = new JPanel(new BorderLayout());
-//	add(southPanel, BorderLayout.SOUTH);
-//	JLabel logo = new JLabel(new ImageIcon(TabMapSensor.class.getResource("image.png")));
-//	southPanel.add(logo, BorderLayout.EAST);
-
-//	canvas = new JPanel();
-//	canvas.setSize(1200, 700);
-//	canvas.setLocation(null);
-//	try {
-//		img = ImageIO.read(getClass().getClassLoader().getResource("image.jpg"));
-//	} catch (IOException e) {
-//		e.printStackTrace();
+//
+//	private void initialize() {
+//		JPanel buttonPanel = new JPanel();
+//		buttonPanel.setSize(320, 200);
+//		overButton = new JButton("Survolez-moi");
+//		overButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+//		overButton.addMouseListener(new MouseListener() {
+//			public void mouseClicked(MouseEvent e) {
+//			}
+//
+//			public void mouseEntered(MouseEvent e) {
+//				JButton source = (JButton) e.getSource();
+//				source.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+//			}
+//
+//			public void mouseExited(MouseEvent e) {
+//				JButton source = (JButton) e.getSource();
+//				source.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+//			}
+//
+//			public void mousePressed(MouseEvent e) {
+//			}
+//
+//			public void mouseReleased(MouseEvent e) {
+//			}
+//		});
+//		buttonPanel.add(overButton);
+//		getContentPane().add(buttonPanel);
 //	}
-
-	public static void main(String[] args) {
-		new SurfacePolygon().setVisible(true);
-	}
+//
+//	public static void main(String[] args) {
+//		SurfacePolygon demo = new SurfacePolygon("Démo de survol de bouton");
+//		demo.pack();
+//		demo.setVisible(true);
+//
+//	public static void main(String[] args) {
+//		new SurfacePolygon().setVisible(true);
+//	}
 
 	public CommonArea getIdCommonArea() {
 		return idCommonArea;
