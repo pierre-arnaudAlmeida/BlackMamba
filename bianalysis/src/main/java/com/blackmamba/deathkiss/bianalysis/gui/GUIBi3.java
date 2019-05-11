@@ -120,7 +120,7 @@ public class GUIBi3 extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GUIBi frame = new GUIBi();
+					GUIBi3 frame = new GUIBi3();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

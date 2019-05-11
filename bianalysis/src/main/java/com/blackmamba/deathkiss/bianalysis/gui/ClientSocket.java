@@ -98,6 +98,19 @@ public class ClientSocket {
 				case "FIND ALL":
 					response = "{ \"request\" : \"FIND ALL\", \"table\" : \"" + this.table + "\" }";
 					break;
+				case "COUNT":
+					response = "{ \"request\" : \"COUNT\", \"table\" : \"" + this.table + "\" }";
+					break;
+				case "COUNT OTHER":
+					response = "{ \"request\" : \"COUNT OTHER\", \"table\" : \"" + this.table + "\" }";
+					break;
+				case "COUNTING":
+					response = "{ \"request\" : \"COUNTING\", \"table\" : \"" + this.table + "\" }";
+					break;
+				case "COUNTING OTHER":
+					response = "{ \"request\" : \"COUNTING OTHER\", \"table\" : \"" + this.table + "\" }";
+					break;
+					
 				default:
 					response = "";
 				}

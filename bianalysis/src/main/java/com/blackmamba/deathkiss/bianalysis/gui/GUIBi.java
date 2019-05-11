@@ -40,6 +40,7 @@ import com.blackmamba.deathkiss.bianalysis.entity.Message;
 import com.blackmamba.deathkiss.bianalysis.entity.Sensor;
 import com.blackmamba.deathkiss.bianalysis.entity.SensorHistorical;
 import com.blackmamba.deathkiss.bianalysis.entity.SensorType;
+import com.fasterxml.jackson.core.io.JsonStringEncoder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JTabbedPane;
@@ -58,7 +59,9 @@ public class GUIBi extends JFrame {
 	private static List<Sensor> listSensor = new ArrayList<Sensor>();
 	private static List<SensorHistorical> listSensorHistorical = new ArrayList<SensorHistorical>();
 	private static List<CommonArea> listCommonAreas = new ArrayList<CommonArea>();
+	private static List<CommonArea> listNumberCommonAreas = new ArrayList<CommonArea>();
 	private static List<Message> listAllMessage = new ArrayList<Message>();
+
 	private ObjectMapper objectMapper;
 	private String requestType;
 	private String table;
@@ -71,6 +74,7 @@ public class GUIBi extends JFrame {
 	private JTextField searchBar;
 	private DefaultListModel<String> listM;
 	private DefaultListModel<String> ListModel;
+	private DefaultListModel<String> listCount;
 	private JScrollPane sc;
 	private JScrollPane sc1;
 
@@ -105,6 +109,7 @@ public class GUIBi extends JFrame {
 	private JTextField tfAlert;
 	private JTextField textField_1;
 	private JTextField textField_2;
+	private JTextField textField_3;
 
 	//////////////////////////////////////////////////////////////////////
 	/**
@@ -138,8 +143,9 @@ public class GUIBi extends JFrame {
 	public GUIBi() {
 		GetAllSensor();
 		GetAllSensorHistorical();
-		getAllCommonArea();
+//		getAllCommonArea();
 		getAllMessage();
+		GetNumberCommonArea();
 		initComponents();
 		createEvents();
 
@@ -310,26 +316,32 @@ public class GUIBi extends JFrame {
 		lblNumberOfCommon = new JLabel("number of common area");
 		lblNumberOfCommon.setBounds(10, 33, 123, 28);
 		panel.add(lblNumberOfCommon);
-
+		
+		String numberCommonArea = GetNumberCommonArea();
 		textField = new JTextField();
 		textField.setBounds(20, 72, 112, 55);
-		textField.setText(String.valueOf(nbCommonArea));
+		textField.setText(numberCommonArea.toString().replaceAll("\"","" ));
 		panel.add(textField);
 		textField.setColumns(10);
-		
-		
+
 		Object[] monObj2 = returnNbSensorType();
 		textField_1 = new JTextField();
-		textField_1.setBounds(231, 298, 57, 44);
+		textField_1.setBounds(198, 295, 57, 44);
 		textField_1.setText(monObj2[0].toString());
 		panel.add(textField_1);
 		textField_1.setColumns(10);
-		
+
 		textField_2 = new JTextField();
 		textField_2.setBounds(198, 353, 78, 44);
 		textField_2.setText(monObj2[1].toString());
 		panel.add(textField_2);
 		textField_2.setColumns(10);
+
+		textField_3 = new JTextField();
+		textField_3.setBounds(0, 184, 69, 54);
+		textField_3.setText(listNumberCommonAreas.toString());
+		panel.add(textField_3);
+		textField_3.setColumns(10);
 
 		panel_1 = new JPanel();
 		tabbedPane.addTab("Alert", null, panel_1, null);
@@ -670,6 +682,30 @@ public class GUIBi extends JFrame {
 
 	}
 
+	///////////////////////////////////////
+	// number of CommonArea
+	private  String GetNumberCommonArea() {
+
+		requestType = "COUNT";
+		table = "CommonArea";
+		objectMapper = new ObjectMapper();
+		try {
+			jsonString = "COUNT";
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			System.out.println(jsonString);
+			jsonString.toString();
+			System.out.println(jsonString.replaceAll("\"","" ));
+			String msg = objectMapper.readValue(jsonString, String.class);
+			textField.setText(msg.toString().replaceAll("\"","" ));
+
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
+		}
+		return jsonString;
+		
+	}
+
 ///////////////////////////////////////////
 	// Method Get all Alert contained in the Historical database
 	private void GetAllSensorHistorical() {
@@ -694,25 +730,25 @@ public class GUIBi extends JFrame {
 	////////////////////////////////////
 	// Method GetAllComonArea
 
-	public int getAllCommonArea() {
-		requestType = "READ ALL";
-		table = "CommonArea";
-		objectMapper = new ObjectMapper();
-		try {
-			jsonString = "READ ALL";
-			new ClientSocket(requestType, jsonString, table);
-			jsonString = ClientSocket.getJson();
-			CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
-			logger.log(Level.INFO, "Find CommonArea data succed");
-			listCommonAreas = Arrays.asList(commonAreas);
-			nbCommonArea = listCommonAreas.size();
-
-		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON CommonArea datas " + e1.getClass().getCanonicalName());
-
-		}
-		return nbCommonArea;
-	}
+//	public int getAllCommonArea() {
+//		requestType = "READ ALL";
+//		table = "CommonArea";
+//		objectMapper = new ObjectMapper();
+//		try {
+//			jsonString = "READ ALL";
+//			new ClientSocket(requestType, jsonString, table);
+//			jsonString = ClientSocket.getJson();
+//			CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
+//			logger.log(Level.INFO, "Find CommonArea data succed");
+//			listCommonAreas = Arrays.asList(commonAreas);
+//			nbCommonArea = listCommonAreas.size();
+//
+//		} catch (Exception e1) {
+//			logger.log(Level.INFO, "Impossible to parse in JSON CommonArea datas " + e1.getClass().getCanonicalName());
+//
+//		}
+//		return nbCommonArea;
+//	}
 	//////////////////////////////////////
 	// Method GetAllMessage
 
@@ -790,46 +826,35 @@ public class GUIBi extends JFrame {
 				if (type.getTypeSensor().equals(SensorType.TEMPERATURE)) {
 					nbSensorTemperature++;
 				} else if (type.getTypeSensor().equals(SensorType.SMOKE)) {
-						nbSensorSmoke++;
-				} else if  (type.getTypeSensor().equals(SensorType.WINDOW)) {
-						nbSensorWindow++;
-						}
-				else if  (type.getTypeSensor().equals(SensorType.DOOR)) {
+					nbSensorSmoke++;
+				} else if (type.getTypeSensor().equals(SensorType.WINDOW)) {
+					nbSensorWindow++;
+				} else if (type.getTypeSensor().equals(SensorType.DOOR)) {
 					nbSensorDoor++;
-					}
-				else if  (type.getTypeSensor().equals(SensorType.MOVE)) {
+				} else if (type.getTypeSensor().equals(SensorType.MOVE)) {
 					nbSensorMove++;
-					}
-				else if  (type.getTypeSensor().equals(SensorType.ELEVATOR)) {
+				} else if (type.getTypeSensor().equals(SensorType.ELEVATOR)) {
 					nbSensorElevator++;
-					}
-				else if  (type.getTypeSensor().equals(SensorType.LIGHT)) {
+				} else if (type.getTypeSensor().equals(SensorType.LIGHT)) {
 					nbSensorLight++;
-					}
-				else if  (type.getTypeSensor().equals(SensorType.FIRE)) {
+				} else if (type.getTypeSensor().equals(SensorType.FIRE)) {
 					nbSensorFire++;
-					}
-				else if  (type.getTypeSensor().equals(SensorType.BADGE)) {
+				} else if (type.getTypeSensor().equals(SensorType.BADGE)) {
 					nbSensorBadge++;
-					}
-				else if  (type.getTypeSensor().equals(SensorType.ROUTER)) {
+				} else if (type.getTypeSensor().equals(SensorType.ROUTER)) {
 					nbSensorRouter++;
-					}
-					}
-				
-
-			
+				}
+			}
 
 		}
-		
+
 //		BigDecimal resultatTemperature1 = ((new BigDecimal(nbSensorLight).divide(new BigDecimal(nbSensorType)).multiply(new BigDecimal(100))));
-		
-		resultatTemperature = (nbSensorLight / nbSensorType)*100; 
-	 
+
+		resultatTemperature = (nbSensorLight / nbSensorType) * 100;
+
 		DecimalFormat df2 = new DecimalFormat("###.##");
-		
-		
-		return new Object[]{df2.format(resultatTemperature) + "%" ,nbSensorType,nbSensorSmoke,nbSensorWindow,};
+
+		return new Object[] { df2.format(resultatTemperature) + "%", nbSensorType, nbSensorSmoke, nbSensorWindow, };
 
 	}
 
