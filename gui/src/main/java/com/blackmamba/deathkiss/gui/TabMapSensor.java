@@ -351,16 +351,20 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		 */
 		textFloor = new JComboBox<String>();
 		textFloor.setBounds(40, 90, 140, 30);
-		panel.add(textFloor);
+		add(textFloor);
 		textFloor.addItem("-");
 		for (Floor listFloor : Floor.values()) {
 			textFloor.addItem(listFloor.name());
 		}
 		textFloor.addItemListener(new ItemListener() {
+			private BufferedImage buffer;
+			private BufferedImage buffer1;
+
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					textFloor.getSelectedItem();
+					
 				}
 			}
 		});
@@ -519,11 +523,71 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 
+		if (textFloor.getSelectedItem().equals("GROUND_FLOOR")) {
+			try {
+				img = ImageIO.read(getClass().getClassLoader().getResource("Floor0.jpg"));
+				this.buffer = img;
+				g2.drawImage(buffer, x0, y0, 900, 580, this);
+				
+				g2.setColor(Color.GREEN);
+				
+				//Draw rectangle
+				g2.drawRect(kitchenE0.x, kitchenE0.y, kitchenE0.width, kitchenE0.height);
+				g2.drawRect(dinningRoomE0.x, dinningRoomE0.y, dinningRoomE0.width, dinningRoomE0.height);
+				g2.drawRect(staffRoomE0.x, staffRoomE0.y, staffRoomE0.width, staffRoomE0.height);
+				g2.drawRect(relaxationRoomE0.x, relaxationRoomE0.y, relaxationRoomE0.width, relaxationRoomE0.height);
+				g2.drawRect(infirmaryE0.x, infirmaryE0.y, infirmaryE0.width, infirmaryE0.height);
+				g2.drawRect(corridorE0A.x, corridorE0A.y, corridorE0A.width, corridorE0A.height);
+				g2.drawRect(corridorE0B.x, corridorE0B.y, corridorE0B.width, corridorE0B.height);
+				g2.drawRect(corridorE0C.x, corridorE0C.y, corridorE0C.width, corridorE0C.height);
+				g2.drawRect(corridorE0D.x, corridorE0D.y, corridorE0D.width, corridorE0D.height);
+				g2.drawRect(corridorE0E.x, corridorE0E.y, corridorE0E.width, corridorE0E.height);
+				g2.drawRect(sittingRoomE0.x, sittingRoomE0.y, sittingRoomE0.width, sittingRoomE0.height);
+				g2.drawRect(livingRoomE0.x, livingRoomE0.y, livingRoomE0.width, livingRoomE0.height);
+				g2.drawRect(entranceHall.x, entranceHall.y, entranceHall.width, entranceHall.height);
+				g2.drawRect(elevatorE0A.x, elevatorE0A.y, elevatorE0A.width, elevatorE0A.height);
+				g2.drawRect(elevatorE0B.x, elevatorE0B.y, elevatorE0B.width, elevatorE0B.height);
+				
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		if (textFloor.getSelectedItem().equals("FIRST_FLOOR")) {
+			try {
+				img1 = ImageIO.read(getClass().getClassLoader().getResource("Floor1.jpg"));
+				g2.drawImage(buffer1, x0, y0, 900, 580, this);
+				
+				g2.setColor(Color.GREEN);
+				
+				g2.drawRect(sittingRoomE1.x, sittingRoomE1.y, sittingRoomE1.width, sittingRoomE1.height);
+				g2.drawRect(dinningRoomE1.x, dinningRoomE1.y, dinningRoomE1.width, dinningRoomE1.height);
+				g2.drawRect(kitchenE1.x, kitchenE1.y, kitchenE1.width, kitchenE1.height);
+				g2.drawRect(corridorE1A.x, corridorE1A.y, corridorE1A.width, corridorE1A.height);
+				g2.drawRect(corridorE1B.x, corridorE1B.y, corridorE1B.width, corridorE1B.height);
+				g2.drawRect(corridorE1C.x, corridorE1C.y, corridorE1C.width, corridorE1C.height);
+				g2.drawRect(corridorE1D.x, corridorE1D.y, corridorE1D.width, corridorE1D.height);
+				g2.drawRect(corridorE1E.x, corridorE1E.y, corridorE1E.width, corridorE1E.height);
+				g2.drawRect(corridorE1F.x, corridorE1F.y, corridorE1F.width, corridorE1F.height);
+				g2.drawRect(relaxationRoomE1.x, relaxationRoomE1.y, relaxationRoomE1.width, relaxationRoomE1.height);
+				g2.drawRect(livingRoomE1A.x, livingRoomE1A.y, livingRoomE1A.width, livingRoomE1A.height);
+				g2.drawRect(staffRoomE1.x, staffRoomE1.y, staffRoomE1.width, staffRoomE1.height);
+				g2.drawRect(livingRoomE1B.x, livingRoomE1B.y, livingRoomE1B.width, livingRoomE1B.height);
+				g2.drawRect(infirmaryE1.x, infirmaryE1.y, infirmaryE1.width, infirmaryE1.height);
+				g2.drawRect(elevatorE1A.x, elevatorE1A.y, elevatorE1A.width, elevatorE1A.height);
+				g2.drawRect(elevatorE1B.x, elevatorE1B.y, elevatorE1B.width, elevatorE1B.height);
+				
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			this.buffer1 = img1;
+		}
+		
+		
 		// Draw image
 //		g2.drawImage(buffer, x0, y0, 900, 580, this);
-		g2.drawImage(buffer1, x0, y0, 900, 580, this);
-
-		g2.setColor(Color.GREEN);
+//		g2.drawImage(buffer1, x0, y0, 900, 580, this);
+//
+//		g2.setColor(Color.GREEN);
 
 		// Draw rectangle
 //		g2.drawRect(kitchenE0.x, kitchenE0.y, kitchenE0.width, kitchenE0.height);
@@ -542,31 +606,25 @@ public class TabMapSensor extends JPanel implements MouseListener {
 //		g2.drawRect(elevatorE0A.x, elevatorE0A.y, elevatorE0A.width, elevatorE0A.height);
 //		g2.drawRect(elevatorE0B.x, elevatorE0B.y, elevatorE0B.width, elevatorE0B.height);
 
-		g2.drawRect(sittingRoomE1.x, sittingRoomE1.y, sittingRoomE1.width, sittingRoomE1.height);
-		g2.drawRect(dinningRoomE1.x, dinningRoomE1.y, dinningRoomE1.width, dinningRoomE1.height);
-		g2.drawRect(kitchenE1.x, kitchenE1.y, kitchenE1.width, kitchenE1.height);
-		g2.drawRect(corridorE1A.x, corridorE1A.y, corridorE1A.width, corridorE1A.height);
-		g2.drawRect(corridorE1B.x, corridorE1B.y, corridorE1B.width, corridorE1B.height);
-		g2.drawRect(corridorE1C.x, corridorE1C.y, corridorE1C.width, corridorE1C.height);
-		g2.drawRect(corridorE1D.x, corridorE1D.y, corridorE1D.width, corridorE1D.height);
-		g2.drawRect(corridorE1E.x, corridorE1E.y, corridorE1E.width, corridorE1E.height);
-		g2.drawRect(corridorE1F.x, corridorE1F.y, corridorE1F.width, corridorE1F.height);
-		g2.drawRect(relaxationRoomE1.x, relaxationRoomE1.y, relaxationRoomE1.width, relaxationRoomE1.height);
-		g2.drawRect(livingRoomE1A.x, livingRoomE1A.y, livingRoomE1A.width, livingRoomE1A.height);
-		g2.drawRect(staffRoomE1.x, staffRoomE1.y, staffRoomE1.width, staffRoomE1.height);
-		g2.drawRect(livingRoomE1B.x, livingRoomE1B.y, livingRoomE1B.width, livingRoomE1B.height);
-		g2.drawRect(infirmaryE1.x, infirmaryE1.y, infirmaryE1.width, infirmaryE1.height);
-		g2.drawRect(elevatorE1A.x, elevatorE1A.y, elevatorE1A.width, elevatorE1A.height);
-		g2.drawRect(elevatorE1B.x, elevatorE1B.y, elevatorE1B.width, elevatorE1B.height);
+//		g2.drawRect(sittingRoomE1.x, sittingRoomE1.y, sittingRoomE1.width, sittingRoomE1.height);
+//		g2.drawRect(dinningRoomE1.x, dinningRoomE1.y, dinningRoomE1.width, dinningRoomE1.height);
+//		g2.drawRect(kitchenE1.x, kitchenE1.y, kitchenE1.width, kitchenE1.height);
+//		g2.drawRect(corridorE1A.x, corridorE1A.y, corridorE1A.width, corridorE1A.height);
+//		g2.drawRect(corridorE1B.x, corridorE1B.y, corridorE1B.width, corridorE1B.height);
+//		g2.drawRect(corridorE1C.x, corridorE1C.y, corridorE1C.width, corridorE1C.height);
+//		g2.drawRect(corridorE1D.x, corridorE1D.y, corridorE1D.width, corridorE1D.height);
+//		g2.drawRect(corridorE1E.x, corridorE1E.y, corridorE1E.width, corridorE1E.height);
+//		g2.drawRect(corridorE1F.x, corridorE1F.y, corridorE1F.width, corridorE1F.height);
+//		g2.drawRect(relaxationRoomE1.x, relaxationRoomE1.y, relaxationRoomE1.width, relaxationRoomE1.height);
+//		g2.drawRect(livingRoomE1A.x, livingRoomE1A.y, livingRoomE1A.width, livingRoomE1A.height);
+//		g2.drawRect(staffRoomE1.x, staffRoomE1.y, staffRoomE1.width, staffRoomE1.height);
+//		g2.drawRect(livingRoomE1B.x, livingRoomE1B.y, livingRoomE1B.width, livingRoomE1B.height);
+//		g2.drawRect(infirmaryE1.x, infirmaryE1.y, infirmaryE1.width, infirmaryE1.height);
+//		g2.drawRect(elevatorE1A.x, elevatorE1A.y, elevatorE1A.width, elevatorE1A.height);
+//		g2.drawRect(elevatorE1B.x, elevatorE1B.y, elevatorE1B.width, elevatorE1B.height);
 
-		// draw(g);
+		repaint();
 	}
-
-//	private void draw(Graphics g) {
-//		if (textFloor.equals(Floor.GROUND_FLOOR)) {
-//
-//		}
-//	}
 
 	private void testLocation(Point mouse, Rectangle commonArea, String text) {
 		// if the mouse if here
@@ -594,16 +652,16 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	}
 
 	// TODO RK
-	// Récupére toute partie commune                                             updateListAreas()
+	// Récupére toute partie commune updateListAreas()
 	// faire une liste de toutes les nom des rectangles en les inserant deja en
-	// lowercase                                                                 listNameRectangle()
+	// lowercase listNameRectangle()
 	// boucle inbriquer
-	// premiere boucle sur la list avec les noms des rectangles                  displayRectangle()
+	// premiere boucle sur la list avec les noms des rectangles displayRectangle()
 	// Fais boucle sur la liste partie commune
 	// Dedans faire if et compare
 	// commonArea.getName().lowercas.suppEspace.equals(lisNom[i])
 	// alors on ajoute dans une liste d'object ou tableau bidimentionnel, le nom du
-	// rectangle et l'id de la partie commune                                    listRectangleCommonArea
+	// rectangle et l'id de la partie commune listRectangleCommonArea
 
 	public void displayRectangle() {
 		updateListAreas();
@@ -616,7 +674,6 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		}
 	}
 
-	
 	public boolean nameRectangle(Rectangle commonArea) {
 		Boolean bol = null;
 		for (int i = 0; i < listRectangleCommonArea.size(); i++) {
