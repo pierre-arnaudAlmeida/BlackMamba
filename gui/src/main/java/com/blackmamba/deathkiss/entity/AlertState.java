@@ -13,5 +13,5 @@ public enum AlertState {
 	 * messages Down => the sensor is breakdown they did'nt work correctly Over =>
 	 * all sensors are breakdown or they have a great problem in building
 	 */
-	NORMAL, ALERT, DOWN, OVER, DELETED
+	NORMAL, ALERT, DOWN, OVER, DELETED, CONFIGURED
 }

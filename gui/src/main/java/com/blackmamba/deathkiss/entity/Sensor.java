@@ -221,7 +221,7 @@ public class Sensor {
 	/**
 	 * @return the configured
 	 */
-	public boolean isConfigured() {
+	public boolean getConfigured() {
 		return configured;
 	}
 
