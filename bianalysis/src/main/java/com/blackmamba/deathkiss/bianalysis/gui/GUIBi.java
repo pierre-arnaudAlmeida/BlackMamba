@@ -45,6 +45,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JTabbedPane;
 import java.awt.Color;
+import javax.swing.JTextPane;
 
 /**
  * 
@@ -104,12 +105,11 @@ public class GUIBi extends JFrame {
 	private JPanel panel_1;
 	private JPanel panel_2;
 	private JLabel lblNumberOfCommon;
-	private JTextField textField;
+	private JTextField tfNbCommonArea;
 	private JTextField tfSensor;
 	private JTextField tfAlert;
 	private JTextField textField_1;
 	private JTextField textField_2;
-	private JTextField textField_3;
 
 	//////////////////////////////////////////////////////////////////////
 	/**
@@ -144,6 +144,8 @@ public class GUIBi extends JFrame {
 		GetAllSensor();
 		GetAllSensorHistorical();
 //		getAllCommonArea();
+		getNumberDownOverSensor() ;
+		GetNumberAlertReceived();
 		getAllMessage();
 		GetNumberCommonArea();
 		initComponents();
@@ -177,6 +179,8 @@ public class GUIBi extends JFrame {
 		Object[] monObj1 = returnNumberMessage();
 
 		Object[] monObj = returns();
+
+//		Object[] monObj3 = getNumberDownOverSensor();
 
 ///////////////////////////////////////////////////
 		// List
@@ -251,27 +255,34 @@ public class GUIBi extends JFrame {
 		JLabel lblNombreDalertes = new JLabel("Total Alerts received");
 		lblNombreDalertes.setBounds(594, 492, 112, 22);
 		panel.add(lblNombreDalertes);
+		
 		tfAlertesReceived = new JTextField();
 		tfAlertesReceived.setBounds(612, 428, 69, 55);
-		tfAlertesReceived.setText(String.valueOf(nbTotalAlert));
+		String numberAlertReceived = GetNumberAlertReceived();
+		tfAlertesReceived.setText(numberAlertReceived.toString().replaceAll("\"", ""));
+//		tfAlertesReceived.setText(String.valueOf(nbTotalAlert));
 		tfAlertesReceived.setColumns(10);
 		panel.add(tfAlertesReceived);
 
 		JLabel lblNombreDePannes = new JLabel("Total DOWN");
 		lblNombreDePannes.setBounds(535, 268, 89, 16);
 		panel.add(lblNombreDePannes);
-
+		
+		
+		Object[] monObj4 = getNumberDownOverSensor();
 		tfDown = new JTextField();
 		tfDown.setBackground(Color.ORANGE);
 		tfDown.setBounds(525, 203, 97, 55);
-		tfDown.setText(monObj1[2].toString());
+//		tfDown.setText(monObj1[2].toString());
+		tfDown.setText(monObj4[0].toString());
 		tfDown.setColumns(10);
 		panel.add(tfDown);
 
 		tfNbOver = new JTextField();
 		tfNbOver.setBackground(Color.RED);
 		tfNbOver.setBounds(663, 203, 97, 55);
-		tfNbOver.setText(monObj1[3].toString());
+//		tfNbOver.setText(monObj1[3].toString());
+		tfNbOver.setText(monObj4[1].toString());
 		tfNbOver.setColumns(10);
 		panel.add(tfNbOver);
 
@@ -316,13 +327,13 @@ public class GUIBi extends JFrame {
 		lblNumberOfCommon = new JLabel("number of common area");
 		lblNumberOfCommon.setBounds(10, 33, 123, 28);
 		panel.add(lblNumberOfCommon);
-		
+
 		String numberCommonArea = GetNumberCommonArea();
-		textField = new JTextField();
-		textField.setBounds(20, 72, 112, 55);
-		textField.setText(numberCommonArea.toString().replaceAll("\"","" ));
-		panel.add(textField);
-		textField.setColumns(10);
+		tfNbCommonArea = new JTextField();
+		tfNbCommonArea.setBounds(20, 56, 112, 55);
+		tfNbCommonArea.setText(numberCommonArea.toString().replaceAll("\"", ""));
+		panel.add(tfNbCommonArea);
+		tfNbCommonArea.setColumns(10);
 
 		Object[] monObj2 = returnNbSensorType();
 		textField_1 = new JTextField();
@@ -337,11 +348,14 @@ public class GUIBi extends JFrame {
 		panel.add(textField_2);
 		textField_2.setColumns(10);
 
-		textField_3 = new JTextField();
-		textField_3.setBounds(0, 184, 69, 54);
-		textField_3.setText(listNumberCommonAreas.toString());
-		panel.add(textField_3);
-		textField_3.setColumns(10);
+		JLabel lblNbSensorMaj = new JLabel("Total UPDATE SENSORS");
+		lblNbSensorMaj.setBounds(20, 195, 123, 28);
+		panel.add(lblNbSensorMaj);
+		
+
+		JTextField tfNbSensorMaj = new JTextField();
+		tfNbSensorMaj.setBounds(21, 137, 112, 55);
+		panel.add(tfNbSensorMaj);
 
 		panel_1 = new JPanel();
 		tabbedPane.addTab("Alert", null, panel_1, null);
@@ -683,8 +697,40 @@ public class GUIBi extends JFrame {
 	}
 
 	///////////////////////////////////////
-	// number of CommonArea
-	private  String GetNumberCommonArea() {
+	// Method of calculating the number of DOWN Sensors and OVER Sensors for a
+	/////////////////////////////////////// graphic visualization
+	private Object[] getNumberDownOverSensor() {
+		String s2 = "";
+		String s3 = "";
+		requestType = "COUNT";
+		table = "Message";
+		objectMapper = new ObjectMapper();
+		try {
+			jsonString = "COUNT";
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			System.out.println(jsonString);
+			
+			String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
+			s2 = jsonString_list[0];
+			s3 = jsonString_list[1];
+			System.out.println("resultat Down" + s2);
+			System.out.println("resultat Over" + s3);
+
+//			jsonString.toString();
+//			System.out.println(jsonString.replaceAll("\"","" ));
+//			Object[] msg = objectMapper.readValue(jsonString, Object[].class);
+
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
+		}
+		return new Object[] { s2,s3 };
+	}
+
+///////////////////////////////////////////
+	///////////////////////////////////////
+	// Method of calculating the number of CommonArea
+	private String GetNumberCommonArea() {
 
 		requestType = "COUNT";
 		table = "CommonArea";
@@ -695,15 +741,15 @@ public class GUIBi extends JFrame {
 			jsonString = ClientSocket.getJson();
 			System.out.println(jsonString);
 			jsonString.toString();
-			System.out.println(jsonString.replaceAll("\"","" ));
+			System.out.println(jsonString.replaceAll("\"", ""));
 			String msg = objectMapper.readValue(jsonString, String.class);
-			textField.setText(msg.toString().replaceAll("\"","" ));
+			tfNbCommonArea.setText(msg.toString().replaceAll("\"", ""));
 
 		} catch (Exception e1) {
 			logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
 		}
 		return jsonString;
-		
+
 	}
 
 ///////////////////////////////////////////
@@ -890,6 +936,34 @@ public class GUIBi extends JFrame {
 		return String.valueOf(numberAlerts);
 
 	}
+
+///////////////////////////////////////////
+///////////////////////////////////////
+// Method of calculating of number Alert Received
+	private String GetNumberAlertReceived() {
+
+		requestType = "COUNT";
+		table = "SensorHistorical";
+		objectMapper = new ObjectMapper();
+		try {
+			jsonString = "COUNT";
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			System.out.println(jsonString);
+			jsonString.toString();
+//			System.out.println(jsonString.replaceAll("\"", ""));
+//			String msg = objectMapper.readValue(jsonString, String.class);
+//			textField.setText(msg.toString().replaceAll("\"", ""));
+
+		} catch (Exception e1) {
+			logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
+		}
+
+		return jsonString;
+	}
+
+///////////////////////////////////////////
+
 }
 
 ///////////////
