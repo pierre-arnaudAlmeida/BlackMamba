@@ -90,7 +90,6 @@ public class Server {
 								new RequestHandler(client, connectionGived, monitoringAlert));
 						threadRequestHandler.start();
 						DataSource.returnConnection(pool, connectionGived);
-
 					} catch (IOException | SQLException e) {
 					}
 				}

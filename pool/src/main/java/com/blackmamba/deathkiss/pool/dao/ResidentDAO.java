@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.blackmamba.deathkiss.pool.entity.Resident;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -50,7 +51,8 @@ public class ResidentDAO extends DAO<Resident> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			resid = objectMapper.readValue(jsonString, Resident.class);
-			prepareStatement = con.prepareStatement("INSERT INTO resident (nom_resident, prenom_resident) values (?,?)");
+			prepareStatement = con
+					.prepareStatement("INSERT INTO resident (nom_resident, prenom_resident) values (?,?)");
 			prepareStatement.setString(1, resid.getLastnameResident());
 			prepareStatement.setString(2, resid.getNameResident());
 			result = prepareStatement.execute();
@@ -92,7 +94,8 @@ public class ResidentDAO extends DAO<Resident> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			resid = objectMapper.readValue(jsonString, Resident.class);
-			prepareStatement = con.prepareStatement("UPDATE resident SET nom_resident = ?, prenom_resident = ? where id_resident = ?");
+			prepareStatement = con.prepareStatement(
+					"UPDATE resident SET nom_resident = ?, prenom_resident = ? where id_resident = ?");
 			prepareStatement.setString(1, resid.getLastnameResident());
 			prepareStatement.setString(2, resid.getNameResident());
 			prepareStatement.setInt(3, resid.getIdResident());
@@ -168,7 +171,8 @@ public class ResidentDAO extends DAO<Resident> {
 		List<Resident> listResident = new ArrayList<>();
 		try {
 			resid = objectMapper.readValue(jsonString, Resident.class);
-			prepareStatement = con.prepareStatement("SELECT id_resident,nom_resident, prenom_resident FROM resident where ((nom_resident LIKE ?) or (prenom_resident LIKE ?) or (prenom_resident LIKE ?))");
+			prepareStatement = con.prepareStatement(
+					"SELECT id_resident,nom_resident, prenom_resident FROM resident where ((nom_resident LIKE ?) or (prenom_resident LIKE ?) or (prenom_resident LIKE ?))");
 			prepareStatement.setString(1, "%" + resid.getLastnameResident().toUpperCase() + "%");
 			prepareStatement.setString(2, "%" + resid.getLastnameResident().toLowerCase() + "%");
 			prepareStatement.setString(3, "%" + resid.getLastnameResident().toUpperCase() + "%");
@@ -212,6 +216,33 @@ public class ResidentDAO extends DAO<Resident> {
 			logger.log(Level.WARN, "Impossible to insert resident datas in BDD" + e.getClass().getCanonicalName());
 		}
 		return result;
+	}
+
+	/**
+	 * Execute the request send by the BIAlalysis GUI
+	 * 
+	 * @return
+	 */
+	public String count(String str) {
+		int i = 1;
+		ObjectMapper objWriter = new ObjectMapper();
+		String jsonString = "";
+		try {
+			st = con.createStatement();
+			result = st.executeQuery(str);
+			result.next();
+			while (result.getObject(i) != null) {
+				if (i == 1)
+					jsonString = result.getObject(i).toString();
+				else
+					jsonString = jsonString + "," + result.getObject(i).toString();
+				i++;
+			}
+			jsonString = objWriter.writeValueAsString(jsonString);
+		} catch (SQLException | JsonProcessingException e) {
+			logger.log(Level.DEBUG, "Impossible to get Sensor datas from BDD " + e.getClass().getCanonicalName());
+		}
+		return jsonString;
 	}
 
 	/**

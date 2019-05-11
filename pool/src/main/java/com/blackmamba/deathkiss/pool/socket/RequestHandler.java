@@ -89,7 +89,7 @@ public class RequestHandler implements Runnable {
 						jsonNode = objectMapper.readTree(response);
 						switch (jsonNode.get("request").asText()) {
 						case "COUNT":
-							response = "OK FOR REQUEST FIND ALL";
+							response = "OK FOR REQUEST COUNT";
 							writer.println(response);
 							logger.log(Level.DEBUG, "Request Type accepted by server");
 							response = reader.readLine();
@@ -97,7 +97,7 @@ public class RequestHandler implements Runnable {
 							case "CommonArea":
 								if (!response.equals("")) {
 									DAO<CommonArea> commonAreaDao = new CommonAreaDAO(connection);
-									jsonString = ((CommonAreaDAO) commonAreaDao).countCommonArea();
+									jsonString = ((CommonAreaDAO) commonAreaDao).count(response);
 									writer.println(jsonString);
 									logger.log(Level.DEBUG, "Response send to client");
 								} else {
@@ -107,7 +107,7 @@ public class RequestHandler implements Runnable {
 							case "SensorHistorical":
 								if (!response.equals("")) {
 									DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(connection);
-									jsonString = ((SensorHistoricalDAO) sensorHistoricalDao).countSensorHistorical();
+									jsonString = ((SensorHistoricalDAO) sensorHistoricalDao).count(response);
 									writer.println(jsonString);
 									logger.log(Level.DEBUG, "Response send to client");
 								} else {
@@ -117,7 +117,7 @@ public class RequestHandler implements Runnable {
 							case "Message":
 								if (!response.equals("")) {
 									DAO<Message> messageDao = new MessageDAO(connection);
-									jsonString = ((MessageDAO) messageDao).countMessage();
+									jsonString = ((MessageDAO) messageDao).count(response);
 									writer.println(jsonString);
 									logger.log(Level.DEBUG, "Response send to client");
 								} else {
@@ -127,71 +127,7 @@ public class RequestHandler implements Runnable {
 							case "Sensor":
 								if (!response.equals("")) {
 									DAO<Sensor> sensorDao = new SensorDAO(connection);
-									jsonString = ((SensorDAO) sensorDao).usedNotUsedSensor();
-									writer.println(jsonString);
-									logger.log(Level.DEBUG, "Response send to client");
-								} else {
-									logger.log(Level.WARN, "Request not recognized");
-								}
-								break;
-							}
-							break;
-						case "COUNT OTHER":
-							switch (jsonNode.get("table").asText()) {
-							case "Sensor":
-								if (!response.equals("")) {
-									DAO<Sensor> sensorDao = new SensorDAO(connection);
-									jsonString = ((SensorDAO) sensorDao).usedNotUsedSensorType();
-									writer.println(jsonString);
-									logger.log(Level.DEBUG, "Response send to client");
-								} else {
-									logger.log(Level.WARN, "Request not recognized");
-								}
-								break;
-							case "SensorHistorical":
-								if (!response.equals("")) {
-									DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(connection);
-									jsonString = ((SensorHistoricalDAO) sensorHistoricalDao)
-											.countUpdateSensorHistorical();
-									writer.println(jsonString);
-									logger.log(Level.DEBUG, "Response send to client");
-								} else {
-									logger.log(Level.WARN, "Request not recognized");
-								}
-								break;
-							}
-							break;
-						case "COUNTING":
-							switch (jsonNode.get("table").asText()) {
-							case "Sensor":
-								if (!response.equals("")) {
-									DAO<Sensor> sensorDao = new SensorDAO(connection);
-									jsonString = ((SensorDAO) sensorDao).activePassiveSensor();
-									writer.println(jsonString);
-									logger.log(Level.DEBUG, "Response send to client");
-								} else {
-									logger.log(Level.WARN, "Request not recognized");
-								}
-								break;
-							case "SensorHistorical":
-								if (!response.equals("")) {
-									DAO<SensorHistorical> sensorHistoricalDao = new SensorHistoricalDAO(connection);
-									jsonString = ((SensorHistoricalDAO) sensorHistoricalDao)
-											.countAllStateSensorHistorical();
-									writer.println(jsonString);
-									logger.log(Level.DEBUG, "Response send to client");
-								} else {
-									logger.log(Level.WARN, "Request not recognized");
-								}
-								break;
-							}
-							break;
-						case "COUNTING OTHER":
-							switch (jsonNode.get("table").asText()) {
-							case "Sensor":
-								if (!response.equals("")) {
-									DAO<Sensor> sensorDao = new SensorDAO(connection);
-									jsonString = ((SensorDAO) sensorDao).countSensorPerFloor();
+									jsonString = ((SensorDAO) sensorDao).count(response);
 									writer.println(jsonString);
 									logger.log(Level.DEBUG, "Response send to client");
 								} else {

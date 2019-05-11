@@ -242,85 +242,28 @@ public class SensorDAO extends DAO<Sensor> {
 	}
 
 	/**
-	 * Count the number of sensor Used/Not Used
+	 * Execute the request send by the BIAlalysis GUI
 	 * 
 	 * @return
 	 */
-	public String usedNotUsedSensor() {
+	public String count(String str) {
+		int i = 1;
 		ObjectMapper objWriter = new ObjectMapper();
 		String jsonString = "";
 		try {
-			request = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor,sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur";
 			st = con.createStatement();
-			result = st.executeQuery(request);
+			result = st.executeQuery(str);
 			result.next();
-			jsonString = result.getInt(1) + "," + result.getInt(2);
+			while (result.getObject(i) != null) {
+				if (i == 1)
+					jsonString = result.getObject(i).toString();
+				else
+					jsonString = jsonString + "," + result.getObject(i).toString();
+				i++;
+			}
 			jsonString = objWriter.writeValueAsString(jsonString);
 		} catch (SQLException | JsonProcessingException e) {
-			logger.log(Level.WARN, "Impossible to get Sensor datas from BDD " + e.getClass().getCanonicalName());
-		}
-		return jsonString;
-	}
-
-	/**
-	 * Count the number of sensor Active/Passive Used
-	 * 
-	 * @return
-	 */
-	public String activePassiveSensor() {
-		ObjectMapper objWriter = new ObjectMapper();
-		String jsonString = "";
-		try {
-			request = "SELECT sum(case when etat = 'ON' then 1 else 0 end ) As nbActiveSensor,sum(case when etat = 'OFF' then 1 else 0 end ) As nbPassiveSensor FROM capteur";
-			st = con.createStatement();
-			result = st.executeQuery(request);
-			result.next();
-			jsonString = result.getInt(1) + "," + result.getInt(2);
-			jsonString = objWriter.writeValueAsString(jsonString);
-		} catch (SQLException | JsonProcessingException e) {
-			logger.log(Level.WARN, "Impossible to get Sensor datas from BDD " + e.getClass().getCanonicalName());
-		}
-		return jsonString;
-	}
-
-	/**
-	 * Count the number of sensor Used/Not Used for each sensor type
-	 * 
-	 * @return
-	 */
-	public String usedNotUsedSensorType() {
-		ObjectMapper objWriter = new ObjectMapper();
-		String jsonString = "";
-		try {
-			request = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor,sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur WHERE ( type_capteur = ' ')";
-			st = con.createStatement();
-			result = st.executeQuery(request);
-			result.next();
-			jsonString = result.getInt(1) + "," + result.getInt(2);
-			jsonString = objWriter.writeValueAsString(jsonString);
-		} catch (SQLException | JsonProcessingException e) {
-			logger.log(Level.WARN, "Impossible to get Sensor datas from BDD " + e.getClass().getCanonicalName());
-		}
-		return jsonString;
-	}
-
-	/**
-	 * Count the number of sensor per floor
-	 * 
-	 * @return
-	 */
-	public String countSensorPerFloor() {
-		ObjectMapper objWriter = new ObjectMapper();
-		String jsonString = "";
-		try {
-			request = "SELECT sum(case when ( id_partie_commune = 1 AND id_capteur != 0) then 1 else 0 end ) As nbSensorEtage1,sum(case when ( id_partie_commune = 0 AND id_capteur != 0) then 1 else 0 end ) As nbSensorRC FROM capteur";
-			st = con.createStatement();
-			result = st.executeQuery(request);
-			result.next();
-			jsonString = result.getInt(1) + "," + result.getInt(2);
-			jsonString = objWriter.writeValueAsString(jsonString);
-		} catch (SQLException | JsonProcessingException e) {
-			logger.log(Level.WARN, "Impossible to get Sensor datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.DEBUG, "Impossible to get Sensor datas from BDD " + e.getClass().getCanonicalName());
 		}
 		return jsonString;
 	}

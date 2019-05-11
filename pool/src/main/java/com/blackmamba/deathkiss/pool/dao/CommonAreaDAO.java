@@ -202,22 +202,28 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 	}
 
 	/**
-	 * Count the number of lines in the table 'partie_commune'
+	 * Execute the request send by the BIAlalysis GUI
 	 * 
 	 * @return
 	 */
-	public String countCommonArea() {
+	public String count(String str) {
+		int i = 1;
 		ObjectMapper objWriter = new ObjectMapper();
 		String jsonString = "";
 		try {
-			request = "SELECT COUNT(*) FROM partie_commune";
 			st = con.createStatement();
-			result = st.executeQuery(request);
+			result = st.executeQuery(str);
 			result.next();
-			jsonString = result.getObject(1).toString();
+			while (result.getObject(i) != null) {
+				if (i == 1)
+					jsonString = result.getObject(i).toString();
+				else
+					jsonString = jsonString + "," + result.getObject(i).toString();
+				i++;
+			}
 			jsonString = objWriter.writeValueAsString(jsonString);
 		} catch (SQLException | JsonProcessingException e) {
-			logger.log(Level.WARN, "Impossible to get commonArea datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.DEBUG, "Impossible to get Sensor datas from BDD " + e.getClass().getCanonicalName());
 		}
 		return jsonString;
 	}

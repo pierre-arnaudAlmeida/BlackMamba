@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.blackmamba.deathkiss.pool.entity.Employee;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -52,7 +53,8 @@ public class EmployeeDAO extends DAO<Employee> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			emp = objectMapper.readValue(jsonString, Employee.class);
-			prepareStatement = con.prepareStatement("INSERT INTO employee (nom_employee, prenom_employee, mot_de_passe, poste) values (?,?,?,?)");
+			prepareStatement = con.prepareStatement(
+					"INSERT INTO employee (nom_employee, prenom_employee, mot_de_passe, poste) values (?,?,?,?)");
 			prepareStatement.setString(1, emp.getLastnameEmployee());
 			prepareStatement.setString(2, emp.getNameEmployee());
 			prepareStatement.setString(3, emp.getPassword());
@@ -96,7 +98,8 @@ public class EmployeeDAO extends DAO<Employee> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			emp = objectMapper.readValue(jsonString, Employee.class);
-			prepareStatement = con.prepareStatement("UPDATE employee SET prenom_employee = ?, nom_employee = ?,poste = ?,mot_de_passe = ? where id_employee = ?");
+			prepareStatement = con.prepareStatement(
+					"UPDATE employee SET prenom_employee = ?, nom_employee = ?,poste = ?,mot_de_passe = ? where id_employee = ?");
 			prepareStatement.setString(1, emp.getNameEmployee());
 			prepareStatement.setString(2, emp.getLastnameEmployee());
 			prepareStatement.setString(3, emp.getFunction());
@@ -123,7 +126,8 @@ public class EmployeeDAO extends DAO<Employee> {
 		try {
 			emp = objectMapper.readValue(jsonString, Employee.class);
 			System.out.println(jsonString);
-			prepareStatement = con.prepareStatement("SELECT id_employee,nom_employee, prenom_employee, mot_de_passe, poste FROM Employee where id_employee= ? and mot_de_passe= ?");
+			prepareStatement = con.prepareStatement(
+					"SELECT id_employee,nom_employee, prenom_employee, mot_de_passe, poste FROM Employee where id_employee= ? and mot_de_passe= ?");
 			prepareStatement.setInt(1, emp.getIdEmployee());
 			prepareStatement.setString(2, emp.getPassword());
 			System.out.println(prepareStatement);
@@ -204,7 +208,8 @@ public class EmployeeDAO extends DAO<Employee> {
 		List<Employee> listEmployee = new ArrayList<>();
 		try {
 			emp = objectMapper.readValue(jsonString, Employee.class);
-			prepareStatement = con.prepareStatement("SELECT id_employee,nom_employee, prenom_employee, mot_de_passe, poste FROM employee where ((nom_employee LIKE ?) or (prenom_employee LIKE ?) or (prenom_employee LIKE ?) or (poste LIKE ?) or (poste LIKE ?));");
+			prepareStatement = con.prepareStatement(
+					"SELECT id_employee,nom_employee, prenom_employee, mot_de_passe, poste FROM employee where ((nom_employee LIKE ?) or (prenom_employee LIKE ?) or (prenom_employee LIKE ?) or (poste LIKE ?) or (poste LIKE ?));");
 			prepareStatement.setString(1, "%" + emp.getLastnameEmployee().toUpperCase() + "%");
 			prepareStatement.setString(2, "%" + emp.getLastnameEmployee().toLowerCase() + "%");
 			prepareStatement.setString(3, "%" + emp.getLastnameEmployee().toUpperCase() + "%");
@@ -220,6 +225,33 @@ public class EmployeeDAO extends DAO<Employee> {
 		} catch (SQLException | IOException e) {
 			logger.log(Level.WARN, "Impossible to get employee datas from BDD " + e.getClass().getCanonicalName());
 			jsonString = "ERROR";
+		}
+		return jsonString;
+	}
+
+	/**
+	 * Execute the request send by the BIAlalysis GUI
+	 * 
+	 * @return
+	 */
+	public String count(String str) {
+		int i = 1;
+		ObjectMapper objWriter = new ObjectMapper();
+		String jsonString = "";
+		try {
+			st = con.createStatement();
+			result = st.executeQuery(str);
+			result.next();
+			while (result.getObject(i) != null) {
+				if (i == 1)
+					jsonString = result.getObject(i).toString();
+				else
+					jsonString = jsonString + "," + result.getObject(i).toString();
+				i++;
+			}
+			jsonString = objWriter.writeValueAsString(jsonString);
+		} catch (SQLException | JsonProcessingException e) {
+			logger.log(Level.DEBUG, "Impossible to get Sensor datas from BDD " + e.getClass().getCanonicalName());
 		}
 		return jsonString;
 	}

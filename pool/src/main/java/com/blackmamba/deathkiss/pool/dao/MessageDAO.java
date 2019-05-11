@@ -160,22 +160,28 @@ public class MessageDAO extends DAO<Message> {
 	}
 
 	/**
-	 * Count the number of sensor down and the number of sensor over
+	 * Execute the request send by the BIAlalysis GUI
 	 * 
 	 * @return
 	 */
-	public String countMessage() {
+	public String count(String str) {
+		int i = 1;
 		ObjectMapper objWriter = new ObjectMapper();
 		String jsonString = "";
 		try {
-			request = "SELECT sum(case when seuil = '0' AND (id_capteur !=0 AND id_capteur != 9999) then 1 else 0 end ) As nbSensorDown, sum(case when seuil = '0' AND (id_capteur !=0 AND id_capteur = 9999) then 1 else 0 end ) As nbSensorOver FROM message";
 			st = con.createStatement();
-			result = st.executeQuery(request);
+			result = st.executeQuery(str);
 			result.next();
-			jsonString = result.getInt(1) + "," + result.getInt(2);
+			while (result.getObject(i) != null) {
+				if (i == 1)
+					jsonString = result.getObject(i).toString();
+				else
+					jsonString = jsonString + "," + result.getObject(i).toString();
+				i++;
+			}
 			jsonString = objWriter.writeValueAsString(jsonString);
 		} catch (SQLException | JsonProcessingException e) {
-			logger.log(Level.WARN, "Impossible to get Message datas from BDD " + e.getClass().getCanonicalName());
+			logger.log(Level.DEBUG, "Impossible to get Sensor datas from BDD " + e.getClass().getCanonicalName());
 		}
 		return jsonString;
 	}
