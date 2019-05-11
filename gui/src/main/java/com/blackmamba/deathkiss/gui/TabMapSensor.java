@@ -7,8 +7,10 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -107,7 +109,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private List<Alert> listAlert = new ArrayList<Alert>();
 	private List<String> listNameRectangle = new ArrayList<String>();
-	private Hashtable<Integer, String> listRectangleCommonArea = new Hashtable<Integer, String>();
+	private Map<Integer, String> listRectangleCommonArea = new HashMap<Integer, String>();
 
 	private ResourceBundle rsParameters = ResourceBundle.getBundle("parameters");
 	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
@@ -467,6 +469,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		elevatorE1B = new Rectangle(x1 + 248, y1 + 290, 52, 29);
 		
 		
+		listNameRectangle.add("salon");
 		listNameRectangle.add("entrancehall");
 		listNameRectangle.add("kitchene0");
 		listNameRectangle.add("dinningroome0");
@@ -572,6 +575,15 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		// recovering the position of the mouse
 		p = e.getPoint();
 	}
+	
+	/**
+	 * Mouse Entered
+	 */
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		p = e.getPoint();
+	}
+
 
 	//TODO RK
 	// Récupére toute partie commune  check
@@ -583,12 +595,12 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	//alors on ajoute dans une liste d'object ou tableau bidimentionnel, le nom du rectangle et l'id de la partie commune
 	
 	
-	public void afficheRectangle(Hashtable<String, Integer> listRectangleCommonArea) {
+	public void afficheRectangle() {
 		updateListAreas();
 		for (int i = 0; i<listNameRectangle.size(); i++) {
 			for(CommonArea areas : listCommonArea) {
 				if (areas.getNameCommonArea().toLowerCase().trim().equals(listNameRectangle.get(i)) ) {
-//					listRectangleCommonArea.get(i).put(areas.getIdCommonArea(), listNameRectangle.get(i));
+					listRectangleCommonArea.put(areas.getIdCommonArea(), listNameRectangle.get(i));
 				}
 			}
 		}
@@ -740,14 +752,14 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	 * 
 	 * @return
 	 */
-	public Hashtable<Integer, String> getListRectangleCommonArea() {
+	public Map<Integer, String> getListRectangleCommonArea() {
 		return listRectangleCommonArea;
 	}
 	/**
 	 * 
 	 * @param listRectangleCommonArea
 	 */
-	public void setListRectangleCommonArea(Hashtable<Integer, String> listRectangleCommonArea) {
+	public void setListRectangleCommonArea(Map<Integer, String> listRectangleCommonArea) {
 		this.listRectangleCommonArea = listRectangleCommonArea;
 	}
 
@@ -779,13 +791,6 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
-	}
-
-	/**
-	 * Mouse Entered
-	 */
-	@Override
-	public void mouseEntered(MouseEvent e) {
 	}
 
 	/**
