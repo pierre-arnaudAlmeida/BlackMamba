@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
@@ -105,7 +106,8 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	private List<Sensor> listSearchSensor = new ArrayList<Sensor>();
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private List<Alert> listAlert = new ArrayList<Alert>();
-	private List<SurfacePolygon> surfacePolygon = new ArrayList<SurfacePolygon>();
+	private List<String> listNameRectangle = new ArrayList<String>();
+	private Hashtable<Integer, String> listRectangleCommonArea = new Hashtable<Integer, String>();
 
 	private ResourceBundle rsParameters = ResourceBundle.getBundle("parameters");
 	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
@@ -122,34 +124,34 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	private static Rectangle dinningRoomE0;
 	private static Rectangle staffRoomE0;
 	private static Rectangle relaxationRoomE0;
-	private static Rectangle corridorE0_D;
-	private static Rectangle corridorE0_C;
-	private static Rectangle corridorE0_E;
+	private static Rectangle corridorE0D;
+	private static Rectangle corridorE0C;
+	private static Rectangle corridorE0E;
 	private static Rectangle infirmaryE0;
-	private static Rectangle corridorE0_A;
-	private static Rectangle corridorE0_B;
+	private static Rectangle corridorE0A;
+	private static Rectangle corridorE0B;
 	private static Rectangle sittingRoomE0;
 	private static Rectangle livingRoomE0;
 	private static Rectangle entranceHall;
-	private static Rectangle elevatorE0_A;
-	private static Rectangle elevatorE0_B;
+	private static Rectangle elevatorE0A;
+	private static Rectangle elevatorE0B;
 
 	private static Rectangle sittingRoomE1;
 	private static Rectangle dinningroomE1;
 	private static Rectangle kitchenE1;
-	private static Rectangle corridorE1_A;
-	private static Rectangle corridorE1_B;
-	private static Rectangle corridorE1_C;
-	private static Rectangle corridorE1_D;
-	private static Rectangle corridorE1_E;
-	private static Rectangle corridorE1_F;
+	private static Rectangle corridorE1A;
+	private static Rectangle corridorE1B;
+	private static Rectangle corridorE1C;
+	private static Rectangle corridorE1D;
+	private static Rectangle corridorE1E;
+	private static Rectangle corridorE1F;
 	private static Rectangle relaxationRoomE1;
-	private static Rectangle livingRoomE1_A;
+	private static Rectangle livingRoomE1A;
 	private static Rectangle staffRoomE1;
-	private static Rectangle livingRoomE1_B;
+	private static Rectangle livingRoomE1B;
 	private static Rectangle infirmaryE1;
-	private static Rectangle elevatorE1_A;
-	private static Rectangle elevatorE1_B;
+	private static Rectangle elevatorE1A;
+	private static Rectangle elevatorE1B;
 
 	/**
 	 * Constructor
@@ -432,45 +434,70 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		y1 = (int) getToolkit().getScreenSize().getHeight() * 3 / 20 + 3;
 
 		entranceHall = new Rectangle(x0 + 720, y0 + 85, 176, 407);
-		//TODO RK
-		// Récupére toute partie commune
-		//faire une liste de toutes les nom des rectangles en les inserant deja en lowercase
-		//boucle inbriquer
-		//premiere boucle sur la list avec les noms des rectangles
-		// Fais boucle sur la liste partie commune
-		// Dedans faire if et compare commonArea.getName().lowercas.suppEspace.equals(lisNom[i])
-		//alors on ajoute dans une liste d'object ou tableau bidimentionnel, le nom du rectangle et l'id de la partie commune
 		kitchenE0 = new Rectangle(x0, y0 + 119, 147, 66);
 		dinningRoomE0 = new Rectangle(x0, y0 + 187, 147, 202);
 		staffRoomE0 = new Rectangle(x0, y0 + 391, 147, 64);
 		relaxationRoomE0 = new Rectangle(x0 + 143, y0, 430, 83);
 		infirmaryE0 = new Rectangle(x0 + 147, y0 + 492, 428, 84);
-		corridorE0_A = new Rectangle(x0 + 216, y0 + 203, 502, 43);
-		corridorE0_B = new Rectangle(x0 + 216, y0 + 324, 502, 46);
-		corridorE0_C = new Rectangle(x0 + 149, y0 + 120, 64, 334);
-		corridorE0_D = new Rectangle(x0, y0 + 85, 718, 33);
-		corridorE0_E = new Rectangle(x0, y0 + 456, 718, 35);
+		corridorE0A = new Rectangle(x0 + 216, y0 + 203, 502, 43);
+		corridorE0B = new Rectangle(x0 + 216, y0 + 324, 502, 46);
+		corridorE0C = new Rectangle(x0 + 149, y0 + 120, 64, 334);
+		corridorE0D = new Rectangle(x0, y0 + 85, 718, 33);
+		corridorE0E = new Rectangle(x0, y0 + 456, 718, 35);
 		sittingRoomE0 = new Rectangle(x0 + 505, y0 + 120, 213, 80);
 		livingRoomE0 = new Rectangle(x0 + 505, y0 + 373, 213, 81);
-		elevatorE0_A = new Rectangle(x0 + 216, y0 + 246, 48, 29);
-		elevatorE0_B = new Rectangle(x0 + 216, y0 + 295, 48, 27);
+		elevatorE0A = new Rectangle(x0 + 216, y0 + 246, 48, 29);
+		elevatorE0B = new Rectangle(x0 + 216, y0 + 295, 48, 27);
 
 		sittingRoomE1 = new Rectangle(x1, y1, 168, 116);
 		dinningroomE1 = new Rectangle(x1, y1 + 202, 168, 164);
 		kitchenE1 = new Rectangle(x1, y1 + 451, 168, 125);
-		corridorE1_A = new Rectangle(x1 + 170, y1 + 82, 721, 34);
-		corridorE1_B = new Rectangle(x1 + 248, y1 + 202, 578, 39);
-		corridorE1_C = new Rectangle(x1 + 248, y1 + 321, 578, 45);
-		corridorE1_D = new Rectangle(x1 + 170, y1 + 451, 721, 39);
-		corridorE1_E = new Rectangle(x1 + 172, y1 + 118, 74, 332);
-		corridorE1_F = new Rectangle(x1 + 829, y1 + 118, 62, 330);
+		corridorE1A = new Rectangle(x1 + 170, y1 + 82, 721, 34);
+		corridorE1B = new Rectangle(x1 + 248, y1 + 202, 578, 39);
+		corridorE1C = new Rectangle(x1 + 248, y1 + 321, 578, 45);
+		corridorE1D = new Rectangle(x1 + 170, y1 + 451, 721, 39);
+		corridorE1E = new Rectangle(x1 + 172, y1 + 118, 74, 332);
+		corridorE1F = new Rectangle(x1 + 829, y1 + 118, 62, 330);
 		relaxationRoomE1 = new Rectangle(x1 + 337, y1, 389, 80);
-		livingRoomE1_A = new Rectangle(x1 + 414, y1 + 118, 247, 82);
+		livingRoomE1A = new Rectangle(x1 + 414, y1 + 118, 247, 82);
 		staffRoomE1 = new Rectangle(x1 + 639, y1 + 243, 188, 76);
-		livingRoomE1_B = new Rectangle(x1 + 413, y1 + 368, 248, 81);
+		livingRoomE1B = new Rectangle(x1 + 413, y1 + 368, 248, 81);
 		infirmaryE1 = new Rectangle(x1 + 337, y1 + 492, 389, 84);
-		elevatorE1_A = new Rectangle(x1 + 248, y1 + 244, 52, 28);
-		elevatorE1_B = new Rectangle(x1 + 248, y1 + 290, 52, 29);
+		elevatorE1A = new Rectangle(x1 + 248, y1 + 244, 52, 28);
+		elevatorE1B = new Rectangle(x1 + 248, y1 + 290, 52, 29);
+		
+		
+		listNameRectangle.add("entrancehall");
+		listNameRectangle.add("kitchene0");
+		listNameRectangle.add("dinningroome0");
+		listNameRectangle.add("staffroome0");
+		listNameRectangle.add("relaxationroome0");
+		listNameRectangle.add("infirmarye0");
+		listNameRectangle.add("corridore0a");
+		listNameRectangle.add("corridore0b");
+		listNameRectangle.add("corridore0c");
+		listNameRectangle.add("corridore0d");
+		listNameRectangle.add("corridore0e");
+		listNameRectangle.add("sittingroome0");
+		listNameRectangle.add("livingRoome0");
+		listNameRectangle.add("elevatore0a");
+		listNameRectangle.add("elevatore0b");
+		listNameRectangle.add("sittingroome1");
+		listNameRectangle.add("dinningroome1");
+		listNameRectangle.add("kitchene1");
+		listNameRectangle.add("corridore1a");
+		listNameRectangle.add("corridore1b");
+		listNameRectangle.add("corridore1c");
+		listNameRectangle.add("corridore1d");
+		listNameRectangle.add("corridore1e");
+		listNameRectangle.add("corridore1f");
+		listNameRectangle.add("relaxationroome1");
+		listNameRectangle.add("livingRoome1a");
+		listNameRectangle.add("staffroome1");
+		listNameRectangle.add("livingRoome1b");
+		listNameRectangle.add("infirmarye1");
+		listNameRectangle.add("elevatore1a");
+		listNameRectangle.add("elevatore1b");
 
 //		panel.setLayout(new BorderLayout());
 //		image.setBounds(x0, y0, 900, 580);
@@ -489,40 +516,40 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		g2.drawImage(buffer1, x0, y0, 900, 580, this);
 
 		g2.setColor(Color.GREEN);
+		
 		// Draw rectangle
-
 //		g2.drawRect(kitchenE0.x, kitchenE0.y, kitchenE0.width, kitchenE0.height);
 //		g2.drawRect(dinningRoomE0.x, dinningRoomE0.y, dinningRoomE0.width, dinningRoomE0.height);
 //		g2.drawRect(staffRoomE0.x, staffRoomE0.y, staffRoomE0.width, staffRoomE0.height);
 //		g2.drawRect(relaxationRoomE0.x, relaxationRoomE0.y, relaxationRoomE0.width, relaxationRoomE0.height);
 //		g2.drawRect(infirmaryE0.x, infirmaryE0.y, infirmaryE0.width, infirmaryE0.height);
-//		g2.drawRect(corridorE0_A.x, corridorE0_A.y, corridorE0_A.width, corridorE0_A.height);
-//		g2.drawRect(corridorE0_B.x, corridorE0_B.y, corridorE0_B.width, corridorE0_B.height);
-//		g2.drawRect(corridorE0_C.x, corridorE0_C.y, corridorE0_C.width, corridorE0_C.height);
-//		g2.drawRect(corridorE0_D.x, corridorE0_D.y, corridorE0_D.width, corridorE0_D.height);
-//		g2.drawRect(corridorE0_E.x, corridorE0_E.y, corridorE0_E.width, corridorE0_E.height);
+//		g2.drawRect(corridorE0A.x, corridorE0A.y, corridorE0A.width, corridorE0A.height);
+//		g2.drawRect(corridorE0B.x, corridorE0B.y, corridorE0B.width, corridorE0B.height);
+//		g2.drawRect(corridorE0C.x, corridorE0C.y, corridorE0C.width, corridorE0C.height);
+//		g2.drawRect(corridorE0D.x, corridorE0D.y, corridorE0D.width, corridorE0D.height);
+//		g2.drawRect(corridorE0E.x, corridorE0E.y, corridorE0E.width, corridorE0E.height);
 //		g2.drawRect(sittingRoomE0.x, sittingRoomE0.y, sittingRoomE0.width, sittingRoomE0.height);
 //		g2.drawRect(livingRoomE0.x, livingRoomE0.y, livingRoomE0.width, livingRoomE0.height);
 //		g2.drawRect(entranceHall.x, entranceHall.y, entranceHall.width, entranceHall.height);
-//		g2.drawRect(elevatorE0_A.x, elevatorE0_A.y, elevatorE0_A.width, elevatorE0_A.height);
-//		g2.drawRect(elevatorE0_B.x, elevatorE0_B.y, elevatorE0_B.width, elevatorE0_B.height);
+//		g2.drawRect(elevatorE0A.x, elevatorE0A.y, elevatorE0A.width, elevatorE0A.height);
+//		g2.drawRect(elevatorE0B.x, elevatorE0B.y, elevatorE0B.width, elevatorE0B.height);
 
 		g2.drawRect(sittingRoomE1.x, sittingRoomE1.y, sittingRoomE1.width, sittingRoomE1.height);
 		g2.drawRect(dinningroomE1.x, dinningroomE1.y, dinningroomE1.width, dinningroomE1.height);
 		g2.drawRect(kitchenE1.x, kitchenE1.y, kitchenE1.width, kitchenE1.height);
-		g2.drawRect(corridorE1_A.x, corridorE1_A.y, corridorE1_A.width, corridorE1_A.height);
-		g2.drawRect(corridorE1_B.x, corridorE1_B.y, corridorE1_B.width, corridorE1_B.height);
-		g2.drawRect(corridorE1_C.x, corridorE1_C.y, corridorE1_C.width, corridorE1_C.height);
-		g2.drawRect(corridorE1_D.x, corridorE1_D.y, corridorE1_D.width, corridorE1_D.height);
-		g2.drawRect(corridorE1_E.x, corridorE1_E.y, corridorE1_E.width, corridorE1_E.height);
-		g2.drawRect(corridorE1_F.x, corridorE1_F.y, corridorE1_F.width, corridorE1_F.height);
+		g2.drawRect(corridorE1A.x, corridorE1A.y, corridorE1A.width, corridorE1A.height);
+		g2.drawRect(corridorE1B.x, corridorE1B.y, corridorE1B.width, corridorE1B.height);
+		g2.drawRect(corridorE1C.x, corridorE1C.y, corridorE1C.width, corridorE1C.height);
+		g2.drawRect(corridorE1D.x, corridorE1D.y, corridorE1D.width, corridorE1D.height);
+		g2.drawRect(corridorE1E.x, corridorE1E.y, corridorE1E.width, corridorE1E.height);
+		g2.drawRect(corridorE1F.x, corridorE1F.y, corridorE1F.width, corridorE1F.height);
 		g2.drawRect(relaxationRoomE1.x, relaxationRoomE1.y, relaxationRoomE1.width, relaxationRoomE1.height);
-		g2.drawRect(livingRoomE1_A.x, livingRoomE1_A.y, livingRoomE1_A.width, livingRoomE1_A.height);
+		g2.drawRect(livingRoomE1A.x, livingRoomE1A.y, livingRoomE1A.width, livingRoomE1A.height);
 		g2.drawRect(staffRoomE1.x, staffRoomE1.y, staffRoomE1.width, staffRoomE1.height);
-		g2.drawRect(livingRoomE1_B.x, livingRoomE1_B.y, livingRoomE1_B.width, livingRoomE1_B.height);
+		g2.drawRect(livingRoomE1B.x, livingRoomE1B.y, livingRoomE1B.width, livingRoomE1B.height);
 		g2.drawRect(infirmaryE1.x, infirmaryE1.y, infirmaryE1.width, infirmaryE1.height);
-		g2.drawRect(elevatorE1_A.x, elevatorE1_A.y, elevatorE1_A.width, elevatorE1_A.height);
-		g2.drawRect(elevatorE1_B.x, elevatorE1_B.y, elevatorE1_B.width, elevatorE1_B.height);
+		g2.drawRect(elevatorE1A.x, elevatorE1A.y, elevatorE1A.width, elevatorE1A.height);
+		g2.drawRect(elevatorE1B.x, elevatorE1B.y, elevatorE1B.width, elevatorE1B.height);
 
 		//draw(g);
 	}
@@ -546,6 +573,53 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		p = e.getPoint();
 	}
 
+	//TODO RK
+	// Récupére toute partie commune  check
+	//faire une liste de toutes les nom des rectangles en les inserant deja en lowercase
+	//boucle inbriquer
+	//premiere boucle sur la list avec les noms des rectangles
+	// Fais boucle sur la liste partie commune
+	// Dedans faire if et compare commonArea.getName().lowercas.suppEspace.equals(lisNom[i])
+	//alors on ajoute dans une liste d'object ou tableau bidimentionnel, le nom du rectangle et l'id de la partie commune
+	
+	
+	public void afficheRectangle(Hashtable<String, Integer> listRectangleCommonArea) {
+		updateListAreas();
+		for (int i = 0; i<listNameRectangle.size(); i++) {
+			for(CommonArea areas : listCommonArea) {
+				if (areas.getNameCommonArea().toLowerCase().trim().equals(listNameRectangle.get(i)) ) {
+//					listRectangleCommonArea.get(i).put(areas.getIdCommonArea(), listNameRectangle.get(i));
+				}
+			}
+		}
+	}
+
+
+	public void updateListAreas() {
+		requestType = "READ ALL";
+		table = "CommonArea";
+		objectMapper = new ObjectMapper();
+		try {
+			jsonString = "READ ALL";
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
+			listCommonArea = Arrays.asList(commonAreas);
+			logger.log(Level.DEBUG, "Recuperation of all Common Areas available succed");
+		} catch (Exception e1) {
+			logger.log(Level.WARN, "Impossible to parse in JSON Common Area datas " + e1.getClass().getCanonicalName());
+		}
+		String areasAdd = "";
+		textInputNameCommonArea.removeAllItems();
+		for (CommonArea commonAreas : listCommonArea) {
+			if (!areasAdd.contains(commonAreas.getNameCommonArea() + " #" + commonAreas.getIdCommonArea()))
+				textInputNameCommonArea.addItem(commonAreas.getNameCommonArea() + " #" + commonAreas.getIdCommonArea());
+			areasAdd = areasAdd + commonAreas.getNameCommonArea() + " #" + commonAreas.getIdCommonArea() + ",";
+		}
+		logger.log(Level.DEBUG, "Convertion of all Common Areas available in a list succed");
+	}
+	
+	
 	/**
 	 * 
 	 * @param sensor
@@ -619,20 +693,6 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	}
 
 	/**
-	 * @return the surfacePolygon
-	 */
-	public List<SurfacePolygon> getSurfacePolygon() {
-		return surfacePolygon;
-	}
-
-	/**
-	 * @param surfacePolygon the surfacePolygon to set
-	 */
-	public void setSurfacePolygon(List<SurfacePolygon> surfacePolygon) {
-		this.surfacePolygon = surfacePolygon;
-	}
-
-	/**
 	 * @return the listSensor
 	 */
 	public List<Sensor> getListSensor() {
@@ -658,6 +718,37 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	 */
 	public void setListAlert(List<Alert> listAlert) {
 		this.listAlert = listAlert;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public List<String> getListNameRectangle() {
+		return listNameRectangle;
+	}
+
+	/**
+	 * 
+	 * @param listNameRectangle
+	 */
+	public void setListNameRectangle(List<String> listNameRectangle) {
+		this.listNameRectangle = listNameRectangle;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Hashtable<Integer, String> getListRectangleCommonArea() {
+		return listRectangleCommonArea;
+	}
+	/**
+	 * 
+	 * @param listRectangleCommonArea
+	 */
+	public void setListRectangleCommonArea(Hashtable<Integer, String> listRectangleCommonArea) {
+		this.listRectangleCommonArea = listRectangleCommonArea;
 	}
 
 	/**
