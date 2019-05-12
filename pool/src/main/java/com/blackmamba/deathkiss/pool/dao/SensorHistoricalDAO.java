@@ -56,8 +56,8 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 		try {
 			sensorH = objectMapper.readValue(jsonString, SensorHistorical.class);
 			prepareStatement = con.prepareStatement(
-					"INSERT INTO historique (date_historique, etat_capteur, type_alerte, id_capteur) values (?,?,?,?");
-			prepareStatement.setDate(1, new java.sql.Date(sensorH.getDate().getTime()));
+					"INSERT INTO historique (date_historique, etat_capteur, type_alerte, id_capteur) values (?,?,?,?)");
+			prepareStatement.setTimestamp(1, new java.sql.Timestamp(sensorH.getDate().getTime()));
 			if (sensorH.getSensorState())
 				prepareStatement.setString(2, "ON");
 			else
@@ -108,7 +108,7 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 			prepareStatement = con.prepareStatement(
 					"UPDATE historique SET id_capteur = ?, date_historique = ?, etat_capteur= ?, type_alerte= ? where id_historique = ?");
 			prepareStatement.setInt(1, sensorH.getIdSensor());
-			prepareStatement.setDate(2, new java.sql.Date(sensorH.getDate().getTime()));
+			prepareStatement.setTimestamp(2, new java.sql.Timestamp(sensorH.getDate().getTime()));
 			if (sensorH.getSensorState())
 				prepareStatement.setString(3, "ON");
 			else
@@ -252,7 +252,7 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 	public void convertDatas(ResultSet result) throws NumberFormatException, SQLException, ParseException {
 		sensorHistorical = new SensorHistorical();
 		sensorHistorical.setIdHistorical(result.getInt("id_historique"));
-		sensorHistorical.setDate(result.getDate("date_historique"));
+		sensorHistorical.setDate(result.getTimestamp("date_historique"));
 		if (result.getString("etat_capteur").equals("ON"))
 			sensorHistorical.setSensorState(true);
 		else

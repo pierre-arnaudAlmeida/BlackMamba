@@ -64,7 +64,7 @@ public class SensorDAO extends DAO<Sensor> {
 		try {
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
 			prepareStatement = con.prepareStatement(
-					"INSERT INTO capteur (type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max) values (?,?,?,?,?,?,?,?,?,?");
+					"INSERT INTO capteur (type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max) values (?,?,?,?,?,?,?,?,?,?)");
 			prepareStatement.setString(1, sensor.getTypeSensor().name());
 			prepareStatement.setString(2, "ON");
 			if (sensor.getSensorState())
@@ -77,7 +77,7 @@ public class SensorDAO extends DAO<Sensor> {
 			prepareStatement.setTime(6, sensor.getStartActivity());
 			prepareStatement.setTime(7, sensor.getEndActivity());
 			prepareStatement.setInt(8, sensor.getThresholdMin());
-			prepareStatement.setDate(9, new java.sql.Date(currentDate.getTime().getTime()));
+			prepareStatement.setTimestamp(9, new java.sql.Timestamp(currentDate.getTime().getTime()));
 			prepareStatement.setInt(10, sensor.getThresholdMax());
 			result = prepareStatement.execute();
 			logger.log(Level.DEBUG, "Sensor succesfully inserted in BDD");
@@ -129,7 +129,7 @@ public class SensorDAO extends DAO<Sensor> {
 			prepareStatement.setTime(6, sensor.getEndActivity());
 			prepareStatement.setInt(7, sensor.getThresholdMin());
 			prepareStatement.setInt(8, sensor.getThresholdMax());
-			prepareStatement.setDate(9, new java.sql.Date(currentDate.getTime().getTime()));
+			prepareStatement.setTimestamp(9, new java.sql.Timestamp(currentDate.getTime().getTime()));
 			if (sensor.getSensorState())
 				prepareStatement.setString(10, "ON");
 			else
@@ -299,7 +299,7 @@ public class SensorDAO extends DAO<Sensor> {
 		sensor.setStartActivity(result.getTime("heure_debut"));
 		sensor.setEndActivity(result.getTime("heure_fin"));
 		sensor.setThresholdMin(result.getInt("seuil_min"));
-		sensor.setLastUpdate(result.getDate("mise_a_jour"));
+		sensor.setLastUpdate(result.getTimestamp("mise_a_jour"));
 		sensor.setThresholdMax(result.getInt("seuil_max"));
 
 		if (sensor.getIdCommonArea() != 0

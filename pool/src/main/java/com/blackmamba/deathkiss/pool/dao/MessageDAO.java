@@ -58,7 +58,7 @@ public class MessageDAO extends DAO<Message> {
 			prepareStatement = con
 					.prepareStatement("INSERT INTO message (id_capteur,date_alerte,seuil) values (?,?,?)");
 			prepareStatement.setInt(1, mess.getIdSensor());
-			prepareStatement.setDate(2, new java.sql.Date(mess.getAlertDate().getTime()));
+			prepareStatement.setTimestamp(2, new java.sql.Timestamp(mess.getAlertDate().getTime()));
 			prepareStatement.setInt(3, mess.getThreshold());
 			result = prepareStatement.execute();
 			logger.log(Level.DEBUG, "Message succesfully inserted in BDD ");
@@ -100,7 +100,7 @@ public class MessageDAO extends DAO<Message> {
 			prepareStatement = con.prepareStatement(
 					"UPDATE message SET id_capteur = ?, date_alerte = ?, seuil= ? where id_message = ?");
 			prepareStatement.setInt(1, mess.getIdSensor());
-			prepareStatement.setDate(2, new java.sql.Date(mess.getAlertDate().getTime()));
+			prepareStatement.setTimestamp(2, new java.sql.Timestamp(mess.getAlertDate().getTime()));
 			prepareStatement.setInt(3, mess.getThreshold());
 			prepareStatement.setInt(4, mess.getIdMessage());
 			result = prepareStatement.execute();
@@ -206,7 +206,7 @@ public class MessageDAO extends DAO<Message> {
 		message = new Message();
 		message.setIdMessage(result.getInt("id_message"));
 		message.setIdSensor(result.getInt("id_capteur"));
-		message.setAlertDate(result.getDate("date_alerte"));
+		message.setAlertDate(result.getTimestamp("date_alerte"));
 		message.setThreshold(result.getInt("seuil"));
 		logger.log(Level.DEBUG, "Convertion resultSet into message java object succeed");
 	}

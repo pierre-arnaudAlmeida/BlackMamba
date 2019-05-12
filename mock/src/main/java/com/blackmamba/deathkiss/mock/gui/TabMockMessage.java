@@ -151,27 +151,29 @@ public class TabMockMessage extends JPanel {
 
 		sliderThreshold.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent event) {
-				SensorType element = SensorType.valueOf(textInputTypeSensor.getSelectedItem().toString());
-				switch (element) {
-				case ELEVATOR:
-					labelThreshold.setText("Threshold : " + ((JSlider) event.getSource()).getValue() + "00kg");
-					threshold = ((JSlider) event.getSource()).getValue() * 100;
-					if (generateMessage != null) {
-						generateMessage.setThreshold(((JSlider) event.getSource()).getValue() * 100);
-					}
-					break;
-				case SMOKE:
-					labelThreshold.setText("Threshold : " + ((JSlider) event.getSource()).getValue() + "0ppm");
-					threshold = ((JSlider) event.getSource()).getValue() * 10;
-					if (generateMessage != null) {
-						generateMessage.setThreshold(((JSlider) event.getSource()).getValue() * 10);
-					}
-					break;
-				default:
-					labelThreshold.setText("Threshold : " + ((JSlider) event.getSource()).getValue());
-					threshold = ((JSlider) event.getSource()).getValue();
-					if (generateMessage != null) {
-						generateMessage.setThreshold(((JSlider) event.getSource()).getValue());
+				if (textInputTypeSensor.getSelectedIndex() != -1) {
+					SensorType element = SensorType.valueOf(textInputTypeSensor.getSelectedItem().toString());
+					switch (element) {
+					case ELEVATOR:
+						labelThreshold.setText("Threshold : " + ((JSlider) event.getSource()).getValue() + "00kg");
+						threshold = ((JSlider) event.getSource()).getValue() * 100;
+						if (generateMessage != null) {
+							generateMessage.setThreshold(((JSlider) event.getSource()).getValue() * 100);
+						}
+						break;
+					case SMOKE:
+						labelThreshold.setText("Threshold : " + ((JSlider) event.getSource()).getValue() + "0ppm");
+						threshold = ((JSlider) event.getSource()).getValue() * 10;
+						if (generateMessage != null) {
+							generateMessage.setThreshold(((JSlider) event.getSource()).getValue() * 10);
+						}
+						break;
+					default:
+						labelThreshold.setText("Threshold : " + ((JSlider) event.getSource()).getValue());
+						threshold = ((JSlider) event.getSource()).getValue();
+						if (generateMessage != null) {
+							generateMessage.setThreshold(((JSlider) event.getSource()).getValue());
+						}
 					}
 				}
 			}
@@ -354,7 +356,6 @@ public class TabMockMessage extends JPanel {
 							launchGeneration();
 						}
 					}
-					System.out.println(nbOfWindow);
 					if (nbOfWindow < 1) {
 						threadCountMessage.start();
 					}

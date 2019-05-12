@@ -33,6 +33,7 @@ public class Server {
 	private Connection connectionGived;
 	private Socket client;
 	private MonitoringAlert monitoringAlert;
+	private Thread threadAlertTreatment;
 	private static final Logger logger = LogManager.getLogger(Server.class);
 	private ResourceBundle rsAlert = ResourceBundle.getBundle("alert");
 	private ResourceBundle rsConfig = ResourceBundle.getBundle("config");
@@ -44,10 +45,14 @@ public class Server {
 		try {
 			server = new ServerSocket(Integer.parseInt(rsConfig.getString("server.default.port")), 100,
 					InetAddress.getByName(rsConfig.getString("server.default.host")));
+			pool = new JDBCConnectionPool(false);
+			monitoringAlert = new MonitoringAlert(pool);
 		} catch (UnknownHostException e) {
 			logger.log(Level.WARN, "IP Host dont find " + e.getClass().getCanonicalName());
 		} catch (IOException e) {
 			logger.log(Level.WARN, "Impossible create the socket" + e.getClass().getCanonicalName());
+		} catch (SQLException e) {
+			logger.log(Level.WARN, "Acces to ConnectionPool impossible " + e.getClass().getCanonicalName());
 		}
 	}
 
@@ -148,13 +153,12 @@ public class Server {
 	 * activity of the server
 	 */
 	public void treatment() {
-		Thread threadAlertTreatment = new Thread(new Runnable() {
+		threadAlertTreatment = new Thread(new Runnable() {
 			public void run() {
 				while (true) {
 					monitoringAlert.alertTreatment();
 					try {
-						// TODO PA a remetttre
-						Thread.sleep(1000);// rsAlert.getString("time_alertTreatment")));
+						Thread.sleep(Integer.parseInt(rsAlert.getString("time_alertTreatment")));
 					} catch (InterruptedException e) {
 						logger.log(Level.WARN,
 								"Impossible to sleep the threadAlertTreatment " + e.getClass().getCanonicalName());
@@ -162,8 +166,10 @@ public class Server {
 				}
 			}
 		});
+
 		// TODO PA a remettre
 		// threadAlertTreatment.start();
+
 	}
 
 	/**

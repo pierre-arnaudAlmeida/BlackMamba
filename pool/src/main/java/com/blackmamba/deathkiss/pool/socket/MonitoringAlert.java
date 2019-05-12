@@ -73,6 +73,8 @@ public class MonitoringAlert {
 	private List<Message> listMessage = new ArrayList<Message>();
 	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
 	private List<Message> listMessageInTreatment = new ArrayList<Message>();
+	private List<Message> listMessageInTreatmentSensorActivity = new ArrayList<Message>();
+	private List<Message> listMessageInTreatmentBeforeActivity = new ArrayList<Message>();
 	private List<Message> listMessageTreated = new ArrayList<Message>();
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private List<Sensor> listSensorDown = new ArrayList<Sensor>();
@@ -106,7 +108,7 @@ public class MonitoringAlert {
 		getAllSensor();
 		curDate = new Date();
 		verifySensorActivity(curDate);
-		verifySensorMessageBeforeActivity();
+		verifySensorBeforeActivity();
 		if (!listMessage.isEmpty()) {
 			for (Sensor sensors : listSensor) {
 				for (Message messages : listMessage) {
@@ -123,8 +125,10 @@ public class MonitoringAlert {
 				if (sensors.getThresholdMin() == 0 && sensors.getThresholdMax() == 0) {
 					for (SensorType type : SensorType.values()) {
 						if (type.equals(sensors.getTypeSensor())) {
-							sensors.setThresholdMin(Integer.parseInt(rsSensorDefaultParameters.getString(type.name().toLowerCase() + "ThresholdMin")));
-							sensors.setThresholdMax(Integer.parseInt(rsSensorDefaultParameters.getString(type.name().toLowerCase() + "ThresholdMax")));
+							sensors.setThresholdMin(Integer.parseInt(
+									rsSensorDefaultParameters.getString(type.name().toLowerCase() + "ThresholdMin")));
+							sensors.setThresholdMax(Integer.parseInt(
+									rsSensorDefaultParameters.getString(type.name().toLowerCase() + "ThresholdMax")));
 						}
 					}
 					detectAlert(sensors);
@@ -143,40 +147,25 @@ public class MonitoringAlert {
 					difference = firstAlertDate.getTime() - lastAlertDate.getTime();
 					for (Sensitivity type : Sensitivity.values()) {
 						if (type.equals(sensors.getSensitivity())) {
-							sensitivity = Integer.parseInt(rsAlert.getString(type.name().toLowerCase() + "NbOfAlertMessage"));
+							sensitivity = Integer
+									.parseInt(rsAlert.getString(type.name().toLowerCase() + "NbOfAlertMessage"));
 						}
 					}
 				} else {
-					if (sensor.getTypeSensor().equals(SensorType.FIRE))
-						sensitivity = Integer.parseInt(rsAlert.getString("DefaultNbOfAlertMessage"));
-					else
-						sensitivity = Integer.parseInt(rsAlert.getString("lowNbOfAlertMessage"));
+					sensitivity = Integer.parseInt(rsAlert.getString("lowNbOfAlertMessage"));
 				}
 				if (sensitivity != Integer.parseInt(rsAlert.getString("lowNbOfAlertMessage"))) {
 					Time lastTime = new java.sql.Time(lastAlertDate.getTime());
 					String str = lastTime.toString();
 					Time timeAlert = Time.valueOf(str);
 					if ((timeAlert.after(sensors.getEndActivity()) && timeAlert.before(sensors.getStartActivity()))) {
-						if (sensor.getTypeSensor().equals(SensorType.FIRE))
-							sensitivity = Integer.parseInt(rsAlert.getString("DefaultNbOfAlertMessage"));
-						else
-							sensitivity = Integer.parseInt(rsAlert.getString("lowNbOfAlertMessage"));
+						sensitivity = Integer.parseInt(rsAlert.getString("lowNbOfAlertMessage"));
 					} else {
 						if ((sensors.getEndActivity().getTime() - sensors.getStartActivity().getTime()) >= 0) {
 							if (timeAlert.after(sensors.getEndActivity())) {
-								if (sensor.getTypeSensor().equals(SensorType.FIRE))
-									sensitivity = Integer.parseInt(rsAlert.getString("DefaultNbOfAlertMessage"));
-								else
-									sensitivity = Integer.parseInt(rsAlert.getString("lowNbOfAlertMessage"));
+								sensitivity = Integer.parseInt(rsAlert.getString("lowNbOfAlertMessage"));
 							} else if (timeAlert.before(sensors.getStartActivity())) {
-								if (sensor.getTypeSensor().equals(SensorType.FIRE))
-									sensitivity = Integer.parseInt(rsAlert.getString("DefaultNbOfAlertMessage"));
-								else
-									sensitivity = Integer.parseInt(rsAlert.getString("lowNbOfAlertMessage"));
-							} else {
-								if (sensor.getTypeSensor().equals(SensorType.DOOR) || sensor.getTypeSensor().equals(SensorType.FIRE) || sensor.getTypeSensor().equals(SensorType.LIGHT) || sensor.getTypeSensor().equals(SensorType.WINDOW)) {
-									sensitivity = Integer.parseInt(rsAlert.getString("DefaultNbOfAlertMessage"));
-								}
+								sensitivity = Integer.parseInt(rsAlert.getString("lowNbOfAlertMessage"));
 							}
 						}
 					}
@@ -185,7 +174,8 @@ public class MonitoringAlert {
 				 * When the number of message reached the sensitivity define before we send an
 				 * alert and add it on listAlert and add on historical
 				 */
-				if (nbAlert >= sensitivity && nbAlert > 0 && difference <= Integer.parseInt(rsAlert.getString("timeBetweenAlert"))) {
+				if (nbAlert >= sensitivity && nbAlert > 0
+						&& difference <= Integer.parseInt(rsAlert.getString("timeBetweenAlert"))) {
 					alert = new Alert();
 					alert.setAlertDate(lastAlertDate);
 					alert.setAlertState(AlertState.ALERT);
@@ -194,8 +184,10 @@ public class MonitoringAlert {
 					listAlert.add(alert);
 					logger.log(Level.INFO, "*********************************************************************");
 					logger.log(Level.INFO, "ALERT DETECTED!!");
-					logger.log(Level.INFO, "Sensor : " + sensors.getIdSensor() + " on ALERT on commonArea : " + sensors.getIdCommonArea());
-					logger.log(Level.INFO, "Threshold reached : " + lastThreshold + ", Min : " + sensors.getThresholdMin() + " Max : " + sensors.getThresholdMax());
+					logger.log(Level.INFO, "Sensor : " + sensors.getIdSensor() + " on ALERT on commonArea : "
+							+ sensors.getIdCommonArea());
+					logger.log(Level.INFO, "Threshold reached : " + lastThreshold + ", Min : "
+							+ sensors.getThresholdMin() + " Max : " + sensors.getThresholdMax());
 					logger.log(Level.INFO, "*********************************************************************");
 					sensors.setAlertState(AlertState.ALERT);
 					updateSensorAlertState(sensors);
@@ -219,7 +211,8 @@ public class MonitoringAlert {
 	 * Check every 30 minutes if the sensor have send a message to the system, and
 	 * if they did'nt send it's because he is breakdown
 	 */
-	public void verifySensorMessageBeforeActivity() {
+	public void verifySensorBeforeActivity() {
+		getAllSensor();
 		curDate = new Date();
 		calBefore = Calendar.getInstance();
 		calAfter = Calendar.getInstance();
@@ -229,13 +222,18 @@ public class MonitoringAlert {
 		afterDate = calAfter.getTime();
 		formater = new SimpleDateFormat("h:mm a");
 
-		listMessageInTreatment = listMessage;
-		if (!listMessageInTreatment.isEmpty()) {
+		for (Message messages : listMessage) {
+			listMessageInTreatmentBeforeActivity.add(messages);
+		}
+		if (!listMessageInTreatmentBeforeActivity.isEmpty()) {
 			for (Sensor sensors : listSensor) {
-				if (sensors.getIdCommonArea() != 0 && sensors.getSensorState() && (formater.format(sensors.getStartActivity()).compareTo(formater.format(beforeDate)) >= 0) && (formater.format(sensors.getStartActivity()).compareTo(formater.format(afterDate)) <= 0)) {
+				if (sensors.getIdCommonArea() != 0 && sensors.getSensorState()
+						&& (formater.format(sensors.getStartActivity()).compareTo(formater.format(beforeDate)) >= 0)
+						&& (formater.format(sensors.getStartActivity()).compareTo(formater.format(afterDate)) <= 0)) {
 					numberOfMessages = 0;
-					for (Message alerts : listMessageInTreatment) {
-						if ((alerts.getIdSensor() == sensors.getIdSensor()) && (formater.format(alerts.getAlertDate()).compareTo(formater.format(afterDate)) <= 0)) {
+					for (Message alerts : listMessageInTreatmentBeforeActivity) {
+						if ((alerts.getIdSensor() == sensors.getIdSensor()) && (formater.format(alerts.getAlertDate())
+								.compareTo(formater.format(afterDate)) <= 0)) {
 							numberOfMessages++;
 						}
 					}
@@ -247,7 +245,8 @@ public class MonitoringAlert {
 						alert.setIdSensor(sensors.getIdSensor());
 						listAlert.add(alert);
 						logger.log(Level.INFO, "*********************************************************************");
-						logger.log(Level.INFO, "No Activity Sensor : " + sensors.getIdSensor() + " DOWN on commonArea : " + sensors.getIdCommonArea());
+						logger.log(Level.INFO, "No Activity Sensor : " + sensors.getIdSensor()
+								+ " DOWN on commonArea : " + sensors.getIdCommonArea());
 						logger.log(Level.INFO, "*********************************************************************");
 						sensors.setAlertState(AlertState.DOWN);
 						updateSensorAlertState(sensors);
@@ -257,7 +256,7 @@ public class MonitoringAlert {
 				}
 			}
 		}
-		listMessageInTreatment.clear();
+		listMessageInTreatmentBeforeActivity.clear();
 
 	}
 
@@ -271,14 +270,17 @@ public class MonitoringAlert {
 		 * the sensor active if an sensor does'nt have send an alert/message to server
 		 * they will be considerate to breakdown and we update is state on data base
 		 */
+		getAllSensor();
 		cleanListSensor(listSensorDown);
-		listMessageInTreatment = listMessage;
-		if (!listMessageInTreatment.isEmpty()) {
+		for (Message messages : listMessage) {
+			listMessageInTreatmentSensorActivity.add(messages);
+		}
+		if (!listMessageInTreatmentSensorActivity.isEmpty()) {
 			nbOfTimeWithoutMessage = 0;
 			for (Sensor sensors : listSensor) {
 				numberOfIteration = 0;
 				if (sensors.getSensorState()) {
-					for (Message messages : listMessageInTreatment) {
+					for (Message messages : listMessageInTreatmentSensorActivity) {
 						if (sensors.getIdSensor() == messages.getIdSensor()) {
 							numberOfIteration++;
 						}
@@ -314,7 +316,8 @@ public class MonitoringAlert {
 						alert.setIdSensor(sensors.getIdSensor());
 						listAlert.add(alert);
 						logger.log(Level.INFO, "*********************************************************************");
-						logger.log(Level.INFO, "No Activity Sensor : " + sensors.getIdSensor() + " DOWN on commonArea : " + sensors.getIdCommonArea());
+						logger.log(Level.INFO, "No Activity Sensor : " + sensors.getIdSensor()
+								+ " DOWN on commonArea : " + sensors.getIdCommonArea());
 						logger.log(Level.INFO, "*********************************************************************");
 						sensors.setAlertState(AlertState.DOWN);
 						updateSensorAlertState(sensors);
@@ -342,9 +345,11 @@ public class MonitoringAlert {
 							alert.setIdAlert(0);
 							alert.setIdSensor(commonArea.getIdCommonArea());
 							listAlert.add(alert);
-							logger.log(Level.INFO, "*********************************************************************");
+							logger.log(Level.INFO,
+									"*********************************************************************");
 							logger.log(Level.INFO, "No Activity on commonArea : " + commonArea.getIdCommonArea());
-							logger.log(Level.INFO, "*********************************************************************");
+							logger.log(Level.INFO,
+									"*********************************************************************");
 							sensor = new Sensor();
 							sensor.setIdSensor(commonArea.getIdCommonArea());
 							addMessage(9999, sensor);
@@ -374,7 +379,7 @@ public class MonitoringAlert {
 				}
 			}
 		}
-		listMessageInTreatment.clear();
+		listMessageInTreatmentSensorActivity.clear();
 	}
 
 	/**
@@ -460,12 +465,11 @@ public class MonitoringAlert {
 	 * @param sensor
 	 */
 	public void addHistorical(Sensor sensor) {
-		curDate = new Date();
 		sensorHistorical = new SensorHistorical();
 		sensorHistorical.setIdSensor(sensor.getIdSensor());
 		sensorHistorical.setAlertState(sensor.getAlertState());
 		sensorHistorical.setSensorState(sensor.getSensorState());
-		sensorHistorical.setDate(curDate);
+		sensorHistorical.setDate(lastAlertDate);
 		objectMapper = new ObjectMapper();
 		try {
 			jsonString = objectMapper.writeValueAsString(sensorHistorical);
@@ -561,14 +565,20 @@ public class MonitoringAlert {
 	public void detectAlert(Sensor sensors) {
 		for (Message messages : listMessageInTreatment) {
 			if (sensors.getSensorState()) {
-				if (sensors.getTypeSensor().equals(SensorType.SMOKE) || sensors.getTypeSensor().equals(SensorType.ELEVATOR) || sensors.getTypeSensor().equals(SensorType.TEMPERATURE)) {
-					if (((sensors.getThresholdMin() >= messages.getThreshold()) || sensors.getThresholdMax() <= messages.getThreshold())) {
+				if (sensors.getTypeSensor().equals(SensorType.SMOKE)
+						|| sensors.getTypeSensor().equals(SensorType.ELEVATOR)
+						|| sensors.getTypeSensor().equals(SensorType.TEMPERATURE)) {
+					if (((sensors.getThresholdMin() >= messages.getThreshold())
+							|| sensors.getThresholdMax() <= messages.getThreshold())) {
 						if (nbAlert == 0) {
 							firstAlertDate = messages.getAlertDate();
 						}
 						lastAlertDate = messages.getAlertDate();
 						nbAlert++;
-						logger.log(Level.DEBUG, "Sensor : " + sensors.getIdSensor() + " threshold reached : " + messages.getThreshold() + ", Min : " + sensors.getThresholdMin() + " Max : " + sensors.getThresholdMax());
+						logger.log(Level.DEBUG,
+								"Sensor : " + sensors.getIdSensor() + " threshold reached : " + messages.getThreshold()
+										+ ", Min : " + sensors.getThresholdMin() + " Max : "
+										+ sensors.getThresholdMax());
 						lastThreshold = messages.getThreshold();
 					} else {
 						listMessageTreated.add(messages);
@@ -580,7 +590,8 @@ public class MonitoringAlert {
 						}
 						lastAlertDate = messages.getAlertDate();
 						nbAlert++;
-						logger.log(Level.DEBUG, "Sensor : " + sensors.getIdSensor() + " threshold reached : " + messages.getThreshold() + ", Max : " + sensors.getThresholdMax());
+						logger.log(Level.DEBUG, "Sensor : " + sensors.getIdSensor() + " threshold reached : "
+								+ messages.getThreshold() + ", Max : " + sensors.getThresholdMax());
 						lastThreshold = messages.getThreshold();
 					} else {
 						listMessageTreated.add(messages);
