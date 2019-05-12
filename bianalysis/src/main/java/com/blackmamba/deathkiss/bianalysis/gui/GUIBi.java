@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
@@ -75,10 +76,12 @@ public class GUIBi extends JFrame {
 	private String request;
 	private Integer s1;
 	private Integer s2;
+	private Integer etage0;
+	private Integer etage1;
 	
 	private Integer used;
 	private Integer unused;
-
+	private Integer DateUpdate;
 	private JPanel contentPane;
 	private JTextField tfDown;
 	private JTextField tfAlertesReceived;
@@ -96,10 +99,17 @@ public class GUIBi extends JFrame {
 	private JButton btnTemperature;
 	private JButton btnDate;
 	private JButton btnGraphique;
+	private JButton btnUpdateDate;
 	private static final Logger logger = LogManager.getLogger(TabSensor.class);
 	private JLabel lbl;
 	private JDateChooser dateChooser;
 	private JDateChooser dateChooser_1;
+	private JDateChooser dateChooser_2;
+	private JDateChooser dateChooser_3;
+	
+	private String DateFrom;
+	private String DateTo;
+	
 	private JTextField tfDate;
 	private JTextField tfDate1;
 	private JDialog ratioSensors;
@@ -129,6 +139,8 @@ public class GUIBi extends JFrame {
 	private JLabel lbTotalStockStage1;
 	private JComboBox cbStockTypeSensor;
 	private JTextField tfPourcentageActive;
+	private JTextField tfDateFrom;
+	private JTextField tfDateTo;
 
 	//////////////////////////////////////////////////////////////////////
 	/**
@@ -198,7 +210,7 @@ public class GUIBi extends JFrame {
 
 		Object[] NumberMessage = returnNumberMessage();
 
-		Object[] NumberUsedSensor = returns();
+//		Object[] NumberUsedSensor = returns();
 
 ///////////////////////////////////////////////////
 		// List
@@ -223,15 +235,7 @@ public class GUIBi extends JFrame {
 		ratioSensors = new JDialog();
 
 ////////////////////////////////////
-		// Graphic All sensor
-		DefaultPieDataset pieDataset = new DefaultPieDataset();
-		pieDataset.setValue("Number of Unused Sensors", (Number) NumberUsedSensor[0]);
-		pieDataset.setValue("Number of used Sensors", (Number) NumberUsedSensor[1]);
 
-		JFreeChart pieChart = ChartFactory.createPieChart("Ratio of unused sensors and used", pieDataset, true, true,
-				true);
-		ChartPanel cPanel = new ChartPanel(pieChart);
-		contentPane.add(cPanel);
 
 		// Graphic Historical alert
 
@@ -255,6 +259,16 @@ public class GUIBi extends JFrame {
 		panel = new JPanel();
 		tabbedPane.addTab("DASHBOARD", null, panel, null);
 		panel.setLayout(null);
+		
+		// Graphic All sensor
+		DefaultPieDataset pieDataset = new DefaultPieDataset();
+//		pieDataset.setValue("Number of Unused Sensors", (Number) NumberUsedSensor[0]);
+//		pieDataset.setValue("Number of used Sensors", (Number) NumberUsedSensor[1]);
+
+		JFreeChart pieChart = ChartFactory.createPieChart("Ratio of unused sensors and used", pieDataset, true, true,
+				true);
+		ChartPanel cPanel = new ChartPanel(pieChart);
+		contentPane.add(cPanel);
 		ChartPanel cpSensors = new ChartPanel(pieChart);
 		cpSensors.setBounds(198, 33, 307, 159);
 		panel.add(cpSensors);
@@ -263,14 +277,18 @@ public class GUIBi extends JFrame {
 		///////////////////////////////////////////////////////
 		// DATE
 
-		JDateChooser dateChooser_2 = new JDateChooser();
+		dateChooser_2 = new JDateChooser();
 		dateChooser_2.setBounds(129, 139, 69, 20);
 		panel.add(dateChooser_2);
 
-		JDateChooser dateChooser_3 = new JDateChooser();
+		dateChooser_3 = new JDateChooser();
 		dateChooser_3.setBounds(129, 170, 69, 20);
 		panel.add(dateChooser_3);
+		
+//		 DateFrom = dateChooser_2.getDate());
+//		 DateTo = dateChooser_3.getDate();
 
+		
 		// label - DASHBOARD
 		JLabel lblStock = new JLabel("Number of sensors in stock");
 		lblStock.setBounds(210, 233, 147, 16);
@@ -417,14 +435,17 @@ public class GUIBi extends JFrame {
 		tfTotalStockRc.setHorizontalAlignment(SwingConstants.TRAILING);
 		tfTotalStockRc.setColumns(10);
 		tfTotalStockRc.setBounds(40, 343, 57, 44);
-		tfTotalStockRc.setText(TotalStockRc[1].toString().replaceAll("\"", ""));
+//		tfTotalStockRc.setText(TotalStockRc[1].toString().replaceAll("\"", ""));
+		tfTotalStockRc.setText(Integer.toString(etage0));
 		panel.add(tfTotalStockRc);
-
+		
+		
 		tfTotalStockEtage1 = new JTextField();
 		tfTotalStockEtage1.setHorizontalAlignment(SwingConstants.TRAILING);
 		tfTotalStockEtage1.setColumns(10);
 		tfTotalStockEtage1.setBounds(210, 343, 57, 44);
-		tfTotalStockEtage1.setText(TotalStockRc[0].toString().replaceAll("\"", ""));
+//		tfTotalStockEtage1.setText(TotalStockRc[0].toString().replaceAll("\"", ""));
+		tfTotalStockEtage1.setText(Integer.toString(etage1));
 		panel.add(tfTotalStockEtage1);
 
 		///////////////////////////////////////////////////////////
@@ -476,6 +497,20 @@ public class GUIBi extends JFrame {
 		cbStockTypeSensor = new JComboBox();
 		cbStockTypeSensor.setBounds(107, 362, 73, 22);
 		panel.add(cbStockTypeSensor);
+		
+		btnUpdateDate = new JButton("Get Update");
+		btnUpdateDate.setBounds(20, 116, 89, 23);
+		panel.add(btnUpdateDate);
+		
+		tfDateFrom = new JTextField();
+		tfDateFrom.setBounds(312, 301, 96, 20);
+		panel.add(tfDateFrom);
+		tfDateFrom.setColumns(10);
+		
+		tfDateTo = new JTextField();
+		tfDateTo.setBounds(312, 343, 96, 20);
+		panel.add(tfDateTo);
+		tfDateTo.setColumns(10);
 
 ////////////////////////////////////////////////////////////
 		// Combobox in Tabbed Alert
@@ -498,6 +533,7 @@ public class GUIBi extends JFrame {
 		dateChooser = new JDateChooser();
 		dateChooser.setBounds(189, 11, 47, 28);
 		panel_1.add(dateChooser);
+		
 		// Textfield - Alert
 		tfDate = new JTextField();
 		tfDate.setBounds(90, 11, 47, 28);
@@ -657,7 +693,6 @@ public class GUIBi extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				ratioSensors.getContentPane().add(cPanel, CENTER);
-
 				ratioSensors.pack();
 				ratioSensors.setVisible(true);
 
@@ -667,6 +702,29 @@ public class GUIBi extends JFrame {
 	}
 
 	private void createEvents() {
+		
+		btnUpdateDate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {				
+				
+				DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+				DateFormat df1 = new SimpleDateFormat("dd-MM-yyyy");
+
+				tfDateFrom.setText(df.format(dateChooser_2.getDate()));
+				tfDateTo.setText(df1.format(dateChooser_3.getDate()));
+				 
+				 
+//					requestType = "COUNT";
+//					table = "SensorHistorical";
+//					jsonString = "SELECT COUNT(*) FROM historique WHERE date_historique BETWEEN " + DateFrom + "AND " + DateTo
+//							+ "AND ( type_alerte = 'NORMAL')";
+//					new ClientSocket(requestType, jsonString, table);
+//					jsonString = ClientSocket.getJson();
+//					logger.log(Level.DEBUG, "Number sensor updated per period finded");
+//					DateUpdate = Integer.parseInt(jsonString.replaceAll("\"", ""));
+//					tfNbSensorMaj.setText(Integer.toString(DateUpdate));
+				
+			}
+		});
 
 		btnDeconnexion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -798,7 +856,7 @@ public class GUIBi extends JFrame {
 				tfAlert.setText(String.valueOf(nbAlertSensor));
 			}
 		});
-
+	
 	}
 
 ////////////////////////////////////
@@ -977,23 +1035,23 @@ public class GUIBi extends JFrame {
 
 ///////////////////////////////////////////////////////////
 	// Method to calculate the number of Sensor
-	public static Object[] returns() {
-
-		int nbUnusedSensor = 0;
-		int nbUsedSensor = 0;
-		int nbTotalSensor = 0;
-//////////////////////////////////////////////////////////
-		for (Sensor sensor : listSensor) {
-			nbTotalSensor++;
-
-			if (sensor.getIdSensor() == 0)
-				nbUnusedSensor++;
-			else
-				nbUsedSensor++;
-		}
-		return new Object[] { nbUsedSensor, nbUnusedSensor, nbTotalSensor };
-
-	}
+//	public static Object[] returns() {
+//
+//		int nbUnusedSensor = 0;
+//		int nbUsedSensor = 0;
+//		int nbTotalSensor = 0;
+////////////////////////////////////////////////////////////
+//		for (Sensor sensor : listSensor) {
+//			nbTotalSensor++;
+//
+//			if (sensor.getIdSensor() == 0)
+//				nbUnusedSensor++;
+//			else
+//				nbUsedSensor++;
+//		}
+//		return new Object[] { nbUsedSensor, nbUnusedSensor, nbTotalSensor };
+//
+//	}
 
 ///////////////////////////////////////////
 ///////////////////////////////////////
@@ -1159,8 +1217,6 @@ public class GUIBi extends JFrame {
 ////////////////////////////////////////////////////
 	// Method of calculating of number of sensor for each floor
 	public Object[] getNumberStageSensor() {
-		String s1 = "";
-		String s2 = "";
 		requestType = "COUNT";
 		table = "Sensor";
 
@@ -1170,33 +1226,30 @@ public class GUIBi extends JFrame {
 		logger.log(Level.DEBUG, "Number sensor for each floor finded");
 
 		String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
+		etage0 = Integer.parseInt(jsonString_list[1]);
+		etage1 = Integer.parseInt(jsonString_list[0]);
 
-		s1 = jsonString_list[0];
-		s2 = jsonString_list[1];
-
-//			System.out.println("resultat Etage1 " + s1);
-//			System.out.println("resultat RC" + s2);
-		return new Object[] { s1, s2 };
+		return new Object[] { etage0, etage1 };
 	}
 
 /////////////////////////////////////////////////////////////////
 	// Method of calculating of Number of UPDATE SENSOR 'parametre date ' AND
 	// 'parametre '
 	public String getNumberUpdate() {
-		String s2 = "";
-		String s3 = "";
 		requestType = "COUNT";
 		table = "SensorHistorical";
-//		String jsonString = "";
 
-		String DateFrom = "'2000-10-01'";
-		String DateTo = "'2006-10-01'";
+//		String DateFrom = "'2000-10-01'";
+//		String DateTo = "'2006-10-01'";
 
-		DateFormat df = new SimpleDateFormat("'yyyy-MM-dd'");
-		DateFormat df1 = new SimpleDateFormat("'yyyy-MM-dd'");
+//		DateFormat df = new SimpleDateFormat("'yyyy-MM-dd'");
+//		DateFormat df1 = new SimpleDateFormat("'yyyy-MM-dd'");
 
 //		String DateFrom = df.format(dateChooser.getDate());
-//		String DateTo=df1.format(dateChooser_1.getDate());
+//		String DateTo = df1.format(dateChooser_1.getDate());
+		
+//		 DateFrom = (Date) dateChooser.getDate();
+//		 DateTo = (Date) dateChooser_1.getDate();
 //
 		jsonString = "SELECT COUNT(*) FROM historique WHERE date_historique BETWEEN " + DateFrom + "AND " + DateTo
 				+ "AND ( type_alerte = 'NORMAL')";
@@ -1205,10 +1258,7 @@ public class GUIBi extends JFrame {
 		logger.log(Level.DEBUG, "Number sensor updated per period finded");
 		String jsonString_list = jsonString;
 		System.out.println(jsonString_list);
-//			s2 = jsonString_list[0];
-//			s3 = jsonString_list[1];
-//			System.out.println("resultat2 Etage1 " + s2);
-//			System.out.println("resultat2 RC" + s3);
+
 
 		return jsonString_list;
 	}
