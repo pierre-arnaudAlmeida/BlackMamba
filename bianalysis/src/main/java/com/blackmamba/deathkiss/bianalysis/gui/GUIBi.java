@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
@@ -122,6 +123,7 @@ public class GUIBi extends JFrame {
 	private JLabel lbTotalStockRc;
 	private JLabel lbTotalStockStage1;
 	private JComboBox cbStockTypeSensor;
+	private JTextField tfPourcentageActive;
 
 	//////////////////////////////////////////////////////////////////////
 	/**
@@ -192,6 +194,7 @@ public class GUIBi extends JFrame {
 		Object[] NumberMessage = returnNumberMessage();
 
 		Object[] NumberUsedSensor = returns();
+		
 
 ///////////////////////////////////////////////////
 		// List
@@ -319,8 +322,11 @@ public class GUIBi extends JFrame {
 
 //////////////////////////////////////////////////////////////////
 		// Textfield - DASHBOARD
+		
+		Object StockSensor[] = getNumberUsedSensor();
 		tfStock = new JTextField();
 		tfStock.setBounds(367, 227, 41, 28);
+		tfStock.setText(StockSensor[0].toString().replaceAll("/", ""));
 		panel.add(tfStock);
 		tfStock.setColumns(10);
 
@@ -330,23 +336,24 @@ public class GUIBi extends JFrame {
 
 		tfAlertesReceived = new JTextField();
 		tfAlertesReceived.setBounds(612, 428, 69, 55);
-		// String numberAlertReceived = GetNumberAlertReceived();
-		// tfAlertesReceived.setText(numberAlertReceived.toString().replaceAll("\"",
-		// ""));
-		// tfAlertesReceived.setText(String.valueOf(nbTotalAlert));
+		String numberAlertReceived = getNumberAlertReceived();
+		tfAlertesReceived.setText(numberAlertReceived.toString().replaceAll("\"",""));
 		tfAlertesReceived.setColumns(10);
 		panel.add(tfAlertesReceived);
-
+		
+		Object tfTotalAlert[] = getNumberDownOverSensor();
 		tfDown = new JTextField();
 		tfDown.setBackground(Color.ORANGE);
 		tfDown.setBounds(525, 203, 97, 55);
 		tfDown.setColumns(10);
+		tfDown.setText(tfTotalAlert[0].toString().replaceAll("/", ""));
 		panel.add(tfDown);
 
 		tfNbOver = new JTextField();
 		tfNbOver.setBackground(Color.RED);
 		tfNbOver.setBounds(663, 203, 97, 55);
 		tfNbOver.setColumns(10);
+		tfNbOver.setText(tfTotalAlert[1].toString().replaceAll("/", ""));
 		panel.add(tfNbOver);
 
 		tfPendingAlert = new JTextField();
@@ -356,29 +363,45 @@ public class GUIBi extends JFrame {
 		tfPendingAlert.setText(NumberMessage[0].toString());
 		panel.add(tfPendingAlert);
 
+		String NbCommonArea = getNumberCommonArea();
 		tfNbCommonArea = new JTextField();
 		tfNbCommonArea.setBounds(20, 56, 112, 55);
+		tfNbCommonArea.setText(NbCommonArea.toString().replaceAll("\"","" ));
 		panel.add(tfNbCommonArea);
 		tfNbCommonArea.setColumns(10);
-
+		
+		
+		String nbSensorMaj = getNumberUpdate();
 		JTextField tfNbSensorMaj = new JTextField();
 		tfNbSensorMaj.setBounds(10, 139, 112, 55);
+		tfNbSensorMaj.setText(nbSensorMaj.toString().replaceAll("\"","" ));
 		panel.add(tfNbSensorMaj);
-
+		
+		Object NbPassiveActiveSensor[] = getNumberPassiveActiveSensor();
 		tfPassiveSensor = new JTextField();
 		tfPassiveSensor.setBounds(20, 268, 50, 35);
+		tfPassiveSensor.setText(NbPassiveActiveSensor[1].toString().replaceAll("\"","" ));
 		panel.add(tfPassiveSensor);
 		tfPassiveSensor.setColumns(10);
 
 		tfActiveSensor = new JTextField();
 		tfActiveSensor.setColumns(10);
 		tfActiveSensor.setBounds(20, 222, 50, 35);
+		tfActiveSensor.setText(NbPassiveActiveSensor[0].toString().replaceAll("\"","" ));
 		panel.add(tfActiveSensor);
-
+		
+		tfPourcentageActive = new JTextField();
+		tfPourcentageActive.setBounds(148, 248, 50, 28);
+		tfPourcentageActive.setText(NbPassiveActiveSensor[2].toString().replaceAll("\"","" ));
+		panel.add(tfPourcentageActive);
+		tfPourcentageActive.setColumns(10);
+		
+		String MeanRC = getAverageTemperature();
 		tfMeanTemperatureStageRC = new JTextField();
 		tfMeanTemperatureStageRC.setHorizontalAlignment(SwingConstants.TRAILING);
 		tfMeanTemperatureStageRC.setColumns(10);
 		tfMeanTemperatureStageRC.setBounds(40, 426, 57, 44);
+		tfMeanTemperatureStageRC.setText(MeanRC + "°");
 		panel.add(tfMeanTemperatureStageRC);
 
 		tfMeanTemperatureStage1 = new JTextField();
@@ -387,17 +410,25 @@ public class GUIBi extends JFrame {
 		tfMeanTemperatureStage1.setBounds(210, 426, 57, 44);
 		panel.add(tfMeanTemperatureStage1);
 
+		
+		Object TotalStockRc[] = getNumberStageSensor();
 		tfTotalStockRc = new JTextField();
 		tfTotalStockRc.setHorizontalAlignment(SwingConstants.TRAILING);
 		tfTotalStockRc.setColumns(10);
 		tfTotalStockRc.setBounds(40, 343, 57, 44);
+		tfTotalStockRc.setText(TotalStockRc[1].toString().replaceAll("\"","" ));
 		panel.add(tfTotalStockRc);
 
 		tfTotalStockEtage1 = new JTextField();
 		tfTotalStockEtage1.setHorizontalAlignment(SwingConstants.TRAILING);
 		tfTotalStockEtage1.setColumns(10);
 		tfTotalStockEtage1.setBounds(210, 343, 57, 44);
+		tfTotalStockEtage1.setText(TotalStockRc[0].toString().replaceAll("\"","" ));
 		panel.add(tfTotalStockEtage1);
+		
+		
+
+		
 		///////////////////////////////////////////////////////////
 		// Button - DASHBOARD
 		btnTemperature = new JButton("Calculer");
@@ -999,8 +1030,38 @@ public class GUIBi extends JFrame {
 //		}
 //		return jsonString;
 //	}
-
-	// TODO Slayde le plus gros des Kassos, cette methode fonctionne
+////////////////////////////////////////////////
+	public Object[] getNumberPassiveActiveSensor() {
+		String s1 = "";
+		String s2 = "";
+		int s3 = 0;
+		int resultat = 0;
+		requestType = "COUNT";
+		table = "Sensor";
+		jsonString = "SELECT sum(case when etat = 'ON' then 1 else 0 end ) As nbActiveSensor, sum(case when etat = 'OFF' then 1 else 0 end ) As nbPassiveSensor FROM capteur WHERE id_capteur !=0";
+		new ClientSocket(requestType, jsonString, table);
+		jsonString = ClientSocket.getJson();
+		logger.log(Level.DEBUG, "Number of sensor Active/passive finded");
+		String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
+		s1 = jsonString_list[0];
+		s2 = jsonString_list[1];
+		
+		BigDecimal bg1,bg2,bg3;
+	
+		int active  = Integer.parseInt(s1);
+		int passive = Integer.parseInt(s2);
+		s3 = active + passive;
+		bg1 = new BigDecimal(s2);
+		bg2 = new BigDecimal(s3);
+		
+		bg3 = bg1.divide(bg2,3, RoundingMode.CEILING).multiply(new BigDecimal(100));
+		
+		System.out.println("resultat pourcentage" + resultat  + bg3 );
+		DecimalFormat df2 = new DecimalFormat("###.##");
+		return new Object[] { s1, s2, df2.format(bg3) + "%" };
+	}
+///////////////////////////////////////////////////////////////////
+	//number of CommonArea
 	public String getNumberCommonArea() {
 		requestType = "COUNT";
 		table = "CommonArea";
@@ -1011,10 +1072,11 @@ public class GUIBi extends JFrame {
 		return jsonString;
 	}
 
-	// TODO Slayde le plus gros des Kassos, cette methode fonctionne
-	public String getNumberDownOverSensor() {
+//////////////////////////////////////////////////////////////////
+	//Method of calculating the number of DOWN Sensors and OVER Sensors for a graphic visualization 
+	public Object[] getNumberDownOverSensor() {
+		String s1 = "";
 		String s2 = "";
-		String s3 = "";
 		requestType = "COUNT";
 		table = "Message";
 		jsonString = "SELECT sum(case when seuil = '0' AND (id_capteur !=0 AND id_capteur != 9999) then 1 else 0 end ) As nbSensorDown,sum(case when seuil = '0' AND (id_capteur !=0 AND id_capteur = 9999) then 1 else 0 end ) As nbSensorOver FROM message";
@@ -1022,12 +1084,13 @@ public class GUIBi extends JFrame {
 		jsonString = ClientSocket.getJson();
 		logger.log(Level.DEBUG, "Number of sensor down/over finded");
 		String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
-		s2 = jsonString_list[0];
-		s3 = jsonString_list[1];
-		return jsonString;
+		s1 = jsonString_list[0];
+		s2 = jsonString_list[1];
+		return new Object[] { s1, s2 };
 	}
 
-	// TODO Slayde le plus gros des Kassos, cette methode fonctionne
+//////////////////////////////////////////////////////////////////////
+	//Method of calculating of number Alert Received
 	public String getNumberAlertReceived() {
 		requestType = "COUNT";
 		table = "SensorHistorical";
@@ -1038,10 +1101,11 @@ public class GUIBi extends JFrame {
 		return jsonString;
 	}
 
-	// TODO Slayde le plus gros des Kassos, cette methode fonctionne
-	public String getNumberUsedSensor() {
+///////////////////////////////////////////////////////////////////////
+	//Method of calculating of number Unused Sensor, number Used Sensor for a graphic visualization
+	public Object[] getNumberUsedSensor() {
+		String s1 = "";
 		String s2 = "";
-		String s3 = "";
 		requestType = "COUNT";
 		table = "Sensor";
 		jsonString = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor, sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur";
@@ -1049,15 +1113,16 @@ public class GUIBi extends JFrame {
 		jsonString = ClientSocket.getJson();
 		logger.log(Level.DEBUG, "Used/UnUsed Sensor finded");
 		String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
-		s2 = jsonString_list[0];
-		s3 = jsonString_list[1];
-		return jsonString;
+		s1 = jsonString_list[0];
+		s2 = jsonString_list[1];
+		return new Object[] { s1, s2 };
 	}
 
-	// TODO Slayde le plus gros des Kassos, cette methode fonctionne
-	public void getNumberStageSensor() {
-//		String s2 = "";
-//		String s3 = "";
+////////////////////////////////////////////////////
+	//Method of calculating of number of sensor for each floor
+	public Object[] getNumberStageSensor() {
+		String s1 = "";
+		String s2 = "";
 		requestType = "COUNT";
 		table = "Sensor";
 
@@ -1067,61 +1132,73 @@ public class GUIBi extends JFrame {
 		logger.log(Level.DEBUG, "Number sensor for each floor finded");
 
 		String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
-//			s2 = jsonString_list[0];
-//			s3 = jsonString_list[1];
-//			System.out.println("resultat2 Etage1 " + s2);
-//			System.out.println("resultat2 RC" + s3);
+			s1 = jsonString_list[0];
+			s2 = jsonString_list[1];
+//			System.out.println("resultat Etage1 " + s1);
+//			System.out.println("resultat RC" + s2);
+			return new Object[] { s1, s2 };
 	}
 
-	// TODO Slayde le plus gros des Kassos, cette methode fonctionne
+/////////////////////////////////////////////////////////////////
+	//Method of calculating of Number of UPDATE SENSOR  'parametre date '  AND 'parametre  '
 	public String getNumberUpdate() {
 		String s2 = "";
 		String s3 = "";
 		requestType = "COUNT";
 		table = "SensorHistorical";
 //		String jsonString = "";
-//		DateFormat df = new SimpleDateFormat("'yyyy-MM-dd'");
-//		DateFormat df1 = new SimpleDateFormat("'yyyy-MM-dd'");
-//		
-//		String DateFrom = df.format(dateChooser.getDate());
-//		String DateTo=df1.format(dateChooser_1.getDate());
-
+		
 		String DateFrom = "'2000-10-01'";
 		String DateTo = "'2006-10-01'";
-
+		
+		DateFormat df = new SimpleDateFormat("'yyyy-MM-dd'");
+		DateFormat df1 = new SimpleDateFormat("'yyyy-MM-dd'");
+		
+//		String DateFrom = df.format(dateChooser.getDate());
+//		String DateTo=df1.format(dateChooser_1.getDate());
+//
 		jsonString = "SELECT COUNT(*) FROM historique WHERE date_historique BETWEEN " + DateFrom + "AND " + DateTo
 				+ "AND ( type_alerte = 'NORMAL')";
 		new ClientSocket(requestType, jsonString, table);
 		jsonString = ClientSocket.getJson();
 		logger.log(Level.DEBUG, "Number sensor updated per period finded");
-		String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
+		String jsonString_list = jsonString;
+		System.out.println(jsonString_list);
 //			s2 = jsonString_list[0];
 //			s3 = jsonString_list[1];
 //			System.out.println("resultat2 Etage1 " + s2);
 //			System.out.println("resultat2 RC" + s3);
-		return jsonString;
+		
+		return jsonString_list;
 	}
-
+//////////////////////////////////////////////////////////
+	//Method of calculating of average temperature of the sensors 
 	public String getAverageTemperature() {
+		String s1 = "";
 		String s2 = "";
 		String s3 = "";
+		String s4 = "";
 		requestType = "COUNT";
 		table = "Sensor";
 
-		jsonString = "SELECT capteur.id_capteur, capteur.type_capteur, id_partie_commune, ROUND(AVG(message.seuil),2) FROM capteur INNER JOIN message ON capteur.id_capteur = message.id_capteur GROUP BY capteur.id_capteur, capteur.id_partie_commune";
+		jsonString = "SELECT capteur.id_capteur, capteur.type_capteur, id_partie_commune, ROUND(AVG(message.seuil),2) FROM capteur INNER JOIN message ON capteur.id_capteur = message.id_capteur WHERE capteur.type_capteur = 'TEMPERATURE' GROUP BY capteur.id_capteur, capteur.id_partie_commune";
 		new ClientSocket(requestType, jsonString, table);
 		jsonString = ClientSocket.getJson();
 		logger.log(Level.INFO, "Find AVERAGE TEMPERATURE FOR EACH STAGE");
-
+//		System.out.println(jsonString);
 		String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
-//			s2 = jsonString_list[0];
-//			s3 = jsonString_list[1];
-//			System.out.println("resultat2 Etage1 " + s2);
-//			System.out.println("resultat2 RC" + s3);
-		return jsonString;
-
+			s1 = jsonString_list[0];
+			s2 = jsonString_list[1];
+			s3 = jsonString_list[2];
+			s4 = jsonString_list[3];
+//			System.out.println("capteur " + s1);
+//			System.out.println("TYPE " + s2);
+//			System.out.println("Etage "+ s3);
+//			System.out.println("Moyenne " +s4);
+			
+		return jsonString_list[3];
 	}
 }
 
 ///////////////
-//TODO CALCULER LE NOMBRE DE MODIFICATIONS 
+
