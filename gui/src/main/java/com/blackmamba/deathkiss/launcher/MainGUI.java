@@ -4,7 +4,6 @@ import java.awt.EventQueue;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.gui.Connexion;
 import com.blackmamba.deathkiss.gui.Frame;
 

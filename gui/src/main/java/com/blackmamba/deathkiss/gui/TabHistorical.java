@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -41,7 +40,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 public class TabHistorical extends JPanel {
-//TODO PA modifier mettre des liens vers les capteur et partie commune et image
+
 	/**
 	 * Different parameters used
 	 */
@@ -70,7 +69,7 @@ public class TabHistorical extends JPanel {
 	private List<SensorHistorical> listSensorHistorical;
 	private static final Logger logger = LogManager.getLogger(TabHistorical.class);
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
-
+	//TODO PA quand on clique sur diplay sensor on a un null pointer exception impossible d'accerder a la fenetre sensor
 	/**
 	 * Constructor
 	 */
@@ -181,8 +180,8 @@ public class TabHistorical extends JPanel {
 		 * Definition of Button CheckSensor
 		 */
 		checkSensor = new JButton("Display Sensor");
-		checkSensor.setBounds(((int) getToolkit().getScreenSize().getWidth() * 5 / 10),
-				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 150, 40);
+		checkSensor.setBounds(((int) getToolkit().getScreenSize().getWidth() * 1 / 10),
+				(int) getToolkit().getScreenSize().getHeight() * 5 / 20, 150, 40);
 		this.add(checkSensor);
 		checkSensor.addActionListener(new ActionListener() {
 			@Override
@@ -216,8 +215,8 @@ public class TabHistorical extends JPanel {
 		 * Definition of Button newCommonArea
 		 */
 		checkCommonArea = new JButton("Display Common area");
-		checkCommonArea.setBounds(((int) getToolkit().getScreenSize().getWidth() * 3 / 10),
-				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
+		checkCommonArea.setBounds(((int) getToolkit().getScreenSize().getWidth() * 1 / 10),
+				(int) getToolkit().getScreenSize().getHeight() * 8 / 20, 200, 40);
 		this.add(checkCommonArea);
 		checkCommonArea.addActionListener(new ActionListener() {
 			@Override
@@ -250,8 +249,8 @@ public class TabHistorical extends JPanel {
 		 * Definition of Button Delete the line of historical
 		 */
 		delete = new JButton("Delete line");
-		delete.setBounds(((int) getToolkit().getScreenSize().getWidth() * 2 / 4) + 250,
-				(int) getToolkit().getScreenSize().getHeight() * 15 / 20, 200, 40);
+		delete.setBounds(((int) getToolkit().getScreenSize().getWidth() * 1 / 10),
+				(int) getToolkit().getScreenSize().getHeight() * 11 / 20, 200, 40);
 		this.add(delete);
 		delete.addActionListener(new ActionListener() {
 			@Override
@@ -320,7 +319,6 @@ public class TabHistorical extends JPanel {
 			logger.log(Level.WARN,
 					"Impossible to parse in JSON SensorHistorical datas" + e1.getClass().getCanonicalName());
 		}
-
 		listM.clear();
 		listM = new DefaultListModel<>();
 		listM.addElement("ID Historical, Date, ID Sensor, State, Alert State");
@@ -364,7 +362,7 @@ public class TabHistorical extends JPanel {
 			logger.log(Level.WARN, "Impossible to load the background" + e.getClass().getCanonicalName());
 		}
 	}
-	
+
 	/**
 	 * @return the threadListSensorHistorical
 	 */

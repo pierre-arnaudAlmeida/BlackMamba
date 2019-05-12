@@ -220,12 +220,12 @@ public class SensorDAO extends DAO<Sensor> {
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
 			requestSB = new StringBuilder(
 					"SELECT id_capteur,type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max ");
-			if (sensor.getIdCommonArea() != 0) {
-				requestSB.append("FROM capteur where id_partie_commune =");
-				requestSB.append(sensor.getIdCommonArea());
-			} else {
+			if (sensor.getTypeSensor() != null) {
 				requestSB.append("FROM capteur where type_capteur =");
 				requestSB.append(sensor.getTypeSensor());
+			} else {
+				requestSB.append("FROM capteur where id_partie_commune =");
+				requestSB.append(sensor.getIdCommonArea());
 			}
 			st = con.createStatement();
 			result = st.executeQuery(requestSB.toString());

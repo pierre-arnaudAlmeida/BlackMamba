@@ -118,7 +118,7 @@ public class TabSensor extends JPanel {
 	private List<CommonArea> listCommonArea;
 	private static final Logger logger = LogManager.getLogger(TabSensor.class);
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
-
+//TODO PA quand on clique sur diplay sensor on a un null pointer exception impossible d'accerder a la fenetre sensor
 	/**
 	 * Constructor
 	 */
@@ -835,7 +835,12 @@ public class TabSensor extends JPanel {
 						commonArea = commonAreas;
 					}
 				}
-				if (commonArea.getListSensor().size() + 1 > commonArea.getMaxSensor()) {
+				int nbSensor = 0;
+				for (Sensor sens : listSensor) {
+					if (sens.getIdCommonArea() == commonArea.getIdCommonArea())
+						nbSensor++;
+				}
+				if (nbSensor + 1 <= commonArea.getMaxSensor()) {
 					ObjectMapper insertMapper = new ObjectMapper();
 					try {
 						jsonString = insertMapper.writeValueAsString(sensor);

@@ -766,27 +766,22 @@ public class TabCommonArea extends JPanel {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (commonArea.getIdCommonArea() == 0) {
-					JOptionPane.showMessageDialog(null, "Please select an common area", "Error",
-							JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					tab = new JTabbedPane();
-					tab = Frame.getTab();
-					try {
-						if (tab.isEnabledAt(7)) {
-						} else {
-							tab.remove(7);
-							tabListSensor = new TabListSensor(commonArea, idemployee, "Tab Sensor List");
-							tab.add("Tab Sensor List", tabListSensor);
-							tabListSensor.threadLauncher();
-							Frame.goToTab(7);
-						}
-					} catch (IndexOutOfBoundsException e1) {
+				tab = new JTabbedPane();
+				tab = Frame.getTab();
+				try {
+					if (tab.isEnabledAt(7)) {
+					} else {
+						tab.remove(7);
 						tabListSensor = new TabListSensor(commonArea, idemployee, "Tab Sensor List");
 						tab.add("Tab Sensor List", tabListSensor);
 						tabListSensor.threadLauncher();
 						Frame.goToTab(7);
 					}
+				} catch (IndexOutOfBoundsException e1) {
+					tabListSensor = new TabListSensor(commonArea, idemployee, "Tab Sensor List");
+					tab.add("Tab Sensor List", tabListSensor);
+					tabListSensor.threadLauncher();
+					Frame.goToTab(7);
 				}
 			}
 		});
