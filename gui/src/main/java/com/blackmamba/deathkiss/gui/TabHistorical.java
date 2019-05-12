@@ -4,15 +4,20 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -36,7 +41,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 public class TabHistorical extends JPanel {
-
+//TODO PA modifier mettre des liens vers les capteur et partie commune et image
 	/**
 	 * Different parameters used
 	 */
@@ -348,6 +353,18 @@ public class TabHistorical extends JPanel {
 		}
 	}
 
+	/**
+	 * Paint the background
+	 */
+	public void paintComponent(Graphics g) {
+		try {
+			BufferedImage backGroundImage = ImageIO.read(getClass().getClassLoader().getResource("images.jpg"));
+			g.drawImage(backGroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+		} catch (IOException e) {
+			logger.log(Level.WARN, "Impossible to load the background" + e.getClass().getCanonicalName());
+		}
+	}
+	
 	/**
 	 * @return the threadListSensorHistorical
 	 */

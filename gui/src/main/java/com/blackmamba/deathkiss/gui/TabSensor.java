@@ -4,11 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.sql.Time;
 import java.text.Normalizer;
@@ -17,6 +19,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -425,6 +429,7 @@ public class TabSensor extends JPanel {
 		labelIdSensor.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
 				(int) getToolkit().getScreenSize().getHeight() * 3 / 20, 200, 30);
 		labelIdSensor.setFont(policeLabel);
+		labelIdSensor.setForeground(Color.WHITE);
 		this.add(labelIdSensor);
 
 		/**
@@ -434,6 +439,7 @@ public class TabSensor extends JPanel {
 		labelNameCommonArea.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
 				(int) getToolkit().getScreenSize().getHeight() * 3 / 20, 300, 30);
 		labelNameCommonArea.setFont(policeLabel);
+		labelNameCommonArea.setForeground(Color.WHITE);
 		this.add(labelNameCommonArea);
 
 		/**
@@ -443,6 +449,7 @@ public class TabSensor extends JPanel {
 		labelTypeSensor.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
 				(int) getToolkit().getScreenSize().getHeight() * 5 / 20, 200, 30);
 		labelTypeSensor.setFont(policeLabel);
+		labelTypeSensor.setForeground(Color.WHITE);
 		this.add(labelTypeSensor);
 
 		/**
@@ -452,6 +459,7 @@ public class TabSensor extends JPanel {
 		labelStateSensor.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
 				(int) getToolkit().getScreenSize().getHeight() * 5 / 20, 200, 30);
 		labelStateSensor.setFont(policeLabel);
+		labelStateSensor.setForeground(Color.WHITE);
 		this.add(labelStateSensor);
 
 		/**
@@ -461,6 +469,7 @@ public class TabSensor extends JPanel {
 		labelSensitivity.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
 				(int) getToolkit().getScreenSize().getHeight() * 7 / 20, 200, 30);
 		labelSensitivity.setFont(policeLabel);
+		labelSensitivity.setForeground(Color.WHITE);
 		this.add(labelSensitivity);
 
 		/**
@@ -470,6 +479,7 @@ public class TabSensor extends JPanel {
 		labelAlertState.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
 				(int) getToolkit().getScreenSize().getHeight() * 7 / 20, 200, 30);
 		labelAlertState.setFont(policeLabel);
+		labelAlertState.setForeground(Color.WHITE);
 		this.add(labelAlertState);
 
 		/**
@@ -479,6 +489,7 @@ public class TabSensor extends JPanel {
 		labelStartActivity.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
 				(int) getToolkit().getScreenSize().getHeight() * 9 / 20, 200, 30);
 		labelStartActivity.setFont(policeLabel);
+		labelStartActivity.setForeground(Color.WHITE);
 		this.add(labelStartActivity);
 
 		/**
@@ -488,6 +499,7 @@ public class TabSensor extends JPanel {
 		labelEndActivity.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
 				(int) getToolkit().getScreenSize().getHeight() * 9 / 20, 200, 30);
 		labelEndActivity.setFont(policeLabel);
+		labelEndActivity.setForeground(Color.WHITE);
 		this.add(labelEndActivity);
 
 		/**
@@ -497,6 +509,7 @@ public class TabSensor extends JPanel {
 		labelThresholdMin.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7,
 				(int) getToolkit().getScreenSize().getHeight() * 11 / 20, 200, 30);
 		labelThresholdMin.setFont(policeLabel);
+		labelThresholdMin.setForeground(Color.WHITE);
 		this.add(labelThresholdMin);
 
 		/**
@@ -506,6 +519,7 @@ public class TabSensor extends JPanel {
 		labelThresholdMax.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7,
 				(int) getToolkit().getScreenSize().getHeight() * 11 / 20, 200, 30);
 		labelThresholdMax.setFont(policeLabel);
+		labelThresholdMax.setForeground(Color.WHITE);
 		this.add(labelThresholdMax);
 
 		/**
@@ -515,6 +529,7 @@ public class TabSensor extends JPanel {
 		labelHourStartActivity.setBounds((int) getToolkit().getScreenSize().getWidth() * 9 / 28,
 				(int) getToolkit().getScreenSize().getHeight() * 10 / 20, 200, 30);
 		labelHourStartActivity.setFont(policeLabel);
+		labelHourStartActivity.setForeground(Color.WHITE);
 		this.add(labelHourStartActivity);
 
 		/**
@@ -524,6 +539,7 @@ public class TabSensor extends JPanel {
 		labelMinuteStartActivity.setBounds((int) getToolkit().getScreenSize().getWidth() * 11 / 28,
 				(int) getToolkit().getScreenSize().getHeight() * 10 / 20, 200, 30);
 		labelMinuteStartActivity.setFont(policeLabel);
+		labelMinuteStartActivity.setForeground(Color.WHITE);
 		this.add(labelMinuteStartActivity);
 
 		/**
@@ -533,6 +549,7 @@ public class TabSensor extends JPanel {
 		labelHourEndActivity.setBounds((int) getToolkit().getScreenSize().getWidth() * 17 / 28,
 				(int) getToolkit().getScreenSize().getHeight() * 10 / 20, 200, 30);
 		labelHourEndActivity.setFont(policeLabel);
+		labelHourEndActivity.setForeground(Color.WHITE);
 		this.add(labelHourEndActivity);
 
 		/**
@@ -542,6 +559,7 @@ public class TabSensor extends JPanel {
 		labelMinuteEndActivity.setBounds((int) getToolkit().getScreenSize().getWidth() * 19 / 28,
 				(int) getToolkit().getScreenSize().getHeight() * 10 / 20, 200, 30);
 		labelMinuteEndActivity.setFont(policeLabel);
+		labelMinuteEndActivity.setForeground(Color.WHITE);
 		this.add(labelMinuteEndActivity);
 
 		/**
@@ -549,6 +567,7 @@ public class TabSensor extends JPanel {
 		 */
 		labelHeadList = new JLabel("ID /Type /State /ID common area");
 		labelHeadList.setBounds(40, 90, 300, 30);
+		labelHeadList.setForeground(Color.WHITE);
 		labelHeadList.setFont(policeBar);
 		this.add(labelHeadList);
 
@@ -1310,6 +1329,18 @@ public class TabSensor extends JPanel {
 		position = eA.indexOf(":");
 		textInputHourEndActivity.setSelectedIndex(Integer.parseInt(eA.substring(0, position).trim()));
 		textInputMinuteEndActivity.setSelectedIndex(Integer.parseInt(eA.substring(position + 1, position + 3).trim()));
+	}
+
+	/**
+	 * Paint the background
+	 */
+	public void paintComponent(Graphics g) {
+		try {
+			BufferedImage backGroundImage = ImageIO.read(getClass().getClassLoader().getResource("images.jpg"));
+			g.drawImage(backGroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+		} catch (IOException e) {
+			logger.log(Level.WARN, "Impossible to load the background" + e.getClass().getCanonicalName());
+		}
 	}
 
 	/**

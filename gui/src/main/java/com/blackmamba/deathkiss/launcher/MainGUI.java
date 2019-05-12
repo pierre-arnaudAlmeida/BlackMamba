@@ -31,14 +31,16 @@ public class MainGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					// TODO PA faire le script capteur
 					// TODO PA a remettre
-					 //popupConnexion = new Connexion();
-					 //popupConnexion.setVisible(true);
+					// popupConnexion = new Connexion();
+					// popupConnexion.setVisible(true);
 					Frame frame = new Frame(1);
 					frame.setVisible(true);
 					logger.log(Level.INFO, "Application Deathkiss runned");
 				} catch (Exception e) {
-					logger.log(Level.WARN, "Impossible to create the window 'frame' " + e.getClass().getCanonicalName());
+					logger.log(Level.WARN,
+							"Impossible to create the window 'frame' " + e.getClass().getCanonicalName());
 				}
 			}
 		});

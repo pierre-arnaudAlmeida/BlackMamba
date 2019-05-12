@@ -1,43 +1,31 @@
 package com.blackmamba.deathkiss.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+
 import javax.imageio.ImageIO;
-import java.io.IOException;
-import java.sql.Time;
-
-import javax.swing.JPanel;
-
-import org.apache.logging.log4j.Level;
-
-import com.blackmamba.deathkiss.entity.CommonArea;
-import com.blackmamba.deathkiss.entity.Floor;
-import com.blackmamba.deathkiss.entity.Alert;
-import com.blackmamba.deathkiss.entity.Sensor;
-import com.blackmamba.deathkiss.launcher.ClientSocket;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.MouseAdapter;
-
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -45,14 +33,21 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
 
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.blackmamba.deathkiss.entity.Alert;
+import com.blackmamba.deathkiss.entity.CommonArea;
+import com.blackmamba.deathkiss.entity.Floor;
+import com.blackmamba.deathkiss.entity.Sensor;
+import com.blackmamba.deathkiss.launcher.ClientSocket;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author Raymond
@@ -343,6 +338,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		labelHeadList = new JLabel("ID /Type /State /ID common area /  :");
 		labelHeadList.setBounds(40, 140, 300, 30);
 		labelHeadList.setFont(police);
+		labelHeadList.setForeground(Color.WHITE);
 		this.add(labelHeadList);
 
 		///////////////////////// JComboBox/////////////////////////////////////////////
@@ -364,7 +360,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					textFloor.getSelectedItem();
-					
+
 				}
 			}
 		});
@@ -522,16 +518,22 @@ public class TabMapSensor extends JPanel implements MouseListener {
 
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
+		try {
+			BufferedImage backGroundImage = ImageIO.read(getClass().getClassLoader().getResource("images.jpg"));
+			g.drawImage(backGroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+		} catch (IOException e) {
+			logger.log(Level.WARN, "Impossible to load the background" + e.getClass().getCanonicalName());
+		}
 
 		if (textFloor.getSelectedItem().equals("GROUND_FLOOR")) {
 			try {
 				img = ImageIO.read(getClass().getClassLoader().getResource("Floor0.jpg"));
 				this.buffer = img;
 				g2.drawImage(buffer, x0, y0, 900, 580, this);
-				
+
 				g2.setColor(Color.GREEN);
-				
-				//Draw rectangle
+
+				// Draw rectangle
 				g2.drawRect(kitchenE0.x, kitchenE0.y, kitchenE0.width, kitchenE0.height);
 				g2.drawRect(dinningRoomE0.x, dinningRoomE0.y, dinningRoomE0.width, dinningRoomE0.height);
 				g2.drawRect(staffRoomE0.x, staffRoomE0.y, staffRoomE0.width, staffRoomE0.height);
@@ -547,7 +549,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 				g2.drawRect(entranceHall.x, entranceHall.y, entranceHall.width, entranceHall.height);
 				g2.drawRect(elevatorE0A.x, elevatorE0A.y, elevatorE0A.width, elevatorE0A.height);
 				g2.drawRect(elevatorE0B.x, elevatorE0B.y, elevatorE0B.width, elevatorE0B.height);
-				
+
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -556,9 +558,9 @@ public class TabMapSensor extends JPanel implements MouseListener {
 			try {
 				img1 = ImageIO.read(getClass().getClassLoader().getResource("Floor1.jpg"));
 				g2.drawImage(buffer1, x0, y0, 900, 580, this);
-				
+
 				g2.setColor(Color.GREEN);
-				
+
 				g2.drawRect(sittingRoomE1.x, sittingRoomE1.y, sittingRoomE1.width, sittingRoomE1.height);
 				g2.drawRect(dinningRoomE1.x, dinningRoomE1.y, dinningRoomE1.width, dinningRoomE1.height);
 				g2.drawRect(kitchenE1.x, kitchenE1.y, kitchenE1.width, kitchenE1.height);
@@ -575,14 +577,13 @@ public class TabMapSensor extends JPanel implements MouseListener {
 				g2.drawRect(infirmaryE1.x, infirmaryE1.y, infirmaryE1.width, infirmaryE1.height);
 				g2.drawRect(elevatorE1A.x, elevatorE1A.y, elevatorE1A.width, elevatorE1A.height);
 				g2.drawRect(elevatorE1B.x, elevatorE1B.y, elevatorE1B.width, elevatorE1B.height);
-				
+
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
 			this.buffer1 = img1;
 		}
-		
-		
+
 		// Draw image
 //		g2.drawImage(buffer, x0, y0, 900, 580, this);
 //		g2.drawImage(buffer1, x0, y0, 900, 580, this);

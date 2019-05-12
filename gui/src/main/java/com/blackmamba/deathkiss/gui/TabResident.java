@@ -4,16 +4,21 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -313,6 +318,7 @@ public class TabResident extends JPanel {
 		labelLastnameResident = new JLabel("Last Name : ");
 		labelLastnameResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7, (int) getToolkit().getScreenSize().getHeight() * 2 / 10, 200, 30);
 		labelLastnameResident.setFont(policeLabel);
+		labelLastnameResident.setForeground(Color.WHITE);
 		this.add(labelLastnameResident);
 
 		/**
@@ -321,6 +327,7 @@ public class TabResident extends JPanel {
 		labelNameResident = new JLabel("Name : ");
 		labelNameResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 4 / 7, (int) getToolkit().getScreenSize().getHeight() * 2 / 10, 200, 30);
 		labelNameResident.setFont(policeLabel);
+		labelNameResident.setForeground(Color.WHITE);
 		this.add(labelNameResident);
 
 		/**
@@ -330,6 +337,7 @@ public class TabResident extends JPanel {
 		labelIdResident = new JLabel("ID : ");
 		labelIdResident.setBounds((int) getToolkit().getScreenSize().getWidth() * 2 / 7, (int) getToolkit().getScreenSize().getHeight() * 4 / 10, 100, 30);
 		labelIdResident.setFont(policeLabel);
+		labelIdResident.setForeground(Color.WHITE);
 		this.add(labelIdResident);
 
 		/**
@@ -337,6 +345,7 @@ public class TabResident extends JPanel {
 		 */
 		labelHeadList = new JLabel("ID /Last Name /Name");
 		labelHeadList.setBounds(40, 90, 300, 30);
+		labelHeadList.setForeground(Color.WHITE);
 		labelHeadList.setFont(policeBar);
 		this.add(labelHeadList);
 		//////////////////// TEXT AREA////////////////////////////////////////////////
@@ -679,6 +688,18 @@ public class TabResident extends JPanel {
 		}
 	}
 
+	/**
+	 * Paint the background
+	 */
+	public void paintComponent(Graphics g) {
+		try {
+			BufferedImage backGroundImage = ImageIO.read(getClass().getClassLoader().getResource("images.jpg"));
+			g.drawImage(backGroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+		} catch (IOException e) {
+			logger.log(Level.WARN, "Impossible to load the background" + e.getClass().getCanonicalName());
+		}
+	}
+	
 	/**
 	 * @return the threadResident
 	 */
