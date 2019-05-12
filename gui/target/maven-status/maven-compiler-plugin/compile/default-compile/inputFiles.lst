@@ -3,6 +3,7 @@ D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\TabHistorical.j
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\TabSensor.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\TabEmployes.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\SensorHistorical.java
+D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\launcher\ClientSocket.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\Resident.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\Sensor.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\TabCommonArea.java
@@ -13,11 +14,11 @@ D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\Sensitivity.
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\Message.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\SurfacePolygon.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\Alert.java
+D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\launcher\MainGUI.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\CommonArea.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\Connexion.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\AlertState.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\Frame.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\TabListSensor.java
-D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\ClientSocket.java
-D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\gui\MainGUI.java
 D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\Employee.java
+D:\Java\deathkiss\gui\src\main\java\com\blackmamba\deathkiss\entity\Floor.java

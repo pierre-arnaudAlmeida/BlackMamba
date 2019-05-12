@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -207,19 +208,26 @@ public class CommonAreaDAO extends DAO<CommonArea> {
 	 * @return
 	 */
 	public String count(String str) {
-		int i = 1;
+		int columns = 1;
+		int fisrtColumn = 1;
 		ObjectMapper objWriter = new ObjectMapper();
+		ResultSetMetaData metadata;
 		String jsonString = "";
 		try {
 			st = con.createStatement();
 			result = st.executeQuery(str);
-			result.next();
-			while (result.getObject(i) != null) {
-				if (i == 1)
-					jsonString = result.getObject(i).toString();
-				else
-					jsonString = jsonString + "," + result.getObject(i).toString();
-				i++;
+			metadata = result.getMetaData();
+			while (result.next()) {
+				while (columns <= metadata.getColumnCount()) {
+					if (fisrtColumn == 1) {
+						jsonString = result.getObject(columns).toString();
+						fisrtColumn++;
+					} else {
+						jsonString = jsonString + "," + result.getObject(columns).toString();
+					}
+					columns++;
+				}
+				columns = 1;
 			}
 			jsonString = objWriter.writeValueAsString(jsonString);
 		} catch (SQLException | JsonProcessingException e) {

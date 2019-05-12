@@ -146,16 +146,16 @@ public class GUIBi extends JFrame {
 	 * Create the frame.
 	 */
 	public GUIBi() {
-		GetAllSensor();
-		GetAllSensorHistorical();
-//		getNumberDownOverSensor();
-		GetNumberAlertReceived();
+		getAllSensor();
+		getAllSensorHistorical();
+		getNumberDownOverSensor();
+		getNumberAlertReceived();
 		getNumberUpdate();
 		getNumberStageSensor();
 //		getAllCommonArea();
 //		getNumberPassiveActiveSensor();
 		getAllMessage();
-//		GetNumberUsedSensor();
+		getNumberUsedSensor();
 		getNumberCommonArea();
 		getAverageTemperature();
 		initComponents();
@@ -255,7 +255,7 @@ public class GUIBi extends JFrame {
 
 		///////////////////////////////////////////////////////
 		// DATE
-		
+
 		JDateChooser dateChooser_2 = new JDateChooser();
 		dateChooser_2.setBounds(129, 139, 69, 20);
 		panel.add(dateChooser_2);
@@ -263,7 +263,7 @@ public class GUIBi extends JFrame {
 		JDateChooser dateChooser_3 = new JDateChooser();
 		dateChooser_3.setBounds(129, 170, 69, 20);
 		panel.add(dateChooser_3);
-		
+
 		// label - DASHBOARD
 		JLabel lblStock = new JLabel("Number of sensors in stock");
 		lblStock.setBounds(210, 233, 147, 16);
@@ -407,12 +407,10 @@ public class GUIBi extends JFrame {
 		JComboBox cbTotalTypeSensorStock = new JComboBox();
 		cbTotalTypeSensorStock.setBounds(418, 230, 87, 22);
 		panel.add(cbTotalTypeSensorStock);
-		
+
 		cbStockTypeSensor = new JComboBox();
 		cbStockTypeSensor.setBounds(107, 362, 73, 22);
 		panel.add(cbStockTypeSensor);
-
-
 
 ////////////////////////////////////////////////////////////
 		// Combobox in Tabbed Alert
@@ -740,7 +738,7 @@ public class GUIBi extends JFrame {
 
 ////////////////////////////////////
 	// Method Get all Sensor contained in the Sensor database
-	private void GetAllSensor() {
+	private void getAllSensor() {
 
 		requestType = "READ ALL";
 		table = "Sensor";
@@ -762,7 +760,7 @@ public class GUIBi extends JFrame {
 
 ///////////////////////////////////////////
 	// Method Get all Alert contained in the Historical database
-	private void GetAllSensorHistorical() {
+	private void getAllSensorHistorical() {
 
 		requestType = "READ ALL";
 		table = "SensorHistorical";
@@ -1002,147 +1000,85 @@ public class GUIBi extends JFrame {
 //		return jsonString;
 //	}
 
+	// TODO Slayde le plus gros des Kassos, cette methode fonctionne
 	public String getNumberCommonArea() {
-
 		requestType = "COUNT";
 		table = "CommonArea";
-		ObjectMapper objWriter = new ObjectMapper();
-		String jsonString1 = "";
-
-		try {
-
-			jsonString = "SELECT COUNT(*) FROM partie_commune;";
-			jsonString = objWriter.writeValueAsString(jsonString);
-			new ClientSocket(requestType, jsonString, table);
-			jsonString1 = ClientSocket.getJson();
-			System.out.println(jsonString1);
-			logger.log(Level.INFO, "Find NUMBER COMMON AREA");
-			System.out.println("resultat" + jsonString);
-		} catch (JsonProcessingException e) {
-			logger.log(Level.WARN,
-					"Impossible to get SensorHistorical datas from BDD " + e.getClass().getCanonicalName());
-		}
+		jsonString = "SELECT COUNT(*) FROM partie_commune";
+		new ClientSocket(requestType, jsonString, table);
+		jsonString = ClientSocket.getJson();
+		logger.log(Level.DEBUG, "Number CommonArea finded");
 		return jsonString;
 	}
 
+	// TODO Slayde le plus gros des Kassos, cette methode fonctionne
 	public String getNumberDownOverSensor() {
 		String s2 = "";
 		String s3 = "";
 		requestType = "COUNT";
 		table = "Message";
-		ObjectMapper objWriter = new ObjectMapper();
-		String jsonString = "";
-
-		try {
-
-			jsonString = "SELECT sum(case when seuil = '0' AND (id_capteur !=0 AND id_capteur != 9999) then 1 else 0 end ) As nbSensorDown,sum(case when seuil = '0' AND (id_capteur !=0 AND id_capteur = 9999) then 1 else 0 end ) As nbSensorOver FROM message;";
-			jsonString = objWriter.writeValueAsString(jsonString);
-			new ClientSocket(requestType, jsonString, table);
-			System.out.println("okay");
-			jsonString = ClientSocket.getJson();
-			logger.log(Level.INFO, "Find DOWN OVER SENSOR");
-			System.out.println("resultat2 " + jsonString);
-
-			String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
-			s2 = jsonString_list[0];
-			s3 = jsonString_list[1];
-			System.out.println("resultat2 Down " + s2);
-			System.out.println("resultat2 Over " + s3);
-		} catch (JsonProcessingException e) {
-			logger.log(Level.WARN,
-					"Impossible to get SensorHistorical datas from BDD " + e.getClass().getCanonicalName());
-		}
+		jsonString = "SELECT sum(case when seuil = '0' AND (id_capteur !=0 AND id_capteur != 9999) then 1 else 0 end ) As nbSensorDown,sum(case when seuil = '0' AND (id_capteur !=0 AND id_capteur = 9999) then 1 else 0 end ) As nbSensorOver FROM message";
+		new ClientSocket(requestType, jsonString, table);
+		jsonString = ClientSocket.getJson();
+		logger.log(Level.DEBUG, "Number of sensor down/over finded");
+		String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
+		s2 = jsonString_list[0];
+		s3 = jsonString_list[1];
 		return jsonString;
 	}
 
-	public String GetNumberAlertReceived() {
+	// TODO Slayde le plus gros des Kassos, cette methode fonctionne
+	public String getNumberAlertReceived() {
 		requestType = "COUNT";
 		table = "SensorHistorical";
-		ObjectMapper objWriter = new ObjectMapper();
-		String jsonString = "";
-
-		try {
-
-			jsonString = "SELECT COUNT(*) FROM historique;";
-			jsonString = objWriter.writeValueAsString(jsonString);
-			new ClientSocket(requestType, jsonString, table);
-			jsonString = ClientSocket.getJson();
-			logger.log(Level.INFO, "Find Number Alert Received");
-			System.out.println("resultat alert received " + jsonString);
-		} catch (JsonProcessingException e) {
-			logger.log(Level.WARN,
-					"Impossible to get SensorHistorical datas from BDD " + e.getClass().getCanonicalName());
-		}
+		jsonString = "SELECT COUNT(*) FROM historique";
+		new ClientSocket(requestType, jsonString, table);
+		jsonString = ClientSocket.getJson();
+		logger.log(Level.DEBUG, "Number alert received finded");
 		return jsonString;
 	}
 
-	public String GetNumberUsedSensor() {
+	// TODO Slayde le plus gros des Kassos, cette methode fonctionne
+	public String getNumberUsedSensor() {
 		String s2 = "";
 		String s3 = "";
 		requestType = "COUNT";
 		table = "Sensor";
-		ObjectMapper objWriter = new ObjectMapper();
-		String jsonString = "";
-
-		try {
-
-			jsonString = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor, sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur;";
-			jsonString = objWriter.writeValueAsString(jsonString);
-			new ClientSocket(requestType, jsonString, table);
-			System.out.println("okay");
-			jsonString = ClientSocket.getJson();
-			logger.log(Level.INFO, "Find UNUSED USED SENSOR");
-			System.out.println("resultat2 " + jsonString);
-
-			String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
-			s2 = jsonString_list[0];
-			s3 = jsonString_list[1];
-			System.out.println("resultat2 Unused " + s2);
-			System.out.println("resultat2 used " + s3);
-		} catch (JsonProcessingException e) {
-			logger.log(Level.WARN,
-					"Impossible to get SensorHistorical datas from BDD " + e.getClass().getCanonicalName());
-		}
+		jsonString = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor, sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur";
+		new ClientSocket(requestType, jsonString, table);
+		jsonString = ClientSocket.getJson();
+		logger.log(Level.DEBUG, "Used/UnUsed Sensor finded");
+		String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
+		s2 = jsonString_list[0];
+		s3 = jsonString_list[1];
 		return jsonString;
 	}
 
+	// TODO Slayde le plus gros des Kassos, cette methode fonctionne
 	public void getNumberStageSensor() {
-
 //		String s2 = "";
 //		String s3 = "";
 		requestType = "COUNT";
 		table = "Sensor";
-		ObjectMapper objWriter = new ObjectMapper();
-		String jsonString = "";
 
-		try {
+		jsonString = "SELECT sum(case when ( id_partie_commune = 1 AND id_capteur != 0) then 1 else 0 end ) As nbSensorEtage1, sum(case when ( id_partie_commune = 0 AND id_capteur != 0) then 1 else 0 end ) As nbSensorRC FROM capteur";
+		new ClientSocket(requestType, jsonString, table);
+		jsonString = ClientSocket.getJson();
+		logger.log(Level.DEBUG, "Number sensor for each floor finded");
 
-			jsonString = "SELECT sum(case when ( id_partie_commune = 1 AND id_capteur != 0) then 1 else 0 end ) As nbSensorEtage1, sum(case when ( id_partie_commune = 0 AND id_capteur != 0) then 1 else 0 end ) As nbSensorRC FROM capteur;";
-			jsonString = objWriter.writeValueAsString(jsonString);
-			new ClientSocket(requestType, jsonString, table);
-			System.out.println("okay");
-			jsonString = ClientSocket.getJson();
-			logger.log(Level.INFO, "Find NUMBER SENSOR FOR EACH STAGE");
-			System.out.println("resultat " + jsonString);
-
-			String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
+		String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
 //			s2 = jsonString_list[0];
 //			s3 = jsonString_list[1];
 //			System.out.println("resultat2 Etage1 " + s2);
 //			System.out.println("resultat2 RC" + s3);
-		} catch (JsonProcessingException e) {
-			logger.log(Level.WARN,
-					"Impossible to get SensorHistorical datas from BDD " + e.getClass().getCanonicalName());
-		}
-
 	}
 
+	// TODO Slayde le plus gros des Kassos, cette methode fonctionne
 	public String getNumberUpdate() {
 		String s2 = "";
 		String s3 = "";
 		requestType = "COUNT";
 		table = "SensorHistorical";
-		ObjectMapper objWriter = new ObjectMapper();
 //		String jsonString = "";
 //		DateFormat df = new SimpleDateFormat("'yyyy-MM-dd'");
 //		DateFormat df1 = new SimpleDateFormat("'yyyy-MM-dd'");
@@ -1153,61 +1089,35 @@ public class GUIBi extends JFrame {
 		String DateFrom = "'2000-10-01'";
 		String DateTo = "'2006-10-01'";
 
-		try {
-
-			jsonString = "SELECT COUNT(*) FROM historique WHERE date_historique BETWEEN " + DateFrom + "AND " + DateTo
-					+ "AND ( type_alerte = 'NORMAL')";
-//			jsonString = "SELECT COUNT(*) FROM capteur";
-			jsonString = objWriter.writeValueAsString(jsonString);
-			System.out.println(jsonString);
-			new ClientSocket(requestType, jsonString, table);
-			System.out.println("okay date");
-			jsonString = ClientSocket.getJson();
-			logger.log(Level.INFO, "Find NUMBER SENSOR UPDATE PER PERIOD");
-			System.out.println("resultat " + jsonString);
-			System.out.println("test2");
-			String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
+		jsonString = "SELECT COUNT(*) FROM historique WHERE date_historique BETWEEN " + DateFrom + "AND " + DateTo
+				+ "AND ( type_alerte = 'NORMAL')";
+		new ClientSocket(requestType, jsonString, table);
+		jsonString = ClientSocket.getJson();
+		logger.log(Level.DEBUG, "Number sensor updated per period finded");
+		String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
 //			s2 = jsonString_list[0];
 //			s3 = jsonString_list[1];
 //			System.out.println("resultat2 Etage1 " + s2);
 //			System.out.println("resultat2 RC" + s3);
-		} catch (JsonProcessingException e) {
-			logger.log(Level.WARN,
-					"Impossible to get SensorHistorical datas from BDD " + e.getClass().getCanonicalName());
-		}
 		return jsonString;
 	}
 
 	public String getAverageTemperature() {
-
 		String s2 = "";
 		String s3 = "";
 		requestType = "COUNT";
 		table = "Sensor";
-		ObjectMapper objWriter = new ObjectMapper();
-//		String jsonString = "";
 
-		try {
+		jsonString = "SELECT capteur.id_capteur, capteur.type_capteur, id_partie_commune, ROUND(AVG(message.seuil),2) FROM capteur INNER JOIN message ON capteur.id_capteur = message.id_capteur GROUP BY capteur.id_capteur, capteur.id_partie_commune";
+		new ClientSocket(requestType, jsonString, table);
+		jsonString = ClientSocket.getJson();
+		logger.log(Level.INFO, "Find AVERAGE TEMPERATURE FOR EACH STAGE");
 
-			jsonString = "SELECT capteur.id_capteur, capteur.type_capteur, id_partie_commune, ROUND(AVG(message.seuil),2) FROM capteur INNER JOIN message ON capteur.id_capteur = message.id_capteur GROUP BY capteur.id_capteur, capteur.id_partie_commune;";
-			jsonString = objWriter.writeValueAsString(jsonString);
-			System.out.println(jsonString);
-			new ClientSocket(requestType, jsonString, table);
-			System.out.println("okay");
-			jsonString = ClientSocket.getJson();
-			System.out.println(jsonString);
-			logger.log(Level.INFO, "Find AVERAGE TEMPERATURE FOR EACH STAGE");
-			System.out.println("resultat temperature " + jsonString);
-
-			String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
+		String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
 //			s2 = jsonString_list[0];
 //			s3 = jsonString_list[1];
 //			System.out.println("resultat2 Etage1 " + s2);
 //			System.out.println("resultat2 RC" + s3);
-		} catch (JsonProcessingException e) {
-			logger.log(Level.WARN,
-					"Impossible to get SensorHistorical datas from BDD " + e.getClass().getCanonicalName());
-		}
 		return jsonString;
 
 	}

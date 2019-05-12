@@ -85,7 +85,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.blackmamba.deathkiss.pool.socket.MainServerGUI</mainClass>
+							<mainClass>com.blackmamba.deathkiss.pool.launcher.MainServerGUI</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>

@@ -32,8 +32,8 @@ public class MainGUI {
 			public void run() {
 				try {
 					// TODO PA a remettre
-					// popupConnexion = new Connexion();
-					// popupConnexion.setVisible(true);
+					 //popupConnexion = new Connexion();
+					 //popupConnexion.setVisible(true);
 					Frame frame = new Frame(1);
 					frame.setVisible(true);
 					logger.log(Level.INFO, "Application Deathkiss runned");
