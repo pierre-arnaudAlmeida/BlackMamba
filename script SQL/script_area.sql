@@ -19,7 +19,7 @@ insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, m
 insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_capteur) values ('RELAXATION ROOM E0', 0, 80, 15);
 insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_capteur) values ('DINING ROOM E0', 0, 50, 11);
 insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_capteur) values ('STAFF ROOM E1', 1, 50, 9);
-insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_capteur) values ('LIVING ROOM E1', 1, 50, 8);
+insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_capteur) values ('LIVING ROOM A E1', 1, 50, 8);
 insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_capteur) values ('CORRIDOR E1-A', 1, 30, 12);
 insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_capteur) values ('CORRIDOR E1-B', 1, 25, 16);
 insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_capteur) values ('CORRIDOR E1-C', 1, 25, 16);
@@ -33,4 +33,4 @@ insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, m
 insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_capteur) values ('ELEVATOR B E1', 1, 5, 2);
 insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_capteur) values ('KITCHEN E1', 1, 50, 10);
 insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_capteur) values ('SITTING ROOM E1', 1, 50, 9);
-insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_capteur) values ('LIVING ROOM E1', 1, 50, 9);
+insert into partie_commune (nom_partie_commune, etage_partie_commune, surface, max_capteur) values ('LIVING ROOM B E1', 1, 50, 9);

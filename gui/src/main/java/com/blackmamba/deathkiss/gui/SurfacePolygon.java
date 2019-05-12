@@ -32,8 +32,8 @@ public class SurfacePolygon extends JFrame {
 	private int tab;
 	private int[] xPoints;
 	private int[] yPoints;
-	private static JPopupMenu popup;
-
+	private static CommonArea commonArea;
+	
 	private static final Rectangle entranceHall = new Rectangle(490, 99, 95, 197);
 	private static final Rectangle livingRoomE0 = new Rectangle(343, 2, 145, 97);
 	private static final Rectangle sittingRoom = new Rectangle(343, 297, 146, 96);
@@ -68,7 +68,7 @@ public class SurfacePolygon extends JFrame {
 		public void paint(Graphics g) {
 
 			// 50% transparent
-			int alpha = 127; 
+			int alpha = 127;
 
 			// Draw image
 			g.drawImage(buffer, 0, 0, buffer.getWidth(), buffer.getHeight(), this);
@@ -87,7 +87,7 @@ public class SurfacePolygon extends JFrame {
 			g.drawRect(elevatorA.x, elevatorA.y, elevatorA.width, elevatorA.height);
 			g.drawRect(elevatorB.x, elevatorB.y, elevatorB.width, elevatorB.height);
 			g.drawRect(diningRoomE0.x, diningRoomE0.y, diningRoomE0.width, diningRoomE0.height);
-			
+
 //			g.drawRect(staffRoom.x, staffRoom.y, staffRoom.width, staffRoom.height);
 //			g.drawRect(livingRoomE1.x, livingRoomE1.y, livingRoomE1.width, livingRoomE1.height);
 //			g.drawRect(corridorE1_A.x, corridorE1_A.y, corridorE1_A.width, corridorE1_A.height);
@@ -99,12 +99,14 @@ public class SurfacePolygon extends JFrame {
 //			g.drawRect(diningRoomE1.x, diningRoomE1.y, diningRoomE1.width, diningRoomE1.height);
 		}
 
-		private void testLocation(Point mouse, Rectangle commonArea, String text) {
+		private void testLocation(Point mouse, Rectangle commoonArea, String text) {
 			// if the mouse if here
-			if (commonArea.contains(mouse))
+			if (commoonArea.contains(mouse)) {
 				System.out.println(text + " - image");
-			else
+				System.out.println(commonArea.getNameCommonArea());
+			} else {
 				System.out.println(text + " - !image");
+			}
 		}
 
 		private boolean location(Point mouse, Rectangle commonArea) {
@@ -167,6 +169,10 @@ public class SurfacePolygon extends JFrame {
 
 	}
 
+	public static void main(String[] args) {
+		new SurfacePolygon().setVisible(true);
+	}
+	
 //	private JButton overButton;
 //
 //	public SurfacePolygon(String title) {
@@ -207,10 +213,7 @@ public class SurfacePolygon extends JFrame {
 //		SurfacePolygon demo = new SurfacePolygon("Démo de survol de bouton");
 //		demo.pack();
 //		demo.setVisible(true);
-//
-//	public static void main(String[] args) {
-//		new SurfacePolygon().setVisible(true);
-//	}
+
 
 	public CommonArea getIdCommonArea() {
 		return idCommonArea;
