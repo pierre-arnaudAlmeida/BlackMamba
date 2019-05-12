@@ -113,12 +113,15 @@ public class GUIBi extends JFrame {
 	private JTextField tfNbCommonArea;
 	private JTextField tfSensor;
 	private JTextField tfAlert;
-	private JTextField textField_1;
-	private JTextField textField_2;
 	private JTextField tfPassiveSensor;
 	private JTextField tfActiveSensor;
-	private JTextField textField;
-	private JTextField textField_3;
+	private JTextField tfMeanTemperatureStageRC;
+	private JTextField tfMeanTemperatureStage1;
+	private JTextField tfTotalStockRc;
+	private JTextField tfTotalStockEtage1;
+	private JLabel lbTotalStockRc;
+	private JLabel lbTotalStockStage1;
+	private JComboBox cbStockTypeSensor;
 
 	//////////////////////////////////////////////////////////////////////
 	/**
@@ -128,14 +131,7 @@ public class GUIBi extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					// TODO SL change le nom de ta classe ihmBI c'est du français on fait l'appli en
-					// anglais meme le texte sur l'ihm
-					// ihm == GUI
-					// donc appelle la Frame c'est simple et comprehensible de toute facon y aura
-					// pas deux frame dans ton jar donc pas de conflit
-					// copie pas les classes que j'ai faite dans ton projet tu les ouvres tu copie
-					// ok mais les integre pas pcq apres tu ne sais pas ou t'en es et apres au
-					// moment de l'execution t'as des conflit pour rien
+
 					GUIBi frame = new GUIBi();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -150,21 +146,16 @@ public class GUIBi extends JFrame {
 	 * Create the frame.
 	 */
 	public GUIBi() {
-//		DateFromDateTo(); 
 		GetAllSensor();
 		GetAllSensorHistorical();
-		getNumberDownOverSensor2();
-		GetNumberAlertReceived2();
-		getNumberStageSensor();
-		getNumberUpdate();
-//		getNumberStageSensor();
-//		getAllCommonArea();
-		getNumberCommonArea();
 //		getNumberDownOverSensor();
-//		GetNumberAlertReceived();
+		GetNumberAlertReceived();
+		getNumberUpdate();
+		getNumberStageSensor();
+//		getAllCommonArea();
 //		getNumberPassiveActiveSensor();
 		getAllMessage();
-		GetNumberUsedSensor2();
+//		GetNumberUsedSensor();
 		getNumberCommonArea();
 		getAverageTemperature();
 		initComponents();
@@ -195,11 +186,12 @@ public class GUIBi extends JFrame {
 		btnDeconnexion.setBounds(860, 0, 124, 28);
 		contentPane.add(btnDeconnexion);
 
-		Object[] monObj1 = returnNumberMessage();
+		/////////////////////////////////////////////
+		/// Object
 
-		Object[] monObj = returns();
+		Object[] NumberMessage = returnNumberMessage();
 
-//		Object[] monObj3 = getNumberDownOverSensor();
+		Object[] NumberUsedSensor = returns();
 
 ///////////////////////////////////////////////////
 		// List
@@ -226,8 +218,8 @@ public class GUIBi extends JFrame {
 ////////////////////////////////////
 		// Graphic All sensor
 		DefaultPieDataset pieDataset = new DefaultPieDataset();
-		pieDataset.setValue("Number of Unused Sensors", (Number) monObj[0]);
-		pieDataset.setValue("Number of used Sensors", (Number) monObj[1]);
+		pieDataset.setValue("Number of Unused Sensors", (Number) NumberUsedSensor[0]);
+		pieDataset.setValue("Number of used Sensors", (Number) NumberUsedSensor[1]);
 
 		JFreeChart pieChart = ChartFactory.createPieChart("Ratio of unused sensors and used", pieDataset, true, true,
 				true);
@@ -238,15 +230,17 @@ public class GUIBi extends JFrame {
 
 		DefaultPieDataset HistoricalAlert = new DefaultPieDataset();
 
-		HistoricalAlert.setValue("Number of DOWN Sensors", (Number) monObj1[2]);
-		HistoricalAlert.setValue("Number of OVER Sensors", (Number) monObj1[3]);
-		HistoricalAlert.setValue("Number of NORMAL Sensors", (Number) monObj1[1]);
+		HistoricalAlert.setValue("Number of DOWN Sensors", (Number) NumberMessage[2]);
+		HistoricalAlert.setValue("Number of OVER Sensors", (Number) NumberMessage[3]);
+		HistoricalAlert.setValue("Number of NORMAL Sensors", (Number) NumberMessage[1]);
 
 		JFreeChart pieChart1 = ChartFactory.createPieChart(" Ratio of number of alert", HistoricalAlert, true, true,
 				true);
 		ChartPanel cPanel1 = new ChartPanel(pieChart1);
 		contentPane.add(cPanel1);
 
+		//////////////////////////////////////////////
+		// TabbedPane - DASH BOARD
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(22, 11, 824, 577);
 		contentPane.add(tabbedPane);
@@ -259,148 +253,169 @@ public class GUIBi extends JFrame {
 		panel.add(cpSensors);
 		cpSensors.setMouseWheelEnabled(true);
 
-		Object[] monObj5 = GetNumberUsedSensor();
+		///////////////////////////////////////////////////////
+		// DATE
+		
+		JDateChooser dateChooser_2 = new JDateChooser();
+		dateChooser_2.setBounds(129, 139, 69, 20);
+		panel.add(dateChooser_2);
+
+		JDateChooser dateChooser_3 = new JDateChooser();
+		dateChooser_3.setBounds(129, 170, 69, 20);
+		panel.add(dateChooser_3);
+		
+		// label - DASHBOARD
 		JLabel lblStock = new JLabel("Number of sensors in stock");
-		lblStock.setBounds(198, 222, 147, 16);
+		lblStock.setBounds(210, 233, 147, 16);
 		panel.add(lblStock);
-		tfStock = new JTextField();
-		tfStock.setBounds(346, 216, 41, 28);
-		panel.add(tfStock);
-		tfStock.setText(monObj5[0].toString());
-		tfStock.setColumns(10);
-		ChartPanel cpAlerts = new ChartPanel(pieChart1);
-		cpAlerts.setBounds(515, 33, 281, 159);
-		panel.add(cpAlerts);
 
 		JLabel lblNombreDalertes = new JLabel("Total Alerts received");
 		lblNombreDalertes.setBounds(594, 492, 112, 22);
 		panel.add(lblNombreDalertes);
 
-		tfAlertesReceived = new JTextField();
-		tfAlertesReceived.setBounds(612, 428, 69, 55);
-		String numberAlertReceived = GetNumberAlertReceived();
-		tfAlertesReceived.setText(numberAlertReceived.toString().replaceAll("\"", ""));
-//		tfAlertesReceived.setText(String.valueOf(nbTotalAlert));
-		tfAlertesReceived.setColumns(10);
-		panel.add(tfAlertesReceived);
+		JLabel lblTotalOver = new JLabel("Total OVER");
+		lblTotalOver.setBounds(680, 265, 139, 22);
+		panel.add(lblTotalOver);
+
+		lblTotalAlertAttente = new JLabel("Total Pending Alert");
+		lblTotalAlertAttente.setBounds(591, 395, 97, 22);
+		panel.add(lblTotalAlertAttente);
 
 		JLabel lblNombreDePannes = new JLabel("Total DOWN");
 		lblNombreDePannes.setBounds(535, 268, 89, 16);
 		panel.add(lblNombreDePannes);
 
-//		Object[] monObj4 = getNumberDownOverSensor2();
+		lblNumberOfCommon = new JLabel("number of common area");
+		lblNumberOfCommon.setBounds(10, 33, 123, 28);
+		panel.add(lblNumberOfCommon);
+
+		JLabel lblNbSensorMaj = new JLabel("Total UPDATE SENSORS");
+		lblNbSensorMaj.setBounds(20, 195, 123, 28);
+		panel.add(lblNbSensorMaj);
+
+		JLabel lblTotalActive = new JLabel("Total Active");
+		lblTotalActive.setBounds(80, 234, 63, 14);
+		panel.add(lblTotalActive);
+
+		JLabel lblTotalPassive = new JLabel("Total Passive");
+		lblTotalPassive.setBounds(80, 278, 78, 14);
+		panel.add(lblTotalPassive);
+
+		JLabel lbltfMeanTemperatureStageRC = new JLabel("Mean temperature Stage RC");
+		lbltfMeanTemperatureStageRC.setBounds(20, 477, 147, 22);
+		panel.add(lbltfMeanTemperatureStageRC);
+
+		JLabel lblMeanTemperatureStage = new JLabel("Mean temperature Stage 1");
+		lblMeanTemperatureStage.setBounds(194, 477, 135, 22);
+		panel.add(lblMeanTemperatureStage);
+
+		lbTotalStockRc = new JLabel("Total Stock Sensor RC");
+		lbTotalStockRc.setBounds(10, 395, 147, 22);
+		panel.add(lbTotalStockRc);
+
+		lbTotalStockStage1 = new JLabel("Total Stock Sensor Etage 1");
+		lbTotalStockStage1.setBounds(181, 399, 135, 22);
+		panel.add(lbTotalStockStage1);
+
+//////////////////////////////////////////////////////////////////
+		// Textfield - DASHBOARD
+		tfStock = new JTextField();
+		tfStock.setBounds(367, 227, 41, 28);
+		panel.add(tfStock);
+		tfStock.setColumns(10);
+
+		ChartPanel cpAlerts = new ChartPanel(pieChart1);
+		cpAlerts.setBounds(515, 33, 281, 159);
+		panel.add(cpAlerts);
+
+		tfAlertesReceived = new JTextField();
+		tfAlertesReceived.setBounds(612, 428, 69, 55);
+		// String numberAlertReceived = GetNumberAlertReceived();
+		// tfAlertesReceived.setText(numberAlertReceived.toString().replaceAll("\"",
+		// ""));
+		// tfAlertesReceived.setText(String.valueOf(nbTotalAlert));
+		tfAlertesReceived.setColumns(10);
+		panel.add(tfAlertesReceived);
+
 		tfDown = new JTextField();
 		tfDown.setBackground(Color.ORANGE);
 		tfDown.setBounds(525, 203, 97, 55);
-//		tfDown.setText(monObj1[2].toString());
-//		tfDown.setText(monObj4[0].toString());
 		tfDown.setColumns(10);
 		panel.add(tfDown);
 
 		tfNbOver = new JTextField();
 		tfNbOver.setBackground(Color.RED);
 		tfNbOver.setBounds(663, 203, 97, 55);
-//		tfNbOver.setText(monObj1[3].toString());
-//		tfNbOver.setText(monObj4[1].toString());
 		tfNbOver.setColumns(10);
 		panel.add(tfNbOver);
-
-		JLabel lblTotalOver = new JLabel("Total OVER");
-		lblTotalOver.setBounds(680, 265, 139, 22);
-		panel.add(lblTotalOver);
-
-		JButton btnDetails = new JButton("Details");
-		btnDetails.setBounds(691, 444, 89, 23);
-		panel.add(btnDetails);
 
 		tfPendingAlert = new JTextField();
 		tfPendingAlert.setBackground(Color.GREEN);
 		tfPendingAlert.setBounds(591, 321, 97, 65);
 		tfPendingAlert.setColumns(10);
-		tfPendingAlert.setText(monObj1[0].toString());
+		tfPendingAlert.setText(NumberMessage[0].toString());
 		panel.add(tfPendingAlert);
 
-		lblTotalAlertAttente = new JLabel("Total Pending Alert");
-		lblTotalAlertAttente.setBounds(591, 395, 97, 22);
-		panel.add(lblTotalAlertAttente);
-
-		btnTemperature = new JButton("Calculer");
-		btnTemperature.setBounds(112, 510, 124, 28);
-		panel.add(btnTemperature);
-
-		lblNumberOfCommon = new JLabel("number of common area");
-		lblNumberOfCommon.setBounds(10, 33, 123, 28);
-		panel.add(lblNumberOfCommon);
-
-		String numberCommonArea = getNumberCommonArea();
 		tfNbCommonArea = new JTextField();
 		tfNbCommonArea.setBounds(20, 56, 112, 55);
-		tfNbCommonArea.setText(numberCommonArea.toString().replaceAll("\"", ""));
 		panel.add(tfNbCommonArea);
 		tfNbCommonArea.setColumns(10);
 
-		Object[] monObj2 = returnNbSensorType();
-		textField_1 = new JTextField();
-		textField_1.setBounds(463, 408, 57, 44);
-		textField_1.setText(monObj2[0].toString());
-		panel.add(textField_1);
-		textField_1.setColumns(10);
-
-		textField_2 = new JTextField();
-		textField_2.setBounds(366, 395, 78, 44);
-		textField_2.setText(monObj2[1].toString());
-		panel.add(textField_2);
-		textField_2.setColumns(10);
-
-		JLabel lblNbSensorMaj = new JLabel("Total UPDATE SENSORS");
-		lblNbSensorMaj.setBounds(20, 195, 123, 28);
-		panel.add(lblNbSensorMaj);
-
 		JTextField tfNbSensorMaj = new JTextField();
-		tfNbSensorMaj.setBounds(21, 137, 112, 55);
+		tfNbSensorMaj.setBounds(10, 139, 112, 55);
 		panel.add(tfNbSensorMaj);
 
-//		Object[] monobject = getNumberPassiveActiveSensor();
 		tfPassiveSensor = new JTextField();
 		tfPassiveSensor.setBounds(20, 268, 50, 35);
-//		tfPassiveSensor.setText(monobject[0].toString());
 		panel.add(tfPassiveSensor);
 		tfPassiveSensor.setColumns(10);
 
 		tfActiveSensor = new JTextField();
 		tfActiveSensor.setColumns(10);
 		tfActiveSensor.setBounds(20, 222, 50, 35);
-//		tfActiveSensor.setText(monobject[1].toString());
 		panel.add(tfActiveSensor);
-		
-		JLabel lblTotalActive = new JLabel("Total Active");
-		lblTotalActive.setBounds(80, 234, 63, 14);
-		panel.add(lblTotalActive);
-		
-		JLabel lblTotalPassive = new JLabel("Total Passive");
-		lblTotalPassive.setBounds(80, 278, 78, 14);
-		panel.add(lblTotalPassive);
-		
-		textField = new JTextField();
-		textField.setHorizontalAlignment(SwingConstants.TRAILING);
-		textField.setColumns(10);
-		textField.setBounds(42, 410, 57, 44);
-		panel.add(textField);
-		
-		JLabel label = new JLabel("Mean temperature Stage RC");
-		label.setBounds(22, 461, 147, 22);
-		panel.add(label);
-		
-		textField_3 = new JTextField();
-		textField_3.setHorizontalAlignment(SwingConstants.TRAILING);
-		textField_3.setColumns(10);
-		textField_3.setBounds(212, 410, 57, 44);
-		panel.add(textField_3);
-		
-		JLabel label_1 = new JLabel("Mean temperature Stage 1");
-		label_1.setBounds(196, 461, 135, 22);
-		panel.add(label_1);
 
+		tfMeanTemperatureStageRC = new JTextField();
+		tfMeanTemperatureStageRC.setHorizontalAlignment(SwingConstants.TRAILING);
+		tfMeanTemperatureStageRC.setColumns(10);
+		tfMeanTemperatureStageRC.setBounds(40, 426, 57, 44);
+		panel.add(tfMeanTemperatureStageRC);
+
+		tfMeanTemperatureStage1 = new JTextField();
+		tfMeanTemperatureStage1.setHorizontalAlignment(SwingConstants.TRAILING);
+		tfMeanTemperatureStage1.setColumns(10);
+		tfMeanTemperatureStage1.setBounds(210, 426, 57, 44);
+		panel.add(tfMeanTemperatureStage1);
+
+		tfTotalStockRc = new JTextField();
+		tfTotalStockRc.setHorizontalAlignment(SwingConstants.TRAILING);
+		tfTotalStockRc.setColumns(10);
+		tfTotalStockRc.setBounds(40, 343, 57, 44);
+		panel.add(tfTotalStockRc);
+
+		tfTotalStockEtage1 = new JTextField();
+		tfTotalStockEtage1.setHorizontalAlignment(SwingConstants.TRAILING);
+		tfTotalStockEtage1.setColumns(10);
+		tfTotalStockEtage1.setBounds(210, 343, 57, 44);
+		panel.add(tfTotalStockEtage1);
+		///////////////////////////////////////////////////////////
+		// Button - DASHBOARD
+		btnTemperature = new JButton("Calculer");
+		btnTemperature.setBounds(94, 510, 124, 28);
+		panel.add(btnTemperature);
+
+		JComboBox cbTotalTypeSensorStock = new JComboBox();
+		cbTotalTypeSensorStock.setBounds(418, 230, 87, 22);
+		panel.add(cbTotalTypeSensorStock);
+		
+		cbStockTypeSensor = new JComboBox();
+		cbStockTypeSensor.setBounds(107, 362, 73, 22);
+		panel.add(cbStockTypeSensor);
+
+
+
+////////////////////////////////////////////////////////////
+		// Combobox in Tabbed Alert
 		panel_1 = new JPanel();
 		tabbedPane.addTab("Alert", null, panel_1, null);
 		panel_1.setLayout(null);
@@ -411,15 +426,16 @@ public class GUIBi extends JFrame {
 		cbArea.setEditable(true);
 		cbArea.addItem(area);
 
+		/////////////////////////////////////////////////////////////
+		// Date
 		dateChooser_1 = new JDateChooser();
 		dateChooser_1.setBounds(189, 55, 47, 28);
 		panel_1.add(dateChooser_1);
-		/////////////////////////////////////////////////////////////
-		// Date
+
 		dateChooser = new JDateChooser();
 		dateChooser.setBounds(189, 11, 47, 28);
 		panel_1.add(dateChooser);
-
+		// Textfield - Alert
 		tfDate = new JTextField();
 		tfDate.setBounds(90, 11, 47, 28);
 		panel_1.add(tfDate);
@@ -429,7 +445,7 @@ public class GUIBi extends JFrame {
 		tfDate1.setBounds(90, 55, 47, 28);
 		panel_1.add(tfDate1);
 		tfDate1.setColumns(10);
-
+		// label - Alert
 		JLabel lblTo = new JLabel("to");
 		lblTo.setBounds(52, 66, 28, 16);
 		panel_1.add(lblTo);
@@ -443,6 +459,7 @@ public class GUIBi extends JFrame {
 		list1 = new JList<String>(ListModel);
 		sc1.setViewportView(list1);
 
+		// Button - Alert
 		btnDate = new JButton("GetDate");
 		btnDate.setBounds(386, 39, 97, 22);
 		panel_1.add(btnDate);
@@ -452,6 +469,8 @@ public class GUIBi extends JFrame {
 		panel_1.add(tfAlert);
 		tfAlert.setColumns(10);
 
+		////////////////////////////////////////////////
+		// tabbed Sensor
 		panel_2 = new JPanel();
 		tabbedPane.addTab("Sensor", null, panel_2, null);
 		panel_2.setLayout(null);
@@ -461,6 +480,7 @@ public class GUIBi extends JFrame {
 		list = new JList<String>(listM);
 		sc.setViewportView(list);
 
+		// label Sensor
 		JLabel lblSensors = new JLabel("Sensors");
 		lblSensors.setBounds(57, 11, 55, 39);
 		panel_2.add(lblSensors);
@@ -468,7 +488,7 @@ public class GUIBi extends JFrame {
 		cbCapteur = new JComboBox(sensorType);
 		cbCapteur.setBounds(111, 13, 100, 35);
 		panel_2.add(cbCapteur);
-
+		// Textfield in Sensor
 		tfSensor = new JTextField();
 		tfSensor.setText(String.valueOf(nbAlertSensor));
 		tfSensor.setColumns(10);
@@ -740,10 +760,6 @@ public class GUIBi extends JFrame {
 
 	}
 
-	///////////////////////////////////////
-
-///////////////////////////////////////////
-
 ///////////////////////////////////////////
 	// Method Get all Alert contained in the Historical database
 	private void GetAllSensorHistorical() {
@@ -918,69 +934,14 @@ public class GUIBi extends JFrame {
 
 ///////////////////////////////////////////
 ///////////////////////////////////////
-// Method of calculating of number Alert Received
-	private String GetNumberAlertReceived() {
-
-		requestType = "COUNT";
-		table = "SensorHistorical";
-		objectMapper = new ObjectMapper();
-		try {
-			jsonString = "COUNT";
-			new ClientSocket(requestType, jsonString, table);
-			jsonString = ClientSocket.getJson();
-			System.out.println(jsonString);
-			jsonString.toString();
-//			System.out.println(jsonString.replaceAll("\"", ""));
-//			String msg = objectMapper.readValue(jsonString, String.class);
-//			textField.setText(msg.toString().replaceAll("\"", ""));
-
-		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
-		}
-
-		return jsonString;
-	}
-
-///////////////////////////////////////////
-	// Method of calculating of number Alert Received
-	private Object[] GetNumberUsedSensor() {
-
-		String s2 = "";
-		String s3 = "";
-		requestType = "COUNT";
-		table = "Sensor";
-		objectMapper = new ObjectMapper();
-		try {
-			jsonString = "COUNT";
-			new ClientSocket(requestType, jsonString, table);
-			jsonString = ClientSocket.getJson();
-			System.out.println(jsonString);
-
-			String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
-			s2 = jsonString_list[0];
-			s3 = jsonString_list[1];
-			System.out.println("resultat Unused" + s2);
-			System.out.println("resultat used" + s3);
-
-//			jsonString.toString();
-//			System.out.println(jsonString.replaceAll("\"","" ));
-//			Object[] msg = objectMapper.readValue(jsonString, Object[].class);
-
-		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
-		}
-		return new Object[] { s2, s3 };
-	}
 
 	///////////////////////////////////////////
 
 ///////////////////////////////////////
 // Method of calculating the number of CommonArea
 
-
 	// Method of calculating the number of DOWN Sensors and OVER Sensors for a
 	/////////////////////////////////////// graphic visualization
-
 
 	// Method of calculating of Number active Sensor and passive Sensor
 	/////////////////////////////////////// graphic visualization
@@ -1011,52 +972,51 @@ public class GUIBi extends JFrame {
 //		}
 //		return new Object[] { s2, s3 };
 //	}
-	
-	
-	public String DateFromDateTo() {
-		
-		requestType = "COUNT";
-		table = "SensorHistorical";
-		ObjectMapper objWriter = new ObjectMapper();
-		String jsonString = "";
-		
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
-		
-		String DateFrom = df.format(dateChooser.getDate());
-		String DateTo=df1.format(dateChooser_1.getDate());
-		
-		
-		try {
-			
-			jsonString = DateFrom + "," + DateTo;
-			jsonString = objWriter.writeValueAsString(jsonString);
-			new ClientSocket(requestType, jsonString, table);
-			jsonString = ClientSocket.getJson();
-			logger.log(Level.INFO, "Find UPDATE SENSOR");
-		} catch (JsonProcessingException e) {
-			logger.log(Level.WARN,
-					"Impossible to get SensorHistorical datas from BDD " + e.getClass().getCanonicalName());
-		}
-		return jsonString;
-	}
-	
-	
+//	
+//	
+//	public String DateFromDateTo() {
+//		
+//		requestType = "COUNT";
+//		table = "SensorHistorical";
+//		ObjectMapper objWriter = new ObjectMapper();
+//		String jsonString = "";
+//		
+//		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+//		DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
+//		
+//		String DateFrom = df.format(dateChooser.getDate());
+//		String DateTo=df1.format(dateChooser_1.getDate());
+//		
+//		
+//		try {
+//			
+//			jsonString = DateFrom + "," + DateTo;
+//			jsonString = objWriter.writeValueAsString(jsonString);
+//			new ClientSocket(requestType, jsonString, table);
+//			jsonString = ClientSocket.getJson();
+//			logger.log(Level.INFO, "Find UPDATE SENSOR");
+//		} catch (JsonProcessingException e) {
+//			logger.log(Level.WARN,
+//					"Impossible to get SensorHistorical datas from BDD " + e.getClass().getCanonicalName());
+//		}
+//		return jsonString;
+//	}
+
 	public String getNumberCommonArea() {
-		
+
 		requestType = "COUNT";
 		table = "CommonArea";
 		ObjectMapper objWriter = new ObjectMapper();
-		String jsonString = "";
-		
-		
+		String jsonString1 = "";
+
 		try {
-			
+
 			jsonString = "SELECT COUNT(*) FROM partie_commune;";
 			jsonString = objWriter.writeValueAsString(jsonString);
 			new ClientSocket(requestType, jsonString, table);
-			jsonString = ClientSocket.getJson();
-			logger.log(Level.INFO, "Find UPDATE SENSOR");
+			jsonString1 = ClientSocket.getJson();
+			System.out.println(jsonString1);
+			logger.log(Level.INFO, "Find NUMBER COMMON AREA");
 			System.out.println("resultat" + jsonString);
 		} catch (JsonProcessingException e) {
 			logger.log(Level.WARN,
@@ -1064,20 +1024,17 @@ public class GUIBi extends JFrame {
 		}
 		return jsonString;
 	}
-	
-	
-	
-	public String getNumberDownOverSensor2() {
+
+	public String getNumberDownOverSensor() {
 		String s2 = "";
 		String s3 = "";
 		requestType = "COUNT";
 		table = "Message";
 		ObjectMapper objWriter = new ObjectMapper();
 		String jsonString = "";
-		
-		
+
 		try {
-			
+
 			jsonString = "SELECT sum(case when seuil = '0' AND (id_capteur !=0 AND id_capteur != 9999) then 1 else 0 end ) As nbSensorDown,sum(case when seuil = '0' AND (id_capteur !=0 AND id_capteur = 9999) then 1 else 0 end ) As nbSensorOver FROM message;";
 			jsonString = objWriter.writeValueAsString(jsonString);
 			new ClientSocket(requestType, jsonString, table);
@@ -1097,17 +1054,16 @@ public class GUIBi extends JFrame {
 		}
 		return jsonString;
 	}
-	
-	public String GetNumberAlertReceived2() {
+
+	public String GetNumberAlertReceived() {
 		requestType = "COUNT";
 		table = "SensorHistorical";
 		ObjectMapper objWriter = new ObjectMapper();
 		String jsonString = "";
-		
-		
+
 		try {
-			
-			jsonString = "SELECT COUNT(*) FROM partie_commune;";
+
+			jsonString = "SELECT COUNT(*) FROM historique;";
 			jsonString = objWriter.writeValueAsString(jsonString);
 			new ClientSocket(requestType, jsonString, table);
 			jsonString = ClientSocket.getJson();
@@ -1119,18 +1075,17 @@ public class GUIBi extends JFrame {
 		}
 		return jsonString;
 	}
-	
-	public String GetNumberUsedSensor2() {
+
+	public String GetNumberUsedSensor() {
 		String s2 = "";
 		String s3 = "";
 		requestType = "COUNT";
 		table = "Sensor";
 		ObjectMapper objWriter = new ObjectMapper();
 		String jsonString = "";
-		
-		
+
 		try {
-			
+
 			jsonString = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor, sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur;";
 			jsonString = objWriter.writeValueAsString(jsonString);
 			new ClientSocket(requestType, jsonString, table);
@@ -1150,20 +1105,18 @@ public class GUIBi extends JFrame {
 		}
 		return jsonString;
 	}
-	
-	
-	public String getNumberStageSensor() {
-		
-		String s2 = "";
-		String s3 = "";
+
+	public void getNumberStageSensor() {
+
+//		String s2 = "";
+//		String s3 = "";
 		requestType = "COUNT";
 		table = "Sensor";
 		ObjectMapper objWriter = new ObjectMapper();
 		String jsonString = "";
-		
-		
+
 		try {
-			
+
 			jsonString = "SELECT sum(case when ( id_partie_commune = 1 AND id_capteur != 0) then 1 else 0 end ) As nbSensorEtage1, sum(case when ( id_partie_commune = 0 AND id_capteur != 0) then 1 else 0 end ) As nbSensorRC FROM capteur;";
 			jsonString = objWriter.writeValueAsString(jsonString);
 			new ClientSocket(requestType, jsonString, table);
@@ -1173,18 +1126,17 @@ public class GUIBi extends JFrame {
 			System.out.println("resultat " + jsonString);
 
 			String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
-			s2 = jsonString_list[0];
-			s3 = jsonString_list[1];
-			System.out.println("resultat2 Etage1 " + s2);
-			System.out.println("resultat2 RC" + s3);
+//			s2 = jsonString_list[0];
+//			s3 = jsonString_list[1];
+//			System.out.println("resultat2 Etage1 " + s2);
+//			System.out.println("resultat2 RC" + s3);
 		} catch (JsonProcessingException e) {
 			logger.log(Level.WARN,
 					"Impossible to get SensorHistorical datas from BDD " + e.getClass().getCanonicalName());
 		}
-		return jsonString;
-		
+
 	}
-	
+
 	public String getNumberUpdate() {
 		String s2 = "";
 		String s3 = "";
@@ -1197,46 +1149,53 @@ public class GUIBi extends JFrame {
 //		
 //		String DateFrom = df.format(dateChooser.getDate());
 //		String DateTo=df1.format(dateChooser_1.getDate());
-		
+
 		String DateFrom = "'2000-10-01'";
 		String DateTo = "'2006-10-01'";
-		
-		jsonString = "SELECT COUNT(*) FROM historique WHERE date_historique BETWEEN "+DateFrom+"AND "+DateTo+"AND ( type_alerte = 'NORMAL')";
+
+		try {
+
+			jsonString = "SELECT COUNT(*) FROM historique WHERE date_historique BETWEEN " + DateFrom + "AND " + DateTo
+					+ "AND ( type_alerte = 'NORMAL')";
 //			jsonString = "SELECT COUNT(*) FROM capteur";
-//			jsonString = objWriter.writeValueAsString(jsonString);
-		System.out.println(jsonString);
-		new ClientSocket(requestType, jsonString, table);
-		System.out.println("okay date");
-		jsonString = ClientSocket.getJson();
-		logger.log(Level.INFO, "Find NUMBER SENSOR UPDATE PER PERIOD");
-		System.out.println("resultat " + jsonString);
-		System.out.println("test2");
-		String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
+			jsonString = objWriter.writeValueAsString(jsonString);
+			System.out.println(jsonString);
+			new ClientSocket(requestType, jsonString, table);
+			System.out.println("okay date");
+			jsonString = ClientSocket.getJson();
+			logger.log(Level.INFO, "Find NUMBER SENSOR UPDATE PER PERIOD");
+			System.out.println("resultat " + jsonString);
+			System.out.println("test2");
+			String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
 //			s2 = jsonString_list[0];
 //			s3 = jsonString_list[1];
 //			System.out.println("resultat2 Etage1 " + s2);
 //			System.out.println("resultat2 RC" + s3);
+		} catch (JsonProcessingException e) {
+			logger.log(Level.WARN,
+					"Impossible to get SensorHistorical datas from BDD " + e.getClass().getCanonicalName());
+		}
 		return jsonString;
 	}
-	
+
 	public String getAverageTemperature() {
-		
+
 		String s2 = "";
 		String s3 = "";
 		requestType = "COUNT";
 		table = "Sensor";
 		ObjectMapper objWriter = new ObjectMapper();
 //		String jsonString = "";
-		
-		
+
 		try {
-			
+
 			jsonString = "SELECT capteur.id_capteur, capteur.type_capteur, id_partie_commune, ROUND(AVG(message.seuil),2) FROM capteur INNER JOIN message ON capteur.id_capteur = message.id_capteur GROUP BY capteur.id_capteur, capteur.id_partie_commune;";
 			jsonString = objWriter.writeValueAsString(jsonString);
 			System.out.println(jsonString);
 			new ClientSocket(requestType, jsonString, table);
 			System.out.println("okay");
 			jsonString = ClientSocket.getJson();
+			System.out.println(jsonString);
 			logger.log(Level.INFO, "Find AVERAGE TEMPERATURE FOR EACH STAGE");
 			System.out.println("resultat temperature " + jsonString);
 
@@ -1250,12 +1209,8 @@ public class GUIBi extends JFrame {
 					"Impossible to get SensorHistorical datas from BDD " + e.getClass().getCanonicalName());
 		}
 		return jsonString;
-		
-		
+
 	}
-	
-	
-	
 }
 
 ///////////////
