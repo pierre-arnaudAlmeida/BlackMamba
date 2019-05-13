@@ -52,7 +52,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author Raymond
  *
  */
-
 public class TabMapSensor extends JPanel implements MouseListener {
 
 	private int index;
