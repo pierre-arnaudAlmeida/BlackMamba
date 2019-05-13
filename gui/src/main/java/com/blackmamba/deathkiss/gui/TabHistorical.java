@@ -14,8 +14,10 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -26,12 +28,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import com.blackmamba.deathkiss.entity.Sensor;
 import com.blackmamba.deathkiss.entity.SensorHistorical;
 import com.blackmamba.deathkiss.launcher.ClientSocket;
+import com.blackmamba.deathkiss.utils.SortByIdSensorHistorical;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -315,6 +320,7 @@ public class TabHistorical extends JPanel {
 			jsonString = ClientSocket.getJson();
 			SensorHistorical[] listSensorHistoricals = readMapper.readValue(jsonString, SensorHistorical[].class);
 			listSensorHistorical = Arrays.asList(listSensorHistoricals);
+			Collections.sort(listSensorHistorical, new SortByIdSensorHistorical());
 			logger.log(Level.DEBUG, "Find all SensorHistorical datas succeeded");
 		} catch (Exception e1) {
 			logger.log(Level.WARN,

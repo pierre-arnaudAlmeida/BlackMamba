@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
@@ -34,6 +35,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.blackmamba.deathkiss.entity.Employee;
 import com.blackmamba.deathkiss.launcher.ClientSocket;
+import com.blackmamba.deathkiss.utils.SortByIdEmployee;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -231,6 +233,7 @@ public class TabEmployes extends JPanel {
 						requestType = "FIND ALL";
 						table = "Employee";
 						listSearchEmployee = getAllEmployee(employee2, requestType, table);
+						Collections.sort(listSearchEmployee, new SortByIdEmployee());
 						listM.removeAllElements();
 						listM.addElement("Results for : " + searchReceived);
 						for (Employee employees : listSearchEmployee) {
@@ -245,6 +248,7 @@ public class TabEmployes extends JPanel {
 					requestType = "READ ALL";
 					table = "Employee";
 					listEmployee = getAllEmployee(null, requestType, table);
+					Collections.sort(listEmployee, new SortByIdEmployee());
 					listM.removeAllElements();
 					listM.addElement("All employees ");
 					for (Employee employees : listEmployee) {
@@ -487,6 +491,7 @@ public class TabEmployes extends JPanel {
 								requestType = "READ ALL";
 								table = "Employee";
 								listEmployee = getAllEmployee(null, requestType, table);
+								Collections.sort(listEmployee, new SortByIdEmployee());
 
 								int x = listEmployee.size() - 1;
 
@@ -758,6 +763,7 @@ public class TabEmployes extends JPanel {
 		requestType = "READ ALL";
 		table = "Employee";
 		listEmployee = getAllEmployee(null, requestType, table);
+		Collections.sort(listEmployee, new SortByIdEmployee());
 		listM.clear();
 		listM = new DefaultListModel<>();
 		listM.addElement("All employees");
@@ -826,7 +832,6 @@ public class TabEmployes extends JPanel {
 	 */
 	public List<Employee> getAllEmployee(Employee employee, String requestType, String table) {
 		objectMapper = new ObjectMapper();
-		// TODO PA mettre un tri de la list par l'id employee
 		try {
 			jsonString = objectMapper.writeValueAsString(employee);
 			new ClientSocket(requestType, jsonString, table);

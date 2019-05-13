@@ -16,9 +16,11 @@ import java.sql.Time;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -30,9 +32,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import com.blackmamba.deathkiss.entity.Alert;
 import com.blackmamba.deathkiss.entity.AlertState;
 import com.blackmamba.deathkiss.entity.CommonArea;
@@ -41,6 +45,8 @@ import com.blackmamba.deathkiss.entity.Sensor;
 import com.blackmamba.deathkiss.entity.SensorHistorical;
 import com.blackmamba.deathkiss.entity.SensorType;
 import com.blackmamba.deathkiss.launcher.ClientSocket;
+import com.blackmamba.deathkiss.utils.SortByIdCommonArea;
+import com.blackmamba.deathkiss.utils.SortByIdSensor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -1158,6 +1164,7 @@ public class TabSensor extends JPanel {
 			jsonString = ClientSocket.getJson();
 			CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
 			listCommonArea = Arrays.asList(commonAreas);
+			Collections.sort(listCommonArea, new SortByIdCommonArea());
 			logger.log(Level.DEBUG, "Recuperation of all Common Areas available succed");
 		} catch (Exception e1) {
 			logger.log(Level.WARN, "Impossible to parse in JSON Common Area datas " + e1.getClass().getCanonicalName());
@@ -1185,6 +1192,7 @@ public class TabSensor extends JPanel {
 			jsonString = ClientSocket.getJson();
 			Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
 			listSensor = Arrays.asList(sensors);
+			Collections.sort(listSensor, new SortByIdSensor());
 			logger.log(Level.DEBUG, "Find Sensor data succed");
 		} catch (Exception e1) {
 			logger.log(Level.WARN, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
@@ -1303,6 +1311,7 @@ public class TabSensor extends JPanel {
 			jsonString = ClientSocket.getJson();
 			Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
 			listSearchSensor = Arrays.asList(sensors);
+			Collections.sort(listSearchSensor, new SortByIdSensor());
 			logger.log(Level.DEBUG, "Find Sensor data succed");
 		} catch (Exception e1) {
 			logger.log(Level.WARN, "Impossible to parse in JSON Sensor datas " + e1.getClass().getCanonicalName());

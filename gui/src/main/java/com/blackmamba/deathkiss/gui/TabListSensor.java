@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
@@ -32,6 +33,7 @@ import org.apache.logging.log4j.Logger;
 import com.blackmamba.deathkiss.entity.CommonArea;
 import com.blackmamba.deathkiss.entity.Sensor;
 import com.blackmamba.deathkiss.launcher.ClientSocket;
+import com.blackmamba.deathkiss.utils.SortByIdSensor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -254,6 +256,7 @@ public class TabListSensor extends JPanel {
 			jsonString = ClientSocket.getJson();
 			Sensor[] listSensors = readMapper.readValue(jsonString, Sensor[].class);
 			listSensor = Arrays.asList(listSensors);
+			Collections.sort(listSensor, new SortByIdSensor());
 			commonArea.setListSensor(listSensor);
 			logger.log(Level.DEBUG, "Find all Sensors datas succeeded");
 		} catch (Exception e1) {

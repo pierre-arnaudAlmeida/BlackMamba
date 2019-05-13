@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
@@ -32,6 +33,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.blackmamba.deathkiss.entity.Resident;
 import com.blackmamba.deathkiss.launcher.ClientSocket;
+import com.blackmamba.deathkiss.utils.SortByIdResident;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -458,6 +460,7 @@ public class TabResident extends JPanel {
 								requestType = "READ ALL";
 								table = "Resident";
 								listResident = getAllResident(null, requestType, table);
+								Collections.sort(listResident, new SortByIdResident());
 
 								int x = listResident.size() - 1;
 
@@ -689,6 +692,7 @@ public class TabResident extends JPanel {
 		requestType = "READ ALL";
 		table = "Resident";
 		listResident = getAllResident(null, requestType, table);
+		Collections.sort(listResident, new SortByIdResident());
 		listM.clear();
 		listM = new DefaultListModel<>();
 		listM.addElement("All residents ");
