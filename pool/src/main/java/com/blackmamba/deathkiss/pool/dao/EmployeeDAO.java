@@ -126,17 +126,14 @@ public class EmployeeDAO extends DAO<Employee> {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
 			emp = objectMapper.readValue(jsonString, Employee.class);
-			System.out.println(jsonString);
 			prepareStatement = con.prepareStatement(
 					"SELECT id_employee,nom_employee, prenom_employee, mot_de_passe, poste FROM Employee where id_employee= ? and mot_de_passe= ?");
 			prepareStatement.setInt(1, emp.getIdEmployee());
 			prepareStatement.setString(2, emp.getPassword());
-			System.out.println(prepareStatement);
 			result = prepareStatement.executeQuery();
 			result.next();
 			convertDatas(result);
 			jsonString = objWriter.writeValueAsString(employee);
-			System.out.println(jsonString);
 			logger.log(Level.DEBUG, "Employee succesfully recognized in BDD");
 		} catch (SQLException | IOException e) {
 			logger.log(Level.WARN, "Impossible to get employee datas from BDD " + e.getClass().getCanonicalName());

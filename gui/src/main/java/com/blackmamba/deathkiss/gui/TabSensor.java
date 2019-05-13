@@ -118,6 +118,7 @@ public class TabSensor extends JPanel {
 	private List<CommonArea> listCommonArea;
 	private static final Logger logger = LogManager.getLogger(TabSensor.class);
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
+
 //TODO PA quand on clique sur diplay sensor on a un null pointer exception impossible d'accerder a la fenetre sensor
 	/**
 	 * Constructor
@@ -236,6 +237,7 @@ public class TabSensor extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				sensor2 = new Sensor();
+				index = -9999;
 				String searchReceived = searchBar.getText().trim();
 				if (!searchReceived.equals("")) {
 					/**
@@ -257,8 +259,8 @@ public class TabSensor extends JPanel {
 									"Impossible to parse in JSON Sensor datas " + e1.getClass().getCanonicalName());
 						}
 						listM.removeAllElements();
+						listM.addElement("Result for sensor with id : " + searchReceived);
 						if (sensor2.getTypeSensor() != null) {
-							listM.addElement("Result for sensor with id : " + searchReceived);
 							listM.addElement(sensor2.getIdSensor() + "# " + sensor2.getTypeSensor() + " ,"
 									+ sensor2.getSensorState() + " ," + sensor2.getIdCommonArea() + " , "
 									+ sensor2.getAlertState().name() + " , " + sensor2.getSensitivity().name());
@@ -270,8 +272,7 @@ public class TabSensor extends JPanel {
 								.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 						sensor2.setIdCommonArea(Integer.parseInt(searchReceived));
 						findAllSensor(sensor2);
-						if (listSearchSensor.size() > 0)
-							listM.addElement("Results for sensor in common area : " + searchReceived);
+						listM.addElement("Results for sensor in common area : " + searchReceived);
 						for (Sensor sensors : listSearchSensor) {
 							listM.addElement(sensors.getIdSensor() + "# " + sensors.getTypeSensor() + " ,"
 									+ sensors.getSensorState() + " ," + sensors.getIdCommonArea() + " , "
@@ -290,8 +291,7 @@ public class TabSensor extends JPanel {
 						}
 						findAllSensor(sensor2);
 						listM.removeAllElements();
-						if (listSearchSensor.size() > 0)
-							listM.addElement("Results for sensor type : " + searchReceived);
+						listM.addElement("Results for sensor type : " + searchReceived);
 						for (Sensor sensors : listSearchSensor) {
 							listM.addElement(sensors.getIdSensor() + "# " + sensors.getTypeSensor() + " ,"
 									+ sensors.getSensorState() + " ," + sensors.getIdCommonArea() + " , "

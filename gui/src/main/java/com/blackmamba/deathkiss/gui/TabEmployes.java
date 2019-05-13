@@ -205,6 +205,7 @@ public class TabEmployes extends JPanel {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				index = -9999;
 				employee2 = new Employee();
 				String searchReceived = searchBar.getText().trim();
 				if (!searchReceived.equals("")) {
@@ -218,8 +219,8 @@ public class TabEmployes extends JPanel {
 						employee2.setIdEmployee(Integer.parseInt(searchReceived));
 						employee2 = getEmployee(employee2, requestType, table);
 						listM.removeAllElements();
+						listM.addElement("Results for employee with id : " + searchReceived);
 						if (!employee2.getLastnameEmployee().equals("")) {
-							listM.addElement("Results for employee with id : " + searchReceived);
 							listM.addElement(employee2.getIdEmployee() + "# " + employee2.getLastnameEmployee() + " "
 									+ employee2.getNameEmployee() + " ," + employee2.getFunction());
 						}
@@ -234,8 +235,7 @@ public class TabEmployes extends JPanel {
 						table = "Employee";
 						listSearchEmployee = getAllEmployee(employee2, requestType, table);
 						listM.removeAllElements();
-						if (listSearchEmployee.size() > 0)
-							listM.addElement("Results for : " + searchReceived);
+						listM.addElement("Results for : " + searchReceived);
 						for (Employee employees : listSearchEmployee) {
 							listM.addElement(employees.getIdEmployee() + "# " + employees.getLastnameEmployee() + " "
 									+ employees.getNameEmployee() + " ," + employees.getFunction());
@@ -791,7 +791,6 @@ public class TabEmployes extends JPanel {
 				textInputLastnameEmployee.setText(employee.getLastnameEmployee());
 				textInputNameEmployee.setText(employee.getNameEmployee());
 				textInputFunctionEmployee.setText(employee.getFunction());
-				textInputPasswordEmployee.setText("");
 				logger.log(Level.DEBUG, "Update Employee selected succeed");
 			}
 		}
@@ -830,6 +829,7 @@ public class TabEmployes extends JPanel {
 	 */
 	public List<Employee> getAllEmployee(Employee employee, String requestType, String table) {
 		objectMapper = new ObjectMapper();
+		// TODO PA mettre un tri de la list par l'id employee
 		try {
 			jsonString = objectMapper.writeValueAsString(employee);
 			new ClientSocket(requestType, jsonString, table);

@@ -213,6 +213,7 @@ public class TabCommonArea extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				commonArea = new CommonArea();
+				index = -9999;
 				String searchReceived = searchBar.getText().trim();
 				if (!searchReceived.equals("")) {
 					/**
@@ -226,8 +227,8 @@ public class TabCommonArea extends JPanel {
 						table = "CommonArea";
 						commonArea2 = getCommonArea(commonArea2, requestType, table);
 						listM.removeAllElements();
+						listM.addElement("Results for common area with id : " + searchReceived);
 						if (!commonArea2.getNameCommonArea().equals("")) {
-							listM.addElement("Results for common area with id : " + searchReceived);
 							listM.addElement(commonArea2.getIdCommonArea() + "# " + commonArea2.getNameCommonArea()
 									+ " ," + commonArea2.getFloorCommonArea());
 						}
@@ -240,8 +241,8 @@ public class TabCommonArea extends JPanel {
 						requestType = "FIND ALL";
 						table = "CommonArea";
 						listSearchCommonArea = getAllCommonArea(commonArea2, requestType, table);
-						if (listSearchCommonArea.size() > 0)
-							listM.addElement("Results for common area at floor : " + searchReceived);
+						listM.removeAllElements();
+						listM.addElement("Results for common area at floor : " + searchReceived);
 						for (CommonArea commonAreas : listSearchCommonArea) {
 							listM.addElement(commonAreas.getIdCommonArea() + "# " + commonAreas.getNameCommonArea()
 									+ " ," + commonAreas.getFloorCommonArea());
@@ -259,8 +260,7 @@ public class TabCommonArea extends JPanel {
 						table = "CommonArea";
 						listSearchCommonArea = getAllCommonArea(commonArea2, requestType, table);
 						listM.removeAllElements();
-						if (listSearchCommonArea.size() > 0)
-							listM.addElement("Results for common area with : " + searchReceived);
+						listM.addElement("Results for common area with : " + searchReceived);
 						for (CommonArea commonAreas : listSearchCommonArea) {
 							listM.addElement(commonAreas.getIdCommonArea() + "# " + commonAreas.getNameCommonArea()
 									+ " ," + commonAreas.getFloorCommonArea());
@@ -274,8 +274,7 @@ public class TabCommonArea extends JPanel {
 					table = "CommonArea";
 					listCommonArea = getAllCommonArea(null, requestType, table);
 					listM.removeAllElements();
-					if (listCommonArea.size() > 0)
-						listM.addElement("All commons areas");
+					listM.addElement("All commons areas");
 					for (CommonArea commonAreas : listCommonArea) {
 						listM.addElement(commonAreas.getIdCommonArea() + "# " + commonAreas.getNameCommonArea() + " ,"
 								+ commonAreas.getFloorCommonArea());
@@ -741,11 +740,7 @@ public class TabCommonArea extends JPanel {
 					textInputIdCommonArea.setText(Integer.toString(commonArea.getIdCommonArea()));
 				}
 				textInputNameCommonArea.setText(commonArea.getNameCommonArea());
-				if (commonArea.getFloorCommonArea() == 0) {
-					textInputFloorCommonArea.setText("");
-				} else {
-					textInputFloorCommonArea.setText(Integer.toString(commonArea.getFloorCommonArea()));
-				}
+				textInputFloorCommonArea.setText(Integer.toString(commonArea.getFloorCommonArea()));
 				textInputAreaCommonArea.setText(Integer.toString(commonArea.getArea()));
 				textInputMaxSensor.setText(Integer.toString(commonArea.getMaxSensor()));
 				logger.log(Level.DEBUG, "Restoration ComonAreaFields succeed");
@@ -885,6 +880,7 @@ public class TabCommonArea extends JPanel {
 	 */
 	public List<CommonArea> getAllCommonArea(CommonArea commonArea, String requestType, String table) {
 		objectMapper = new ObjectMapper();
+		// TODO PA mettre un tri selon l'id de la partie communne
 		try {
 			jsonString = objectMapper.writeValueAsString(commonArea);
 			new ClientSocket(requestType, jsonString, table);
