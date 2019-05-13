@@ -142,4 +142,12 @@ public class CommonArea {
 	public void setArea(int area) {
 		this.area = area;
 	}
+
+	@Override
+	public String toString() {
+		return "CommonArea [idCommonArea=" + idCommonArea + ", nameCommonArea=" + nameCommonArea + ", floorCommonArea="
+				+ floorCommonArea + ", maxSensor=" + maxSensor + ", area=" + area + "]";
+	}
+	
+	
 }

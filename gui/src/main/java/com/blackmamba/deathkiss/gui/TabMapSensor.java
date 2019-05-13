@@ -21,7 +21,6 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -29,7 +28,6 @@ import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -105,7 +103,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private List<Alert> listAlert = new ArrayList<Alert>();
 	private List<String> listNameRectangle = new ArrayList<String>();
-	private Map<Integer, String> listRectangleCommonArea = new LinkedHashMap<Integer, String>();
+	private Map<Integer, String> listRectangleCommonArea = new HashMap<Integer, String>();
 
 	private ResourceBundle rsParameters = ResourceBundle.getBundle("parameters");
 	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
@@ -440,37 +438,37 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		listNameRectangle.add("sittingroome1");
 		listNameRectangle.add("livingroomeb1");
 
-		listRectangleCommonArea.put(1, "entrancehalle0");
-		listRectangleCommonArea.put(2, "livingRoome0");
-		listRectangleCommonArea.put(3, "sittingroome0");
-		listRectangleCommonArea.put(4, "corridore0a");
-		listRectangleCommonArea.put(5, "corridore0b");
-		listRectangleCommonArea.put(6, "corridore0c");
-		listRectangleCommonArea.put(7, "corridore0d");
-		listRectangleCommonArea.put(8, "corridore0e");
-		listRectangleCommonArea.put(9, "elevatore0a");
-		listRectangleCommonArea.put(10, "elevatore0b");
-		listRectangleCommonArea.put(11, "staffroome0");
-		listRectangleCommonArea.put(12, "kitchene0");
-		listRectangleCommonArea.put(13, "infirmarye0");
-		listRectangleCommonArea.put(14, "relaxationroome0");
-		listRectangleCommonArea.put(15, "dinningroome0");
-		listRectangleCommonArea.put(16, "staffroome1");
-		listRectangleCommonArea.put(17, "livingRoomea1");
-		listRectangleCommonArea.put(18, "corridore1a");
-		listRectangleCommonArea.put(19, "corridore1b");
-		listRectangleCommonArea.put(20, "corridore1c");
-		listRectangleCommonArea.put(21, "corridore1d");
-		listRectangleCommonArea.put(22, "corridore1e");
-		listRectangleCommonArea.put(23, "corridore1f");
-		listRectangleCommonArea.put(24, "dinningroome1");
-		listRectangleCommonArea.put(25, "infirmarye1");
-		listRectangleCommonArea.put(26, "relaxationroome1");
-		listRectangleCommonArea.put(27, "elevatorae1");
-		listRectangleCommonArea.put(28, "elevatorbe1");
-		listRectangleCommonArea.put(29, "kitchene1");
-		listRectangleCommonArea.put(30, "sittingroome1");
-		listRectangleCommonArea.put(31, "livingroomeb1");
+//		listRectangleCommonArea.put(1, "entrancehalle0");
+//		listRectangleCommonArea.put(2, "livingRoome0");
+//		listRectangleCommonArea.put(3, "sittingroome0");
+//		listRectangleCommonArea.put(4, "corridore0a");
+//		listRectangleCommonArea.put(5, "corridore0b");
+//		listRectangleCommonArea.put(6, "corridore0c");
+//		listRectangleCommonArea.put(7, "corridore0d");
+//		listRectangleCommonArea.put(8, "corridore0e");
+//		listRectangleCommonArea.put(9, "elevatore0a");
+//		listRectangleCommonArea.put(10, "elevatore0b");
+//		listRectangleCommonArea.put(11, "staffroome0");
+//		listRectangleCommonArea.put(12, "kitchene0");
+//		listRectangleCommonArea.put(13, "infirmarye0");
+//		listRectangleCommonArea.put(14, "relaxationroome0");
+//		listRectangleCommonArea.put(15, "dinningroome0");
+//		listRectangleCommonArea.put(16, "staffroome1");
+//		listRectangleCommonArea.put(17, "livingRoomea1");
+//		listRectangleCommonArea.put(18, "corridore1a");
+//		listRectangleCommonArea.put(19, "corridore1b");
+//		listRectangleCommonArea.put(20, "corridore1c");
+//		listRectangleCommonArea.put(21, "corridore1d");
+//		listRectangleCommonArea.put(22, "corridore1e");
+//		listRectangleCommonArea.put(23, "corridore1f");
+//		listRectangleCommonArea.put(24, "dinningroome1");
+//		listRectangleCommonArea.put(25, "infirmarye1");
+//		listRectangleCommonArea.put(26, "relaxationroome1");
+//		listRectangleCommonArea.put(27, "elevatorae1");
+//		listRectangleCommonArea.put(28, "elevatorbe1");
+//		listRectangleCommonArea.put(29, "kitchene1");
+//		listRectangleCommonArea.put(30, "sittingroome1");
+//		listRectangleCommonArea.put(31, "livingroomeb1");
 
 //		panel.setLayout(new BorderLayout());
 //		image.setBounds(x0, y0, 900, 580);
@@ -484,7 +482,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		try {
-			BufferedImage backGroundImage = ImageIO.read(getClass().getClassLoader().getResource("images.jpg"));
+			BufferedImage backGroundImage = ImageIO.read(getClass().getClassLoader().getResource("background.jpg"));
 			g.drawImage(backGroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
 		} catch (IOException e) {
 			logger.log(Level.WARN, "Impossible to load the background" + e.getClass().getCanonicalName());
@@ -592,20 +590,19 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		repaint();
 	}
 
-	@SuppressWarnings("unlikely-arg-type")
 	private void testLocation(Point mouse, Rectangle rectangle, String text) {
-		int idCommonArea = commonArea.getIdCommonArea();
+		//int idCommonArea = commonArea.getIdCommonArea();
 		// if the mouse if here
 		if (rectangle.contains(mouse)) {
 			System.out.println(text + " - image");
 		} else {
 			System.out.println(text + " - !image");
 		}
-		for (int i = 0; i < listRectangleCommonArea.size(); i++) {
-			if (listRectangleCommonArea.keySet().equals(idCommonArea)) {
-				System.out.println("1");
-			}
-		}
+//		for (int i = 0; i < listRectangleCommonArea.size(); i++) {
+//			if (listRectangleCommonArea.keySet().equals(idCommonArea)) {
+//				System.out.println("1");
+//			}
+//		}
 
 	}
 
@@ -614,7 +611,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		p = e.getPoint();
 		testLocation(p, dinningRoomE1, "mouseClicked - data 1");
 		testLocation(p, dinningRoomE0, "mouseClicked - data 2");
-		// displayRectangle();
+		displayRectangle();
 		System.out.println(listRectangleCommonArea.isEmpty());
 		for (String i : listRectangleCommonArea.values()) {
 			System.out.println(listRectangleCommonArea.values().isEmpty());
@@ -649,10 +646,15 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	// rectangle et l'id de la partie commune listRectangleCommonArea
 
 	public void displayRectangle() {
-		tabCommonArea = new TabCommonArea();
-		listCommonArea = tabCommonArea.getAllCommonArea(commonArea, jsonString, jsonString);
+		
+		commonArea = new CommonArea();
+
+		requestType = "READ ALL";
+		table = "CommonArea";
+		
+		listCommonArea = getAllCommonArea(commonArea, requestType, table);
 		for (CommonArea c : listCommonArea) {
-			System.err.println("=====> " + c);
+			System.out.println("=====> " + c);
 		}
 		System.out.println("111111");
 		for (int i = 0; i < listNameRectangle.size(); i++) {
@@ -741,6 +743,23 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		}
 		list.setModel(listM);
 	}
+	
+	public void updateListCommonArea() {
+		commonArea = new CommonArea();
+
+		requestType = "READ ALL";
+		table = "CommonArea";
+		listCommonArea = getAllCommonArea(null, requestType, table);
+		listM.clear();
+		listM = new DefaultListModel<>();
+		listM.addElement("All commons areas");
+		for (CommonArea commonAreas : listCommonArea) {
+			listM.addElement(commonAreas.getIdCommonArea() + "# " + commonAreas.getNameCommonArea() + " ,"
+					+ commonAreas.getFloorCommonArea() + "," );
+		}
+		list.setModel(listM);
+		logger.log(Level.DEBUG, "List CommonArea updated wih success"); 
+		}
 
 	/**
 	 * 
