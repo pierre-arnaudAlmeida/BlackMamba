@@ -3,8 +3,13 @@ package com.blackmamba.deathkiss.bianalysis.gui;
 import static java.awt.BorderLayout.CENTER;
 
 import java.awt.EventQueue;
+import java.awt.Image;
+import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Date;
@@ -19,12 +24,14 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -52,6 +59,10 @@ import javax.swing.JTabbedPane;
 import java.awt.Color;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
+import java.awt.Component;
+
+import javax.imageio.ImageIO;
+import javax.swing.Box;
 
 /**
  * 
@@ -150,6 +161,7 @@ public class GUIBi extends JFrame {
 	private JLabel tfPourcentageActive;
 	private JLabel tfActiveSensor;
 	private JLabel tfPassiveSensor;
+
 	//////////////////////////////////////////////////////////////////////
 	/**
 	 * Launch the application.
@@ -255,10 +267,8 @@ public class GUIBi extends JFrame {
 //		pieDataset.setValue("Number of Unused Sensors", (Number) NumberUsedSensor[0]);
 //		pieDataset.setValue("Number of used Sensors", (Number) NumberUsedSensor[1]);
 
-		JFreeChart pieChart = ChartFactory.createPieChart("Ratio of unused sensors and used", pieDataset, true, true,
-				true);
-		ChartPanel cPanel = new ChartPanel(pieChart);
-		contentPane.add(cPanel);
+
+		
 		Integer numberAlertReceived = getNumberAlertReceived();
 
 		Integer totalNumberPendingAlert = getNumberPendingAlert();
@@ -266,279 +276,294 @@ public class GUIBi extends JFrame {
 		String NbCommonArea = getNumberCommonArea();
 
 		Object NbPassiveActiveSensor[] = getNumberPassiveActiveSensor();
-		
-				panel = new JPanel();
-				tabbedPane.addTab("DASHBOARD", null, panel, null);
-				panel.setLayout(null);
-				ChartPanel cpSensors = new ChartPanel(pieChart);
-				cpSensors.setBounds(483, 139, 275, 159);
-				panel.add(cpSensors);
-				cpSensors.setMouseWheelEnabled(true);
-				
-						///////////////////////////////////////////////////////
-						// DATE
-				
-						dateChooser_2 = new JDateChooser();
-						dateChooser_2.setBounds(314, 34, 69, 20);
-						panel.add(dateChooser_2);
-						
-								dateChooser_3 = new JDateChooser();
-								dateChooser_3.setBounds(314, 65, 69, 20);
-								panel.add(dateChooser_3);
-								
-										// DateFrom = dateChooser_2.getDate());
-										// DateTo = dateChooser_3.getDate();
-								
-										// label - DASHBOARD
-										JLabel lblStock = new JLabel("Number of sensors in stock");
-										lblStock.setBounds(436, 104, 147, 16);
-										panel.add(lblStock);
-										
-												JLabel lblNombreDalertes = new JLabel("Total Alerts received");
-												lblNombreDalertes.setBounds(649, 493, 112, 22);
-												panel.add(lblNombreDalertes);
-												
-														JLabel lblTotalOver = new JLabel("Total OVER");
-														lblTotalOver.setBounds(664, 386, 139, 22);
-														panel.add(lblTotalOver);
-														
-																lblTotalAlertAttente = new JLabel("Total Pending Alert");
-																lblTotalAlertAttente.setBounds(542, 493, 97, 22);
-																panel.add(lblTotalAlertAttente);
-																
-																		JLabel lblNombreDePannes = new JLabel("Total DOWN");
-																		lblNombreDePannes.setBounds(542, 389, 89, 16);
-																		panel.add(lblNombreDePannes);
-																		
-																				lblNumberOfCommon = new JLabel("number of common area");
-																				lblNumberOfCommon.setBounds(10, 11, 123, 28);
-																				panel.add(lblNumberOfCommon);
-																				
-																						JLabel lblNbSensorMaj = new JLabel("Total UPDATE SENSORS");
-																						lblNbSensorMaj.setBounds(181, 11, 123, 28);
-																						panel.add(lblNbSensorMaj);
-																						
-																								JLabel lblTotalActive = new JLabel("Total Active");
-																								lblTotalActive.setBounds(727, 34, 63, 14);
-																								panel.add(lblTotalActive);
-																								
-																										JLabel lblTotalPassive = new JLabel("Total Passive");
-																										lblTotalPassive.setBounds(727, 65, 69, 14);
-																										panel.add(lblTotalPassive);
-																										
-																												JLabel lbltfMeanTemperatureStageRC = new JLabel("Mean temperature Stage RC");
-																												lbltfMeanTemperatureStageRC.setBounds(0, 319, 167, 22);
-																												panel.add(lbltfMeanTemperatureStageRC);
-																												
-																														JLabel lblMeanTemperatureStage = new JLabel("Mean temperature Stage 1");
-																														lblMeanTemperatureStage.setBounds(4, 416, 163, 22);
-																														panel.add(lblMeanTemperatureStage);
-																														
-																																lbTotalStockRc = new JLabel("Total Sensor RC");
-																																lbTotalStockRc.setBounds(21, 210, 101, 22);
-																																panel.add(lbTotalStockRc);
-																																
-																																		lbTotalStockStage1 = new JLabel("Total Sensor Floor 1");
-																																		lbTotalStockStage1.setBounds(132, 210, 135, 22);
-																																		panel.add(lbTotalStockStage1);
-																																		
-																																				//////////////////////////////////////////////////////////////////
-																																				// Textfield - DASHBOARD
-																																		
-																																				// Object StockSensor[] = getNumberUsedSensor();
-																																				tfStock = new JTextField();
-																																				tfStock.setBounds(478, 65, 41, 28);
-																																				panel.add(tfStock);
-																																				tfStock.setColumns(10);
-																																				
-																																						tfAlertesReceived = new JTextField();
-																																						tfAlertesReceived.setBounds(667, 429, 69, 55);
-																																						tfAlertesReceived.setText(Integer.toString(totalAlertReceived));
-																																						tfAlertesReceived.setColumns(10);
-																																						panel.add(tfAlertesReceived);
-																																						
-																																								tfDown = new JLabel();
-																																								tfDown.setBackground(Color.ORANGE);
-																																								tfDown.setBounds(556, 358, 35, 20);
-																																								panel.add(tfDown);
-																																								
-																																										tfNbOver = new JLabel();
-																																										tfNbOver.setBackground(Color.RED);
-																																										tfNbOver.setBounds(673, 350, 35, 36);
-																																										panel.add(tfNbOver);
-																																										tfPendingAlert = new JTextField();
-																																										tfPendingAlert.setBackground(Color.GREEN);
-																																										tfPendingAlert.setBounds(542, 419, 97, 65);
-																																										tfPendingAlert.setColumns(10);
-																																										tfPendingAlert.setText(Integer.toString(totalNumberPendingAlert));
-																																										panel.add(tfPendingAlert);
-																																										
-																																										tfNbCommonArea = new JLabel();
-																																										tfNbCommonArea.setBounds(34, 34, 63, 55);
-																																										tfNbCommonArea.setText(NbCommonArea.toString().replaceAll("\"", ""));
-																																										panel.add(tfNbCommonArea);
-																																										
-																																										
-																																												JTextField tfNbSensorMaj_1 = new JTextField();
-																																												tfNbSensorMaj_1.setBounds(181, 34, 112, 55);
-																																												panel.add(tfNbSensorMaj_1);
-																																												tfPassiveSensor = new JLabel();
-																																												tfPassiveSensor.setBounds(695, 62, 22, 20);
-																																												tfPassiveSensor.setText(NbPassiveActiveSensor[1].toString().replaceAll("\"", ""));
-																																												panel.add(tfPassiveSensor);
-																																												
-																																														tfActiveSensor = new JLabel();
-																																														tfActiveSensor.setBounds(695, 34, 22, 20);
-																																														tfActiveSensor.setText(NbPassiveActiveSensor[0].toString().replaceAll("\"", ""));
-																																														panel.add(tfActiveSensor);
-																																														
-																																																tfPourcentageActive = new JLabel();
-																																																tfPourcentageActive.setBounds(612, 31, 70, 54);
-																																																tfPourcentageActive.setText(NbPassiveActiveSensor[2].toString().replaceAll("\"", ""));
-																																																panel.add(tfPourcentageActive);
-																																																
-																																																		// String MeanRC = getAverageTemperature();
-																																																		tfMeanTemperatureStageRC = new JLabel();
-																																																		tfMeanTemperatureStageRC.setHorizontalAlignment(SwingConstants.TRAILING);
-																																																		tfMeanTemperatureStageRC.setBounds(40, 268, 57, 44);
-																																																		
-																																																				panel.add(tfMeanTemperatureStageRC);
-																																																				
-																																																						tfMeanTemperatureStage1 = new JLabel();
-																																																						tfMeanTemperatureStage1.setHorizontalAlignment(SwingConstants.TRAILING);
-																																																						tfMeanTemperatureStage1.setBounds(501, 147, 57, 44);
-																																																						panel.add(tfMeanTemperatureStage1);
-																																																						
-																																																								tfTotalStockRc = new JLabel();
-																																																								tfTotalStockRc.setHorizontalAlignment(SwingConstants.TRAILING);
-																																																								tfTotalStockRc.setBounds(23, 147, 57, 44);
-																																																								// tfTotalStockRc.setText(TotalStockRc[1].toString().replaceAll("\"", ""));
 
-																																																								panel.add(tfTotalStockRc);
-																																																								
-																																																										tfTotalStockEtage1 = new JLabel();
-																																																										tfTotalStockEtage1.setHorizontalAlignment(SwingConstants.TRAILING);
-																																																										tfTotalStockEtage1.setBounds(139, 147, 57, 44);
-																																																										// tfTotalStockEtage1.setText(TotalStockRc[0].toString().replaceAll("\"", ""));
+		panel = new JPanel();
+		tabbedPane.addTab("DASHBOARD", null, panel, null);
+		panel.setLayout(null);
 
-																																																										panel.add(tfTotalStockEtage1);
-																																																										
-																																																												///////////////////////////////////////////////////////////
-																																																												// Button - DASHBOARD
-																																																												btnTemperature = new JButton("Calculer");
-																																																												btnTemperature.setBounds(10, 471, 124, 28);
-																																																												panel.add(btnTemperature);
-																																																												
-																																																														cbTotalTypeSensorStock = new JComboBox(sensorType);
-																																																														cbTotalTypeSensorStock.setBounds(456, 34, 87, 22);
-																																																														panel.add(cbTotalTypeSensorStock);
-																																																														cbTotalTypeSensorStock.addActionListener(new ActionListener() {
-																																																															public void actionPerformed(ActionEvent e) {
 
-																																																																JComboBox cbTotalTypeSensorStock = (JComboBox) e.getSource();
+		///////////////////////////////////////////////////////
+		// DATE
 
-																																																																if (cbTotalTypeSensorStock.getSelectedIndex() == 0) {
-																																																																	requestType = "COUNT";
-																																																																	table = "Sensor";
-																																																																	jsonString = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor, sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur";
-																																																																	new ClientSocket(requestType, jsonString, table);
-																																																																	jsonString = ClientSocket.getJson();
-																																																																	logger.log(Level.DEBUG, "Used/UnUsed Sensor finded");
-																																																																	String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
-																																																																	unused = Integer.parseInt(jsonString_list[0]);
-																																																																	used = Integer.parseInt(jsonString_list[1]);
+		dateChooser_2 = new JDateChooser();
+		dateChooser_2.setBounds(303, 34, 80, 20);
+		panel.add(dateChooser_2);
 
-																																																																	tfStock.setText(Integer.toString(unused));
+		dateChooser_3 = new JDateChooser();
+		dateChooser_3.setBounds(303, 65, 80, 20);
+		panel.add(dateChooser_3);
 
-																																																																} else {
+		// DateFrom = dateChooser_2.getDate());
+		// DateTo = dateChooser_3.getDate();
 
-																																																																	requestType = "COUNT";
-																																																																	table = "Sensor";
-																																																																	jsonString = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor, sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur WHERE type_capteur = '"
-																																																																			+ cbTotalTypeSensorStock.getSelectedItem().toString() + "'";
-																																																																	new ClientSocket(requestType, jsonString, table);
-																																																																	jsonString = ClientSocket.getJson();
-																																																																	logger.log(Level.DEBUG, "Used/UnUsed Sensor finded");
-																																																																	String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
-																																																																	unused = Integer.parseInt(jsonString_list[0]);
-																																																																	used = Integer.parseInt(jsonString_list[1]);
-																																																																	tfStock.setText(Integer.toString(unused));
+		// label - DASHBOARD
+		JLabel lblStock = new JLabel("Number of sensors in stock");
+		lblStock.setBounds(436, 104, 147, 16);
+		panel.add(lblStock);
 
-																																																																}
-																																																															}
-																																																														});
-																																																														
-																																																																btnUpdateDate = new JButton("Get Update");
-																																																																btnUpdateDate.setBounds(191, 100, 89, 23);
-																																																																panel.add(btnUpdateDate);
-																																																																btnUpdateDate.addActionListener(new ActionListener() {
-																																																																	public void actionPerformed(ActionEvent e) {
+		JLabel lblNombreDalertes = new JLabel("Total Alerts received");
+		lblNombreDalertes.setBounds(649, 493, 112, 22);
+		panel.add(lblNombreDalertes);
 
-																																																																		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-																																																																		DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
+		JLabel lblTotalOver = new JLabel("Total OVER");
+		lblTotalOver.setBounds(664, 386, 139, 22);
+		panel.add(lblTotalOver);
 
-																																																																		DateFrom = df.format(dateChooser_2.getDate());
-																																																																		DateTo = df1.format(dateChooser_3.getDate());
+		lblTotalAlertAttente = new JLabel("Total Pending Alert");
+		lblTotalAlertAttente.setBounds(542, 493, 97, 22);
+		panel.add(lblTotalAlertAttente);
 
-																																																																		// Method of calculating of Number of UPDATE SENSOR 'parametre date ' AND
-																																																																		requestType = "COUNT";
-																																																																		table = "SensorHistorical";
-																																																																		jsonString = "SELECT COUNT(*) FROM historique WHERE date_historique BETWEEN '" + DateFrom + "'AND '"
-																																																																				+ DateTo + "'AND ( type_alerte = 'NORMAL')";
-																																																																		new ClientSocket(requestType, jsonString, table);
-																																																																		String jsonString_list = ClientSocket.getJson();
-																																																																		logger.log(Level.DEBUG, "Number sensor updated per period finded");
-																																																																		System.out.println("resultat date" + jsonString_list);
-																																																																		DateUpdate = Integer.parseInt(jsonString_list.replaceAll("\"", ""));
-																																																																		tfNbSensorMaj_1.setText(Integer.toString(DateUpdate));
+		JLabel lblNombreDePannes = new JLabel("Total DOWN");
+		lblNombreDePannes.setBounds(542, 389, 89, 16);
+		panel.add(lblNombreDePannes);
 
-																																																																	}
-																																																																});
-																																																																
-																																																																		JLabel lblSensorPassive = new JLabel("% Sensor Passive");
-																																																																		lblSensorPassive.setBounds(601, 84, 105, 20);
-																																																																		panel.add(lblSensorPassive);
-																																																																		
-																																																																				JComboBox cbAlertReceivedFloor_1 = new JComboBox(area);
-																																																																				cbAlertReceivedFloor_1.addActionListener(new ActionListener() {
-																																																																					public void actionPerformed(ActionEvent e) {
+		lblNumberOfCommon = new JLabel("number of common area");
+		lblNumberOfCommon.setBounds(10, 11, 123, 28);
+		panel.add(lblNumberOfCommon);
 
-																																																																						JComboBox cbAlertReceivedFloor = (JComboBox) e.getSource();
+		JLabel lblNbSensorMaj = new JLabel("Total UPDATE SENSORS");
+		lblNbSensorMaj.setBounds(181, 11, 123, 28);
+		panel.add(lblNbSensorMaj);
 
-																																																																						if (cbAlertReceivedFloor.getSelectedIndex() == 0) {
-																																																																							requestType = "COUNT";
-																																																																							table = "SensorHistorical";
-																																																																							jsonString = "SELECT COUNT(*) FROM historique";
-																																																																							new ClientSocket(requestType, jsonString, table);
-																																																																							jsonString = ClientSocket.getJson();
-																																																																							logger.log(Level.DEBUG, "Number alert received finded");
-																																																																							String jsonString_list = jsonString.replaceAll("\"", "");
-																																																																							AlertReceived = Integer.parseInt(jsonString_list);
-																																																																							tfAlertesReceived.setText(Integer.toString(AlertReceived));
+		JLabel lblTotalActive = new JLabel("Total Active");
+		lblTotalActive.setBounds(727, 34, 63, 14);
+		panel.add(lblTotalActive);
 
-																																																																						} else {
+		JLabel lblTotalPassive = new JLabel("Total Passive");
+		lblTotalPassive.setBounds(727, 65, 69, 14);
+		panel.add(lblTotalPassive);
 
-																																																																							requestType = "COUNT";
-																																																																							table = "Sensor";
-																																																																							jsonString = "SELECT COUNT(*) FROM capteur INNER JOIN historique ON capteur.id_capteur = historique.id_capteur WHERE capteur.id_partie_commune = "
-																																																																									+ cbAlertReceivedFloor.getSelectedItem().toString() + "";
-																																																																							new ClientSocket(requestType, jsonString, table);
-																																																																							jsonString = ClientSocket.getJson();
-																																																																							logger.log(Level.DEBUG, "Number alert received finded");
-																																																																							String jsonString_list = jsonString.replaceAll("\"", "");
-																																																																							AlertReceived = Integer.parseInt(jsonString_list);
-																																																																							tfAlertesReceived.setText(Integer.toString(AlertReceived));
+		JLabel lbltfMeanTemperatureStageRC = new JLabel("Mean temperature Stage RC");
+		lbltfMeanTemperatureStageRC.setBounds(0, 319, 167, 22);
+		panel.add(lbltfMeanTemperatureStageRC);
 
-																																																																						}
+		JLabel lblMeanTemperatureStage = new JLabel("Mean temperature Stage 1");
+		lblMeanTemperatureStage.setBounds(4, 416, 163, 22);
+		panel.add(lblMeanTemperatureStage);
 
-																																																																					}
-																																																																				});
-																																																																				cbAlertReceivedFloor_1.setBounds(746, 445, 73, 22);
-																																																																				panel.add(cbAlertReceivedFloor_1);
-																																																																				
-																																																																						ChartPanel cpAlerts = new ChartPanel(pieChart1);
-																																																																						cpAlerts.setBounds(191, 299, 275, 165);
-																																																																						panel.add(cpAlerts);
+		lbTotalStockRc = new JLabel("Total Sensor RC");
+		lbTotalStockRc.setBounds(21, 210, 101, 22);
+		panel.add(lbTotalStockRc);
+
+		lbTotalStockStage1 = new JLabel("Total Sensor Floor 1");
+		lbTotalStockStage1.setBounds(132, 210, 135, 22);
+		panel.add(lbTotalStockStage1);
+
+		//////////////////////////////////////////////////////////////////
+		// Textfield - DASHBOARD
+
+		// Object StockSensor[] = getNumberUsedSensor();
+		tfStock = new JTextField();
+		tfStock.setBounds(478, 65, 41, 28);
+		panel.add(tfStock);
+		tfStock.setColumns(10);
+
+		tfAlertesReceived = new JTextField();
+		tfAlertesReceived.setBounds(667, 429, 69, 55);
+		tfAlertesReceived.setText(Integer.toString(totalAlertReceived));
+		tfAlertesReceived.setColumns(10);
+		panel.add(tfAlertesReceived);
+
+		tfDown = new JLabel();
+		tfDown.setBackground(Color.ORANGE);
+		tfDown.setBounds(556, 358, 35, 20);
+		panel.add(tfDown);
+
+		tfNbOver = new JLabel();
+		tfNbOver.setBackground(Color.RED);
+		tfNbOver.setBounds(673, 350, 35, 36);
+		panel.add(tfNbOver);
+		tfPendingAlert = new JTextField();
+		tfPendingAlert.setBackground(Color.GREEN);
+		tfPendingAlert.setBounds(542, 419, 97, 65);
+		tfPendingAlert.setColumns(10);
+		tfPendingAlert.setText(Integer.toString(totalNumberPendingAlert));
+		panel.add(tfPendingAlert);
+
+		tfNbCommonArea = new JLabel();
+		tfNbCommonArea.setBounds(34, 34, 63, 55);
+		tfNbCommonArea.setText(NbCommonArea.toString().replaceAll("\"", ""));
+		panel.add(tfNbCommonArea);
+
+		JTextField tfNbSensorMaj_1 = new JTextField();
+		tfNbSensorMaj_1.setBounds(181, 34, 112, 55);
+		panel.add(tfNbSensorMaj_1);
+		tfPassiveSensor = new JLabel();
+		tfPassiveSensor.setBounds(695, 62, 22, 20);
+		tfPassiveSensor.setText(NbPassiveActiveSensor[1].toString().replaceAll("\"", ""));
+		panel.add(tfPassiveSensor);
+
+		tfActiveSensor = new JLabel();
+		tfActiveSensor.setBounds(695, 34, 22, 20);
+		tfActiveSensor.setText(NbPassiveActiveSensor[0].toString().replaceAll("\"", ""));
+		panel.add(tfActiveSensor);
+
+		tfPourcentageActive = new JLabel();
+		tfPourcentageActive.setBounds(612, 31, 70, 54);
+		tfPourcentageActive.setText(NbPassiveActiveSensor[2].toString().replaceAll("\"", ""));
+		panel.add(tfPourcentageActive);
+
+		// String MeanRC = getAverageTemperature();
+		tfMeanTemperatureStageRC = new JLabel();
+		tfMeanTemperatureStageRC.setHorizontalAlignment(SwingConstants.TRAILING);
+		tfMeanTemperatureStageRC.setBounds(40, 268, 57, 44);
+
+		panel.add(tfMeanTemperatureStageRC);
+
+		tfMeanTemperatureStage1 = new JLabel();
+		tfMeanTemperatureStage1.setHorizontalAlignment(SwingConstants.TRAILING);
+		tfMeanTemperatureStage1.setBounds(501, 147, 57, 44);
+		panel.add(tfMeanTemperatureStage1);
+
+		tfTotalStockRc = new JLabel();
+		tfTotalStockRc.setHorizontalAlignment(SwingConstants.TRAILING);
+		tfTotalStockRc.setBounds(23, 147, 57, 44);
+		// tfTotalStockRc.setText(TotalStockRc[1].toString().replaceAll("\"", ""));
+
+		panel.add(tfTotalStockRc);
+
+		tfTotalStockEtage1 = new JLabel();
+		tfTotalStockEtage1.setHorizontalAlignment(SwingConstants.TRAILING);
+		tfTotalStockEtage1.setBounds(139, 147, 57, 44);
+		// tfTotalStockEtage1.setText(TotalStockRc[0].toString().replaceAll("\"", ""));
+
+		panel.add(tfTotalStockEtage1);
+
+		///////////////////////////////////////////////////////////
+		// Button - DASHBOARD
+		btnTemperature = new JButton("Calculer");
+		btnTemperature.setBounds(10, 471, 124, 28);
+		panel.add(btnTemperature);
+
+		cbTotalTypeSensorStock = new JComboBox(sensorType);
+		cbTotalTypeSensorStock.setBounds(456, 34, 87, 22);
+		panel.add(cbTotalTypeSensorStock);
+		cbTotalTypeSensorStock.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				JComboBox cbTotalTypeSensorStock = (JComboBox) e.getSource();
+
+				if (cbTotalTypeSensorStock.getSelectedIndex() == 0) {
+					requestType = "COUNT";
+					table = "Sensor";
+					jsonString = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor, sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur";
+					new ClientSocket(requestType, jsonString, table);
+					jsonString = ClientSocket.getJson();
+					logger.log(Level.DEBUG, "Used/UnUsed Sensor finded");
+					String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
+					unused = Integer.parseInt(jsonString_list[0]);
+					used = Integer.parseInt(jsonString_list[1]);
+
+					tfStock.setText(Integer.toString(unused));
+					
+					pieDataset.setValue("Unused", unused);
+					pieDataset.setValue("Used", used);
+					
+					JFreeChart pieChart = ChartFactory.createPieChart("Ratio of unused sensors and used", pieDataset, true, true,
+							true);
+					ChartPanel cPanel = new ChartPanel(pieChart);
+					contentPane.add(cPanel);
+					
+					ChartPanel cpSensors = new ChartPanel(pieChart);
+					cpSensors.setBounds(483, 139, 275, 159);
+					panel.add(cpSensors);
+					cpSensors.setMouseWheelEnabled(true);
+					
+				} else {
+
+					requestType = "COUNT";
+					table = "Sensor";
+					jsonString = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor, sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur WHERE type_capteur = '"
+							+ cbTotalTypeSensorStock.getSelectedItem().toString() + "'";
+					new ClientSocket(requestType, jsonString, table);
+					jsonString = ClientSocket.getJson();
+					logger.log(Level.DEBUG, "Used/UnUsed Sensor finded");
+					String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
+					unused = Integer.parseInt(jsonString_list[0]);
+					used = Integer.parseInt(jsonString_list[1]);
+					tfStock.setText(Integer.toString(unused));
+
+				}
+			}
+		});
+
+		btnUpdateDate = new JButton("Get Update");
+		btnUpdateDate.setBounds(191, 100, 89, 23);
+		panel.add(btnUpdateDate);
+		btnUpdateDate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+				DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
+
+				DateFrom = df.format(dateChooser_2.getDate());
+				DateTo = df1.format(dateChooser_3.getDate());
+
+				// Method of calculating of Number of UPDATE SENSOR 'parametre date ' AND
+				requestType = "COUNT";
+				table = "SensorHistorical";
+				jsonString = "SELECT COUNT(*) FROM historique WHERE date_historique BETWEEN '" + DateFrom + "'AND '"
+						+ DateTo + "'AND ( type_alerte = 'NORMAL')";
+				new ClientSocket(requestType, jsonString, table);
+				String jsonString_list = ClientSocket.getJson();
+				logger.log(Level.DEBUG, "Number sensor updated per period finded");
+				System.out.println("resultat date" + jsonString_list);
+				DateUpdate = Integer.parseInt(jsonString_list.replaceAll("\"", ""));
+				tfNbSensorMaj_1.setText(Integer.toString(DateUpdate));
+
+			}
+		});
+
+		JLabel lblSensorPassive = new JLabel("% Sensor Passive");
+		lblSensorPassive.setBounds(601, 84, 105, 20);
+		panel.add(lblSensorPassive);
+
+		JComboBox cbAlertReceivedFloor_1 = new JComboBox(area);
+		cbAlertReceivedFloor_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				JComboBox cbAlertReceivedFloor = (JComboBox) e.getSource();
+
+				if (cbAlertReceivedFloor.getSelectedIndex() == 0) {
+					requestType = "COUNT";
+					table = "SensorHistorical";
+					jsonString = "SELECT COUNT(*) FROM historique";
+					new ClientSocket(requestType, jsonString, table);
+					jsonString = ClientSocket.getJson();
+					logger.log(Level.DEBUG, "Number alert received finded");
+					String jsonString_list = jsonString.replaceAll("\"", "");
+					AlertReceived = Integer.parseInt(jsonString_list);
+					tfAlertesReceived.setText(Integer.toString(AlertReceived));
+
+				} else {
+
+					requestType = "COUNT";
+					table = "Sensor";
+					jsonString = "SELECT COUNT(*) FROM capteur INNER JOIN historique ON capteur.id_capteur = historique.id_capteur WHERE capteur.id_partie_commune = "
+							+ cbAlertReceivedFloor.getSelectedItem().toString() + "";
+					new ClientSocket(requestType, jsonString, table);
+					jsonString = ClientSocket.getJson();
+					logger.log(Level.DEBUG, "Number alert received finded");
+					String jsonString_list = jsonString.replaceAll("\"", "");
+					AlertReceived = Integer.parseInt(jsonString_list);
+					tfAlertesReceived.setText(Integer.toString(AlertReceived));
+
+				}
+
+			}
+		});
+		cbAlertReceivedFloor_1.setBounds(746, 445, 73, 22);
+		panel.add(cbAlertReceivedFloor_1);
+
+		ChartPanel cpAlerts = new ChartPanel(pieChart1);
+		cpAlerts.setBounds(191, 299, 275, 165);
+		panel.add(cpAlerts);
+
+		JLabel imagelabel = new JLabel();
+		ImageIcon image = new ImageIcon("C:\\\\Users\\\\Slayd\\\\OneDrive\\\\Bureau\\\\cours\\\\PDS\\\\BlackMamba\\\\BlackMamba\\\\Temperature.png");
+		imagelabel = new JLabel(image, JLabel.CENTER);
+		imagelabel.setBounds(247, 159, 191, 125);
+		panel.add(imagelabel);
 
 ////////////////////////////////////////////////////////////
 		// Combobox in Tabbed Alert
