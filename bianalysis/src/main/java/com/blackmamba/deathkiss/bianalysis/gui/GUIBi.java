@@ -78,6 +78,9 @@ public class GUIBi extends JFrame {
 	private Integer s2;
 	private Integer etage0;
 	private Integer etage1;
+	private Integer AlertReceived;
+	private Integer totalAlertReceived;
+	private Integer totalNumberPendingAlert;
 	
 	private Integer used;
 	private Integer unused;
@@ -95,6 +98,9 @@ public class GUIBi extends JFrame {
 
 	private JComboBox cbArea;
 	private JComboBox cbCapteur;
+	private JComboBox cbTotalTypeSensorStock;
+	private JComboBox cbAlertReceivedFloor;
+	
 	private JButton btnDeconnexion;
 	private JButton btnTemperature;
 	private JButton btnDate;
@@ -146,19 +152,19 @@ public class GUIBi extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-
-					GUIBi frame = new GUIBi();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//
+//					GUIBi frame = new GUIBi();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 ////////////////////////////////////////////////////////////////////////
 
 	/**
@@ -196,12 +202,12 @@ public class GUIBi extends JFrame {
 		//// JCombobox
 
 		String[] periode = { "Année", "Mois", "Jour" };
-		String[] area = { "ALL", "RC", "Etage 1", "Etage 2" };
+		String[] area = { "ALL", "0", "1" };
 
 		String[] sensorType = { "ALL", "SMOKE", "MOVE", "TEMPERATURE", "WINDOW", "DOOR", "ELEVATOR", "LIGHT", "FIRE",
 				"BADGE", "ROUTER" };
 
-		btnDeconnexion = new JButton("Deconnexion");
+		btnDeconnexion = new JButton("Disconnect");
 		btnDeconnexion.setBounds(860, 0, 124, 28);
 		contentPane.add(btnDeconnexion);
 
@@ -311,7 +317,7 @@ public class GUIBi extends JFrame {
 		panel.add(lblNombreDePannes);
 
 		lblNumberOfCommon = new JLabel("number of common area");
-		lblNumberOfCommon.setBounds(10, 33, 123, 28);
+		lblNumberOfCommon.setBounds(10, 11, 123, 28);
 		panel.add(lblNumberOfCommon);
 
 		JLabel lblNbSensorMaj = new JLabel("Total UPDATE SENSORS");
@@ -319,19 +325,19 @@ public class GUIBi extends JFrame {
 		panel.add(lblNbSensorMaj);
 
 		JLabel lblTotalActive = new JLabel("Total Active");
-		lblTotalActive.setBounds(80, 234, 63, 14);
+		lblTotalActive.setBounds(129, 234, 63, 14);
 		panel.add(lblTotalActive);
 
 		JLabel lblTotalPassive = new JLabel("Total Passive");
-		lblTotalPassive.setBounds(80, 278, 78, 14);
+		lblTotalPassive.setBounds(129, 269, 69, 14);
 		panel.add(lblTotalPassive);
 
 		JLabel lbltfMeanTemperatureStageRC = new JLabel("Mean temperature Stage RC");
-		lbltfMeanTemperatureStageRC.setBounds(20, 477, 147, 22);
+		lbltfMeanTemperatureStageRC.setBounds(0, 477, 167, 22);
 		panel.add(lbltfMeanTemperatureStageRC);
 
 		JLabel lblMeanTemperatureStage = new JLabel("Mean temperature Stage 1");
-		lblMeanTemperatureStage.setBounds(194, 477, 135, 22);
+		lblMeanTemperatureStage.setBounds(194, 477, 163, 22);
 		panel.add(lblMeanTemperatureStage);
 
 		lbTotalStockRc = new JLabel("Total Sensor RC");
@@ -357,8 +363,8 @@ public class GUIBi extends JFrame {
 
 		tfAlertesReceived = new JTextField();
 		tfAlertesReceived.setBounds(612, 428, 69, 55);
-		String numberAlertReceived = getNumberAlertReceived();
-		tfAlertesReceived.setText(numberAlertReceived.toString().replaceAll("\"", ""));
+		Integer numberAlertReceived = getNumberAlertReceived();
+		tfAlertesReceived.setText(Integer.toString(totalAlertReceived));
 		tfAlertesReceived.setColumns(10);
 		panel.add(tfAlertesReceived);
 
@@ -376,17 +382,18 @@ public class GUIBi extends JFrame {
 		tfNbOver.setColumns(10);
 		tfNbOver.setText(tfTotalAlert[1].toString().replaceAll("/", ""));
 		panel.add(tfNbOver);
-
+		
+		Integer totalNumberPendingAlert = getNumberPendingAlert();
 		tfPendingAlert = new JTextField();
 		tfPendingAlert.setBackground(Color.GREEN);
 		tfPendingAlert.setBounds(591, 321, 97, 65);
 		tfPendingAlert.setColumns(10);
-		tfPendingAlert.setText(NumberMessage[0].toString());
+		tfPendingAlert.setText(Integer.toString(totalNumberPendingAlert));
 		panel.add(tfPendingAlert);
 
 		String NbCommonArea = getNumberCommonArea();
 		tfNbCommonArea = new JTextField();
-		tfNbCommonArea.setBounds(20, 56, 112, 55);
+		tfNbCommonArea.setBounds(10, 34, 112, 55);
 		tfNbCommonArea.setText(NbCommonArea.toString().replaceAll("\"", ""));
 		panel.add(tfNbCommonArea);
 		tfNbCommonArea.setColumns(10);
@@ -399,19 +406,19 @@ public class GUIBi extends JFrame {
 
 		Object NbPassiveActiveSensor[] = getNumberPassiveActiveSensor();
 		tfPassiveSensor = new JTextField();
-		tfPassiveSensor.setBounds(20, 268, 50, 35);
+		tfPassiveSensor.setBounds(93, 266, 22, 20);
 		tfPassiveSensor.setText(NbPassiveActiveSensor[1].toString().replaceAll("\"", ""));
 		panel.add(tfPassiveSensor);
 		tfPassiveSensor.setColumns(10);
 
 		tfActiveSensor = new JTextField();
 		tfActiveSensor.setColumns(10);
-		tfActiveSensor.setBounds(20, 222, 50, 35);
+		tfActiveSensor.setBounds(94, 233, 22, 20);
 		tfActiveSensor.setText(NbPassiveActiveSensor[0].toString().replaceAll("\"", ""));
 		panel.add(tfActiveSensor);
 
 		tfPourcentageActive = new JTextField();
-		tfPourcentageActive.setBounds(148, 248, 50, 28);
+		tfPourcentageActive.setBounds(10, 233, 70, 54);
 		tfPourcentageActive.setText(NbPassiveActiveSensor[2].toString().replaceAll("\"", ""));
 		panel.add(tfPourcentageActive);
 		tfPourcentageActive.setColumns(10);
@@ -454,43 +461,7 @@ public class GUIBi extends JFrame {
 		btnTemperature.setBounds(94, 510, 124, 28);
 		panel.add(btnTemperature);
 
-		JComboBox cbTotalTypeSensorStock = new JComboBox(sensorType);
-		cbTotalTypeSensorStock.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				JComboBox cbTotalTypeSensorStock = (JComboBox) e.getSource();
-
-				if (cbTotalTypeSensorStock.getSelectedIndex() == 0) {
-					requestType = "COUNT";
-					table = "Sensor";
-					jsonString = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor, sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur";
-					new ClientSocket(requestType, jsonString, table);
-					jsonString = ClientSocket.getJson();
-					logger.log(Level.DEBUG, "Used/UnUsed Sensor finded");
-					String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
-					unused = Integer.parseInt(jsonString_list[0]);
-					used = Integer.parseInt(jsonString_list[1]);
-					
-					System.out.println("ALL test");
-					tfStock.setText(Integer.toString(unused));
-					
-				} else {
-					
-					requestType = "COUNT";
-					table = "Sensor";
-					jsonString = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor, sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur WHERE type_capteur = '" + cbTotalTypeSensorStock.getSelectedItem().toString() + "'";
-					new ClientSocket(requestType, jsonString, table);
-					jsonString = ClientSocket.getJson();
-					logger.log(Level.DEBUG, "Used/UnUsed Sensor finded");
-					String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
-					unused = Integer.parseInt(jsonString_list[0]);
-					used = Integer.parseInt(jsonString_list[1]);
-					tfStock.setText(Integer.toString(unused));
-
-				}
-			}
-		});
-
+		cbTotalTypeSensorStock = new JComboBox(sensorType);
 		cbTotalTypeSensorStock.setBounds(418, 230, 87, 22);
 		panel.add(cbTotalTypeSensorStock);
 
@@ -499,7 +470,7 @@ public class GUIBi extends JFrame {
 		panel.add(cbStockTypeSensor);
 		
 		btnUpdateDate = new JButton("Get Update");
-		btnUpdateDate.setBounds(20, 116, 89, 23);
+		btnUpdateDate.setBounds(20, 100, 89, 23);
 		panel.add(btnUpdateDate);
 		
 		tfDateFrom = new JTextField();
@@ -511,6 +482,46 @@ public class GUIBi extends JFrame {
 		tfDateTo.setBounds(312, 343, 96, 20);
 		panel.add(tfDateTo);
 		tfDateTo.setColumns(10);
+		
+		JLabel lblSensorPassive = new JLabel("% Sensor Passive");
+		lblSensorPassive.setBounds(10, 285, 105, 20);
+		panel.add(lblSensorPassive);
+		
+		JComboBox cbAlertReceivedFloor = new JComboBox(area);
+		cbAlertReceivedFloor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				JComboBox cbAlertReceivedFloor = (JComboBox) e.getSource();
+
+				if (cbAlertReceivedFloor.getSelectedIndex() == 0) {
+					requestType = "COUNT";
+					table = "SensorHistorical";
+					jsonString = "SELECT COUNT(*) FROM historique";
+					new ClientSocket(requestType, jsonString, table);
+					jsonString = ClientSocket.getJson();
+					logger.log(Level.DEBUG, "Number alert received finded");
+					String jsonString_list = jsonString.replaceAll("\"", "");
+					AlertReceived = Integer.parseInt(jsonString_list);
+					tfAlertesReceived.setText(Integer.toString(AlertReceived));
+					
+				} else {
+					
+					requestType = "COUNT";
+					table = "Sensor";
+					jsonString = "SELECT COUNT(*) FROM capteur INNER JOIN historique ON capteur.id_capteur = historique.id_capteur WHERE capteur.id_partie_commune = " + cbAlertReceivedFloor.getSelectedItem().toString() + "";
+					new ClientSocket(requestType, jsonString, table);
+					jsonString = ClientSocket.getJson();
+					logger.log(Level.DEBUG, "Number alert received finded");
+					String jsonString_list = jsonString.replaceAll("\"", "");
+					AlertReceived = Integer.parseInt(jsonString_list);
+					tfAlertesReceived.setText(Integer.toString(AlertReceived));
+
+				}
+							
+			}
+		});
+		cbAlertReceivedFloor.setBounds(691, 444, 73, 22);
+		panel.add(cbAlertReceivedFloor);
 
 ////////////////////////////////////////////////////////////
 		// Combobox in Tabbed Alert
@@ -856,6 +867,41 @@ public class GUIBi extends JFrame {
 				tfAlert.setText(String.valueOf(nbAlertSensor));
 			}
 		});
+		
+		cbTotalTypeSensorStock.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				JComboBox cbTotalTypeSensorStock = (JComboBox) e.getSource();
+
+				if (cbTotalTypeSensorStock.getSelectedIndex() == 0) {
+					requestType = "COUNT";
+					table = "Sensor";
+					jsonString = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor, sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur";
+					new ClientSocket(requestType, jsonString, table);
+					jsonString = ClientSocket.getJson();
+					logger.log(Level.DEBUG, "Used/UnUsed Sensor finded");
+					String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
+					unused = Integer.parseInt(jsonString_list[0]);
+					used = Integer.parseInt(jsonString_list[1]);
+					
+					tfStock.setText(Integer.toString(unused));
+					
+				} else {
+					
+					requestType = "COUNT";
+					table = "Sensor";
+					jsonString = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor, sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur WHERE type_capteur = '" + cbTotalTypeSensorStock.getSelectedItem().toString() + "'";
+					new ClientSocket(requestType, jsonString, table);
+					jsonString = ClientSocket.getJson();
+					logger.log(Level.DEBUG, "Used/UnUsed Sensor finded");
+					String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
+					unused = Integer.parseInt(jsonString_list[0]);
+					used = Integer.parseInt(jsonString_list[1]);
+					tfStock.setText(Integer.toString(unused));
+
+				}
+			}
+		});
 	
 	}
 
@@ -1122,6 +1168,25 @@ public class GUIBi extends JFrame {
 //		}
 //		return jsonString;
 //	}
+	
+	
+	
+	
+///////////////////////////////////////////////
+	public Integer getNumberPendingAlert() {
+		requestType = "COUNT";
+		table = "Message";
+		jsonString = "SELECT COUNT(*) FROM message;";
+		new ClientSocket(requestType, jsonString, table);
+		jsonString = ClientSocket.getJson();
+		logger.log(Level.DEBUG, "Number pending Alert finded");
+		String jsonString_list = jsonString.replaceAll("\"", "");
+		totalNumberPendingAlert = Integer.parseInt(jsonString_list);
+		
+		return totalNumberPendingAlert;
+	}
+	
+	
 ////////////////////////////////////////////////
 	public Object[] getNumberPassiveActiveSensor() {
 		String s1 = "";
@@ -1185,14 +1250,18 @@ public class GUIBi extends JFrame {
 
 //////////////////////////////////////////////////////////////////////
 	// Method of calculating of number Alert Received
-	public String getNumberAlertReceived() {
+	public Integer getNumberAlertReceived() {
+		
 		requestType = "COUNT";
 		table = "SensorHistorical";
 		jsonString = "SELECT COUNT(*) FROM historique";
 		new ClientSocket(requestType, jsonString, table);
 		jsonString = ClientSocket.getJson();
 		logger.log(Level.DEBUG, "Number alert received finded");
-		return jsonString;
+		String jsonString_list = jsonString.replaceAll("\"", "");
+		totalAlertReceived = Integer.parseInt(jsonString_list);
+		
+		return totalAlertReceived;
 	}
 
 ///////////////////////////////////////////////////////////////////////
