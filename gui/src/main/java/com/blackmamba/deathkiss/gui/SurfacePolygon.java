@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
-import com.blackmamba.deathkiss.entity.CommonArea;
+import com.blackmamba.deathkiss.commons.entity.CommonArea;
 
 import java.awt.Canvas;
 import java.awt.Color;
