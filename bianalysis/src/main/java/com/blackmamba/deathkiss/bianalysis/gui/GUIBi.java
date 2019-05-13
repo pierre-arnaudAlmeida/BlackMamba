@@ -81,7 +81,7 @@ public class GUIBi extends JFrame {
 	private Integer AlertReceived;
 	private Integer totalAlertReceived;
 	private Integer totalNumberPendingAlert;
-	
+
 	private Integer used;
 	private Integer unused;
 	private Integer DateUpdate;
@@ -90,6 +90,7 @@ public class GUIBi extends JFrame {
 	private JTextField tfAlertesReceived;
 	private JTextField tfStock;
 	private JTextField searchBar;
+	private JTextField tfNbSensorMaj;
 	private DefaultListModel<String> listM;
 	private DefaultListModel<String> ListModel;
 	private DefaultListModel<String> listCount;
@@ -100,7 +101,7 @@ public class GUIBi extends JFrame {
 	private JComboBox cbCapteur;
 	private JComboBox cbTotalTypeSensorStock;
 	private JComboBox cbAlertReceivedFloor;
-	
+
 	private JButton btnDeconnexion;
 	private JButton btnTemperature;
 	private JButton btnDate;
@@ -112,10 +113,10 @@ public class GUIBi extends JFrame {
 	private JDateChooser dateChooser_1;
 	private JDateChooser dateChooser_2;
 	private JDateChooser dateChooser_3;
-	
+
 	private String DateFrom;
 	private String DateTo;
-	
+
 	private JTextField tfDate;
 	private JTextField tfDate1;
 	private JDialog ratioSensors;
@@ -171,25 +172,7 @@ public class GUIBi extends JFrame {
 	 * Create the frame.
 	 */
 	public GUIBi() {
-		initComponents();
-		getAllSensor();
-		getAllSensorHistorical();
-		getNumberDownOverSensor();
-		getNumberAlertReceived();
-		getNumberUpdate();
-		getNumberStageSensor();
-//		getAllCommonArea();
-//		getNumberPassiveActiveSensor();
-		getAllMessage();
-		getNumberUsedSensor();
-		getNumberCommonArea();
-		getAverageTemperature();
-		createEvents();
-
-	}
-
-	// Methods contains all
-	private void initComponents() {
+		
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 998, 636);
@@ -210,6 +193,12 @@ public class GUIBi extends JFrame {
 		btnDeconnexion = new JButton("Disconnect");
 		btnDeconnexion.setBounds(860, 0, 124, 28);
 		contentPane.add(btnDeconnexion);
+		btnDeconnexion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				logger.log(Level.INFO, "Application closed, after disconnection");
+				System.exit(ABORT);
+			}
+		});
 
 		/////////////////////////////////////////////
 		/// Object
@@ -242,7 +231,6 @@ public class GUIBi extends JFrame {
 
 ////////////////////////////////////
 
-
 		// Graphic Historical alert
 
 		DefaultPieDataset HistoricalAlert = new DefaultPieDataset();
@@ -265,7 +253,7 @@ public class GUIBi extends JFrame {
 		panel = new JPanel();
 		tabbedPane.addTab("DASHBOARD", null, panel, null);
 		panel.setLayout(null);
-		
+
 		// Graphic All sensor
 		DefaultPieDataset pieDataset = new DefaultPieDataset();
 //		pieDataset.setValue("Number of Unused Sensors", (Number) NumberUsedSensor[0]);
@@ -290,11 +278,10 @@ public class GUIBi extends JFrame {
 		dateChooser_3 = new JDateChooser();
 		dateChooser_3.setBounds(129, 170, 69, 20);
 		panel.add(dateChooser_3);
-		
+
 //		 DateFrom = dateChooser_2.getDate());
 //		 DateTo = dateChooser_3.getDate();
 
-		
 		// label - DASHBOARD
 		JLabel lblStock = new JLabel("Number of sensors in stock");
 		lblStock.setBounds(210, 233, 147, 16);
@@ -382,7 +369,7 @@ public class GUIBi extends JFrame {
 		tfNbOver.setColumns(10);
 		tfNbOver.setText(tfTotalAlert[1].toString().replaceAll("/", ""));
 		panel.add(tfNbOver);
-		
+
 		Integer totalNumberPendingAlert = getNumberPendingAlert();
 		tfPendingAlert = new JTextField();
 		tfPendingAlert.setBackground(Color.GREEN);
@@ -401,7 +388,7 @@ public class GUIBi extends JFrame {
 		String nbSensorMaj = getNumberUpdate();
 		JTextField tfNbSensorMaj = new JTextField();
 		tfNbSensorMaj.setBounds(10, 139, 112, 55);
-		tfNbSensorMaj.setText(nbSensorMaj.toString().replaceAll("\"", ""));
+//		tfNbSensorMaj.setText(nbSensorMaj.toString().replaceAll("\"", ""));
 		panel.add(tfNbSensorMaj);
 
 		Object NbPassiveActiveSensor[] = getNumberPassiveActiveSensor();
@@ -445,8 +432,7 @@ public class GUIBi extends JFrame {
 //		tfTotalStockRc.setText(TotalStockRc[1].toString().replaceAll("\"", ""));
 		tfTotalStockRc.setText(Integer.toString(etage0));
 		panel.add(tfTotalStockRc);
-		
-		
+
 		tfTotalStockEtage1 = new JTextField();
 		tfTotalStockEtage1.setHorizontalAlignment(SwingConstants.TRAILING);
 		tfTotalStockEtage1.setColumns(10);
@@ -464,33 +450,100 @@ public class GUIBi extends JFrame {
 		cbTotalTypeSensorStock = new JComboBox(sensorType);
 		cbTotalTypeSensorStock.setBounds(418, 230, 87, 22);
 		panel.add(cbTotalTypeSensorStock);
+		cbTotalTypeSensorStock.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				JComboBox cbTotalTypeSensorStock = (JComboBox) e.getSource();
+
+				if (cbTotalTypeSensorStock.getSelectedIndex() == 0) {
+					requestType = "COUNT";
+					table = "Sensor";
+					jsonString = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor, sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur";
+					new ClientSocket(requestType, jsonString, table);
+					jsonString = ClientSocket.getJson();
+					logger.log(Level.DEBUG, "Used/UnUsed Sensor finded");
+					String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
+					unused = Integer.parseInt(jsonString_list[0]);
+					used = Integer.parseInt(jsonString_list[1]);
+
+					tfStock.setText(Integer.toString(unused));
+
+				} else {
+
+					requestType = "COUNT";
+					table = "Sensor";
+					jsonString = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor, sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur WHERE type_capteur = '"
+							+ cbTotalTypeSensorStock.getSelectedItem().toString() + "'";
+					new ClientSocket(requestType, jsonString, table);
+					jsonString = ClientSocket.getJson();
+					logger.log(Level.DEBUG, "Used/UnUsed Sensor finded");
+					String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
+					unused = Integer.parseInt(jsonString_list[0]);
+					used = Integer.parseInt(jsonString_list[1]);
+					tfStock.setText(Integer.toString(unused));
+
+				}
+			}
+		});
+
 
 		cbStockTypeSensor = new JComboBox();
 		cbStockTypeSensor.setBounds(107, 362, 73, 22);
 		panel.add(cbStockTypeSensor);
-		
+
 		btnUpdateDate = new JButton("Get Update");
 		btnUpdateDate.setBounds(20, 100, 89, 23);
 		panel.add(btnUpdateDate);
-		
+		btnUpdateDate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+//				DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+//				DateFormat df1 = new SimpleDateFormat("dd-MM-yyyy");
+
+				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+				DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
+				
+				tfDateFrom.setText(df.format(dateChooser_2.getDate()));
+				tfDateTo.setText(df1.format(dateChooser_3.getDate()));
+				
+				DateFrom = df.format(dateChooser_2.getDate());
+				DateTo = df1.format(dateChooser_3.getDate());
+				
+				requestType = "COUNT";
+				table = "SensorHistorical";
+				jsonString = "SELECT COUNT(*) FROM historique WHERE date_historique BETWEEN '" + DateFrom + "'AND '"
+						+ DateTo + "'AND ( type_alerte = 'NORMAL')";
+				System.out.println("resultat okay" + jsonString);
+				new ClientSocket(requestType, jsonString, table);
+				System.out.println("resultat test" + jsonString);
+				String jsonString_list = ClientSocket.getJson();
+				logger.log(Level.DEBUG, "Number sensor updated per period finded");
+				System.out.println("resultat date" + jsonString_list);
+				DateUpdate = Integer.parseInt(jsonString_list.replaceAll("\"", ""));
+				System.out.println("dddd" + DateUpdate);
+				tfNbSensorMaj.setText(Integer.toString(DateUpdate));
+				
+			}
+		});
+
 		tfDateFrom = new JTextField();
 		tfDateFrom.setBounds(312, 301, 96, 20);
 		panel.add(tfDateFrom);
 		tfDateFrom.setColumns(10);
-		
+
 		tfDateTo = new JTextField();
 		tfDateTo.setBounds(312, 343, 96, 20);
 		panel.add(tfDateTo);
 		tfDateTo.setColumns(10);
-		
+
 		JLabel lblSensorPassive = new JLabel("% Sensor Passive");
 		lblSensorPassive.setBounds(10, 285, 105, 20);
 		panel.add(lblSensorPassive);
-		
+
 		JComboBox cbAlertReceivedFloor = new JComboBox(area);
 		cbAlertReceivedFloor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				JComboBox cbAlertReceivedFloor = (JComboBox) e.getSource();
 
 				if (cbAlertReceivedFloor.getSelectedIndex() == 0) {
@@ -503,12 +556,13 @@ public class GUIBi extends JFrame {
 					String jsonString_list = jsonString.replaceAll("\"", "");
 					AlertReceived = Integer.parseInt(jsonString_list);
 					tfAlertesReceived.setText(Integer.toString(AlertReceived));
-					
+
 				} else {
-					
+
 					requestType = "COUNT";
 					table = "Sensor";
-					jsonString = "SELECT COUNT(*) FROM capteur INNER JOIN historique ON capteur.id_capteur = historique.id_capteur WHERE capteur.id_partie_commune = " + cbAlertReceivedFloor.getSelectedItem().toString() + "";
+					jsonString = "SELECT COUNT(*) FROM capteur INNER JOIN historique ON capteur.id_capteur = historique.id_capteur WHERE capteur.id_partie_commune = "
+							+ cbAlertReceivedFloor.getSelectedItem().toString() + "";
 					new ClientSocket(requestType, jsonString, table);
 					jsonString = ClientSocket.getJson();
 					logger.log(Level.DEBUG, "Number alert received finded");
@@ -517,7 +571,7 @@ public class GUIBi extends JFrame {
 					tfAlertesReceived.setText(Integer.toString(AlertReceived));
 
 				}
-							
+
 			}
 		});
 		cbAlertReceivedFloor.setBounds(691, 444, 73, 22);
@@ -531,245 +585,6 @@ public class GUIBi extends JFrame {
 		cbArea = new JComboBox(area);
 		cbArea.setBounds(291, 39, 61, 35);
 		panel_1.add(cbArea);
-
-		cbArea.setEditable(true);
-		cbArea.addItem(area);
-
-		/////////////////////////////////////////////////////////////
-		// Date
-		dateChooser_1 = new JDateChooser();
-		dateChooser_1.setBounds(189, 55, 47, 28);
-		panel_1.add(dateChooser_1);
-
-		dateChooser = new JDateChooser();
-		dateChooser.setBounds(189, 11, 47, 28);
-		panel_1.add(dateChooser);
-		
-		// Textfield - Alert
-		tfDate = new JTextField();
-		tfDate.setBounds(90, 11, 47, 28);
-		panel_1.add(tfDate);
-		tfDate.setColumns(10);
-
-		tfDate1 = new JTextField();
-		tfDate1.setBounds(90, 55, 47, 28);
-		panel_1.add(tfDate1);
-		tfDate1.setColumns(10);
-		// label - Alert
-		JLabel lblTo = new JLabel("to");
-		lblTo.setBounds(52, 66, 28, 16);
-		panel_1.add(lblTo);
-
-		JLabel lblNewLabel = new JLabel("Data Range from");
-		lblNewLabel.setBounds(10, 23, 97, 16);
-		panel_1.add(lblNewLabel);
-		sc1 = new JScrollPane();
-		sc1.setBounds(31, 145, 276, 354);
-		panel_1.add(sc1);
-		list1 = new JList<String>(ListModel);
-		sc1.setViewportView(list1);
-
-		// Button - Alert
-		btnDate = new JButton("GetDate");
-		btnDate.setBounds(386, 39, 97, 22);
-		panel_1.add(btnDate);
-
-		tfAlert = new JTextField();
-		tfAlert.setBounds(330, 262, 119, 67);
-		panel_1.add(tfAlert);
-		tfAlert.setColumns(10);
-
-		////////////////////////////////////////////////
-		// tabbed Sensor
-		panel_2 = new JPanel();
-		tabbedPane.addTab("Sensor", null, panel_2, null);
-		panel_2.setLayout(null);
-		sc = new JScrollPane();
-		sc.setBounds(38, 64, 313, 381);
-		panel_2.add(sc);
-		list = new JList<String>(listM);
-		sc.setViewportView(list);
-
-		// label Sensor
-		JLabel lblSensors = new JLabel("Sensors");
-		lblSensors.setBounds(57, 11, 55, 39);
-		panel_2.add(lblSensors);
-
-		cbCapteur = new JComboBox(sensorType);
-		cbCapteur.setBounds(111, 13, 100, 35);
-		panel_2.add(cbCapteur);
-		// Textfield in Sensor
-		tfSensor = new JTextField();
-		tfSensor.setText(String.valueOf(nbAlertSensor));
-		tfSensor.setColumns(10);
-		tfSensor.setBackground(Color.GREEN);
-		tfSensor.setBounds(132, 456, 97, 65);
-		panel_2.add(tfSensor);
-
-		cbCapteur.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				JComboBox cbCapteur = (JComboBox) e.getSource();
-				String selectedBook = (String) cbCapteur.getSelectedItem();
-
-				if (selectedBook.equals("ALL")) {
-					listM.clear();
-					for (Sensor str : listSensor) {
-
-						listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ," + str.getSensorState()
-								+ " ," + str.getIdCommonArea());
-
-						indice = listM.size();
-						System.out.println("okay " + indice);
-
-					}
-
-				} else if (selectedBook.equals("SMOKE")) {
-					listM.clear();
-					for (Sensor str : listSensor) {
-						if (str.getTypeSensor().equals(SensorType.SMOKE)) {
-							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
-									+ str.getSensorState() + " ," + str.getIdCommonArea());
-
-							System.out.println("okay " + indice);
-						}
-					}
-
-				} else if (selectedBook.equals("ROUTER")) {
-					listM.clear();
-					for (Sensor str : listSensor) {
-						if (str.getTypeSensor().equals(SensorType.ROUTER)) {
-							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
-									+ str.getSensorState() + " ," + str.getIdCommonArea());
-							indice = listM.size();
-						}
-					}
-
-				} else if (selectedBook.equals("ELEVATOR")) {
-					listM.clear();
-					for (Sensor str : listSensor) {
-						if (str.getTypeSensor().equals(SensorType.ELEVATOR))
-							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
-									+ str.getSensorState() + " ," + str.getIdCommonArea());
-						indice = listM.size();
-
-					}
-
-				} else if (selectedBook.equals("DOOR")) {
-					listM.clear();
-					for (Sensor str : listSensor) {
-						if (str.getTypeSensor().equals(SensorType.DOOR)) {
-							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
-									+ str.getSensorState() + " ," + str.getIdCommonArea());
-							indice = listM.size();
-						}
-					}
-				} else if (selectedBook.equals("LIGHT")) {
-					listM.clear();
-
-					for (Sensor str : listSensor) {
-						if (str.getTypeSensor().equals(SensorType.LIGHT))
-							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
-									+ str.getSensorState() + " ," + str.getIdCommonArea());
-						indice = listM.size();
-
-					}
-
-				} else if (selectedBook.equals("MOVE")) {
-					listM.clear();
-					for (Sensor str : listSensor) {
-						if (str.getTypeSensor().equals(SensorType.MOVE)) {
-							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
-									+ str.getSensorState() + " ," + str.getIdCommonArea());
-							indice = listM.size();
-						}
-					}
-				} else if (selectedBook.equals("WINDOW")) {
-					listM.clear();
-					for (Sensor str : listSensor) {
-						if (str.getTypeSensor().equals(SensorType.WINDOW))
-							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
-									+ str.getSensorState() + " ," + str.getIdCommonArea());
-						indice = listM.size();
-					}
-
-				}
-			}
-		});
-
-////////////////////////////////////////////////////////////////////
-		// Bouton Graphic
-		JButton btnGraphic = new JButton("VisualisationGraphique");
-		btnGraphic.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				ratioSensors.getContentPane().add(cPanel, CENTER);
-				ratioSensors.pack();
-				ratioSensors.setVisible(true);
-
-			}
-		});
-
-	}
-
-	private void createEvents() {
-		
-		btnUpdateDate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {				
-				
-				DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-				DateFormat df1 = new SimpleDateFormat("dd-MM-yyyy");
-
-				tfDateFrom.setText(df.format(dateChooser_2.getDate()));
-				tfDateTo.setText(df1.format(dateChooser_3.getDate()));
-				 
-				 
-//					requestType = "COUNT";
-//					table = "SensorHistorical";
-//					jsonString = "SELECT COUNT(*) FROM historique WHERE date_historique BETWEEN " + DateFrom + "AND " + DateTo
-//							+ "AND ( type_alerte = 'NORMAL')";
-//					new ClientSocket(requestType, jsonString, table);
-//					jsonString = ClientSocket.getJson();
-//					logger.log(Level.DEBUG, "Number sensor updated per period finded");
-//					DateUpdate = Integer.parseInt(jsonString.replaceAll("\"", ""));
-//					tfNbSensorMaj.setText(Integer.toString(DateUpdate));
-				
-			}
-		});
-
-		btnDeconnexion.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				logger.log(Level.INFO, "Application closed, after disconnection");
-				System.exit(ABORT);
-			}
-		});
-
-		btnDate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-				DateFormat df1 = new SimpleDateFormat("dd-MM-yyyy");
-
-				tfDate.setText(df.format(dateChooser.getDate()));
-				tfDate1.setText(df1.format(dateChooser_1.getDate()));
-
-///////////////////////////////////////////////////////				
-				ListModel.removeAllElements();
-				for (SensorHistorical sensorHistorical1 : listSensorHistorical) {
-
-					if (sensorHistorical1.getDate().after(dateChooser.getDate())
-							&& sensorHistorical1.getDate().before((dateChooser_1.getDate()))) {
-						ListModel.addElement(Integer.toString(sensorHistorical1.getIdHistorical()) + " Date : "
-								+ sensorHistorical1.getDate() + " ID Sensor : " + sensorHistorical1.getIdSensor()
-								+ " State : " + sensorHistorical1.getSensorState() + " Alert State :"
-								+ sensorHistorical1.getAlertState());
-						nbAlertSensor = ListModel.getSize();
-						System.out.println("okay " + nbAlertSensor);
-					}
-				}
-			}
-		});
-
 		cbArea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -867,43 +682,228 @@ public class GUIBi extends JFrame {
 				tfAlert.setText(String.valueOf(nbAlertSensor));
 			}
 		});
-		
-		cbTotalTypeSensorStock.addActionListener(new ActionListener() {
+
+
+		cbArea.setEditable(true);
+		cbArea.addItem(area);
+
+		/////////////////////////////////////////////////////////////
+		// Date
+		dateChooser_1 = new JDateChooser();
+		dateChooser_1.setBounds(189, 55, 47, 28);
+		panel_1.add(dateChooser_1);
+
+		dateChooser = new JDateChooser();
+		dateChooser.setBounds(189, 11, 47, 28);
+		panel_1.add(dateChooser);
+
+		// Textfield - Alert
+		tfDate = new JTextField();
+		tfDate.setBounds(90, 11, 47, 28);
+		panel_1.add(tfDate);
+		tfDate.setColumns(10);
+
+		tfDate1 = new JTextField();
+		tfDate1.setBounds(90, 55, 47, 28);
+		panel_1.add(tfDate1);
+		tfDate1.setColumns(10);
+		// label - Alert
+		JLabel lblTo = new JLabel("to");
+		lblTo.setBounds(52, 66, 28, 16);
+		panel_1.add(lblTo);
+
+		JLabel lblNewLabel = new JLabel("Data Range from");
+		lblNewLabel.setBounds(10, 23, 97, 16);
+		panel_1.add(lblNewLabel);
+		sc1 = new JScrollPane();
+		sc1.setBounds(31, 145, 276, 354);
+		panel_1.add(sc1);
+		list1 = new JList<String>(ListModel);
+		sc1.setViewportView(list1);
+
+		// Button - Alert
+		btnDate = new JButton("GetDate");
+		btnDate.setBounds(386, 39, 97, 22);
+		panel_1.add(btnDate);
+		btnDate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				JComboBox cbTotalTypeSensorStock = (JComboBox) e.getSource();
+				DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+				DateFormat df1 = new SimpleDateFormat("dd-MM-yyyy");
 
-				if (cbTotalTypeSensorStock.getSelectedIndex() == 0) {
-					requestType = "COUNT";
-					table = "Sensor";
-					jsonString = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor, sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur";
-					new ClientSocket(requestType, jsonString, table);
-					jsonString = ClientSocket.getJson();
-					logger.log(Level.DEBUG, "Used/UnUsed Sensor finded");
-					String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
-					unused = Integer.parseInt(jsonString_list[0]);
-					used = Integer.parseInt(jsonString_list[1]);
-					
-					tfStock.setText(Integer.toString(unused));
-					
-				} else {
-					
-					requestType = "COUNT";
-					table = "Sensor";
-					jsonString = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor, sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur WHERE type_capteur = '" + cbTotalTypeSensorStock.getSelectedItem().toString() + "'";
-					new ClientSocket(requestType, jsonString, table);
-					jsonString = ClientSocket.getJson();
-					logger.log(Level.DEBUG, "Used/UnUsed Sensor finded");
-					String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
-					unused = Integer.parseInt(jsonString_list[0]);
-					used = Integer.parseInt(jsonString_list[1]);
-					tfStock.setText(Integer.toString(unused));
+				tfDate.setText(df.format(dateChooser.getDate()));
+				tfDate1.setText(df1.format(dateChooser_1.getDate()));
+
+///////////////////////////////////////////////////////				
+				ListModel.removeAllElements();
+				for (SensorHistorical sensorHistorical1 : listSensorHistorical) {
+
+					if (sensorHistorical1.getDate().after(dateChooser.getDate())
+							&& sensorHistorical1.getDate().before((dateChooser_1.getDate()))) {
+						ListModel.addElement(Integer.toString(sensorHistorical1.getIdHistorical()) + " Date : "
+								+ sensorHistorical1.getDate() + " ID Sensor : " + sensorHistorical1.getIdSensor()
+								+ " State : " + sensorHistorical1.getSensorState() + " Alert State :"
+								+ sensorHistorical1.getAlertState());
+						nbAlertSensor = ListModel.getSize();
+						System.out.println("okay " + nbAlertSensor);
+					}
+				}
+			}
+		});
+
+		tfAlert = new JTextField();
+		tfAlert.setBounds(330, 262, 119, 67);
+		panel_1.add(tfAlert);
+		tfAlert.setColumns(10);
+
+		////////////////////////////////////////////////
+		// tabbed Sensor
+		panel_2 = new JPanel();
+		tabbedPane.addTab("Sensor", null, panel_2, null);
+		panel_2.setLayout(null);
+		sc = new JScrollPane();
+		sc.setBounds(38, 64, 313, 381);
+		panel_2.add(sc);
+		list = new JList<String>(listM);
+		sc.setViewportView(list);
+
+		// label Sensor
+		JLabel lblSensors = new JLabel("Sensors");
+		lblSensors.setBounds(57, 11, 55, 39);
+		panel_2.add(lblSensors);
+
+		cbCapteur = new JComboBox(sensorType);
+		cbCapteur.setBounds(111, 13, 100, 35);
+		panel_2.add(cbCapteur);
+		cbCapteur.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				JComboBox cbCapteur = (JComboBox) e.getSource();
+				String selectedBook = (String) cbCapteur.getSelectedItem();
+
+				if (selectedBook.equals("ALL")) {
+					listM.clear();
+					for (Sensor str : listSensor) {
+
+						listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ," + str.getSensorState()
+								+ " ," + str.getIdCommonArea());
+
+						indice = listM.size();
+						System.out.println("okay " + indice);
+
+					}
+
+				} else if (selectedBook.equals("SMOKE")) {
+					listM.clear();
+					for (Sensor str : listSensor) {
+						if (str.getTypeSensor().equals(SensorType.SMOKE)) {
+							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
+									+ str.getSensorState() + " ," + str.getIdCommonArea());
+
+							System.out.println("okay " + indice);
+						}
+					}
+
+				} else if (selectedBook.equals("ROUTER")) {
+					listM.clear();
+					for (Sensor str : listSensor) {
+						if (str.getTypeSensor().equals(SensorType.ROUTER)) {
+							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
+									+ str.getSensorState() + " ," + str.getIdCommonArea());
+							indice = listM.size();
+						}
+					}
+
+				} else if (selectedBook.equals("ELEVATOR")) {
+					listM.clear();
+					for (Sensor str : listSensor) {
+						if (str.getTypeSensor().equals(SensorType.ELEVATOR))
+							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
+									+ str.getSensorState() + " ," + str.getIdCommonArea());
+						indice = listM.size();
+
+					}
+
+				} else if (selectedBook.equals("DOOR")) {
+					listM.clear();
+					for (Sensor str : listSensor) {
+						if (str.getTypeSensor().equals(SensorType.DOOR)) {
+							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
+									+ str.getSensorState() + " ," + str.getIdCommonArea());
+							indice = listM.size();
+						}
+					}
+				} else if (selectedBook.equals("LIGHT")) {
+					listM.clear();
+
+					for (Sensor str : listSensor) {
+						if (str.getTypeSensor().equals(SensorType.LIGHT))
+							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
+									+ str.getSensorState() + " ," + str.getIdCommonArea());
+						indice = listM.size();
+
+					}
+
+				} else if (selectedBook.equals("MOVE")) {
+					listM.clear();
+					for (Sensor str : listSensor) {
+						if (str.getTypeSensor().equals(SensorType.MOVE)) {
+							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
+									+ str.getSensorState() + " ," + str.getIdCommonArea());
+							indice = listM.size();
+						}
+					}
+				} else if (selectedBook.equals("WINDOW")) {
+					listM.clear();
+					for (Sensor str : listSensor) {
+						if (str.getTypeSensor().equals(SensorType.WINDOW))
+							listM.addElement(str.getIdSensor() + "# " + str.getTypeSensor() + " ,"
+									+ str.getSensorState() + " ," + str.getIdCommonArea());
+						indice = listM.size();
+					}
 
 				}
 			}
 		});
-	
+		
+		// Textfield in Sensor
+		tfSensor = new JTextField();
+		tfSensor.setText(String.valueOf(nbAlertSensor));
+		tfSensor.setColumns(10);
+		tfSensor.setBackground(Color.GREEN);
+		tfSensor.setBounds(132, 456, 97, 65);
+		panel_2.add(tfSensor);
+
+
+
+////////////////////////////////////////////////////////////////////
+		// Bouton Graphic
+		JButton btnGraphic = new JButton("VisualisationGraphique");
+		btnGraphic.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				ratioSensors.getContentPane().add(cPanel, CENTER);
+				ratioSensors.pack();
+				ratioSensors.setVisible(true);
+
+			}
+		});
+				
+		getAllSensor();
+		getAllSensorHistorical();
+		getNumberDownOverSensor();
+		getNumberAlertReceived();
+		getNumberUpdate();
+		getNumberStageSensor();
+//		getAllCommonArea();
+//		getNumberPassiveActiveSensor();
+		getAllMessage();
+		getNumberUsedSensor();
+		getNumberCommonArea();
+		getAverageTemperature();
+		
 	}
+	
 
 ////////////////////////////////////
 	// Method Get all Sensor contained in the Sensor database
@@ -949,29 +949,7 @@ public class GUIBi extends JFrame {
 
 	}
 	////////////////////////////////////
-	// Method GetAllComonArea
 
-//	public int getAllCommonArea() {
-//		requestType = "READ ALL";
-//		table = "CommonArea";
-//		objectMapper = new ObjectMapper();
-//		try {
-//			jsonString = "READ ALL";
-//			new ClientSocket(requestType, jsonString, table);
-//			jsonString = ClientSocket.getJson();
-//			CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
-//			logger.log(Level.INFO, "Find CommonArea data succed");
-//			listCommonAreas = Arrays.asList(commonAreas);
-//			nbCommonArea = listCommonAreas.size();
-//
-//		} catch (Exception e1) {
-//			logger.log(Level.INFO, "Impossible to parse in JSON CommonArea datas " + e1.getClass().getCanonicalName());
-//
-//		}
-//		return nbCommonArea;
-//	}
-	//////////////////////////////////////
-	// Method GetAllMessage
 
 	public void getAllMessage() {
 		requestType = "READ ALL";
@@ -1168,10 +1146,7 @@ public class GUIBi extends JFrame {
 //		}
 //		return jsonString;
 //	}
-	
-	
-	
-	
+
 ///////////////////////////////////////////////
 	public Integer getNumberPendingAlert() {
 		requestType = "COUNT";
@@ -1182,11 +1157,10 @@ public class GUIBi extends JFrame {
 		logger.log(Level.DEBUG, "Number pending Alert finded");
 		String jsonString_list = jsonString.replaceAll("\"", "");
 		totalNumberPendingAlert = Integer.parseInt(jsonString_list);
-		
+
 		return totalNumberPendingAlert;
 	}
-	
-	
+
 ////////////////////////////////////////////////
 	public Object[] getNumberPassiveActiveSensor() {
 		String s1 = "";
@@ -1251,7 +1225,7 @@ public class GUIBi extends JFrame {
 //////////////////////////////////////////////////////////////////////
 	// Method of calculating of number Alert Received
 	public Integer getNumberAlertReceived() {
-		
+
 		requestType = "COUNT";
 		table = "SensorHistorical";
 		jsonString = "SELECT COUNT(*) FROM historique";
@@ -1260,7 +1234,7 @@ public class GUIBi extends JFrame {
 		logger.log(Level.DEBUG, "Number alert received finded");
 		String jsonString_list = jsonString.replaceAll("\"", "");
 		totalAlertReceived = Integer.parseInt(jsonString_list);
-		
+
 		return totalAlertReceived;
 	}
 
@@ -1316,7 +1290,7 @@ public class GUIBi extends JFrame {
 
 //		String DateFrom = df.format(dateChooser.getDate());
 //		String DateTo = df1.format(dateChooser_1.getDate());
-		
+
 //		 DateFrom = (Date) dateChooser.getDate();
 //		 DateTo = (Date) dateChooser_1.getDate();
 //
@@ -1327,7 +1301,6 @@ public class GUIBi extends JFrame {
 		logger.log(Level.DEBUG, "Number sensor updated per period finded");
 		String jsonString_list = jsonString;
 		System.out.println(jsonString_list);
-
 
 		return jsonString_list;
 	}
