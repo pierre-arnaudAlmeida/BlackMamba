@@ -134,9 +134,10 @@ public class GUIBi extends JFrame {
 	private JTextField tfDate1;
 	private JDialog ratioSensors;
 	private ChartPanel cPanel;
-	private JLabel tfNbOver;
+	private JLabel lblNbOver;
 	private JLabel lblTotalAlertAttente;
-	private JLabel tfPendingAlert;
+	private JLabel lblPendingAlert;
+	private JLabel lblNbConfigured;
 	private int nbCommonArea = 0;
 	private int nbTotalAlert = 0;
 	private int indice = 0;
@@ -146,27 +147,29 @@ public class GUIBi extends JFrame {
 	private JPanel panel_1;
 	private JPanel panel_2;
 	private JLabel lblNumberOfCommon;
-	private JLabel tfNbCommonArea;
+	private JLabel lblNbCommonArea;
 	private JTextField tfSensor;
 	private JTextField tfAlert;
-
-	private JLabel tfMeanTemperatureStageRC;
+	private JLabel lblNbSensorMaj_1;
+	
+	private JLabel lblMeanTemperatureStageRC;
 	private JLabel tfMeanTemperatureStage1;
-	private JLabel tfTotalStockRc;
-	private JLabel tfTotalStockEtage1;
+	private JLabel lblTotalStockRc;
+	private JLabel lblTotalStockEtage1;
 	private JLabel lbTotalStockRc;
 	private JLabel lbTotalStockStage1;
-	private JLabel tfDown;
+	private JLabel lblDown;
 	private JTextField tfAlertesReceived;
-	private JLabel tfStock;
+	private JLabel lblStockSensor;
 	private JTextField searchBar;
 	private JTextField tfNbSensorMaj;
-	private JLabel tfPourcentageActive;
-	private JLabel tfActiveSensor;
-	private JLabel tfPassiveSensor;
-	
+	private JLabel lblPourcentageActive;
+	private JLabel lblActiveSensor;
+	private JLabel lblPassiveSensor;
+
 	String[] sensorType = { "ALL", "SMOKE", "MOVE", "TEMPERATURE", "WINDOW", "DOOR", "ELEVATOR", "LIGHT", "FIRE",
 			"BADGE", "ROUTER" };
+	private JLabel lblTotalConfiguredSensors;
 	//////////////////////////////////////////////////////////////////////
 	/**
 	 * Launch the application.
@@ -203,8 +206,6 @@ public class GUIBi extends JFrame {
 
 		String[] periode = { "Année", "Mois", "Jour" };
 		String[] area = { "ALL", "0", "1" };
-
-
 
 		btnDeconnexion = new JButton("Disconnect");
 		btnDeconnexion.setBounds(860, 0, 124, 28);
@@ -309,11 +310,11 @@ public class GUIBi extends JFrame {
 		panel.add(lblNbSensorMaj);
 
 		JLabel lblTotalActive = new JLabel("Total Active");
-		lblTotalActive.setBounds(502, 37, 63, 14);
+		lblTotalActive.setBounds(444, 228, 63, 14);
 		panel.add(lblTotalActive);
 
 		JLabel lblTotalPassive = new JLabel("Total Passive");
-		lblTotalPassive.setBounds(502, 68, 69, 14);
+		lblTotalPassive.setBounds(444, 259, 69, 14);
 		panel.add(lblTotalPassive);
 
 		JLabel lbltfMeanTemperatureStageRC = new JLabel("Mean temperature Stage RC");
@@ -340,80 +341,87 @@ public class GUIBi extends JFrame {
 		tfAlertesReceived.setColumns(10);
 		panel.add(tfAlertesReceived);
 
-		tfDown = new JLabel();
-		tfDown.setForeground(Color.RED);
-		tfDown.setFont(new Font("Tahoma", Font.BOLD, 20));
-		tfDown.setBackground(Color.RED);
-		tfDown.setBounds(57, 365, 35, 20);
-		panel.add(tfDown);
+		lblDown = new JLabel();
+		lblDown.setForeground(Color.RED);
+		lblDown.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblDown.setBackground(Color.RED);
+		lblDown.setBounds(57, 365, 35, 20);
+		panel.add(lblDown);
 
-		tfNbOver = new JLabel();
-		tfNbOver.setForeground(Color.ORANGE);
-		tfNbOver.setFont(new Font("Tahoma", Font.BOLD, 20));
-		tfNbOver.setBackground(Color.RED);
-		tfNbOver.setBounds(138, 357, 35, 36);
-		panel.add(tfNbOver);
-		tfPendingAlert = new JLabel();
-		tfPendingAlert.setFont(new Font("Tahoma", Font.BOLD, 20));
-		tfPendingAlert.setBackground(Color.LIGHT_GRAY);
-		tfPendingAlert.setBounds(220, 360, 35, 36);
-		tfPendingAlert.setText(Integer.toString(totalNumberPendingAlert));
-		panel.add(tfPendingAlert);
+		lblNbOver = new JLabel();
+		lblNbOver.setForeground(Color.ORANGE);
+		lblNbOver.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNbOver.setBackground(Color.RED);
+		lblNbOver.setBounds(138, 357, 35, 36);
+		panel.add(lblNbOver);
 
-		tfNbCommonArea = new JLabel();
-		tfNbCommonArea.setFont(new Font("Tahoma", Font.BOLD, 25));
-		tfNbCommonArea.setBackground(Color.RED);
-		tfNbCommonArea.setBounds(34, 34, 63, 55);
-		tfNbCommonArea.setText(NbCommonArea.toString().replaceAll("\"", ""));
-		panel.add(tfNbCommonArea);
+		lblPendingAlert = new JLabel();
+		lblPendingAlert.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblPendingAlert.setBackground(Color.LIGHT_GRAY);
+		lblPendingAlert.setBounds(231, 357, 35, 36);
+		lblPendingAlert.setText(Integer.toString(totalNumberPendingAlert));
+		panel.add(lblPendingAlert);
 
-		JTextField tfNbSensorMaj_1 = new JTextField();
-		tfNbSensorMaj_1.setBounds(143, 41, 112, 55);
-		panel.add(tfNbSensorMaj_1);
-		tfPassiveSensor = new JLabel();
-		tfPassiveSensor.setBounds(470, 65, 22, 20);
-		tfPassiveSensor.setText(NbPassiveActiveSensor[1].toString().replaceAll("\"", ""));
-		panel.add(tfPassiveSensor);
+		lblNbCommonArea = new JLabel();
+		lblNbCommonArea.setFont(new Font("Tahoma", Font.BOLD, 25));
+		lblNbCommonArea.setBackground(Color.RED);
+		lblNbCommonArea.setBounds(34, 34, 63, 55);
+		lblNbCommonArea.setText(NbCommonArea.toString().replaceAll("\"", ""));
+		panel.add(lblNbCommonArea);
 
-		tfActiveSensor = new JLabel();
-		tfActiveSensor.setBounds(470, 37, 22, 20);
-		tfActiveSensor.setText(NbPassiveActiveSensor[0].toString().replaceAll("\"", ""));
-		panel.add(tfActiveSensor);
+		lblNbSensorMaj_1 = new JLabel("0");
+		lblNbSensorMaj_1.setFont(new Font("Tahoma", Font.BOLD, 25));
+		lblNbSensorMaj_1.setForeground(new Color(0, 255, 0));
+		lblNbSensorMaj_1.setBackground(Color.WHITE);
+		lblNbSensorMaj_1.setBounds(175, 41, 35, 55);
+		panel.add(lblNbSensorMaj_1);
+		lblPassiveSensor = new JLabel();
+		lblPassiveSensor.setBounds(412, 256, 22, 20);
+		lblPassiveSensor.setText(NbPassiveActiveSensor[1].toString().replaceAll("\"", ""));
+		panel.add(lblPassiveSensor);
 
-		tfPourcentageActive = new JLabel();
-		tfPourcentageActive.setFont(new Font("Tahoma", Font.BOLD, 25));
-		tfPourcentageActive.setBounds(387, 34, 70, 54);
-		tfPourcentageActive.setText(NbPassiveActiveSensor[2].toString().replaceAll("\"", ""));
-		panel.add(tfPourcentageActive);
+		lblActiveSensor = new JLabel();
+		lblActiveSensor.setBounds(412, 228, 22, 20);
+		lblActiveSensor.setText(NbPassiveActiveSensor[0].toString().replaceAll("\"", ""));
+		panel.add(lblActiveSensor);
+
+		lblPourcentageActive = new JLabel();
+		lblPourcentageActive.setFont(new Font("Tahoma", Font.BOLD, 25));
+		lblPourcentageActive.setBounds(329, 225, 70, 54);
+		lblPourcentageActive.setText(NbPassiveActiveSensor[2].toString().replaceAll("\"", ""));
+		panel.add(lblPourcentageActive);
 
 		// String MeanRC = getAverageTemperature();
-		tfMeanTemperatureStageRC = new JLabel();
-		tfMeanTemperatureStageRC.setFont(new Font("Tahoma", Font.BOLD, 20));
-		tfMeanTemperatureStageRC.setHorizontalAlignment(SwingConstants.TRAILING);
-		tfMeanTemperatureStageRC.setBounds(575, 37, 97, 44);
+		lblMeanTemperatureStageRC = new JLabel();
+		lblMeanTemperatureStageRC.setForeground(Color.GREEN);
+		lblMeanTemperatureStageRC.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblMeanTemperatureStageRC.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblMeanTemperatureStageRC.setBounds(575, 37, 97, 44);
 
-		panel.add(tfMeanTemperatureStageRC);
+		panel.add(lblMeanTemperatureStageRC);
 
 		tfMeanTemperatureStage1 = new JLabel();
 		tfMeanTemperatureStage1.setHorizontalAlignment(SwingConstants.TRAILING);
 		tfMeanTemperatureStage1.setBounds(615, 140, 57, 44);
 		panel.add(tfMeanTemperatureStage1);
 
-		tfTotalStockRc = new JLabel();
-		tfTotalStockRc.setFont(new Font("Tahoma", Font.BOLD, 20));
-		tfTotalStockRc.setHorizontalAlignment(SwingConstants.TRAILING);
-		tfTotalStockRc.setBounds(547, 475, 57, 44);
+		lblTotalStockRc = new JLabel();
+		lblTotalStockRc.setForeground(Color.RED);
+		lblTotalStockRc.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblTotalStockRc.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblTotalStockRc.setBounds(547, 475, 57, 44);
 		// tfTotalStockRc.setText(TotalStockRc[1].toString().replaceAll("\"", ""));
 
-		panel.add(tfTotalStockRc);
+		panel.add(lblTotalStockRc);
 
-		tfTotalStockEtage1 = new JLabel();
-		tfTotalStockEtage1.setFont(new Font("Tahoma", Font.BOLD, 20));
-		tfTotalStockEtage1.setHorizontalAlignment(SwingConstants.TRAILING);
-		tfTotalStockEtage1.setBounds(684, 475, 57, 44);
+		lblTotalStockEtage1 = new JLabel();
+		lblTotalStockEtage1.setForeground(Color.RED);
+		lblTotalStockEtage1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblTotalStockEtage1.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblTotalStockEtage1.setBounds(684, 475, 57, 44);
 		// tfTotalStockEtage1.setText(TotalStockRc[0].toString().replaceAll("\"", ""));
 
-		panel.add(tfTotalStockEtage1);
+		panel.add(lblTotalStockEtage1);
 
 		///////////////////////////////////////////////////////////
 		// Button - DASHBOARD
@@ -443,13 +451,13 @@ public class GUIBi extends JFrame {
 				logger.log(Level.DEBUG, "Number sensor updated per period finded");
 				System.out.println("resultat date" + jsonString_list);
 				DateUpdate = Integer.parseInt(jsonString_list.replaceAll("\"", ""));
-				tfNbSensorMaj_1.setText(Integer.toString(DateUpdate));
+				lblNbSensorMaj_1.setText(Integer.toString(DateUpdate));
 
 			}
 		});
 
 		JLabel lblSensorPassive = new JLabel("% Sensor Passive");
-		lblSensorPassive.setBounds(376, 87, 105, 20);
+		lblSensorPassive.setBounds(318, 278, 105, 20);
 		panel.add(lblSensorPassive);
 
 		JComboBox cbAlertReceivedFloor_1 = new JComboBox(area);
@@ -968,33 +976,6 @@ public class GUIBi extends JFrame {
 
 	}
 
-///////////////////////////////////////////////////////////
-	// Method to calculate the number of Sensor
-//	public static Object[] returns() {
-//
-//		int nbUnusedSensor = 0;
-//		int nbUsedSensor = 0;
-//		int nbTotalSensor = 0;
-////////////////////////////////////////////////////////////
-//		for (Sensor sensor : listSensor) {
-//			nbTotalSensor++;
-//
-//			if (sensor.getIdSensor() == 0)
-//				nbUnusedSensor++;
-//			else
-//				nbUsedSensor++;
-//		}
-//		return new Object[] { nbUsedSensor, nbUnusedSensor, nbTotalSensor };
-//
-//	}
-
-///////////////////////////////////////////
-///////////////////////////////////////
-
-	///////////////////////////////////////////
-
-///////////////////////////////////////
-
 ///////////////////////////////////////////////
 	public Integer getNumberPendingAlert() {
 		requestType = "COUNT";
@@ -1066,8 +1047,8 @@ public class GUIBi extends JFrame {
 		String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
 		down = Integer.parseInt(jsonString_list[0]);
 		over = Integer.parseInt(jsonString_list[1]);
-		tfDown.setText(down.toString().replaceAll("/", ""));
-		tfNbOver.setText(over.toString().replaceAll("/", ""));
+		lblDown.setText(down.toString().replaceAll("/", ""));
+		lblNbOver.setText(over.toString().replaceAll("/", ""));
 
 		// Graphic Historical alert
 
@@ -1133,14 +1114,13 @@ public class GUIBi extends JFrame {
 		//////////////////////////////////////////////////////////////////
 		// Textfield - DASHBOARD
 
-		tfStock = new JLabel();
-		tfStock.setBackground(Color.LIGHT_GRAY);
-		tfStock.setFont(new Font("Tahoma", Font.BOLD, 15));
-		tfStock.setForeground(Color.RED);
-		tfStock.setBounds(657, 388, 41, 28);
-		panel.add(tfStock);
+		lblStockSensor = new JLabel("0");
+		lblStockSensor.setBackground(Color.LIGHT_GRAY);
+		lblStockSensor.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblStockSensor.setForeground(Color.RED);
+		lblStockSensor.setBounds(670, 393, 41, 28);
+		panel.add(lblStockSensor);
 
-		
 		// label - DASHBOARD
 		JLabel lblStock = new JLabel("Number of sensors in stock");
 		lblStock.setBounds(615, 427, 147, 16);
@@ -1149,6 +1129,44 @@ public class GUIBi extends JFrame {
 		cbTotalTypeSensorStock = new JComboBox(sensorType);
 		cbTotalTypeSensorStock.setBounds(635, 357, 87, 22);
 		panel.add(cbTotalTypeSensorStock);
+		
+		JButton btnGetConfigured = new JButton("Get Configured");
+		btnGetConfigured.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+				DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
+
+				DateFrom = df.format(dateChooser_2.getDate());
+				DateTo = df1.format(dateChooser_3.getDate());
+
+				// Method of calculating of Number of UPDATE SENSOR 'parametre date ' AND
+				requestType = "COUNT";
+				table = "SensorHistorical";
+				jsonString = "SELECT COUNT(*) FROM historique WHERE date_historique BETWEEN '" + DateFrom + "'AND '"
+						+ DateTo + "'AND ( type_alerte = 'CONFIGURED')";
+				new ClientSocket(requestType, jsonString, table);
+				String jsonString_list = ClientSocket.getJson();
+				logger.log(Level.DEBUG, "Number sensor updated per period finded");
+				System.out.println("resultat date" + jsonString_list);
+				DateUpdate = Integer.parseInt(jsonString_list.replaceAll("\"", ""));
+				lblNbConfigured .setText(Integer.toString(DateUpdate));
+
+				
+			}
+		});
+		btnGetConfigured.setBounds(399, 107, 116, 23);
+		panel.add(btnGetConfigured);
+		
+		lblNbConfigured = new JLabel("0");
+		lblNbConfigured.setForeground(Color.GREEN);
+		lblNbConfigured.setFont(new Font("Tahoma", Font.BOLD, 25));
+		lblNbConfigured.setBounds(438, 52, 69, 44);
+		panel.add(lblNbConfigured);
+		
+		lblTotalConfiguredSensors = new JLabel("Total CONFIGURED SENSORS");
+		lblTotalConfiguredSensors.setBounds(390, 11, 123, 28);
+		panel.add(lblTotalConfiguredSensors);
 		cbTotalTypeSensorStock.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -1165,7 +1183,7 @@ public class GUIBi extends JFrame {
 					unused = Integer.parseInt(jsonString_list[0]);
 					used = Integer.parseInt(jsonString_list[1]);
 
-					tfStock.setText(Integer.toString(unused));
+					lblStockSensor.setText(Integer.toString(unused));
 
 					pieDataset.setValue("Unused", unused);
 					pieDataset.setValue("Used", used);
@@ -1191,7 +1209,7 @@ public class GUIBi extends JFrame {
 					String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
 					unused = Integer.parseInt(jsonString_list[0]);
 					used = Integer.parseInt(jsonString_list[1]);
-					tfStock.setText(Integer.toString(unused));
+					lblStockSensor.setText(Integer.toString(unused));
 
 					pieDataset.setValue("Unused", unused);
 					pieDataset.setValue("Used", used);
@@ -1225,8 +1243,8 @@ public class GUIBi extends JFrame {
 		etage0 = jsonString_list[1];
 		etage1 = jsonString_list[0];
 
-		tfTotalStockRc.setText(etage0);
-		tfTotalStockEtage1.setText((etage1));
+		lblTotalStockRc.setText(etage0);
+		lblTotalStockEtage1.setText((etage1));
 	}
 
 /////////////////////////////////////////////////////////////////
@@ -1257,7 +1275,7 @@ public class GUIBi extends JFrame {
 //			System.out.println("TYPE " + s2);
 //			System.out.println("Etage "+ s3);
 		System.out.println("Moyenne " + s4);
-		tfMeanTemperatureStageRC.setText(s4 + "°");
+		lblMeanTemperatureStageRC.setText(s4 + "°");
 //		tfMeanTemperatureStage1.setText(s5+ "°");
 
 	}
