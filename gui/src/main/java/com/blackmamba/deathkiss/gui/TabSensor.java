@@ -1351,7 +1351,7 @@ public class TabSensor extends JPanel {
 	 */
 	public void paintComponent(Graphics g) {
 		try {
-			BufferedImage backGroundImage = ImageIO.read(getClass().getClassLoader().getResource("images.jpg"));
+			BufferedImage backGroundImage = ImageIO.read(getClass().getClassLoader().getResource("background.jpg"));
 			g.drawImage(backGroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
 		} catch (IOException e) {
 			logger.log(Level.WARN, "Impossible to load the background" + e.getClass().getCanonicalName());
