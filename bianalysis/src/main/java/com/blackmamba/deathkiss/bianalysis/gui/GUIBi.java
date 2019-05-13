@@ -3,6 +3,7 @@ package com.blackmamba.deathkiss.bianalysis.gui;
 import static java.awt.BorderLayout.CENTER;
 
 import java.awt.EventQueue;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
@@ -58,7 +59,11 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import java.awt.Component;
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.Box;
+import java.awt.Panel;
+import javax.swing.JMenuBar;
+import java.awt.Font;
 
 /**
  * 
@@ -77,7 +82,7 @@ public class GUIBi extends JFrame {
 	private static List<Message> listAllMessage = new ArrayList<Message>();
 	DefaultPieDataset pieDataset = new DefaultPieDataset();
 	DefaultPieDataset HistoricalAlert = new DefaultPieDataset();
-	
+
 	private ObjectMapper objectMapper;
 	private String requestType;
 	private String table;
@@ -131,7 +136,7 @@ public class GUIBi extends JFrame {
 	private ChartPanel cPanel;
 	private JLabel tfNbOver;
 	private JLabel lblTotalAlertAttente;
-	private JTextField tfPendingAlert;
+	private JLabel tfPendingAlert;
 	private int nbCommonArea = 0;
 	private int nbTotalAlert = 0;
 	private int indice = 0;
@@ -153,13 +158,15 @@ public class GUIBi extends JFrame {
 	private JLabel lbTotalStockStage1;
 	private JLabel tfDown;
 	private JTextField tfAlertesReceived;
-	private JTextField tfStock;
+	private JLabel tfStock;
 	private JTextField searchBar;
 	private JTextField tfNbSensorMaj;
 	private JLabel tfPourcentageActive;
 	private JLabel tfActiveSensor;
 	private JLabel tfPassiveSensor;
-
+	
+	String[] sensorType = { "ALL", "SMOKE", "MOVE", "TEMPERATURE", "WINDOW", "DOOR", "ELEVATOR", "LIGHT", "FIRE",
+			"BADGE", "ROUTER" };
 	//////////////////////////////////////////////////////////////////////
 	/**
 	 * Launch the application.
@@ -197,8 +204,7 @@ public class GUIBi extends JFrame {
 		String[] periode = { "Année", "Mois", "Jour" };
 		String[] area = { "ALL", "0", "1" };
 
-		String[] sensorType = { "ALL", "SMOKE", "MOVE", "TEMPERATURE", "WINDOW", "DOOR", "ELEVATOR", "LIGHT", "FIRE",
-				"BADGE", "ROUTER" };
+
 
 		btnDeconnexion = new JButton("Disconnect");
 		btnDeconnexion.setBounds(860, 0, 124, 28);
@@ -241,21 +247,14 @@ public class GUIBi extends JFrame {
 
 ////////////////////////////////////
 
-
-
 		//////////////////////////////////////////////
 		// TabbedPane - DASH BOARD
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(22, 11, 824, 577);
+		tabbedPane.setBounds(26, 11, 824, 577);
 		contentPane.add(tabbedPane);
 
 		// Graphic All sensor
-		
-//		pieDataset.setValue("Number of Unused Sensors", (Number) NumberUsedSensor[0]);
-//		pieDataset.setValue("Number of used Sensors", (Number) NumberUsedSensor[1]);
 
-
-		
 		Integer numberAlertReceived = getNumberAlertReceived();
 
 		Integer totalNumberPendingAlert = getNumberPendingAlert();
@@ -265,154 +264,153 @@ public class GUIBi extends JFrame {
 		Object NbPassiveActiveSensor[] = getNumberPassiveActiveSensor();
 
 		panel = new JPanel();
+		panel.setBackground(Color.GRAY);
 		tabbedPane.addTab("DASHBOARD", null, panel, null);
-		panel.setBackground( Color.GRAY );
+//		panel.setBackground( Color.GRAY );
 		panel.setLayout(null);
-
 
 		///////////////////////////////////////////////////////
 		// DATE
 
 		dateChooser_2 = new JDateChooser();
-		dateChooser_2.setBounds(303, 34, 80, 20);
+		dateChooser_2.setBounds(265, 37, 80, 20);
 		panel.add(dateChooser_2);
 
 		dateChooser_3 = new JDateChooser();
-		dateChooser_3.setBounds(303, 65, 80, 20);
+		dateChooser_3.setBounds(265, 76, 80, 20);
 		panel.add(dateChooser_3);
 
-		// DateFrom = dateChooser_2.getDate());
-		// DateTo = dateChooser_3.getDate();
-
-		// label - DASHBOARD
-		JLabel lblStock = new JLabel("Number of sensors in stock");
-		lblStock.setBounds(436, 104, 147, 16);
-		panel.add(lblStock);
-
 		JLabel lblNombreDalertes = new JLabel("Total Alerts received");
-		lblNombreDalertes.setBounds(649, 493, 112, 22);
+		lblNombreDalertes.setBounds(98, 516, 112, 22);
 		panel.add(lblNombreDalertes);
 
 		JLabel lblTotalOver = new JLabel("Total OVER");
-		lblTotalOver.setBounds(664, 386, 139, 22);
+		lblTotalOver.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblTotalOver.setBounds(129, 393, 80, 22);
 		panel.add(lblTotalOver);
 
 		lblTotalAlertAttente = new JLabel("Total Pending Alert");
-		lblTotalAlertAttente.setBounds(542, 493, 97, 22);
+		lblTotalAlertAttente.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		lblTotalAlertAttente.setBounds(211, 393, 97, 22);
 		panel.add(lblTotalAlertAttente);
 
 		JLabel lblNombreDePannes = new JLabel("Total DOWN");
-		lblNombreDePannes.setBounds(542, 389, 89, 16);
+		lblNombreDePannes.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblNombreDePannes.setBounds(43, 396, 89, 16);
 		panel.add(lblNombreDePannes);
 
 		lblNumberOfCommon = new JLabel("number of common area");
+		lblNumberOfCommon.setFont(new Font("Tahoma", Font.PLAIN, 8));
 		lblNumberOfCommon.setBounds(10, 11, 123, 28);
 		panel.add(lblNumberOfCommon);
 
 		JLabel lblNbSensorMaj = new JLabel("Total UPDATE SENSORS");
-		lblNbSensorMaj.setBounds(181, 11, 123, 28);
+		lblNbSensorMaj.setBounds(143, 11, 123, 28);
 		panel.add(lblNbSensorMaj);
 
 		JLabel lblTotalActive = new JLabel("Total Active");
-		lblTotalActive.setBounds(727, 34, 63, 14);
+		lblTotalActive.setBounds(502, 37, 63, 14);
 		panel.add(lblTotalActive);
 
 		JLabel lblTotalPassive = new JLabel("Total Passive");
-		lblTotalPassive.setBounds(727, 65, 69, 14);
+		lblTotalPassive.setBounds(502, 68, 69, 14);
 		panel.add(lblTotalPassive);
 
 		JLabel lbltfMeanTemperatureStageRC = new JLabel("Mean temperature Stage RC");
-		lbltfMeanTemperatureStageRC.setBounds(0, 319, 167, 22);
+		lbltfMeanTemperatureStageRC.setBounds(581, 107, 167, 22);
 		panel.add(lbltfMeanTemperatureStageRC);
 
 		JLabel lblMeanTemperatureStage = new JLabel("Mean temperature Stage 1");
-		lblMeanTemperatureStage.setBounds(4, 416, 163, 22);
+		lblMeanTemperatureStage.setBounds(585, 14, 163, 22);
 		panel.add(lblMeanTemperatureStage);
 
 		lbTotalStockRc = new JLabel("Total Sensor RC");
-		lbTotalStockRc.setBounds(21, 210, 101, 22);
+		lbTotalStockRc.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lbTotalStockRc.setBounds(545, 516, 101, 22);
 		panel.add(lbTotalStockRc);
 
 		lbTotalStockStage1 = new JLabel("Total Sensor Floor 1");
-		lbTotalStockStage1.setBounds(132, 210, 135, 22);
+		lbTotalStockStage1.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lbTotalStockStage1.setBounds(684, 516, 112, 22);
 		panel.add(lbTotalStockStage1);
 
-		//////////////////////////////////////////////////////////////////
-		// Textfield - DASHBOARD
-
-		// Object StockSensor[] = getNumberUsedSensor();
-		tfStock = new JTextField();
-		tfStock.setBounds(478, 65, 41, 28);
-		panel.add(tfStock);
-		tfStock.setColumns(10);
-
 		tfAlertesReceived = new JTextField();
-		tfAlertesReceived.setBounds(667, 429, 69, 55);
+		tfAlertesReceived.setBounds(116, 452, 69, 55);
 		tfAlertesReceived.setText(Integer.toString(totalAlertReceived));
 		tfAlertesReceived.setColumns(10);
 		panel.add(tfAlertesReceived);
 
 		tfDown = new JLabel();
-		tfDown.setBackground(Color.ORANGE);
-		tfDown.setBounds(556, 358, 35, 20);
+		tfDown.setForeground(Color.RED);
+		tfDown.setFont(new Font("Tahoma", Font.BOLD, 20));
+		tfDown.setBackground(Color.RED);
+		tfDown.setBounds(57, 365, 35, 20);
 		panel.add(tfDown);
 
 		tfNbOver = new JLabel();
+		tfNbOver.setForeground(Color.ORANGE);
+		tfNbOver.setFont(new Font("Tahoma", Font.BOLD, 20));
 		tfNbOver.setBackground(Color.RED);
-		tfNbOver.setBounds(673, 350, 35, 36);
+		tfNbOver.setBounds(138, 357, 35, 36);
 		panel.add(tfNbOver);
-		tfPendingAlert = new JTextField();
-		tfPendingAlert.setBackground(Color.GREEN);
-		tfPendingAlert.setBounds(542, 419, 97, 65);
-		tfPendingAlert.setColumns(10);
+		tfPendingAlert = new JLabel();
+		tfPendingAlert.setFont(new Font("Tahoma", Font.BOLD, 20));
+		tfPendingAlert.setBackground(Color.LIGHT_GRAY);
+		tfPendingAlert.setBounds(220, 360, 35, 36);
 		tfPendingAlert.setText(Integer.toString(totalNumberPendingAlert));
 		panel.add(tfPendingAlert);
 
 		tfNbCommonArea = new JLabel();
+		tfNbCommonArea.setFont(new Font("Tahoma", Font.BOLD, 25));
+		tfNbCommonArea.setBackground(Color.RED);
 		tfNbCommonArea.setBounds(34, 34, 63, 55);
 		tfNbCommonArea.setText(NbCommonArea.toString().replaceAll("\"", ""));
 		panel.add(tfNbCommonArea);
 
 		JTextField tfNbSensorMaj_1 = new JTextField();
-		tfNbSensorMaj_1.setBounds(181, 34, 112, 55);
+		tfNbSensorMaj_1.setBounds(143, 41, 112, 55);
 		panel.add(tfNbSensorMaj_1);
 		tfPassiveSensor = new JLabel();
-		tfPassiveSensor.setBounds(695, 62, 22, 20);
+		tfPassiveSensor.setBounds(470, 65, 22, 20);
 		tfPassiveSensor.setText(NbPassiveActiveSensor[1].toString().replaceAll("\"", ""));
 		panel.add(tfPassiveSensor);
 
 		tfActiveSensor = new JLabel();
-		tfActiveSensor.setBounds(695, 34, 22, 20);
+		tfActiveSensor.setBounds(470, 37, 22, 20);
 		tfActiveSensor.setText(NbPassiveActiveSensor[0].toString().replaceAll("\"", ""));
 		panel.add(tfActiveSensor);
 
 		tfPourcentageActive = new JLabel();
-		tfPourcentageActive.setBounds(612, 31, 70, 54);
+		tfPourcentageActive.setFont(new Font("Tahoma", Font.BOLD, 25));
+		tfPourcentageActive.setBounds(387, 34, 70, 54);
 		tfPourcentageActive.setText(NbPassiveActiveSensor[2].toString().replaceAll("\"", ""));
 		panel.add(tfPourcentageActive);
 
 		// String MeanRC = getAverageTemperature();
 		tfMeanTemperatureStageRC = new JLabel();
+		tfMeanTemperatureStageRC.setFont(new Font("Tahoma", Font.BOLD, 20));
 		tfMeanTemperatureStageRC.setHorizontalAlignment(SwingConstants.TRAILING);
-		tfMeanTemperatureStageRC.setBounds(40, 268, 57, 44);
+		tfMeanTemperatureStageRC.setBounds(575, 37, 97, 44);
 
 		panel.add(tfMeanTemperatureStageRC);
 
 		tfMeanTemperatureStage1 = new JLabel();
 		tfMeanTemperatureStage1.setHorizontalAlignment(SwingConstants.TRAILING);
-		tfMeanTemperatureStage1.setBounds(40, 364, 57, 44);
+		tfMeanTemperatureStage1.setBounds(615, 140, 57, 44);
 		panel.add(tfMeanTemperatureStage1);
 
 		tfTotalStockRc = new JLabel();
+		tfTotalStockRc.setFont(new Font("Tahoma", Font.BOLD, 20));
 		tfTotalStockRc.setHorizontalAlignment(SwingConstants.TRAILING);
-		tfTotalStockRc.setBounds(23, 147, 57, 44);
+		tfTotalStockRc.setBounds(547, 475, 57, 44);
 		// tfTotalStockRc.setText(TotalStockRc[1].toString().replaceAll("\"", ""));
 
 		panel.add(tfTotalStockRc);
 
 		tfTotalStockEtage1 = new JLabel();
+		tfTotalStockEtage1.setFont(new Font("Tahoma", Font.BOLD, 20));
 		tfTotalStockEtage1.setHorizontalAlignment(SwingConstants.TRAILING);
-		tfTotalStockEtage1.setBounds(139, 147, 57, 44);
+		tfTotalStockEtage1.setBounds(684, 475, 57, 44);
 		// tfTotalStockEtage1.setText(TotalStockRc[0].toString().replaceAll("\"", ""));
 
 		panel.add(tfTotalStockEtage1);
@@ -420,73 +418,11 @@ public class GUIBi extends JFrame {
 		///////////////////////////////////////////////////////////
 		// Button - DASHBOARD
 		btnTemperature = new JButton("Calculer");
-		btnTemperature.setBounds(10, 471, 124, 28);
+		btnTemperature.setBounds(684, 47, 124, 28);
 		panel.add(btnTemperature);
 
-		cbTotalTypeSensorStock = new JComboBox(sensorType);
-		cbTotalTypeSensorStock.setBounds(456, 34, 87, 22);
-		panel.add(cbTotalTypeSensorStock);
-		cbTotalTypeSensorStock.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				JComboBox cbTotalTypeSensorStock = (JComboBox) e.getSource();
-
-				if (cbTotalTypeSensorStock.getSelectedIndex() == 0) {
-					requestType = "COUNT";
-					table = "Sensor";
-					jsonString = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor, sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur";
-					new ClientSocket(requestType, jsonString, table);
-					jsonString = ClientSocket.getJson();
-					logger.log(Level.DEBUG, "Used/UnUsed Sensor finded");
-					String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
-					unused = Integer.parseInt(jsonString_list[0]);
-					used = Integer.parseInt(jsonString_list[1]);
-
-					tfStock.setText(Integer.toString(unused));
-					
-					pieDataset.setValue("Unused", unused);
-					pieDataset.setValue("Used", used);
-					
-					JFreeChart pieChart = ChartFactory.createPieChart("Ratio of unused sensors and used", pieDataset, true, true,
-							true);
-
-					pieChart.setBackgroundPaint( Color.GRAY );
-					ChartPanel cpSensors = new ChartPanel(pieChart);
-					cpSensors.setBounds(483, 139, 275, 159);
-					panel.add(cpSensors);
-					cpSensors.setMouseWheelEnabled(true);
-					
-				} else {
-
-					requestType = "COUNT";
-					table = "Sensor";
-					jsonString = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor, sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur WHERE type_capteur = '"
-							+ cbTotalTypeSensorStock.getSelectedItem().toString() + "'";
-					new ClientSocket(requestType, jsonString, table);
-					jsonString = ClientSocket.getJson();
-					logger.log(Level.DEBUG, "Used/UnUsed Sensor finded");
-					String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
-					unused = Integer.parseInt(jsonString_list[0]);
-					used = Integer.parseInt(jsonString_list[1]);
-					tfStock.setText(Integer.toString(unused));
-					
-					pieDataset.setValue("Unused", unused);
-					pieDataset.setValue("Used", used);
-					
-					JFreeChart pieChart = ChartFactory.createPieChart("Ratio of unused sensors and used", pieDataset, true, true,
-							true);
-					pieChart.setBackgroundPaint( Color.GRAY );
-					ChartPanel cpSensors = new ChartPanel(pieChart);
-					cpSensors.setBounds(483, 139, 275, 159);
-					panel.add(cpSensors);
-					cpSensors.setMouseWheelEnabled(true);
-
-				}
-			}
-		});
-
 		btnUpdateDate = new JButton("Get Update");
-		btnUpdateDate.setBounds(191, 100, 89, 23);
+		btnUpdateDate.setBounds(153, 107, 89, 23);
 		panel.add(btnUpdateDate);
 		btnUpdateDate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -508,12 +444,12 @@ public class GUIBi extends JFrame {
 				System.out.println("resultat date" + jsonString_list);
 				DateUpdate = Integer.parseInt(jsonString_list.replaceAll("\"", ""));
 				tfNbSensorMaj_1.setText(Integer.toString(DateUpdate));
-				
+
 			}
 		});
 
 		JLabel lblSensorPassive = new JLabel("% Sensor Passive");
-		lblSensorPassive.setBounds(601, 84, 105, 20);
+		lblSensorPassive.setBounds(376, 87, 105, 20);
 		panel.add(lblSensorPassive);
 
 		JComboBox cbAlertReceivedFloor_1 = new JComboBox(area);
@@ -550,17 +486,12 @@ public class GUIBi extends JFrame {
 
 			}
 		});
-		cbAlertReceivedFloor_1.setBounds(746, 445, 73, 22);
+		cbAlertReceivedFloor_1.setBounds(195, 468, 73, 22);
 		panel.add(cbAlertReceivedFloor_1);
-		
-		
-
 
 		JLabel imagelabel = new JLabel();
-		ImageIcon image = new ImageIcon("C:\\\\Users\\\\Slayd\\\\OneDrive\\\\Bureau\\\\cours\\\\PDS\\\\BlackMamba\\\\BlackMamba\\\\Temperature.png");
-		imagelabel = new JLabel(image, JLabel.CENTER);
-		imagelabel.setBounds(247, 159, 191, 125);
-		panel.add(imagelabel);
+		ImageIcon image = new ImageIcon(
+				"C:\\\\Users\\\\Slayd\\\\OneDrive\\\\Bureau\\\\cours\\\\PDS\\\\BlackMamba\\\\BlackMamba\\\\Temperature.png");
 
 ////////////////////////////////////////////////////////////
 		// Combobox in Tabbed Alert
@@ -1137,8 +1068,7 @@ public class GUIBi extends JFrame {
 		over = Integer.parseInt(jsonString_list[1]);
 		tfDown.setText(down.toString().replaceAll("/", ""));
 		tfNbOver.setText(over.toString().replaceAll("/", ""));
-		
-		
+
 		// Graphic Historical alert
 
 		HistoricalAlert.setValue("Number of DOWN Sensors", (Number) down);
@@ -1146,13 +1076,13 @@ public class GUIBi extends JFrame {
 
 		JFreeChart pieChart1 = ChartFactory.createPieChart(" Ratio of number of alert", HistoricalAlert, true, true,
 				true);
-		pieChart1.setBackgroundPaint( Color.GRAY );
+		pieChart1.setBackgroundPaint(Color.GRAY);
 		ChartPanel cpAlerts = new ChartPanel(pieChart1);
-		
-		cpAlerts.setBounds(184, 330, 275, 165);
+
+		cpAlerts.setBounds(33, 181, 275, 165);
 		cpAlerts.setOpaque(false);
 		panel.add(cpAlerts);
-		
+
 	}
 
 //////////////////////////////////////////////////////////////////////
@@ -1187,18 +1117,96 @@ public class GUIBi extends JFrame {
 
 		unused = Integer.parseInt(jsonString_list[0]);
 		used = Integer.parseInt(jsonString_list[1]);
-		
+
 		pieDataset.setValue("Unused", unused);
 		pieDataset.setValue("Used", used);
-		
+
 		JFreeChart pieChart = ChartFactory.createPieChart("Ratio of unused sensors and used", pieDataset, true, true,
 				true);
-		pieChart.setBackgroundPaint( Color.GRAY );
-		
+		pieChart.setBackgroundPaint(Color.GRAY);
+
 		ChartPanel cpSensors = new ChartPanel(pieChart);
-		cpSensors.setBounds(483, 139, 275, 159);
+		cpSensors.setBounds(523, 172, 286, 165);
 		panel.add(cpSensors);
 		cpSensors.setMouseWheelEnabled(true);
+
+		//////////////////////////////////////////////////////////////////
+		// Textfield - DASHBOARD
+
+		tfStock = new JLabel();
+		tfStock.setBackground(Color.LIGHT_GRAY);
+		tfStock.setFont(new Font("Tahoma", Font.BOLD, 15));
+		tfStock.setForeground(Color.RED);
+		tfStock.setBounds(657, 388, 41, 28);
+		panel.add(tfStock);
+
+		
+		// label - DASHBOARD
+		JLabel lblStock = new JLabel("Number of sensors in stock");
+		lblStock.setBounds(615, 427, 147, 16);
+		panel.add(lblStock);
+
+		cbTotalTypeSensorStock = new JComboBox(sensorType);
+		cbTotalTypeSensorStock.setBounds(635, 357, 87, 22);
+		panel.add(cbTotalTypeSensorStock);
+		cbTotalTypeSensorStock.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				JComboBox cbTotalTypeSensorStock = (JComboBox) e.getSource();
+
+				if (cbTotalTypeSensorStock.getSelectedIndex() == 0) {
+					requestType = "COUNT";
+					table = "Sensor";
+					jsonString = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor, sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur";
+					new ClientSocket(requestType, jsonString, table);
+					jsonString = ClientSocket.getJson();
+					logger.log(Level.DEBUG, "Used/UnUsed Sensor finded");
+					String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
+					unused = Integer.parseInt(jsonString_list[0]);
+					used = Integer.parseInt(jsonString_list[1]);
+
+					tfStock.setText(Integer.toString(unused));
+
+					pieDataset.setValue("Unused", unused);
+					pieDataset.setValue("Used", used);
+
+					JFreeChart pieChart = ChartFactory.createPieChart("Ratio of unused sensors and used", pieDataset,
+							true, true, true);
+
+					pieChart.setBackgroundPaint(Color.GRAY);
+					ChartPanel cpSensors = new ChartPanel(pieChart);
+					cpSensors.setBounds(575, 21, 228, 140);
+					panel.add(cpSensors);
+					cpSensors.setMouseWheelEnabled(true);
+
+				} else {
+
+					requestType = "COUNT";
+					table = "Sensor";
+					jsonString = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor, sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur WHERE type_capteur = '"
+							+ cbTotalTypeSensorStock.getSelectedItem().toString() + "'";
+					new ClientSocket(requestType, jsonString, table);
+					jsonString = ClientSocket.getJson();
+					logger.log(Level.DEBUG, "Used/UnUsed Sensor finded");
+					String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
+					unused = Integer.parseInt(jsonString_list[0]);
+					used = Integer.parseInt(jsonString_list[1]);
+					tfStock.setText(Integer.toString(unused));
+
+					pieDataset.setValue("Unused", unused);
+					pieDataset.setValue("Used", used);
+
+					JFreeChart pieChart = ChartFactory.createPieChart("Ratio of unused sensors and used", pieDataset,
+							true, true, true);
+					pieChart.setBackgroundPaint(Color.GRAY);
+					ChartPanel cpSensors = new ChartPanel(pieChart);
+					cpSensors.setBounds(575, 21, 228, 140);
+					panel.add(cpSensors);
+					cpSensors.setMouseWheelEnabled(true);
+
+				}
+			}
+		});
 
 	}
 
@@ -1252,6 +1260,15 @@ public class GUIBi extends JFrame {
 		tfMeanTemperatureStageRC.setText(s4 + "°");
 //		tfMeanTemperatureStage1.setText(s5+ "°");
 
+	}
+
+	public void paintComponent(Graphics g) {
+		try {
+			BufferedImage backGroundImage = ImageIO.read(getClass().getClassLoader().getResource("background.jpg"));
+			g.drawImage(backGroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+		} catch (IOException e) {
+			logger.log(Level.WARN, "Impossible to load the background" + e.getClass().getCanonicalName());
+		}
 	}
 }
 
