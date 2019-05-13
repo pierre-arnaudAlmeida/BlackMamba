@@ -508,7 +508,7 @@ public class GUIBi extends JFrame {
 				System.out.println("resultat date" + jsonString_list);
 				DateUpdate = Integer.parseInt(jsonString_list.replaceAll("\"", ""));
 				tfNbSensorMaj_1.setText(Integer.toString(DateUpdate));
-
+				
 			}
 		});
 
@@ -1150,7 +1150,9 @@ public class GUIBi extends JFrame {
 		ChartPanel cpAlerts = new ChartPanel(pieChart1);
 		
 		cpAlerts.setBounds(184, 330, 275, 165);
+		cpAlerts.setOpaque(false);
 		panel.add(cpAlerts);
+		
 	}
 
 //////////////////////////////////////////////////////////////////////
