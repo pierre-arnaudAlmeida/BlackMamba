@@ -118,7 +118,6 @@ public class TabSensor extends JPanel {
 	private static final Logger logger = LogManager.getLogger(TabSensor.class);
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
 
-//TODO PA quand on clique sur diplay sensor on a un null pointer exception impossible d'accerder a la fenetre sensor
 	/**
 	 * Constructor
 	 */
@@ -628,55 +627,6 @@ public class TabSensor extends JPanel {
 			}
 		});
 
-		if (idSensor != 0 && index == -9999) {
-			/**
-			 * Find the Sensor by the id get on list
-			 */
-			requestType = "READ";
-			sensor = new Sensor();
-			table = "Sensor";
-			sensor.setIdSensor(idSensor);
-			try {
-				jsonString = objectMapper.writeValueAsString(sensor);
-				new ClientSocket(requestType, jsonString, table);
-				jsonString = ClientSocket.getJson();
-				sensor = objectMapper.readValue(jsonString, Sensor.class);
-			} catch (Exception e1) {
-				logger.log(Level.WARN, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
-			}
-			/**
-			 * Find the CommonAreaName by the idCommonArea get on list
-			 */
-			requestType = "READ";
-			commonArea = new CommonArea();
-			table = "CommonArea";
-			ObjectMapper readMapper = new ObjectMapper();
-			commonArea.setIdCommonArea(sensor.getIdCommonArea());
-			try {
-				jsonString = readMapper.writeValueAsString(commonArea);
-				new ClientSocket(requestType, jsonString, table);
-				jsonString = ClientSocket.getJson();
-				commonArea = readMapper.readValue(jsonString, CommonArea.class);
-			} catch (Exception e1) {
-				logger.log(Level.WARN, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
-			}
-			textInputTypeSensor.setSelectedItem(sensor.getTypeSensor().name());
-			textInputNameCommonArea
-					.setSelectedItem(commonArea.getNameCommonArea() + " #" + commonArea.getIdCommonArea());
-			textInputAlertState.setText(sensor.getAlertState().name());
-			textInputSensitivity.setSelectedItem(sensor.getSensitivity().name());
-			textInputThresholdMin.setText(Integer.toString(sensor.getThresholdMin()));
-			textInputThresholdMax.setText(Integer.toString(sensor.getThresholdMax()));
-			convertActivityTime(sensor.getStartActivity(), sensor.getEndActivity());
-			if (sensor.getSensorState()) {
-				switchButton.setText("ON");
-				switchButton.setBackground(Color.GREEN);
-			} else {
-				switchButton.setText("OFF");
-				switchButton.setBackground(Color.RED);
-			}
-		}
-
 		/**
 		 * Definition of textArea Alert State
 		 */
@@ -768,6 +718,57 @@ public class TabSensor extends JPanel {
 		textInputThresholdMax.setFont(policeLabel);
 		textInputThresholdMax.setText("");
 		this.add(textInputThresholdMax);
+
+		//////////////////// CHARGING FIELDS///////////////////////////////////////////
+		if (idSensor != 0 && index == -9999) {
+			/**
+			 * Find the Sensor by the id get on list
+			 */
+			requestType = "READ";
+			sensor2 = new Sensor();
+			sensor = new Sensor();
+			table = "Sensor";
+			sensor.setIdSensor(idSensor);
+			try {
+				jsonString = objectMapper.writeValueAsString(sensor2);
+				new ClientSocket(requestType, jsonString, table);
+				jsonString = ClientSocket.getJson();
+				sensor = objectMapper.readValue(jsonString, Sensor.class);
+			} catch (Exception e1) {
+				logger.log(Level.WARN, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+			}
+			/**
+			 * Find the CommonAreaName by the idCommonArea get on list
+			 */
+			requestType = "READ";
+			commonArea = new CommonArea();
+			table = "CommonArea";
+			ObjectMapper readMapper = new ObjectMapper();
+			commonArea.setIdCommonArea(sensor.getIdCommonArea());
+			try {
+				jsonString = readMapper.writeValueAsString(commonArea);
+				new ClientSocket(requestType, jsonString, table);
+				jsonString = ClientSocket.getJson();
+				commonArea = readMapper.readValue(jsonString, CommonArea.class);
+			} catch (Exception e1) {
+				logger.log(Level.WARN, "Impossible to parse in JSON " + e1.getClass().getCanonicalName());
+			}
+			textInputTypeSensor.setSelectedItem(sensor.getTypeSensor().name());
+			textInputNameCommonArea
+					.setSelectedItem(commonArea.getNameCommonArea() + " #" + commonArea.getIdCommonArea());
+			textInputAlertState.setText(sensor.getAlertState().name());
+			textInputSensitivity.setSelectedItem(sensor.getSensitivity().name());
+			textInputThresholdMin.setText(Integer.toString(sensor.getThresholdMin()));
+			textInputThresholdMax.setText(Integer.toString(sensor.getThresholdMax()));
+			convertActivityTime(sensor.getStartActivity(), sensor.getEndActivity());
+			if (sensor.getSensorState()) {
+				switchButton.setText("ON");
+				switchButton.setBackground(Color.GREEN);
+			} else {
+				switchButton.setText("OFF");
+				switchButton.setBackground(Color.RED);
+			}
+		}
 
 		///////////////////////// BUTTON/////////////////////////////////////////////////
 		/**

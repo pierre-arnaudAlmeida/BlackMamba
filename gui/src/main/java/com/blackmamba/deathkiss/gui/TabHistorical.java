@@ -69,7 +69,7 @@ public class TabHistorical extends JPanel {
 	private List<SensorHistorical> listSensorHistorical;
 	private static final Logger logger = LogManager.getLogger(TabHistorical.class);
 	private ResourceBundle rs = ResourceBundle.getBundle("parameters");
-	//TODO PA quand on clique sur diplay sensor on a un null pointer exception impossible d'accerder a la fenetre sensor
+
 	/**
 	 * Constructor
 	 */
@@ -198,6 +198,7 @@ public class TabHistorical extends JPanel {
 								tab.remove(2);
 								tabSensor = new TabSensor(color, idemployee, "Tab Sensors",
 										sensorHistorical.getIdSensor());
+								tabSensor.threadLauncher();
 								tab.add(tabSensor, 2);
 								tab.setTitleAt(2, "Tab Sensors");
 								Frame.goToTab(2);
