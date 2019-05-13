@@ -21,6 +21,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -73,6 +74,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 
 	private JButton switchButton;
 
+	private TabCommonArea tabCommonArea;
 	private TabSensor tabSensor;
 	private String requestType;
 	private String table;
@@ -103,7 +105,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private List<Alert> listAlert = new ArrayList<Alert>();
 	private List<String> listNameRectangle = new ArrayList<String>();
-	private Map<Integer, String> listRectangleCommonArea = new HashMap<Integer, String>();
+	private Map<Integer, String> listRectangleCommonArea = new LinkedHashMap<Integer, String>();
 
 	private ResourceBundle rsParameters = ResourceBundle.getBundle("parameters");
 	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
@@ -128,9 +130,9 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	private static Rectangle corridorE0B;
 	private static Rectangle sittingRoomE0;
 	private static Rectangle livingRoomE0;
-	private static Rectangle entranceHall;
-	private static Rectangle elevatorE0A;
-	private static Rectangle elevatorE0B;
+	private static Rectangle entranceHallE0;
+	private static Rectangle elevatorAE0;
+	private static Rectangle elevatorBE0;
 
 	private static Rectangle sittingRoomE1;
 	private static Rectangle dinningRoomE1;
@@ -146,8 +148,8 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	private static Rectangle staffRoomE1;
 	private static Rectangle livingRoomE1B;
 	private static Rectangle infirmaryE1;
-	private static Rectangle elevatorE1A;
-	private static Rectangle elevatorE1B;
+	private static Rectangle elevatorAE1;
+	private static Rectangle elevatorBE1;
 
 	/**
 	 * Constructor
@@ -175,8 +177,8 @@ public class TabMapSensor extends JPanel implements MouseListener {
 			public void run() {
 				while (true) {
 					// tabSensor.actualizationListSensor();
-					updateListAreas();
 					updateListSensor();
+					displayRectangle();
 					tabSensor.updateSensorSelected();
 					try {
 						Thread.sleep(Integer.parseInt(rsParameters.getString("time_threadSleep")));
@@ -220,14 +222,9 @@ public class TabMapSensor extends JPanel implements MouseListener {
 			}
 		});
 
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.GRAY);
-		add(panel);
-
-		/**
-		 * Definition of the List CommonArea
-		 */
-		textInputNameCommonArea = new JComboBox<String>();
+//		JPanel panel = new JPanel();
+//		panel.setBackground(Color.GRAY);
+//		add(panel);
 
 		///////////////////////// FROM LIST SENSOR//////////////////////////////////////
 		/**
@@ -353,8 +350,6 @@ public class TabMapSensor extends JPanel implements MouseListener {
 			textFloor.addItem(listFloor.name());
 		}
 		textFloor.addItemListener(new ItemListener() {
-			private BufferedImage buffer;
-			private BufferedImage buffer1;
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
@@ -405,8 +400,6 @@ public class TabMapSensor extends JPanel implements MouseListener {
 //			}
 //		});
 
-		///////////////////////// PANEL/////////////////////////////////////////////////
-
 		///////////////////////// JScrollPane///////////////////////////////////////////
 
 //		JScrollPane scroll = new JScrollPane(panel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -415,102 +408,74 @@ public class TabMapSensor extends JPanel implements MouseListener {
 
 		///////////////////////// IMAGE/////////////////////////////////////////////////
 
-		try {
-			img = ImageIO.read(getClass().getClassLoader().getResource("Floor0.jpg"));
-			img1 = ImageIO.read(getClass().getClassLoader().getResource("Floor1.jpg"));
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		this.buffer = img;
-		this.buffer1 = img1;
-
-		JLabel image = new JLabel(new ImageIcon(buffer));
-		JLabel image1 = new JLabel(new ImageIcon(buffer1));
-
-		x0 = (int) getToolkit().getScreenSize().getWidth() * 6 / 20;
-		y0 = (int) getToolkit().getScreenSize().getHeight() * 3 / 20;
-
-		x1 = (int) getToolkit().getScreenSize().getWidth() * 6 / 20 + 5;
-		y1 = (int) getToolkit().getScreenSize().getHeight() * 3 / 20 + 3;
-
-		entranceHall = new Rectangle(x0 + 720, y0 + 85, 176, 407);
-		kitchenE0 = new Rectangle(x0, y0 + 119, 147, 66);
-		dinningRoomE0 = new Rectangle(x0, y0 + 187, 147, 202);
-		staffRoomE0 = new Rectangle(x0, y0 + 391, 147, 64);
-		relaxationRoomE0 = new Rectangle(x0 + 143, y0, 430, 83);
-		infirmaryE0 = new Rectangle(x0 + 147, y0 + 492, 428, 84);
-		corridorE0A = new Rectangle(x0 + 216, y0 + 203, 502, 43);
-		corridorE0B = new Rectangle(x0 + 216, y0 + 324, 502, 46);
-		corridorE0C = new Rectangle(x0 + 149, y0 + 120, 64, 334);
-		corridorE0D = new Rectangle(x0, y0 + 85, 718, 33);
-		corridorE0E = new Rectangle(x0, y0 + 456, 718, 35);
-		sittingRoomE0 = new Rectangle(x0 + 505, y0 + 120, 213, 80);
-		livingRoomE0 = new Rectangle(x0 + 505, y0 + 373, 213, 81);
-		elevatorE0A = new Rectangle(x0 + 216, y0 + 246, 48, 29);
-		elevatorE0B = new Rectangle(x0 + 216, y0 + 295, 48, 27);
-
-		sittingRoomE1 = new Rectangle(x1, y1, 168, 116);
-		dinningRoomE1 = new Rectangle(x1, y1 + 202, 168, 164);
-		kitchenE1 = new Rectangle(x1, y1 + 451, 168, 125);
-		corridorE1A = new Rectangle(x1 + 170, y1 + 82, 721, 34);
-		corridorE1B = new Rectangle(x1 + 248, y1 + 202, 578, 39);
-		corridorE1C = new Rectangle(x1 + 248, y1 + 321, 578, 45);
-		corridorE1D = new Rectangle(x1 + 170, y1 + 451, 721, 39);
-		corridorE1E = new Rectangle(x1 + 172, y1 + 118, 74, 332);
-		corridorE1F = new Rectangle(x1 + 829, y1 + 118, 62, 330);
-		relaxationRoomE1 = new Rectangle(x1 + 337, y1, 389, 80);
-		livingRoomE1A = new Rectangle(x1 + 414, y1 + 118, 247, 82);
-		staffRoomE1 = new Rectangle(x1 + 639, y1 + 243, 188, 76);
-		livingRoomE1B = new Rectangle(x1 + 413, y1 + 368, 248, 81);
-		infirmaryE1 = new Rectangle(x1 + 337, y1 + 492, 389, 84);
-		elevatorE1A = new Rectangle(x1 + 248, y1 + 244, 52, 28);
-		elevatorE1B = new Rectangle(x1 + 248, y1 + 290, 52, 29);
-
-		listNameRectangle.add("salon");
-		listNameRectangle.add("entrancehall");
-		listNameRectangle.add(getKitchenE0().toString());
-		listNameRectangle.add("dinningroome0");
-		listNameRectangle.add("staffroome0");
-		listNameRectangle.add("relaxationroome0");
-		listNameRectangle.add("infirmarye0");
+		listNameRectangle.add("entrancehalle0");
+		listNameRectangle.add("livingRoome0");
+		listNameRectangle.add("sittingroome0");
 		listNameRectangle.add("corridore0a");
 		listNameRectangle.add("corridore0b");
 		listNameRectangle.add("corridore0c");
 		listNameRectangle.add("corridore0d");
 		listNameRectangle.add("corridore0e");
-		listNameRectangle.add("sittingroome0");
-		listNameRectangle.add("livingRoome0");
 		listNameRectangle.add("elevatore0a");
 		listNameRectangle.add("elevatore0b");
-		listNameRectangle.add("sittingroome1");
-		listNameRectangle.add("dinningroome1");
-		listNameRectangle.add("kitchene1");
+		listNameRectangle.add("staffroome0");
+		listNameRectangle.add("kitchene0");
+		listNameRectangle.add("infirmarye0");
+		listNameRectangle.add("relaxationroome0");
+		listNameRectangle.add("dinningroome0");
+		listNameRectangle.add("staffroome1");
+		listNameRectangle.add("livingRoomea1");
 		listNameRectangle.add("corridore1a");
 		listNameRectangle.add("corridore1b");
 		listNameRectangle.add("corridore1c");
 		listNameRectangle.add("corridore1d");
 		listNameRectangle.add("corridore1e");
 		listNameRectangle.add("corridore1f");
-		listNameRectangle.add("relaxationroome1");
-		listNameRectangle.add("livingRoome1a");
-		listNameRectangle.add("staffroome1");
-		listNameRectangle.add("livingRoome1b");
+		listNameRectangle.add("dinningroome1");
 		listNameRectangle.add("infirmarye1");
-		listNameRectangle.add("elevatore1a");
-		listNameRectangle.add("elevatore1b");
+		listNameRectangle.add("relaxationroome1");
+		listNameRectangle.add("elevatorae1");
+		listNameRectangle.add("elevatorbe1");
+		listNameRectangle.add("kitchene1");
+		listNameRectangle.add("sittingroome1");
+		listNameRectangle.add("livingroomeb1");
+
+		listRectangleCommonArea.put(1, "entrancehalle0");
+		listRectangleCommonArea.put(2, "livingRoome0");
+		listRectangleCommonArea.put(3, "sittingroome0");
+		listRectangleCommonArea.put(4, "corridore0a");
+		listRectangleCommonArea.put(5, "corridore0b");
+		listRectangleCommonArea.put(6, "corridore0c");
+		listRectangleCommonArea.put(7, "corridore0d");
+		listRectangleCommonArea.put(8, "corridore0e");
+		listRectangleCommonArea.put(9, "elevatore0a");
+		listRectangleCommonArea.put(10, "elevatore0b");
+		listRectangleCommonArea.put(11, "staffroome0");
+		listRectangleCommonArea.put(12, "kitchene0");
+		listRectangleCommonArea.put(13, "infirmarye0");
+		listRectangleCommonArea.put(14, "relaxationroome0");
+		listRectangleCommonArea.put(15, "dinningroome0");
+		listRectangleCommonArea.put(16, "staffroome1");
+		listRectangleCommonArea.put(17, "livingRoomea1");
+		listRectangleCommonArea.put(18, "corridore1a");
+		listRectangleCommonArea.put(19, "corridore1b");
+		listRectangleCommonArea.put(20, "corridore1c");
+		listRectangleCommonArea.put(21, "corridore1d");
+		listRectangleCommonArea.put(22, "corridore1e");
+		listRectangleCommonArea.put(23, "corridore1f");
+		listRectangleCommonArea.put(24, "dinningroome1");
+		listRectangleCommonArea.put(25, "infirmarye1");
+		listRectangleCommonArea.put(26, "relaxationroome1");
+		listRectangleCommonArea.put(27, "elevatorae1");
+		listRectangleCommonArea.put(28, "elevatorbe1");
+		listRectangleCommonArea.put(29, "kitchene1");
+		listRectangleCommonArea.put(30, "sittingroome1");
+		listRectangleCommonArea.put(31, "livingroomeb1");
 
 //		panel.setLayout(new BorderLayout());
 //		image.setBounds(x0, y0, 900, 580);
 //		panel.add(image);
 
-	}
-
-	public static Rectangle getKitchenE0() {
-		return kitchenE0;
-	}
-
-	public static void setKitchenE0(Rectangle kitchenE0) {
-		TabMapSensor.kitchenE0 = kitchenE0;
 	}
 
 	@Override
@@ -529,7 +494,27 @@ public class TabMapSensor extends JPanel implements MouseListener {
 			try {
 				img = ImageIO.read(getClass().getClassLoader().getResource("Floor0.jpg"));
 				this.buffer = img;
+
+				x0 = (int) getToolkit().getScreenSize().getWidth() * 6 / 20;
+				y0 = (int) getToolkit().getScreenSize().getHeight() * 3 / 20;
+
 				g2.drawImage(buffer, x0, y0, 900, 580, this);
+
+				entranceHallE0 = new Rectangle(x0 + 720, y0 + 85, 176, 407);
+				kitchenE0 = new Rectangle(x0, y0 + 119, 147, 66);
+				dinningRoomE0 = new Rectangle(x0, y0 + 187, 147, 202);
+				staffRoomE0 = new Rectangle(x0, y0 + 391, 147, 64);
+				relaxationRoomE0 = new Rectangle(x0 + 143, y0, 430, 83);
+				infirmaryE0 = new Rectangle(x0 + 147, y0 + 492, 428, 84);
+				corridorE0A = new Rectangle(x0 + 216, y0 + 203, 502, 43);
+				corridorE0B = new Rectangle(x0 + 216, y0 + 324, 502, 46);
+				corridorE0C = new Rectangle(x0 + 149, y0 + 120, 64, 334);
+				corridorE0D = new Rectangle(x0, y0 + 85, 718, 33);
+				corridorE0E = new Rectangle(x0, y0 + 456, 718, 35);
+				sittingRoomE0 = new Rectangle(x0 + 505, y0 + 120, 213, 80);
+				livingRoomE0 = new Rectangle(x0 + 505, y0 + 373, 213, 81);
+				elevatorAE0 = new Rectangle(x0 + 216, y0 + 246, 48, 29);
+				elevatorBE0 = new Rectangle(x0 + 216, y0 + 295, 48, 27);
 
 				g2.setColor(Color.GREEN);
 
@@ -546,9 +531,9 @@ public class TabMapSensor extends JPanel implements MouseListener {
 				g2.drawRect(corridorE0E.x, corridorE0E.y, corridorE0E.width, corridorE0E.height);
 				g2.drawRect(sittingRoomE0.x, sittingRoomE0.y, sittingRoomE0.width, sittingRoomE0.height);
 				g2.drawRect(livingRoomE0.x, livingRoomE0.y, livingRoomE0.width, livingRoomE0.height);
-				g2.drawRect(entranceHall.x, entranceHall.y, entranceHall.width, entranceHall.height);
-				g2.drawRect(elevatorE0A.x, elevatorE0A.y, elevatorE0A.width, elevatorE0A.height);
-				g2.drawRect(elevatorE0B.x, elevatorE0B.y, elevatorE0B.width, elevatorE0B.height);
+				g2.drawRect(entranceHallE0.x, entranceHallE0.y, entranceHallE0.width, entranceHallE0.height);
+				g2.drawRect(elevatorAE0.x, elevatorAE0.y, elevatorAE0.width, elevatorAE0.height);
+				g2.drawRect(elevatorBE0.x, elevatorBE0.y, elevatorBE0.width, elevatorBE0.height);
 
 			} catch (IOException e1) {
 				e1.printStackTrace();
@@ -557,7 +542,28 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		if (textFloor.getSelectedItem().equals("FIRST_FLOOR")) {
 			try {
 				img1 = ImageIO.read(getClass().getClassLoader().getResource("Floor1.jpg"));
+				this.buffer1 = img1;
 				g2.drawImage(buffer1, x0, y0, 900, 580, this);
+
+				x1 = (int) getToolkit().getScreenSize().getWidth() * 6 / 20 + 5;
+				y1 = (int) getToolkit().getScreenSize().getHeight() * 3 / 20 + 3;
+
+				sittingRoomE1 = new Rectangle(x1, y1, 168, 116);
+				dinningRoomE1 = new Rectangle(x1, y1 + 202, 168, 164);
+				kitchenE1 = new Rectangle(x1, y1 + 451, 168, 125);
+				corridorE1A = new Rectangle(x1 + 170, y1 + 82, 721, 34);
+				corridorE1B = new Rectangle(x1 + 248, y1 + 202, 578, 39);
+				corridorE1C = new Rectangle(x1 + 248, y1 + 321, 578, 45);
+				corridorE1D = new Rectangle(x1 + 170, y1 + 451, 721, 39);
+				corridorE1E = new Rectangle(x1 + 172, y1 + 118, 74, 332);
+				corridorE1F = new Rectangle(x1 + 829, y1 + 118, 62, 330);
+				relaxationRoomE1 = new Rectangle(x1 + 337, y1, 389, 80);
+				livingRoomE1A = new Rectangle(x1 + 414, y1 + 118, 247, 82);
+				staffRoomE1 = new Rectangle(x1 + 639, y1 + 243, 188, 76);
+				livingRoomE1B = new Rectangle(x1 + 413, y1 + 368, 248, 81);
+				infirmaryE1 = new Rectangle(x1 + 337, y1 + 492, 389, 84);
+				elevatorAE1 = new Rectangle(x1 + 248, y1 + 244, 52, 28);
+				elevatorBE1 = new Rectangle(x1 + 248, y1 + 290, 52, 29);
 
 				g2.setColor(Color.GREEN);
 
@@ -575,73 +581,51 @@ public class TabMapSensor extends JPanel implements MouseListener {
 				g2.drawRect(staffRoomE1.x, staffRoomE1.y, staffRoomE1.width, staffRoomE1.height);
 				g2.drawRect(livingRoomE1B.x, livingRoomE1B.y, livingRoomE1B.width, livingRoomE1B.height);
 				g2.drawRect(infirmaryE1.x, infirmaryE1.y, infirmaryE1.width, infirmaryE1.height);
-				g2.drawRect(elevatorE1A.x, elevatorE1A.y, elevatorE1A.width, elevatorE1A.height);
-				g2.drawRect(elevatorE1B.x, elevatorE1B.y, elevatorE1B.width, elevatorE1B.height);
+				g2.drawRect(elevatorAE1.x, elevatorAE1.y, elevatorAE1.width, elevatorAE1.height);
+				g2.drawRect(elevatorBE1.x, elevatorBE1.y, elevatorBE1.width, elevatorBE1.height);
 
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-			this.buffer1 = img1;
 		}
-
-		// Draw image
-//		g2.drawImage(buffer, x0, y0, 900, 580, this);
-//		g2.drawImage(buffer1, x0, y0, 900, 580, this);
-//
-//		g2.setColor(Color.GREEN);
-
-		// Draw rectangle
-//		g2.drawRect(kitchenE0.x, kitchenE0.y, kitchenE0.width, kitchenE0.height);
-//		g2.drawRect(dinningRoomE0.x, dinningRoomE0.y, dinningRoomE0.width, dinningRoomE0.height);
-//		g2.drawRect(staffRoomE0.x, staffRoomE0.y, staffRoomE0.width, staffRoomE0.height);
-//		g2.drawRect(relaxationRoomE0.x, relaxationRoomE0.y, relaxationRoomE0.width, relaxationRoomE0.height);
-//		g2.drawRect(infirmaryE0.x, infirmaryE0.y, infirmaryE0.width, infirmaryE0.height);
-//		g2.drawRect(corridorE0A.x, corridorE0A.y, corridorE0A.width, corridorE0A.height);
-//		g2.drawRect(corridorE0B.x, corridorE0B.y, corridorE0B.width, corridorE0B.height);
-//		g2.drawRect(corridorE0C.x, corridorE0C.y, corridorE0C.width, corridorE0C.height);
-//		g2.drawRect(corridorE0D.x, corridorE0D.y, corridorE0D.width, corridorE0D.height);
-//		g2.drawRect(corridorE0E.x, corridorE0E.y, corridorE0E.width, corridorE0E.height);
-//		g2.drawRect(sittingRoomE0.x, sittingRoomE0.y, sittingRoomE0.width, sittingRoomE0.height);
-//		g2.drawRect(livingRoomE0.x, livingRoomE0.y, livingRoomE0.width, livingRoomE0.height);
-//		g2.drawRect(entranceHall.x, entranceHall.y, entranceHall.width, entranceHall.height);
-//		g2.drawRect(elevatorE0A.x, elevatorE0A.y, elevatorE0A.width, elevatorE0A.height);
-//		g2.drawRect(elevatorE0B.x, elevatorE0B.y, elevatorE0B.width, elevatorE0B.height);
-
-//		g2.drawRect(sittingRoomE1.x, sittingRoomE1.y, sittingRoomE1.width, sittingRoomE1.height);
-//		g2.drawRect(dinningRoomE1.x, dinningRoomE1.y, dinningRoomE1.width, dinningRoomE1.height);
-//		g2.drawRect(kitchenE1.x, kitchenE1.y, kitchenE1.width, kitchenE1.height);
-//		g2.drawRect(corridorE1A.x, corridorE1A.y, corridorE1A.width, corridorE1A.height);
-//		g2.drawRect(corridorE1B.x, corridorE1B.y, corridorE1B.width, corridorE1B.height);
-//		g2.drawRect(corridorE1C.x, corridorE1C.y, corridorE1C.width, corridorE1C.height);
-//		g2.drawRect(corridorE1D.x, corridorE1D.y, corridorE1D.width, corridorE1D.height);
-//		g2.drawRect(corridorE1E.x, corridorE1E.y, corridorE1E.width, corridorE1E.height);
-//		g2.drawRect(corridorE1F.x, corridorE1F.y, corridorE1F.width, corridorE1F.height);
-//		g2.drawRect(relaxationRoomE1.x, relaxationRoomE1.y, relaxationRoomE1.width, relaxationRoomE1.height);
-//		g2.drawRect(livingRoomE1A.x, livingRoomE1A.y, livingRoomE1A.width, livingRoomE1A.height);
-//		g2.drawRect(staffRoomE1.x, staffRoomE1.y, staffRoomE1.width, staffRoomE1.height);
-//		g2.drawRect(livingRoomE1B.x, livingRoomE1B.y, livingRoomE1B.width, livingRoomE1B.height);
-//		g2.drawRect(infirmaryE1.x, infirmaryE1.y, infirmaryE1.width, infirmaryE1.height);
-//		g2.drawRect(elevatorE1A.x, elevatorE1A.y, elevatorE1A.width, elevatorE1A.height);
-//		g2.drawRect(elevatorE1B.x, elevatorE1B.y, elevatorE1B.width, elevatorE1B.height);
 
 		repaint();
 	}
 
-	private void testLocation(Point mouse, Rectangle commonArea, String text) {
+	@SuppressWarnings("unlikely-arg-type")
+	private void testLocation(Point mouse, Rectangle rectangle, String text) {
+		int idCommonArea = commonArea.getIdCommonArea();
 		// if the mouse if here
-		if (commonArea.contains(mouse))
+		if (rectangle.contains(mouse)) {
 			System.out.println(text + " - image");
-		else
+		} else {
 			System.out.println(text + " - !image");
+		}
+		for (int i = 0; i < listRectangleCommonArea.size(); i++) {
+			if (listRectangleCommonArea.keySet().equals(idCommonArea)) {
+				System.out.println("1");
+			}
+		}
+
 	}
 
 	public void mouseClicked(MouseEvent e) {
 		// recovering the position of the mouse
 		p = e.getPoint();
 		testLocation(p, dinningRoomE1, "mouseClicked - data 1");
-		if (nameRectangle(dinningRoomE1) == true) {
-			System.out.println("Cool");
+		testLocation(p, dinningRoomE0, "mouseClicked - data 2");
+		// displayRectangle();
+		System.out.println(listRectangleCommonArea.isEmpty());
+		for (String i : listRectangleCommonArea.values()) {
+			System.out.println(listRectangleCommonArea.values().isEmpty());
 		}
+		for (Integer i : listRectangleCommonArea.keySet()) {
+			System.out.println(i);
+		}
+		for (String i : listRectangleCommonArea.values()) {
+			System.out.println(i);
+		}
+
 	}
 
 	/**
@@ -665,49 +649,52 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	// rectangle et l'id de la partie commune listRectangleCommonArea
 
 	public void displayRectangle() {
-		updateListAreas();
+		tabCommonArea = new TabCommonArea();
+		listCommonArea = tabCommonArea.getAllCommonArea(commonArea, jsonString, jsonString);
+		for (CommonArea c : listCommonArea) {
+			System.err.println("=====> " + c);
+		}
+		System.out.println("111111");
 		for (int i = 0; i < listNameRectangle.size(); i++) {
 			for (CommonArea areas : listCommonArea) {
-				if (areas.getNameCommonArea().toLowerCase().trim().equals(listNameRectangle.get(i))) {
+				if (areas.getNameCommonArea().toLowerCase().trim().equalsIgnoreCase(listNameRectangle.get(i))) {
+					System.out.println("22222222");
 					listRectangleCommonArea.put(areas.getIdCommonArea(), listNameRectangle.get(i));
 				}
 			}
 		}
 	}
 
-	public boolean nameRectangle(Rectangle commonArea) {
-		Boolean bol = null;
+	public void nameRectangle(Rectangle commonArea) {
 		for (int i = 0; i < listRectangleCommonArea.size(); i++) {
-			if (listRectangleCommonArea.containsValue(commonArea.toString().toLowerCase())) {
-				bol = true;
+			if (listRectangleCommonArea.get(i).contains(commonArea.toString().toLowerCase())) {
+				System.out.println(listRectangleCommonArea);
 			}
 		}
-		return bol;
+		return;
 
 	}
 
-	public void updateListAreas() {
-		requestType = "READ ALL";
-		table = "CommonArea";
+	/**
+	 * 
+	 * @param commonArea
+	 * @param requestType
+	 * @param table
+	 * @return
+	 */
+	public List<CommonArea> getAllCommonArea(CommonArea commonArea, String requestType, String table) {
 		objectMapper = new ObjectMapper();
 		try {
-			jsonString = "READ ALL";
+			jsonString = objectMapper.writeValueAsString(commonArea);
 			new ClientSocket(requestType, jsonString, table);
 			jsonString = ClientSocket.getJson();
 			CommonArea[] commonAreas = objectMapper.readValue(jsonString, CommonArea[].class);
-			listCommonArea = Arrays.asList(commonAreas);
-			logger.log(Level.DEBUG, "Recuperation of all Common Areas available succed");
+			logger.log(Level.DEBUG, "Find CommonArea data succed");
+			return Arrays.asList(commonAreas);
 		} catch (Exception e1) {
-			logger.log(Level.WARN, "Impossible to parse in JSON Common Area datas " + e1.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to parse in JSON CommonArea datas " + e1.getClass().getCanonicalName());
+			return null;
 		}
-		String areasAdd = "";
-		textInputNameCommonArea.removeAllItems();
-		for (CommonArea commonAreas : listCommonArea) {
-			if (!areasAdd.contains(commonAreas.getNameCommonArea() + " #" + commonAreas.getIdCommonArea()))
-				textInputNameCommonArea.addItem(commonAreas.getNameCommonArea() + " #" + commonAreas.getIdCommonArea());
-			areasAdd = areasAdd + commonAreas.getNameCommonArea() + " #" + commonAreas.getIdCommonArea() + ",";
-		}
-		logger.log(Level.DEBUG, "Convertion of all Common Areas available in a list succed");
 	}
 
 	/**
@@ -742,14 +729,17 @@ public class TabMapSensor extends JPanel implements MouseListener {
 			listSensor = Arrays.asList(sensors);
 			logger.log(Level.DEBUG, "Find Sensor data succed");
 		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
+			logger.log(Level.WARN, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
 		}
-		listM.removeAllElements();
+		listM.clear();
+		listM = new DefaultListModel<>();
 		listM.addElement("All sensors");
 		for (Sensor sens : listSensor) {
 			listM.addElement(sens.getIdSensor() + "# " + sens.getTypeSensor() + " ," + sens.getSensorState() + " ,"
-					+ sens.getIdCommonArea());
+					+ sens.getIdCommonArea() + " , " + sens.getAlertState().name() + " , "
+					+ sens.getSensitivity().name());
 		}
+		list.setModel(listM);
 	}
 
 	/**
