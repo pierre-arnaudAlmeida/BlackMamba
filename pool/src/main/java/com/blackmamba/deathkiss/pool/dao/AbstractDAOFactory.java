@@ -1,10 +1,10 @@
 package com.blackmamba.deathkiss.pool.dao;
 
-import com.blackmamba.deathkiss.pool.entity.CommonArea;
-import com.blackmamba.deathkiss.pool.entity.Employee;
-import com.blackmamba.deathkiss.pool.entity.Resident;
-import com.blackmamba.deathkiss.pool.entity.Sensor;
-import com.blackmamba.deathkiss.pool.entity.SensorHistorical;
+import com.blackmamba.deathkiss.commons.entity.CommonArea;
+import com.blackmamba.deathkiss.commons.entity.Employee;
+import com.blackmamba.deathkiss.commons.entity.Resident;
+import com.blackmamba.deathkiss.commons.entity.Sensor;
+import com.blackmamba.deathkiss.commons.entity.SensorHistorical;
 
 /**
  * 

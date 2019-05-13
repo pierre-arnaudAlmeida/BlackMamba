@@ -17,7 +17,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -28,13 +27,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.blackmamba.deathkiss.entity.Sensor;
-import com.blackmamba.deathkiss.entity.SensorHistorical;
+import com.blackmamba.deathkiss.commons.entity.Sensor;
+import com.blackmamba.deathkiss.commons.entity.SensorHistorical;
 import com.blackmamba.deathkiss.launcher.ClientSocket;
 import com.blackmamba.deathkiss.utils.SortByIdSensorHistorical;
 import com.fasterxml.jackson.databind.ObjectMapper;

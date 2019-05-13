@@ -16,11 +16,11 @@ import java.util.Locale;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.blackmamba.deathkiss.pool.entity.AlertState;
-import com.blackmamba.deathkiss.pool.entity.Sensitivity;
-import com.blackmamba.deathkiss.pool.entity.Sensor;
-import com.blackmamba.deathkiss.pool.entity.SensorHistorical;
-import com.blackmamba.deathkiss.pool.entity.SensorType;
+import com.blackmamba.deathkiss.commons.entity.AlertState;
+import com.blackmamba.deathkiss.commons.entity.Sensitivity;
+import com.blackmamba.deathkiss.commons.entity.Sensor;
+import com.blackmamba.deathkiss.commons.entity.SensorHistorical;
+import com.blackmamba.deathkiss.commons.entity.SensorType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

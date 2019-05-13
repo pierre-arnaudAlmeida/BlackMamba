@@ -1,7 +1,7 @@
 package com.blackmamba.deathkiss.utils;
 
 import java.util.Comparator;
-import com.blackmamba.deathkiss.entity.SensorHistorical;
+import com.blackmamba.deathkiss.commons.entity.SensorHistorical;
 
 /**
  * 

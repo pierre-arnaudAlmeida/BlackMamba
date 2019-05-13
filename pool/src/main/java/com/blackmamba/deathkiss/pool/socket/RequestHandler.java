@@ -16,12 +16,12 @@ import com.blackmamba.deathkiss.pool.dao.MessageDAO;
 import com.blackmamba.deathkiss.pool.dao.ResidentDAO;
 import com.blackmamba.deathkiss.pool.dao.SensorDAO;
 import com.blackmamba.deathkiss.pool.dao.SensorHistoricalDAO;
-import com.blackmamba.deathkiss.pool.entity.CommonArea;
-import com.blackmamba.deathkiss.pool.entity.Employee;
-import com.blackmamba.deathkiss.pool.entity.Message;
-import com.blackmamba.deathkiss.pool.entity.Resident;
-import com.blackmamba.deathkiss.pool.entity.Sensor;
-import com.blackmamba.deathkiss.pool.entity.SensorHistorical;
+import com.blackmamba.deathkiss.commons.entity.CommonArea;
+import com.blackmamba.deathkiss.commons.entity.Employee;
+import com.blackmamba.deathkiss.commons.entity.Message;
+import com.blackmamba.deathkiss.commons.entity.Resident;
+import com.blackmamba.deathkiss.commons.entity.Sensor;
+import com.blackmamba.deathkiss.commons.entity.SensorHistorical;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

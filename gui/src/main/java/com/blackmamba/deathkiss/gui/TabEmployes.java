@@ -33,7 +33,7 @@ import javax.swing.JTextField;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.blackmamba.deathkiss.entity.Employee;
+import com.blackmamba.deathkiss.commons.entity.Employee;
 import com.blackmamba.deathkiss.launcher.ClientSocket;
 import com.blackmamba.deathkiss.utils.SortByIdEmployee;
 import com.fasterxml.jackson.databind.ObjectMapper;

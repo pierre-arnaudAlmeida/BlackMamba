@@ -8,9 +8,9 @@ import java.util.UUID;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.blackmamba.deathkiss.mock.entity.Message;
-import com.blackmamba.deathkiss.mock.entity.Sensor;
-import com.blackmamba.deathkiss.mock.entity.SensorType;
+import com.blackmamba.deathkiss.commons.entity.Message;
+import com.blackmamba.deathkiss.commons.entity.Sensor;
+import com.blackmamba.deathkiss.commons.entity.SensorType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class GenerateMessage extends Thread {

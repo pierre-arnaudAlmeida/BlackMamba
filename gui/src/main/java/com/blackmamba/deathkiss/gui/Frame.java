@@ -11,8 +11,8 @@ import javax.swing.JTabbedPane;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.blackmamba.deathkiss.entity.Alert;
-import com.blackmamba.deathkiss.entity.Employee;
+import com.blackmamba.deathkiss.commons.entity.Alert;
+import com.blackmamba.deathkiss.commons.entity.Employee;
 import com.blackmamba.deathkiss.launcher.ClientSocket;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -100,7 +100,7 @@ public class Frame extends JFrame {
 		tabResident = new TabResident(Color.GRAY, this.idEmployee, "Tab Residents");
 		tabHistorical = new TabHistorical(Color.GRAY, this.idEmployee, "Tab Historical");
 		tabProfile = new TabProfile(Color.GRAY, this.idEmployee, "Tab Profile");
-		tabMapSensor = new TabMapSensor(Color.GRAY, this.idEmployee, "Tab Map", 0);
+		//tabMapSensor = new TabMapSensor(Color.GRAY, this.idEmployee, "Tab Map", 0);
 
 		/**
 		 * Add of the title of tabs

@@ -20,7 +20,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -32,18 +31,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.blackmamba.deathkiss.entity.Alert;
-import com.blackmamba.deathkiss.entity.AlertState;
-import com.blackmamba.deathkiss.entity.CommonArea;
-import com.blackmamba.deathkiss.entity.Sensitivity;
-import com.blackmamba.deathkiss.entity.Sensor;
-import com.blackmamba.deathkiss.entity.SensorHistorical;
-import com.blackmamba.deathkiss.entity.SensorType;
+import com.blackmamba.deathkiss.commons.entity.Alert;
+import com.blackmamba.deathkiss.commons.entity.AlertState;
+import com.blackmamba.deathkiss.commons.entity.CommonArea;
+import com.blackmamba.deathkiss.commons.entity.Sensitivity;
+import com.blackmamba.deathkiss.commons.entity.Sensor;
+import com.blackmamba.deathkiss.commons.entity.SensorHistorical;
+import com.blackmamba.deathkiss.commons.entity.SensorType;
 import com.blackmamba.deathkiss.launcher.ClientSocket;
 import com.blackmamba.deathkiss.utils.SortByIdCommonArea;
 import com.blackmamba.deathkiss.utils.SortByIdSensor;

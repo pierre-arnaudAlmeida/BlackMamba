@@ -11,5 +11,6 @@
 		<module>pool</module>
 		<module>mock</module>
 		<module>bianalysis</module>
+		<module>commons</module>
 	</modules>
 </project>
