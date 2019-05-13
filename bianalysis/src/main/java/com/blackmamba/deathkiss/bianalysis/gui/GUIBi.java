@@ -79,7 +79,9 @@ public class GUIBi extends JFrame {
 	private static List<CommonArea> listCommonAreas = new ArrayList<CommonArea>();
 	private static List<CommonArea> listNumberCommonAreas = new ArrayList<CommonArea>();
 	private static List<Message> listAllMessage = new ArrayList<Message>();
-
+	DefaultPieDataset pieDataset = new DefaultPieDataset();
+	DefaultPieDataset HistoricalAlert = new DefaultPieDataset();
+	
 	private ObjectMapper objectMapper;
 	private String requestType;
 	private String table;
@@ -243,18 +245,7 @@ public class GUIBi extends JFrame {
 
 ////////////////////////////////////
 
-		// Graphic Historical alert
 
-		DefaultPieDataset HistoricalAlert = new DefaultPieDataset();
-
-		HistoricalAlert.setValue("Number of DOWN Sensors", (Number) NumberMessage[2]);
-		HistoricalAlert.setValue("Number of OVER Sensors", (Number) NumberMessage[3]);
-		HistoricalAlert.setValue("Number of NORMAL Sensors", (Number) NumberMessage[1]);
-
-		JFreeChart pieChart1 = ChartFactory.createPieChart(" Ratio of number of alert", HistoricalAlert, true, true,
-				true);
-		ChartPanel cPanel1 = new ChartPanel(pieChart1);
-		contentPane.add(cPanel1);
 
 		//////////////////////////////////////////////
 		// TabbedPane - DASH BOARD
@@ -263,7 +254,7 @@ public class GUIBi extends JFrame {
 		contentPane.add(tabbedPane);
 
 		// Graphic All sensor
-		DefaultPieDataset pieDataset = new DefaultPieDataset();
+		
 //		pieDataset.setValue("Number of Unused Sensors", (Number) NumberUsedSensor[0]);
 //		pieDataset.setValue("Number of used Sensors", (Number) NumberUsedSensor[1]);
 
@@ -279,6 +270,7 @@ public class GUIBi extends JFrame {
 
 		panel = new JPanel();
 		tabbedPane.addTab("DASHBOARD", null, panel, null);
+		panel.setBackground( Color.GRAY );
 		panel.setLayout(null);
 
 
@@ -412,7 +404,7 @@ public class GUIBi extends JFrame {
 
 		tfMeanTemperatureStage1 = new JLabel();
 		tfMeanTemperatureStage1.setHorizontalAlignment(SwingConstants.TRAILING);
-		tfMeanTemperatureStage1.setBounds(501, 147, 57, 44);
+		tfMeanTemperatureStage1.setBounds(40, 364, 57, 44);
 		panel.add(tfMeanTemperatureStage1);
 
 		tfTotalStockRc = new JLabel();
@@ -461,9 +453,8 @@ public class GUIBi extends JFrame {
 					
 					JFreeChart pieChart = ChartFactory.createPieChart("Ratio of unused sensors and used", pieDataset, true, true,
 							true);
-					ChartPanel cPanel = new ChartPanel(pieChart);
-					contentPane.add(cPanel);
-					
+
+					pieChart.setBackgroundPaint( Color.GRAY );
 					ChartPanel cpSensors = new ChartPanel(pieChart);
 					cpSensors.setBounds(483, 139, 275, 159);
 					panel.add(cpSensors);
@@ -482,6 +473,17 @@ public class GUIBi extends JFrame {
 					unused = Integer.parseInt(jsonString_list[0]);
 					used = Integer.parseInt(jsonString_list[1]);
 					tfStock.setText(Integer.toString(unused));
+					
+					pieDataset.setValue("Unused", unused);
+					pieDataset.setValue("Used", used);
+					
+					JFreeChart pieChart = ChartFactory.createPieChart("Ratio of unused sensors and used", pieDataset, true, true,
+							true);
+					pieChart.setBackgroundPaint( Color.GRAY );
+					ChartPanel cpSensors = new ChartPanel(pieChart);
+					cpSensors.setBounds(483, 139, 275, 159);
+					panel.add(cpSensors);
+					cpSensors.setMouseWheelEnabled(true);
 
 				}
 			}
@@ -554,10 +556,9 @@ public class GUIBi extends JFrame {
 		});
 		cbAlertReceivedFloor_1.setBounds(746, 445, 73, 22);
 		panel.add(cbAlertReceivedFloor_1);
+		
+		
 
-		ChartPanel cpAlerts = new ChartPanel(pieChart1);
-		cpAlerts.setBounds(191, 299, 275, 165);
-		panel.add(cpAlerts);
 
 		JLabel imagelabel = new JLabel();
 		ImageIcon image = new ImageIcon("C:\\\\Users\\\\Slayd\\\\OneDrive\\\\Bureau\\\\cours\\\\PDS\\\\BlackMamba\\\\BlackMamba\\\\Temperature.png");
@@ -882,7 +883,8 @@ public class GUIBi extends JFrame {
 //		getAllCommonArea();
 //		getNumberPassiveActiveSensor();
 		getAllMessage();
-//		getNumberUsedSensor();
+		getNumberUsedSensor();
+
 		getNumberCommonArea();
 		getAverageTemperature();
 
@@ -1139,6 +1141,20 @@ public class GUIBi extends JFrame {
 		over = Integer.parseInt(jsonString_list[1]);
 		tfDown.setText(down.toString().replaceAll("/", ""));
 		tfNbOver.setText(over.toString().replaceAll("/", ""));
+		
+		
+		// Graphic Historical alert
+
+		HistoricalAlert.setValue("Number of DOWN Sensors", (Number) down);
+		HistoricalAlert.setValue("Number of OVER Sensors", (Number) over);
+
+		JFreeChart pieChart1 = ChartFactory.createPieChart(" Ratio of number of alert", HistoricalAlert, true, true,
+				true);
+		pieChart1.setBackgroundPaint( Color.GRAY );
+		ChartPanel cpAlerts = new ChartPanel(pieChart1);
+		
+		cpAlerts.setBounds(184, 330, 275, 165);
+		panel.add(cpAlerts);
 	}
 
 //////////////////////////////////////////////////////////////////////
@@ -1160,21 +1176,33 @@ public class GUIBi extends JFrame {
 ///////////////////////////////////////////////////////////////////////
 	// Method of calculating of number Unused Sensor, number Used Sensor for a
 	// graphic visualization
-//	public void getNumberUsedSensor() {
-//
-//		requestType = "COUNT";
-//		table = "Sensor";
-//
-//		jsonString = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor, sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur";
-//		new ClientSocket(requestType, jsonString, table);
-//		jsonString = ClientSocket.getJson();
-//		logger.log(Level.DEBUG, "Used/UnUsed Sensor finded");
-//		String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
-//
-//		s1 = Integer.parseInt(jsonString_list[0]);
-//		s2 = Integer.parseInt(jsonString_list[1]);
-//
-//	}
+	public void getNumberUsedSensor() {
+
+		requestType = "COUNT";
+		table = "Sensor";
+
+		jsonString = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor, sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur";
+		new ClientSocket(requestType, jsonString, table);
+		jsonString = ClientSocket.getJson();
+		logger.log(Level.DEBUG, "Used/UnUsed Sensor finded");
+		String jsonString_list[] = jsonString.replaceAll("\"", "").split(",");
+
+		unused = Integer.parseInt(jsonString_list[0]);
+		used = Integer.parseInt(jsonString_list[1]);
+		
+		pieDataset.setValue("Unused", unused);
+		pieDataset.setValue("Used", used);
+		
+		JFreeChart pieChart = ChartFactory.createPieChart("Ratio of unused sensors and used", pieDataset, true, true,
+				true);
+		pieChart.setBackgroundPaint( Color.GRAY );
+		
+		ChartPanel cpSensors = new ChartPanel(pieChart);
+		cpSensors.setBounds(483, 139, 275, 159);
+		panel.add(cpSensors);
+		cpSensors.setMouseWheelEnabled(true);
+
+	}
 
 ////////////////////////////////////////////////////
 	// Method of calculating of number of sensor for each floor
