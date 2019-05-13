@@ -221,8 +221,9 @@ public class SensorDAO extends DAO<Sensor> {
 			requestSB = new StringBuilder(
 					"SELECT id_capteur,type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max ");
 			if (sensor.getTypeSensor() != null) {
-				requestSB.append("FROM capteur where type_capteur =");
+				requestSB.append("FROM capteur where type_capteur ='");
 				requestSB.append(sensor.getTypeSensor());
+				requestSB.append("'");
 			} else {
 				requestSB.append("FROM capteur where id_partie_commune =");
 				requestSB.append(sensor.getIdCommonArea());

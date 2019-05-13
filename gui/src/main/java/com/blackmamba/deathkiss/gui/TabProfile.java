@@ -11,7 +11,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.text.Normalizer;
 import java.util.ResourceBundle;
-
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -24,7 +23,6 @@ import javax.swing.JTextField;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import com.blackmamba.deathkiss.entity.Employee;
 import com.blackmamba.deathkiss.launcher.ClientSocket;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -19,7 +19,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -287,9 +286,9 @@ public class TabSensor extends JPanel {
 						for (SensorType type : SensorType.values()) {
 							if (type.name().startsWith(searchReceived.toUpperCase())) {
 								sensor2.setTypeSensor(type);
+								findAllSensor(sensor2);
 							}
 						}
-						findAllSensor(sensor2);
 						listM.removeAllElements();
 						listM.addElement("Results for sensor type : " + searchReceived);
 						for (Sensor sensors : listSearchSensor) {
@@ -1030,7 +1029,8 @@ public class TabSensor extends JPanel {
 				} else {
 					textInputIdSensor.setText(Integer.toString(sensor.getIdSensor()));
 				}
-				textInputNameCommonArea.setSelectedItem(commonArea.getNameCommonArea());
+				textInputNameCommonArea
+						.setSelectedItem(commonArea.getNameCommonArea() + " #" + commonArea.getIdCommonArea());
 				textInputTypeSensor.setSelectedItem(sensor.getTypeSensor().name());
 				if (sensor.getSensorState()) {
 					switchButton.setText("ON");
