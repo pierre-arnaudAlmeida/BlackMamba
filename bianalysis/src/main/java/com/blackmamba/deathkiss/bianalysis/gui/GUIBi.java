@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
-
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -36,7 +35,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,13 +42,12 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
-
-import com.blackmamba.deathkiss.bianalysis.entity.AlertState;
-import com.blackmamba.deathkiss.bianalysis.entity.CommonArea;
-import com.blackmamba.deathkiss.bianalysis.entity.Message;
-import com.blackmamba.deathkiss.bianalysis.entity.Sensor;
-import com.blackmamba.deathkiss.bianalysis.entity.SensorHistorical;
-import com.blackmamba.deathkiss.bianalysis.entity.SensorType;
+import com.blackmamba.deathkiss.commons.entity.AlertState;
+import com.blackmamba.deathkiss.commons.entity.CommonArea;
+import com.blackmamba.deathkiss.commons.entity.Message;
+import com.blackmamba.deathkiss.commons.entity.Sensor;
+import com.blackmamba.deathkiss.commons.entity.SensorHistorical;
+import com.blackmamba.deathkiss.commons.entity.SensorType;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.io.JsonStringEncoder;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -60,7 +57,6 @@ import java.awt.Color;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import java.awt.Component;
-
 import javax.imageio.ImageIO;
 import javax.swing.Box;
 

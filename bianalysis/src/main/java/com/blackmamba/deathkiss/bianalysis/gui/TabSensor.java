@@ -28,10 +28,9 @@ import javax.swing.JTextField;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.blackmamba.deathkiss.bianalysis.entity.CommonArea;
-import com.blackmamba.deathkiss.bianalysis.entity.Sensor;
-import com.blackmamba.deathkiss.bianalysis.entity.SensorType;
+import com.blackmamba.deathkiss.commons.entity.CommonArea;
+import com.blackmamba.deathkiss.commons.entity.Sensor;
+import com.blackmamba.deathkiss.commons.entity.SensorType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**

@@ -3,7 +3,6 @@ package com.blackmamba.deathkiss.bianalysis.gui;
 import java.awt.EventQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JFrame;
 
 /**
