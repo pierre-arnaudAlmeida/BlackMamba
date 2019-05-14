@@ -1,3 +1,6 @@
+--Reinitialiser les compteurs des identifiants et insertions des sensor de la base
+delete from capteur;
+select setval('capteur_id_capteur_seq', 1);
 insert into capteur (id_capteur, type_capteur, etat, id_partie_commune, type_alert, sensibilite, heure_debut, heure_fin, seuil_min, mise_a_jour, seuil_max) values (1, 'SMOKE', 'ON', 1, 'NORMAL', 'MEDIUM', '7:59', '8:00', 0, '11/12/2018', 258);
 insert into capteur (id_capteur, type_capteur, etat, id_partie_commune, type_alert, sensibilite, heure_debut, heure_fin, seuil_min, mise_a_jour, seuil_max) values (2, 'SMOKE', 'ON', 2, 'NORMAL', 'MEDIUM', '7:59', '8:00', 0, '11/12/2018', 350);
 insert into capteur (id_capteur, type_capteur, etat, id_partie_commune, type_alert, sensibilite, heure_debut, heure_fin, seuil_min, mise_a_jour, seuil_max) values (3, 'SMOKE', 'ON', 3, 'NORMAL', 'MEDIUM', '7:59', '8:00', 0, '11/12/2018', 308);
