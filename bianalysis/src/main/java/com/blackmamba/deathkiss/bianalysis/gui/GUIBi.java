@@ -129,7 +129,6 @@ public class GUIBi extends JFrame {
 	private JLabel lblTotalAlertAttente;
 	private JLabel lblPendingAlert;
 	private JLabel lblNbConfigured;
-	private int nbCommonArea = 0;
 	private int nbTotalAlert = 0;
 	private int indice = 0;
 	private int nbAlertSensor = 0;
@@ -152,8 +151,6 @@ public class GUIBi extends JFrame {
 	private JLabel lblDown;
 	private JTextField tfAlertesReceived;
 	private JLabel lblStockSensor;
-	private JTextField searchBar;
-	private JTextField tfNbSensorMaj;
 	private JLabel lblPourcentageActive;
 	private JLabel lblActiveSensor;
 	private JLabel lblPassiveSensor;
@@ -227,8 +224,6 @@ public class GUIBi extends JFrame {
 		contentPane.add(tabbedPane);
 
 		// Graphic All sensor
-
-		Integer numberAlertReceived = getNumberAlertReceived();
 
 		Integer totalNumberPendingAlert = getNumberPendingAlert();
 
@@ -1169,7 +1164,7 @@ public class GUIBi extends JFrame {
 		String s2 = "";
 		String s3 = "";
 		String s4 = "";
-		String s5 = "";
+//		String s5 = "";
 		requestType = "COUNT";
 		table = "Sensor";
 
