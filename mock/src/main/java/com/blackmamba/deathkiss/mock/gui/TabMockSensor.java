@@ -98,7 +98,7 @@ public class TabMockSensor extends JPanel {
 		textInputTypeSensor.setFont(policeLabel);
 		textInputTypeSensor.setSelectedIndex(0);
 		this.add(textInputTypeSensor);
-		
+
 		///////////////////////// BUTTON/////////////////////////////////////////////////
 		/**
 		 * Definition of Button AddEmployee
@@ -114,7 +114,7 @@ public class TabMockSensor extends JPanel {
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					if (textInputNbGenerateSensor.getText().trim().matches("[0-9]+[0-9]*")) {
-						// TODO PA create class generateSensor
+						// TODO create class generateSensor
 						// generateEmployee = new GenerateSensor(
 						// Integer.parseInt(textInputNbGenerateSensor.getText().trim()));
 						// generateEmployee.generate();

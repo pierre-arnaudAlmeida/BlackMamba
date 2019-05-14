@@ -31,7 +31,6 @@ public class MainGUI {
 			public void run() {
 				try {
 					//TODO PA mettre les bonnes ressources vers le serveur
-					//TODO PA ajouter des capteurs non configurer dans le script
 					// TODO PA a remettre
 					// popupConnexion = new Connexion();
 					// popupConnexion.setVisible(true);

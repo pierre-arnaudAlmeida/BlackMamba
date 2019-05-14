@@ -2,25 +2,24 @@ package com.blackmamba.deathkiss.bianalysis.gui;
 
 import static java.awt.BorderLayout.CENTER;
 
-
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import java.util.Collections;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -29,11 +28,13 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -50,11 +51,6 @@ import com.blackmamba.deathkiss.commons.entity.SensorType;
 import com.blackmamba.deathkiss.utils.SortByIdSensorHistorical;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toedter.calendar.JDateChooser;
-import javax.swing.JTabbedPane;
-import java.awt.Color;
-import javax.swing.SwingConstants;
-import javax.imageio.ImageIO;
-import java.awt.Font;
 
 /**
  * 
