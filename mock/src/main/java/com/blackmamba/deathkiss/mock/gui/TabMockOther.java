@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.blackmamba.deathkiss.mock.GenerateEmployee;
-import com.blackmamba.deathkiss.mock.GenerateResident;
+import com.blackmamba.deathkiss.mock.generator.GenerateEmployee;
+import com.blackmamba.deathkiss.mock.generator.GenerateResident;
 
 public class TabMockOther extends JPanel {
 

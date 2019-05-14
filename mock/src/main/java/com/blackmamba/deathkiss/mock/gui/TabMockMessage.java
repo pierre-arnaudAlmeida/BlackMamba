@@ -24,11 +24,12 @@ import javax.swing.event.ChangeListener;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.blackmamba.deathkiss.mock.GenerateMessage;
-import com.blackmamba.deathkiss.mock.MockSocket;
+
 import com.blackmamba.deathkiss.commons.entity.Message;
 import com.blackmamba.deathkiss.commons.entity.Sensor;
 import com.blackmamba.deathkiss.commons.entity.SensorType;
+import com.blackmamba.deathkiss.mock.generator.GenerateMessage;
+import com.blackmamba.deathkiss.mock.generator.MockSocket;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TabMockMessage extends JPanel {

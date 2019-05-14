@@ -1,4 +1,4 @@
-package com.blackmamba.deathkiss.mock;
+package com.blackmamba.deathkiss.mock.generator;
 
 import java.util.Random;
 import java.util.ResourceBundle;
