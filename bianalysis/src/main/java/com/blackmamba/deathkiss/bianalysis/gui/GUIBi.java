@@ -303,7 +303,6 @@ public class GUIBi extends JFrame {
 
 		tfAlertesReceived = new JTextField();
 		tfAlertesReceived.setBounds(116, 452, 69, 55);
-		tfAlertesReceived.setText(Integer.toString(totalAlertReceived));
 		tfAlertesReceived.setColumns(10);
 		panel.add(tfAlertesReceived);
 

@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import com.blackmamba.deathkiss.mock.gui.MockFrame;
 
 public class MainMockGUI {
-	//TODO PA mettre les resssources vers le serveur MOCK
+	
 	/**
 	 * Different parameters used
 	 */
