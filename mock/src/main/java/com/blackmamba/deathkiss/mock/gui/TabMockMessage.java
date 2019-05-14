@@ -40,8 +40,6 @@ public class TabMockMessage extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private int nbThread;
 	private int threshold;
-	private int nbOfWindow = -1;
-	private int nbMessageGenerate;
 	private boolean bool;
 	private String requestType;
 	private String table;
@@ -52,7 +50,6 @@ public class TabMockMessage extends JPanel {
 	private JLabel labelThreshold;
 	private JLabel labelSensorType;
 	private JLabel labelRandomSensor;
-	private JLabel labelMessageGenerate;
 	private JTextField textInputIdSensor;
 	private JSlider sliderThreshold;
 	private ButtonGroup buttonGroup;
@@ -69,7 +66,6 @@ public class TabMockMessage extends JPanel {
 	private List<Sensor> listRestrictedSensor = new ArrayList<Sensor>();
 	private static final Logger logger = LogManager.getLogger(TabMockMessage.class);
 	private GenerateMessage generateMessage;
-	private Thread threadCountMessage;
 
 	/**
 	 * Constructor
@@ -118,15 +114,6 @@ public class TabMockMessage extends JPanel {
 		labelRandomSensor.setBounds(400, 100, 300, 30);
 		labelRandomSensor.setFont(policeLabel);
 		this.add(labelRandomSensor);
-
-		/**
-		 * Definition of label MessageGenerate
-		 */
-		labelMessageGenerate = new JLabel();
-		labelMessageGenerate.setBounds(250, 450, 400, 30);
-		labelMessageGenerate.setFont(policeLabel);
-		labelMessageGenerate.setText("Number of sensor generated : " + nbMessageGenerate);
-		this.add(labelMessageGenerate);
 
 		//////////////////// TEXT AREA////////////////////////////////////////////////
 		/**
@@ -260,16 +247,6 @@ public class TabMockMessage extends JPanel {
 		});
 
 		///////////////////////// BUTTON/////////////////////////////////////////////////
-		threadCountMessage = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				while (true) {
-					nbMessageGenerate = generateMessage.getNbMessageGenerate();
-					labelMessageGenerate.setText("Number of message generated : " + nbMessageGenerate);
-				}
-			}
-		});
-
 		/**
 		 * Definition of Button AddSensor
 		 */
@@ -357,9 +334,6 @@ public class TabMockMessage extends JPanel {
 							launchGeneration();
 						}
 					}
-					if (nbOfWindow < 1) {
-						threadCountMessage.start();
-					}
 				}
 			}
 		});
@@ -415,7 +389,6 @@ public class TabMockMessage extends JPanel {
 			generateMessage.setThreshold(threshold);
 			generateMessage.start();
 			nbThread++;
-			nbOfWindow++;
 		}
 	}
 

@@ -21,7 +21,6 @@ public class GenerateMessage extends Thread {
 	 */
 	private boolean bool;
 	private Date currentDate;
-	private int nbMessageGenerate;
 	private int threshold;
 	private Message message;
 	private Message message2;
@@ -60,7 +59,7 @@ public class GenerateMessage extends Thread {
 				 * Generate an message with basic parameters for every sensor
 				 */
 				for (Sensor sensors : listSensor) {
-					if (sensors.getSensorState()) {
+					if (sensors.getSensorState() && sensors.getIdCommonArea() != 0) {
 						currentDate = new Date();
 						message2 = new Message();
 						message2.setUUIDMessage(UUID.randomUUID().toString());
@@ -68,7 +67,6 @@ public class GenerateMessage extends Thread {
 						message2.setThreshold(generateThreshold(sensors));
 						message2.setAlertDate(currentDate);
 						sendMessage(message2);
-						nbMessageGenerate++;
 					}
 				}
 			} else if (request.equals("ONE")) {
@@ -79,22 +77,21 @@ public class GenerateMessage extends Thread {
 				 */
 				for (Sensor sensors : listSensor) {
 					message2 = new Message();
-					if (sensors.getIdSensor() == message.getIdSensor()) {
+					if (sensors.getIdSensor() == message.getIdSensor() && sensors.getSensorState()
+							&& sensors.getIdCommonArea() != 0) {
 						currentDate = new Date();
 						message2.setUUIDMessage(UUID.randomUUID().toString());
 						message2.setThreshold(threshold);
 						message2.setAlertDate(currentDate);
 						message2.setIdSensor(message.getIdSensor());
 						sendMessage(message2);
-						nbMessageGenerate++;
-					} else if (sensors.getSensorState()) {
+					} else if (sensors.getSensorState() && sensors.getIdCommonArea() != 0) {
 						currentDate = new Date();
 						message2.setUUIDMessage(UUID.randomUUID().toString());
 						message2.setThreshold(generateThreshold(sensors));
 						message2.setAlertDate(currentDate);
 						message2.setIdSensor(sensors.getIdSensor());
 						sendMessage(message2);
-						nbMessageGenerate++;
 					}
 
 				}
@@ -107,7 +104,8 @@ public class GenerateMessage extends Thread {
 					if (sensors.getIdSensor() == message.getIdSensor()) {
 						sensorType = sensors.getTypeSensor();
 					}
-					if (sensors.getSensorState() && sensorType.equals(sensors.getTypeSensor())) {
+					if (sensors.getSensorState() && sensorType.equals(sensors.getTypeSensor())
+							&& sensors.getIdCommonArea() != 0) {
 						message2 = new Message();
 						currentDate = new Date();
 						message2.setUUIDMessage(UUID.randomUUID().toString());
@@ -115,7 +113,6 @@ public class GenerateMessage extends Thread {
 						message2.setThreshold(threshold);
 						message2.setAlertDate(currentDate);
 						sendMessage(message2);
-						nbMessageGenerate++;
 					} else if (sensors.getSensorState()) {
 						message2 = new Message();
 						currentDate = new Date();
@@ -124,7 +121,6 @@ public class GenerateMessage extends Thread {
 						message2.setThreshold(generateThreshold(sensors));
 						message2.setAlertDate(currentDate);
 						sendMessage(message2);
-						nbMessageGenerate++;
 					}
 				}
 			}
@@ -160,8 +156,8 @@ public class GenerateMessage extends Thread {
 			threshold = random.nextInt(sens.getThresholdMax() + 50);
 			break;
 		case TEMPERATURE:
-			threshold = (sens.getThresholdMin() - 10)
-					+ random.nextInt((sens.getThresholdMax() + 10) - (sens.getThresholdMin() - 10));
+			threshold = (sens.getThresholdMin() - 5)
+					+ random.nextInt((sens.getThresholdMax() + 5) - (sens.getThresholdMin() - 5));
 			break;
 		case ELEVATOR:
 			threshold = random.nextInt(sens.getThresholdMax() + 100);
@@ -170,20 +166,6 @@ public class GenerateMessage extends Thread {
 			threshold = random.nextInt(sens.getThresholdMax() + 1);
 		}
 		return threshold;
-	}
-
-	/**
-	 * @return the nbMessageGenerate
-	 */
-	public int getNbMessageGenerate() {
-		return nbMessageGenerate;
-	}
-
-	/**
-	 * @param nbMessageGenerate the nbMessageGenerate to set
-	 */
-	public void setNbMessageGenerate(int nbMessageGenerate) {
-		this.nbMessageGenerate = nbMessageGenerate;
 	}
 
 	/**

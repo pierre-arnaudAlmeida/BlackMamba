@@ -120,7 +120,8 @@ public class MonitoringAlert {
 		if (!listMessage.isEmpty()) {
 			for (Sensor sensors : listSensor) {
 				for (Message messages : listMessage) {
-					if (sensors.getSensorState() && sensors.getIdSensor() == messages.getIdSensor()) {
+					if (sensors.getSensorState() && sensors.getIdSensor() == messages.getIdSensor()
+							&& sensors.getIdCommonArea() != 0) {
 						listMessageInTreatment.add(messages);
 					}
 				}
@@ -316,49 +317,59 @@ public class MonitoringAlert {
 					addMessage(0, sensor);
 				} else {
 					for (Sensor sensors : listSensorDown) {
-						alert = new Alert();
-						alert.setAlertDate(currentDate);
-						alert.setAlertState(AlertState.DOWN);
-						alert.setIdAlert(0);
-						alert.setIdSensor(sensors.getIdSensor());
-						listAlert.add(alert);
-						logger.log(Level.INFO, "*********************************************************************");
-						logger.log(Level.INFO, "No Activity Sensor : " + sensors.getIdSensor()
-								+ " DOWN on commonArea : " + sensors.getIdCommonArea());
-						logger.log(Level.INFO, "*********************************************************************");
-						sensors.setAlertState(AlertState.DOWN);
-						updateSensorAlertState(sensors);
-						addHistorical(sensors);
-						addMessage(0, sensors);
-					}
-					getAllCommonArea();
-					for (CommonArea commonArea : listCommonArea) {
-						for (Sensor sensors : listSensor) {
-							if (sensors.getIdCommonArea() == commonArea.getIdCommonArea() && sensors.getSensorState()) {
-								nbSensor++;
-							}
-						}
-						for (Sensor sensors : listSensorDown) {
-							if (sensors.getIdCommonArea() == commonArea.getIdCommonArea()) {
-								nbSensorDown++;
-							}
-						}
-						nbSensor = (nbSensorDown * 100) / nbSensor;
-						if (nbSensor >= Integer.parseInt(rsAlert.getString("percentageOfSensorDown"))) {
+						if (sensors.getIdCommonArea() != 0) {
 							alert = new Alert();
 							alert.setAlertDate(currentDate);
-							alert.setAlertState(AlertState.OVER);
+							alert.setAlertState(AlertState.DOWN);
 							alert.setIdAlert(0);
-							alert.setIdSensor(commonArea.getIdCommonArea());
+							alert.setIdSensor(sensors.getIdSensor());
 							listAlert.add(alert);
 							logger.log(Level.INFO,
 									"*********************************************************************");
-							logger.log(Level.INFO, "No Activity on commonArea : " + commonArea.getIdCommonArea());
+							logger.log(Level.INFO, "No Activity Sensor : " + sensors.getIdSensor()
+									+ " DOWN on commonArea : " + sensors.getIdCommonArea());
 							logger.log(Level.INFO,
 									"*********************************************************************");
-							sensor = new Sensor();
-							sensor.setIdSensor(commonArea.getIdCommonArea());
-							addMessage(9999, sensor);
+							sensors.setAlertState(AlertState.DOWN);
+							updateSensorAlertState(sensors);
+							addHistorical(sensors);
+							addMessage(0, sensors);
+						}
+					}
+					getAllCommonArea();
+					for (CommonArea commonArea : listCommonArea) {
+						if (commonArea.getIdCommonArea() != 0) {
+							for (Sensor sensors : listSensor) {
+								if (sensors.getIdCommonArea() == commonArea.getIdCommonArea()
+										&& sensors.getSensorState()) {
+									nbSensor++;
+								}
+							}
+							for (Sensor sensors : listSensorDown) {
+								if (sensors.getIdCommonArea() == commonArea.getIdCommonArea()) {
+									nbSensorDown++;
+								}
+							}
+							if (nbSensor != 0) {
+								nbSensor = (nbSensorDown * 100) / nbSensor;
+								if (nbSensor >= Integer.parseInt(rsAlert.getString("percentageOfSensorDown"))) {
+									alert = new Alert();
+									alert.setAlertDate(currentDate);
+									alert.setAlertState(AlertState.OVER);
+									alert.setIdAlert(0);
+									alert.setIdSensor(commonArea.getIdCommonArea());
+									listAlert.add(alert);
+									logger.log(Level.INFO,
+											"*********************************************************************");
+									logger.log(Level.INFO,
+											"No Activity on commonArea : " + commonArea.getIdCommonArea());
+									logger.log(Level.INFO,
+											"*********************************************************************");
+									sensor = new Sensor();
+									sensor.setIdSensor(commonArea.getIdCommonArea());
+									addMessage(9999, sensor);
+								}
+							}
 						}
 					}
 				}
@@ -570,12 +581,12 @@ public class MonitoringAlert {
 	 */
 	public void detectAlert(Sensor sensors) {
 		for (Message messages : listMessageInTreatment) {
-			if (sensors.getSensorState()) {
+			if (sensors.getSensorState() && sensors.getIdSensor() == messages.getIdSensor()) {
 				if (sensors.getTypeSensor().equals(SensorType.SMOKE)
 						|| sensors.getTypeSensor().equals(SensorType.ELEVATOR)
 						|| sensors.getTypeSensor().equals(SensorType.TEMPERATURE)) {
-					if (((sensors.getThresholdMin() >= messages.getThreshold())
-							|| sensors.getThresholdMax() <= messages.getThreshold())) {
+					if (((sensors.getThresholdMin() > messages.getThreshold())
+							|| sensors.getThresholdMax() < messages.getThreshold())) {
 						if (nbAlert == 0) {
 							firstAlertDate = messages.getAlertDate();
 						}
