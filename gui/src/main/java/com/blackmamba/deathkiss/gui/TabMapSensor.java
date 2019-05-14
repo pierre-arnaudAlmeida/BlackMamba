@@ -33,8 +33,10 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
 import org.apache.logging.log4j.Level;
@@ -58,18 +60,18 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	private int index;
 	private int idEmployee;
 	private Sensor sensor;
-	private JTextField textInputIdSensor;
 	private Font police;
 	private JButton disconnection;
 	private JButton configureSensor;
+	private JButton switchButton;
 	private JPanel bar;
 	private JLabel labelIdEmployee;
 	private JLabel labelHeadList;
+	private JTabbedPane tab;
+	private JTextField textInputIdSensor;
 	private JTextField textInputAlertState;
 	private JTextField textInputThresholdMin;
 	private JTextField textInputThresholdMax;
-
-	private JButton switchButton;
 
 	private String requestType;
 	private String table;
@@ -96,7 +98,6 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	private JComboBox<Integer> textInputMinuteEndActivity;
 
 	private DefaultListModel<String> listM;
-	private List<Sensor> listSearchSensor = new ArrayList<Sensor>();
 	private List<Sensor> listSensor = new ArrayList<Sensor>();
 	private List<Alert> listAlert = new ArrayList<Alert>();
 	private List<String> listNameRectangle = new ArrayList<String>();
@@ -213,10 +214,6 @@ public class TabMapSensor extends JPanel implements MouseListener {
 
 			}
 		});
-
-//		JPanel panel = new JPanel();
-//		panel.setBackground(Color.GRAY);
-//		add(panel);
 
 		///////////////////////// FROM LIST SENSOR//////////////////////////////////////
 		/**
@@ -366,20 +363,22 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		 */
 //		configureSensor = new JButton("Configure Sensor");
 //		configureSensor.setBounds(30, (int) getToolkit().getScreenSize().getHeight() * 16 / 20, 150, 40);
-//		this.add(configureSensor);
+//		add(configureSensor);
 //		configureSensor.addActionListener(new ActionListener() {
+//
+//			private TabSensor tabSensor;
+//
 //			/**
 //			 * If we pressed the Configure Sensor Button we go to the TabSensor to watch the
 //			 * informations about this sensor
 //			 */
 //			@Override
 //			public void actionPerformed(ActionEvent e) {
-//				
-//				if (index == 0 && index==-9999)  {
+//
+//				if (index == 0 && index == -9999) {
 //					JOptionPane.showMessageDialog(null, "Please select an sensor", "Information",
 //							JOptionPane.INFORMATION_MESSAGE);
-//				} 
-//				else {
+//				} else {
 //					tab = new JTabbedPane();
 //					tab = Frame.getTab();
 //
@@ -399,38 +398,6 @@ public class TabMapSensor extends JPanel implements MouseListener {
 //		this.add(scroll);
 
 		///////////////////////// IMAGE/////////////////////////////////////////////////
-
-		listNameRectangle.add("entrancehalle0");
-		listNameRectangle.add("livingRoome0");
-		listNameRectangle.add("sittingroome0");
-		listNameRectangle.add("corridore0a");
-		listNameRectangle.add("corridore0b");
-		listNameRectangle.add("corridore0c");
-		listNameRectangle.add("corridore0d");
-		listNameRectangle.add("corridore0e");
-		listNameRectangle.add("elevatore0a");
-		listNameRectangle.add("elevatore0b");
-		listNameRectangle.add("staffroome0");
-		listNameRectangle.add("kitchene0");
-		listNameRectangle.add("infirmarye0");
-		listNameRectangle.add("relaxationroome0");
-		listNameRectangle.add("dinningroome0");
-		listNameRectangle.add("staffroome1");
-		listNameRectangle.add("livingRoomea1");
-		listNameRectangle.add("corridore1a");
-		listNameRectangle.add("corridore1b");
-		listNameRectangle.add("corridore1c");
-		listNameRectangle.add("corridore1d");
-		listNameRectangle.add("corridore1e");
-		listNameRectangle.add("corridore1f");
-		listNameRectangle.add("dinningroome1");
-		listNameRectangle.add("infirmarye1");
-		listNameRectangle.add("relaxationroome1");
-		listNameRectangle.add("elevatorae1");
-		listNameRectangle.add("elevatorbe1");
-		listNameRectangle.add("kitchene1");
-		listNameRectangle.add("sittingroome1");
-		listNameRectangle.add("livingroomeb1");
 
 		listRectangleCommonArea.put(1, "entrancehalle0");
 		listRectangleCommonArea.put(2, "livingRoome0");
@@ -463,10 +430,6 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		listRectangleCommonArea.put(29, "kitchene1");
 		listRectangleCommonArea.put(30, "sittingroome1");
 		listRectangleCommonArea.put(31, "livingroomeb1");
-
-//		panel.setLayout(new BorderLayout());
-//		image.setBounds(x0, y0, 900, 580);
-//		panel.add(image);
 
 	}
 
@@ -566,22 +529,22 @@ public class TabMapSensor extends JPanel implements MouseListener {
 				Color myColour = new Color(255, 255, 255, alpha);
 				g.setColor(myColour);
 
-				g2.drawRect(sittingRoomE1.x, sittingRoomE1.y, sittingRoomE1.width, sittingRoomE1.height);
-				g2.drawRect(dinningRoomE1.x, dinningRoomE1.y, dinningRoomE1.width, dinningRoomE1.height);
-				g2.drawRect(kitchenE1.x, kitchenE1.y, kitchenE1.width, kitchenE1.height);
-				g2.drawRect(corridorAE1.x, corridorAE1.y, corridorAE1.width, corridorAE1.height);
-				g2.drawRect(corridorBE1.x, corridorBE1.y, corridorBE1.width, corridorBE1.height);
-				g2.drawRect(corridorCE1.x, corridorCE1.y, corridorCE1.width, corridorCE1.height);
-				g2.drawRect(corridorDE1.x, corridorDE1.y, corridorDE1.width, corridorDE1.height);
-				g2.drawRect(corridorEE1.x, corridorEE1.y, corridorEE1.width, corridorEE1.height);
-				g2.drawRect(corridorFE1.x, corridorFE1.y, corridorFE1.width, corridorFE1.height);
-				g2.drawRect(relaxationRoomE1.x, relaxationRoomE1.y, relaxationRoomE1.width, relaxationRoomE1.height);
-				g2.drawRect(livingRoomAE1.x, livingRoomAE1.y, livingRoomAE1.width, livingRoomAE1.height);
-				g2.drawRect(staffRoomE1.x, staffRoomE1.y, staffRoomE1.width, staffRoomE1.height);
-				g2.drawRect(livingRoomBE1.x, livingRoomBE1.y, livingRoomBE1.width, livingRoomBE1.height);
-				g2.drawRect(infirmaryE1.x, infirmaryE1.y, infirmaryE1.width, infirmaryE1.height);
-				g2.drawRect(elevatorAE1.x, elevatorAE1.y, elevatorAE1.width, elevatorAE1.height);
-				g2.drawRect(elevatorBE1.x, elevatorBE1.y, elevatorBE1.width, elevatorBE1.height);
+//				g2.drawRect(sittingRoomE1.x, sittingRoomE1.y, sittingRoomE1.width, sittingRoomE1.height);
+//				g2.drawRect(dinningRoomE1.x, dinningRoomE1.y, dinningRoomE1.width, dinningRoomE1.height);
+//				g2.drawRect(kitchenE1.x, kitchenE1.y, kitchenE1.width, kitchenE1.height);
+//				g2.drawRect(corridorAE1.x, corridorAE1.y, corridorAE1.width, corridorAE1.height);
+//				g2.drawRect(corridorBE1.x, corridorBE1.y, corridorBE1.width, corridorBE1.height);
+//				g2.drawRect(corridorCE1.x, corridorCE1.y, corridorCE1.width, corridorCE1.height);
+//				g2.drawRect(corridorDE1.x, corridorDE1.y, corridorDE1.width, corridorDE1.height);
+//				g2.drawRect(corridorEE1.x, corridorEE1.y, corridorEE1.width, corridorEE1.height);
+//				g2.drawRect(corridorFE1.x, corridorFE1.y, corridorFE1.width, corridorFE1.height);
+//				g2.drawRect(relaxationRoomE1.x, relaxationRoomE1.y, relaxationRoomE1.width, relaxationRoomE1.height);
+//				g2.drawRect(livingRoomAE1.x, livingRoomAE1.y, livingRoomAE1.width, livingRoomAE1.height);
+//				g2.drawRect(staffRoomE1.x, staffRoomE1.y, staffRoomE1.width, staffRoomE1.height);
+//				g2.drawRect(livingRoomBE1.x, livingRoomBE1.y, livingRoomBE1.width, livingRoomBE1.height);
+//				g2.drawRect(infirmaryE1.x, infirmaryE1.y, infirmaryE1.width, infirmaryE1.height);
+//				g2.drawRect(elevatorAE1.x, elevatorAE1.y, elevatorAE1.width, elevatorAE1.height);
+//				g2.drawRect(elevatorBE1.x, elevatorBE1.y, elevatorBE1.width, elevatorBE1.height);
 
 			} catch (IOException e1) {
 				e1.printStackTrace();
@@ -595,46 +558,55 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		// if the mouse if here
 		if (rectangle.contains(mouse)) {
 			sensorByCommonArea(set);
+		} else {
+			logger.log(Level.DEBUG, "It's not a Common Area");
 		}
 
 	}
 
+	/**
+	 * Mouse Clicked
+	 */
 	public void mouseClicked(MouseEvent e) {
 		// recovering the position of the mouse
 		p = e.getPoint();
 
-		testLocation(p, 1, entranceHallE0);
-		testLocation(p, 2, kitchenE0);
-		testLocation(p, 3, dinningRoomE0);
-		testLocation(p, 4, staffRoomE0);
-		testLocation(p, 5, relaxationRoomE0);
-		testLocation(p, 6, infirmaryE0);
-		testLocation(p, 7, corridorAE0);
-		testLocation(p, 8, corridorBE0);
-		testLocation(p, 9, corridorCE0);
-		testLocation(p, 10, corridorDE0);
-		testLocation(p, 11, corridorEE0);
-		testLocation(p, 12, sittingRoomE0);
-		testLocation(p, 13, livingRoomE0);
-		testLocation(p, 14, elevatorAE0);
-		testLocation(p, 15, elevatorBE0);
-
-		testLocation(p, 16, sittingRoomE1);
-		testLocation(p, 17, dinningRoomE1);
-		testLocation(p, 18, kitchenE1);
-		testLocation(p, 19, corridorAE1);
-		testLocation(p, 20, corridorBE1);
-		testLocation(p, 21, corridorCE1);
-		testLocation(p, 22, corridorDE1);
-		testLocation(p, 23, corridorEE1);
-		testLocation(p, 24, corridorFE1);
-		testLocation(p, 25, relaxationRoomE1);
-		testLocation(p, 26, livingRoomAE1);
-		testLocation(p, 27, staffRoomE1);
-		testLocation(p, 28, livingRoomBE1);
-		testLocation(p, 29, infirmaryE1);
-		testLocation(p, 30, elevatorAE1);
-		testLocation(p, 31, elevatorBE1);
+		if (textFloor.getSelectedItem().equals("GROUND_FLOOR")) {
+			testLocation(p, 1, entranceHallE0);
+			testLocation(p, 2, kitchenE0);
+			testLocation(p, 3, dinningRoomE0);
+			testLocation(p, 4, staffRoomE0);
+			testLocation(p, 5, relaxationRoomE0);
+			testLocation(p, 6, infirmaryE0);
+			testLocation(p, 7, corridorAE0);
+			testLocation(p, 8, corridorBE0);
+			testLocation(p, 9, corridorCE0);
+			testLocation(p, 10, corridorDE0);
+			testLocation(p, 11, corridorEE0);
+			testLocation(p, 12, sittingRoomE0);
+			testLocation(p, 13, livingRoomE0);
+			testLocation(p, 14, elevatorAE0);
+			testLocation(p, 15, elevatorBE0);
+		} else if (textFloor.getSelectedItem().equals("FIRST_FLOOR")) {
+//			testLocation(p, 16, sittingRoomE1);
+//			testLocation(p, 17, dinningRoomE1);
+//			testLocation(p, 18, kitchenE1);
+//			testLocation(p, 19, corridorAE1);
+//			testLocation(p, 20, corridorBE1);
+//			testLocation(p, 21, corridorCE1);
+//			testLocation(p, 22, corridorDE1);
+//			testLocation(p, 23, corridorEE1);
+//			testLocation(p, 24, corridorFE1);
+//			testLocation(p, 25, relaxationRoomE1);
+//			testLocation(p, 26, livingRoomAE1);
+//			testLocation(p, 27, staffRoomE1);
+//			testLocation(p, 28, livingRoomBE1);
+//			testLocation(p, 29, infirmaryE1);
+//			testLocation(p, 30, elevatorAE1);
+//			testLocation(p, 31, elevatorBE1);
+		} else {
+			logger.log(Level.DEBUG, "It's not a Common Area");
+		}
 	}
 
 	/**
@@ -651,11 +623,10 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	 * @param set
 	 */
 	public void sensorByCommonArea(int set) {
-
 		sensor = new Sensor();
-
 		requestType = "READ ALL";
 		table = "Sensor";
+
 		try {
 			jsonString = "READ ALL";
 			new ClientSocket(requestType, jsonString, table);
@@ -667,6 +638,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		} catch (Exception e1) {
 			logger.log(Level.WARN, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
 		}
+
 		listM.clear();
 		listM = new DefaultListModel<>();
 		listM.addElement("All sensors by Common Area : " + set);
@@ -680,37 +652,27 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		list.setModel(listM);
 	}
 
-	public void displayRectangle() {
-
-		commonArea = new CommonArea();
-
-		requestType = "READ ALL";
-		table = "CommonArea";
-
-		listCommonArea = getAllCommonArea(commonArea, requestType, table);
-		for (CommonArea c : listCommonArea) {
-			System.out.println("=====> " + c);
-		}
-		System.out.println("111111");
-		for (int i = 0; i < listNameRectangle.size(); i++) {
-			for (CommonArea areas : listCommonArea) {
-				if (listNameRectangle.contains(areas.getNameCommonArea().toLowerCase().trim())) {
-					System.out.println("22222222");
-					listRectangleCommonArea.put(areas.getIdCommonArea(), listNameRectangle.get(i));
-				}
-			}
-		}
-	}
-
-	public void nameRectangle(Rectangle commonArea) {
-		for (int i = 0; i < listRectangleCommonArea.size(); i++) {
-			if (listRectangleCommonArea.get(i).contains(commonArea.toString().toLowerCase())) {
-				System.out.println(listRectangleCommonArea);
-			}
-		}
-		return;
-
-	}
+//	public void displayRectangle() {
+//
+//		commonArea = new CommonArea();
+//
+//		requestType = "READ ALL";
+//		table = "CommonArea";
+//
+//		listCommonArea = getAllCommonArea(commonArea, requestType, table);
+//		for (CommonArea c : listCommonArea) {
+//			System.out.println("=====> " + c);
+//		}
+//		System.out.println("111111");
+//		for (int i = 0; i < listNameRectangle.size(); i++) {
+//			for (CommonArea areas : listCommonArea) {
+//				if (listNameRectangle.contains(areas.getNameCommonArea().toLowerCase().trim())) {
+//					System.out.println("22222222");
+//					listRectangleCommonArea.put(areas.getIdCommonArea(), listNameRectangle.get(i));
+//				}
+//			}
+//		}
+//	}
 
 	/**
 	 * 
@@ -731,26 +693,6 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		} catch (Exception e1) {
 			logger.log(Level.WARN, "Impossible to parse in JSON CommonArea datas " + e1.getClass().getCanonicalName());
 			return null;
-		}
-	}
-
-	/**
-	 * 
-	 * @param sensor
-	 */
-	public void findAllSensor(Sensor sensor) {
-		requestType = "FIND ALL";
-		table = "Sensor";
-		objectMapper = new ObjectMapper();
-		try {
-			jsonString = objectMapper.writeValueAsString(sensor);
-			new ClientSocket(requestType, jsonString, table);
-			jsonString = ClientSocket.getJson();
-			Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
-			listSearchSensor = Arrays.asList(sensors);
-			logger.log(Level.DEBUG, "Find Sensor data succed");
-		} catch (Exception e1) {
-			logger.log(Level.INFO, "Impossible to parse in JSON Sensor datas " + e1.getClass().getCanonicalName());
 		}
 	}
 
