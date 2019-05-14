@@ -674,7 +674,6 @@ public class RequestHandler implements Runnable {
 		}
 		if (sock.isClosed())
 			logger.log(Level.DEBUG, "Connection Closed");
-
 	}
 
 	/**

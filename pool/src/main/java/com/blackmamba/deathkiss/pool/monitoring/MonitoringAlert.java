@@ -38,7 +38,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 public class MonitoringAlert {
-
+	//TODO PA ajouter les conditions pour les capteurs 0-1
 	/**
 	 * Different parameters used
 	 */
@@ -69,18 +69,24 @@ public class MonitoringAlert {
 	private SimpleDateFormat formater;
 	private JDBCConnectionPool pool;
 	private Connection connectionGived;
-	private List<Alert> listAlert = new ArrayList<Alert>();
-	private List<Message> listMessage = new ArrayList<Message>();
-	private List<CommonArea> listCommonArea = new ArrayList<CommonArea>();
-	private List<Message> listMessageInTreatment = new ArrayList<Message>();
-	private List<Message> listMessageInTreatmentSensorActivity = new ArrayList<Message>();
-	private List<Message> listMessageInTreatmentBeforeActivity = new ArrayList<Message>();
-	private List<Message> listMessageTreated = new ArrayList<Message>();
-	private List<Sensor> listSensor = new ArrayList<Sensor>();
-	private List<Sensor> listSensorDown = new ArrayList<Sensor>();
+	private List<Alert> listAlert;
+	private List<Message> listMessage;
+	private List<CommonArea> listCommonArea;
+	private List<Message> listMessageInTreatment;
+	private List<Message> listMessageInTreatmentSensorActivity;
+	private List<Message> listMessageInTreatmentBeforeActivity;
+	private List<Message> listMessageTreated;
+	private List<Sensor> listSensor;
+	private List<Sensor> listSensorDown;
 	private static final Logger logger = LogManager.getLogger(MonitoringAlert.class);
 	private ResourceBundle rsAlert = ResourceBundle.getBundle("alert");
 	private ResourceBundle rsSensorDefaultParameters = ResourceBundle.getBundle("sensor_default_parameters");
+
+	/**
+	 * Constructor
+	 */
+	public MonitoringAlert() {
+	}
 
 	/**
 	 * Constructor
@@ -89,12 +95,15 @@ public class MonitoringAlert {
 	 */
 	public MonitoringAlert(JDBCConnectionPool pool) {
 		this.pool = pool;
-	}
-
-	/**
-	 * Constructor
-	 */
-	public MonitoringAlert() {
+		this.listAlert = new ArrayList<Alert>();
+		this.listMessage = new ArrayList<Message>();
+		this.listCommonArea = new ArrayList<CommonArea>();
+		this.listMessageInTreatment = new ArrayList<Message>();
+		this.listMessageInTreatmentSensorActivity = new ArrayList<Message>();
+		this.listMessageInTreatmentBeforeActivity = new ArrayList<Message>();
+		this.listMessageTreated = new ArrayList<Message>();
+		this.listSensor = new ArrayList<Sensor>();
+		this.listSensorDown = new ArrayList<Sensor>();
 	}
 
 	/**
@@ -257,7 +266,6 @@ public class MonitoringAlert {
 			}
 		}
 		listMessageInTreatmentBeforeActivity.clear();
-
 	}
 
 	/**
@@ -324,7 +332,6 @@ public class MonitoringAlert {
 						addHistorical(sensors);
 						addMessage(0, sensors);
 					}
-
 					getAllCommonArea();
 					for (CommonArea commonArea : listCommonArea) {
 						for (Sensor sensors : listSensor) {

@@ -30,6 +30,7 @@ public class MainGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					//TODO PA ajouter des capteurs non configurer dans le script
 					// TODO PA a remettre
 					// popupConnexion = new Connexion();
 					// popupConnexion.setVisible(true);

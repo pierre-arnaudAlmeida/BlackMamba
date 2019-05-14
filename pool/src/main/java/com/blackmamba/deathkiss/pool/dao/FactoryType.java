@@ -6,5 +6,5 @@ package com.blackmamba.deathkiss.pool.dao;
  *
  */
 public enum FactoryType {
-	DAO_FACTORY,
+	DAO_FACTORY
 }

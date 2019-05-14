@@ -23,7 +23,7 @@ public class MainServer {
 	private static String host;
 	private static int port;
 	private static final Logger logger = LogManager.getLogger(MainServer.class);
-	private static int heure = 0;
+	private static int hour = 0;
 	private static int minute = 0;
 	private static int seconde = 0;
 	private static ActionListener tache_timer;
@@ -69,26 +69,26 @@ public class MainServer {
 				}
 				if (minute == 60) {
 					minute = 0;
-					setHeure(getHeure() + 1);
+					setHour(getHour() + 1);
 				}
 			}
 		};
-
 		timer1 = new Timer(delais, tache_timer);
 		timer1.start();
+		ts.treatment();
 	}
 
 	/**
-	 * @return the heure
+	 * @return the hour
 	 */
-	public static int getHeure() {
-		return heure;
+	public static int getHour() {
+		return hour;
 	}
 
 	/**
-	 * @param heure the heure to set
+	 * @param heure the hour to set
 	 */
-	public static void setHeure(int heure) {
-		MainServer.heure = heure;
+	public static void setHour(int hour) {
+		MainServer.hour = hour;
 	}
 }

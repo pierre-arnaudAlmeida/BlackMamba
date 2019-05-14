@@ -34,11 +34,13 @@ public class SensorDAO extends DAO<Sensor> {
 	/**
 	 * Initialization of parameters
 	 */
-	private ResultSet result = null;
 	private Sensor sensor;
 	private SensorHistorical sensorHistorical;
 	private String request;
 	private StringBuilder requestSB;
+	private ResultSet result = null;
+	private ResultSetMetaData metadata;
+	private Calendar currentDate;
 	private Statement st;
 	private PreparedStatement prepareStatement;
 	private static final Logger logger = LogManager.getLogger(SensorDAO.class);
@@ -60,8 +62,8 @@ public class SensorDAO extends DAO<Sensor> {
 	public boolean create(String jsonString) {
 		boolean result = false;
 		ObjectMapper objectMapper = new ObjectMapper();
-		Calendar currentDate = Calendar.getInstance(Locale.FRENCH);
 		try {
+			currentDate = Calendar.getInstance(Locale.FRENCH);
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
 			prepareStatement = con.prepareStatement(
 					"INSERT INTO capteur (type_capteur, etat, id_partie_commune,type_alert,sensibilite,heure_debut,heure_fin,seuil_min,mise_a_jour,seuil_max) values (?,?,?,?,?,?,?,?,?,?)");
@@ -116,8 +118,8 @@ public class SensorDAO extends DAO<Sensor> {
 	public boolean update(String jsonString) {
 		boolean result = false;
 		ObjectMapper objectMapper = new ObjectMapper();
-		Calendar currentDate = Calendar.getInstance(Locale.FRENCH);
 		try {
+			currentDate = Calendar.getInstance(Locale.FRENCH);
 			sensor = objectMapper.readValue(jsonString, Sensor.class);
 			prepareStatement = con.prepareStatement(
 					"UPDATE capteur SET id_partie_commune = ?,type_capteur = ?,type_alert= ?,sensibilite= ?,heure_debut= ?,heure_fin= ?,seuil_min= ?,seuil_max= ?,mise_a_jour= ?,etat= ?  where id_capteur = ?");
@@ -252,7 +254,6 @@ public class SensorDAO extends DAO<Sensor> {
 		int columns = 1;
 		int fisrtColumn = 1;
 		ObjectMapper objWriter = new ObjectMapper();
-		ResultSetMetaData metadata;
 		String jsonString = "";
 		try {
 			st = con.createStatement();

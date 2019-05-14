@@ -29,7 +29,7 @@ public class MainServerGUI extends JFrame {
 	private String host;
 	private int port;
 	private static int nbServer = 0;
-	private int heure = 0;
+	private int hour = 0;
 	private int minute = 0;
 	private int seconde = 0;
 	private ActionListener tache_timer;
@@ -97,9 +97,9 @@ public class MainServerGUI extends JFrame {
 							}
 							if (minute == 60) {
 								minute = 0;
-								heure++;
+								hour++;
 							}
-							time.setText(heure + ":" + minute + ":" + seconde);
+							time.setText(hour + ":" + minute + ":" + seconde);
 						}
 					};
 
@@ -140,14 +140,14 @@ public class MainServerGUI extends JFrame {
 							}
 							if (minute == 60) {
 								minute = 0;
-								heure++;
+								hour++;
 							}
-							time.setText(heure + ":" + minute + ":" + seconde);
+							time.setText(hour + ":" + minute + ":" + seconde);
 						}
 					};
 					timer1 = new Timer(delais, tache_timer);
 					timer1.start();
-
+					ts.treatment();
 				} else {
 					logger.log(Level.INFO, "Server already launch");
 				}

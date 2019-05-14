@@ -24,10 +24,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 public class SensorHistoricalDAO extends DAO<SensorHistorical> {
+	
 	/**
 	 * Initialization of parameters
 	 */
 	private ResultSet result = null;
+	private ResultSetMetaData metadata;
 	private String request;
 	private SensorHistorical sensorHistorical;
 	private SensorHistorical sensorH;
@@ -216,7 +218,6 @@ public class SensorHistoricalDAO extends DAO<SensorHistorical> {
 		int columns = 1;
 		int fisrtColumn = 1;
 		ObjectMapper objWriter = new ObjectMapper();
-		ResultSetMetaData metadata;
 		String jsonString = "";
 		try {
 			st = con.createStatement();

@@ -28,6 +28,7 @@ public class JDBCConnectionPool {
 	private int maxConnection;
 	private int numberConnection;
 	private boolean busy;
+	private ResourceBundle rsConfig;
 	private static final Logger logger = LogManager.getLogger(JDBCConnectionPool.class);
 	private List<Connection> availableConnections;
 	private List<Connection> availableConnectionsArrayList;
@@ -44,16 +45,15 @@ public class JDBCConnectionPool {
 	 */
 	public JDBCConnectionPool(boolean busy) throws SQLException {
 		int initialConnections = 0;
-
-		ResourceBundle rs = ResourceBundle.getBundle("config");
+		rsConfig = ResourceBundle.getBundle("config");
 		numberConnection = 0;
 		this.busy = busy;
-		this.driver = rs.getString("db.driver");
-		this.url = rs.getString("db.url");
-		this.user = rs.getString("db.username");
-		this.password = rs.getString("db.password");
-		this.maxConnection = Integer.parseInt(rs.getString("db.maxConnections"));
-		initialConnections = Integer.parseInt(rs.getString("db.initialConnections"));
+		this.driver = rsConfig.getString("db.driver");
+		this.url = rsConfig.getString("db.url");
+		this.user = rsConfig.getString("db.username");
+		this.password = rsConfig.getString("db.password");
+		this.maxConnection = Integer.parseInt(rsConfig.getString("db.maxConnections"));
+		initialConnections = Integer.parseInt(rsConfig.getString("db.initialConnections"));
 
 		if (initialConnections > maxConnection) {
 			initialConnections = maxConnection;

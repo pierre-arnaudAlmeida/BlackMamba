@@ -23,7 +23,7 @@ public class MockFrame extends JFrame {
 	 * Constructor
 	 */
 	public MockFrame() {
-		// TODO PA faire un generateur de sensors
+
 		/**
 		 * LOGO
 		 */
