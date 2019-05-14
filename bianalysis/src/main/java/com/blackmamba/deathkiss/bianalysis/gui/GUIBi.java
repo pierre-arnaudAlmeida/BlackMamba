@@ -2,26 +2,24 @@ package com.blackmamba.deathkiss.bianalysis.gui;
 
 import static java.awt.BorderLayout.CENTER;
 
-import java.awt.EventQueue;
+
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Label;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.sql.Statement;
+
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
+
+import java.util.Collections;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -31,7 +29,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -43,26 +41,19 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
-import com.blackmamba.deathkiss.commons.entity.AlertState;
+
 import com.blackmamba.deathkiss.commons.entity.CommonArea;
 import com.blackmamba.deathkiss.commons.entity.Message;
 import com.blackmamba.deathkiss.commons.entity.Sensor;
 import com.blackmamba.deathkiss.commons.entity.SensorHistorical;
 import com.blackmamba.deathkiss.commons.entity.SensorType;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.io.JsonStringEncoder;
+import com.blackmamba.deathkiss.utils.SortByIdSensorHistorical;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JTabbedPane;
 import java.awt.Color;
-import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
-import java.awt.Component;
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import java.awt.Panel;
-import javax.swing.JMenuBar;
 import java.awt.Font;
 
 /**
@@ -172,24 +163,6 @@ public class GUIBi extends JFrame {
 	private JLabel lblTotalConfiguredSensors;
 	//////////////////////////////////////////////////////////////////////
 	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//
-//					GUIBi frame = new GUIBi();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-////////////////////////////////////////////////////////////////////////
-
-	/**
 	 * Create the frame.
 	 */
 	public GUIBi() {
@@ -218,14 +191,13 @@ public class GUIBi extends JFrame {
 		});
 
 		/////////////////////////////////////////////
-		/// Object
 
-		Object[] NumberMessage = returnNumberMessage();
 
 //		Object[] NumberUsedSensor = returns();
 
 ///////////////////////////////////////////////////
 		// List
+		
 		listM = new DefaultListModel<String>();
 
 		listM.addElement("Tout les capteurs");
@@ -282,17 +254,17 @@ public class GUIBi extends JFrame {
 		panel.add(dateChooser_3);
 
 		JLabel lblNombreDalertes = new JLabel("Total Alerts received");
-		lblNombreDalertes.setBounds(98, 516, 112, 22);
+		lblNombreDalertes.setBounds(76, 516, 144, 22);
 		panel.add(lblNombreDalertes);
 
 		JLabel lblTotalOver = new JLabel("Total OVER");
 		lblTotalOver.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lblTotalOver.setBounds(129, 393, 80, 22);
+		lblTotalOver.setBounds(129, 396, 80, 22);
 		panel.add(lblTotalOver);
 
 		lblTotalAlertAttente = new JLabel("Total Pending Alert");
 		lblTotalAlertAttente.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		lblTotalAlertAttente.setBounds(211, 393, 97, 22);
+		lblTotalAlertAttente.setBounds(211, 396, 97, 22);
 		panel.add(lblTotalAlertAttente);
 
 		JLabel lblNombreDePannes = new JLabel("Total DOWN");
@@ -301,11 +273,12 @@ public class GUIBi extends JFrame {
 		panel.add(lblNombreDePannes);
 
 		lblNumberOfCommon = new JLabel("number of common area");
-		lblNumberOfCommon.setFont(new Font("Tahoma", Font.PLAIN, 8));
+		lblNumberOfCommon.setFont(new Font("Tahoma", Font.BOLD, 8));
 		lblNumberOfCommon.setBounds(10, 11, 123, 28);
 		panel.add(lblNumberOfCommon);
 
 		JLabel lblNbSensorMaj = new JLabel("Total UPDATE SENSORS");
+		lblNbSensorMaj.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNbSensorMaj.setBounds(143, 11, 123, 28);
 		panel.add(lblNbSensorMaj);
 
@@ -318,20 +291,22 @@ public class GUIBi extends JFrame {
 		panel.add(lblTotalPassive);
 
 		JLabel lbltfMeanTemperatureStageRC = new JLabel("Mean temperature Stage RC");
+		lbltfMeanTemperatureStageRC.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lbltfMeanTemperatureStageRC.setBounds(581, 107, 167, 22);
 		panel.add(lbltfMeanTemperatureStageRC);
 
 		JLabel lblMeanTemperatureStage = new JLabel("Mean temperature Stage 1");
+		lblMeanTemperatureStage.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblMeanTemperatureStage.setBounds(585, 14, 163, 22);
 		panel.add(lblMeanTemperatureStage);
 
 		lbTotalStockRc = new JLabel("Total Sensor RC");
-		lbTotalStockRc.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lbTotalStockRc.setFont(new Font("Tahoma", Font.BOLD, 10));
 		lbTotalStockRc.setBounds(545, 516, 101, 22);
 		panel.add(lbTotalStockRc);
 
 		lbTotalStockStage1 = new JLabel("Total Sensor Floor 1");
-		lbTotalStockStage1.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lbTotalStockStage1.setFont(new Font("Tahoma", Font.BOLD, 10));
 		lbTotalStockStage1.setBounds(684, 516, 112, 22);
 		panel.add(lbTotalStockStage1);
 
@@ -410,7 +385,7 @@ public class GUIBi extends JFrame {
 		lblTotalStockRc.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblTotalStockRc.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblTotalStockRc.setBounds(547, 475, 57, 44);
-		// tfTotalStockRc.setText(TotalStockRc[1].toString().replaceAll("\"", ""));
+
 
 		panel.add(lblTotalStockRc);
 
@@ -419,7 +394,7 @@ public class GUIBi extends JFrame {
 		lblTotalStockEtage1.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblTotalStockEtage1.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblTotalStockEtage1.setBounds(684, 475, 57, 44);
-		// tfTotalStockEtage1.setText(TotalStockRc[0].toString().replaceAll("\"", ""));
+
 
 		panel.add(lblTotalStockEtage1);
 
@@ -457,6 +432,7 @@ public class GUIBi extends JFrame {
 		});
 
 		JLabel lblSensorPassive = new JLabel("% Sensor Passive");
+		lblSensorPassive.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblSensorPassive.setBounds(318, 278, 105, 20);
 		panel.add(lblSensorPassive);
 
@@ -509,6 +485,10 @@ public class GUIBi extends JFrame {
 		cbArea = new JComboBox(area);
 		cbArea.setBounds(291, 39, 61, 35);
 		panel_1.add(cbArea);
+		
+		/**
+		 * Combobox Display Alert
+		 */
 		cbArea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -611,7 +591,7 @@ public class GUIBi extends JFrame {
 		cbArea.addItem(area);
 
 		/////////////////////////////////////////////////////////////
-		// Date
+		// Date - Alert
 		dateChooser_1 = new JDateChooser();
 		dateChooser_1.setBounds(189, 55, 47, 28);
 		panel_1.add(dateChooser_1);
@@ -659,6 +639,7 @@ public class GUIBi extends JFrame {
 
 ///////////////////////////////////////////////////////				
 				ListModel.removeAllElements();
+				Collections.sort(listSensorHistorical,new SortByIdSensorHistorical());
 				for (SensorHistorical sensorHistorical1 : listSensorHistorical) {
 
 					if (sensorHistorical1.getDate().after(dateChooser.getDate())
@@ -888,95 +869,12 @@ public class GUIBi extends JFrame {
 	}
 
 //////////////////////////////////////
-	// Method calculate all alerts
-	// TODO MODIFIER POUR LIRE LES ALERTES
-	public static Object[] returnNumberMessage() {
-		int numberAlerts = 0;
-		int nbAlNormal = 0;
-		int nbAlDown = 0;
-		int nbAlOver = 0;
-		int nbAlert = 0;
-
-		if (!listAllMessage.isEmpty()) {
-			for (Message allMessage : listAllMessage) {
-				numberAlerts++;
-
-				if (allMessage.getThreshold() != 0) {
-					nbAlNormal++;
-				} else {
-					if (allMessage.getIdSensor() != 0) {
-
-						if (allMessage.getIdSensor() != 9999) {
-							nbAlDown++;
-						} else {
-							nbAlOver++;
-						}
-					}
-				}
-
-			}
-
-		}
-		return new Object[] { numberAlerts, nbAlNormal, nbAlDown, nbAlOver };
-
-	}
-
-///////////////////////////////////////////////////////////
-	// Method to calculate the number of Sensor for each type
-	public static Object[] returnNbSensorType() {
-		int nbSensorType = 0;
-		int nbSensorTemperature = 0;
-		int nbSensorSmoke = 0;
-		int nbSensorWindow = 0;
-		int nbSensorDoor = 0;
-		int nbSensorMove = 0;
-		int nbSensorElevator = 0;
-		int nbSensorLight = 0;
-		int nbSensorFire = 0;
-		int nbSensorBadge = 0;
-		int nbSensorRouter = 0;
-		double resultatTemperature = 0;
-
-		if (!listSensor.isEmpty()) {
-			for (Sensor type : listSensor) {
-				nbSensorType++;
-
-				if (type.getTypeSensor().equals(SensorType.TEMPERATURE)) {
-					nbSensorTemperature++;
-				} else if (type.getTypeSensor().equals(SensorType.SMOKE)) {
-					nbSensorSmoke++;
-				} else if (type.getTypeSensor().equals(SensorType.WINDOW)) {
-					nbSensorWindow++;
-				} else if (type.getTypeSensor().equals(SensorType.DOOR)) {
-					nbSensorDoor++;
-				} else if (type.getTypeSensor().equals(SensorType.MOVE)) {
-					nbSensorMove++;
-				} else if (type.getTypeSensor().equals(SensorType.ELEVATOR)) {
-					nbSensorElevator++;
-				} else if (type.getTypeSensor().equals(SensorType.LIGHT)) {
-					nbSensorLight++;
-				} else if (type.getTypeSensor().equals(SensorType.FIRE)) {
-					nbSensorFire++;
-				} else if (type.getTypeSensor().equals(SensorType.BADGE)) {
-					nbSensorBadge++;
-				} else if (type.getTypeSensor().equals(SensorType.ROUTER)) {
-					nbSensorRouter++;
-				}
-			}
-
-		}
-
-//		BigDecimal resultatTemperature1 = ((new BigDecimal(nbSensorLight).divide(new BigDecimal(nbSensorType)).multiply(new BigDecimal(100))));
-
-		resultatTemperature = (nbSensorLight / nbSensorType) * 100;
-
-		DecimalFormat df2 = new DecimalFormat("###.##");
-
-		return new Object[] { df2.format(resultatTemperature) + "%", nbSensorType, nbSensorSmoke, nbSensorWindow, };
-
-	}
 
 ///////////////////////////////////////////////
+	/**
+	 * 
+	 * @return numberPending Alert
+	 */
 	public Integer getNumberPendingAlert() {
 		requestType = "COUNT";
 		table = "Message";
@@ -991,6 +889,11 @@ public class GUIBi extends JFrame {
 	}
 
 ////////////////////////////////////////////////
+	/**
+	 * 
+	 * count the number of passive and active sensors
+	 * 
+	 */
 	public Object[] getNumberPassiveActiveSensor() {
 		String s1 = "";
 		String s2 = "";
@@ -1123,13 +1026,19 @@ public class GUIBi extends JFrame {
 
 		// label - DASHBOARD
 		JLabel lblStock = new JLabel("Number of sensors in stock");
-		lblStock.setBounds(615, 427, 147, 16);
+		lblStock.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblStock.setBounds(589, 432, 184, 16);
 		panel.add(lblStock);
 
 		cbTotalTypeSensorStock = new JComboBox(sensorType);
 		cbTotalTypeSensorStock.setBounds(635, 357, 87, 22);
 		panel.add(cbTotalTypeSensorStock);
-		
+		/**
+		 * 
+		 * 
+			count the number of sensors updated
+		 * 
+		 */
 		JButton btnGetConfigured = new JButton("Get Configured");
 		btnGetConfigured.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -1140,7 +1049,6 @@ public class GUIBi extends JFrame {
 				DateFrom = df.format(dateChooser_2.getDate());
 				DateTo = df1.format(dateChooser_3.getDate());
 
-				// Method of calculating of Number of UPDATE SENSOR 'parametre date ' AND
 				requestType = "COUNT";
 				table = "SensorHistorical";
 				jsonString = "SELECT COUNT(*) FROM historique WHERE date_historique BETWEEN '" + DateFrom + "'AND '"
@@ -1165,8 +1073,13 @@ public class GUIBi extends JFrame {
 		panel.add(lblNbConfigured);
 		
 		lblTotalConfiguredSensors = new JLabel("Total CONFIGURED SENSORS");
+		lblTotalConfiguredSensors.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTotalConfiguredSensors.setBounds(390, 11, 123, 28);
 		panel.add(lblTotalConfiguredSensors);
+		
+		/**
+		 * Combobox for  calculate how many sensors are used and not used
+		 */
 		cbTotalTypeSensorStock.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
