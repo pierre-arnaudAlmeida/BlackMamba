@@ -1,4 +1,4 @@
-package com.blackmamba.deathkiss.pool.socket;
+package com.blackmamba.deathkiss.pool.monitoring;
 
 import java.io.IOException;
 import java.sql.Connection;

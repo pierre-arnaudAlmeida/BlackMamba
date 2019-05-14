@@ -16,6 +16,7 @@ import com.blackmamba.deathkiss.pool.dao.MessageDAO;
 import com.blackmamba.deathkiss.pool.dao.ResidentDAO;
 import com.blackmamba.deathkiss.pool.dao.SensorDAO;
 import com.blackmamba.deathkiss.pool.dao.SensorHistoricalDAO;
+import com.blackmamba.deathkiss.pool.monitoring.MonitoringAlert;
 import com.blackmamba.deathkiss.commons.entity.CommonArea;
 import com.blackmamba.deathkiss.commons.entity.Employee;
 import com.blackmamba.deathkiss.commons.entity.Message;

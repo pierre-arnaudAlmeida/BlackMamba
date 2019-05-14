@@ -13,6 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.blackmamba.deathkiss.pool.connectionpool.DataSource;
 import com.blackmamba.deathkiss.pool.connectionpool.JDBCConnectionPool;
+import com.blackmamba.deathkiss.pool.monitoring.MonitoringAlert;
 
 /**
  * 

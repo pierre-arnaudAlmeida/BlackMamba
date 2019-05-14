@@ -1,4 +1,4 @@
-package com.blackmamba.deathkiss.mock.generator;
+package com.blackmamba.deathkiss.mock.launcher;
 
 import java.io.BufferedReader;
 import java.io.IOException;
