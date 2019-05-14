@@ -20,11 +20,11 @@ import java.io.IOException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -46,6 +46,7 @@ import com.blackmamba.deathkiss.commons.entity.CommonArea;
 import com.blackmamba.deathkiss.commons.entity.Floor;
 import com.blackmamba.deathkiss.commons.entity.Sensor;
 import com.blackmamba.deathkiss.launcher.ClientSocket;
+import com.blackmamba.deathkiss.utils.SortByIdSensor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -70,7 +71,6 @@ public class TabMapSensor extends JPanel implements MouseListener {
 
 	private JButton switchButton;
 
-	private TabSensor tabSensor;
 	private String requestType;
 	private String table;
 	private String jsonString;
@@ -171,10 +171,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 			@Override
 			public void run() {
 				while (true) {
-					// tabSensor.actualizationListSensor();
 					updateListSensor();
-					displayRectangle();
-					tabSensor.updateSensorSelected();
 					try {
 						Thread.sleep(Integer.parseInt(rsParameters.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
@@ -600,19 +597,22 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		// recovering the position of the mouse
 		p = e.getPoint();
-		Set<Integer> id = listRectangleCommonArea.keySet();
-		testLocation(p, dinningRoomE1, "mouseClicked - data 1");
+		sensorByCommonArea();
+//		for (Sensor sensors : listSensor) {
+//			if (listRectangleCommonArea.containsKey(sensor.getIdCommonArea())) {
+//				System.out.println("A");
+//			}
+//		}
+//		testLocation(p, dinningRoomE1, "mouseClicked - data 1");
 		testLocation(p, dinningRoomE0, "mouseClicked - data 2");
-		displayRectangle();
+//		displayRectangle();
 		System.out.println(listRectangleCommonArea.isEmpty());
-//		for (Integer i : listRectangleCommonArea.keySet()) {
-//			System.out.println(i);
-//		}
-//		for (String i : listRectangleCommonArea.values()) {
-//			System.out.println(i);
-//		}
-//		for ()
-		
+		for (Integer i : listRectangleCommonArea.keySet()) {
+			System.out.println(i);
+		}
+		for (String i : listRectangleCommonArea.values()) {
+			System.out.println(i);
+		}
 	}
 
 	/**
@@ -635,6 +635,35 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	// alors on ajoute dans une liste d'object ou tableau bidimentionnel, le nom du
 	// rectangle et l'id de la partie commune listRectangleCommonArea
 
+	public void sensorByCommonArea() {
+
+		sensor = new Sensor();
+
+		requestType = "READ ALL";
+		table = "Sensor";
+		try {
+			jsonString = "READ ALL";
+			new ClientSocket(requestType, jsonString, table);
+			jsonString = ClientSocket.getJson();
+			Sensor[] sensors = objectMapper.readValue(jsonString, Sensor[].class);
+			listSensor = Arrays.asList(sensors);
+			Collections.sort(listSensor, new SortByIdSensor());
+			logger.log(Level.DEBUG, "Find Sensor data succed");
+		} catch (Exception e1) {
+			logger.log(Level.WARN, "Impossible to parse in JSON Sensor data " + e1.getClass().getCanonicalName());
+		}
+		listM.clear();
+		listM = new DefaultListModel<>();
+		listM.addElement("All sensors by Common Area");
+		for (Sensor sensor : listSensor) {
+			if (listRectangleCommonArea.containsKey(sensor.getIdCommonArea())) {
+				listM.addElement(sensor.getIdSensor() + "# " + sensor.getTypeSensor() + " ," + sensor.getSensorState() + " ,"
+						+ sensor.getIdCommonArea() + " , " + sensor.getAlertState().name() + " , "
+						+ sensor.getSensitivity().name());
+			}
+		}
+	}
+
 	public void displayRectangle() {
 
 		commonArea = new CommonArea();
@@ -649,7 +678,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		System.out.println("111111");
 		for (int i = 0; i < listNameRectangle.size(); i++) {
 			for (CommonArea areas : listCommonArea) {
-				if (areas.getNameCommonArea().toLowerCase().trim().equalsIgnoreCase(listNameRectangle.get(i))) {
+				if (listNameRectangle.contains(areas.getNameCommonArea().toLowerCase().trim())) {
 					System.out.println("22222222");
 					listRectangleCommonArea.put(areas.getIdCommonArea(), listNameRectangle.get(i));
 				}
@@ -879,14 +908,11 @@ public class TabMapSensor extends JPanel implements MouseListener {
 	@Override
 	public void mouseExited(MouseEvent e) {
 	}
-	
-	
+
 	/*
-	 * Créer une classe rectangle
-	 * Avec un id, un nom
-	 * Récupérer l'id de la où g cliqué
-	 * Parcours la list des capteurs avec la même id commonArea
-	 * Et on les affiche
+	 * Créer une classe rectangle Avec un id, un nom Récupérer l'id de la où g
+	 * cliqué Parcours la list des capteurs avec la même id commonArea Et on les
+	 * affiche
 	 */
 
 }
