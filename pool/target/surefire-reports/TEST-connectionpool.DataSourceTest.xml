@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="connectionpool.DataSourceTest" time="20.995" tests="11" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="connectionpool.DataSourceTest" time="20.317" tests="11" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="windows"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -7,7 +7,7 @@
     <property name="java.specification.version" value="1.8"/>
     <property name="sun.cpu.isalist" value=""/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
-    <property name="java.class.path" value="D:\Java\deathkiss\pool\target\test-classes;D:\Java\deathkiss\pool\target\classes;C:\Users\pierr\.m2\repository\org\postgresql\postgresql\42.2.5\postgresql-42.2.5.jar;C:\Users\pierr\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.2.0\junit-jupiter-engine-5.2.0.jar;C:\Users\pierr\.m2\repository\org\apiguardian\apiguardian-api\1.0.0\apiguardian-api-1.0.0.jar;C:\Users\pierr\.m2\repository\org\junit\platform\junit-platform-engine\1.2.0\junit-platform-engine-1.2.0.jar;C:\Users\pierr\.m2\repository\org\junit\platform\junit-platform-commons\1.2.0\junit-platform-commons-1.2.0.jar;C:\Users\pierr\.m2\repository\org\opentest4j\opentest4j\1.1.0\opentest4j-1.1.0.jar;C:\Users\pierr\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.2.0\junit-jupiter-api-5.2.0.jar;C:\Users\pierr\.m2\repository\org\junit\platform\junit-platform-launcher\1.2.0\junit-platform-launcher-1.2.0.jar;C:\Users\pierr\.m2\repository\org\apache\logging\log4j\log4j-core\2.11.2\log4j-core-2.11.2.jar;C:\Users\pierr\.m2\repository\org\apache\logging\log4j\log4j-api\2.11.2\log4j-api-2.11.2.jar;C:\Users\pierr\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.9.8\jackson-core-2.9.8.jar;C:\Users\pierr\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.9.8\jackson-databind-2.9.8.jar;C:\Users\pierr\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.9.0\jackson-annotations-2.9.0.jar;"/>
+    <property name="java.class.path" value="D:\Java\deathkiss\pool\target\test-classes;D:\Java\deathkiss\pool\target\classes;C:\Users\pierr\.m2\repository\org\postgresql\postgresql\42.2.5\postgresql-42.2.5.jar;C:\Users\pierr\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.2.0\junit-jupiter-engine-5.2.0.jar;C:\Users\pierr\.m2\repository\org\apiguardian\apiguardian-api\1.0.0\apiguardian-api-1.0.0.jar;C:\Users\pierr\.m2\repository\org\junit\platform\junit-platform-engine\1.2.0\junit-platform-engine-1.2.0.jar;C:\Users\pierr\.m2\repository\org\junit\platform\junit-platform-commons\1.2.0\junit-platform-commons-1.2.0.jar;C:\Users\pierr\.m2\repository\org\opentest4j\opentest4j\1.1.0\opentest4j-1.1.0.jar;C:\Users\pierr\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.2.0\junit-jupiter-api-5.2.0.jar;C:\Users\pierr\.m2\repository\org\junit\platform\junit-platform-launcher\1.2.0\junit-platform-launcher-1.2.0.jar;C:\Users\pierr\.m2\repository\org\apache\logging\log4j\log4j-core\2.11.2\log4j-core-2.11.2.jar;C:\Users\pierr\.m2\repository\org\apache\logging\log4j\log4j-api\2.11.2\log4j-api-2.11.2.jar;C:\Users\pierr\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.9.8\jackson-core-2.9.8.jar;C:\Users\pierr\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.9.8\jackson-databind-2.9.8.jar;C:\Users\pierr\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.9.0\jackson-annotations-2.9.0.jar;C:\Users\pierr\.m2\repository\com\blackmamba\deathkiss\commons\0.0.1-SNAPSHOT\commons-0.0.1-SNAPSHOT.jar;"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="sun.arch.data.model" value="32"/>
     <property name="user.variant" value=""/>
@@ -18,8 +18,8 @@
     <property name="user.country" value="FR"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files (x86)\Java\jdk1.8.0_201\jre\bin"/>
-    <property name="sun.java.command" value="C:\Users\pierr\AppData\Local\Temp\surefire5938974708978152029\surefirebooter8910479293482610679.jar C:\Users\pierr\AppData\Local\Temp\surefire5938974708978152029 2019-05-12T12-49-32_504-jvmRun1 surefire4926132758363236065tmp surefire_04079434027346293853tmp"/>
-    <property name="surefire.test.class.path" value="D:\Java\deathkiss\pool\target\test-classes;D:\Java\deathkiss\pool\target\classes;C:\Users\pierr\.m2\repository\org\postgresql\postgresql\42.2.5\postgresql-42.2.5.jar;C:\Users\pierr\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.2.0\junit-jupiter-engine-5.2.0.jar;C:\Users\pierr\.m2\repository\org\apiguardian\apiguardian-api\1.0.0\apiguardian-api-1.0.0.jar;C:\Users\pierr\.m2\repository\org\junit\platform\junit-platform-engine\1.2.0\junit-platform-engine-1.2.0.jar;C:\Users\pierr\.m2\repository\org\junit\platform\junit-platform-commons\1.2.0\junit-platform-commons-1.2.0.jar;C:\Users\pierr\.m2\repository\org\opentest4j\opentest4j\1.1.0\opentest4j-1.1.0.jar;C:\Users\pierr\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.2.0\junit-jupiter-api-5.2.0.jar;C:\Users\pierr\.m2\repository\org\junit\platform\junit-platform-launcher\1.2.0\junit-platform-launcher-1.2.0.jar;C:\Users\pierr\.m2\repository\org\apache\logging\log4j\log4j-core\2.11.2\log4j-core-2.11.2.jar;C:\Users\pierr\.m2\repository\org\apache\logging\log4j\log4j-api\2.11.2\log4j-api-2.11.2.jar;C:\Users\pierr\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.9.8\jackson-core-2.9.8.jar;C:\Users\pierr\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.9.8\jackson-databind-2.9.8.jar;C:\Users\pierr\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.9.0\jackson-annotations-2.9.0.jar;"/>
+    <property name="sun.java.command" value="C:\Users\pierr\AppData\Local\Temp\surefire9096075279046814283\surefirebooter3730512590738458688.jar C:\Users\pierr\AppData\Local\Temp\surefire9096075279046814283 2019-05-14T11-12-38_324-jvmRun1 surefire758814389179518677tmp surefire_07283059068994438845tmp"/>
+    <property name="surefire.test.class.path" value="D:\Java\deathkiss\pool\target\test-classes;D:\Java\deathkiss\pool\target\classes;C:\Users\pierr\.m2\repository\org\postgresql\postgresql\42.2.5\postgresql-42.2.5.jar;C:\Users\pierr\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.2.0\junit-jupiter-engine-5.2.0.jar;C:\Users\pierr\.m2\repository\org\apiguardian\apiguardian-api\1.0.0\apiguardian-api-1.0.0.jar;C:\Users\pierr\.m2\repository\org\junit\platform\junit-platform-engine\1.2.0\junit-platform-engine-1.2.0.jar;C:\Users\pierr\.m2\repository\org\junit\platform\junit-platform-commons\1.2.0\junit-platform-commons-1.2.0.jar;C:\Users\pierr\.m2\repository\org\opentest4j\opentest4j\1.1.0\opentest4j-1.1.0.jar;C:\Users\pierr\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.2.0\junit-jupiter-api-5.2.0.jar;C:\Users\pierr\.m2\repository\org\junit\platform\junit-platform-launcher\1.2.0\junit-platform-launcher-1.2.0.jar;C:\Users\pierr\.m2\repository\org\apache\logging\log4j\log4j-core\2.11.2\log4j-core-2.11.2.jar;C:\Users\pierr\.m2\repository\org\apache\logging\log4j\log4j-api\2.11.2\log4j-api-2.11.2.jar;C:\Users\pierr\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.9.8\jackson-core-2.9.8.jar;C:\Users\pierr\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.9.8\jackson-databind-2.9.8.jar;C:\Users\pierr\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.9.0\jackson-annotations-2.9.0.jar;C:\Users\pierr\.m2\repository\com\blackmamba\deathkiss\commons\0.0.1-SNAPSHOT\commons-0.0.1-SNAPSHOT.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\pierr"/>
     <property name="user.language" value="fr"/>
@@ -31,7 +31,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="C:\Users\pierr\AppData\Local\Temp\surefire5938974708978152029\surefirebooter8910479293482610679.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\pierr\AppData\Local\Temp\surefire9096075279046814283\surefirebooter3730512590738458688.jar"/>
     <property name="sun.boot.class.path" value="C:\Program Files (x86)\Java\jdk1.8.0_201\jre\lib\resources.jar;C:\Program Files (x86)\Java\jdk1.8.0_201\jre\lib\rt.jar;C:\Program Files (x86)\Java\jdk1.8.0_201\jre\lib\sunrsasign.jar;C:\Program Files (x86)\Java\jdk1.8.0_201\jre\lib\jsse.jar;C:\Program Files (x86)\Java\jdk1.8.0_201\jre\lib\jce.jar;C:\Program Files (x86)\Java\jdk1.8.0_201\jre\lib\charsets.jar;C:\Program Files (x86)\Java\jdk1.8.0_201\jre\lib\jfr.jar;C:\Program Files (x86)\Java\jdk1.8.0_201\jre\classes"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot Client Compiler"/>
@@ -53,22 +53,22 @@
     <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
     <property name="sun.os.patch.level" value=""/>
     <property name="java.library.path" value="C:\Program Files (x86)\Java\jdk1.8.0_201\jre\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;D:\Oracle\app\oracle\product\11.2.0\server\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;D:\OpenVPN\bin;D:\PostgreSQL\bin;C:\Users\pierr\AppData\Local\Microsoft\WindowsApps;C:\Users\pierr\AppData\Local\GitHubDesktop\bin;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps;;."/>
-    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="java.vm.info" value="mixed mode"/>
     <property name="java.vendor" value="Oracle Corporation"/>
     <property name="java.vm.version" value="25.201-b09"/>
     <property name="java.ext.dirs" value="C:\Program Files (x86)\Java\jdk1.8.0_201\jre\lib\ext;C:\WINDOWS\Sun\Java\lib\ext"/>
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="52.0"/>
   </properties>
-  <testcase name="testCloseConnectionsFromJDBC" classname="connectionpool.DataSourceTest" time="1.478"/>
-  <testcase name="testMaxConnectionsPossible" classname="connectionpool.DataSourceTest" time="7.544"/>
-  <testcase name="testMaxConnections" classname="connectionpool.DataSourceTest" time="3.209"/>
-  <testcase name="testReturnConnection" classname="connectionpool.DataSourceTest" time="0.652"/>
-  <testcase name="testTotalConnection" classname="connectionpool.DataSourceTest" time="1.969"/>
-  <testcase name="testUpdateData" classname="connectionpool.DataSourceTest" time="1.038"/>
-  <testcase name="testGetData" classname="connectionpool.DataSourceTest" time="0.776"/>
-  <testcase name="testGetConnectionFromJDBC" classname="connectionpool.DataSourceTest" time="0.701"/>
-  <testcase name="testInsertData" classname="connectionpool.DataSourceTest" time="0.798"/>
-  <testcase name="testDeleteData" classname="connectionpool.DataSourceTest" time="0.642"/>
-  <testcase name="testDifferentCOnnections" classname="connectionpool.DataSourceTest" time="1.804"/>
+  <testcase name="testCloseConnectionsFromJDBC" classname="connectionpool.DataSourceTest" time="1.571"/>
+  <testcase name="testMaxConnectionsPossible" classname="connectionpool.DataSourceTest" time="7.305"/>
+  <testcase name="testMaxConnections" classname="connectionpool.DataSourceTest" time="3.358"/>
+  <testcase name="testReturnConnection" classname="connectionpool.DataSourceTest" time="0.714"/>
+  <testcase name="testTotalConnection" classname="connectionpool.DataSourceTest" time="2.045"/>
+  <testcase name="testUpdateData" classname="connectionpool.DataSourceTest" time="0.85"/>
+  <testcase name="testGetData" classname="connectionpool.DataSourceTest" time="0.673"/>
+  <testcase name="testGetConnectionFromJDBC" classname="connectionpool.DataSourceTest" time="0.612"/>
+  <testcase name="testInsertData" classname="connectionpool.DataSourceTest" time="0.838"/>
+  <testcase name="testDeleteData" classname="connectionpool.DataSourceTest" time="0.725"/>
+  <testcase name="testDifferentCOnnections" classname="connectionpool.DataSourceTest" time="1.234"/>
 </testsuite>
