@@ -255,7 +255,7 @@ public class GUIBi extends JFrame {
 
 		lblTotalAlertAttente = new JLabel("Total Pending Alert");
 		lblTotalAlertAttente.setFont(new Font("Tahoma", Font.PLAIN, 9));
-		lblTotalAlertAttente.setBounds(211, 396, 97, 22);
+		lblTotalAlertAttente.setBounds(211, 396, 152, 22);
 		panel.add(lblTotalAlertAttente);
 
 		JLabel lblNombreDePannes = new JLabel("Total DOWN");
@@ -274,16 +274,16 @@ public class GUIBi extends JFrame {
 		panel.add(lblNbSensorMaj);
 
 		JLabel lblTotalActive = new JLabel("Total Active");
-		lblTotalActive.setBounds(444, 228, 63, 14);
+		lblTotalActive.setBounds(444, 228, 89, 14);
 		panel.add(lblTotalActive);
 
 		JLabel lblTotalPassive = new JLabel("Total Passive");
-		lblTotalPassive.setBounds(444, 259, 69, 14);
+		lblTotalPassive.setBounds(444, 259, 89, 14);
 		panel.add(lblTotalPassive);
 
 		JLabel lbltfMeanTemperatureStageRC = new JLabel("Mean temperature Stage RC");
 		lbltfMeanTemperatureStageRC.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lbltfMeanTemperatureStageRC.setBounds(581, 107, 167, 22);
+		lbltfMeanTemperatureStageRC.setBounds(581, 92, 167, 22);
 		panel.add(lbltfMeanTemperatureStageRC);
 
 		JLabel lblMeanTemperatureStage = new JLabel("Mean temperature Stage 1");
@@ -323,14 +323,14 @@ public class GUIBi extends JFrame {
 		lblPendingAlert = new JLabel();
 		lblPendingAlert.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblPendingAlert.setBackground(Color.LIGHT_GRAY);
-		lblPendingAlert.setBounds(231, 357, 35, 36);
+		lblPendingAlert.setBounds(231, 357, 114, 36);
 		lblPendingAlert.setText(Integer.toString(totalNumberPendingAlert));
 		panel.add(lblPendingAlert);
 
 		lblNbCommonArea = new JLabel();
 		lblNbCommonArea.setFont(new Font("Tahoma", Font.BOLD, 25));
 		lblNbCommonArea.setBackground(Color.RED);
-		lblNbCommonArea.setBounds(34, 34, 63, 55);
+		lblNbCommonArea.setBounds(34, 34, 98, 55);
 		lblNbCommonArea.setText(NbCommonArea.toString().replaceAll("\"", ""));
 		panel.add(lblNbCommonArea);
 
@@ -338,7 +338,7 @@ public class GUIBi extends JFrame {
 		lblNbSensorMaj_1.setFont(new Font("Tahoma", Font.BOLD, 25));
 		lblNbSensorMaj_1.setForeground(new Color(0, 255, 0));
 		lblNbSensorMaj_1.setBackground(Color.WHITE);
-		lblNbSensorMaj_1.setBounds(175, 41, 35, 55);
+		lblNbSensorMaj_1.setBounds(175, 41, 80, 55);
 		panel.add(lblNbSensorMaj_1);
 		lblPassiveSensor = new JLabel();
 		lblPassiveSensor.setBounds(412, 256, 22, 20);
@@ -352,7 +352,7 @@ public class GUIBi extends JFrame {
 
 		lblPourcentageActive = new JLabel();
 		lblPourcentageActive.setFont(new Font("Tahoma", Font.BOLD, 25));
-		lblPourcentageActive.setBounds(329, 225, 70, 54);
+		lblPourcentageActive.setBounds(318, 225, 81, 54);
 		lblPourcentageActive.setText(NbPassiveActiveSensor[2].toString().replaceAll("\"", ""));
 		panel.add(lblPourcentageActive);
 
@@ -361,13 +361,13 @@ public class GUIBi extends JFrame {
 		lblMeanTemperatureStageRC.setForeground(Color.GREEN);
 		lblMeanTemperatureStageRC.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblMeanTemperatureStageRC.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblMeanTemperatureStageRC.setBounds(575, 37, 97, 44);
+		lblMeanTemperatureStageRC.setBounds(559, 37, 113, 44);
 
 		panel.add(lblMeanTemperatureStageRC);
 
 		tfMeanTemperatureStage1 = new JLabel();
 		tfMeanTemperatureStage1.setHorizontalAlignment(SwingConstants.TRAILING);
-		tfMeanTemperatureStage1.setBounds(615, 140, 57, 44);
+		tfMeanTemperatureStage1.setBounds(601, 125, 57, 44);
 		panel.add(tfMeanTemperatureStage1);
 
 		lblTotalStockRc = new JLabel();
@@ -504,7 +504,7 @@ public class GUIBi extends JFrame {
 					}
 					nbTotalAlert = ListModel.getSize();
 					nbAlertSensor = ListModel.getSize();
-					tfAlertesReceived.setText(String.valueOf(nbTotalAlert));
+//					tfAlertesReceived.setText(String.valueOf(nbTotalAlert));
 					tfAlert.setText(String.valueOf(nbAlertSensor));
 
 				} else if (selectedBook.equals("RC")) {
