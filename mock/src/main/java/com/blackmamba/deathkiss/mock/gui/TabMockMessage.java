@@ -60,7 +60,7 @@ public class TabMockMessage extends JPanel {
 	private JRadioButton oneCaseRadio;
 	private JRadioButton typeSensorCaseRadio;
 	private JButton generateButton;
-	private JButton restaureButton;
+	private JButton restoreButton;
 	private Thread threadGenerateMessage;
 	private Message message;
 	private ObjectMapper objectMapper;
@@ -198,7 +198,7 @@ public class TabMockMessage extends JPanel {
 		oneCaseRadio.setBackground(color);
 
 		typeSensorCaseRadio = new JRadioButton("Just by Sensor type");
-		typeSensorCaseRadio.setBounds(600, 150, 200, 30);
+		typeSensorCaseRadio.setBounds(600, 150, 250, 30);
 		typeSensorCaseRadio.setFont(policeLabel);
 		typeSensorCaseRadio.setBackground(color);
 
@@ -367,10 +367,10 @@ public class TabMockMessage extends JPanel {
 		/**
 		 * Set to default values the different fields
 		 */
-		restaureButton = new JButton("Restore");
-		restaureButton.setBounds(500, 350, 100, 40);
-		this.add(restaureButton);
-		restaureButton.addActionListener(new ActionListener() {
+		restoreButton = new JButton("Restore");
+		restoreButton.setBounds(500, 350, 100, 40);
+		this.add(restoreButton);
+		restoreButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				textInputIdSensor.setText("");
@@ -384,10 +384,10 @@ public class TabMockMessage extends JPanel {
 		 * Stop the generation of message with the boolean and restart the number of
 		 * thread
 		 */
-		restaureButton = new JButton("Stop generation");
-		restaureButton.setBounds(250, 350, 200, 40);
-		this.add(restaureButton);
-		restaureButton.addActionListener(new ActionListener() {
+		restoreButton = new JButton("Stop generation");
+		restoreButton.setBounds(250, 350, 200, 40);
+		this.add(restoreButton);
+		restoreButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				generateMessage.setBool(false);

@@ -28,7 +28,7 @@ public class TabMockOther extends JPanel {
 	private JTextField textInputNbGenerateResident;
 	private JButton generateButtonEmployee;
 	private JButton generateButtonResident;
-	private JButton restaureButton;
+	private JButton restoreButton;
 	private GenerateEmployee generateEmployee;
 	private GenerateResident generateResident;
 
@@ -131,10 +131,10 @@ public class TabMockOther extends JPanel {
 		/**
 		 * Set to default values the different fields
 		 */
-		restaureButton = new JButton("Restore");
-		restaureButton.setBounds(350, 250, 100, 40);
-		this.add(restaureButton);
-		restaureButton.addActionListener(new ActionListener() {
+		restoreButton = new JButton("Restore");
+		restoreButton.setBounds(350, 250, 100, 40);
+		this.add(restoreButton);
+		restoreButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				textInputNbGenerateEmployee.setText("");

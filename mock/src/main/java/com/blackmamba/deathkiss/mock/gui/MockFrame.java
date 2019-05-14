@@ -16,13 +16,14 @@ public class MockFrame extends JFrame {
 	private static JTabbedPane tab;
 	private TabMockMessage tabMockMessage;
 	private TabMockOther tabMockEmployee;
+	private TabMockSensor tabMockSensor;
 	private static final Logger logger = LogManager.getLogger(MockFrame.class);
 
 	/**
 	 * Constructor
 	 */
 	public MockFrame() {
-		//TODO PA faire un generateur de sensors
+		// TODO PA faire un generateur de sensors
 		/**
 		 * LOGO
 		 */
@@ -37,19 +38,21 @@ public class MockFrame extends JFrame {
 		 * Creation of different tabs
 		 */
 		tabMockMessage = new TabMockMessage(Color.GRAY, "Tab Message");
+		tabMockSensor = new TabMockSensor(Color.GRAY, "Tab Sensor");
 		tabMockEmployee = new TabMockOther(Color.GRAY, "Tab Other");
 
 		/**
 		 * Add of the title of tabs
 		 */
 		tab = new JTabbedPane();
-		String tabOfTab[] = { "Message", "Other" };
+		String tabOfTab[] = { "Message", "Sensor", "Other" };
 
 		/**
 		 * Add of tabs on the window
 		 */
 		tab.add("Tab " + tabOfTab[0], tabMockMessage);
-		tab.add("Tab " + tabOfTab[1], tabMockEmployee);
+		tab.add("Tab " + tabOfTab[1], tabMockSensor);
+		tab.add("Tab " + tabOfTab[2], tabMockEmployee);
 
 		///////////////////////// FRAME/////////////////////////////////////////////////
 		/**
