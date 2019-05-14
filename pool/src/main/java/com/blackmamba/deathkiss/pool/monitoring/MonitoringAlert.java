@@ -388,6 +388,8 @@ public class MonitoringAlert {
 				nbOfTimeWithoutMessage = 0;
 				sensor = new Sensor();
 				sensor.setIdSensor(0);
+				sensor.setAlertState(AlertState.OVER);
+				addHistorical(sensor);
 				addMessage(0, sensor);
 			} else {
 				nbOfTimeWithoutMessage++;
