@@ -30,7 +30,6 @@ public class MainGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					//TODO PA mettre les bonnes ressources vers le serveur
 					popupConnexion = new Connexion();
 					popupConnexion.setVisible(true);
 					logger.log(Level.INFO, "Application Deathkiss runned");

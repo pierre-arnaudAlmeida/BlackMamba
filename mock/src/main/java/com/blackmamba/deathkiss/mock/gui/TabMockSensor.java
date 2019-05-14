@@ -114,7 +114,7 @@ public class TabMockSensor extends JPanel {
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					if (textInputNbGenerateSensor.getText().trim().matches("[0-9]+[0-9]*")) {
-						// TODO create class generateSensor
+						// TODO Create class generateSensor
 						// generateEmployee = new GenerateSensor(
 						// Integer.parseInt(textInputNbGenerateSensor.getText().trim()));
 						// generateEmployee.generate();

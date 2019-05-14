@@ -1280,7 +1280,7 @@ public class TabSensor extends JPanel {
 	 * list to be displayed
 	 */
 	public void actualizationListSensor(List<Alert> list) {
-//		// TODO RK
+//		// TODO RK Modify method
 //		Sensor sensors = new Sensor();
 //		updateListAlert();
 //		updateListSensor();

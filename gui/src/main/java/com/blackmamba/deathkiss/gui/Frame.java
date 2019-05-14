@@ -68,13 +68,15 @@ public class Frame extends JFrame {
 					verificationUser(idEmployee);
 					if (employee.getLastnameEmployee().equals("")) {
 						logger.log(Level.INFO, "Disconnection, user don't find");
-						JOptionPane.showMessageDialog(null, "You will be disconnect", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "You will be disconnect", "Error",
+								JOptionPane.ERROR_MESSAGE);
 						System.exit(ABORT);
 					}
 					try {
 						Thread.sleep(Integer.parseInt(rs.getString("time_threadSleep")));
 					} catch (InterruptedException e) {
-						logger.log(Level.WARN, "Impossible to sleep the thread Frame " + e.getClass().getCanonicalName());
+						logger.log(Level.WARN,
+								"Impossible to sleep the thread Frame " + e.getClass().getCanonicalName());
 					}
 				}
 			}
@@ -130,13 +132,14 @@ public class Frame extends JFrame {
 				while (true) {
 					getAlert();
 					if (!listAlert.isEmpty())
-						// TODO RK
+						// TODO RK Make the method actualizationListSensor
 						// tabSensor.actualizationListSensor(listAlert);
 						logger.log(Level.DEBUG, "Actualization of listAlert succeed");
 					try {
 						Thread.sleep(Integer.parseInt(rs.getString("time_threadAlert")));
 					} catch (InterruptedException e) {
-						logger.log(Level.WARN, "Impossible to sleep the thread Alert " + e.getClass().getCanonicalName());
+						logger.log(Level.WARN,
+								"Impossible to sleep the thread Alert " + e.getClass().getCanonicalName());
 					}
 				}
 			}
@@ -145,7 +148,7 @@ public class Frame extends JFrame {
 		/**
 		 * Launch the threads
 		 */
-		// TODO PA a remettre
+		// TODO Modify the thread to decomment
 		// threadAlert.start();
 		threadFrame.start();
 		tabCommonArea.threadLauncher();

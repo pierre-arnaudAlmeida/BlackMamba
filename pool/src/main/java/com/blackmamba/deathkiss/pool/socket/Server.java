@@ -167,7 +167,6 @@ public class Server {
 				}
 			}
 		});
-		// TODO PA a remettre
 		 threadAlertTreatment.start();
 	}
 
