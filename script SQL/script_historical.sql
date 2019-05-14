@@ -75,6 +75,12 @@ insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) 
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('15/12/2018', 'OFF', 'NORMAL', 2);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('15/12/2018', 'OFF', 'DOWN', 3);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('15/12/2018', 'ON', 'NORMAL', 2);
+
+
+insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('15/12/2018', 'OFF', 'NORMAL', 2);
+insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('15/12/2018', 'OFF', 'DOWN', 3);
+insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('15/12/2018', 'OFF', 'DELETED', 2);
+
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('11/12/2018', 'ON', 'NORMAL', 28);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('11/12/2018', 'ON', 'NORMAL', 29);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('11/12/2018', 'ON', 'NORMAL', 30);
@@ -101,8 +107,8 @@ insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) 
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('02/01/2019', 'ON', 'ALERT', 31);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('02/01/2019', 'OFF', 'DOWN', 28);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('02/01/2019', 'OFF', 'DOWN', 29);
-insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('02/01/2019', 'OFF', 'NORMAL', 30);
-insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('02/01/2019', 'OFF', 'NORMAL', 31);
+insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('02/01/2019', 'OFF', 'DELETED', 30);
+insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('02/01/2019', 'OFF', 'DELETED', 31);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('11/12/2018', 'ON', 'NORMAL', 32);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('11/12/2018', 'ON', 'NORMAL', 33);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('11/12/2018', 'ON', 'NORMAL', 34);
@@ -165,8 +171,11 @@ insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) 
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('12/12/2018', 'ON', 'NORMAL', 34);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('12/12/2018', 'ON', 'ALERT', 33);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('12/12/2018', 'ON', 'ALERT', 34);
-insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('12/12/2018', 'ON', 'DOWN', 33);
-insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('12/12/2018', 'ON', 'DOWN', 34);
+insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('12/12/2018', 'OFF', 'DOWN', 33);
+insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('12/12/2018', 'OFF', 'DOWN', 34);
+insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('15/12/2018', 'OFF', 'DELETED', 57);
+insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('15/12/2018', 'OFF', 'DELETED', 58);
+
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('11/12/2018', 'ON', 'NORMAL', 59);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('11/12/2018', 'ON', 'NORMAL', 60);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('11/12/2018', 'ON', 'NORMAL', 61);
@@ -194,6 +203,10 @@ insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) 
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('11/12/2018', 'ON', 'NORMAL', 83);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('11/12/2018', 'ON', 'NORMAL', 84);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('11/12/2018', 'ON', 'NORMAL', 85);
+
+insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('15/12/2018', 'OFF', 'DELETED', 84);
+insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('15/12/2018', 'OFF', 'DELETED', 85);
+
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('11/12/2018', 'ON', 'CONFIGURED', 59);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('11/12/2018', 'ON', 'CONFIGURED', 60);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('11/12/2018', 'ON', 'CONFIGURED', 61);
@@ -238,8 +251,8 @@ insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) 
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('16/12/2018', 'OFF', 'DOWN', 61);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('17/12/2018', 'ON', 'ALERT', 59);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('17/12/2018', 'ON', 'ALERT', 60);
-insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('18/12/2018', 'OFF', 'NORMAL', 59);
-insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('18/12/2018', 'OFF', 'NORMAL', 60);
+insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('18/12/2018', 'OFF', 'DELETED', 59);
+insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('18/12/2018', 'OFF', 'DELETED', 60);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('11/12/2018', 'ON', 'NORMAL', 86);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('11/12/2018', 'ON', 'NORMAL', 87);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('11/12/2018', 'ON', 'NORMAL', 88);
@@ -521,7 +534,7 @@ insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) 
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('12/12/2018', 'ON', 'CONFIGURED', 156);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('12/12/2018', 'ON', 'CONFIGURED', 157);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('13/12/2018', 'ON', 'CONFIGURED', 155);
-insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('13/12/2018', 'ON', 'NORMAL', 156);
+insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('13/12/2018', 'OFF', 'DELETED', 156);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('13/12/2018', 'OFF', 'DOWN', 157);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('11/12/2018', 'ON', 'NORMAL', 212);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('11/12/2018', 'ON', 'NORMAL', 213);
@@ -680,7 +693,7 @@ insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) 
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('17/12/2018', 'ON', 'ALERT', 212);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('17/12/2018', 'ON', 'ALERT', 213);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('17/12/2018', 'ON', 'ALERT', 214);
-insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('18/12/2018', 'OFF', 'NORMAL', 212);
+insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('18/12/2018', 'OFF', 'DELETED', 212);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('18/12/2018', 'ON', 'ALERT', 213);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('20/12/2018', 'ON', 'NORMAL', 212);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('11/12/2018', 'ON', 'NORMAL', 273);
@@ -749,6 +762,8 @@ insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) 
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('03/03/2019', 'ON', 'ALERT', 276);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('03/03/2019', 'ON', 'ALERT', 277);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('03/03/2019', 'ON', 'ALERT', 278);
+insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('04/03/2019', 'OFF', 'DELETED', 277);
+insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('04/03/2019', 'OFF', 'DELETED', 278);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('11/12/2018', 'ON', 'ALERT', 273);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('11/12/2018', 'ON', 'ALERT', 274);
 insert into historique (date_historique, etat_capteur, type_alerte, id_capteur) values ('11/12/2018', 'ON', 'ALERT', 275);
