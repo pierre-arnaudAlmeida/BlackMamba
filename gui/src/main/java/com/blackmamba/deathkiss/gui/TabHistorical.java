@@ -360,7 +360,7 @@ public class TabHistorical extends JPanel {
 	 */
 	public void paintComponent(Graphics g) {
 		try {
-			BufferedImage backGroundImage = ImageIO.read(getClass().getClassLoader().getResource("background.jpg"));
+			BufferedImage backGroundImage = ImageIO.read(getClass().getClassLoader().getResource("images/background.jpg"));
 			g.drawImage(backGroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
 		} catch (IOException e) {
 			logger.log(Level.WARN, "Impossible to load the background" + e.getClass().getCanonicalName());
