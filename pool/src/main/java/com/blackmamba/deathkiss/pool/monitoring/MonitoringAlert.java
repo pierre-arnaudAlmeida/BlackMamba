@@ -38,7 +38,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 public class MonitoringAlert {
-	//TODO PA ajouter les conditions pour les capteurs 0-1
 	/**
 	 * Different parameters used
 	 */
