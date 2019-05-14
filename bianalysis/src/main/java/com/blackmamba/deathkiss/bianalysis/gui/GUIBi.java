@@ -1078,7 +1078,7 @@ public class GUIBi extends JFrame {
 				if (cbTotalTypeSensorStock.getSelectedIndex() == 0) {
 					requestType = "COUNT";
 					table = "Sensor";
-					jsonString = "SELECT sum(case when id_capteur = 0 then 1 else 0 end ) As nbUnusedSensor, sum(case when id_capteur != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur";
+					jsonString = "SELECT sum(case when id_partie_commune = 0 then 1 else 0 end ) As nbUnusedSensor, sum(case when id_partie_commune != 0 then 1 else 0 end ) As nbUsedSensor FROM capteur";
 					new ClientSocket(requestType, jsonString, table);
 					jsonString = ClientSocket.getJson();
 					logger.log(Level.DEBUG, "Used/UnUsed Sensor finded");
