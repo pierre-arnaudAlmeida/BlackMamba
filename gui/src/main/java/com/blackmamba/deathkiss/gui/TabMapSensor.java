@@ -476,7 +476,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		try {
-			BufferedImage backGroundImage = ImageIO.read(getClass().getClassLoader().getResource("background.jpg"));
+			BufferedImage backGroundImage = ImageIO.read(getClass().getClassLoader().getResource("images/background.jpg"));
 			g.drawImage(backGroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
 		} catch (IOException e) {
 			logger.log(Level.WARN, "Impossible to load the background" + e.getClass().getCanonicalName());
@@ -484,7 +484,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 
 		if (textFloor.getSelectedItem().equals("GROUND_FLOOR")) {
 			try {
-				img = ImageIO.read(getClass().getClassLoader().getResource("Floor0.jpg"));
+				img = ImageIO.read(getClass().getClassLoader().getResource("images/Floor0.jpg"));
 				this.buffer = img;
 
 				x0 = (int) getToolkit().getScreenSize().getWidth() * 6 / 20;
@@ -533,7 +533,7 @@ public class TabMapSensor extends JPanel implements MouseListener {
 		}
 		if (textFloor.getSelectedItem().equals("FIRST_FLOOR")) {
 			try {
-				img1 = ImageIO.read(getClass().getClassLoader().getResource("Floor1.jpg"));
+				img1 = ImageIO.read(getClass().getClassLoader().getResource("images/Floor1.jpg"));
 				this.buffer1 = img1;
 				g2.drawImage(buffer1, x0, y0, 900, 580, this);
 
